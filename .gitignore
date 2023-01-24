@@ -4,4 +4,5 @@
 /src/main/resources/META-INF/
 /.idea/*
 /.idea/
-/Muistipeli.iml
+/Muistipeli.iml/
+.DS_Store
