@@ -1,4 +1,4 @@
-package controller;
+package Controller;
 
 public interface IController {
 }
