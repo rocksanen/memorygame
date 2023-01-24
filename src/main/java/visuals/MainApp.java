@@ -1,10 +1,10 @@
-package Visuals;
+package visuals;
 
-import Database.dao.IMemoryGameDAO;
-import Database.dao.MemoryGameDAO;
-import Database.datasource.SqlJpaConn;
-import Database.entity.Account;
-import Model.*;
+import database.dao.IMemoryGameDAO;
+import database.dao.MemoryGameDAO;
+import database.datasource.SqlJpaConn;
+import database.entity.Account;
+import model.*;
 import jakarta.persistence.EntityManager;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -21,7 +21,7 @@ public class MainApp extends Application {
 
         //User ja hänen tuloslistansa haetaan oikeassa versiossa databasesta sovelluksen käynnistyttyä.
         ArrayList<Integer> tuloslista = new ArrayList<>();
-        IUser user = new Model.User("kalle",1,tuloslista);
+        IUser user = new model.User("kalle",1,tuloslista);
         user.addScore(3500);
         user.addScore(1200);
 

@@ -1,4 +1,4 @@
-package Visuals;
+package visuals;
 
 public class Gui implements IGui{
 }

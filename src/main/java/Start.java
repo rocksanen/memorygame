@@ -1,6 +1,4 @@
-import Visuals.MainApp;
-
-import Visuals.MainApp;
+import visuals.MainApp;
 
 /**
  * Käynnistää simulaattorin 🚇

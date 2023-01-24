@@ -1,4 +1,4 @@
-package Visuals;
+package visuals;
 
 public interface IGui {
 }

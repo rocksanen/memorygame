@@ -1,7 +1,7 @@
-package Database.dao;
+package database.dao;
 
-import Database.datasource.SqlJpaConn;
-import Database.entity.Account;
+import database.datasource.SqlJpaConn;
+import database.entity.Account;
 import jakarta.persistence.EntityManager;
 
 import java.util.ArrayList;

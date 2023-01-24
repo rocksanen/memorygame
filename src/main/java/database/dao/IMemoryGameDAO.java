@@ -1,6 +1,6 @@
-package Database.dao;
+package database.dao;
 
-import Database.entity.Account;
+import database.entity.Account;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package Database.datasource;
+package database.datasource;
 
 import jakarta.persistence.*;
 
