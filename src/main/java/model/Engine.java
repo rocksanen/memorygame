@@ -1,8 +1,10 @@
-package model;
+package Model;
 
 import java.util.ArrayList;
 
-public class Engine implements IEngine {
+
+
+public class Engine implements IEngine{
 
     private final ModeType type;
     private ArrayList<MemoryObject> memoryObjectsList;
