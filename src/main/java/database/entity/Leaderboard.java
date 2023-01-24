@@ -9,7 +9,10 @@ public class Leaderboard {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int scoreid;
-    private int userid;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userid")
+    private Account userid;
     private int score;
     private String grade;
 
@@ -23,17 +26,17 @@ public class Leaderboard {
      * @param userid - katso  {@link #userid}
      * @param score - katso {@link #score}
      */
-    public Leaderboard(int userid, int score, String grade) {
+    public Leaderboard(Account userid, int score, String grade) {
         this.userid = userid;
         this.score = score;
     };
 
 
-    public int getUserid() {
+    public Account getUserid() {
         return userid;
     }
 
-    public void setUserid(int userid) {
+    public void setUserid(Account userid) {
         this.userid = userid;
     }
 

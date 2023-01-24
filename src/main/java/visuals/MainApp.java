@@ -1,7 +1,7 @@
 package visuals;
 
-import database.dao.IMemoryGameDAO;
-import database.dao.MemoryGameDAO;
+import database.dao.IAccountDAO;
+import database.dao.AccountDAO;
 import database.datasource.SqlJpaConn;
 import database.entity.Account;
 import model.*;
@@ -41,15 +41,14 @@ public class MainApp extends Application {
         }
 
 
-        //tessstti
+        //test for db connection, remove for 500% faster load times!
         EntityManager em = SqlJpaConn.getInstance();
-        IMemoryGameDAO dao = new MemoryGameDAO();
+        IAccountDAO dao = new AccountDAO();
         Account account = new Account("tony", "tiger");
-
-        dao.saveUser(account);
-
+        dao.saveAccount(account);
+        Account account2 = new Account("captain", "crunch");
+        dao.saveAccount(account2);
         System.out.println("not done☁️");
-
         launch(args);
     }
 
