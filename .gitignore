@@ -2,3 +2,6 @@
 /target/
 /out/
 /src/main/resources/META-INF/
+/.idea/*
+/.idea/
+/Muistipeli.iml
