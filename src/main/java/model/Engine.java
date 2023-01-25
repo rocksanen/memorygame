@@ -2,7 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
-public class Engine implements IEngine {
+
+public class Engine implements IEngine{
 
     private final ModeType type;
     private ArrayList<MemoryObject> memoryObjectsList;
@@ -28,13 +29,14 @@ public class Engine implements IEngine {
     public void addMemoryObjectsToList(Integer amount) {
 
         this.memoryObjectsList = new ArrayList<>();
+        int type;
 
         for(int i = 0; i < amount; i++) {
 
-            memoryObjectsList.add(new MemoryObject(i));
+            type = i / 2;
+            memoryObjectsList.add(new MemoryObject(i,type));
 
         }
-
     }
 
     @Override

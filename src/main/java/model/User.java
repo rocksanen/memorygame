@@ -2,7 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
-public class User implements IUser {
+public class User implements IUser{
 
     private final String name;
     private final Integer userId;

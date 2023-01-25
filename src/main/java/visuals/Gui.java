@@ -1,4 +1,4 @@
 package visuals;
 
-public class Gui implements IGui {
+public class Gui implements IGui{
 }
