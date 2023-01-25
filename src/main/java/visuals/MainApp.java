@@ -2,8 +2,11 @@ package visuals;
 
 import database.dao.IAccountDAO;
 import database.dao.AccountDAO;
+import database.dao.ILeaderboardDAO;
+import database.dao.LeaderboardDAO;
 import database.datasource.SqlJpaConn;
 import database.entity.Account;
+import database.entity.Leaderboard;
 import model.*;
 import jakarta.persistence.EntityManager;
 import javafx.application.Application;
@@ -13,6 +16,8 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class MainApp extends Application {
     public static void main(String[] args) {
@@ -42,12 +47,32 @@ public class MainApp extends Application {
 
         //test for db connection, remove for 500% faster load times!
         EntityManager em = SqlJpaConn.getInstance();
+
+        IAccountDAO accountdao = new AccountDAO();
+        Account acc = new Account("tony", "tiger");
+        accountdao.saveAccount(acc);
+
+        ILeaderboardDAO leaderdao = new LeaderboardDAO();
+        Leaderboard lb = new Leaderboard(acc, 30, "Small", new Date(System.currentTimeMillis()));
+        leaderdao.saveScores(lb);
+        Leaderboard lb2 = new Leaderboard(acc, 200, "Large", new Date(System.currentTimeMillis()));
+        leaderdao.saveScores(lb2);
+
+        List<Leaderboard> userscores = leaderdao.getAccountScores(acc.getAccountid());
+        System.out.println("User scores: ");
+        for(Leaderboard score: userscores) {
+            System.out.println(score.getScore() + " " + score.getTimestamp().toString());
+        }
+
+
+
         IAccountDAO dao = new AccountDAO();
         Account account = new Account("pelle", "hermanni");
         dao.saveAccount(account);
         Account account2 = new Account("captain", "crunch");
         dao.saveAccount(account2);
         System.out.println("not done☁️");
+
 
         launch(args);
     }

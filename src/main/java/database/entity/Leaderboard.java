@@ -2,19 +2,34 @@ package database.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 
 @Entity
 public class Leaderboard {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int scoreid;
+    private long scoreid;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userid")
-    private Account userid;
+    @JoinColumn(name = "accountid")
+    private Account accountid;
+
+    // this could maybe be time (in seconds)
     private int score;
     private String grade;
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Date timestamp;
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
+
 
     /**
      * hibernaten vaatima tyhjä konstruktori
@@ -23,21 +38,22 @@ public class Leaderboard {
 
     /**
      * Olion konstruktori, joka asettaa sen kaikille muuttujille arvot.
-     * @param userid - katso  {@link #userid}
+     * @param accountid - katso  {@link #accountid}
      * @param score - katso {@link #score}
      */
-    public Leaderboard(Account userid, int score, String grade) {
-        this.userid = userid;
+    public Leaderboard(Account accountid, int score, String grade, Date timestamp) {
+        this.accountid = accountid;
         this.score = score;
+        this.grade = grade;
+        this.timestamp = timestamp;
     };
 
-
-    public Account getUserid() {
-        return userid;
+    public Account getAccountid() {
+        return accountid;
     }
 
-    public void setUserid(Account userid) {
-        this.userid = userid;
+    public void getAccountid(Account userid) {
+        this.accountid = userid;
     }
 
     public int getScore() {
@@ -56,7 +72,7 @@ public class Leaderboard {
         this.grade = grade;
     }
 
-    public int getScoreid() {
+    public long getScoreid() {
         return scoreid;
     }
 

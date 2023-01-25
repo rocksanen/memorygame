@@ -10,7 +10,7 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int userid;
+    private long accountid;
     private String username;
     private String password;
 
@@ -31,12 +31,12 @@ public class Account {
     };
 
 
-    public int getUserid() {
-        return userid;
+    public long getAccountid() {
+        return accountid;
     }
 
-    public void setUserid(int userid) {
-        this.userid = userid;
+    public void setAccountid(int userid) {
+        this.accountid = userid;
     }
 
     public String getUsername() {

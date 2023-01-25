@@ -20,9 +20,16 @@ public class LeaderboardDAO implements ILeaderboardDAO {
         em.getTransaction().commit();
     }
 
+
+    // does work
     @Override
-    public ArrayList<Integer> readUserScores(int id) {
-        return null;
+    public List<Leaderboard> getAccountScores(long accountid) {
+        EntityManager em = SqlJpaConn.getInstance();
+        // why is accountid typed twice? ¯\_(ツ)_/¯
+        Query query = em.createQuery("SELECT l FROM Leaderboard l WHERE l.accountid.accountid = :accountid");
+        query.setParameter("accountid", accountid);
+        List<Leaderboard> scores = query.getResultList();
+        return scores;
     }
 
 
