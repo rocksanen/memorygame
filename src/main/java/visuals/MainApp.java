@@ -10,8 +10,6 @@ import database.entity.Leaderboard;
 import model.*;
 import jakarta.persistence.EntityManager;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
@@ -41,6 +39,7 @@ public class MainApp extends Application {
 
             System.out.println(
                     "Palikan id-numero: " + object.getIdNumber() +
+                            ", Palikan tyyppi-numero: " + object.getTypeId() +
                             ", Onko aktiivinen: " + object.isActive()
             );
         }
@@ -48,6 +47,7 @@ public class MainApp extends Application {
 
         //test for db connection, remove for 500% faster load times!
         EntityManager em = SqlJpaConn.getInstance();
+
         IAccountDAO accountdao = new AccountDAO();
         Account acc = new Account("tony", "tiger");
         accountdao.saveAccount(acc);
@@ -66,6 +66,14 @@ public class MainApp extends Application {
 
 
 
+        IAccountDAO dao = new AccountDAO();
+        Account account = new Account("pelle", "hermanni");
+        dao.saveAccount(account);
+        Account account2 = new Account("captain", "crunch");
+        dao.saveAccount(account2);
+        System.out.println("not done☁️");
+
+
         launch(args);
     }
 
@@ -74,13 +82,7 @@ public class MainApp extends Application {
         primaryStage.setTitle("Hello World!");
         Button btn = new Button();
         btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
+        btn.setOnAction(event -> System.out.println("Hello World!"));
 
         StackPane root = new StackPane();
         root.getChildren().add(btn);
