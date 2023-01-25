@@ -2,8 +2,11 @@ package visuals;
 
 import database.dao.IAccountDAO;
 import database.dao.AccountDAO;
+import database.dao.ILeaderboardDAO;
+import database.dao.LeaderboardDAO;
 import database.datasource.SqlJpaConn;
 import database.entity.Account;
+import database.entity.Leaderboard;
 import model.*;
 import jakarta.persistence.EntityManager;
 import javafx.application.Application;
@@ -15,6 +18,8 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class MainApp extends Application {
     public static void main(String[] args) {
@@ -43,12 +48,17 @@ public class MainApp extends Application {
 
         //test for db connection, remove for 500% faster load times!
         EntityManager em = SqlJpaConn.getInstance();
-        IAccountDAO dao = new AccountDAO();
-        Account account = new Account("tony", "tiger");
-        dao.saveAccount(account);
-        Account account2 = new Account("captain", "crunch");
-        dao.saveAccount(account2);
-        System.out.println("not done☁️");
+        IAccountDAO accountdao = new AccountDAO();
+        Account acc = new Account("tony", "tiger");
+        accountdao.saveAccount(acc);
+
+        ILeaderboardDAO leaderdao = new LeaderboardDAO();
+        Date date = new Date();
+        Leaderboard lb = new Leaderboard(acc, 30, "Mediocore", new Date(System.currentTimeMillis()));
+        leaderdao.saveScores(lb);
+
+
+
         launch(args);
     }
 

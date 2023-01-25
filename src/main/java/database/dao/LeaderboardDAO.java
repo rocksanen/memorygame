@@ -1,7 +1,6 @@
 package database.dao;
 
 import database.datasource.SqlJpaConn;
-import database.entity.Account;
 import database.entity.Leaderboard;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -20,9 +19,16 @@ public class LeaderboardDAO implements ILeaderboardDAO {
         em.getTransaction().commit();
     }
 
+
+    // does not work
     @Override
-    public ArrayList<Integer> readUserScores(int id) {
-        return null;
+    public List<Leaderboard> getAccountScores(long id) {
+        EntityManager em = SqlJpaConn.getInstance();
+
+        Query query = em.createQuery("SELECT l FROM Leaderboard l WHERE l.score = :id");
+        query.setParameter("id", id);
+        List<Leaderboard> scores = query.getResultList();
+        return scores;
     }
 
 
