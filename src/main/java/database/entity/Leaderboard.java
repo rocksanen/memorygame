@@ -15,6 +15,8 @@ public class Leaderboard {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "accountid")
     private Account accountid;
+
+    // this could maybe be time (in seconds)
     private int score;
     private String grade;
     @Temporal(TemporalType.TIMESTAMP)

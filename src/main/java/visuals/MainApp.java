@@ -53,9 +53,16 @@ public class MainApp extends Application {
         accountdao.saveAccount(acc);
 
         ILeaderboardDAO leaderdao = new LeaderboardDAO();
-        Date date = new Date();
-        Leaderboard lb = new Leaderboard(acc, 30, "Mediocore", new Date(System.currentTimeMillis()));
+        Leaderboard lb = new Leaderboard(acc, 30, "Small", new Date(System.currentTimeMillis()));
         leaderdao.saveScores(lb);
+        Leaderboard lb2 = new Leaderboard(acc, 200, "Large", new Date(System.currentTimeMillis()));
+        leaderdao.saveScores(lb2);
+
+        List<Leaderboard> userscores = leaderdao.getAccountScores(acc.getAccountid());
+        System.out.println("User scores: ");
+        for(Leaderboard score: userscores) {
+            System.out.println(score.getScore() + " " + score.getTimestamp().toString());
+        }
 
 
 

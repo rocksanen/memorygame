@@ -1,6 +1,7 @@
 package database.dao;
 
 import database.datasource.SqlJpaConn;
+import database.entity.Account;
 import database.entity.Leaderboard;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -20,13 +21,13 @@ public class LeaderboardDAO implements ILeaderboardDAO {
     }
 
 
-    // does not work
+    // does work
     @Override
-    public List<Leaderboard> getAccountScores(long id) {
+    public List<Leaderboard> getAccountScores(long accountid) {
         EntityManager em = SqlJpaConn.getInstance();
-
-        Query query = em.createQuery("SELECT l FROM Leaderboard l WHERE l.score = :id");
-        query.setParameter("id", id);
+        // why is accountid typed twice? ¯\_(ツ)_/¯
+        Query query = em.createQuery("SELECT l FROM Leaderboard l WHERE l.accountid.accountid = :accountid");
+        query.setParameter("accountid", accountid);
         List<Leaderboard> scores = query.getResultList();
         return scores;
     }
