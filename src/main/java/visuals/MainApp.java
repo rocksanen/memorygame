@@ -64,16 +64,6 @@ public class MainApp extends Application {
             System.out.println(score.getScore() + " " + score.getTimestamp().toString());
         }
 
-
-
-        IAccountDAO dao = new AccountDAO();
-        Account account = new Account("pelle", "hermanni");
-        dao.saveAccount(account);
-        Account account2 = new Account("captain", "crunch");
-        dao.saveAccount(account2);
-        System.out.println("not done☁️");
-
-
         launch(args);
     }
 

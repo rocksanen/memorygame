@@ -2,7 +2,7 @@ package model;
 
 public class MemoryObject implements IMemoryObject, Comparable{
 
-    private final Integer id; //ss
+    private final Integer id;
     private final Integer typeId;
     private Boolean active;
     public MemoryObject(Integer id, Integer typeId) {
