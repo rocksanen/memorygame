@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class Engine implements IEngine{
@@ -41,8 +42,13 @@ public class Engine implements IEngine{
 
     @Override
     public void suffleObjects() {
+        Collections.shuffle(memoryObjectsList);
+        /*
+        for(int i = 0; i < memoryObjectsList.size(); i++) {
+            System.out.println(memoryObjectsList.get(i).toString());
+        }
+         */
 
-        // sekoittakaa memoryObjectsList
 
     }
 

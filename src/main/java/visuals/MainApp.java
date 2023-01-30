@@ -32,6 +32,7 @@ public class MainApp extends Application {
 
         IEngine engine = new Engine(ModeType.EASY);
         engine.setMemoryObjects();
+        engine.suffleObjects();
 
         System.out.println(engine + "\n");
 
