@@ -113,10 +113,41 @@ public class User {
         if (userId != 0L) {
             String grade = scoreGrader(seconds);
             Leaderboard score = new Leaderboard(dbAccount, seconds, grade, new Date(System.currentTimeMillis()));
-            return leaderboarddao.saveScores(score);
+            if (leaderboarddao.saveScores(score) == true) {
+                personalScores.add(score);
+                return true;
+            }
         }
         return false;
     }
+
+    /**
+     * User can only delete its own scores
+     * @param id
+     * @return
+     */
+    public boolean deleteScore(Long id) {
+        for (Leaderboard lb: personalScores) {
+
+            // check if id is in personalScores list
+            if (lb.getScoreid() == id) {
+                // redundant check to see if score's accountid is the same as the userid.
+                if (lb.getAccountid().getAccountid() == instance.userId) {
+                    leaderboarddao.deleteScore(id);
+                    return true;
+                } else return false;
+            }
+        }
+
+        try {
+            leaderboarddao.deleteScore(id);
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+        return false;
+    }
+
 
     /**
      * rough
