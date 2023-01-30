@@ -17,7 +17,7 @@ public class Leaderboard {
     private Account accountid;
 
     // this could maybe be time (in seconds)
-    private int score;
+    private Integer score;
     private String grade;
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date timestamp;
@@ -41,7 +41,7 @@ public class Leaderboard {
      * @param accountid - katso  {@link #accountid}
      * @param score - katso {@link #score}
      */
-    public Leaderboard(Account accountid, int score, String grade, Date timestamp) {
+    public Leaderboard(Account accountid, Integer score, String grade, Date timestamp) {
         this.accountid = accountid;
         this.score = score;
         this.grade = grade;
@@ -56,11 +56,11 @@ public class Leaderboard {
         this.accountid = userid;
     }
 
-    public int getScore() {
+    public Integer getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(Integer score) {
         this.score = score;
     }
 
@@ -76,8 +76,13 @@ public class Leaderboard {
         return scoreid;
     }
 
-    public void setScoreid(int scoreid) {
+
+    public void setScoreid(Integer scoreid) {
         this.scoreid = scoreid;
+    }
+
+    public void setAccountid(Account accountid) {
+        this.accountid = accountid;
     }
 
     @Override
