@@ -10,7 +10,7 @@ public class Leaderboard {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Integer scoreid;
+    private Long scoreid;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "accountid")
@@ -72,12 +72,12 @@ public class Leaderboard {
         this.grade = grade;
     }
 
-    public long getScoreid() {
+    public Long getScoreid() {
         return scoreid;
     }
 
 
-    public void setScoreid(Integer scoreid) {
+    public void setScoreid(Long scoreid) {
         this.scoreid = scoreid;
     }
 

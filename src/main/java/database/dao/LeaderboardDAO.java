@@ -1,6 +1,7 @@
 package database.dao;
 
 import database.datasource.SqlJpaConn;
+import database.entity.Account;
 import database.entity.Leaderboard;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -48,5 +49,19 @@ public class LeaderboardDAO implements ILeaderboardDAO {
         Query query = em.createQuery("SELECT l FROM Leaderboard l ORDER BY score DESC limit 100");
         ArrayList<Leaderboard> scores = (ArrayList<Leaderboard>) query.getResultList();
         return scores;
+    }
+
+    @Override
+    public boolean deleteScore(Long scoreid) {
+        EntityManager em = SqlJpaConn.getInstance();
+        em.getTransaction().begin();
+        Leaderboard score = em.find(Leaderboard.class, scoreid);
+        if (score != null) {
+            em.remove(score);
+            em.getTransaction().commit();
+            return true;
+        }
+        em.getTransaction().commit();
+        return false;
     }
 }

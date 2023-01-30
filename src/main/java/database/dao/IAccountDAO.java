@@ -14,5 +14,6 @@ public interface IAccountDAO {
 
     List<Account> getAllAccounts();
 
+    boolean deleteAccount(Long id);
 }
 

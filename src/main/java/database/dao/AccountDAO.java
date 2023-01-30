@@ -2,6 +2,7 @@ package database.dao;
 
 import database.datasource.SqlJpaConn;
 import database.entity.Account;
+import database.entity.Leaderboard;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 
@@ -54,6 +55,20 @@ public class AccountDAO implements IAccountDAO {
         Query q = em.createQuery(jpqlQuery);
         ArrayList<Account> resultList = (ArrayList<Account>) q.getResultList();
         return resultList;
+    }
+
+    @Override
+    public boolean deleteAccount(Long id) {
+        EntityManager em = SqlJpaConn.getInstance();
+        em.getTransaction().begin();
+        Account acc = em.find(Account.class, id);
+        if (id != null) {
+            em.remove(acc);
+            em.getTransaction().commit();
+            return true;
+        }
+        em.getTransaction().commit();
+        return false;
     }
 }
 
