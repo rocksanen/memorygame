@@ -121,6 +121,16 @@ public class User {
         return false;
     }
 
+
+    public boolean deleteAccount() {
+        try {
+            return accountdao.deleteAccount(instance.userId);
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+
     /**
      * User can only delete its own scores
      * @param id
