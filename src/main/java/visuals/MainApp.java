@@ -23,12 +23,9 @@ public class MainApp extends Application {
     public static void main(String[] args) {
 
         //User ja hänen tuloslistansa haetaan oikeassa versiossa databasesta sovelluksen käynnistyttyä.
-        ArrayList<Integer> tuloslista = new ArrayList<>();
-        IUser user = new model.User("kalle",1,tuloslista);
-        user.addScore(3500);
-        user.addScore(1200);
 
-        System.out.println(user + "\n");
+
+
 
         IEngine engine = new Engine(ModeType.EASY);
         engine.setMemoryObjects();
@@ -45,24 +42,34 @@ public class MainApp extends Application {
         }
 
 
-        //test for db connection, remove for 500% faster load times!
-        EntityManager em = SqlJpaConn.getInstance();
+        /***** proof of concept ******/
 
-        IAccountDAO accountdao = new AccountDAO();
-        Account acc = new Account("tony", "tiger");
-        accountdao.saveAccount(acc);
+        System.out.println("***************USER*****************");
 
-        ILeaderboardDAO leaderdao = new LeaderboardDAO();
-        Leaderboard lb = new Leaderboard(acc, 30, "Small", new Date(System.currentTimeMillis()));
-        leaderdao.saveScores(lb);
-        Leaderboard lb2 = new Leaderboard(acc, 200, "Large", new Date(System.currentTimeMillis()));
-        leaderdao.saveScores(lb2);
-
-        List<Leaderboard> userscores = leaderdao.getAccountScores(acc.getAccountid());
-        System.out.println("User scores: ");
-        for(Leaderboard score: userscores) {
-            System.out.println(score.getScore() + " " + score.getTimestamp().toString());
+        // login, if does not exist create user
+        User kayttaja = User.getInstance();
+        kayttaja = kayttaja.login("eetu");
+        if (kayttaja != null) {
+            kayttaja.signup("eetu");
         }
+        // save a score
+        kayttaja.saveScore(67);
+
+        ArrayList<Leaderboard> personalScores = kayttaja.getPersonalScores();
+
+        // get scores of user
+        for (Leaderboard lb: personalScores) {
+            System.out.println(lb.toString());
+        }
+
+        System.out.println("***************SCOREBOARD*****************");
+        Scoreboard pistelauta = Scoreboard.getInstance();
+        ArrayList<Leaderboard> worldscores = pistelauta.getWorldscores();
+        // global top 100
+        for (Leaderboard lb: worldscores) {
+            System.out.println(lb.toString());
+        }
+
 
         launch(args);
     }

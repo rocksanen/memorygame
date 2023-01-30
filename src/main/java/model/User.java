@@ -1,46 +1,150 @@
 package model;
 
+import database.dao.AccountDAO;
+import database.dao.IAccountDAO;
+import database.dao.ILeaderboardDAO;
+import database.dao.LeaderboardDAO;
+import database.entity.Account;
+import database.entity.Leaderboard;
+
 import java.util.ArrayList;
+import java.util.Date;
 
-public class User implements IUser{
 
-    private final String name;
-    private final Integer userId;
-    private final ArrayList<Integer> scoreList;
+public class User {
 
-    public User(String name, Integer userId, ArrayList<Integer> scoreList) {
+    private String username;
+    private Long userId;
+    private ArrayList<Leaderboard> personalScores;
 
-        this.name = name;
-        this.userId = userId;
-        this.scoreList = scoreList;
+    private IAccountDAO accountdao = new AccountDAO();
+    private ILeaderboardDAO leaderboarddao = new LeaderboardDAO();
 
+    private Account dbAccount;
+
+
+    private static User instance;
+
+    private User() {
+        this.username = "Tony the Tiger";
+        this.userId = 0L;
+
+        this.accountdao = new AccountDAO();
+        this.leaderboarddao = new LeaderboardDAO();
     }
+
+    public static User getInstance() {
+        if (instance == null) {
+            instance = new User();
+        }
+        return instance;
+    }
+
+
+    /**
+     * Searches username from database and returns the updated the User object
+     * @param username
+     * @return
+     */
+    public User login(String username) {
+        try {
+            Account account = accountdao.getAccountByName(username);
+
+            if (userId != null && username != null) {
+                this.userId = account.getAccountid();
+                this.personalScores = leaderboarddao.getAccountScores(userId);
+                this.dbAccount = account;
+                return User.getInstance();
+            }
+
+        } catch (Exception e) {
+            System.out.println("Username not found! Defaulting to defaultuser... " + e);
+            this.userId = 0L;
+            this.personalScores = null;
+        }
+        return null;
+    }
+
+
+    /**
+     * Searches username from db, creates it if it does not exist
+     * @param username
+     * @return
+     */
+    public User signup(String username) {
+        Account account = accountdao.getAccountByName(username);
+        System.out.println("is account null? " + account.toString());
+        if (account == null) {
+            try {
+                Account a = new Account(username, "tiger");
+                userId = accountdao.saveAccount(a);
+                Account newAccount = accountdao.getAccount(userId);
+
+                this.userId = newAccount.getAccountid();
+                this. username = newAccount.getUsername();
+
+                this.dbAccount = newAccount;
+                return User.getInstance();
+
+            } catch (Exception e) {
+                System.out.println("error creating a user...");
+            }
+        }
+        return null;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public ArrayList<Leaderboard> getPersonalScores() {
+        try {
+            personalScores = leaderboarddao.getAccountScores(userId);
+            return personalScores;
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
+
+    public boolean saveScore(Integer seconds) {
+        // not a defaultuser check
+        if (userId != 0L) {
+            String grade = scoreGrader(seconds);
+            Leaderboard score = new Leaderboard(dbAccount, seconds, grade, new Date(System.currentTimeMillis()));
+            return leaderboarddao.saveScores(score);
+        }
+        return false;
+    }
+
+    /**
+     * rough
+     * @param seconds
+     * @return
+     */
+    private String scoreGrader(Integer seconds) {
+        String grade = "Hämmästyttävä";
+        if (seconds < 10) {
+            grade = "John von Neumann";
+        } else if (seconds >= 10 && seconds < 20) {
+            grade = "Excellent";
+        } else if (seconds >= 20 && seconds < 30) {
+            grade = "Acceptable";
+        } else if (seconds >= 30 && seconds < 40) {
+            grade = "Mediocore";
+        } else if (seconds >= 40 && seconds < 50) {
+            grade = "Passable";
+        } else {
+            grade = "Demented";
+        }
+        return grade;
+    }
+
+
     @Override
-    public String getName() {
-
-        return this.name;
-    }
-
-    @Override
-    public ArrayList<Integer> getScores() {
-
-        return scoreList;
-    }
-
-    @Override
-    public void addScore(Integer score) {
-
-        scoreList.add(score);
-    }
-
-    @Override
-    public Integer getUserId() {
-
-        return this.userId;
-    }
-
     public String toString() {
 
-        return "Nimi: " + this.name + ", Käyttäjätunnus: " + this.userId + ", listalla tuloksia: " + scoreList.size();
+        return "Nimi: " + this.username + ", Käyttäjätunnus: " + this.userId + ", listalla tuloksia: " + personalScores.size();
     }
 }

@@ -10,7 +10,7 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private long accountid;
+    private Long accountid;
     private String username;
     private String password;
 
@@ -35,7 +35,7 @@ public class Account {
         return accountid;
     }
 
-    public void setAccountid(int userid) {
+    public void setAccountid(Long userid) {
         this.accountid = userid;
     }
 
@@ -53,5 +53,14 @@ public class Account {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "accountid=" + accountid +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

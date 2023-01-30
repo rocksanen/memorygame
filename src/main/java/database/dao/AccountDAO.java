@@ -5,16 +5,18 @@ import database.entity.Account;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class AccountDAO implements IAccountDAO {
 
     @Override
-    public void saveAccount(Account account) {
+    public Long saveAccount(Account account) {
         EntityManager em = SqlJpaConn.getInstance();
         em.getTransaction().begin();
         em.persist(account);
         em.getTransaction().commit();
+        return account.getAccountid();
+
     }
 
 
@@ -24,20 +26,33 @@ public class AccountDAO implements IAccountDAO {
      * @return Simulaattori-olio
      */
     @Override
-    public Account getAccount(int id) {
+    public Account getAccount(Long id) {
         EntityManager em = SqlJpaConn.getInstance();
-        em.getTransaction().begin();
         Account a = em.find(Account.class, id);
-        em.getTransaction().commit();
         return a;
     }
 
     @Override
-    public List<Account> getAllAccounts() {
+    public Account getAccountByName(String name) {
+        Account a = null;
+        EntityManager em = SqlJpaConn.getInstance();
+        try {
+            Query query = em.createQuery("SELECT a FROM Account a WHERE a.username = :name");
+            query.setParameter("name", name);
+            a = (Account) query.getSingleResult();
+            return a;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return a;
+    }
+
+    @Override
+    public ArrayList<Account> getAllAccounts() {
         EntityManager em = SqlJpaConn.getInstance();
         String jpqlQuery = "SELECT s FROM Account s";
         Query q = em.createQuery(jpqlQuery);
-        List<Account> resultList = q.getResultList();
+        ArrayList<Account> resultList = (ArrayList<Account>) q.getResultList();
         return resultList;
     }
 }
