@@ -26,8 +26,10 @@ public class User {
     private static User instance;
 
     private User() {
-        this.username = "Tony the Tiger";
-        this.userId = 0L;
+        this.username = "tony the tiger";
+        this.userId = null;
+        this.personalScores = null;
+        this.dbAccount = null;
 
         this.accountdao = new AccountDAO();
         this.leaderboarddao = new LeaderboardDAO();
@@ -46,23 +48,23 @@ public class User {
      * @param username
      * @return
      */
-    public User login(String username) {
+    public boolean login(String username) {
         try {
             Account account = accountdao.getAccountByName(username);
+            System.out.println("sTRINGIFYING ACCOUNT: " + account.toString() + "");
 
-            if (userId != null && username != null) {
+            if (account.getAccountid() != null) {
                 this.userId = account.getAccountid();
+                this.username = account.getUsername();
                 this.personalScores = leaderboarddao.getAccountScores(userId);
                 this.dbAccount = account;
-                return User.getInstance();
+                return true;
             }
 
         } catch (Exception e) {
-            System.out.println("Username not found! Defaulting to defaultuser... " + e);
-            this.userId = 0L;
-            this.personalScores = null;
+            System.out.println("Username not found!" + e);;
         }
-        return null;
+        return false;
     }
 
 
@@ -71,30 +73,32 @@ public class User {
      * @param username
      * @return
      */
-    public User signup(String username) {
-        Account account = accountdao.getAccountByName(username);
-        System.out.println("is account null? ");
-        if (account == null) {
-            try {
-                Account a = new Account(username, "tiger");
-                userId = accountdao.saveAccount(a);
-                Account newAccount = accountdao.getAccount(userId);
-
-                this.userId = newAccount.getAccountid();
-                this. username = newAccount.getUsername();
-
-                this.dbAccount = newAccount;
-                return User.getInstance();
-
-            } catch (Exception e) {
-                System.out.println("error creating a user...");
-            }
+    public boolean signup(String username) {
+        // save account
+        Long id = accountdao.saveAccount(new Account(username, "tiger"));
+        if (id != null) {
+            System.out.println("Username already exists!");
+            return false;
         }
-        return null;
+
+        Account account = accountdao.getAccountByName(username);
+        this.userId = account.getAccountid();
+        this.username = account.getUsername();
+        this.personalScores = leaderboarddao.getAccountScores(userId);
+        this.dbAccount = account;
+        return true;
     }
 
     public String getUsername() {
         return username;
+    }
+
+    public boolean logout() {
+        this.username = "tony the tiger";
+        this.userId = null;
+        this.personalScores = null;
+        this.dbAccount = null;
+        return true;
     }
 
     public ArrayList<Leaderboard> getPersonalScores() {
@@ -110,23 +114,21 @@ public class User {
 
     public boolean saveScore(Integer seconds) {
         // not a defaultuser check
-        if (userId != 0L) {
+        if (userId != null) {
             String grade = scoreGrader(seconds);
             Leaderboard score = new Leaderboard(dbAccount, seconds, grade, new Date(System.currentTimeMillis()));
-            return leaderboarddao.saveScores(score);
+            return leaderboarddao.saveScore(score);
         }
         return false;
     }
 
 
     public boolean deleteAccount() {
-        if (userId == 0L) return false;
+        if (userId == null) return false;
         try {
             boolean deleted = accountdao.deleteAccount(instance.userId);
             if(deleted == true) {
-                this.username = "Tony the Tiger";
-                this.userId = 0L;
-                return true;
+                return logout();
             }
 
         } catch (Exception e) {

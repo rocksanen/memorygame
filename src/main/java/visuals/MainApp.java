@@ -41,37 +41,7 @@ public class MainApp extends Application {
                             ", Onko aktiivinen: " + object.isActive()
             );
         }
-
-
-        /***** proof of concept ******/
-
-        System.out.println("***************USER*****************");
-
-        // login, if does not exist create user
-        User kayttaja = User.getInstance();
-        kayttaja = kayttaja.login("eetu");
-        if (kayttaja != null) {
-            kayttaja.signup("eetu");
-        }
-        // save a score
-        kayttaja.saveScore(67);
-
-        ArrayList<Leaderboard> personalScores = kayttaja.getPersonalScores();
-
-        // get scores of user
-        for (Leaderboard lb: personalScores) {
-            System.out.println(lb.toString());
-        }
-
-        System.out.println("***************SCOREBOARD*****************");
-        Scoreboard pistelauta = Scoreboard.getInstance();
-        ArrayList<Leaderboard> worldscores = pistelauta.getWorldscores();
-        // global top 100
-        for (Leaderboard lb: worldscores) {
-            System.out.println(lb.toString());
-        }
-
-
+        
         launch(args);
     }
 

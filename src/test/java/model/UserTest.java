@@ -27,10 +27,8 @@ class UserTest {
     @BeforeEach
     void setUp() {
         User u = User.getInstance();
-        u.signup("junittest");
-        u.login("junittest");
+        u.signup("JUNITTEST");
         u.saveScore(10);
-
     }
 
     @AfterEach
@@ -48,23 +46,24 @@ class UserTest {
     @Test
     void loginAndSignup() {
         User u = User.getInstance();
-        u.signup("junittest");
-        u.login("junittest");
+        if (u.signup("JUNITTEST")) {
+            u.login("JUNITTEST");
+        }
         assertEquals("junittest", u.getUsername());
     }
 
     @Test
     void getUsername() {
         User u = User.getInstance();
-        u.signup("junittest");
+        u.signup("JUNITTEST");
         assertEquals("junittest", u.getUsername());
     }
 
     @Test
     void getPersonalScores() {
         User u = User.getInstance();
-        u.signup("junittest");
-        u.login("junittest");
+        u.signup("JUNITTEST");
+        u.login("JUNITTEST");
         u.getPersonalScores();
         assertNotNull(u.getPersonalScores());
     }
@@ -72,8 +71,8 @@ class UserTest {
     @Test
     void saveScore() {
         User u = User.getInstance();
-        u.signup("junittest");
-        u.login("junittest");
+        u.signup("JUNITTEST");
+        u.login("JUNITTEST");
         u.saveScore(10);
         ArrayList<Leaderboard> scores = u.getPersonalScores();
         assertEquals(10, scores.get(0).getScore());
@@ -88,7 +87,7 @@ class UserTest {
         ILeaderboardDAO leaderboarddao = new LeaderboardDAO();
         ArrayList<Leaderboard> scores = leaderboarddao.getAccountScores(userid);
         assertEquals(0, scores.size());
-        assertEquals(u.getUsername(), "Tony the Tiger");
+        assertEquals(u.getUsername(), "tony the tiger");
     }
 
     @Test

@@ -1,6 +1,7 @@
 package database.dao;
 
 import database.datasource.SqlJpaConn;
+import database.entity.Account;
 import database.entity.Leaderboard;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -11,13 +12,21 @@ public class LeaderboardDAO implements ILeaderboardDAO {
 
 
     @Override
-    public boolean saveScores(Leaderboard lb) {
+    public boolean saveScore(Leaderboard lb) {
+        // check if account exists
+        AccountDAO accountDAO = new AccountDAO();
+        if (accountDAO.getAccount(lb.getAccountid().getAccountid()) == null) {
+            return false;
+        }
+
+
         System.out.println("saveScores " + lb);
         try {
             EntityManager em = SqlJpaConn.getInstance();
             em.getTransaction().begin();
             em.persist(lb);
             em.getTransaction().commit();
+            em.flush();
             return true;
         } catch (Exception e) {
             System.out.println("error saving a score to db.." + e);

@@ -18,8 +18,8 @@ public class Scoreboard {
     private static Scoreboard instance;
 
     private Scoreboard() {
-        this.worldscores = refreshWorldScores();
         this.leaderboarddao = new LeaderboardDAO();
+        this.worldscores = refreshWorldScores();
     }
 
     // singleton should help with unnessecary db reads

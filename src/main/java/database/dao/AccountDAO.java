@@ -12,12 +12,24 @@ public class AccountDAO implements IAccountDAO {
 
     @Override
     public Long saveAccount(Account account) {
-        System.out.println("saveAccount " + account);
-        EntityManager em = SqlJpaConn.getInstance();
-        em.getTransaction().begin();
-        em.persist(account);
-        em.getTransaction().commit();
-        return account.getAccountid();
+        // check if account by that name exists
+        if (getAccountByName(account.getUsername()) != null) {
+            System.out.println("account already exists");
+            return null;
+        }
+        account.setUsername(account.getUsername().toLowerCase());
+
+        try {
+            System.out.println("saveAccount " + account);
+            EntityManager em = SqlJpaConn.getInstance();
+            em.getTransaction().begin();
+            em.persist(account);
+            em.getTransaction().commit();
+            em.flush();
+            return account.getAccountid();
+        } catch (Exception e) {
+            return null;
+        }
 
     }
 
@@ -36,14 +48,16 @@ public class AccountDAO implements IAccountDAO {
     }
 
     @Override
-    public Account getAccountByName(String name) {
-        System.out.println("getAccountByName " + name);
+    public Account getAccountByName(String username) {
+        username = username.toLowerCase();
+        System.out.println("getAccountByName " + username);
         Account a = null;
         EntityManager em = SqlJpaConn.getInstance();
         try {
-            Query query = em.createQuery("SELECT a FROM Account a WHERE a.username = :name");
-            query.setParameter("name", name);
+            Query query = em.createQuery("SELECT a FROM Account a WHERE a.username = :username");
+            query.setParameter("username", username);
             a = (Account) query.getSingleResult();
+            System.out.println(a.toString());
             return a;
         } catch (Exception e) {
             System.out.println(e);

@@ -24,29 +24,23 @@ public class ScoreboardTest {
 
     @BeforeEach
     void setUp() {
+        User u = User.getInstance();
+        u.signup("JUNITTEST");
+        u.login("JUNITTEST");
+        u.saveScore(999);
+        u.logout();
     }
 
     @AfterEach
     void tearDown() {
-    }
-
-    @Test
-    void getInstance() {
-        assertNotNull(Scoreboard.getInstance());
+        User u = User.getInstance();
+        u.login("JUNITTEST");
+        u.deleteAccount();
     }
 
     @Test
     void getWorldscores() {
         Scoreboard scoreboard = Scoreboard.getInstance();
-        ArrayList<Leaderboard> worldscores = scoreboard.getWorldscores();
-        // assert that worldscore containts at least 1 leaderboard object
-        assertNotNull(worldscores.get(0));
-    }
-
-    @Test
-    void refreshWorldScores() {
-        Scoreboard scoreboard = Scoreboard.getInstance();
-        scoreboard.refreshWorldScores();
         ArrayList<Leaderboard> worldscores = scoreboard.getWorldscores();
         // assert that worldscore containts at least 1 leaderboard object
         assertNotNull(worldscores.get(0));

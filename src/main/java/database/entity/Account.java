@@ -31,7 +31,7 @@ public class Account {
     };
 
 
-    public long getAccountid() {
+    public Long getAccountid() {
         return accountid;
     }
 
