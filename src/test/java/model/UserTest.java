@@ -2,8 +2,11 @@ package model;
 
 import database.dao.ILeaderboardDAO;
 import database.dao.LeaderboardDAO;
+import database.datasource.SqlJpaConn;
 import database.entity.Leaderboard;
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.ls.LSOutput;
@@ -14,6 +17,12 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserTest {
+
+    //before all method that create entitymanager to save load time
+    @BeforeAll
+    static void setUpAll() {
+        EntityManager em = SqlJpaConn.getInstance();
+    }
 
     @BeforeEach
     void setUp() {
@@ -54,13 +63,17 @@ class UserTest {
     @Test
     void getPersonalScores() {
         User u = User.getInstance();
+        u.signup("junittest");
+        u.login("junittest");
         u.getPersonalScores();
-        assertNull(u.getPersonalScores());
+        assertNotNull(u.getPersonalScores());
     }
 
     @Test
     void saveScore() {
         User u = User.getInstance();
+        u.signup("junittest");
+        u.login("junittest");
         u.saveScore(10);
         ArrayList<Leaderboard> scores = u.getPersonalScores();
         assertEquals(10, scores.get(0).getScore());

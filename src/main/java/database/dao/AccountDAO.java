@@ -12,6 +12,7 @@ public class AccountDAO implements IAccountDAO {
 
     @Override
     public Long saveAccount(Account account) {
+        System.out.println("saveAccount " + account);
         EntityManager em = SqlJpaConn.getInstance();
         em.getTransaction().begin();
         em.persist(account);
@@ -28,6 +29,7 @@ public class AccountDAO implements IAccountDAO {
      */
     @Override
     public Account getAccount(Long id) {
+        System.out.println("getAccount " + id);
         EntityManager em = SqlJpaConn.getInstance();
         Account a = em.find(Account.class, id);
         return a;
@@ -35,6 +37,7 @@ public class AccountDAO implements IAccountDAO {
 
     @Override
     public Account getAccountByName(String name) {
+        System.out.println("getAccountByName " + name);
         Account a = null;
         EntityManager em = SqlJpaConn.getInstance();
         try {
@@ -50,6 +53,7 @@ public class AccountDAO implements IAccountDAO {
 
     @Override
     public ArrayList<Account> getAllAccounts() {
+        System.out.println("getAllAccounts");
         EntityManager em = SqlJpaConn.getInstance();
         String jpqlQuery = "SELECT s FROM Account s";
         Query q = em.createQuery(jpqlQuery);
@@ -59,6 +63,7 @@ public class AccountDAO implements IAccountDAO {
 
     @Override
     public boolean deleteAccount(Long id) {
+        System.out.println("deleteAccount " + id);
         EntityManager em = SqlJpaConn.getInstance();
         Account acc = em.find(Account.class, id);
         if (id != null) {

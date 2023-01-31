@@ -120,6 +120,7 @@ public class User {
 
 
     public boolean deleteAccount() {
+        if (userId == 0L) return false;
         try {
             boolean deleted = accountdao.deleteAccount(instance.userId);
             if(deleted == true) {
