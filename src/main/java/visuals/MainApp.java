@@ -45,6 +45,23 @@ public class MainApp extends Application {
             );
         }
 
+        /* TEST for comparing cards! */
+        ArrayList<MemoryObject> objectList = new ArrayList<>();
+        objectList.add(new MemoryObject(1, 1));
+        objectList.add(new MemoryObject(2, 2));
+        objectList.add(new MemoryObject(3, 3));
+
+        MemoryObject testObject = new MemoryObject(4, 1);
+        for(MemoryObject obj: objectList) {
+            if(testObject.compareTo(obj) == 0) {
+                System.out.println("objects have the same type.");
+                break;
+            }
+        }
+        System.out.println("objects are not the same !");
+
+        /* end TEST for comparing cards! */
+
 
         //test for db connection, remove for 500% faster load times!
         EntityManager em = SqlJpaConn.getInstance();
