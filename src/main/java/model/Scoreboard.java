@@ -55,6 +55,10 @@ public class Scoreboard {
     }
 
 
+    /**
+     * Fetch global scores of select difficulty, sorted by time
+     * @param difficulty
+     */
     public void fetchScores(String difficulty) {
         this.scores = new ArrayList<>();
         List<Leaderboard> leaderboards = leaderboarddao.readWorldScores(difficulty);
@@ -62,6 +66,12 @@ public class Scoreboard {
             this.scores.add(new Score(lb));
         }
     }
+
+    /**
+     * Fetch personal scores of select difficulty, sorted by time
+     * @param userid
+     * @param difficulty
+     */
     public void fetchScores(Long userid, String difficulty) {
         this.scores = new ArrayList<>();
         List<Leaderboard> leaderboards = leaderboarddao.getAccountScoresByDifficulty(userid, difficulty);
@@ -70,4 +80,10 @@ public class Scoreboard {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Scoreboard{" +
+                "scores=" + scores +
+                '}';
+    }
 }

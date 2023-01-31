@@ -4,7 +4,7 @@ import database.entity.Leaderboard;
 
 import java.util.Date;
 
-class Score {
+public class Score {
 
     private String username;
     private Long scoreid;

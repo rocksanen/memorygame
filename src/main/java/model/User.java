@@ -20,15 +20,11 @@ public class User {
     private IAccountDAO accountdao = AccountDAO.getInstance();
     private ILeaderboardDAO leaderboarddao = LeaderboardDAO.getInstance();
 
-    private Account dbAccount;
-
-
     private static User instance;
 
     private User() {
         this.username = "tony the tiger";
         this.userId = null;
-        this.dbAccount = null;
         this.personalScores = null;
     }
 
@@ -54,7 +50,6 @@ public class User {
                 this.userId = account.getAccountid();
                 this.username = account.getUsername();
                 this.personalScores = new Scoreboard(leaderboarddao.getAccountScores(userId));
-                this.dbAccount = account;
                 return true;
             }
 
@@ -82,7 +77,6 @@ public class User {
         this.userId = account.getAccountid();
         this.username = account.getUsername();
         this.personalScores = new Scoreboard(leaderboarddao.getAccountScores(userId));
-        this.dbAccount = account;
         return true;
     }
 
@@ -94,11 +88,16 @@ public class User {
         this.username = "tony the tiger";
         this.userId = null;
         this.personalScores = null;
-        this.dbAccount = null;
         return true;
     }
 
+    public Scoreboard getPersonalScores() {
+        return personalScores;
+    }
 
+    public void addScore(int time, String difficulty) {
+        personalScores.addScore(time, difficulty, username);
+    }
 
     public boolean deleteAccount() {
         if (userId == null) return false;
@@ -126,7 +125,6 @@ public class User {
                 ", personalScores=" + personalScores +
                 ", accountdao=" + accountdao +
                 ", leaderboarddao=" + leaderboarddao +
-                ", dbAccount=" + dbAccount +
                 '}';
     }
 }
