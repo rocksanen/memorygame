@@ -10,6 +10,18 @@ import java.util.ArrayList;
 
 public class AccountDAO implements IAccountDAO {
 
+
+    // make this a singleton
+    private static AccountDAO instance = null;
+    private AccountDAO() {}
+    public static AccountDAO getInstance() {
+        if (instance == null) {
+            instance = new AccountDAO();
+        }
+        return instance;
+    }
+
+
     @Override
     public Long saveAccount(Account account) {
         // check if account by that name exists
@@ -81,7 +93,7 @@ public class AccountDAO implements IAccountDAO {
         EntityManager em = SqlJpaConn.getInstance();
         Account acc = em.find(Account.class, id);
         if (id != null) {
-            ILeaderboardDAO leaderboarddao = new LeaderboardDAO();
+            ILeaderboardDAO leaderboarddao = LeaderboardDAO.getInstance();
             leaderboarddao.deleteAllScores(id);
             em.getTransaction().begin();
 

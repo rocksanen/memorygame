@@ -9,11 +9,21 @@ import java.util.ArrayList;
 
 public class LeaderboardDAO implements ILeaderboardDAO {
 
+    // make this a singleton
+    private static LeaderboardDAO instance = null;
+    private LeaderboardDAO() {}
+    public static LeaderboardDAO getInstance() {
+        if (instance == null) {
+            instance = new LeaderboardDAO();
+        }
+        return instance;
+    }
+
 
     @Override
     public boolean saveScore(Leaderboard lb) {
         // check if account exists
-        AccountDAO accountDAO = new AccountDAO();
+        AccountDAO accountDAO = AccountDAO.getInstance();
         if (accountDAO.getAccount(lb.getAccountid().getAccountid()) == null) {
             return false;
         }

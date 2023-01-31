@@ -16,8 +16,8 @@ import java.util.List;
  *
  */
 public class Scoreboard {
-    private static ILeaderboardDAO leaderboarddao = new LeaderboardDAO();
-    private static IAccountDAO accountdao = new AccountDAO();
+    private static ILeaderboardDAO leaderboarddao = LeaderboardDAO.getInstance();
+    private static IAccountDAO accountdao = AccountDAO.getInstance();
 
     private ArrayList<Score> scores;
 

@@ -17,8 +17,8 @@ public class User {
     private Long userId;
     private Scoreboard personalScores;
 
-    private IAccountDAO accountdao = new AccountDAO();
-    private ILeaderboardDAO leaderboarddao = new LeaderboardDAO();
+    private IAccountDAO accountdao = AccountDAO.getInstance();
+    private ILeaderboardDAO leaderboarddao = LeaderboardDAO.getInstance();
 
     private Account dbAccount;
 
@@ -30,9 +30,6 @@ public class User {
         this.userId = null;
         this.dbAccount = null;
         this.personalScores = null;
-
-        this.accountdao = new AccountDAO();
-        this.leaderboarddao = new LeaderboardDAO();
     }
 
     public static User getInstance() {
