@@ -41,7 +41,7 @@ public class MainApp extends Application {
                             ", Onko aktiivinen: " + object.isActive()
             );
         }
-        
+
         launch(args);
     }
 

@@ -1,7 +1,6 @@
 package database.dao;
 
 import database.datasource.SqlJpaConn;
-import database.entity.Account;
 import database.entity.Leaderboard;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -41,27 +40,49 @@ public class LeaderboardDAO implements ILeaderboardDAO {
         System.out.println("getAccountScores " + accountid);
         EntityManager em = SqlJpaConn.getInstance();
         // why is accountid typed twice? ¯\_(ツ)_/¯
-        Query query = em.createQuery("SELECT l FROM Leaderboard l WHERE l.accountid.accountid = :accountid ORDER BY score DESC limit 100");
+        Query query = em.createQuery("SELECT l FROM Leaderboard l WHERE l.accountid.accountid = :accountid ORDER BY time DESC limit 100");
         query.setParameter("accountid", accountid);
         ArrayList<Leaderboard> scores = (ArrayList<Leaderboard>) query.getResultList();
         return scores;
     }
 
+    @Override
+    public ArrayList<Leaderboard> getAccountScoresByDifficulty(Long accountid, String difficulty) {
+        System.out.println("getAccountScores " + accountid);
+        EntityManager em = SqlJpaConn.getInstance();
+        // why is accountid typed twice? ¯\_(ツ)_/¯
+        Query query = em.createQuery("SELECT l FROM Leaderboard l WHERE l.accountid.accountid = :accountid AND l.difficulty = :difficulty ORDER BY time DESC limit 100");
+        query.setParameter("accountid", accountid);
+        query.setParameter("difficulty", difficulty);
+        ArrayList<Leaderboard> scores = (ArrayList<Leaderboard>) query.getResultList();
+        return scores;
+    }
 
     /**
      * selects top 100 scores
      * @return
      */
     @Override
-    public ArrayList<Leaderboard> readWorldScores() {
+    public ArrayList<Leaderboard> readWorldScores(String difficulty) {
         System.out.println("readWorldScores");
         EntityManager em = SqlJpaConn.getInstance();
         // why is accountid typed twice? ¯\_(ツ)_/¯
-        Query query = em.createQuery("SELECT l FROM Leaderboard l ORDER BY score DESC limit 100");
+        Query query = em.createQuery("SELECT l FROM Leaderboard l WHERE l.difficulty = :difficulty ORDER BY time DESC limit 100");
+        query.setParameter("difficulty", difficulty);
         ArrayList<Leaderboard> scores = (ArrayList<Leaderboard>) query.getResultList();
         return scores;
     }
 
+    // does work
+    @Override
+    public ArrayList<Leaderboard> readWorldScoresByDifficulty(int difficulty) {
+        EntityManager em = SqlJpaConn.getInstance();
+        // why is accountid typed twice? ¯\_(ツ)_/¯
+        Query query = em.createQuery("SELECT l FROM Leaderboard l WHERE l.difficulty = :difficulty ORDER BY time DESC limit 100");
+        query.setParameter("difficulty", difficulty);
+        ArrayList<Leaderboard> scores = (ArrayList<Leaderboard>) query.getResultList();
+        return scores;
+    }
     @Override
     public boolean deleteScore(Long scoreid) {
         System.out.println("deleteScore " + scoreid);

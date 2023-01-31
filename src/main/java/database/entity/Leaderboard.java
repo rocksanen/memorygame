@@ -17,8 +17,8 @@ public class Leaderboard {
     private Account accountid;
 
     // this could maybe be time (in seconds)
-    private Integer score;
-    private String grade;
+    private Integer time;
+    private String difficulty;
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date timestamp;
 
@@ -38,14 +38,12 @@ public class Leaderboard {
 
     /**
      * Olion konstruktori, joka asettaa sen kaikille muuttujille arvot.
-     * @param accountid - katso  {@link #accountid}
-     * @param score - katso {@link #score}
      */
-    public Leaderboard(Account accountid, Integer score, String grade, Date timestamp) {
+    public Leaderboard(Account accountid, Integer time, String difficulty, Date timestamp) {
         this.accountid = accountid;
-        this.score = score;
-        this.grade = grade;
+        this.time = time;
         this.timestamp = timestamp;
+        this.difficulty = difficulty;
     };
 
     public Account getAccountid() {
@@ -56,33 +54,34 @@ public class Leaderboard {
         this.accountid = userid;
     }
 
-    public Integer getScore() {
-        return score;
+
+
+    public void setAccountid(Account accountid) {
+        this.accountid = accountid;
     }
 
-    public void setScore(Integer score) {
-        this.score = score;
+    public String getDifficulty() {
+        return difficulty;
     }
 
-    public String getGrade() {
-        return grade;
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
     }
 
-    public void setGrade(String grade) {
-        this.grade = grade;
+    public Integer getTime() {
+        return time;
+    }
+
+    public void setTime(Integer seconds) {
+        this.time = seconds;
     }
 
     public Long getScoreid() {
         return scoreid;
     }
 
-
     public void setScoreid(Long scoreid) {
         this.scoreid = scoreid;
-    }
-
-    public void setAccountid(Account accountid) {
-        this.accountid = accountid;
     }
 
     @Override
@@ -90,8 +89,8 @@ public class Leaderboard {
         return "Leaderboard{" +
                 "scoreid=" + scoreid +
                 ", accountid=" + accountid +
-                ", score=" + score +
-                ", grade='" + grade + '\'' +
+                ", seconds=" + time +
+                ", difficulty=" + difficulty +
                 ", timestamp=" + timestamp +
                 '}';
     }

@@ -15,7 +15,7 @@ public class User {
 
     private String username;
     private Long userId;
-    private ArrayList<Leaderboard> personalScores;
+    private Scoreboard personalScores;
 
     private IAccountDAO accountdao = new AccountDAO();
     private ILeaderboardDAO leaderboarddao = new LeaderboardDAO();
@@ -28,8 +28,8 @@ public class User {
     private User() {
         this.username = "tony the tiger";
         this.userId = null;
-        this.personalScores = null;
         this.dbAccount = null;
+        this.personalScores = null;
 
         this.accountdao = new AccountDAO();
         this.leaderboarddao = new LeaderboardDAO();
@@ -56,7 +56,7 @@ public class User {
             if (account.getAccountid() != null) {
                 this.userId = account.getAccountid();
                 this.username = account.getUsername();
-                this.personalScores = leaderboarddao.getAccountScores(userId);
+                this.personalScores = new Scoreboard(leaderboarddao.getAccountScores(userId));
                 this.dbAccount = account;
                 return true;
             }
@@ -84,7 +84,7 @@ public class User {
         Account account = accountdao.getAccountByName(username);
         this.userId = account.getAccountid();
         this.username = account.getUsername();
-        this.personalScores = leaderboarddao.getAccountScores(userId);
+        this.personalScores = new Scoreboard(leaderboarddao.getAccountScores(userId));
         this.dbAccount = account;
         return true;
     }
@@ -101,26 +101,6 @@ public class User {
         return true;
     }
 
-    public ArrayList<Leaderboard> getPersonalScores() {
-        try {
-            personalScores = leaderboarddao.getAccountScores(userId);
-            return personalScores;
-        } catch (Exception e) {
-            System.out.println(e);
-            return null;
-        }
-    }
-
-
-    public boolean saveScore(Integer seconds) {
-        // not a defaultuser check
-        if (userId != null) {
-            String grade = scoreGrader(seconds);
-            Leaderboard score = new Leaderboard(dbAccount, seconds, grade, new Date(System.currentTimeMillis()));
-            return leaderboarddao.saveScore(score);
-        }
-        return false;
-    }
 
 
     public boolean deleteAccount() {
@@ -137,64 +117,19 @@ public class User {
         return false;
     }
 
-    /**
-     * User can only delete its own scores
-     * @param id
-     * @return
-     */
-    public boolean deleteScore(Long id) {
-        for (Leaderboard lb: personalScores) {
-
-            // check if id is in personalScores list
-            if (lb.getScoreid() == id) {
-                // redundant check to see if score's accountid is the same as the userid.
-                if (lb.getAccountid().getAccountid() == instance.userId) {
-                    leaderboarddao.deleteScore(id);
-                    return true;
-                } else return false;
-            }
-        }
-
-        try {
-            leaderboarddao.deleteScore(id);
-        } catch (Exception e) {
-            System.out.println(e);
-            return false;
-        }
-        return false;
-    }
-
-
-    /**
-     * rough
-     * @param seconds
-     * @return
-     */
-    private String scoreGrader(Integer seconds) {
-        String grade = "Hämmästyttävä";
-        if (seconds < 10) {
-            grade = "John von Neumann";
-        } else if (seconds >= 10 && seconds < 20) {
-            grade = "Excellent";
-        } else if (seconds >= 20 && seconds < 30) {
-            grade = "Acceptable";
-        } else if (seconds >= 30 && seconds < 40) {
-            grade = "Mediocore";
-        } else if (seconds >= 40 && seconds < 50) {
-            grade = "Passable";
-        } else {
-            grade = "Demented";
-        }
-        return grade;
-    }
-
-
     public Long getUserId() {
         return userId;
     }
 
     @Override
     public String toString() {
-        return "Nimi: " + this.username + ", Käyttäjätunnus: " + this.userId + ", listalla tuloksia: " + personalScores.size();
+        return "User{" +
+                "username='" + username + '\'' +
+                ", userId=" + userId +
+                ", personalScores=" + personalScores +
+                ", accountdao=" + accountdao +
+                ", leaderboarddao=" + leaderboarddao +
+                ", dbAccount=" + dbAccount +
+                '}';
     }
 }
