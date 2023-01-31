@@ -19,9 +19,11 @@ public class Score {
         this.time = lb.getTime();
         this.timestamp = lb.getTimestamp();
         this.difficulty = lb.getDifficulty();
-        this.grade = scoreGrader(time);
+        this.grade = scoreGrader(time, difficulty);
         this.scoreid = lb.getScoreid();
-    };
+    }
+
+    ;
 
     public String getUsername() {
         return username;
@@ -47,20 +49,53 @@ public class Score {
         return scoreid;
     }
 
-    private String scoreGrader(int seconds) {
-        String grade = "Hämmästyttävä";
-        if (seconds < 10) {
-            grade = "John von Neumann";
-        } else if (seconds >= 10 && seconds < 20) {
-            grade = "Excellent";
-        } else if (seconds >= 20 && seconds < 30) {
-            grade = "Acceptable";
-        } else if (seconds >= 30 && seconds < 40) {
-            grade = "Mediocore";
-        } else if (seconds >= 40 && seconds < 50) {
-            grade = "Passable";
-        } else {
-            grade = "Demented";
+
+    /**
+     * 3 difficulties, 4 grades each
+     * 💀
+     * @param seconds
+     * @param difficulty
+     * @return
+     */
+    private String scoreGrader(int seconds, String difficulty) {
+
+        switch (difficulty) {
+            case "easy":
+                if (seconds < 10) {
+                    grade = "🎉";
+                } else if (seconds >= 10 && seconds < 20) {
+                    grade = "😲🤯";
+                } else if (seconds >= 20 && seconds < 30) {
+                    grade = "😲";
+                } else if (seconds >= 30 && seconds < 40) {
+                    grade = "💀";
+                }
+                break;
+            case "medium":
+                if (seconds < 10) {
+                    grade = "Incredible!";
+                } else if (seconds >= 10 && seconds < 20) {
+                    grade = "Excellent";
+                } else if (seconds >= 20 && seconds < 30) {
+                    grade = "Well done";
+                } else if (seconds >= 30 && seconds < 40) {
+                    grade = "Try again";
+                }
+                break;
+            case "hard":
+                if (seconds < 10) {
+                    grade = "John von Neumann reborn";
+                } else if (seconds >= 10 && seconds < 20) {
+                    grade = "Excellent";
+                } else if (seconds >= 20 && seconds < 30) {
+                    grade = "Well done";
+                } else if (seconds >= 30 && seconds < 40) {
+                    grade = "Maybe try an easier difficulty?";
+                }
+
+                break;
+            default:
+                grade = "Hämmästyttävä";
         }
         return grade;
     }
