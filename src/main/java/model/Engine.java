@@ -6,6 +6,7 @@ import java.util.Collections;
 
 public class Engine implements IEngine{
 
+    private  CompareResultType type2;
     private final ModeType type;
     private ArrayList<MemoryObject> memoryObjectsList;
 
@@ -64,12 +65,17 @@ public class Engine implements IEngine{
 
     }
 
+
+    //check if the two cards are the same.
     @Override
-    public Boolean compareObjects(ArrayList<MemoryObject> objectList) {
-        return null;
+    public CompareResultType compareObjects(ArrayList<MemoryObject> objectList) {
+        for(MemoryObject obj: objectList) {
+            if(this.type.equals(obj.getTypeId())){
+                return type2.EQUAL;
+            }
+        }
+        return type2.NOTEQUAL;
     }
-
-
     public String toString() {
 
         return "Pelin tyyppi: " + this.type.toString() + ", Palikoiden määrä: " + memoryObjectsList.size();
