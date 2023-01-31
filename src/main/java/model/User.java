@@ -73,7 +73,7 @@ public class User {
      */
     public User signup(String username) {
         Account account = accountdao.getAccountByName(username);
-        System.out.println("is account null? " + account.toString());
+        System.out.println("is account null? ");
         if (account == null) {
             try {
                 Account a = new Account(username, "tiger");
@@ -113,10 +113,7 @@ public class User {
         if (userId != 0L) {
             String grade = scoreGrader(seconds);
             Leaderboard score = new Leaderboard(dbAccount, seconds, grade, new Date(System.currentTimeMillis()));
-            if (leaderboarddao.saveScores(score) == true) {
-                personalScores.add(score);
-                return true;
-            }
+            return leaderboarddao.saveScores(score);
         }
         return false;
     }
@@ -124,11 +121,17 @@ public class User {
 
     public boolean deleteAccount() {
         try {
-            return accountdao.deleteAccount(instance.userId);
+            boolean deleted = accountdao.deleteAccount(instance.userId);
+            if(deleted == true) {
+                this.username = "Tony the Tiger";
+                this.userId = 0L;
+                return true;
+            }
+
         } catch (Exception e) {
             System.out.println(e);
-            return false;
         }
+        return false;
     }
 
     /**
@@ -183,9 +186,12 @@ public class User {
     }
 
 
+    public Long getUserId() {
+        return userId;
+    }
+
     @Override
     public String toString() {
-
         return "Nimi: " + this.username + ", Käyttäjätunnus: " + this.userId + ", listalla tuloksia: " + personalScores.size();
     }
 }

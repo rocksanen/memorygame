@@ -60,9 +60,12 @@ public class AccountDAO implements IAccountDAO {
     @Override
     public boolean deleteAccount(Long id) {
         EntityManager em = SqlJpaConn.getInstance();
-        em.getTransaction().begin();
         Account acc = em.find(Account.class, id);
         if (id != null) {
+            ILeaderboardDAO leaderboarddao = new LeaderboardDAO();
+            leaderboarddao.deleteAllScores(id);
+            em.getTransaction().begin();
+
             em.remove(acc);
             em.getTransaction().commit();
             return true;

@@ -1,7 +1,6 @@
 package database.dao;
 
 import database.datasource.SqlJpaConn;
-import database.entity.Account;
 import database.entity.Leaderboard;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -63,5 +62,21 @@ public class LeaderboardDAO implements ILeaderboardDAO {
         }
         em.getTransaction().commit();
         return false;
+    }
+
+    @Override
+    public boolean deleteAllScores(Long accountid) {
+        try {
+            EntityManager em = SqlJpaConn.getInstance();
+            em.getTransaction().begin();
+            Query query = em.createQuery("DELETE FROM Leaderboard l WHERE l.accountid.accountid = :accountid");
+            query.setParameter("accountid", accountid);
+            query.executeUpdate();
+            em.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            System.out.println("error deleting all scores from db.." + e);
+            return false;
+        }
     }
 }

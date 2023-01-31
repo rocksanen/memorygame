@@ -11,4 +11,6 @@ public interface ILeaderboardDAO {
     ArrayList<Leaderboard> readWorldScores();
 
     boolean deleteScore(Long scoreid);
+
+    boolean deleteAllScores(Long accountid);
 }
