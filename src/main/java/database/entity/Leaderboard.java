@@ -10,15 +10,15 @@ public class Leaderboard {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private long scoreid;
+    private Long scoreid;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "accountid")
     private Account accountid;
 
     // this could maybe be time (in seconds)
-    private int score;
-    private String grade;
+    private Integer time;
+    private String difficulty;
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date timestamp;
 
@@ -38,14 +38,12 @@ public class Leaderboard {
 
     /**
      * Olion konstruktori, joka asettaa sen kaikille muuttujille arvot.
-     * @param accountid - katso  {@link #accountid}
-     * @param score - katso {@link #score}
      */
-    public Leaderboard(Account accountid, int score, String grade, Date timestamp) {
+    public Leaderboard(Account accountid, Integer time, String difficulty, Date timestamp) {
         this.accountid = accountid;
-        this.score = score;
-        this.grade = grade;
+        this.time = time;
         this.timestamp = timestamp;
+        this.difficulty = difficulty;
     };
 
     public Account getAccountid() {
@@ -56,27 +54,44 @@ public class Leaderboard {
         this.accountid = userid;
     }
 
-    public int getScore() {
-        return score;
+
+
+    public void setAccountid(Account accountid) {
+        this.accountid = accountid;
     }
 
-    public void setScore(int score) {
-        this.score = score;
+    public String getDifficulty() {
+        return difficulty;
     }
 
-    public String getGrade() {
-        return grade;
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
     }
 
-    public void setGrade(String grade) {
-        this.grade = grade;
+    public Integer getTime() {
+        return time;
     }
 
-    public long getScoreid() {
+    public void setTime(Integer seconds) {
+        this.time = seconds;
+    }
+
+    public Long getScoreid() {
         return scoreid;
     }
 
-    public void setScoreid(int scoreid) {
+    public void setScoreid(Long scoreid) {
         this.scoreid = scoreid;
+    }
+
+    @Override
+    public String toString() {
+        return "Leaderboard{" +
+                "scoreid=" + scoreid +
+                ", accountid=" + accountid +
+                ", seconds=" + time +
+                ", difficulty=" + difficulty +
+                ", timestamp=" + timestamp +
+                '}';
     }
 }

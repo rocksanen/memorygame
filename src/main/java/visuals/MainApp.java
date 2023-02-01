@@ -21,22 +21,13 @@ import java.util.List;
 
 public class MainApp extends Application {
     public static void main(String[] args) {
-
-        //User ja hänen tuloslistansa haetaan oikeassa versiossa databasesta sovelluksen käynnistyttyä.
-        ArrayList<Integer> tuloslista = new ArrayList<>();
-        IUser user = new model.User("kalle",1,tuloslista);
-        user.addScore(3500);
-        user.addScore(1200);
-
-        System.out.println(user + "\n");
-
         IEngine engine = new Engine(ModeType.EASY);
         engine.setMemoryObjects();
         engine.suffleObjects();
 
         System.out.println(engine + "\n");
 
-        for(MemoryObject object: engine.getSuffledObjects()) {
+        for (MemoryObject object : engine.getSuffledObjects()) {
 
             System.out.println(
                     "Palikan id-numero: " + object.getIdNumber() +
@@ -52,8 +43,8 @@ public class MainApp extends Application {
         objectList.add(new MemoryObject(3, 3));
 
         MemoryObject testObject = new MemoryObject(4, 1);
-        for(MemoryObject obj: objectList) {
-            if(testObject.compareTo(obj) == 0) {
+        for (MemoryObject obj : objectList) {
+            if (testObject.compareTo(obj) == 0) {
                 System.out.println("objects have the same type.");
                 break;
             }
@@ -62,25 +53,37 @@ public class MainApp extends Application {
 
         /* end TEST for comparing cards! */
 
+        /* TEST for database */
+        User user = User.getInstance();
+        user.signup("eetu");
+        user.login("eetu");
 
-        //test for db connection, remove for 500% faster load times!
-        EntityManager em = SqlJpaConn.getInstance();
+        user.addScore(7000, "intermediate");
+        user.addScore(5000, "intermediate");
 
-        IAccountDAO accountdao = new AccountDAO();
-        Account acc = new Account("tony", "tiger");
-        accountdao.saveAccount(acc);
-
-        ILeaderboardDAO leaderdao = new LeaderboardDAO();
-        Leaderboard lb = new Leaderboard(acc, 30, "Small", new Date(System.currentTimeMillis()));
-        leaderdao.saveScores(lb);
-        Leaderboard lb2 = new Leaderboard(acc, 200, "Large", new Date(System.currentTimeMillis()));
-        leaderdao.saveScores(lb2);
-
-        List<Leaderboard> userscores = leaderdao.getAccountScores(acc.getAccountid());
-        System.out.println("User scores: ");
-        for(Leaderboard score: userscores) {
-            System.out.println(score.getScore() + " " + score.getTimestamp().toString());
+        System.out.println("personal scores: " + user.getPersonalScores().getScores().size());
+        for (Score score : user.getPersonalScores().getScores()) {
+            System.out.println(score.toString());
         }
+
+
+        user.getPersonalScores().deleteScore(user.getPersonalScores().getScores().get(0).getScoreid());
+        System.out.println("deleted first score");
+        System.out.println("personal scores: " + user.getPersonalScores().getScores().size());
+
+
+
+        Scoreboard globalScores = new Scoreboard();
+        globalScores.fetchScores("intermediate");
+
+        System.out.println("global scores: " + globalScores.getScores().size());
+        // print
+        for (Score score : globalScores.getScores()) {
+            System.out.println(score.toString());
+        }
+
+        user.logout();
+        /* end TEST for database */
 
         launch(args);
     }
