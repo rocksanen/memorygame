@@ -1,6 +1,7 @@
 package database.entity;
 
 import jakarta.persistence.*;
+import model.ModeType;
 
 import java.util.Date;
 
@@ -17,8 +18,10 @@ public class Leaderboard {
     private Account accountid;
 
     // this could maybe be time (in seconds)
-    private Integer time;
-    private String difficulty;
+    private Double time;
+
+    @Enumerated(EnumType.STRING)
+    private ModeType modeType;
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date timestamp;
 
@@ -39,11 +42,11 @@ public class Leaderboard {
     /**
      * Olion konstruktori, joka asettaa sen kaikille muuttujille arvot.
      */
-    public Leaderboard(Account accountid, Integer time, String difficulty, Date timestamp) {
+    public Leaderboard(Account accountid, Double time, ModeType modeType, Date timestamp) {
         this.accountid = accountid;
         this.time = time;
         this.timestamp = timestamp;
-        this.difficulty = difficulty;
+        this.modeType = modeType;
     };
 
     public Account getAccountid() {
@@ -60,19 +63,19 @@ public class Leaderboard {
         this.accountid = accountid;
     }
 
-    public String getDifficulty() {
-        return difficulty;
+    public ModeType getDifficulty() {
+        return modeType;
     }
 
-    public void setDifficulty(String difficulty) {
-        this.difficulty = difficulty;
+    public void setDifficulty(ModeType modeType) {
+        this.modeType = modeType;
     }
 
-    public Integer getTime() {
+    public Double getTime() {
         return time;
     }
 
-    public void setTime(Integer seconds) {
+    public void setTime(Double seconds) {
         this.time = seconds;
     }
 
@@ -90,7 +93,7 @@ public class Leaderboard {
                 "scoreid=" + scoreid +
                 ", accountid=" + accountid +
                 ", seconds=" + time +
-                ", difficulty=" + difficulty +
+                ", difficulty=" + modeType +
                 ", timestamp=" + timestamp +
                 '}';
     }

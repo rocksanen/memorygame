@@ -1,14 +1,6 @@
 package visuals;
 
-import database.dao.IAccountDAO;
-import database.dao.AccountDAO;
-import database.dao.ILeaderboardDAO;
-import database.dao.LeaderboardDAO;
-import database.datasource.SqlJpaConn;
-import database.entity.Account;
-import database.entity.Leaderboard;
 import model.*;
-import jakarta.persistence.EntityManager;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,8 +8,6 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class MainApp extends Application {
     public static void main(String[] args) {
