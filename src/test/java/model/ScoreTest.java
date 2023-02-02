@@ -20,7 +20,7 @@ class ScoreTest {
         this.score = new Score(
                 new Leaderboard(
                         new Account("junit", "password"),
-                        9000, "test", date));
+                        9000.0, ModeType.TEST, date));
 
     }
 

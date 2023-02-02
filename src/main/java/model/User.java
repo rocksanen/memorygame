@@ -17,8 +17,8 @@ public class User {
     private Long userId;
     private Scoreboard personalScores;
 
-    private IAccountDAO accountdao = AccountDAO.getInstance();
-    private ILeaderboardDAO leaderboarddao = LeaderboardDAO.getInstance();
+    private IAccountDAO accountdao;
+    private ILeaderboardDAO leaderboarddao;
 
     private static User instance;
 
@@ -26,6 +26,9 @@ public class User {
         this.username = "tony the tiger";
         this.userId = null;
         this.personalScores = null;
+
+        this.accountdao = new AccountDAO();
+        this.leaderboarddao = new LeaderboardDAO();
     }
 
     public static User getInstance() {
@@ -95,7 +98,7 @@ public class User {
         return personalScores;
     }
 
-    public void addScore(int time, String difficulty) {
+    public void addScore(Double time, ModeType difficulty) {
         personalScores.addScore(time, difficulty, username);
     }
 

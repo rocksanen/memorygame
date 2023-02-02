@@ -21,7 +21,7 @@ public class Leaderboard {
     private Double time;
 
     @Enumerated(EnumType.STRING)
-    private ModeType modeType;
+    private ModeType difficulty;
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date timestamp;
 
@@ -42,11 +42,11 @@ public class Leaderboard {
     /**
      * Olion konstruktori, joka asettaa sen kaikille muuttujille arvot.
      */
-    public Leaderboard(Account accountid, Double time, ModeType modeType, Date timestamp) {
+    public Leaderboard(Account accountid, Double time, ModeType difficulty, Date timestamp) {
         this.accountid = accountid;
         this.time = time;
         this.timestamp = timestamp;
-        this.modeType = modeType;
+        this.difficulty = difficulty;
     };
 
     public Account getAccountid() {
@@ -64,11 +64,11 @@ public class Leaderboard {
     }
 
     public ModeType getDifficulty() {
-        return modeType;
+        return difficulty;
     }
 
-    public void setDifficulty(ModeType modeType) {
-        this.modeType = modeType;
+    public void setDifficulty(ModeType difficulty) {
+        this.difficulty = difficulty;
     }
 
     public Double getTime() {
@@ -93,7 +93,7 @@ public class Leaderboard {
                 "scoreid=" + scoreid +
                 ", accountid=" + accountid +
                 ", seconds=" + time +
-                ", difficulty=" + modeType +
+                ", difficulty=" + difficulty +
                 ", timestamp=" + timestamp +
                 '}';
     }

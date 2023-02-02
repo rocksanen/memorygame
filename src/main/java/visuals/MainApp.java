@@ -48,8 +48,8 @@ public class MainApp extends Application {
         user.signup("eetu");
         user.login("eetu");
 
-        user.addScore(7000, "intermediate");
-        user.addScore(5000, "intermediate");
+        user.addScore(7000.0, ModeType.TEST);
+        user.addScore(5000.0, ModeType.TEST);
 
         System.out.println("personal scores: " + user.getPersonalScores().getScores().size());
         for (Score score : user.getPersonalScores().getScores()) {
@@ -64,7 +64,7 @@ public class MainApp extends Application {
 
 
         Scoreboard globalScores = new Scoreboard();
-        globalScores.fetchScores("intermediate");
+        globalScores.fetchScores(ModeType.TEST);
 
         System.out.println("global scores: " + globalScores.getScores().size());
         // print
