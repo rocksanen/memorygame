@@ -11,17 +11,46 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
+/**
+ * Singleton class for the User
+ * Contains the username, id, and personal scores of the player
+ * Also contains the DAO classes for database connection
+ *
+ * @author Eetu Soronen
+ * @version 1
+ */
 public class User {
 
+    /**
+     * Singleton instance of the User class
+     */
+    private static User instance;
+    /**
+     * Username of the player
+     */
     private String username;
+    /**
+     * Id of the player, retrieved from the database.
+     */
     private Long userId;
+    /**
+     * Personal scores of the player
+     */
     private Scoreboard personalScores;
-
+    /**
+     * DAO class for database connection
+     */
     private IAccountDAO accountdao;
+    /**
+     * DAO class for database connection
+     */
     private ILeaderboardDAO leaderboarddao;
 
-    private static User instance;
-
+    /**
+     * Private constructor for the User class
+     * Initializes the username, id and personal scores
+     * Also initializes the DAO classes
+     */
     private User() {
         this.username = "tony the tiger";
         this.userId = null;
@@ -31,6 +60,13 @@ public class User {
         this.leaderboarddao = new LeaderboardDAO();
     }
 
+    /**
+     * getInstance method for the User class.
+     * Returns the singleton instance of the User class.
+     * If this does not exist creates it.
+     *
+     * @return - see {@link #instance}
+     */
     public static User getInstance() {
         if (instance == null) {
             instance = new User();
@@ -40,9 +76,10 @@ public class User {
 
 
     /**
-     * Searches username from database and returns the updated the User object
-     * @param username
-     * @return
+     * Searches username from database and updates the instance variables
+     *
+     * @param username - see {@link #username}
+     * @return true or false depending success of the login
      */
     public boolean login(String username) {
         try {
@@ -57,7 +94,8 @@ public class User {
             }
 
         } catch (Exception e) {
-            System.out.println("Username not found!" + e);;
+            System.out.println("Username not found!" + e);
+            ;
         }
         return false;
     }
@@ -65,8 +103,10 @@ public class User {
 
     /**
      * Searches username from db, creates it if it does not exist
+     * and updates the instance variables
+     *
      * @param username
-     * @return
+     * @return true or false depending success of the signup
      */
     public boolean signup(String username) {
         // save account
@@ -83,10 +123,20 @@ public class User {
         return true;
     }
 
+    /**
+     * Getter for the username
+     *
+     * @return - see {@link #username}
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Logs out the user and resets the instance variables
+     *
+     * @return true
+     */
     public boolean logout() {
         this.username = "tony the tiger";
         this.userId = null;
@@ -94,19 +144,35 @@ public class User {
         return true;
     }
 
+    /**
+     * Getter for the personal scores
+     *
+     * @return - see {@link #personalScores}
+     */
     public Scoreboard getPersonalScores() {
         return personalScores;
     }
 
+    /**
+     * Adds a score to the personal scores
+     *
+     * @param time       - see {@link Scoreboard#addScore(Double, ModeType, String)}
+     * @param difficulty - see {@link Scoreboard#addScore(Double, ModeType, String)}
+     */
     public void addScore(Double time, ModeType difficulty) {
         personalScores.addScore(time, difficulty, username);
     }
 
+    /**
+     * Deletes the account from the database
+     *
+     * @return true or false depending success of the deletion
+     */
     public boolean deleteAccount() {
         if (userId == null) return false;
         try {
             boolean deleted = accountdao.deleteAccount(instance.userId);
-            if(deleted == true) {
+            if (deleted == true) {
                 return logout();
             }
 
@@ -116,10 +182,20 @@ public class User {
         return false;
     }
 
+    /**
+     * Getter for the userId
+     *
+     * @return - see {@link #userId}
+     */
     public Long getUserId() {
         return userId;
     }
 
+    /**
+     * To string method for the User class
+     *
+     * @return String represenation of the class
+     */
     @Override
     public String toString() {
         return "User{" +

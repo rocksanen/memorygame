@@ -3,31 +3,35 @@ package database.datasource;
 import jakarta.persistence.*;
 
 /**
- * Singleton luokka, joka luo EntityManagerin,
- * joka huolehtii tietokannan ja ohjelman välisestä yhteydenpidosta
+ * Singleton classs, that creates EntityManager,
+ * which handles the connection between the database and the program
+ *
  * @author Eetu Soronen
  * @version 1
  */
 public class SqlJpaConn {
 
     /**
-     * EntityMaagerFactory luo entitymanagerin
+     * EntityManageFactory creates the EntityManager.
      */
     private static EntityManagerFactory emf = null;
+
     /**
-     * entitymanager olio, joka välittää tietoa ohjelman ja tietokanna välillä
+     * EntityManager handles the connection between the database and the program.
      */
     private static EntityManager em = null;
 
+
     /**
-     * Singletonin konstruktori, joka luo entitymanagerin jos sitä ei ole olemassa
-     * tai palauttaa sen jos se on jo luotu.
-     * @return palauttaa EntityManagerin
+     * Singleton constructor, which creates the entitymanager if it doesn't exist
+     * or returns it if it already exists.
+     *
+     * @return returns the EntityManager
      */
     public static EntityManager getInstance() {
 
-        if (em==null) {
-            if (emf==null) {
+        if (em == null) {
+            if (emf == null) {
                 emf = Persistence.createEntityManagerFactory("DevPU");
             }
             em = emf.createEntityManager();

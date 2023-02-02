@@ -5,7 +5,6 @@ import database.entity.Leaderboard;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import model.ModeType;
-
 import java.util.ArrayList;
 
 public class LeaderboardDAO implements ILeaderboardDAO {
