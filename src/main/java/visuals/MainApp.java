@@ -7,10 +7,13 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainApp extends Application {
     public static void main(String[] args) {
+
+        /*
         IEngine engine = new Engine(ModeType.EASY);
         engine.setMemoryObjects();
         engine.suffleObjects();
@@ -27,6 +30,7 @@ public class MainApp extends Application {
         }
 
         /* TEST for comparing cards! */
+        /*
         ArrayList<MemoryObject> objectList = new ArrayList<>();
         objectList.add(new MemoryObject(1, 1));
         objectList.add(new MemoryObject(2, 2));
@@ -44,6 +48,7 @@ public class MainApp extends Application {
         /* end TEST for comparing cards! */
 
         /* TEST for database */
+        /*
         User user = User.getInstance();
         user.signup("eetu");
         user.login("eetu");
@@ -75,19 +80,12 @@ public class MainApp extends Application {
         user.logout();
         /* end TEST for database */
 
-        launch(args);
+        visuals.Gui.main(args);
     }
 
     @Override
-    public void start(Stage primaryStage) {
-        primaryStage.setTitle("Hello World!");
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(event -> System.out.println("Hello World!"));
-
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        primaryStage.setScene(new Scene(root, 300, 250));
-        primaryStage.show();
+    public void start(Stage arg0) throws IOException {
+        Gui gui = new Gui();
+        gui.start(arg0);
     }
 }

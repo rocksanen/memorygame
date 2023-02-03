@@ -10,5 +10,9 @@ public interface IEngine {
     CompareResultType compareObjects(ArrayList<MemoryObject> objectList);
     void setMemoryObjects();
     void addMemoryObjectsToList(Integer amount);
+    void addToComparing(int i);
+    void clearPair(ArrayList<MemoryObject> memoryList);
+    void setWorldScore();
+    void setPersonalScore();
 
 }

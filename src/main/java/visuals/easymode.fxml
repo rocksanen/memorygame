@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1150.0" style="-fx-background-color: beige;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.Gui">
+    <children>
+        <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <VBox prefHeight="700.0" prefWidth="350.0">
+                    <children>
+                        <Label prefHeight="58.0" prefWidth="278.0" text="World scores">
+                            <font>
+                                <Font name="Yu Gothic Regular" size="39.0" />
+                            </font>
+                        </Label>
+                        <ListView fx:id="worldScores" prefHeight="247.0" prefWidth="278.0" />
+                        <Label prefHeight="58.0" prefWidth="278.0" text="Your scores">
+                            <font>
+                                <Font name="Yu Gothic Regular" size="39.0" />
+                            </font>
+                        </Label>
+                        <ListView fx:id="personalScores" prefHeight="261.0" prefWidth="278.0" />
+                    </children></VBox>
+                <HBox prefHeight="700.0" prefWidth="468.0">
+                    <HBox.margin>
+                        <Insets bottom="100.0" left="100.0" right="100.0" top="100.0" />
+                    </HBox.margin>
+                    <children>
+                        <GridPane gridLinesVisible="true" prefHeight="500.0" prefWidth="466.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <Label fx:id="eL0" prefHeight="36.0" prefWidth="54.0">
+                                    <GridPane.margin>
+                                        <Insets bottom="100.0" left="80.0" right="60.0" top="60.0" />
+                                    </GridPane.margin>
+                           <font>
+                              <Font size="60.0" />
+                           </font>
+                                </Label>
+                                <Label fx:id="eL1" layoutX="110.0" layoutY="76.0" prefHeight="36.0" prefWidth="54.0" GridPane.rowIndex="1">
+                                    <GridPane.margin>
+                                        <Insets bottom="100.0" left="80.0" right="60.0" top="60.0" />
+                                    </GridPane.margin>
+                           <font>
+                              <Font size="60.0" />
+                           </font>
+                                </Label>
+                                <Label fx:id="eL2" layoutX="10.0" layoutY="76.0" prefHeight="36.0" prefWidth="54.0" GridPane.rowIndex="2">
+                                    <GridPane.margin>
+                                        <Insets bottom="100.0" left="80.0" right="60.0" top="60.0" />
+                                    </GridPane.margin>
+                           <font>
+                              <Font size="60.0" />
+                           </font>
+                                </Label>
+                                <Label fx:id="eL3" layoutX="10.0" layoutY="76.0" prefHeight="36.0" prefWidth="54.0" GridPane.columnIndex="1">
+                                    <GridPane.margin>
+                                        <Insets bottom="100.0" left="80.0" right="60.0" top="60.0" />
+                                    </GridPane.margin>
+                           <font>
+                              <Font size="60.0" />
+                           </font>
+                                </Label>
+                                <Label fx:id="eL4" layoutX="10.0" layoutY="76.0" prefHeight="36.0" prefWidth="54.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <GridPane.margin>
+                                        <Insets bottom="100.0" left="80.0" right="60.0" top="60.0" />
+                                    </GridPane.margin>
+                           <font>
+                              <Font size="60.0" />
+                           </font>
+                                </Label>
+                                <Label fx:id="eL5" layoutX="10.0" layoutY="76.0" prefHeight="36.0" prefWidth="54.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                    <GridPane.margin>
+                                        <Insets bottom="100.0" left="80.0" right="60.0" top="60.0" />
+                                    </GridPane.margin>
+                           <font>
+                              <Font size="60.0" />
+                           </font>
+                                </Label>
+                                <Button fx:id="eB0" mnemonicParsing="false" onMouseClicked="#eButton0" prefHeight="44.0" prefWidth="87.0" text="Paina perkele">
+                                    <GridPane.margin>
+                                        <Insets left="50.0" top="100.0" />
+                                    </GridPane.margin>
+                                </Button>
+                                <Button fx:id="eB1" layoutX="80.0" layoutY="131.0" mnemonicParsing="false" onMouseClicked="#eButton1" prefHeight="44.0" text="Paina perkele" GridPane.rowIndex="1">
+                                    <GridPane.margin>
+                                        <Insets left="50.0" top="100.0" />
+                                    </GridPane.margin>
+                                </Button>
+                                <Button fx:id="eB2" layoutX="10.0" layoutY="80.0" mnemonicParsing="false" onMouseClicked="#eButton2" prefHeight="44.0" text="Paina perkele" GridPane.rowIndex="2">
+                                    <GridPane.margin>
+                                        <Insets left="50.0" top="100.0" />
+                                    </GridPane.margin>
+                                </Button>
+                                <Button fx:id="eB3" layoutX="10.0" layoutY="80.0" mnemonicParsing="false" onMouseClicked="#eButton3" prefHeight="44.0" text="Paina perkele" GridPane.columnIndex="1">
+                                    <GridPane.margin>
+                                        <Insets left="50.0" top="100.0" />
+                                    </GridPane.margin>
+                                </Button>
+                                <Button fx:id="eB4" layoutX="10.0" layoutY="80.0" mnemonicParsing="false" onMouseClicked="#eButton4" prefHeight="44.0" text="Paina perkele" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <GridPane.margin>
+                                        <Insets left="50.0" top="100.0" />
+                                    </GridPane.margin>
+                                </Button>
+                                <Button fx:id="eB5" layoutX="10.0" layoutY="80.0" mnemonicParsing="false" onMouseClicked="#eButton5" prefHeight="44.0" text="Paina perkele" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                    <GridPane.margin>
+                                        <Insets left="50.0" top="100.0" />
+                                    </GridPane.margin>
+                                </Button>
+                            </children>
+                        </GridPane>
+                    </children>
+                </HBox>
+                <VBox prefHeight="700.0" prefWidth="350.0">
+                    <children>
+                        <Button fx:id="startEasyGame" mnemonicParsing="false" onMouseClicked="#setStartEasyGame" prefHeight="26.0" prefWidth="157.0" text="Start Easy Game">
+                            <VBox.margin>
+                                <Insets top="300.0" />
+                            </VBox.margin>
+                        </Button>
+                    </children></VBox>
+            </children>
+        </HBox>
+      <ImageView fitHeight="541.0" fitWidth="869.0">
+         <image>
+            <Image url="@../../resources/testi.jpg" />
+         </image>
+      </ImageView>
+    </children>
+</AnchorPane>
