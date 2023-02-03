@@ -8,8 +8,8 @@ public class Score {
 
     private String username;
     private Long scoreid;
-    private int time;
-    private String difficulty;
+    private Double time;
+    private ModeType modeType;
     private Date timestamp;
     private String grade;
 
@@ -18,8 +18,8 @@ public class Score {
         this.username = lb.getAccountid().getUsername();
         this.time = lb.getTime();
         this.timestamp = lb.getTimestamp();
-        this.difficulty = lb.getDifficulty();
-        this.grade = scoreGrader(time, difficulty);
+        this.modeType = lb.getDifficulty();
+        this.grade = scoreGrader(time, modeType);
         this.scoreid = lb.getScoreid();
     }
 
@@ -29,12 +29,12 @@ public class Score {
         return username;
     }
 
-    public int getTime() {
+    public Double getTime() {
         return time;
     }
 
-    public String getDifficulty() {
-        return difficulty;
+    public ModeType getDifficulty() {
+        return modeType;
     }
 
     public String getGrade() {
@@ -54,12 +54,12 @@ public class Score {
      * 3 difficulties, 4 grades each
      * 💀
      * @param seconds
-     * @param difficulty
+     * @param modeType
      * @return
      */
-    private String scoreGrader(int seconds, String difficulty) {
+    private String scoreGrader(Double seconds, ModeType modeType) {
 
-        switch (difficulty) {
+        switch (modeType.toString()) {
             case "easy":
                 if (seconds < 10) {
                     grade = "🎉";
@@ -106,7 +106,7 @@ public class Score {
                 "username='" + username + '\'' +
                 ", scoreid=" + scoreid +
                 ", time=" + time +
-                ", difficulty='" + difficulty + '\'' +
+                ", difficulty='" + modeType + '\'' +
                 ", timestamp=" + timestamp +
                 ", grade='" + grade + '\'' +
                 '}';

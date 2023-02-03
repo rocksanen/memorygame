@@ -1,8 +1,5 @@
 package model;
 
 public enum ModeType {
-
-    EASY,
-    MEDIUM,
-    HARD
+    EASY, MEDIUM, HARD, IMPOSSIBLE, TEST
 }

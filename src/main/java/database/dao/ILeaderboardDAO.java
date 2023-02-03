@@ -1,6 +1,7 @@
 package database.dao;
 
 import database.entity.Leaderboard;
+import model.ModeType;
 
 import java.util.ArrayList;
 
@@ -9,12 +10,9 @@ public interface ILeaderboardDAO {
 
     ArrayList<Leaderboard> getAccountScores(Long accountid);
 
-    ArrayList<Leaderboard> readWorldScores(String difficulty);
+    ArrayList<Leaderboard> readWorldScores(ModeType difficulty);
 
-    ArrayList<Leaderboard> getAccountScoresByDifficulty(Long accountid, String difficulty);
-
-    // does work
-    ArrayList<Leaderboard> readWorldScoresByDifficulty(int difficulty);
+    ArrayList<Leaderboard> getAccountScoresByDifficulty(Long accountid, ModeType difficulty);
 
     boolean deleteScore(Long scoreid);
 

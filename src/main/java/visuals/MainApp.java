@@ -1,14 +1,6 @@
 package visuals;
 
-import database.dao.IAccountDAO;
-import database.dao.AccountDAO;
-import database.dao.ILeaderboardDAO;
-import database.dao.LeaderboardDAO;
-import database.datasource.SqlJpaConn;
-import database.entity.Account;
-import database.entity.Leaderboard;
 import model.*;
-import jakarta.persistence.EntityManager;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,8 +9,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class MainApp extends Application {
     public static void main(String[] args) {
@@ -63,8 +53,8 @@ public class MainApp extends Application {
         user.signup("eetu");
         user.login("eetu");
 
-        user.addScore(7000, "intermediate");
-        user.addScore(5000, "intermediate");
+        user.addScore(7000.0, ModeType.TEST);
+        user.addScore(5000.0, ModeType.TEST);
 
         System.out.println("personal scores: " + user.getPersonalScores().getScores().size());
         for (Score score : user.getPersonalScores().getScores()) {
@@ -79,7 +69,7 @@ public class MainApp extends Application {
 
 
         Scoreboard globalScores = new Scoreboard();
-        globalScores.fetchScores("intermediate");
+        globalScores.fetchScores(ModeType.TEST);
 
         System.out.println("global scores: " + globalScores.getScores().size());
         // print

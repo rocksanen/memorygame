@@ -4,26 +4,16 @@ import database.datasource.SqlJpaConn;
 import database.entity.Leaderboard;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
-
+import model.ModeType;
 import java.util.ArrayList;
 
 public class LeaderboardDAO implements ILeaderboardDAO {
-
-    // make this a singleton
-    private static LeaderboardDAO instance = null;
-    private LeaderboardDAO() {}
-    public static LeaderboardDAO getInstance() {
-        if (instance == null) {
-            instance = new LeaderboardDAO();
-        }
-        return instance;
-    }
 
 
     @Override
     public boolean saveScore(Leaderboard lb) {
         // check if account exists
-        AccountDAO accountDAO = AccountDAO.getInstance();
+        IAccountDAO accountDAO = new AccountDAO();
         if (accountDAO.getAccount(lb.getAccountid().getAccountid()) == null) {
             return false;
         }
@@ -57,7 +47,7 @@ public class LeaderboardDAO implements ILeaderboardDAO {
     }
 
     @Override
-    public ArrayList<Leaderboard> getAccountScoresByDifficulty(Long accountid, String difficulty) {
+    public ArrayList<Leaderboard> getAccountScoresByDifficulty(Long accountid, ModeType difficulty) {
         System.out.println("getAccountScores " + accountid);
         EntityManager em = SqlJpaConn.getInstance();
         // why is accountid typed twice? ¯\_(ツ)_/¯
@@ -73,7 +63,7 @@ public class LeaderboardDAO implements ILeaderboardDAO {
      * @return
      */
     @Override
-    public ArrayList<Leaderboard> readWorldScores(String difficulty) {
+    public ArrayList<Leaderboard> readWorldScores(ModeType difficulty) {
         System.out.println("readWorldScores");
         EntityManager em = SqlJpaConn.getInstance();
         // why is accountid typed twice? ¯\_(ツ)_/¯
@@ -83,16 +73,6 @@ public class LeaderboardDAO implements ILeaderboardDAO {
         return scores;
     }
 
-    // does work
-    @Override
-    public ArrayList<Leaderboard> readWorldScoresByDifficulty(int difficulty) {
-        EntityManager em = SqlJpaConn.getInstance();
-        // why is accountid typed twice? ¯\_(ツ)_/¯
-        Query query = em.createQuery("SELECT l FROM Leaderboard l WHERE l.difficulty = :difficulty ORDER BY time DESC limit 100");
-        query.setParameter("difficulty", difficulty);
-        ArrayList<Leaderboard> scores = (ArrayList<Leaderboard>) query.getResultList();
-        return scores;
-    }
     @Override
     public boolean deleteScore(Long scoreid) {
         System.out.println("deleteScore " + scoreid);

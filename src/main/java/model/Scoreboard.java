@@ -16,8 +16,8 @@ import java.util.List;
  *
  */
 public class Scoreboard {
-    private static ILeaderboardDAO leaderboarddao = LeaderboardDAO.getInstance();
-    private static IAccountDAO accountdao = AccountDAO.getInstance();
+    private static ILeaderboardDAO leaderboarddao = new LeaderboardDAO();
+    private static IAccountDAO accountdao = new AccountDAO();
 
     private ArrayList<Score> scores;
 
@@ -32,7 +32,7 @@ public class Scoreboard {
         }
     }
 
-    public void addScore(Integer time, String difficulty, String username) {
+    public void addScore(Double time, ModeType difficulty, String username) {
         Account a = accountdao.getAccountByName(username);
         Leaderboard lb = new Leaderboard(a, time, difficulty, new Date());
         leaderboarddao.saveScore(lb);
@@ -59,7 +59,7 @@ public class Scoreboard {
      * Fetch global scores of select difficulty, sorted by time
      * @param difficulty
      */
-    public void fetchScores(String difficulty) {
+    public void fetchScores(ModeType difficulty) {
         this.scores = new ArrayList<>();
         List<Leaderboard> leaderboards = leaderboarddao.readWorldScores(difficulty);
         for (Leaderboard lb : leaderboards){
@@ -72,7 +72,7 @@ public class Scoreboard {
      * @param userid
      * @param difficulty
      */
-    public void fetchScores(Long userid, String difficulty) {
+    public void fetchScores(Long userid, ModeType difficulty) {
         this.scores = new ArrayList<>();
         List<Leaderboard> leaderboards = leaderboarddao.getAccountScoresByDifficulty(userid, difficulty);
         for (Leaderboard lb : leaderboards){
