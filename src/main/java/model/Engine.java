@@ -24,10 +24,6 @@ public class Engine implements IEngine{
         this.type = type;
         this.controller = controller;
 
-        URL url = getClass().getResource("resources/testi.jpg");
-        System.out.println(url);
-
-
     }
 
     @Override
@@ -131,20 +127,16 @@ public class Engine implements IEngine{
         });
     }
 
+
     @Override
-    public void setWorldScore() {
+    public void setPersonalScore() {
 
         ArrayList<String> lista = new ArrayList<>();
         lista.add("Eetu Soronen 500");
         lista.add("Hasan Safradi 700");
         lista.add("Samu Oksala 600");
 
-        controller.setWorldScore(lista);
-
-    }
-
-    @Override
-    public void setPersonalScore() {
+        controller.setPersonalScore(lista);
 
     }
 
@@ -163,7 +155,7 @@ public class Engine implements IEngine{
         if(Objects.equals(objectList.get(0).getTypeId(), objectList.get(1).getTypeId())) {
 
             System.out.println("Jee jee");
-            setWorldScore();
+            setPersonalScore();
 
             return type2.EQUAL;
 

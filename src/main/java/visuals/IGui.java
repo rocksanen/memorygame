@@ -13,7 +13,9 @@ public interface IGui {
     void clearTable();
     void clearPair(ArrayList<MemoryObject> memoryList);
 
-    void setWorldScore(ArrayList<String> worldList);
+    void getWorldScore(ArrayList<String> worldList);
     void setPersonalScores(ArrayList<String> personalList);
+
+    void setWorldScore();
 
 }
