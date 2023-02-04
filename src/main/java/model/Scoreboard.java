@@ -1,5 +1,7 @@
 package model;
 
+import controller.IControllerScoreToV;
+import controller.IControllerVtoE;
 import database.dao.AccountDAO;
 import database.dao.IAccountDAO;
 import database.dao.ILeaderboardDAO;
@@ -19,6 +21,8 @@ public class Scoreboard {
     private static ILeaderboardDAO leaderboarddao = new LeaderboardDAO();
     private static IAccountDAO accountdao = new AccountDAO();
 
+    private IControllerScoreToV controller;
+
     private ArrayList<Score> scores;
 
     public Scoreboard() {
@@ -30,6 +34,12 @@ public class Scoreboard {
         for (Leaderboard lb : leaderboards){
             this.scores.add(new Score(lb));
         }
+    }
+
+    public Scoreboard(IControllerScoreToV controller) {
+
+        this.controller = controller;
+
     }
 
     public void addScore(Double time, ModeType difficulty, String username) {
@@ -60,11 +70,33 @@ public class Scoreboard {
      * @param difficulty
      */
     public void fetchScores(ModeType difficulty) {
+
+        ArrayList<String> test = new ArrayList<>();
+        test.add("100");
+        test.add("200");
+        test.add("300");
+
+        // Tänne Eetu lähetät listan joka on muotoa <String>
+        // Gui-luokassa rivillä 210-214 (tällä hetkellä :D) on metodi "setWorldScore()",
+        // jossa voit vaihdella ModeType parametria testejäsi varten
+        controller.getWorldScore(test);
+
+        /*
         this.scores = new ArrayList<>();
         List<Leaderboard> leaderboards = leaderboarddao.readWorldScores(difficulty);
         for (Leaderboard lb : leaderboards){
             this.scores.add(new Score(lb));
         }
+        ArrayList<String> listToVisuals = new ArrayList<>();
+
+        for(Score score: scores) {
+
+            listToVisuals.add(score.getUsername());
+
+        }
+        controller.setWorldScore(listToVisuals);
+
+         */
     }
 
     /**

@@ -1,12 +1,17 @@
 package visuals;
 
 import controller.Controller;
+import controller.IControllerScoreToV;
 import controller.IControllerVtoE;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,19 +21,23 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.PhongMaterial;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.MemoryObject;
+import model.ModeType;
+import model.Scoreboard;
+
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Timer;
 
 public class Gui extends Application implements IGui{
 
     private final IControllerVtoE controller = new Controller(this);
+    private final IControllerScoreToV scoreController = new Controller(this);
+    private final Scoreboard scoreboard = new Scoreboard(scoreController);
     private final String EASYMODE = "/visuals/easymode.fxml";
-
-    private ArrayList<MemoryObject> memo;
-    private ObservableList<String> worldObservable;
-    private ObservableList<String> personObservable;
 
     Stage primaryStage;
 
@@ -70,21 +79,29 @@ public class Gui extends Application implements IGui{
     @FXML
     ListView<String> worldScores;
 
-    private ArrayList<Label> labelList;
+
+
 
     public static void main(String[] args) {launch(args);}
+
 
     @Override
     public void start(Stage primaryStage) throws IOException {
 
         this.primaryStage = primaryStage;
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(EASYMODE)));
-        Scene scene = new Scene(root,1150,700);
+
+        Node worldScoresNode = root.lookup("#worldScores");
+        if (worldScoresNode instanceof ListView<?>) {
+            worldScores = (ListView<String>) worldScoresNode;
+            setWorldScore();
+        }
+
+        Scene scene = new Scene(root, 1150, 700);
         this.primaryStage.setScene(scene);
         this.primaryStage.setFullScreenExitHint ("");
         this.primaryStage.setResizable(true);
         this.primaryStage.show();
-
     }
     @Override
     public void init() {
@@ -104,13 +121,7 @@ public class Gui extends Application implements IGui{
         eL5 = new Label();
 
         personalScores = new ListView<>();
-        worldScores = new ListView<>();
-
-        worldObservable = FXCollections.observableArrayList();
-        personObservable = FXCollections.observableArrayList();
-
         startEasyGame = new Button();
-
     }
 
     @FXML
@@ -171,11 +182,10 @@ public class Gui extends Application implements IGui{
     }
 
     @Override
-    public void setWorldScore(ArrayList<String> worldList) {
-
+    public void getWorldScore(ArrayList<String> worldList) {
 
         // Create an observable list from the worldList
-        worldObservable = FXCollections.observableArrayList();
+        ObservableList<String> worldObservable = FXCollections.observableArrayList();
 
         // Add all the elements from the worldList to the worldObservable
         worldObservable.addAll(worldList);
@@ -186,10 +196,20 @@ public class Gui extends Application implements IGui{
     }
 
     @Override
-    public void setPersonalScores(ArrayList<String> personalList) {
+    public void setWorldScore() {
 
-        personObservable.addAll(personalList);
-        personalScores = new ListView<>(personObservable);
+        scoreboard.fetchScores(ModeType.EASY);
 
     }
+
+    @Override
+    public void setPersonalScores(ArrayList<String> personalList) {
+
+        ObservableList<String> personObservable = FXCollections.observableArrayList();
+        personObservable.addAll(personalList);
+        personalScores.getItems().addAll(personObservable);
+
+    }
+
+
 }

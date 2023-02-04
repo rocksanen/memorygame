@@ -1,18 +1,17 @@
 package controller;
 
 import javafx.application.Platform;
-import model.Engine;
-import model.IEngine;
-import model.MemoryObject;
-import model.ModeType;
+import model.*;
 import visuals.IGui;
 
 import java.util.ArrayList;
 
-public class Controller implements IControllerVtoE, IControllerEtoV {
+public class Controller implements IControllerVtoE, IControllerEtoV, IControllerScoreToV {
 
     private final IGui ui;
     private IEngine engine;
+
+    private Scoreboard scoreboard;
     public Controller(IGui ui) {
 
         this.ui = ui;
@@ -78,17 +77,16 @@ public class Controller implements IControllerVtoE, IControllerEtoV {
     }
 
     @Override
-    public void setWorldScore(ArrayList<String> worldScoreList) {
-
-       Platform.runLater(() -> ui.setWorldScore(worldScoreList));
-    }
-
-    @Override
     public void setPersonalScore(ArrayList<String> personalScoreList) {
 
         Platform.runLater(() -> ui.setPersonalScores(personalScoreList));
 
     }
 
+    @Override
+    public void getWorldScore(ArrayList<String> worldScoreList) {
 
+        Platform.runLater(() -> ui.getWorldScore(worldScoreList));
+
+    }
 }

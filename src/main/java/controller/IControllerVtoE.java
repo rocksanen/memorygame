@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.ArrayList;
+
 public interface IControllerVtoE {
 
     void startEasyGame();
@@ -9,6 +11,7 @@ public interface IControllerVtoE {
     void eB3(int i);
     void eB4(int i);
     void eB5(int i);
+
 
 
 
