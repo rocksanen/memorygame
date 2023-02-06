@@ -1,46 +1,209 @@
 package model;
 
+import database.dao.AccountDAO;
+import database.dao.IAccountDAO;
+import database.dao.ILeaderboardDAO;
+import database.dao.LeaderboardDAO;
+import database.entity.Account;
+import database.entity.Leaderboard;
+
 import java.util.ArrayList;
+import java.util.Date;
 
-public class User implements IUser{
 
-    private final String name;
-    private final Integer userId;
-    private final ArrayList<Integer> scoreList;
+/**
+ * Singleton class for the User
+ * Contains the username, id, and personal scores of the player
+ * Also contains the DAO classes for database connection
+ *
+ * @author Eetu Soronen
+ * @version 1
+ */
+public class User {
 
-    public User(String name, Integer userId, ArrayList<Integer> scoreList) {
+    /**
+     * Singleton instance of the User class
+     */
+    private static User instance;
+    /**
+     * Username of the player
+     */
+    private String username;
+    /**
+     * Id of the player, retrieved from the database.
+     */
+    private Long userId;
+    /**
+     * Personal scores of the player
+     */
+    private Scoreboard personalScores;
+    /**
+     * DAO class for database connection
+     */
+    private IAccountDAO accountdao;
+    /**
+     * DAO class for database connection
+     */
+    private ILeaderboardDAO leaderboarddao;
 
-        this.name = name;
-        this.userId = userId;
-        this.scoreList = scoreList;
+    /**
+     * Private constructor for the User class
+     * Initializes the username, id and personal scores
+     * Also initializes the DAO classes
+     */
+    private User() {
+        this.username = "tony the tiger";
+        this.userId = null;
+        this.personalScores = null;
 
+        this.accountdao = new AccountDAO();
+        this.leaderboarddao = new LeaderboardDAO();
     }
+
+    /**
+     * getInstance method for the User class.
+     * Returns the singleton instance of the User class.
+     * If this does not exist creates it.
+     *
+     * @return - see {@link #instance}
+     */
+    public static User getInstance() {
+        if (instance == null) {
+            instance = new User();
+        }
+        return instance;
+    }
+
+
+    /**
+     * Searches username from database and updates the instance variables
+     *
+     * @param username - see {@link #username}
+     * @return true or false depending success of the login
+     */
+    public boolean login(String username) {
+        try {
+            Account account = accountdao.getAccountByName(username);
+            System.out.println("sTRINGIFYING ACCOUNT: " + account.toString() + "");
+
+            if (account.getAccountid() != null) {
+                this.userId = account.getAccountid();
+                this.username = account.getUsername();
+                this.personalScores = new Scoreboard(leaderboarddao.getAccountScores(userId));
+                return true;
+            }
+
+        } catch (Exception e) {
+            System.out.println("Username not found!" + e);
+            ;
+        }
+        return false;
+    }
+
+
+    /**
+     * Searches username from db, creates it if it does not exist
+     * and updates the instance variables
+     *
+     * @param username
+     * @return true or false depending success of the signup
+     */
+    public boolean signup(String username) {
+        // save account
+        Long id = accountdao.saveAccount(new Account(username, "tiger"));
+        if (id != null) {
+            System.out.println("Username already exists!");
+            return false;
+        }
+
+        Account account = accountdao.getAccountByName(username);
+        this.userId = account.getAccountid();
+        this.username = account.getUsername();
+        this.personalScores = new Scoreboard(leaderboarddao.getAccountScores(userId));
+        return true;
+    }
+
+    /**
+     * Getter for the username
+     *
+     * @return - see {@link #username}
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * Logs out the user and resets the instance variables
+     *
+     * @return true
+     */
+    public boolean logout() {
+        this.username = "tony the tiger";
+        this.userId = null;
+        this.personalScores = null;
+        return true;
+    }
+
+    /**
+     * Getter for the personal scores
+     *
+     * @return - see {@link #personalScores}
+     */
+    public Scoreboard getPersonalScores() {
+        return personalScores;
+    }
+
+    /**
+     * Adds a score to the personal scores
+     *
+     * @param time       - see {@link Scoreboard#addScore(Double, ModeType, String)}
+     * @param difficulty - see {@link Scoreboard#addScore(Double, ModeType, String)}
+     */
+    public void addScore(Double time, ModeType difficulty) {
+        personalScores.addScore(time, difficulty, username);
+    }
+
+    /**
+     * Deletes the account from the database
+     *
+     * @return true or false depending success of the deletion
+     */
+    public boolean deleteAccount() {
+        if (userId == null) return false;
+        try {
+            boolean deleted = accountdao.deleteAccount(instance.userId);
+            if (deleted == true) {
+                return logout();
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    /**
+     * Getter for the userId
+     *
+     * @return - see {@link #userId}
+     */
+    public Long getUserId() {
+        return userId;
+    }
+
+    /**
+     * To string method for the User class
+     *
+     * @return String represenation of the class
+     */
     @Override
-    public String getName() {
-
-        return this.name;
-    }
-
-    @Override
-    public ArrayList<Integer> getScores() {
-
-        return scoreList;
-    }
-
-    @Override
-    public void addScore(Integer score) {
-
-        scoreList.add(score);
-    }
-
-    @Override
-    public Integer getUserId() {
-
-        return this.userId;
-    }
-
     public String toString() {
-
-        return "Nimi: " + this.name + ", Käyttäjätunnus: " + this.userId + ", listalla tuloksia: " + scoreList.size();
+        return "User{" +
+                "username='" + username + '\'' +
+                ", userId=" + userId +
+                ", personalScores=" + personalScores +
+                ", accountdao=" + accountdao +
+                ", leaderboarddao=" + leaderboarddao +
+                '}';
     }
 }

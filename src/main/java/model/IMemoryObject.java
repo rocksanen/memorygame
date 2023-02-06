@@ -10,4 +10,6 @@ public interface IMemoryObject {
 
     Boolean isActive();
 
+    void setId(int id);
+
 }

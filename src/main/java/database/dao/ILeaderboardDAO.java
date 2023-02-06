@@ -1,15 +1,20 @@
 package database.dao;
 
-import database.entity.Account;
 import database.entity.Leaderboard;
+import model.ModeType;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public interface ILeaderboardDAO {
-    void saveScores(Leaderboard lb);
+    boolean saveScore(Leaderboard lb);
 
-    List<Leaderboard> getAccountScores(long accountid);
+    ArrayList<Leaderboard> getAccountScores(Long accountid);
 
-    List<Integer> readWorldScores();
+    ArrayList<Leaderboard> readWorldScores(ModeType difficulty);
+
+    ArrayList<Leaderboard> getAccountScoresByDifficulty(Long accountid, ModeType difficulty);
+
+    boolean deleteScore(Long scoreid);
+
+    boolean deleteAllScores(Long accountid);
 }

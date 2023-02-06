@@ -2,7 +2,7 @@ package model;
 
 public class MemoryObject implements IMemoryObject, Comparable{
 
-    private final Integer id;
+    private Integer id;
     private final Integer typeId;
     private Boolean active;
     public MemoryObject(Integer id, Integer typeId) {
@@ -33,6 +33,12 @@ public class MemoryObject implements IMemoryObject, Comparable{
     @Override
     public Boolean isActive() {
         return this.active;
+    }
+
+    @Override
+    public void setId(int id) {
+
+        this.id = id;
     }
 
 
