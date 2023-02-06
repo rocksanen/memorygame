@@ -156,11 +156,11 @@ public class User {
     /**
      * Adds a score to the personal scores
      *
-     * @param time       - see {@link Scoreboard#addScore(Double, ModeType, String)}
-     * @param difficulty - see {@link Scoreboard#addScore(Double, ModeType, String)}
+     * @param time       - see {@link Scoreboard#addScore(Double, int, ModeType, String)}
+     * @param difficulty - see {@link Scoreboard#addScore(Double, int, ModeType, String)}
      */
-    public void addScore(Double time, ModeType difficulty) {
-        personalScores.addScore(time, difficulty, username);
+    public void addScore(Double time, int points, ModeType difficulty) {
+        personalScores.addScore(time, points, difficulty, username);
     }
 
     /**

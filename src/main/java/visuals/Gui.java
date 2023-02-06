@@ -3,9 +3,6 @@ package visuals;
 import controller.Controller;
 import controller.IControllerScoreToV;
 import controller.IControllerVtoE;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,19 +18,15 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.PhongMaterial;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import model.MemoryObject;
 import model.ModeType;
-import model.Score;
 import model.Scoreboard;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Timer;
 
-public class Gui extends Application implements IGui{
+public class Gui extends Application implements IGui {
 
     private final IControllerVtoE controller = new Controller(this);
     private final IControllerScoreToV scoreController = new Controller(this);
@@ -44,7 +37,8 @@ public class Gui extends Application implements IGui{
 
     //@FXML Box e0,e1,e2,e3,e4,e5;
 
-    @FXML Button startEasyGame;
+    @FXML
+    Button startEasyGame;
     @FXML
     Button eB0;
     @FXML
@@ -72,7 +66,8 @@ public class Gui extends Application implements IGui{
     Label eL5;
     @FXML
     Pane pane;
-    @FXML PhongMaterial material;
+    @FXML
+    PhongMaterial material;
     @FXML
     GridPane easyGrid;
     @FXML
@@ -80,7 +75,9 @@ public class Gui extends Application implements IGui{
     @FXML
     ListView<String> worldScores;
 
-    public static void main(String[] args) {launch(args);}
+    public static void main(String[] args) {
+        launch(args);
+    }
 
 
     @Override
@@ -97,10 +94,11 @@ public class Gui extends Application implements IGui{
 
         Scene scene = new Scene(root, 1150, 700);
         this.primaryStage.setScene(scene);
-        this.primaryStage.setFullScreenExitHint ("");
+        this.primaryStage.setFullScreenExitHint("");
         this.primaryStage.setResizable(true);
         this.primaryStage.show();
     }
+
     @Override
     public void init() {
 
@@ -123,17 +121,34 @@ public class Gui extends Application implements IGui{
     }
 
     @FXML
-    public void eButton0() {controller.eB0(0);}
+    public void eButton0() {
+        controller.eB0(0);
+    }
+
     @FXML
-    public void eButton1() {controller.eB1(1);}
+    public void eButton1() {
+        controller.eB1(1);
+    }
+
     @FXML
-    public void eButton2() {controller.eB2(2);}
+    public void eButton2() {
+        controller.eB2(2);
+    }
+
     @FXML
-    public void eButton3() {controller.eB3(3);}
+    public void eButton3() {
+        controller.eB3(3);
+    }
+
     @FXML
-    public void eButton4() {controller.eB4(4);}
+    public void eButton4() {
+        controller.eB4(4);
+    }
+
     @FXML
-    public void eButton5() {controller.eB5(5);}
+    public void eButton5() {
+        controller.eB5(5);
+    }
 
     @FXML
     public void setStartEasyGame() {
@@ -142,7 +157,7 @@ public class Gui extends Application implements IGui{
         controller.startEasyGame();
     }
 
-    public void setTypeToLabel(int id,int typeID) {
+    public void setTypeToLabel(int id, int typeID) {
 
         switch (id) {
             case 0 -> eL0.setText(Integer.toString(typeID));
@@ -154,7 +169,7 @@ public class Gui extends Application implements IGui{
         }
     }
 
-    public void clearTable(){
+    public void clearTable() {
 
         eL0.setText("");
         eL1.setText("");
@@ -165,9 +180,9 @@ public class Gui extends Application implements IGui{
 
     }
 
-    public void clearPair(ArrayList<MemoryObject> memoryList){
+    public void clearPair(ArrayList<MemoryObject> memoryList) {
 
-        for(MemoryObject obj: memoryList) {
+        for (MemoryObject obj : memoryList) {
             switch (obj.getIdNumber()) {
                 case 0 -> eL0.setText("");
                 case 1 -> eL1.setText("");
@@ -195,10 +210,9 @@ public class Gui extends Application implements IGui{
 
     @Override
     public void setWorldScore() {
-
-        //worldScores.getScores();
-
     }
+
+
 
     @Override
     public void setPersonalScores(ArrayList<String> personalList) {

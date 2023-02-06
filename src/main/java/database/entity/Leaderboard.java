@@ -72,11 +72,12 @@ public class Leaderboard {
      * @param difficulty - see {@link #difficulty}
      * @param timestamp  - see {@link #timestamp}
      */
-    public Leaderboard(Account accountid, Double time, ModeType difficulty, Date timestamp) {
+    public Leaderboard(Account accountid, Double time, int points, ModeType difficulty, Date timestamp) {
         this.accountid = accountid;
         this.time = time;
         this.timestamp = timestamp;
         this.difficulty = difficulty;
+        this.points = points;
     }
 
     /**
