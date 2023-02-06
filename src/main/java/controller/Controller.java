@@ -14,6 +14,7 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
     private IEngine engine;
 
     private Scoreboard scoreboard;
+
     public Controller(IGui ui) {
 
         this.ui = ui;
@@ -23,40 +24,46 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
     @Override
     public void startEasyGame() {
 
-        this.engine = new Engine(EASY,this);
+        this.engine = new Engine(EASY, this);
         this.engine.setMemoryObjects();
 
     }
+
     @Override
-    public void eB0(int i){
+    public void eB0(int i) {
 
         engine.addToComparing(i);
 
     }
+
     @Override
-    public void eB1(int i){
+    public void eB1(int i) {
 
         engine.addToComparing(i);
 
     }
+
     @Override
-    public void eB2(int i){
+    public void eB2(int i) {
 
         engine.addToComparing(i);
 
     }
+
     @Override
-    public void eB3(int i){
+    public void eB3(int i) {
 
         engine.addToComparing(i);
 
     }
+
     @Override
-    public void eB4(int i){
+    public void eB4(int i) {
 
         engine.addToComparing(i);
 
     }
+
     @Override
     public void eB5(int i) {
 
@@ -65,16 +72,16 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
     }
 
     @Override
-    public void sendType(int id,int typeID) {
+    public void sendType(int id, int typeID) {
 
-       ui.setTypeToLabel(id,typeID);
+        ui.setTypeToLabel(id, typeID);
 
     }
 
     @Override
-    public void clearPair(ArrayList<MemoryObject> memoryList){
+    public void clearPair(ArrayList<MemoryObject> memoryList) {
 
-        Platform.runLater(() ->ui.clearPair(memoryList));
+        Platform.runLater(() -> ui.clearPair(memoryList));
 
     }
 
@@ -99,6 +106,7 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
 
     /**
      * fetches scores form db, and stores them in the correct scoreboard
+     *
      * @param difficulty the difficulty to fetch scores for
      */
     public void fetchScores(ModeType difficulty) {
@@ -120,6 +128,7 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
 
     /**
      * returns the scores for the given difficulty formatted for gui
+     *
      * @param difficulty the difficulty to get scores for
      * @return
      */

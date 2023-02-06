@@ -6,13 +6,13 @@ import java.util.Date;
 
 public class Score {
 
-    private String username;
-    private Long scoreid;
-    private Double time;
-    private ModeType difficulty;
-    private Date timestamp;
+    private final String username;
+    private final Long scoreid;
+    private final Double time;
+    private final ModeType difficulty;
+    private final Date timestamp;
     private String grade;
-    private int points;
+    private final int points;
 
 
     public Score(Leaderboard lb) {
@@ -24,8 +24,6 @@ public class Score {
         this.scoreid = lb.getScoreid();
         this.points = lb.getPoints();
     }
-
-    ;
 
     public String getUsername() {
         return username;

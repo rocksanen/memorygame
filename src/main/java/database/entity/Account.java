@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 /**
  * Account class entity, which is to map data to Acount table in the database.
  * This class is used to store the username and password of the user.
+ *
  * @author Eetu Soronen
  * @version 1
  */
@@ -20,7 +21,7 @@ public class Account {
      * It's generated automatically by the database.
      */
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long accountid;
 
     /**
@@ -37,21 +38,26 @@ public class Account {
     /**
      * Empty constructor required by Hibernate
      */
-    public Account() {}
+    public Account() {
+    }
 
     /**
      * Constructor for Account class.
+     *
      * @param username - see {@link #username}
      * @param password - see {@link #password}
      */
     public Account(String username, String password) {
         this.username = username;
         this.password = password;
-    };
+    }
+
+    ;
 
 
     /**
      * Getter for accountid
+     *
      * @return - see {@link #accountid}
      */
     public Long getAccountid() {
@@ -61,6 +67,7 @@ public class Account {
 
     /**
      * Setter for accountid
+     *
      * @param userid - see {@link #accountid}
      */
     public void setAccountid(Long userid) {
@@ -69,6 +76,7 @@ public class Account {
 
     /**
      * Getter for username
+     *
      * @return - see {@link #username}
      */
     public String getUsername() {
@@ -77,6 +85,7 @@ public class Account {
 
     /**
      * Setter for username
+     *
      * @param username - see {@link #username}
      */
     public void setUsername(String username) {
@@ -85,6 +94,7 @@ public class Account {
 
     /**
      * Getter for password
+     *
      * @return - see {@link #password}
      */
     public String getPassword() {
@@ -93,6 +103,7 @@ public class Account {
 
     /**
      * Setter for password
+     *
      * @param password - see {@link #password}
      */
     public void setPassword(String password) {
@@ -101,6 +112,7 @@ public class Account {
 
     /**
      * toString method for Account class
+     *
      * @return - see {@link #accountid}, {@link #username}, {@link #password}
      */
     @Override

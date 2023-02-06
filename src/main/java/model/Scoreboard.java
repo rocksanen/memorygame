@@ -1,7 +1,6 @@
 package model;
 
 import controller.IControllerScoreToV;
-import controller.IControllerVtoE;
 import database.dao.AccountDAO;
 import database.dao.IAccountDAO;
 import database.dao.ILeaderboardDAO;
@@ -31,7 +30,7 @@ public class Scoreboard {
 
     public Scoreboard(ArrayList<Leaderboard> leaderboards) {
         this.scores = new ArrayList<>();
-        for (Leaderboard lb : leaderboards){
+        for (Leaderboard lb : leaderboards) {
             this.scores.add(new Score(lb));
         }
     }
@@ -39,7 +38,6 @@ public class Scoreboard {
     public Scoreboard(IControllerScoreToV controller) {
 
         this.controller = controller;
-
     }
 
     public void addScore(Double time, int points, ModeType difficulty, String username) {
@@ -66,12 +64,13 @@ public class Scoreboard {
 
     /**
      * Fetch global scores of select difficulty, sorted by points (desc) and then time (asc)
+     *
      * @param difficulty
      */
     public void fetchWorldScores(ModeType difficulty) {
         this.scores = new ArrayList<>();
         List<Leaderboard> leaderboards = leaderboarddao.readWorldScores(difficulty);
-        for (Leaderboard lb : leaderboards){
+        for (Leaderboard lb : leaderboards) {
             this.scores.add(new Score(lb));
         }
 
@@ -80,21 +79,20 @@ public class Scoreboard {
 
     /**
      * Fetch personal scores of select difficulty, sorted by time
+     *
      * @param userid
      * @param difficulty
      */
     protected void fetchScores(Long userid, ModeType difficulty) {
         this.scores = new ArrayList<>();
         List<Leaderboard> leaderboards = leaderboarddao.getAccountScoresByDifficulty(userid, difficulty);
-        for (Leaderboard lb : leaderboards){
+        for (Leaderboard lb : leaderboards) {
             this.scores.add(new Score(lb));
         }
     }
 
     @Override
     public String toString() {
-        return "Scoreboard{" +
-                "scores=" + scores +
-                '}';
+        return "Scoreboard{" + "scores=" + scores + '}';
     }
 }

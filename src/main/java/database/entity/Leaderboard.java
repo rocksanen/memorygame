@@ -183,6 +183,7 @@ public class Leaderboard {
 
     /**
      * Getter for points
+     *
      * @return - see {@link #points}
      */
     public int getPoints() {
@@ -191,6 +192,7 @@ public class Leaderboard {
 
     /**
      * Setter for points
+     *
      * @param points - see {@link #points}
      */
     public void setPoints(int points) {
