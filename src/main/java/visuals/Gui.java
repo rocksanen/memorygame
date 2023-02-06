@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.MemoryObject;
 import model.ModeType;
+import model.Score;
 import model.Scoreboard;
 
 import java.awt.event.ActionEvent;
@@ -78,9 +79,6 @@ public class Gui extends Application implements IGui{
     ListView<String> personalScores;
     @FXML
     ListView<String> worldScores;
-
-
-
 
     public static void main(String[] args) {launch(args);}
 
@@ -198,7 +196,7 @@ public class Gui extends Application implements IGui{
     @Override
     public void setWorldScore() {
 
-        scoreboard.fetchScores(ModeType.EASY);
+        //worldScores.getScores();
 
     }
 

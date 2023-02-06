@@ -9,18 +9,20 @@ public class Score {
     private String username;
     private Long scoreid;
     private Double time;
-    private ModeType modeType;
+    private ModeType difficulty;
     private Date timestamp;
     private String grade;
+    private int points;
 
 
     public Score(Leaderboard lb) {
         this.username = lb.getAccountid().getUsername();
         this.time = lb.getTime();
         this.timestamp = lb.getTimestamp();
-        this.modeType = lb.getDifficulty();
-        this.grade = scoreGrader(time, modeType);
+        this.difficulty = lb.getDifficulty();
+        this.grade = scoreGrader(time, difficulty);
         this.scoreid = lb.getScoreid();
+        this.points = lb.getPoints();
     }
 
     ;
@@ -34,7 +36,7 @@ public class Score {
     }
 
     public ModeType getDifficulty() {
-        return modeType;
+        return difficulty;
     }
 
     public String getGrade() {
@@ -49,10 +51,14 @@ public class Score {
         return scoreid;
     }
 
+    public int getPoints() {
+        return points;
+    }
 
     /**
      * 3 difficulties, 4 grades each
      * 💀
+     *
      * @param seconds
      * @param modeType
      * @return
@@ -106,7 +112,7 @@ public class Score {
                 "username='" + username + '\'' +
                 ", scoreid=" + scoreid +
                 ", time=" + time +
-                ", difficulty='" + modeType + '\'' +
+                ", difficulty='" + difficulty + '\'' +
                 ", timestamp=" + timestamp +
                 ", grade='" + grade + '\'' +
                 '}';

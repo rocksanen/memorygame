@@ -64,41 +64,6 @@ public class Scoreboard {
         }
     }
 
-
-    /**
-     * Fetch global scores of select difficulty, sorted by time
-     * @param difficulty
-     */
-    public void fetchScores(ModeType difficulty) {
-
-        ArrayList<String> test = new ArrayList<>();
-        test.add("100");
-        test.add("200");
-        test.add("300");
-
-        // Tänne Eetu lähetät listan joka on muotoa <String>
-        // Gui-luokassa rivillä 210-214 (tällä hetkellä :D) on metodi "setWorldScore()",
-        // jossa voit vaihdella ModeType parametria testejäsi varten
-        controller.getWorldScore(test);
-
-        /*
-        this.scores = new ArrayList<>();
-        List<Leaderboard> leaderboards = leaderboarddao.readWorldScores(difficulty);
-        for (Leaderboard lb : leaderboards){
-            this.scores.add(new Score(lb));
-        }
-        ArrayList<String> listToVisuals = new ArrayList<>();
-
-        for(Score score: scores) {
-
-            listToVisuals.add(score.getUsername());
-
-        }
-        controller.setWorldScore(listToVisuals);
-
-         */
-    }
-
     /**
      * Fetch personal scores of select difficulty, sorted by time
      * @param userid

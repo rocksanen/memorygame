@@ -42,6 +42,11 @@ public class Leaderboard {
     private Double time;
 
     /**
+     * points of the score.
+     */
+    private int points;
+
+    /**
      * Difficulty of the played game.
      */
     @Enumerated(EnumType.STRING)
@@ -173,6 +178,22 @@ public class Leaderboard {
      */
     public void setScoreid(Long scoreid) {
         this.scoreid = scoreid;
+    }
+
+    /**
+     * Getter for points
+     * @return - see {@link #points}
+     */
+    public int getPoints() {
+        return points;
+    }
+
+    /**
+     * Setter for points
+     * @param points - see {@link #points}
+     */
+    public void setPoints(int points) {
+        this.points = points;
     }
 
     /**
