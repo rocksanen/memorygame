@@ -4,6 +4,13 @@ import database.entity.Leaderboard;
 
 import java.util.Date;
 
+/**
+ * Score class for the game
+ * Score-object contains all the information about a single score
+ * it also grades the score based on the time and difficulty
+ * @author Eetu Soronen
+ * @version 1
+ */
 public class Score {
 
     private final String username;

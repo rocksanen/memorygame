@@ -14,7 +14,11 @@ import java.util.List;
 
 
 /**
- *
+ * Scoreboard class for the game
+ * Contains list of Score-objects and methods for adding and retrieving scores
+ * Also contains methods for retrieving scores from the database
+ * @author Eetu Soronen
+ * @version 1
  */
 public class Scoreboard {
     private static ILeaderboardDAO leaderboarddao = new LeaderboardDAO();

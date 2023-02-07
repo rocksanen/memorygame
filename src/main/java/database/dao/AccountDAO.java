@@ -2,16 +2,26 @@ package database.dao;
 
 import database.datasource.SqlJpaConn;
 import database.entity.Account;
-import database.entity.Leaderboard;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 
 import java.util.ArrayList;
 
+
+/**
+ * AccountDAO class for the game
+ * Contains methods for saving and retrieving accounts from the database
+ *
+ * @author Eetu Soronen
+ * @version 1
+ */
 public class AccountDAO implements IAccountDAO {
 
-
-
+    /**
+     * Saves an account to the database
+     * @param account Account-object to be saved
+     * @return true if successful, false if not
+     */
     @Override
     public Long saveAccount(Account account) {
         // check if account by that name exists
@@ -37,9 +47,9 @@ public class AccountDAO implements IAccountDAO {
 
 
     /**
-     * Hakee simulaattorin tietokannasta sen id:n perustella.
-     * @param id
-     * @return Simulaattori-olio
+     * finds an account by id
+     * @param id account id
+     * @return Account-object
      */
     @Override
     public Account getAccount(Long id) {
@@ -49,6 +59,11 @@ public class AccountDAO implements IAccountDAO {
         return a;
     }
 
+    /**
+     * finds an account by name
+     * @param username account name
+     * @return Account-object
+     */
     @Override
     public Account getAccountByName(String username) {
         username = username.toLowerCase();
@@ -67,6 +82,10 @@ public class AccountDAO implements IAccountDAO {
         return a;
     }
 
+    /**
+     * finds all accounts
+     * @return ArrayList of Account-objects
+     */
     @Override
     public ArrayList<Account> getAllAccounts() {
         System.out.println("getAllAccounts");
@@ -77,6 +96,11 @@ public class AccountDAO implements IAccountDAO {
         return resultList;
     }
 
+    /**
+     * deletes an account by id
+     * @param id account id
+     * @return true if successful, false if not
+     */
     @Override
     public boolean deleteAccount(Long id) {
         System.out.println("deleteAccount " + id);
