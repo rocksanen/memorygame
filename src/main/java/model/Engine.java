@@ -179,10 +179,19 @@ public class Engine implements IEngine {
      *
      * @return see {@link #totalScore}
      */
+    @Override
     public int getTotalScore() {
         return totalScore;
     }
 
+    /**
+     * Getter for the next score.
+     * @return see {@link #nextScore}
+     */
+    @Override
+    public int getNextScore() {
+        return nextScore;
+    }
 
     //check if the two cards are the same.
     @Override
@@ -198,6 +207,7 @@ public class Engine implements IEngine {
 
         if (Objects.equals(objectList.get(0).getTypeId(), objectList.get(1).getTypeId())) {
             System.out.println("Jee jee");
+            //update score
             updateScore(EQUAL);
             return EQUAL;
         } else {

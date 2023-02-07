@@ -155,4 +155,20 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
         }
         return scoreList;
     }
+
+    /**
+     * returns the total score
+     * @return the total score
+     */
+    public int getTotalScore() {
+        return engine.getTotalScore();
+    }
+
+    /**
+     * returns the score for the next correct guess
+     * @return the score for the next correct guess
+     */
+    public int getNextScore() {
+        return engine.getNextScore();
+    }
 }
