@@ -14,12 +14,10 @@ import static model.CompareResultType.NOTEQUAL;
 public class Engine implements IEngine {
 
     private final IControllerEtoV controller;
-    private CompareResultType type2;
     private final ModeType type;
-    private ArrayList<MemoryObject> memoryObjectsList;
     private final ArrayList<MemoryObject> comparingList = new ArrayList<>();
-
-
+    private CompareResultType type2;
+    private ArrayList<MemoryObject> memoryObjectsList;
     /**
      * logged in user
      */
@@ -28,7 +26,7 @@ public class Engine implements IEngine {
     /**
      * The time when the game started / engine created (in milliseconds).
      */
-    private long startTime;
+    private final long startTime;
 
     /**
      * The points received for each correct guess,
@@ -45,7 +43,7 @@ public class Engine implements IEngine {
         this.type = type;
         this.controller = controller;
         // this will be replaced by a login method SOMEDAY
-        this.user = user.getInstance();
+        this.user = User.getInstance();
         user.login("eetu");
 
         // get current time
@@ -168,7 +166,7 @@ public class Engine implements IEngine {
             case NOTEQUAL -> {
                 if (nextScore > 100) {
                     nextScore -= 100;
-                   
+
                 }
             }
         }
