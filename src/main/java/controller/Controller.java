@@ -14,6 +14,9 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
     private IEngine engine;
 
     private Scoreboard scoreboard;
+    private Scoreboard easyScores;
+    private Scoreboard mediumScores;
+    private Scoreboard hardScores;
 
     public Controller(IGui ui) {
 
@@ -99,11 +102,6 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
 
     }
 
-
-    private Scoreboard easyScores;
-    private Scoreboard mediumScores;
-    private Scoreboard hardScores;
-
     /**
      * fetches scores form db, and stores them in the correct scoreboard
      *
@@ -122,7 +120,6 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
                 hardScores.fetchWorldScores(HARD);
                 break;
             default:
-                return;
         }
     }
 
@@ -158,6 +155,7 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
 
     /**
      * returns the total score
+     *
      * @return the total score
      */
     public int getTotalScore() {
@@ -166,6 +164,7 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
 
     /**
      * returns the score for the next correct guess
+     *
      * @return the score for the next correct guess
      */
     public int getNextScore() {
