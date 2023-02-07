@@ -13,7 +13,7 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>org.hibernate</groupId>
+            <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>6.1.6.Final</version>
         </dependency>

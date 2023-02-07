@@ -1,10 +1,11 @@
 package model;
 
-public class MemoryObject implements IMemoryObject, Comparable{
+public class MemoryObject implements IMemoryObject, Comparable {
 
     private Integer id;
     private final Integer typeId;
     private Boolean active;
+
     public MemoryObject(Integer id, Integer typeId) {
 
         this.id = id;
@@ -12,6 +13,7 @@ public class MemoryObject implements IMemoryObject, Comparable{
         this.active = false;
 
     }
+
     @Override
     public Integer getIdNumber() {
         return id;
