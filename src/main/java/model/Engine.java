@@ -197,24 +197,19 @@ public class Engine implements IEngine {
     @Override
     public CompareResultType compareObjects(ArrayList<MemoryObject> objectList) {
 
-        /*
-        for(MemoryObject obj: objectList) {
-            if(this.type.equals(obj.getTypeId())){
-                return type2.EQUAL;
-            }
-        }
-         */
+        if(objectList.get(0).getTypeId().equals(objectList.get(1).getTypeId())) {
 
-        if (Objects.equals(objectList.get(0).getTypeId(), objectList.get(1).getTypeId())) {
-            System.out.println("Jee jee");
-            //update score
             updateScore(EQUAL);
-            return EQUAL;
-        } else {
+            return type2.EQUAL;
+
+        }else{
+
             clearPair(objectList);
             updateScore(NOTEQUAL);
-            return NOTEQUAL;
+            return type2.NOTEQUAL;
+
         }
+
     }
 
     public String toString() {
