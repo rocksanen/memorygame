@@ -10,6 +10,8 @@ public interface IEngine {
 
     void setChosenObjectReady(MemoryObject object);
 
+    int getNextScore();
+
     CompareResultType compareObjects(ArrayList<MemoryObject> objectList);
 
     void setMemoryObjects();
@@ -22,4 +24,5 @@ public interface IEngine {
 
     void setPersonalScore();
 
+    int getTotalScore();
 }

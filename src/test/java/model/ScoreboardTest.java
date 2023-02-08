@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UserTest {
+class ScoreboardTest {
 
     @BeforeEach
     void setUp() {
@@ -17,39 +17,23 @@ class UserTest {
     }
 
     @Test
-    void getInstance() {
-    }
-
-    @Test
-    void login() {
-    }
-
-    @Test
-    void signup() {
-    }
-
-    @Test
-    void getUsername() {
-    }
-
-    @Test
-    void logout() {
-    }
-
-    @Test
-    void getPersonalScores() {
-    }
-
-    @Test
     void addScore() {
     }
 
     @Test
-    void deleteAccount() {
+    void getScores() {
     }
 
     @Test
-    void getUserId() {
+    void deleteScore() {
+    }
+
+    @Test
+    void fetchWorldScores() {
+    }
+
+    @Test
+    void fetchScores() {
     }
 
     @Test

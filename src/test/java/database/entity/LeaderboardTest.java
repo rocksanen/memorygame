@@ -1,4 +1,4 @@
-package model;
+package database.entity;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UserTest {
+class LeaderboardTest {
 
     @BeforeEach
     void setUp() {
@@ -17,39 +17,55 @@ class UserTest {
     }
 
     @Test
-    void getInstance() {
+    void getTimestamp() {
     }
 
     @Test
-    void login() {
+    void setTimestamp() {
     }
 
     @Test
-    void signup() {
+    void getAccountid() {
     }
 
     @Test
-    void getUsername() {
+    void setAccountid() {
     }
 
     @Test
-    void logout() {
+    void testGetAccountid() {
     }
 
     @Test
-    void getPersonalScores() {
+    void getDifficulty() {
     }
 
     @Test
-    void addScore() {
+    void setDifficulty() {
     }
 
     @Test
-    void deleteAccount() {
+    void getTime() {
     }
 
     @Test
-    void getUserId() {
+    void setTime() {
+    }
+
+    @Test
+    void getScoreid() {
+    }
+
+    @Test
+    void setScoreid() {
+    }
+
+    @Test
+    void getPoints() {
+    }
+
+    @Test
+    void setPoints() {
     }
 
     @Test
