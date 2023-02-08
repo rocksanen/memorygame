@@ -1,6 +1,6 @@
 package model;
 
-public class MemoryObject implements IMemoryObject, Comparable{
+public class MemoryObject implements IMemoryObject, Comparable<MemoryObject>{
 
     private Integer id;
     private final Integer typeId;
@@ -41,9 +41,11 @@ public class MemoryObject implements IMemoryObject, Comparable{
         this.id = id;
     }
 
-
+    //false -1 and 0 is true
     @Override
-    public int compareTo(Object o) {
-        return 0;
+    public int compareTo(MemoryObject o) {
+        return this.typeId - o.typeId;
     }
+
+
 }
