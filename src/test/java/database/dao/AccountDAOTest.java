@@ -1,4 +1,4 @@
-package model;
+package database.dao;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UserTest {
+class AccountDAOTest {
 
     @BeforeEach
     void setUp() {
@@ -17,42 +17,22 @@ class UserTest {
     }
 
     @Test
-    void getInstance() {
+    void saveAccount() {
     }
 
     @Test
-    void login() {
+    void getAccount() {
     }
 
     @Test
-    void signup() {
+    void getAccountByName() {
     }
 
     @Test
-    void getUsername() {
-    }
-
-    @Test
-    void logout() {
-    }
-
-    @Test
-    void getPersonalScores() {
-    }
-
-    @Test
-    void addScore() {
+    void getAllAccounts() {
     }
 
     @Test
     void deleteAccount() {
-    }
-
-    @Test
-    void getUserId() {
-    }
-
-    @Test
-    void testToString() {
     }
 }

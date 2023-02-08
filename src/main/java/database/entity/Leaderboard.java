@@ -42,6 +42,11 @@ public class Leaderboard {
     private Double time;
 
     /**
+     * points of the score.
+     */
+    private int points;
+
+    /**
      * Difficulty of the played game.
      */
     @Enumerated(EnumType.STRING)
@@ -67,11 +72,12 @@ public class Leaderboard {
      * @param difficulty - see {@link #difficulty}
      * @param timestamp  - see {@link #timestamp}
      */
-    public Leaderboard(Account accountid, Double time, ModeType difficulty, Date timestamp) {
+    public Leaderboard(Account accountid, Double time, int points, ModeType difficulty, Date timestamp) {
         this.accountid = accountid;
         this.time = time;
         this.timestamp = timestamp;
         this.difficulty = difficulty;
+        this.points = points;
     }
 
     /**
@@ -173,6 +179,24 @@ public class Leaderboard {
      */
     public void setScoreid(Long scoreid) {
         this.scoreid = scoreid;
+    }
+
+    /**
+     * Getter for points
+     *
+     * @return - see {@link #points}
+     */
+    public int getPoints() {
+        return points;
+    }
+
+    /**
+     * Setter for points
+     *
+     * @param points - see {@link #points}
+     */
+    public void setPoints(int points) {
+        this.points = points;
     }
 
     /**
