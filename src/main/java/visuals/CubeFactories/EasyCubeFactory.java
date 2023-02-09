@@ -2,6 +2,7 @@ package visuals.CubeFactories;
 
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.layout.GridPane;
 import model.MemoryObject;
@@ -38,6 +39,7 @@ public class EasyCubeFactory implements ICubeFactory {
                                 140,140,140,0,0,100,
                                 imageUrlList.get(imageIndex),memoryObjects.get(i).getTypeId(),gui,i).
                                 getBox());
+                group.setCursor(Cursor.HAND);
                 gridPane.add(group, i % 2, i / 2);
                 GridPane.setHalignment(group, HPos.CENTER);
                 GridPane.setValignment(group, VPos.CENTER);

@@ -2,6 +2,7 @@ package visuals.CubeFactories;
 
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -49,6 +50,7 @@ public class HardCubeFactory implements ICubeFactory {
                 }
                 Group group = new Group();
                 group.getChildren().add(new BoxMaker(80, 80, 80, 0, 0, 100,chosenImages.get(index),memoryObjects.get(index).getIdNumber(),gui,i).getBox());
+                group.setCursor(Cursor.HAND);
                 gridPane.add(group, j, i);
                 GridPane.setHalignment(group, HPos.CENTER);
                 GridPane.setValignment(group, VPos.CENTER);
