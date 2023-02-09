@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.effect.SepiaTone?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="750.0" prefWidth="1250.0" style="-fx-background-color: beige;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.Gui">
+    <children>
+        <ImageView fx:id="background" fitHeight="750.0" fitWidth="1300.0">
+            <image>
+                <Image url="@Images/background.png" />
+            </image>
+            <effect>
+                <GaussianBlur radius="10.59" />
+            </effect>
+        </ImageView>
+        <ImageView fitHeight="600.0" fitWidth="645.0" layoutX="348.0" layoutY="75.0" opacity="0.79">
+            <image>
+                <Image url="@Images/frame1.png" />
+            </image>
+            <effect>
+                <SepiaTone level="0.0" />
+            </effect>
+        </ImageView>
+        <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <VBox prefHeight="750.0" prefWidth="320.0">
+                    <children>
+                        <Label prefHeight="58.0" prefWidth="278.0" text="World scores">
+                            <font>
+                                <Font name="Yu Gothic Regular" size="39.0" />
+                            </font>
+                        </Label>
+                        <ListView fx:id="worldScores" onMouseClicked="#setWorldScore" prefHeight="280.0" prefWidth="310.0">
+                            <VBox.margin>
+                                <Insets top="5.0" />
+                            </VBox.margin></ListView>
+                        <Label prefHeight="58.0" prefWidth="278.0" text="Your scores">
+                            <font>
+                                <Font name="Yu Gothic Regular" size="39.0" />
+                            </font>
+                        </Label>
+                        <ListView fx:id="personalScores" prefHeight="280.0" prefWidth="310.0" />
+                    </children></VBox>
+                <HBox alignment="CENTER" prefHeight="550.0" prefWidth="624.0">
+                    <HBox.margin>
+                        <Insets bottom="100.0" left="155.0" right="100.0" top="100.0" />
+                    </HBox.margin>
+                    <children>
+                        <GridPane fx:id="easyGrid" alignment="CENTER" prefHeight="550.0" prefWidth="624.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin>
+                        </GridPane>
+                    </children>
+                </HBox>
+                <VBox fx:id="vBox" prefHeight="700.0" prefWidth="300.0">
+                    <children>
+                        <Button fx:id="startEasyGame" mnemonicParsing="false" onMouseClicked="#setStartEasyGame" prefHeight="26.0" prefWidth="157.0" text="Start Easy Game">
+                            <VBox.margin>
+                                <Insets top="300.0" />
+                            </VBox.margin>
+                        </Button>
+                        <Button fx:id="startMediumGame" mnemonicParsing="false" onMouseClicked="#setStartMediumGame" prefHeight="26.0" prefWidth="157.0" text="Start Medium Game">
+                            <VBox.margin>
+                                <Insets top="20.0" />
+                            </VBox.margin>
+                        </Button>
+                    </children></VBox>
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>

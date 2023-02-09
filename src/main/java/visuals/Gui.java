@@ -10,81 +10,59 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.PhongMaterial;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.MemoryObject;
-import model.ModeType;
 import model.Scoreboard;
+import visuals.CubeFactories.EasyCubeFactory;
+import visuals.CubeFactories.ICubeFactory;
+import visuals.CubeFactories.MediumCubeFactory;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Gui extends Application implements IGui {
+public class Gui extends Application implements IGui{
 
     private final IControllerVtoE controller = new Controller(this);
     private final IControllerScoreToV scoreController = new Controller(this);
     private final Scoreboard scoreboard = new Scoreboard(scoreController);
-    private final String EASYMODE = "/visuals/easymode.fxml";
-
+    private final String EASYMODE = "/visuals/game.fxml";
     Stage primaryStage;
-
-    //@FXML Box e0,e1,e2,e3,e4,e5;
-
+    @FXML Button startEasyGame;
+    @FXML Button startMediumGame;
     @FXML
-    Button startEasyGame;
-    @FXML
-    Button eB0;
-    @FXML
-    Button eB1;
-    @FXML
-    Button eB2;
-    @FXML
-    Button eB3;
-    @FXML
-    Button eB4;
-    @FXML
-    Button eB5;
-
-    @FXML
-    Label eL0;
-    @FXML
-    Label eL1;
-    @FXML
-    Label eL2;
-    @FXML
-    Label eL3;
-    @FXML
-    Label eL4;
-    @FXML
-    Label eL5;
-    @FXML
-    Pane pane;
-    @FXML
-    PhongMaterial material;
-    @FXML
-    GridPane easyGrid;
+    GridPane easyGrid = new GridPane();
     @FXML
     ListView<String> personalScores;
     @FXML
     ListView<String> worldScores;
+    @FXML
+    ImageView background;
+    @FXML
+    VBox vBox = new VBox();
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+    ArrayList<BoxMaker> cubeList;
+    ICubeFactory easyCubeFactory;
+    ICubeFactory mediumCubeFactory;
+    Parent root;
 
+    public static void main(String[] args) {launch(args);}
 
     @Override
     public void start(Stage primaryStage) throws IOException {
 
         this.primaryStage = primaryStage;
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(EASYMODE)));
+        this.root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(EASYMODE)));
+        Scene scene = new Scene(root, 1250, 750);
 
         Node worldScoresNode = root.lookup("#worldScores");
         if (worldScoresNode instanceof ListView<?>) {
@@ -92,127 +70,94 @@ public class Gui extends Application implements IGui {
             setWorldScore();
         }
 
-        Scene scene = new Scene(root, 1150, 700);
-        this.primaryStage.setScene(scene);
-        this.primaryStage.setFullScreenExitHint("");
-        this.primaryStage.setResizable(true);
-        this.primaryStage.show();
-    }
+        PerspectiveCamera camera = new PerspectiveCamera();
+        scene.setCamera(camera);
+        scene.setOnScroll((final ScrollEvent e) -> {
+            camera.setTranslateZ(camera.getTranslateZ() + e.getDeltaY());
+        });
 
+        background = (ImageView) root.lookup("#background");
+
+        if (background == null) {
+            System.out.println("background is null");
+            return;
+        }
+
+        this.primaryStage.setScene(scene);
+        this.primaryStage.setFullScreenExitHint ("");
+        this.primaryStage.setResizable(false);
+        this.primaryStage.show();
+        Effects.getInstance().moveBackGround(background);
+    }
     @Override
     public void init() {
 
-        eB0 = new Button();
-        eB1 = new Button();
-        eB2 = new Button();
-        eB3 = new Button();
-        eB4 = new Button();
-        eB5 = new Button();
-
-        eL0 = new Label();
-        eL1 = new Label();
-        eL2 = new Label();
-        eL3 = new Label();
-        eL4 = new Label();
-        eL5 = new Label();
-
+        background = new ImageView();
         personalScores = new ListView<>();
         startEasyGame = new Button();
+        startMediumGame = new Button();
+        easyGrid = new GridPane();
+        background = new ImageView();
     }
-
-    @FXML
-    public void eButton0() {
-        controller.eB0(0);
-    }
-
-    @FXML
-    public void eButton1() {
-        controller.eB1(1);
-    }
-
-    @FXML
-    public void eButton2() {
-        controller.eB2(2);
-    }
-
-    @FXML
-    public void eButton3() {
-        controller.eB3(3);
-    }
-
-    @FXML
-    public void eButton4() {
-        controller.eB4(4);
-    }
-
-    @FXML
-    public void eButton5() {
-        controller.eB5(5);
-    }
-
     @FXML
     public void setStartEasyGame() {
 
-        clearTable();
+        if(cubeList != null) {cubeList.clear();}
+        cubeList = new ArrayList<>();
+        easyCubeFactory = new EasyCubeFactory(this);
+        easyGrid.getChildren().clear();
         controller.startEasyGame();
     }
+    @FXML
+    public void setStartMediumGame() {
 
-    public void setTypeToLabel(int id, int typeID) {
-
-        switch (id) {
-            case 0 -> eL0.setText(Integer.toString(typeID));
-            case 1 -> eL1.setText(Integer.toString(typeID));
-            case 2 -> eL2.setText(Integer.toString(typeID));
-            case 3 -> eL3.setText(Integer.toString(typeID));
-            case 4 -> eL4.setText(Integer.toString(typeID));
-            case 5 -> eL5.setText(Integer.toString(typeID));
-        }
+        if(cubeList != null) {cubeList.clear();}
+        cubeList = new ArrayList<>();
+        mediumCubeFactory = new MediumCubeFactory(this);
+        easyGrid.getChildren().clear();
+        controller.startMediumGame();
     }
 
-    public void clearTable() {
+    @Override
+    public void setEasyGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
 
-        eL0.setText("");
-        eL1.setText("");
-        eL2.setText("");
-        eL3.setText("");
-        eL4.setText("");
-        eL5.setText("");
+        easyCubeFactory.createCubics(easyGrid,memoryObjects);
+    }
+    @Override
+    public void setMediumGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
 
+        mediumCubeFactory.createCubics(easyGrid,memoryObjects);
+    }
+    @Override
+    public void clearStorage() {
+        controller.clearStorage();
     }
 
-    public void clearPair(ArrayList<MemoryObject> memoryList) {
+    public void addToCubeList(BoxMaker cube) {cubeList.add(cube);}
+    @Override
+    public void clearPair(ArrayList<Integer> storage){
 
-        for (MemoryObject obj : memoryList) {
-            switch (obj.getIdNumber()) {
-                case 0 -> eL0.setText("");
-                case 1 -> eL1.setText("");
-                case 2 -> eL2.setText("");
-                case 3 -> eL3.setText("");
-                case 4 -> eL4.setText("");
-                case 5 -> eL5.setText("");
-            }
-        }
+        cubeList.get(storage.get(0)).resetImage();
+        cubeList.get(storage.get(1)).resetImage();
+        clearStorage();
     }
+
+    public void sendIdToEngine(int id) {controller.sendIdToEngine(id);}
 
     @Override
     public void getWorldScore(ArrayList<String> worldList) {
 
         // Create an observable list from the worldList
         ObservableList<String> worldObservable = FXCollections.observableArrayList();
-
         // Add all the elements from the worldList to the worldObservable
         worldObservable.addAll(worldList);
-
         // Add all the elements from the worldObservable to the worldScores list
         worldScores.getItems().addAll(worldObservable);
-
     }
 
     @Override
-    public void setWorldScore() {
+    public void setWorldScore() {//scoreboard.fetchScores(ModeType.EASY);
     }
-
-
 
     @Override
     public void setPersonalScores(ArrayList<String> personalList) {
@@ -220,8 +165,5 @@ public class Gui extends Application implements IGui {
         ObservableList<String> personObservable = FXCollections.observableArrayList();
         personObservable.addAll(personalList);
         personalScores.getItems().addAll(personObservable);
-
     }
-
-
 }

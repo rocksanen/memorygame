@@ -2,7 +2,6 @@ package model;
 
 public class MemoryObject implements IMemoryObject, Comparable<MemoryObject>{
 
-
     private Integer id;
     private final Integer typeId;
     private Boolean active;
@@ -12,7 +11,6 @@ public class MemoryObject implements IMemoryObject, Comparable<MemoryObject>{
         this.id = id;
         this.typeId = typeId;
         this.active = false;
-
     }
 
     @Override
@@ -35,6 +33,7 @@ public class MemoryObject implements IMemoryObject, Comparable<MemoryObject>{
 
     @Override
     public Boolean isActive() {
+
         return this.active;
     }
 

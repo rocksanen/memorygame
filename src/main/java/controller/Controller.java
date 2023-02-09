@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import model.*;
 import visuals.IGui;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import static model.ModeType.*;
@@ -12,7 +13,6 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
 
     private final IGui ui;
     private IEngine engine;
-
     private Scoreboard scoreboard;
     private Scoreboard easyScores;
     private Scoreboard mediumScores;
@@ -21,7 +21,6 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
     public Controller(IGui ui) {
 
         this.ui = ui;
-
     }
 
     @Override
@@ -29,62 +28,55 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
 
         this.engine = new Engine(EASY, this);
         this.engine.setMemoryObjects();
+    }
+
+    @Override
+    public void startMediumGame() {
+
+        this.engine = new Engine(ModeType.MEDIUM,this);
+        this.engine.setMemoryObjects();
+    }
+
+    @Override
+    public void sendIdToEngine(int id) {
+
+        engine.addToComparing(id);
+    }
+
+    @Override
+    public void clearStorage() {
+        engine.clearStorage();
+    }
+
+    @Override
+    public void clearPair(ArrayList<Integer> storage){
+
+        Platform.runLater(() ->ui.clearPair(storage));
 
     }
 
     @Override
-    public void eB0(int i) {
+    public void setEasyGame(ArrayList<MemoryObject> memoryObjects) {
 
-        engine.addToComparing(i);
-
+        Platform.runLater(() -> {
+            try {
+                ui.setEasyGame(memoryObjects);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     @Override
-    public void eB1(int i) {
+    public void setMediumGame(ArrayList<MemoryObject> memoryObjects) {
 
-        engine.addToComparing(i);
-
-    }
-
-    @Override
-    public void eB2(int i) {
-
-        engine.addToComparing(i);
-
-    }
-
-    @Override
-    public void eB3(int i) {
-
-        engine.addToComparing(i);
-
-    }
-
-    @Override
-    public void eB4(int i) {
-
-        engine.addToComparing(i);
-
-    }
-
-    @Override
-    public void eB5(int i) {
-
-        engine.addToComparing(i);
-
-    }
-
-    @Override
-    public void sendType(int id, int typeID) {
-
-        ui.setTypeToLabel(id, typeID);
-
-    }
-
-    @Override
-    public void clearPair(ArrayList<MemoryObject> memoryList) {
-
-        Platform.runLater(() -> ui.clearPair(memoryList));
+        Platform.runLater(() -> {
+            try {
+                ui.setMediumGame(memoryObjects);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
     }
 
