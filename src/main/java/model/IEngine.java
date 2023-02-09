@@ -6,13 +6,11 @@ public interface IEngine {
 
     void suffleObjects();
 
-    ArrayList<MemoryObject> getSuffledObjects();
-
     void setChosenObjectReady(MemoryObject object);
 
     int getNextScore();
 
-    CompareResultType compareObjects(ArrayList<MemoryObject> objectList);
+    void compareObjects(ArrayList<MemoryObject> objectList);
 
     void setMemoryObjects();
 
@@ -23,6 +21,8 @@ public interface IEngine {
     void clearPair(ArrayList<MemoryObject> memoryList);
 
     void setPersonalScore();
+
+    void clearStorage();
 
     int getTotalScore();
 }
