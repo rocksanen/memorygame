@@ -16,6 +16,11 @@ public class HardImageServer implements IImageServer {
         urlList.add("src/main/java/visuals/Images/possu.png");
         urlList.add("src/main/java/visuals/Images/pupu.png");
         urlList.add("src/main/java/visuals/Images/tiikeri.png");
+        urlList.add("src/main/java/visuals/Images/pantteri.png");
+        urlList.add("src/main/java/visuals/Images/possu.png");
+        urlList.add("src/main/java/visuals/Images/pupu.png");
+        urlList.add("src/main/java/visuals/Images/tiikeri.png");
+
 
 
         Collections.shuffle(urlList);
