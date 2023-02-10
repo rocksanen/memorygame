@@ -160,7 +160,6 @@ public class Gui extends Application implements IGui {
         controller.login(user, userPassword);
         signOrReg.setVisible(false);
 
-        setWorldScore();
         setPersonalScores(scoreController.getPersonalScores(ModeType.EASY));
 
     }
