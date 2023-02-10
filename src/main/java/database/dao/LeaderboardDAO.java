@@ -28,6 +28,8 @@ public class LeaderboardDAO implements ILeaderboardDAO {
     @Override
     public boolean saveScore(Leaderboard lb) {
         // check if account exists
+        EntityManager em = SqlJpaConn.getInstance();
+        em.getTransaction().begin();
         IAccountDAO accountDAO = new AccountDAO();
         if (accountDAO.getAccount(lb.getAccountid().getAccountid()) == null) {
             return false;
@@ -36,8 +38,6 @@ public class LeaderboardDAO implements ILeaderboardDAO {
 
         System.out.println("saveScores " + lb);
         try {
-            EntityManager em = SqlJpaConn.getInstance();
-            em.getTransaction().begin();
             em.persist(lb);
             em.getTransaction().commit();
             em.flush();

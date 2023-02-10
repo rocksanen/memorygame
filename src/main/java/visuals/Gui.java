@@ -23,7 +23,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.MemoryObject;
+import model.ModeType;
 import model.Scoreboard;
+import model.User;
 import visuals.CubeFactories.EasyCubeFactory;
 import visuals.CubeFactories.HardCubeFactory;
 import visuals.CubeFactories.ICubeFactory;
@@ -155,9 +157,11 @@ public class Gui extends Application implements IGui {
         String user = name.getText();
         String userPassword = password.getText();
 
-        controller.login(user, userPassword),
+        controller.login(user, userPassword);
+        signOrReg.setVisible(false);
 
-                signOrReg.setVisible(false);
+        setWorldScore();
+        setPersonalScores(scoreController.getPersonalScores(ModeType.EASY));
 
     }
 
@@ -287,7 +291,10 @@ public class Gui extends Application implements IGui {
     }
 
     @Override
-    public void setWorldScore() {//scoreboard.fetchScores(ModeType.EASY);
+    public void setWorldScore() {
+        scoreController.fetchScores(ModeType.EASY);
+        getWorldScore(scoreController.getScores(ModeType.EASY));
+
     }
 
     @Override

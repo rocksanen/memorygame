@@ -12,6 +12,8 @@ public interface IControllerScoreToV {
 
     ArrayList<String> getScores(ModeType difficulty);
 
+    ArrayList<String> getPersonalScores(ModeType difficulty);
+
     int getTotalScore();
 
     int getNextScore();

@@ -13,10 +13,10 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
 
     private final IGui ui;
     private IEngine engine;
-    private Scoreboard scoreboard;
-    private Scoreboard easyScores;
-    private Scoreboard mediumScores;
-    private Scoreboard hardScores;
+    private Scoreboard personalScoreboard = new Scoreboard();
+    private Scoreboard easyScores = new Scoreboard();
+    private Scoreboard mediumScores = new Scoreboard();
+    private Scoreboard hardScores = new Scoreboard();
 
     public Controller(IGui ui) {
 
@@ -163,6 +163,37 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
         for (Score s : scores.getScores()) {
             scoreList.add(s.getUsername() + " " + s.getPoints());
         }
+        System.out.println(scoreList);
+        return scoreList;
+    }
+
+    @Override
+    public ArrayList<String> getPersonalScores(ModeType difficulty) {
+        if (User.getInstance().getPersonalScores() == null) {
+            System.out.println("not logged in!");
+            return null;
+        }
+        Scoreboard scores;
+        switch (difficulty) {
+            case EASY:
+                scores = User.getInstance().getPersonalScores();
+                break;
+            case MEDIUM:
+                scores = User.getInstance().getPersonalScores();
+                break;
+            case HARD:
+                scores = User.getInstance().getPersonalScores();
+                break;
+            default:
+                return null;
+        }
+        ArrayList<String> scoreList = new ArrayList<>();
+
+        scores.getScores();
+        for (Score s : scores.getScores()) {
+            scoreList.add(s.getUsername() + " " + s.getPoints());
+        }
+        System.out.println(scoreList);
         return scoreList;
     }
 
@@ -194,6 +225,6 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
     @Override
     public boolean register(String username, String password) {
         User user = User.getInstance();
-        return user.login(username, password);
+        return user.signup(username, password);
     }
 }
