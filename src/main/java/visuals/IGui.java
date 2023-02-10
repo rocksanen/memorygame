@@ -2,6 +2,8 @@ package visuals;
 
 import javafx.stage.Stage;
 import model.MemoryObject;
+import model.ModeType;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,6 +12,7 @@ public interface IGui {
     void start(Stage primaryStage) throws IOException;
     void clearPair(ArrayList<Integer> storage);
     void getWorldScore(ArrayList<String> worldList);
+
     void setPersonalScores(ArrayList<String> personalList);
     void setWorldScore();
     void setEasyGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException;

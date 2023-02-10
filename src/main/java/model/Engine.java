@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 import static model.CompareResultType.EQUAL;
 import static model.CompareResultType.NOTEQUAL;
+import static model.ModeType.EASY;
 
 
 public class Engine implements IEngine {
@@ -41,12 +42,25 @@ public class Engine implements IEngine {
     public Engine(ModeType type, IControllerEtoV controller) {
         this.type = type;
         this.controller = controller;
-        // this will be replaced by a login method SOMEDAY
-        this.user = User.getInstance();
-        user.login("eetu");
+
         // get current time
         this.startTime = System.currentTimeMillis();
 
+
+        // temp mock data
+        User u = User.getInstance();
+        u.signup("tony", "tiger");
+        u.login("tony", "tiger");
+        this.user = u;
+        u.addScore(Math.random()*100, (int) (Math.random() * 70 + 50), EASY);
+        u.addScore(Math.random()*100, (int) (Math.random() * 70 + 50), EASY);
+
+
+        u = User.getInstance();
+        u.signup("eetu", "soro");
+        u.login("eetu", "soro");
+        this.user = u;
+        u.addScore(Math.random()*100, (int) (Math.random() * 70 + 50), EASY);
     }
 
     @Override
