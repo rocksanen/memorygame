@@ -43,7 +43,7 @@ public class Engine implements IEngine {
         this.controller = controller;
         // this will be replaced by a login method SOMEDAY
         this.user = User.getInstance();
-        user.login("eetu");
+        user.login("eetu", "soro");
         // get current time
         this.startTime = System.currentTimeMillis();
 

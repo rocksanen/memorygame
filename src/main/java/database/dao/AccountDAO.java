@@ -60,6 +60,31 @@ public class AccountDAO implements IAccountDAO {
     }
 
     /**
+     * finds an account by name & password
+     * @param username account name
+     * @param username account password
+     * @return Account-object
+     */
+    @Override
+    public Account getAccountByNameAndPassword(String username, String password) {
+        username = username.toLowerCase();
+        System.out.println("getAccountByName " + username);
+        Account a = null;
+        EntityManager em = SqlJpaConn.getInstance();
+        try {
+            Query query = em.createQuery("SELECT a FROM Account a WHERE a.username = :username AND a.password = :password");
+            query.setParameter("username", username);
+            query.setParameter("password", password);
+            a = (Account) query.getSingleResult();
+            System.out.println(a.toString());
+            return a;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return a;
+    }
+
+    /**
      * finds an account by name
      * @param username account name
      * @return Account-object

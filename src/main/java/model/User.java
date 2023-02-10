@@ -26,6 +26,10 @@ public class User {
      */
     private String username;
     /**
+     * password of the player
+     */
+    private String password;
+    /**
      * Id of the player, retrieved from the database.
      */
     private Long userId;
@@ -75,11 +79,12 @@ public class User {
      * Searches username from database and updates the instance variables
      *
      * @param username - see {@link #username}
+     * @param password - see {@link #password}
      * @return true or false depending success of the login
      */
-    public boolean login(String username) {
+    public boolean login(String username, String password) {
         try {
-            Account account = accountdao.getAccountByName(username);
+            Account account = accountdao.getAccountByNameAndPassword(username, password);
             System.out.println("sTRINGIFYING ACCOUNT: " + account.toString() + "");
 
             if (account.getAccountid() != null) {
@@ -101,12 +106,13 @@ public class User {
      * Searches username from db, creates it if it does not exist
      * and updates the instance variables
      *
-     * @param username
+     * @param username see {@link #username}
+     * @param password see {@link #password}
      * @return true or false depending success of the signup
      */
-    public boolean signup(String username) {
+    public boolean signup(String username, String password) {
         // save account
-        Long id = accountdao.saveAccount(new Account(username, "tiger"));
+        Long id = accountdao.saveAccount(new Account(username, password));
         if (id != null) {
             System.out.println("Username already exists!");
             return false;

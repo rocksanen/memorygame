@@ -10,6 +10,8 @@ public interface IAccountDAO {
 
     Account getAccount(Long id);
 
+    Account getAccountByNameAndPassword(String username, String password);
+
     Account getAccountByName(String name);
 
     List<Account> getAllAccounts();
