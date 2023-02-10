@@ -54,19 +54,46 @@ public class Effects {
     }
     public void moveBackGround(ImageView imageView) {
 
+        double x = imageView.getLayoutX();
+        double y = imageView.getLayoutY();
+
         Timeline timelineBackGround = new Timeline(
                 new KeyFrame(Duration.ZERO,
-                        new KeyValue(imageView.layoutXProperty(),0),
-                        new KeyValue(imageView.layoutYProperty(),0)),
-                new KeyFrame(Duration.seconds(4),
-                        new KeyValue(imageView.layoutXProperty(),10),
-                        new KeyValue(imageView.layoutYProperty(),3)),
-                new KeyFrame(Duration.seconds(8),
-                        new KeyValue(imageView.layoutXProperty(),-10),
-                        new KeyValue(imageView.layoutYProperty(),-3)));
+                        new KeyValue(imageView.layoutXProperty(),x),
+                        new KeyValue(imageView.layoutYProperty(),y)),
+                new KeyFrame(Duration.seconds(5),
+                        new KeyValue(imageView.layoutXProperty(),x + 10),
+                        new KeyValue(imageView.layoutYProperty(),y + 3)),
+                new KeyFrame(Duration.seconds(9),
+                        new KeyValue(imageView.layoutXProperty(),x + 15),
+                        new KeyValue(imageView.layoutYProperty(),y + 6)));
 
         timelineBackGround.setAutoReverse(true);
         timelineBackGround.setCycleCount(Timeline.INDEFINITE);
         timelineBackGround.play();
+    }
+
+    public void backGroundIn(ImageView imageView) {
+
+        double start = imageView.getOpacity();
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(imageView.opacityProperty(),start)),
+                new KeyFrame(Duration.seconds(0.7
+                ), new KeyValue(imageView.opacityProperty(),1)));
+
+        timeline.play();
+    }
+
+    public void backGroundOut(ImageView imageView) {
+
+        double start = imageView.getOpacity();
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(imageView.opacityProperty(),start)),
+                new KeyFrame(Duration.seconds(0.7
+                ), new KeyValue(imageView.opacityProperty(),0)));
+
+        timeline.play();
     }
 }

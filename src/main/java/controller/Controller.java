@@ -38,6 +38,13 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
     }
 
     @Override
+    public void startHardGame() {
+
+        this.engine = new Engine(ModeType.HARD,this);
+        this.engine.setMemoryObjects();
+    }
+
+    @Override
     public void sendIdToEngine(int id) {
 
         engine.addToComparing(id);
@@ -78,6 +85,18 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
             }
         });
 
+    }
+
+    @Override
+    public void setHardGame(ArrayList<MemoryObject> memoryObjects) {
+
+        Platform.runLater(() -> {
+            try{
+                ui.setHardGame(memoryObjects);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     @Override
