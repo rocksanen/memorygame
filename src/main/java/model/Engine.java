@@ -64,7 +64,11 @@ public class Engine implements IEngine {
                 controller.setMediumGame(memoryObjectsList);
 
             }
-            case HARD -> addMemoryObjectsToList(20);
+            case HARD -> {
+                addMemoryObjectsToList(20);
+                suffleObjects();
+                controller.setHardGame(memoryObjectsList);
+            }
         }
     }
 

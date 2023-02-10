@@ -14,6 +14,7 @@ public interface IGui {
     void setWorldScore();
     void setEasyGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException;
     void setMediumGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException;
+    void setHardGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException;
     void clearStorage();
 
 }

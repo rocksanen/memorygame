@@ -18,52 +18,40 @@ import java.util.ArrayList;
 public class HardCubeFactory implements ICubeFactory {
 
     private final Gui gui;
+    private ArrayList<String> imageUrlList;
 
     public HardCubeFactory(Gui gui) {
 
         this.gui = gui;
+        this.imageUrlList = new ArrayList<>();
 
     }
     @Override
-    public void createCubics(GridPane gridPane,ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
+    public void createCubics(GridPane gridPane, ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
 
-        IImageServer hardImages = new HardImageServer();
-        ArrayList<String> imageUrlList = hardImages.getImageUrl();
+        IImageServer mediumImages = new HardImageServer();
 
-        ArrayList<String> chosenImages = new ArrayList<>();
-        for(int i = 0; i < 10; i++){
-
-            chosenImages.add(imageUrlList.get(i));
-            chosenImages.add(imageUrlList.get(i));
+        if (imageUrlList != null) {
+            imageUrlList.clear();
         }
+        imageUrlList = mediumImages.getImageUrl();
 
-        for(String url: chosenImages) {
+        int groupsPerRow = 4;
 
-            System.out.println(url);
-        }
-
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 5; j++) {
-                int index = i * 5 + j;
-                if (index >= 20) {
-                    break;
-                }
-                Group group = new Group();
-                group.getChildren().add(new BoxMaker(80, 80, 80, 0, 0, 100,chosenImages.get(index),memoryObjects.get(index).getIdNumber(),gui,i).getBox());
+        for (int i = 0; i < memoryObjects.size(); i++) {
+            Group group = new Group();
+            int imageIndex = memoryObjects.get(i).getTypeId();
+            if (imageIndex >= 0 && imageIndex < imageUrlList.size()) {
+                group.getChildren().add(
+                        new BoxMaker(
+                                80, 80, 80, 0, 0, 90,
+                                imageUrlList.get(imageIndex), memoryObjects.get(i).getTypeId(), gui, i)
+                                .getBox());
                 group.setCursor(Cursor.HAND);
-                gridPane.add(group, j, i);
+                gridPane.add(group, i % groupsPerRow, i / groupsPerRow);
                 GridPane.setHalignment(group, HPos.CENTER);
                 GridPane.setValignment(group, VPos.CENTER);
             }
         }
-
-        ColumnConstraints columnConstraints = new ColumnConstraints();
-        columnConstraints.setPercentWidth(21.5);
-        gridPane.getColumnConstraints().addAll(columnConstraints,columnConstraints);
-
-        RowConstraints rowConstraints = new RowConstraints();
-        rowConstraints.setPercentHeight(23);
-        gridPane.getRowConstraints().addAll(rowConstraints);
-
     }
 }

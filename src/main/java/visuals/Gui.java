@@ -4,6 +4,7 @@ import controller.Controller;
 import controller.IControllerScoreToV;
 import controller.IControllerVtoE;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,14 +15,17 @@ import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.MemoryObject;
 import model.Scoreboard;
 import visuals.CubeFactories.EasyCubeFactory;
+import visuals.CubeFactories.HardCubeFactory;
 import visuals.CubeFactories.ICubeFactory;
 import visuals.CubeFactories.MediumCubeFactory;
 
@@ -39,11 +43,15 @@ public class Gui extends Application implements IGui{
     Stage primaryStage;
     @FXML Button startEasyGame;
     @FXML Button startMediumGame;
+    @FXML Button startHardGame;
     @FXML
     GridPane easyGrid;
 
     @FXML
     GridPane mediumGrid;
+
+    @FXML
+    GridPane hardGrid;
     @FXML
     ListView<String> personalScores;
     @FXML
@@ -51,11 +59,24 @@ public class Gui extends Application implements IGui{
     @FXML
     ImageView background;
     @FXML
+    ImageView mediumBackground;
+    @FXML
+    ImageView hardBackground;
+    @FXML
     VBox vBox = new VBox();
+
+    @FXML Button register;
+    @FXML Button login;
+    @FXML
+    Pane signOrReg;
+    @FXML
+    TextField name;
+    @FXML TextField password;
 
     ArrayList<BoxMaker> cubeList;
     ICubeFactory easyCubeFactory;
     ICubeFactory mediumCubeFactory;
+    ICubeFactory hardCubeFactory;
     Parent root;
 
     public static void main(String[] args) {launch(args);}
@@ -80,33 +101,65 @@ public class Gui extends Application implements IGui{
         });
 
         background = (ImageView) root.lookup("#background");
+        mediumBackground = (ImageView) root.lookup("#mediumBackground") ;
+        hardBackground = (ImageView) root.lookup("#hardBackground") ;
 
-        if (background == null) {
-            System.out.println("background is null");
-            return;
-        }
+
 
         this.primaryStage.setScene(scene);
         this.primaryStage.setFullScreenExitHint ("");
         this.primaryStage.setResizable(false);
         this.primaryStage.show();
-        Effects.getInstance().moveBackGround(background);
+        Platform.runLater(() -> Effects.getInstance().moveBackGround(background));
+        Platform.runLater(() -> Effects.getInstance().moveBackGround(mediumBackground));
+        Platform.runLater(() -> Effects.getInstance().moveBackGround(hardBackground));
     }
     @Override
     public void init() {
-
-        background = new ImageView();
         personalScores = new ListView<>();
         startEasyGame = new Button();
         startMediumGame = new Button();
+        startHardGame = new Button();
         easyGrid = new GridPane();
         mediumGrid = new GridPane();
+        hardGrid = new GridPane();
+        register = new Button();
+        login = new Button();
+        signOrReg = new Pane();
+        name = new TextField();
+        password = new TextField();
+    }
+
+    @FXML
+    public void registerPane() {
+
+        String user = name.getText();
+        String userPassword = password.getText();
+
+        signOrReg.setVisible(false);
+
+    }
+
+    @FXML
+    public void loginPane() {
+
+        String user = name.getText();
+        String userPassword = password.getText();
+
+        signOrReg.setVisible(false);
+
     }
     @FXML
     public void setStartEasyGame() {
 
+        Platform.runLater(() -> Effects.getInstance().backGroundIn(background));
+        Platform.runLater(() -> Effects.getInstance().backGroundOut(mediumBackground));
+        Platform.runLater(() -> Effects.getInstance().backGroundOut(hardBackground));
+
         mediumGrid.setMouseTransparent(true);
         mediumGrid.setVisible(false);
+        hardGrid.setMouseTransparent(true);
+        hardGrid.setVisible(false);
         easyGrid.setMouseTransparent(false);
         easyGrid.setVisible(true);
 
@@ -119,8 +172,14 @@ public class Gui extends Application implements IGui{
     @FXML
     public void setStartMediumGame() {
 
+        Platform.runLater(() -> Effects.getInstance().backGroundIn(mediumBackground));
+        Platform.runLater(() -> Effects.getInstance().backGroundOut(background));
+        Platform.runLater(() -> Effects.getInstance().backGroundOut(hardBackground));
+
         easyGrid.setMouseTransparent(true);
         easyGrid.setVisible(false);
+        hardGrid.setMouseTransparent(true);
+        hardGrid.setVisible(false);
         mediumGrid.setMouseTransparent(false);
         mediumGrid.setVisible(true);
         mediumGrid.setHgap(40);
@@ -133,6 +192,30 @@ public class Gui extends Application implements IGui{
         controller.startMediumGame();
     }
 
+    @FXML
+    public void setStartHardGame() {
+
+        Platform.runLater(() -> Effects.getInstance().backGroundIn(hardBackground));
+        Platform.runLater(() -> Effects.getInstance().backGroundOut(background));
+        Platform.runLater(() -> Effects.getInstance().backGroundOut(mediumBackground));
+
+        easyGrid.setMouseTransparent(true);
+        easyGrid.setVisible(false);
+        mediumGrid.setMouseTransparent(true);
+        mediumGrid.setVisible(false);
+        hardGrid.setMouseTransparent(false);
+        hardGrid.setVisible(true);
+        hardGrid.setHgap(70);
+        hardGrid.setVgap(50);
+
+        if(cubeList != null) {cubeList.clear();}
+        cubeList = new ArrayList<>();
+        hardCubeFactory = new HardCubeFactory(this);
+        hardGrid.getChildren().clear();
+        controller.startHardGame();
+
+    }
+
     @Override
     public void setEasyGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
 
@@ -143,6 +226,14 @@ public class Gui extends Application implements IGui{
 
         mediumCubeFactory.createCubics(mediumGrid,memoryObjects);
     }
+
+    @Override
+    public void setHardGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
+
+        System.out.println(memoryObjects.size());
+        hardCubeFactory.createCubics(hardGrid,memoryObjects);
+    }
+
     @Override
     public void clearStorage() {
         controller.clearStorage();
