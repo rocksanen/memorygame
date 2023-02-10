@@ -40,7 +40,10 @@ public class Gui extends Application implements IGui{
     @FXML Button startEasyGame;
     @FXML Button startMediumGame;
     @FXML
-    GridPane easyGrid = new GridPane();
+    GridPane easyGrid;
+
+    @FXML
+    GridPane mediumGrid;
     @FXML
     ListView<String> personalScores;
     @FXML
@@ -61,7 +64,7 @@ public class Gui extends Application implements IGui{
     public void start(Stage primaryStage) throws IOException {
 
         this.primaryStage = primaryStage;
-        this.root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(EASYMODE)));
+        this.root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/visuals/game2.fxml")));
         Scene scene = new Scene(root, 1250, 750);
 
         Node worldScoresNode = root.lookup("#worldScores");
@@ -97,10 +100,15 @@ public class Gui extends Application implements IGui{
         startEasyGame = new Button();
         startMediumGame = new Button();
         easyGrid = new GridPane();
-        background = new ImageView();
+        mediumGrid = new GridPane();
     }
     @FXML
     public void setStartEasyGame() {
+
+        mediumGrid.setMouseTransparent(true);
+        mediumGrid.setVisible(false);
+        easyGrid.setMouseTransparent(false);
+        easyGrid.setVisible(true);
 
         if(cubeList != null) {cubeList.clear();}
         cubeList = new ArrayList<>();
@@ -111,10 +119,17 @@ public class Gui extends Application implements IGui{
     @FXML
     public void setStartMediumGame() {
 
+        easyGrid.setMouseTransparent(true);
+        easyGrid.setVisible(false);
+        mediumGrid.setMouseTransparent(false);
+        mediumGrid.setVisible(true);
+        mediumGrid.setHgap(40);
+        mediumGrid.setVgap(20);
+
         if(cubeList != null) {cubeList.clear();}
         cubeList = new ArrayList<>();
         mediumCubeFactory = new MediumCubeFactory(this);
-        easyGrid.getChildren().clear();
+        mediumGrid.getChildren().clear();
         controller.startMediumGame();
     }
 
@@ -126,7 +141,7 @@ public class Gui extends Application implements IGui{
     @Override
     public void setMediumGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
 
-        mediumCubeFactory.createCubics(easyGrid,memoryObjects);
+        mediumCubeFactory.createCubics(mediumGrid,memoryObjects);
     }
     @Override
     public void clearStorage() {
