@@ -146,6 +146,10 @@ public class User {
         return true;
     }
 
+    public boolean isLoggedIn() {
+        return userId != null;
+    }
+
     /**
      * Getter for the personal scores
      *

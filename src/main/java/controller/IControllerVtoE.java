@@ -1,5 +1,7 @@
 package controller;
 
+import model.ModeType;
+
 public interface IControllerVtoE {
     void startEasyGame();
     void startMediumGame();
@@ -10,4 +12,10 @@ public interface IControllerVtoE {
     boolean login(String username, String password);
 
     boolean register(String username, String password);
+
+    void logout();
+
+    boolean isLoggedIn();
+
+    String getUsername();
 }

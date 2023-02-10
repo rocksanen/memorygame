@@ -33,14 +33,14 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
     @Override
     public void startMediumGame() {
 
-        this.engine = new Engine(ModeType.MEDIUM,this);
+        this.engine = new Engine(ModeType.MEDIUM, this);
         this.engine.setMemoryObjects();
     }
 
     @Override
     public void startHardGame() {
 
-        this.engine = new Engine(ModeType.HARD,this);
+        this.engine = new Engine(ModeType.HARD, this);
         this.engine.setMemoryObjects();
     }
 
@@ -56,9 +56,9 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
     }
 
     @Override
-    public void clearPair(ArrayList<Integer> storage){
+    public void clearPair(ArrayList<Integer> storage) {
 
-        Platform.runLater(() ->ui.clearPair(storage));
+        Platform.runLater(() -> ui.clearPair(storage));
 
     }
 
@@ -91,7 +91,7 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
     public void setHardGame(ArrayList<MemoryObject> memoryObjects) {
 
         Platform.runLater(() -> {
-            try{
+            try {
                 ui.setHardGame(memoryObjects);
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
@@ -222,9 +222,28 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
         User user = User.getInstance();
         return user.login(username, password);
     }
+
     @Override
     public boolean register(String username, String password) {
         User user = User.getInstance();
         return user.signup(username, password);
+    }
+
+    @Override
+    public void logout() {
+        User user = User.getInstance();
+        user.logout();
+    }
+
+    @Override
+    public boolean isLoggedIn() {
+        User user = User.getInstance();
+        return user.isLoggedIn();
+    }
+
+    @Override
+    public String getUsername() {
+        User user = User.getInstance();
+        return user.getUsername();
     }
 }
