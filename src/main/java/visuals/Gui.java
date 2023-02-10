@@ -153,14 +153,21 @@ public class Gui extends Application implements IGui {
 
     @FXML
     public void loginPane() {
-
         String user = name.getText();
         String userPassword = password.getText();
+        try {
+            controller.login(user, userPassword);
+            if (controller.isLoggedIn() != true) {
+                return;
+            }
+            setPersonalScores(scoreController.getPersonalScores(ModeType.EASY));
+            signOrReg.setVisible(false);
 
-        controller.login(user, userPassword);
-        signOrReg.setVisible(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        setPersonalScores(scoreController.getPersonalScores(ModeType.EASY));
+
 
     }
 
@@ -298,7 +305,9 @@ public class Gui extends Application implements IGui {
 
     @Override
     public void setPersonalScores(ArrayList<String> personalList) {
-
+        if (personalList == null) {
+            return;
+        }
         ObservableList<String> personObservable = FXCollections.observableArrayList();
         personObservable.addAll(personalList);
         personalScores.getItems().addAll(personObservable);

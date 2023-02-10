@@ -112,13 +112,14 @@ public class User {
      */
     public boolean signup(String username, String password) {
         // save account
-        Long id = accountdao.saveAccount(new Account(username, password));
-        if (id != null) {
+        accountdao.saveAccount(new Account(username, password));
+        Account account = accountdao.getAccountByName(username);
+
+        if (account == null) {
             System.out.println("Username already exists!");
             return false;
         }
 
-        Account account = accountdao.getAccountByName(username);
         this.userId = account.getAccountid();
         this.username = account.getUsername();
         this.personalScores = new Scoreboard(leaderboarddao.getAccountScores(userId));

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IAccountDAO {
 
-    Long saveAccount(Account account);
+    boolean saveAccount(Account account);
 
     Account getAccount(Long id);
 

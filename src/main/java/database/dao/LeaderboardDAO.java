@@ -27,23 +27,26 @@ public class LeaderboardDAO implements ILeaderboardDAO {
      */
     @Override
     public boolean saveScore(Leaderboard lb) {
-        // check if account exists
         EntityManager em = SqlJpaConn.getInstance();
+        // check if account exists
+//        IAccountDAO accountDAO = new AccountDAO();
+//        if (accountDAO.getAccount(lb.getAccountid().getAccountid()) == null) {
+//            return false;
+//        }
         em.getTransaction().begin();
-        IAccountDAO accountDAO = new AccountDAO();
-        if (accountDAO.getAccount(lb.getAccountid().getAccountid()) == null) {
-            return false;
-        }
+        em.persist(lb);
 
 
         System.out.println("saveScores " + lb);
         try {
-            em.persist(lb);
             em.getTransaction().commit();
             em.flush();
             return true;
         } catch (Exception e) {
             System.out.println("error saving a score to db.." + e);
+            em.getTransaction().rollback();
+        } finally {
+//            em.close();
         }
         return false;
     }
@@ -69,7 +72,8 @@ public class LeaderboardDAO implements ILeaderboardDAO {
 
     /**
      * selects top 100 scores of select account and difficulty
-     * @param accountid account id
+     *
+     * @param accountid  account id
      * @param difficulty difficulty
      * @return ArrayList of Leaderboard-objects
      */
@@ -103,6 +107,7 @@ public class LeaderboardDAO implements ILeaderboardDAO {
 
     /**
      * deletes a score by id
+     *
      * @param scoreid score id
      * @return true if successful
      */
@@ -123,14 +128,15 @@ public class LeaderboardDAO implements ILeaderboardDAO {
 
     /**
      * deletes all scores of select account
+     *
      * @param accountid account id
      * @return true if successful
      */
     @Override
     public boolean deleteAllScores(Long accountid) {
         System.out.println("deleteAllScores " + accountid);
+        EntityManager em = SqlJpaConn.getInstance();
         try {
-            EntityManager em = SqlJpaConn.getInstance();
             em.getTransaction().begin();
             Query query = em.createQuery("DELETE FROM Leaderboard l WHERE l.accountid.accountid = :accountid");
             query.setParameter("accountid", accountid);
@@ -140,6 +146,8 @@ public class LeaderboardDAO implements ILeaderboardDAO {
         } catch (Exception e) {
             System.out.println("error deleting all scores from db.." + e);
             return false;
+        } finally {
+//            em.close();
         }
     }
 }

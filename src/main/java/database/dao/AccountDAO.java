@@ -19,35 +19,39 @@ public class AccountDAO implements IAccountDAO {
 
     /**
      * Saves an account to the database
+     *
      * @param account Account-object to be saved
      * @return true if successful, false if not
      */
     @Override
-    public Long saveAccount(Account account) {
+    public boolean saveAccount(Account account) {
         // check if account by that name exists
         if (getAccountByName(account.getUsername()) != null) {
             System.out.println("account already exists");
-            return null;
+            return false;
         }
         account.setUsername(account.getUsername().toLowerCase());
+        EntityManager em = SqlJpaConn.getInstance();
+        em.getTransaction().begin();
+        em.persist(account);
 
+        System.out.println("saveAccount " + account);
         try {
-            System.out.println("saveAccount " + account);
-            EntityManager em = SqlJpaConn.getInstance();
-            em.getTransaction().begin();
-            em.persist(account);
             em.getTransaction().commit();
             em.flush();
-            return account.getAccountid();
+            return true;
         } catch (Exception e) {
-            return null;
+            em.getTransaction().rollback();
+        } finally {
+//            em.close();
         }
-
+        return false;
     }
 
 
     /**
      * finds an account by id
+     *
      * @param id account id
      * @return Account-object
      */
@@ -61,6 +65,7 @@ public class AccountDAO implements IAccountDAO {
 
     /**
      * finds an account by name & password
+     *
      * @param username account name
      * @param username account password
      * @return Account-object
@@ -80,12 +85,15 @@ public class AccountDAO implements IAccountDAO {
             return a;
         } catch (Exception e) {
             System.out.println(e);
+        } finally {
+//            em.close();
         }
         return a;
     }
 
     /**
      * finds an account by name
+     *
      * @param username account name
      * @return Account-object
      */
@@ -103,12 +111,15 @@ public class AccountDAO implements IAccountDAO {
             return a;
         } catch (Exception e) {
             System.out.println(e);
+        } finally {
+//            em.close();
         }
         return a;
     }
 
     /**
      * finds all accounts
+     *
      * @return ArrayList of Account-objects
      */
     @Override
@@ -123,6 +134,7 @@ public class AccountDAO implements IAccountDAO {
 
     /**
      * deletes an account by id
+     *
      * @param id account id
      * @return true if successful, false if not
      */
@@ -141,6 +153,7 @@ public class AccountDAO implements IAccountDAO {
             return true;
         }
         em.getTransaction().commit();
+//        em.close();
         return false;
     }
 }

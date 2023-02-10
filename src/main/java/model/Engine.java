@@ -48,15 +48,19 @@ public class Engine implements IEngine {
 
 
         // temp mock data
-//        User u = User.getInstance();
-//        u.signup("eetu", "soro");
-//        u.login("eetu", "soro");
-//        this.user = u;
-//        u.addScore(43.28, 100, EASY);
-//        u.addScore(63.28, 123, EASY);
-//        u.addScore(23.28, 563, EASY);
-//        u.addScore(413.28, 112, EASY);
+        User u = User.getInstance();
+        u.signup("tony", "tiger");
+        u.login("tony", "tiger");
+        this.user = u;
+        u.addScore(Math.random()*100, (int) (Math.random() * 70 + 50), EASY);
+        u.addScore(Math.random()*100, (int) (Math.random() * 70 + 50), EASY);
 
+
+        u = User.getInstance();
+        u.signup("eetu", "soro");
+        u.login("eetu", "soro");
+        this.user = u;
+        u.addScore(Math.random()*100, (int) (Math.random() * 70 + 50), EASY);
     }
 
     @Override
