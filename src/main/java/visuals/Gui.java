@@ -146,7 +146,14 @@ public class Gui extends Application implements IGui {
         String user = name.getText();
         String userPassword = password.getText();
 
-        controller.register(user, userPassword);
+        if (controller.isLoggedIn() == true) {
+            System.out.println("Already logged in");
+            return;
+        }
+        if (controller.register(user, userPassword) == false) {
+            System.out.println("Registration failed");
+            return;
+        }
         signOrReg.setVisible(false);
 
     }
@@ -158,6 +165,7 @@ public class Gui extends Application implements IGui {
         try {
             controller.login(user, userPassword);
             if (controller.isLoggedIn() != true) {
+                System.out.println("Login failed");
                 return;
             }
             setPersonalScores(scoreController.getPersonalScores(ModeType.EASY));

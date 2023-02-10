@@ -115,7 +115,7 @@ public class User {
         accountdao.saveAccount(new Account(username, password));
         Account account = accountdao.getAccountByName(username);
 
-        if (account == null) {
+        if (account != null) {
             System.out.println("Username already exists!");
             return false;
         }
