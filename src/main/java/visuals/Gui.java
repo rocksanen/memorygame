@@ -34,16 +34,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Gui extends Application implements IGui{
+public class Gui extends Application implements IGui {
 
     private final IControllerVtoE controller = new Controller(this);
     private final IControllerScoreToV scoreController = new Controller(this);
     private final Scoreboard scoreboard = new Scoreboard(scoreController);
     private final String EASYMODE = "/visuals/game.fxml";
     Stage primaryStage;
-    @FXML Button startEasyGame;
-    @FXML Button startMediumGame;
-    @FXML Button startHardGame;
+    @FXML
+    Button startEasyGame;
+    @FXML
+    Button startMediumGame;
+    @FXML
+    Button startHardGame;
     @FXML
     GridPane easyGrid;
 
@@ -65,13 +68,16 @@ public class Gui extends Application implements IGui{
     @FXML
     VBox vBox = new VBox();
 
-    @FXML Button register;
-    @FXML Button login;
+    @FXML
+    Button register;
+    @FXML
+    Button login;
     @FXML
     Pane signOrReg;
     @FXML
     TextField name;
-    @FXML TextField password;
+    @FXML
+    TextField password;
 
     ArrayList<BoxMaker> cubeList;
     ICubeFactory easyCubeFactory;
@@ -79,7 +85,9 @@ public class Gui extends Application implements IGui{
     ICubeFactory hardCubeFactory;
     Parent root;
 
-    public static void main(String[] args) {launch(args);}
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -101,19 +109,19 @@ public class Gui extends Application implements IGui{
         });
 
         background = (ImageView) root.lookup("#background");
-        mediumBackground = (ImageView) root.lookup("#mediumBackground") ;
-        hardBackground = (ImageView) root.lookup("#hardBackground") ;
-
+        mediumBackground = (ImageView) root.lookup("#mediumBackground");
+        hardBackground = (ImageView) root.lookup("#hardBackground");
 
 
         this.primaryStage.setScene(scene);
-        this.primaryStage.setFullScreenExitHint ("");
+        this.primaryStage.setFullScreenExitHint("");
         this.primaryStage.setResizable(false);
         this.primaryStage.show();
         Platform.runLater(() -> Effects.getInstance().moveBackGround(background));
         Platform.runLater(() -> Effects.getInstance().moveBackGround(mediumBackground));
         Platform.runLater(() -> Effects.getInstance().moveBackGround(hardBackground));
     }
+
     @Override
     public void init() {
         personalScores = new ListView<>();
@@ -136,6 +144,7 @@ public class Gui extends Application implements IGui{
         String user = name.getText();
         String userPassword = password.getText();
 
+        controller.register(user, userPassword);
         signOrReg.setVisible(false);
 
     }
@@ -146,9 +155,12 @@ public class Gui extends Application implements IGui{
         String user = name.getText();
         String userPassword = password.getText();
 
-        signOrReg.setVisible(false);
+        controller.login(user, userPassword),
+
+                signOrReg.setVisible(false);
 
     }
+
     @FXML
     public void setStartEasyGame() {
 
@@ -163,12 +175,15 @@ public class Gui extends Application implements IGui{
         easyGrid.setMouseTransparent(false);
         easyGrid.setVisible(true);
 
-        if(cubeList != null) {cubeList.clear();}
+        if (cubeList != null) {
+            cubeList.clear();
+        }
         cubeList = new ArrayList<>();
         easyCubeFactory = new EasyCubeFactory(this);
         easyGrid.getChildren().clear();
         controller.startEasyGame();
     }
+
     @FXML
     public void setStartMediumGame() {
 
@@ -185,7 +200,9 @@ public class Gui extends Application implements IGui{
         mediumGrid.setHgap(40);
         mediumGrid.setVgap(20);
 
-        if(cubeList != null) {cubeList.clear();}
+        if (cubeList != null) {
+            cubeList.clear();
+        }
         cubeList = new ArrayList<>();
         mediumCubeFactory = new MediumCubeFactory(this);
         mediumGrid.getChildren().clear();
@@ -208,7 +225,9 @@ public class Gui extends Application implements IGui{
         hardGrid.setHgap(70);
         hardGrid.setVgap(50);
 
-        if(cubeList != null) {cubeList.clear();}
+        if (cubeList != null) {
+            cubeList.clear();
+        }
         cubeList = new ArrayList<>();
         hardCubeFactory = new HardCubeFactory(this);
         hardGrid.getChildren().clear();
@@ -219,19 +238,20 @@ public class Gui extends Application implements IGui{
     @Override
     public void setEasyGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
 
-        easyCubeFactory.createCubics(easyGrid,memoryObjects);
+        easyCubeFactory.createCubics(easyGrid, memoryObjects);
     }
+
     @Override
     public void setMediumGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
 
-        mediumCubeFactory.createCubics(mediumGrid,memoryObjects);
+        mediumCubeFactory.createCubics(mediumGrid, memoryObjects);
     }
 
     @Override
     public void setHardGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
 
         System.out.println(memoryObjects.size());
-        hardCubeFactory.createCubics(hardGrid,memoryObjects);
+        hardCubeFactory.createCubics(hardGrid, memoryObjects);
     }
 
     @Override
@@ -239,16 +259,21 @@ public class Gui extends Application implements IGui{
         controller.clearStorage();
     }
 
-    public void addToCubeList(BoxMaker cube) {cubeList.add(cube);}
+    public void addToCubeList(BoxMaker cube) {
+        cubeList.add(cube);
+    }
+
     @Override
-    public void clearPair(ArrayList<Integer> storage){
+    public void clearPair(ArrayList<Integer> storage) {
 
         cubeList.get(storage.get(0)).resetImage();
         cubeList.get(storage.get(1)).resetImage();
         clearStorage();
     }
 
-    public void sendIdToEngine(int id) {controller.sendIdToEngine(id);}
+    public void sendIdToEngine(int id) {
+        controller.sendIdToEngine(id);
+    }
 
     @Override
     public void getWorldScore(ArrayList<String> worldList) {

@@ -118,6 +118,7 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
      *
      * @param difficulty the difficulty to fetch scores for
      */
+    @Override
     public void fetchScores(ModeType difficulty) {
         Scoreboard scores;
         switch (difficulty) {
@@ -140,6 +141,7 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
      * @param difficulty the difficulty to get scores for
      * @return
      */
+    @Override
     public ArrayList<String> getScores(ModeType difficulty) {
         Scoreboard scores;
         switch (difficulty) {
@@ -169,6 +171,7 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
      *
      * @return the total score
      */
+    @Override
     public int getTotalScore() {
         return engine.getTotalScore();
     }
@@ -178,7 +181,19 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
      *
      * @return the score for the next correct guess
      */
+    @Override
     public int getNextScore() {
         return engine.getNextScore();
+    }
+
+    @Override
+    public boolean login(String username, String password) {
+        User user = User.getInstance();
+        return user.login(username, password);
+    }
+    @Override
+    public boolean register(String username, String password) {
+        User user = User.getInstance();
+        return user.login(username, password);
     }
 }
