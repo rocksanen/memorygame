@@ -38,7 +38,6 @@ public class AccountDAO implements IAccountDAO {
         System.out.println("saveAccount " + account);
         try {
             em.getTransaction().commit();
-            em.flush();
             return true;
         } catch (Exception e) {
             em.getTransaction().rollback();
