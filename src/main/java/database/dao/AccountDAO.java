@@ -41,12 +41,9 @@ public class AccountDAO implements IAccountDAO {
             return true;
         } catch (Exception e) {
             em.getTransaction().rollback();
-        } finally {
-//            em.close();
+            return false;
         }
-        return false;
     }
-
 
     /**
      * finds an account by id
@@ -61,6 +58,7 @@ public class AccountDAO implements IAccountDAO {
         Account a = em.find(Account.class, id);
         return a;
     }
+
 
     /**
      * finds an account by name & password
@@ -84,8 +82,6 @@ public class AccountDAO implements IAccountDAO {
             return a;
         } catch (Exception e) {
             System.out.println(e);
-        } finally {
-//            em.close();
         }
         return a;
     }
@@ -152,7 +148,6 @@ public class AccountDAO implements IAccountDAO {
             return true;
         }
         em.getTransaction().commit();
-//        em.close();
         return false;
     }
 }

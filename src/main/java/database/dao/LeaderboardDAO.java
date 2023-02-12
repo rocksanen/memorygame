@@ -136,8 +136,7 @@ public class LeaderboardDAO implements ILeaderboardDAO {
         } catch (Exception e) {
             System.out.println("error deleting all scores from db.." + e);
             return false;
-        } finally {
-//            em.close();
+
         }
     }
 }
