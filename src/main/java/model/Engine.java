@@ -5,6 +5,7 @@ import controller.IControllerEtoV;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
+
 import static model.CompareResultType.EQUAL;
 import static model.CompareResultType.NOTEQUAL;
 import static model.ModeType.EASY;
@@ -39,6 +40,12 @@ public class Engine implements IEngine {
      */
     private int nextScore = 1000;
 
+    /**
+     * The number of incorrect tries. Resets when a correct guess is made.
+     */
+    int incorrectTries = 0;
+
+
     public Engine(ModeType type, IControllerEtoV controller) {
         this.type = type;
         this.controller = controller;
@@ -48,19 +55,19 @@ public class Engine implements IEngine {
 
 
         // temp mock data
-        User u = User.getInstance();
-        u.signup("tony", "tiger");
-        u.login("tony", "tiger");
-        this.user = u;
-        u.addScore(Math.random()*100, (int) (Math.random() * 70 + 50), EASY);
-        u.addScore(Math.random()*100, (int) (Math.random() * 70 + 50), EASY);
-
-
-        u = User.getInstance();
-        u.signup("eetu", "soro");
-        u.login("eetu", "soro");
-        this.user = u;
-        u.addScore(Math.random()*100, (int) (Math.random() * 70 + 50), EASY);
+//        User u = User.getInstance();
+//        u.signup("tony", "tiger");
+//        u.login("tony", "tiger");
+//        this.user = u;
+//        u.addScore(Math.random() * 100, (int) (Math.random() * 70 + 50), EASY);
+//        u.addScore(Math.random() * 100, (int) (Math.random() * 70 + 50), EASY);
+//
+//
+//        u = User.getInstance();
+//        u.signup("eetu", "soro");
+//        u.login("eetu", "soro");
+//        this.user = u;
+//        u.addScore(Math.random() * 100, (int) (Math.random() * 70 + 50), EASY);
     }
 
     @Override
@@ -72,7 +79,7 @@ public class Engine implements IEngine {
                 suffleObjects();
                 controller.setEasyGame(memoryObjectsList);
             }
-            case MEDIUM ->{
+            case MEDIUM -> {
                 addMemoryObjectsToList(12);
                 suffleObjects();
                 controller.setMediumGame(memoryObjectsList);
@@ -91,15 +98,17 @@ public class Engine implements IEngine {
 
         this.memoryObjectsList = new ArrayList<>();
         int type;
-        for(int i = 0; i < amount; i++) {
+        for (int i = 0; i < amount; i++) {
 
             type = i / 2;
-            memoryObjectsList.add(new MemoryObject(i,type));
+            memoryObjectsList.add(new MemoryObject(i, type));
         }
     }
 
     @Override
-    public void suffleObjects() {Collections.shuffle(memoryObjectsList);}
+    public void suffleObjects() {
+        Collections.shuffle(memoryObjectsList);
+    }
 
     @Override
     public void setChosenObjectReady(MemoryObject object) {
@@ -113,7 +122,7 @@ public class Engine implements IEngine {
         comparingList.add(memoryObject);
         storage.add(i);
 
-        if(comparingList.size() == 2) {
+        if (comparingList.size() == 2) {
 
             compareObjects(comparingList);
             comparingList.clear();
@@ -131,7 +140,9 @@ public class Engine implements IEngine {
                     Thread.sleep(1000);
                     controller.clearPair(storage);
 
-                } catch (InterruptedException e) {e.printStackTrace();}
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             });
         }
     }
@@ -165,9 +176,9 @@ public class Engine implements IEngine {
                 nextScore = 1000;
             }
             case NOTEQUAL -> {
-                if (nextScore > 100) {
-                    nextScore -= 100;
-
+                if (nextScore > 0) {
+                    incorrectTries++;
+                    nextScore -= 100 * incorrectTries;
                 }
             }
         }
@@ -187,6 +198,7 @@ public class Engine implements IEngine {
 
     /**
      * Getter for the next score.
+     *
      * @return see {@link #nextScore}
      */
     @Override
@@ -195,17 +207,19 @@ public class Engine implements IEngine {
     }
 
     @Override
-    public void clearStorage() {storage.clear();}
+    public void clearStorage() {
+        storage.clear();
+    }
 
     @Override
     public void compareObjects(ArrayList<MemoryObject> objectList) {
 
-        if(objectList.get(0).getTypeId().equals(objectList.get(1).getTypeId())) {
+        if (objectList.get(0).getTypeId().equals(objectList.get(1).getTypeId())) {
 
             updateScore(EQUAL);
             clearStorage();
 
-        }else{
+        } else {
 
             clearPair(objectList);
             updateScore(NOTEQUAL);
