@@ -62,18 +62,18 @@ public class Engine implements IEngine {
                 addMemoryObjectsToList(6);
                 suffleObjects();
                 controller.setEasyGame(memoryObjectsList);
-                test = 1;
+
             }
             case MEDIUM ->{
                 addMemoryObjectsToList(12);
                 suffleObjects();
                 controller.setMediumGame(memoryObjectsList);
-                test = 2;
+
 
             }
             case HARD -> {
                 addMemoryObjectsToList(20);
-                test = 3;
+
             }
         }
     }
@@ -206,7 +206,7 @@ public class Engine implements IEngine {
             rightPairList.add(objectList.get(1).getTypeId());
             updateScore(EQUAL);
             clearStorage();
-            if(test == 1 && rightPairList.size() == 6 || test == 2 && rightPairList.size() == 12 || test == 3 && rightPairList.size() == 20){
+            if( rightPairList.size() == memoryObjectsList.size()){
                 endGame();
             }
         } else{
