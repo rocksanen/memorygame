@@ -15,8 +15,13 @@ public class Engine implements IEngine {
     private final IControllerEtoV controller;
     private final ModeType type;
     private final ArrayList<MemoryObject> comparingList = new ArrayList<>();
+    private ArrayList<Integer> rightPairList = new ArrayList<Integer>();
     private CompareResultType type2;
     private ArrayList<MemoryObject> memoryObjectsList;
+
+    //private int foundPairs = 0;
+
+    private int test;
     /**
      * logged in user
      */
@@ -57,14 +62,19 @@ public class Engine implements IEngine {
                 addMemoryObjectsToList(6);
                 suffleObjects();
                 controller.setEasyGame(memoryObjectsList);
+                test = 1;
             }
             case MEDIUM ->{
                 addMemoryObjectsToList(12);
                 suffleObjects();
                 controller.setMediumGame(memoryObjectsList);
+                test = 2;
 
             }
-            case HARD -> addMemoryObjectsToList(20);
+            case HARD -> {
+                addMemoryObjectsToList(20);
+                test = 3;
+            }
         }
     }
 
@@ -92,14 +102,22 @@ public class Engine implements IEngine {
     public void addToComparing(int i) {
 
         MemoryObject memoryObject = memoryObjectsList.get(i);
-        comparingList.add(memoryObject);
-        storage.add(i);
-
-        if(comparingList.size() == 2) {
-
+        memoryObject.setActive();
+        if(!rightPairList.contains(memoryObject.getTypeId()) ){
+                comparingList.add(memoryObject);
+                storage.add(i);
+        }
+        if(comparingList.size() == 2 ) {
             compareObjects(comparingList);
             comparingList.clear();
         }
+
+    }
+
+    public void endGame () {
+        rightPairList.clear();
+        System.out.println("Game ended!");
+
     }
 
     @Override
@@ -182,13 +200,16 @@ public class Engine implements IEngine {
     @Override
     public void compareObjects(ArrayList<MemoryObject> objectList) {
 
-        if(objectList.get(0).getTypeId().equals(objectList.get(1).getTypeId())) {
+        if(objectList.get(0).getTypeId().equals(objectList.get(1).getTypeId()) && objectList.get(0) != objectList.get(1)) {
 
+            rightPairList.add(objectList.get(0).getTypeId());
+            rightPairList.add(objectList.get(1).getTypeId());
             updateScore(EQUAL);
             clearStorage();
-
-        }else{
-
+            if(test == 1 && rightPairList.size() == 6 || test == 2 && rightPairList.size() == 12 || test == 3 && rightPairList.size() == 20){
+                endGame();
+            }
+        } else{
             clearPair(objectList);
             updateScore(NOTEQUAL);
         }

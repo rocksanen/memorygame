@@ -6,11 +6,14 @@ public class MemoryObject implements IMemoryObject, Comparable<MemoryObject>{
     private final Integer typeId;
     private Boolean active;
 
+
+
     public MemoryObject(Integer id, Integer typeId) {
 
         this.id = id;
         this.typeId = typeId;
         this.active = false;
+
     }
 
     @Override
@@ -37,9 +40,9 @@ public class MemoryObject implements IMemoryObject, Comparable<MemoryObject>{
         return this.active;
     }
 
+
     @Override
     public void setId(int id) {
-
         this.id = id;
     }
 
