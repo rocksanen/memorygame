@@ -152,11 +152,12 @@ public class User {
     }
 
     /**
-     * Getter for the personal scores
+     * Getter for the personal scores. Also refreshes the list from the database
      *
      * @return - see {@link #personalScores}
      */
     public Scoreboard getPersonalScores() {
+        this.personalScores = new Scoreboard(leaderboarddao.getAccountScores(userId));
         return personalScores;
     }
 
