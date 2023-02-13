@@ -1,5 +1,7 @@
 import visuals.MainApp;
 
+import java.io.FileNotFoundException;
+
 /**
  * Käynnistää simulaattorin 🚇
  * @author Eetu Soronen
@@ -12,7 +14,7 @@ public class Start {
 	 * kutsuu Visuals.MainApp.main(args) ja käynnistää simulaattorin
 	 * @param args
 	 */
-	public static void main(String args[]) {
+	public static void main(String args[]) throws FileNotFoundException {
 
 		MainApp.main(args);
 		

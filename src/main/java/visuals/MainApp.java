@@ -6,80 +6,18 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import visuals.ImageServers.ImageCache;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainApp extends Application {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
 
-        /*
-        IEngine engine = new Engine(ModeType.EASY);
-        engine.setMemoryObjects();
-        engine.suffleObjects();
-
-        System.out.println(engine + "\n");
-
-        for (MemoryObject object : engine.getSuffledObjects()) {
-
-            System.out.println(
-                    "Palikan id-numero: " + object.getIdNumber() +
-                            ", Palikan tyyppi-numero: " + object.getTypeId() +
-                            ", Onko aktiivinen: " + object.isActive()
-            );
-        }
-
-        /* TEST for comparing cards! */
-        /*
-        ArrayList<MemoryObject> objectList = new ArrayList<>();
-        objectList.add(new MemoryObject(1, 1));
-        objectList.add(new MemoryObject(2, 2));
-        objectList.add(new MemoryObject(3, 3));
-
-        MemoryObject testObject = new MemoryObject(4, 1);
-        for (MemoryObject obj : objectList) {
-            if (testObject.compareTo(obj) == 0) {
-                System.out.println("objects have the same type.");
-                break;
-            }
-        }
-        System.out.println("objects are not the same !");
-
-        /* end TEST for comparing cards! */
-
-        /* TEST for database */
-        /*
-        User user = User.getInstance();
-        user.signup("eetu");
-        user.login("eetu");
-
-        user.addScore(7000.0, ModeType.TEST);
-        user.addScore(5000.0, ModeType.TEST);
-
-        System.out.println("personal scores: " + user.getPersonalScores().getScores().size());
-        for (Score score : user.getPersonalScores().getScores()) {
-            System.out.println(score.toString());
-        }
-
-
-        user.getPersonalScores().deleteScore(user.getPersonalScores().getScores().get(0).getScoreid());
-        System.out.println("deleted first score");
-        System.out.println("personal scores: " + user.getPersonalScores().getScores().size());
-
-
-
-        Scoreboard globalScores = new Scoreboard();
-        globalScores.fetchScores(ModeType.TEST);
-
-        System.out.println("global scores: " + globalScores.getScores().size());
-        // print
-        for (Score score : globalScores.getScores()) {
-            System.out.println(score.toString());
-        }
-
-        user.logout();
-        /* end TEST for database */
-
+        ImageCache.getInstance().addToEasyCache();
+        ImageCache.getInstance().addToMediumCache();
+        ImageCache.getInstance().addToHardCache();
         visuals.Gui.main(args);
     }
 
