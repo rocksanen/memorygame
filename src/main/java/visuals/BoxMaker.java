@@ -49,14 +49,14 @@ public class BoxMaker {
     }
     private void createFaces() {
 
-        rightFace = new Box(width, height, 1);
+        rightFace = new Box(width, height, 0);
         rightFace.setMaterial(material4);
         rightFace.setTranslateX(width/2);
         rightFace.setTranslateZ(width/2);
         rightFace.setRotationAxis(Rotate.Y_AXIS);
         rightFace.setRotate(90);
 
-        leftFace = new Box(width, height, 1);
+        leftFace = new Box(width, height, 0);
         leftFace.setMaterial(material5);
         leftFace.setTranslateX(width/-2);
         leftFace.setTranslateZ(width/2);
@@ -70,6 +70,7 @@ public class BoxMaker {
 
         frontFace = new Box(width, height, 0);
         frontFace.setMaterial(material2);
+        frontFace.setTranslateZ(0);
         frontFace.setTranslateY(0);
         frontFace.setRotationAxis(Rotate.Z_AXIS);
 
@@ -81,7 +82,7 @@ public class BoxMaker {
         topFace.setRotationAxis(Rotate.X_AXIS);
         topFace.setRotate(-90);
 
-        bottomFace = new Box(width, height, 1);
+        bottomFace = new Box(width, height, 0);
         bottomFace.setMaterial(material6);
         bottomFace.setTranslateX(0);
         bottomFace.setTranslateY(width/2);
