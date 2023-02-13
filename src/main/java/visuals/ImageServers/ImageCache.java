@@ -54,22 +54,22 @@ public class ImageCache {
 
     public void addToMediumCache() throws FileNotFoundException {
 
-        Image nalle = new Image(new FileInputStream("src/main/java/visuals/Images/nalle.png")) ;
-        Image panda = new Image(new FileInputStream("src/main/java/visuals/Images/panda.png"));
-        Image pantteri = new Image(new FileInputStream("src/main/java/visuals/Images/pantteri.png"));
-        Image possu = new Image(new FileInputStream("src/main/java/visuals/Images/possu.png"));
-        Image pupu = new Image(new FileInputStream("src/main/java/visuals/Images/pupu.png"));
-        Image tiikeri = new Image(new FileInputStream("src/main/java/visuals/Images/tiikeri.png"));
+        Image goldDragon = new Image(new FileInputStream("src/main/java/visuals/Images/goldDragonHard.png")) ;
+        Image greenDragon = new Image(new FileInputStream("src/main/java/visuals/Images/greenDragonHard.png"));
+        Image lyhty = new Image(new FileInputStream("src/main/java/visuals/Images/lyhtyHard.png"));
+        Image boyGirl = new Image(new FileInputStream("src/main/java/visuals/Images/boyGirlHard.png"));
+        Image happyGirl = new Image(new FileInputStream("src/main/java/visuals/Images/happyGirlHard.png"));
+        Image bird = new Image(new FileInputStream("src/main/java/visuals/Images/birdHard.png"));
 
-        mediumImageCache.add(nalle);
-        mediumImageCache.add(panda);
-        mediumImageCache.add(pantteri);
-        mediumImageCache.add(possu);
-        mediumImageCache.add(pupu);
-        mediumImageCache.add(tiikeri);
+        mediumImageCache.add(goldDragon);
+        mediumImageCache.add(greenDragon);
+        mediumImageCache.add(lyhty);
+        mediumImageCache.add(boyGirl);
+        mediumImageCache.add(bird);
+        mediumImageCache.add(happyGirl);
 
-        Image mediumBack = new Image(new FileInputStream("src/main/java/visuals/Images/hardback.jpg"));
-        Image mediumBehind = new Image(new FileInputStream("src/main/java/visuals/Images/tigru.jpg"));
+        Image mediumBack = new Image(new FileInputStream("src/main/java/visuals/Images/mediumBack3.jpg"));
+        Image mediumBehind = new Image(new FileInputStream("src/main/java/visuals/Images/mediumCubeBack.jpg"));
 
         mediumCompImages.add(mediumBack);
         mediumCompImages.add(mediumBehind);
@@ -78,30 +78,31 @@ public class ImageCache {
 
     public void addToHardCache() throws FileNotFoundException {
 
-        Image nalle = new Image(new FileInputStream("src/main/java/visuals/Images/nalle.png")) ;
-        Image panda = new Image(new FileInputStream("src/main/java/visuals/Images/panda.png"));
-        Image pantteri = new Image(new FileInputStream("src/main/java/visuals/Images/pantteri.png"));
-        Image possu = new Image(new FileInputStream("src/main/java/visuals/Images/possu.png"));
+        Image goldDragon = new Image(new FileInputStream("src/main/java/visuals/Images/goldDragonHard.png")) ;
+        Image greenDragon = new Image(new FileInputStream("src/main/java/visuals/Images/greenDragonHard.png"));
+        Image skull = new Image(new FileInputStream("src/main/java/visuals/Images/skullHard.png"));
+        Image boyGirl = new Image(new FileInputStream("src/main/java/visuals/Images/boyGirlHard.png"));
+        Image happyGirl = new Image(new FileInputStream("src/main/java/visuals/Images/happyGirlHard.png"));
         Image pupu = new Image(new FileInputStream("src/main/java/visuals/Images/pupu.png"));
         Image tiikeri = new Image(new FileInputStream("src/main/java/visuals/Images/tiikeri.png"));
         Image lohnari = new Image(new FileInputStream("src/main/java/visuals/Images/lohnari.jpg"));
-        Image hardback2 = new Image(new FileInputStream("src/main/java/visuals/Images/hardback2.jpg"));
+
         Image login = new Image(new FileInputStream("src/main/java/visuals/Images/login.png"));
         Image hardback3 = new Image(new FileInputStream("src/main/java/visuals/Images/hardback3.jpg"));
 
-        hardImageCache.add(nalle);
-        hardImageCache.add(panda);
-        hardImageCache.add(pantteri);
-        hardImageCache.add(possu);
+        hardImageCache.add(goldDragon);
+        hardImageCache.add(greenDragon);
+        hardImageCache.add(skull);
+        hardImageCache.add(boyGirl);
         hardImageCache.add(pupu);
         hardImageCache.add(tiikeri);
         hardImageCache.add(lohnari);
-        hardImageCache.add(hardback2);
+        hardImageCache.add(happyGirl);
         hardImageCache.add(login);
         hardImageCache.add(hardback3);
 
         Image hardBack = new Image(new FileInputStream("src/main/java/visuals/Images/hardback2.jpg"));
-        Image hardBehind = new Image(new FileInputStream("src/main/java/visuals/Images/hardback4.jpg"));
+        Image hardBehind = new Image(new FileInputStream("src/main/java/visuals/Images/hardBehind1.jpg"));
 
         hardCompImages.add(hardBack);
         hardCompImages.add(hardBehind);

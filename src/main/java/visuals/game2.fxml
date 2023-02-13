@@ -135,6 +135,21 @@
                                 <GaussianBlur radius="5.29" />
                             </effect>
                         </ImageView>
+                  <ImageView id="startMouthMedium" fitHeight="620.0" fitWidth="435.0" layoutX="438.0" layoutY="60.0" x="-193.5" y="-60.0">
+                     <image>
+                        <Image url="@Images/startScroll.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView id="startMouthEasy" fitHeight="620.0" fitWidth="435.0" layoutX="-17.5" layoutY="60.0" y="-60.0">
+                     <image>
+                        <Image url="@Images/startScroll.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView id="startMouthHard" fitHeight="620.0" fitWidth="435.0" layoutX="700.0" layoutY="60.0" x="-193.0" y="-60.0">
+                     <image>
+                        <Image url="@Images/startScroll.png" />
+                     </image>
+                  </ImageView>
                         <ImageView id="setStartEasyGame" fitHeight="118.0" fitWidth="198.0" layoutX="101.0" layoutY="259.0" onMouseClicked="#easyStartScreenPlay">
                             <image>
                                 <Image url="@Images/background.png" />
@@ -165,6 +180,21 @@
                                 <Image url="@Images/frame3.png" />
                             </image>
                         </ImageView>
+                  <Label id="easyText" alignment="CENTER" contentDisplay="CENTER" layoutX="110.0" layoutY="130.0" prefHeight="44.0" prefWidth="176.0" text="EASY" textFill="#ffb700">
+                     <font>
+                        <Font name="Bodoni MT" size="28.0" />
+                     </font>
+                  </Label>
+                  <Label id="mediumText" alignment="CENTER" contentDisplay="CENTER" layoutX="353.0" layoutY="130.0" prefHeight="44.0" prefWidth="211.0" text="MEDIUM" textFill="#ffb700">
+                     <font>
+                        <Font name="Bodoni MT" size="28.0" />
+                     </font>
+                  </Label>
+                  <Label id="hardText" alignment="CENTER" contentDisplay="CENTER" layoutX="638.0" layoutY="130.0" prefHeight="44.0" prefWidth="176.0" text="HARD" textFill="#ffb700">
+                     <font>
+                        <Font name="Bodoni MT" size="28.0" />
+                     </font>
+                  </Label>
                     </children>
                 </Pane>
             </children>

@@ -53,7 +53,6 @@ public class EasyCubeFactory implements ICubeFactory {
                                 backImage,
                                 behindImage,
                                 gui,i).getBox());
-
                 group.setCursor(Cursor.HAND);
                 gridPane.add(group, i % 2, i / 2);
                 GridPane.setHalignment(group, HPos.CENTER);

@@ -196,6 +196,7 @@ public class Effects {
 
             timeline.setOnFinished(actionEvent1 -> {
 
+
                 backGroundBlurIn(imageView);
                 mediumMover = new BackGroundMover(imageView);
                 mediumMover.Animate();
@@ -244,10 +245,11 @@ public class Effects {
             );
             startAnchor.setMouseTransparent(true);
             timeline.play();
+            callback.run();
 
 
             timeline.setOnFinished(actionEvent1 -> {
-                callback.run();
+
                 backGroundBlurIn(imageView);
                 hardMover = new BackGroundMover(imageView);
                 hardMover.Animate();
