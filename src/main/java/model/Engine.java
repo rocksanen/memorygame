@@ -174,15 +174,20 @@ public class Engine implements IEngine {
             case EQUAL -> {
                 totalScore += nextScore;
                 nextScore = 1000;
+                incorrectTries = 0;
             }
             case NOTEQUAL -> {
-                if (nextScore > 0) {
-                    incorrectTries++;
+                incorrectTries++;
+                if (incorrectTries < 5) {
                     nextScore -= 100 * incorrectTries;
+                }
+                if (nextScore < 100) {
+                    nextScore = 100;
                 }
             }
         }
         System.out.println("Total score: " + totalScore);
+        System.out.println("Incorrect tries: " + incorrectTries);
         System.out.println("Next score: " + nextScore);
     }
 
