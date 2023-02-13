@@ -5,8 +5,10 @@ import controller.IControllerEtoV;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
+
 import static model.CompareResultType.EQUAL;
 import static model.CompareResultType.NOTEQUAL;
+import static model.ModeType.EASY;
 
 
 public class Engine implements IEngine {
@@ -43,15 +45,34 @@ public class Engine implements IEngine {
      */
     private int nextScore = 1000;
 
+    /**
+     * The number of incorrect tries. Resets when a correct guess is made.
+     */
+    int incorrectTries = 0;
+
+
     public Engine(ModeType type, IControllerEtoV controller) {
         this.type = type;
         this.controller = controller;
-        // this will be replaced by a login method SOMEDAY
-        this.user = User.getInstance();
-        user.login("eetu");
+
         // get current time
         this.startTime = System.currentTimeMillis();
 
+
+        // temp mock data
+//        User u = User.getInstance();
+//        u.signup("tony", "tiger");
+//        u.login("tony", "tiger");
+//        this.user = u;
+//        u.addScore(Math.random() * 100, (int) (Math.random() * 70 + 50), EASY);
+//        u.addScore(Math.random() * 100, (int) (Math.random() * 70 + 50), EASY);
+//
+//
+//        u = User.getInstance();
+//        u.signup("eetu", "soro");
+//        u.login("eetu", "soro");
+//        this.user = u;
+//        u.addScore(Math.random() * 100, (int) (Math.random() * 70 + 50), EASY);
     }
 
     @Override
@@ -64,17 +85,20 @@ public class Engine implements IEngine {
                 controller.setEasyGame(memoryObjectsList);
 
             }
-            case MEDIUM ->{
+            case MEDIUM -> {
                 addMemoryObjectsToList(12);
                 suffleObjects();
                 controller.setMediumGame(memoryObjectsList);
 
 
             }
+
             case HARD -> {
                 addMemoryObjectsToList(20);
-
+                suffleObjects();
+                controller.setHardGame(memoryObjectsList);
             }
+
         }
     }
 
@@ -83,15 +107,17 @@ public class Engine implements IEngine {
 
         this.memoryObjectsList = new ArrayList<>();
         int type;
-        for(int i = 0; i < amount; i++) {
+        for (int i = 0; i < amount; i++) {
 
             type = i / 2;
-            memoryObjectsList.add(new MemoryObject(i,type));
+            memoryObjectsList.add(new MemoryObject(i, type));
         }
     }
 
     @Override
-    public void suffleObjects() {Collections.shuffle(memoryObjectsList);}
+    public void suffleObjects() {
+        Collections.shuffle(memoryObjectsList);
+    }
 
     @Override
     public void setChosenObjectReady(MemoryObject object) {
@@ -107,7 +133,8 @@ public class Engine implements IEngine {
                 comparingList.add(memoryObject);
                 storage.add(i);
         }
-        if(comparingList.size() == 2 ) {
+
+        if (comparingList.size() == 2) {
             compareObjects(comparingList);
             comparingList.clear();
         }
@@ -131,7 +158,9 @@ public class Engine implements IEngine {
                     Thread.sleep(1000);
                     controller.clearPair(storage);
 
-                } catch (InterruptedException e) {e.printStackTrace();}
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             });
         }
     }
@@ -154,7 +183,8 @@ public class Engine implements IEngine {
 
     /**
      * Updates the total score and the next score. In case of equal, the total score is increased by the next score.
-     * In case of not equal, the next score is decreased by 100.
+     * In case of not equal, the next score is decreased by 100 * the number of incorrect tries.
+     * The next score is never less than 100.
      *
      * @param type the result of the comparison, either equal or not equal.
      */
@@ -163,15 +193,20 @@ public class Engine implements IEngine {
             case EQUAL -> {
                 totalScore += nextScore;
                 nextScore = 1000;
+                incorrectTries = 0;
             }
             case NOTEQUAL -> {
-                if (nextScore > 100) {
-                    nextScore -= 100;
-
+                incorrectTries++;
+                if (incorrectTries < 5) {
+                    nextScore -= 100 * incorrectTries;
+                }
+                if (nextScore < 100) {
+                    nextScore = 100;
                 }
             }
         }
         System.out.println("Total score: " + totalScore);
+        System.out.println("Incorrect tries: " + incorrectTries);
         System.out.println("Next score: " + nextScore);
     }
 
@@ -187,6 +222,7 @@ public class Engine implements IEngine {
 
     /**
      * Getter for the next score.
+     *
      * @return see {@link #nextScore}
      */
     @Override
@@ -195,7 +231,9 @@ public class Engine implements IEngine {
     }
 
     @Override
-    public void clearStorage() {storage.clear();}
+    public void clearStorage() {
+        storage.clear();
+    }
 
     @Override
     public void compareObjects(ArrayList<MemoryObject> objectList) {
@@ -206,10 +244,11 @@ public class Engine implements IEngine {
             rightPairList.add(objectList.get(1).getTypeId());
             updateScore(EQUAL);
             clearStorage();
+
             if( rightPairList.size() == memoryObjectsList.size()){
                 endGame();
             }
-        } else{
+        }  else {
             clearPair(objectList);
             updateScore(NOTEQUAL);
         }

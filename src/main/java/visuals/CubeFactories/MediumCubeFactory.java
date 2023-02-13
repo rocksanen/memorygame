@@ -2,7 +2,9 @@ package visuals.CubeFactories;
 
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
+import javafx.scene.image.Image;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import model.MemoryObject;
@@ -11,7 +13,9 @@ import visuals.Gui;
 import visuals.ImageServers.IImageServer;
 import visuals.ImageServers.MediumImageServer;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class MediumCubeFactory implements ICubeFactory {
@@ -43,14 +47,18 @@ public class MediumCubeFactory implements ICubeFactory {
                                 120,120,120,0,0,100,
                                 imageUrlList.get(imageIndex),memoryObjects.get(i).getTypeId(),gui,i).
                                 getBox());
+                group.setCursor(Cursor.HAND);
                 gridPane.add(group, i % 4, i / 4);
                 GridPane.setHalignment(group, HPos.CENTER);
                 GridPane.setValignment(group, VPos.CENTER);
             }
         }
 
+        /*
         ColumnConstraints columnConstraints = new ColumnConstraints();
         columnConstraints.setPercentWidth(28.5);
         gridPane.getColumnConstraints().addAll(columnConstraints);
+
+         */
     }
 }

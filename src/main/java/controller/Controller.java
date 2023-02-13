@@ -13,10 +13,10 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
 
     private final IGui ui;
     private IEngine engine;
-    private Scoreboard scoreboard;
-    private Scoreboard easyScores;
-    private Scoreboard mediumScores;
-    private Scoreboard hardScores;
+    private Scoreboard personalScoreboard = new Scoreboard();
+    private Scoreboard easyScores = new Scoreboard();
+    private Scoreboard mediumScores = new Scoreboard();
+    private Scoreboard hardScores = new Scoreboard();
 
     public Controller(IGui ui) {
 
@@ -33,7 +33,14 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
     @Override
     public void startMediumGame() {
 
-        this.engine = new Engine(ModeType.MEDIUM,this);
+        this.engine = new Engine(ModeType.MEDIUM, this);
+        this.engine.setMemoryObjects();
+    }
+
+    @Override
+    public void startHardGame() {
+
+        this.engine = new Engine(ModeType.HARD, this);
         this.engine.setMemoryObjects();
     }
 
@@ -49,9 +56,9 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
     }
 
     @Override
-    public void clearPair(ArrayList<Integer> storage){
+    public void clearPair(ArrayList<Integer> storage) {
 
-        Platform.runLater(() ->ui.clearPair(storage));
+        Platform.runLater(() -> ui.clearPair(storage));
 
     }
 
@@ -81,6 +88,18 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
     }
 
     @Override
+    public void setHardGame(ArrayList<MemoryObject> memoryObjects) {
+
+        Platform.runLater(() -> {
+            try {
+                ui.setHardGame(memoryObjects);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+    @Override
     public void setPersonalScore(ArrayList<String> personalScoreList) {
 
         Platform.runLater(() -> ui.setPersonalScores(personalScoreList));
@@ -99,6 +118,7 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
      *
      * @param difficulty the difficulty to fetch scores for
      */
+    @Override
     public void fetchScores(ModeType difficulty) {
         Scoreboard scores;
         switch (difficulty) {
@@ -121,6 +141,7 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
      * @param difficulty the difficulty to get scores for
      * @return
      */
+    @Override
     public ArrayList<String> getScores(ModeType difficulty) {
         Scoreboard scores;
         switch (difficulty) {
@@ -142,6 +163,37 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
         for (Score s : scores.getScores()) {
             scoreList.add(s.getUsername() + " " + s.getPoints());
         }
+        System.out.println(scoreList);
+        return scoreList;
+    }
+
+    @Override
+    public ArrayList<String> getPersonalScores(ModeType difficulty) {
+        if (User.getInstance().getPersonalScores() == null) {
+            System.out.println("not logged in!");
+            return null;
+        }
+        Scoreboard scores;
+        switch (difficulty) {
+            case EASY:
+                scores = User.getInstance().getPersonalScores();
+                break;
+            case MEDIUM:
+                scores = User.getInstance().getPersonalScores();
+                break;
+            case HARD:
+                scores = User.getInstance().getPersonalScores();
+                break;
+            default:
+                return null;
+        }
+        ArrayList<String> scoreList = new ArrayList<>();
+
+        scores.getScores();
+        for (Score s : scores.getScores()) {
+            scoreList.add(s.getUsername() + " " + s.getPoints());
+        }
+        System.out.println(scoreList);
         return scoreList;
     }
 
@@ -150,6 +202,7 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
      *
      * @return the total score
      */
+    @Override
     public int getTotalScore() {
         return engine.getTotalScore();
     }
@@ -159,7 +212,38 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
      *
      * @return the score for the next correct guess
      */
+    @Override
     public int getNextScore() {
         return engine.getNextScore();
+    }
+
+    @Override
+    public boolean login(String username, String password) {
+        User user = User.getInstance();
+        return user.login(username, password);
+    }
+
+    @Override
+    public boolean register(String username, String password) {
+        User user = User.getInstance();
+        return user.signup(username, password);
+    }
+
+    @Override
+    public void logout() {
+        User user = User.getInstance();
+        user.logout();
+    }
+
+    @Override
+    public boolean isLoggedIn() {
+        User user = User.getInstance();
+        return user.isLoggedIn();
+    }
+
+    @Override
+    public String getUsername() {
+        User user = User.getInstance();
+        return user.getUsername();
     }
 }

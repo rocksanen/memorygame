@@ -1,6 +1,7 @@
 package visuals;
 
 import javafx.animation.RotateTransition;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.PointLight;
 import javafx.scene.image.Image;
@@ -24,6 +25,8 @@ public class BoxMaker {
     private final int id;
     private final Gui gui;
     private RotateTransition rotation;
+
+    private Image back;
 
     public BoxMaker
             (
@@ -50,15 +53,15 @@ public class BoxMaker {
 
         Image image = new Image(new FileInputStream(imageUrl));
         material = new PhongMaterial();
+        material.setDiffuseColor(Color.WHITE );
         imageMaterial = new PhongMaterial();
-        material.setDiffuseColor(Color.WHITE);
         imageMaterial.setDiffuseMap(image);
     }
     public Integer getID() {return this.id;}
     private void createFaces() {
 
         frontFace = new Box(width, height, depth);
-        frontFace.setMaterial(material);
+        frontFace.setMaterial(imageMaterial);
         frontFace.setRotationAxis(Rotate.Z_AXIS);
 
         topFace = new Box(width, height, depth);
@@ -70,7 +73,7 @@ public class BoxMaker {
         backFace.setRotationAxis(Rotate.Z_AXIS);
 
         rightFace = new Box(width, height, depth);
-        rightFace.setMaterial(material);
+        rightFace.setMaterial(imageMaterial);
         rightFace.setRotationAxis(Rotate.Z_AXIS);
 
         leftFace = new Box(width, height, depth);
@@ -83,7 +86,7 @@ public class BoxMaker {
     }
     private void rotateBox() {
 
-        Effects.getInstance().rotateUp(boxGroup,material);
+        Platform.runLater(() -> Effects.getInstance().rotateUp(boxGroup,material));
         sendId();
     }
     public void sendId() {gui.sendIdToEngine(this.id);}

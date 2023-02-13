@@ -19,35 +19,35 @@ public class AccountDAO implements IAccountDAO {
 
     /**
      * Saves an account to the database
+     *
      * @param account Account-object to be saved
      * @return true if successful, false if not
      */
     @Override
-    public Long saveAccount(Account account) {
+    public boolean saveAccount(Account account) {
         // check if account by that name exists
         if (getAccountByName(account.getUsername()) != null) {
             System.out.println("account already exists");
-            return null;
+            return false;
         }
         account.setUsername(account.getUsername().toLowerCase());
+        EntityManager em = SqlJpaConn.getInstance();
+        em.getTransaction().begin();
+        em.persist(account);
 
+        System.out.println("saveAccount " + account);
         try {
-            System.out.println("saveAccount " + account);
-            EntityManager em = SqlJpaConn.getInstance();
-            em.getTransaction().begin();
-            em.persist(account);
             em.getTransaction().commit();
-            em.flush();
-            return account.getAccountid();
+            return true;
         } catch (Exception e) {
-            return null;
+            em.getTransaction().rollback();
+            return false;
         }
-
     }
-
 
     /**
      * finds an account by id
+     *
      * @param id account id
      * @return Account-object
      */
@@ -59,8 +59,36 @@ public class AccountDAO implements IAccountDAO {
         return a;
     }
 
+
+    /**
+     * finds an account by name & password
+     *
+     * @param username account name
+     * @param username account password
+     * @return Account-object
+     */
+    @Override
+    public Account getAccountByNameAndPassword(String username, String password) {
+        username = username.toLowerCase();
+        System.out.println("getAccountByName " + username);
+        Account a = null;
+        EntityManager em = SqlJpaConn.getInstance();
+        try {
+            Query query = em.createQuery("SELECT a FROM Account a WHERE a.username = :username AND a.password = :password");
+            query.setParameter("username", username);
+            query.setParameter("password", password);
+            a = (Account) query.getSingleResult();
+            System.out.println(a.toString());
+            return a;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
     /**
      * finds an account by name
+     *
      * @param username account name
      * @return Account-object
      */
@@ -79,11 +107,12 @@ public class AccountDAO implements IAccountDAO {
         } catch (Exception e) {
             System.out.println(e);
         }
-        return a;
+        return null;
     }
 
     /**
      * finds all accounts
+     *
      * @return ArrayList of Account-objects
      */
     @Override
@@ -98,6 +127,7 @@ public class AccountDAO implements IAccountDAO {
 
     /**
      * deletes an account by id
+     *
      * @param id account id
      * @return true if successful, false if not
      */
@@ -110,12 +140,16 @@ public class AccountDAO implements IAccountDAO {
             ILeaderboardDAO leaderboarddao = new LeaderboardDAO();
             leaderboarddao.deleteAllScores(id);
             em.getTransaction().begin();
-
             em.remove(acc);
-            em.getTransaction().commit();
-            return true;
+            try {
+                em.getTransaction().commit();
+                return true;
+            } catch (Exception e) {
+                System.out.println(e);
+                em.getTransaction().rollback();
+                return false;
+            }
         }
-        em.getTransaction().commit();
         return false;
     }
 }
