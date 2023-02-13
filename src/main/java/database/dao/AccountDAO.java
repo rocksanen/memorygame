@@ -83,7 +83,7 @@ public class AccountDAO implements IAccountDAO {
         } catch (Exception e) {
             System.out.println(e);
         }
-        return a;
+        return null;
     }
 
     /**
@@ -106,10 +106,8 @@ public class AccountDAO implements IAccountDAO {
             return a;
         } catch (Exception e) {
             System.out.println(e);
-        } finally {
-//            em.close();
         }
-        return a;
+        return null;
     }
 
     /**
@@ -142,12 +140,16 @@ public class AccountDAO implements IAccountDAO {
             ILeaderboardDAO leaderboarddao = new LeaderboardDAO();
             leaderboarddao.deleteAllScores(id);
             em.getTransaction().begin();
-
             em.remove(acc);
-            em.getTransaction().commit();
-            return true;
+            try {
+                em.getTransaction().commit();
+                return true;
+            } catch (Exception e) {
+                System.out.println(e);
+                em.getTransaction().rollback();
+                return false;
+            }
         }
-        em.getTransaction().commit();
         return false;
     }
 }
