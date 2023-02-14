@@ -353,6 +353,8 @@ public class Gui extends Application implements IGui{
             protected Void call() throws Exception {
                 Platform.runLater(() -> {
                     scoreController.fetchScores(ModeType.EASY);
+                    scoreController.fetchScores(ModeType.MEDIUM);
+                    scoreController.fetchScores(ModeType.HARD);
                     getWorldScore(scoreController.getScores(ModeType.EASY));
                 });
                 return null;

@@ -175,7 +175,7 @@ public class Engine implements IEngine {
             return;
         }
         // get current time and detract the start time
-        double finalTime = (System.currentTimeMillis() - startTime) / 1000;
+        double finalTime = (System.currentTimeMillis() - startTime) / 1000.0;
         // time (seconds), totalScore and difficulty
         System.out.println("Time: " + finalTime + "s, Score: " + totalScore + ", Difficulty: " + type);
         user.addScore(finalTime, totalScore, type);
