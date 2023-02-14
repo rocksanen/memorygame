@@ -27,7 +27,7 @@ public class Engine implements IEngine {
     /**
      * logged in user
      */
-    private User user;
+    private User user = User.getInstance();
 
     /**
      * The time when the game started / engine created (in milliseconds).
@@ -64,7 +64,6 @@ public class Engine implements IEngine {
 //        u.signup("tony", "tiger");
 //        u.login("tony", "tiger");
 //        this.user = u;
-//        u.addScore(Math.random() * 100, (int) (Math.random() * 70 + 50), EASY);
 //        u.addScore(Math.random() * 100, (int) (Math.random() * 70 + 50), EASY);
 //
 //
@@ -144,7 +143,7 @@ public class Engine implements IEngine {
     public void endGame () {
         rightPairList.clear();
         System.out.println("Game ended!");
-
+        setPersonalScore();
     }
 
     @Override
@@ -178,6 +177,7 @@ public class Engine implements IEngine {
         // get current time and detract the start time
         double finalTime = (System.currentTimeMillis() - startTime) / 1000;
         // time (seconds), totalScore and difficulty
+        System.out.println("Time: " + finalTime + "s, Score: " + totalScore + ", Difficulty: " + type);
         user.addScore(finalTime, totalScore, type);
     }
 

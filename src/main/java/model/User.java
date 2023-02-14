@@ -115,11 +115,6 @@ public class User {
         accountdao.saveAccount(new Account(username, password));
         Account account = accountdao.getAccountByName(username);
 
-        if (account != null) {
-            System.out.println("Username already exists!");
-            return false;
-        }
-
         this.userId = account.getAccountid();
         this.username = account.getUsername();
         this.personalScores = new Scoreboard(leaderboarddao.getAccountScores(userId));
