@@ -168,25 +168,13 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
     }
 
     @Override
-    public ArrayList<String> getPersonalScores(ModeType difficulty) {
+    public ArrayList<String> getPersonalScores() {
         if (User.getInstance().getPersonalScores() == null) {
             System.out.println("not logged in!");
             return null;
         }
         Scoreboard scores;
-        switch (difficulty) {
-            case EASY:
-                scores = User.getInstance().getPersonalScores();
-                break;
-            case MEDIUM:
-                scores = User.getInstance().getPersonalScores();
-                break;
-            case HARD:
-                scores = User.getInstance().getPersonalScores();
-                break;
-            default:
-                return null;
-        }
+        scores = User.getInstance().getPersonalScores();
         ArrayList<String> scoreList = new ArrayList<>();
 
         scores.getScores();
@@ -196,6 +184,36 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
         System.out.println(scoreList);
         return scoreList;
     }
+
+//    @Override
+//    public ArrayList<String> getPersonalScoresByDifficulty() {
+//        if (User.getInstance().getPersonalScores() == null) {
+//            System.out.println("not logged in!");
+//            return null;
+//        }
+//        Scoreboard scores;
+//        switch (difficulty) {
+//            case EASY:
+//                scores = User.getInstance().getPersonalScores();
+//                break;
+//            case MEDIUM:
+//                scores = User.getInstance().getPersonalScores();
+//                break;
+//            case HARD:
+//                scores = User.getInstance().getPersonalScores();
+//                break;
+//            default:
+//                return null;
+//        }
+//        ArrayList<String> scoreList = new ArrayList<>();
+//
+//        scores.getScores();
+//        for (Score s : scores.getScores()) {
+//            scoreList.add(s.getUsername() + " " + s.getPoints());
+//        }
+//        System.out.println(scoreList);
+//        return scoreList;
+//    }
 
     /**
      * returns the total score

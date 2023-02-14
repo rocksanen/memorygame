@@ -333,7 +333,8 @@ public class Gui extends Application implements IGui{
 
     @Override
     public void getWorldScore(ArrayList<String> worldList) {
-
+        // clears the list of previous scores
+        worldScores.getItems().clear();
         // Create an observable list from the worldList
         ObservableList<String> worldObservable = FXCollections.observableArrayList();
         // Add all the elements from the worldList to the worldObservable
@@ -344,9 +345,22 @@ public class Gui extends Application implements IGui{
 
     @Override
     public void setWorldScore() {
-        scoreController.fetchScores(ModeType.EASY);
-        getWorldScore(scoreController.getScores(ModeType.EASY));
-
+        // fetch scores in a new thread to avoid blocking the UI
+        //         scoreController.fetchScores(ModeType.EASY);
+        //        getWorldScore(scoreController.getScores(ModeType.EASY));
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                Platform.runLater(() -> {
+                    scoreController.fetchScores(ModeType.EASY);
+                    scoreController.fetchScores(ModeType.MEDIUM);
+                    scoreController.fetchScores(ModeType.HARD);
+                    getWorldScore(scoreController.getScores(ModeType.EASY));
+                });
+                return null;
+            }
+        };
+        new Thread(task).start();
     }
 
     @Override
@@ -387,7 +401,7 @@ public class Gui extends Application implements IGui{
                 System.out.println("Login failed");
                 return;
             }
-            setPersonalScores(scoreController.getPersonalScores(ModeType.EASY));
+            setPersonalScores(scoreController.getPersonalScores());
             signOrReg.setVisible(false);
 
         } catch (Exception e) {
