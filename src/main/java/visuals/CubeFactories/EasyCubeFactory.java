@@ -12,16 +12,9 @@ import javafx.util.Duration;
 import model.MemoryObject;
 import visuals.BoxMaker;
 import visuals.Gui;
-import visuals.ImageServers.EasyImageServer;
-import visuals.ImageServers.IImageServer;
 import visuals.ImageServers.ImageCache;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class EasyCubeFactory implements ICubeFactory {
     private final Gui gui;
