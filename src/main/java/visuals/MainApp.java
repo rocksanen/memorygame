@@ -18,7 +18,6 @@ public class MainApp extends Application {
         ImageCache.getInstance().addToEasyCache();
         ImageCache.getInstance().addToMediumCache();
         ImageCache.getInstance().addToHardCache();
-        Effects.getInstance();
         visuals.Gui.main(args);
     }
 

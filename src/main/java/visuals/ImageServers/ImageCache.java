@@ -44,7 +44,7 @@ public class ImageCache {
         easyImageCache.add(pupu);
         easyImageCache.add(tiikeri);
 
-        Image easyBack = new Image(new FileInputStream("src/main/java/visuals/Images/easybackground.jpg"));
+        Image easyBack = new Image(new FileInputStream("src/main/java/visuals/Images/ladders.jpg"));
         Image easyBehind = new Image(new FileInputStream("src/main/java/visuals/Images/background.png"));
 
         easyCompImages.add(easyBack);
@@ -68,7 +68,7 @@ public class ImageCache {
         mediumImageCache.add(bird);
         mediumImageCache.add(happyGirl);
 
-        Image mediumBack = new Image(new FileInputStream("src/main/java/visuals/Images/mediumBack3.jpg"));
+        Image mediumBack = new Image(new FileInputStream("src/main/java/visuals/Images/stone4.png"));
         Image mediumBehind = new Image(new FileInputStream("src/main/java/visuals/Images/mediumCubeBack.jpg"));
 
         mediumCompImages.add(mediumBack);
