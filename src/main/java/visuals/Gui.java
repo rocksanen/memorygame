@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -86,6 +87,10 @@ public class Gui extends Application implements IGui{
 
     @FXML
     AnchorPane startAnchor;
+    @FXML Button newGame;
+    @FXML Button returnMenu;
+
+    @FXML ImageView regLog;
 
     ArrayList<BoxMaker> cubeList;
     ICubeFactory easyCubeFactory;
@@ -93,6 +98,7 @@ public class Gui extends Application implements IGui{
     ICubeFactory hardCubeFactory;
     Parent root;
     Scene scene;
+
     public static PerspectiveCamera camera = new PerspectiveCamera();
 
     public static void main(String[] args) {launch(args);}
@@ -111,6 +117,10 @@ public class Gui extends Application implements IGui{
             setWorldScore();
         }
 
+        scene.setOnScroll((final ScrollEvent e) -> {
+            camera.setTranslateZ(camera.getTranslateZ() + e.getDeltaY());
+        });
+
         background = (ImageView) root.lookup("#background");
         mediumBackground = (ImageView) root.lookup("#mediumBackground") ;
         mediumSpread = (ImageView) root.lookup("#mediumSpread");
@@ -120,7 +130,6 @@ public class Gui extends Application implements IGui{
         this.primaryStage.setFullScreenExitHint ("");
         this.primaryStage.setResizable(false);
         this.primaryStage.show();
-
     }
 
     @Override
@@ -129,6 +138,8 @@ public class Gui extends Application implements IGui{
         startEasyGame = new Button();
         startMediumGame = new Button();
         startHardGame = new Button();
+        newGame = new Button();
+        returnMenu = new Button();
         easyGrid = new GridPane();
         mediumGrid = new GridPane();
         hardGrid = new GridPane();
@@ -140,13 +151,44 @@ public class Gui extends Application implements IGui{
         password = new TextField();
         startAnchor = new AnchorPane();
         this.root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/visuals/game2.fxml")));
+    }
 
 
+    @FXML
+    public void newGame() {
+
+        switch (cubeList.size()) {
+
+           case 6 -> setStartEasyGame();
+           case 12 -> setStartMediumGame();
+           case 20 -> setStartHardGame();
+        }
     }
 
     @FXML
+    public void returnMenu() {
+
+        switch (cubeList.size()) {
+
+            case 6 -> Platform.runLater(() ->
+                    Effects.getInstance().gameZoomOut(
+                            gameModePane,easyGrid,camera,startAnchor,background,
+                            1000, 35, -145.5, 14.5));
+            case 12 -> Platform.runLater(() ->
+                    Effects.getInstance().gameZoomOut(
+                            gameModePane,mediumGrid,camera,startAnchor,mediumBackground,
+                            1000.9, 35, 117.0, 14.5));
+            case 20 -> Platform.runLater(() ->
+                    Effects.getInstance().gameZoomOut(
+                            gameModePane,hardGrid,camera,startAnchor,hardBackground,
+                            1000.7, 35, 380.0, 14.5));
+        }
+    }
+    @FXML
     public void easyStartScreenPlay(){
 
+        background.setOpacity(1);
+        background.setVisible(true);
         mediumBackground.setOpacity(0);
         mediumSpread.setOpacity(0);
         hardBackground.setOpacity(0);
@@ -155,7 +197,7 @@ public class Gui extends Application implements IGui{
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call(){
-                Platform.runLater(() -> Effects.getInstance().easyGameZoomIn(camera, startAnchor, background,() -> {
+                Platform.runLater(() -> Effects.getInstance().gameZoomIn(camera, startAnchor, background,1000, 10, -145.5, 14.5,() -> {
                     Platform.runLater(() -> {
 
                         setStartEasyGame();
@@ -171,6 +213,8 @@ public class Gui extends Application implements IGui{
     @FXML
     public void mediumStartScreenPlay(){
 
+        mediumBackground.setVisible(true);
+        mediumBackground.setOpacity(1);
         background.setOpacity(0);
         hardBackground.setOpacity(0);
         hardSpread.setOpacity(0);
@@ -178,7 +222,7 @@ public class Gui extends Application implements IGui{
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                Platform.runLater(() -> Effects.getInstance().mediumGameZoomIn(camera, startAnchor, mediumBackground,() -> {
+                Platform.runLater(() -> Effects.getInstance().gameZoomIn(camera, startAnchor, mediumBackground, 1000.9, 10, 117, 14.5,() -> {
                     Platform.runLater(() -> {
 
                         setStartMediumGame();
@@ -195,6 +239,8 @@ public class Gui extends Application implements IGui{
     @FXML
     public void hardStartScreenPlay(){
 
+        hardBackground.setVisible(true);
+        hardBackground.setOpacity(1);
         background.setOpacity(0);
         mediumBackground.setOpacity(0);
         mediumSpread.setOpacity(0);
@@ -202,7 +248,7 @@ public class Gui extends Application implements IGui{
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call(){
-                Platform.runLater(() -> Effects.getInstance().hardGameZoomIn(camera, startAnchor, hardBackground,() -> {
+                Platform.runLater(() -> Effects.getInstance().gameZoomIn(camera, startAnchor, hardBackground,1000.7, 10, 380, 14.5,() -> {
                     Platform.runLater(() -> {
 
                         setStartHardGame();
@@ -221,13 +267,12 @@ public class Gui extends Application implements IGui{
 
         Platform.runLater(() -> Effects.getInstance().backGroundIn(background));
 
-
-
         mediumGrid.setMouseTransparent(true);
         mediumGrid.setVisible(false);
         hardGrid.setMouseTransparent(true);
         hardGrid.setVisible(false);
         easyGrid.setMouseTransparent(false);
+        easyGrid.setOpacity(1);
         easyGrid.setVisible(true);
 
         if (cubeList != null) {
@@ -252,6 +297,7 @@ public class Gui extends Application implements IGui{
         hardGrid.setVisible(false);
         mediumGrid.setMouseTransparent(false);
         mediumGrid.setVisible(true);
+        mediumGrid.setOpacity(1);
         mediumGrid.setHgap(40);
         mediumGrid.setVgap(20);
 
@@ -270,14 +316,13 @@ public class Gui extends Application implements IGui{
 
         Platform.runLater(() -> Effects.getInstance().backGroundIn(hardBackground));
 
-
-
         easyGrid.setMouseTransparent(true);
         easyGrid.setVisible(false);
         mediumGrid.setMouseTransparent(true);
         mediumGrid.setVisible(false);
         hardGrid.setMouseTransparent(false);
         hardGrid.setVisible(true);
+        hardGrid.setOpacity(1);
         hardGrid.setHgap(70);
         hardGrid.setVgap(50);
 

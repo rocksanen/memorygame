@@ -7,40 +7,49 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 public class BackGroundMover {
-
-
     private Timeline timeline;
-    private final ImageView imageView;
+    private ImageView background;
+    double startX;
+    double startY;
 
-    public BackGroundMover(ImageView imageView) {
 
-        this.imageView = imageView;
+    public BackGroundMover() {}
 
-    }
+    public void animate(ImageView imageView) {
 
-    public void Animate() {
-
-        final double x = imageView.getLayoutX();
-        final double y = imageView.getLayoutY();
+        startX = imageView.getLayoutX();
+        startY = imageView.getLayoutY();
+        background = imageView;
 
         timeline = new Timeline(
                 new KeyFrame(Duration.ZERO,
-                        new KeyValue(imageView.layoutXProperty(),x),
-                        new KeyValue(imageView.layoutYProperty(),y)),
+                        new KeyValue(background.layoutXProperty(),startX),
+                        new KeyValue(background.layoutYProperty(),startY)),
                 new KeyFrame(Duration.seconds(1),
-                        new KeyValue(imageView.layoutXProperty(),x),
-                        new KeyValue(imageView.layoutYProperty(),y)),
+                        new KeyValue(background.layoutXProperty(),startX),
+                        new KeyValue(background.layoutYProperty(),startY)),
                 new KeyFrame(Duration.seconds(5),
-                        new KeyValue(imageView.layoutXProperty(),x + 10),
-                        new KeyValue(imageView.layoutYProperty(),y + 3)),
+                        new KeyValue(background.layoutXProperty(),startX + 10),
+                        new KeyValue(background.layoutYProperty(),startY + 3)),
                 new KeyFrame(Duration.seconds(9),
-                        new KeyValue(imageView.layoutXProperty(),x + 15),
-                        new KeyValue(imageView.layoutYProperty(),y + 6)));
+                        new KeyValue(background.layoutXProperty(),startX + 15),
+                        new KeyValue(background.layoutYProperty(),startY + 6)));
 
         timeline.setAutoReverse(true);
         timeline.setCycleCount(Timeline.INDEFINITE);
+    }
 
+    public void returnToPositionZero() {
 
+        Timeline positionZero = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(background.layoutYProperty(), background.getLayoutX()),
+                        new KeyValue(background.layoutYProperty(), background.getLayoutY())),
+                new KeyFrame(Duration.seconds(1),
+                        new KeyValue(background.layoutXProperty(), startX),
+                        new KeyValue(background.layoutYProperty(), startY))
+        );
+        positionZero.play();
     }
 
     public void play() {
@@ -50,11 +59,4 @@ public class BackGroundMover {
     public void stop() {
         timeline.stop();
     }
-
-    //bgm.stop();
-    //bgm = null;
-
-
-
-
 }
