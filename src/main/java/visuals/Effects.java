@@ -3,12 +3,11 @@ package visuals;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.scene.Group;
+import javafx.application.Platform;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 import model.ModeType;
 
@@ -17,7 +16,42 @@ public class Effects {
     private BackGroundMover easyMover;
     private BackGroundMover mediumMover;
     private BackGroundMover hardMover;
-    private Effects(){}
+    private final Timeline timelineBlur = new Timeline();
+    private final Timeline timelineIN = new Timeline();
+    private final Timeline timelineOUT = new Timeline();
+    private final Timeline timelineZoom = new Timeline();
+
+    private final GaussianBlur gaussianBlur = new GaussianBlur();
+
+    private ImageView inView = new ImageView();
+
+    private ImageView outView = new ImageView();
+
+    private BackGroundMover backGroundMover = new BackGroundMover();
+
+
+    public Effects() {
+        initializeTimelines();
+    }
+
+    private void initializeTimelines() {
+
+        timelineBlur.getKeyFrames().setAll(
+                new KeyFrame(Duration.ZERO, new KeyValue(gaussianBlur.radiusProperty(), 0)),
+                new KeyFrame(Duration.seconds(6), new KeyValue(gaussianBlur.radiusProperty(), 10.58))
+        );
+
+        timelineIN.getKeyFrames().setAll(
+                new KeyFrame(Duration.ZERO, new KeyValue(inView.opacityProperty(), 0)),
+                new KeyFrame(Duration.seconds(1), new KeyValue(inView.opacityProperty(), 1))
+        );
+
+        timelineOUT.getKeyFrames().setAll(
+                new KeyFrame(Duration.ZERO, new KeyValue(outView.opacityProperty(), 1)),
+                new KeyFrame(Duration.seconds(1.5), new KeyValue(outView.opacityProperty(), 0))
+        );
+
+    }
     public static Effects getInstance(){
 
         if(instance == null) {
@@ -26,254 +60,84 @@ public class Effects {
         return instance;
     }
 
-    public void rotateUp(Group group) {
-
-        Timeline timelineUp = new Timeline(
-                new KeyFrame(Duration.ZERO,
-                        new KeyValue(group.rotateProperty(),0),
-                        new KeyValue(group.rotationAxisProperty(), Rotate.X_AXIS)
-                ),
-                new KeyFrame(Duration.seconds(0.6),
-                        new KeyValue(group.rotateProperty(),90),
-                        new KeyValue(group.rotationAxisProperty(),Rotate.X_AXIS))
-        );
-
-        timelineUp.play();
-    }
-
-    public void rotateDown(Group group) {
-
-        Timeline timelineDown = new Timeline(
-                new KeyFrame(Duration.ZERO,
-                        new KeyValue(group.rotateProperty(),90),
-                        new KeyValue(group.rotationAxisProperty(),Rotate.X_AXIS)
-                ),
-                new KeyFrame(Duration.seconds(0.6),
-                        new KeyValue(group.rotateProperty(),0),
-                        new KeyValue(group.rotationAxisProperty(),Rotate.X_AXIS))
-        );
-
-        timelineDown.play();
-    }
-
     public void backGroundIn(ImageView imageView) {
 
-        final double start = imageView.getOpacity();
-
-        Timeline timelineIN = new Timeline(
-                new KeyFrame(Duration.ZERO,
-                        new KeyValue(imageView.opacityProperty(),start)),
-                new KeyFrame(Duration.seconds(1
-                ), new KeyValue(imageView.opacityProperty(),1)));
-
+        timelineOUT.stop();
+        inView = imageView;
         timelineIN.play();
     }
 
     public void backGroundOut(ImageView imageView) {
 
-        final double start = imageView.getOpacity();
-
-        Timeline timelineOUT = new Timeline(
-                new KeyFrame(Duration.ZERO,
-                        new KeyValue(imageView.opacityProperty(),start)),
-                new KeyFrame(Duration.seconds(1.5
-                ), new KeyValue(imageView.opacityProperty(),0)));
-
+        timelineOUT.stop();
+        outView = imageView;
         timelineOUT.play();
     }
 
     public void backGroundBlurIn(ImageView imageView) {
 
-        final GaussianBlur gaussianBlur = new GaussianBlur();
         gaussianBlur.setRadius(0);
         imageView.setEffect(gaussianBlur);
-
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.ZERO,
-                        new KeyValue(gaussianBlur.radiusProperty(), 0)),
-                new KeyFrame(Duration.seconds(6
-                ), new KeyValue(gaussianBlur.radiusProperty(),10.58))
-        );
-
-        timeline.play();
+        timelineBlur.stop();
+        timelineBlur.setCycleCount(1);
+        timelineBlur.play();
     }
 
 
-    public void easyGameZoomIn(PerspectiveCamera camera,AnchorPane startAnchor,ImageView imageView, Runnable callback ) {
+    public void shutDownMover() {
 
-        final double z = camera.getTranslateZ();
-        final double fov = camera.getFieldOfView();
-        final double x = camera.getTranslateX();
-        final double y = camera.getTranslateY();
+        if(backGroundMover != null) {
 
-        Timeline timelineZoomEasy = new Timeline(
-                new KeyFrame(Duration.ZERO,
-                        new KeyValue(camera.translateZProperty(), z),
-                        new KeyValue(camera.fieldOfViewProperty(), fov),
-                        new KeyValue(camera.translateXProperty(),x),
-                        new KeyValue(camera.translateYProperty(),y)
-                ),
-                new KeyFrame(Duration.seconds(2),
-                        new KeyValue(camera.translateZProperty(), z + 1000),
-                        new KeyValue(camera.fieldOfViewProperty(), fov + 10),
-                        new KeyValue(camera.translateXProperty(), x - 145.5),
-                        new KeyValue(camera.translateYProperty(),y + 14.5)
-                )
-        );
-
-        timelineZoomEasy.play();
-        timelineZoomEasy.setOnFinished(actionEvent -> {
-
-            Timeline timeline = new Timeline(
-                    new KeyFrame(Duration.ZERO,
-                            new KeyValue(startAnchor.opacityProperty(), 1),
-                            new KeyValue(camera.translateXProperty(),camera.getTranslateX()),
-                            new KeyValue(camera.translateYProperty(),camera.getTranslateY()),
-                            new KeyValue(camera.translateZProperty(),camera.getTranslateZ())),
-                    new KeyFrame(Duration.seconds(0.0001),
-                            new KeyValue(startAnchor.opacityProperty(),0),
-                            new KeyValue(camera.translateXProperty(),x),
-                            new KeyValue(camera.translateYProperty(),y),
-                            new KeyValue(camera.translateZProperty(),z)
-                    )
-            );
-            startAnchor.setMouseTransparent(true);
-            timeline.play();
-            callback.run();
-
-            timeline.setOnFinished(actionEvent1 -> {
-
-                backGroundBlurIn(imageView);
-                easyMover = new BackGroundMover(imageView);
-                easyMover.Animate();
-                easyMover.play();
-
-            });
-        });
-    }
-
-    public void mediumGameZoomIn(PerspectiveCamera camera,AnchorPane startAnchor,ImageView imageView, Runnable callback ) {
-
-        final double z = camera.getTranslateZ();
-        final double fov = camera.getFieldOfView();
-        final double x = camera.getTranslateX();
-        final double y = camera.getTranslateY();
-
-        Timeline timelineZoomEasy = new Timeline(
-                new KeyFrame(Duration.ZERO,
-                        new KeyValue(camera.translateZProperty(), z),
-                        new KeyValue(camera.fieldOfViewProperty(), fov),
-                        new KeyValue(camera.translateXProperty(),x),
-                        new KeyValue(camera.translateYProperty(),y)
-                ),
-                new KeyFrame(Duration.seconds(2),
-                        new KeyValue(camera.translateZProperty(), z + 1000.9),
-                        new KeyValue(camera.fieldOfViewProperty(), fov + 10),
-                        new KeyValue(camera.translateXProperty(), x + 117),
-                        new KeyValue(camera.translateYProperty(),y + 14.5)
-                )
-        );
-
-        timelineZoomEasy.play();
-        timelineZoomEasy.setOnFinished(actionEvent -> {
-
-            Timeline timeline = new Timeline(
-                    new KeyFrame(Duration.ZERO,
-                            new KeyValue(startAnchor.opacityProperty(), 1),
-                            new KeyValue(camera.translateXProperty(),camera.getTranslateX()),
-                            new KeyValue(camera.translateYProperty(),camera.getTranslateY()),
-                            new KeyValue(camera.translateZProperty(),camera.getTranslateZ())),
-                    new KeyFrame(Duration.seconds(0.0001),
-                            new KeyValue(startAnchor.opacityProperty(),0),
-                            new KeyValue(camera.translateXProperty(),x),
-                            new KeyValue(camera.translateYProperty(),y),
-                            new KeyValue(camera.translateZProperty(),z)
-                    )
-            );
-            startAnchor.setMouseTransparent(true);
-            timeline.play();
-            callback.run();
-
-            timeline.setOnFinished(actionEvent1 -> {
-
-
-                backGroundBlurIn(imageView);
-                mediumMover = new BackGroundMover(imageView);
-                mediumMover.Animate();
-                mediumMover.play();
-            });
-        });
-    }
-
-    public void hardGameZoomIn(PerspectiveCamera camera,AnchorPane startAnchor,ImageView imageView, Runnable callback ) {
-
-        final double z = camera.getTranslateZ();
-        final double fov = camera.getFieldOfView();
-        final double x = camera.getTranslateX();
-        final double y = camera.getTranslateY();
-
-        Timeline timelineZoomEasy = new Timeline(
-                new KeyFrame(Duration.ZERO,
-                        new KeyValue(camera.translateZProperty(), z),
-                        new KeyValue(camera.fieldOfViewProperty(), fov),
-                        new KeyValue(camera.translateXProperty(),x),
-                        new KeyValue(camera.translateYProperty(),y)
-                ),
-                new KeyFrame(Duration.seconds(2),
-                        new KeyValue(camera.translateZProperty(), z + 1000.7),
-                        new KeyValue(camera.fieldOfViewProperty(), fov + 10),
-                        new KeyValue(camera.translateXProperty(), x + 380),
-                        new KeyValue(camera.translateYProperty(),y + 14.5)
-                )
-        );
-
-        timelineZoomEasy.play();
-        timelineZoomEasy.setOnFinished(actionEvent -> {
-
-            Timeline timeline = new Timeline(
-                    new KeyFrame(Duration.ZERO,
-                            new KeyValue(startAnchor.opacityProperty(), 1),
-                            new KeyValue(camera.translateXProperty(),camera.getTranslateX()),
-                            new KeyValue(camera.translateYProperty(),camera.getTranslateY()),
-                            new KeyValue(camera.translateZProperty(),camera.getTranslateZ())),
-                    new KeyFrame(Duration.seconds(0.01),
-                            new KeyValue(startAnchor.opacityProperty(),0),
-                            new KeyValue(camera.translateXProperty(),x),
-                            new KeyValue(camera.translateYProperty(),y),
-                            new KeyValue(camera.translateZProperty(),z)
-                    )
-            );
-            startAnchor.setMouseTransparent(true);
-            timeline.play();
-            callback.run();
-
-
-            timeline.setOnFinished(actionEvent1 -> {
-
-                backGroundBlurIn(imageView);
-                hardMover = new BackGroundMover(imageView);
-                hardMover.Animate();
-                hardMover.play();
-            });
-        });
-    }
-
-    public void shutDownMover(ModeType mode) {
-
-        switch (mode) {
-
-            case EASY -> {
-                easyMover.stop();
-                easyMover = null;
-            }
-            case MEDIUM -> {
-                mediumMover.stop();
-                mediumMover = null;
-            }
-            case HARD -> {
-                hardMover.stop();
-                hardMover = null;
-            }
+            backGroundMover.stop();
+            backGroundMover = null;
         }
+    }
+
+    public void gameZoomIn(PerspectiveCamera camera, AnchorPane startAnchor, ImageView imageView,  double zOffset, double fovOffset, double xOffset, double yOffset, Runnable callback) {
+        final double z = camera.getTranslateZ();
+        final double fov = camera.getFieldOfView();
+        final double x = camera.getTranslateX();
+        final double y = camera.getTranslateY();
+
+        Timeline timelineZoom = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(camera.translateZProperty(), z),
+                        new KeyValue(camera.fieldOfViewProperty(), fov),
+                        new KeyValue(camera.translateXProperty(), x),
+                        new KeyValue(camera.translateYProperty(), y)
+                ),
+                new KeyFrame(Duration.seconds(2),
+                        new KeyValue(camera.translateZProperty(), z + zOffset),
+                        new KeyValue(camera.fieldOfViewProperty(), fov + fovOffset),
+                        new KeyValue(camera.translateXProperty(), x + xOffset),
+                        new KeyValue(camera.translateYProperty(), y + yOffset)
+                )
+        );
+
+        timelineZoom.play();
+        timelineZoom.setOnFinished(actionEvent -> {
+            Timeline timeline = new Timeline(
+                    new KeyFrame(Duration.ZERO,
+                            new KeyValue(startAnchor.opacityProperty(), 1),
+                            new KeyValue(camera.translateXProperty(), camera.getTranslateX()),
+                            new KeyValue(camera.translateYProperty(), camera.getTranslateY()),
+                            new KeyValue(camera.translateZProperty(), camera.getTranslateZ())
+                    ),
+                    new KeyFrame(Duration.seconds(0.0001),
+                            new KeyValue(startAnchor.opacityProperty(), 0),
+                            new KeyValue(camera.translateXProperty(), x),
+                            new KeyValue(camera.translateYProperty(), y),
+                            new KeyValue(camera.translateZProperty(), z)
+                    )
+            );
+            startAnchor.setMouseTransparent(true);
+            timeline.play();
+            callback.run();
+            timeline.setOnFinished(actionEvent1 -> {
+                backGroundBlurIn(imageView);
+                backGroundMover.animate(imageView);
+                Platform.runLater(() -> backGroundMover.play());
+            });
+        });
     }
 }

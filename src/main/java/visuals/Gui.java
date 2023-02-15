@@ -108,7 +108,7 @@ public class Gui extends Application implements IGui{
         Node worldScoresNode = root.lookup("#worldScores");
         if (worldScoresNode instanceof ListView<?>) {
             worldScores = (ListView<String>) worldScoresNode;
-            setWorldScore();
+            //setWorldScore();
         }
 
         background = (ImageView) root.lookup("#background");
@@ -140,8 +140,6 @@ public class Gui extends Application implements IGui{
         password = new TextField();
         startAnchor = new AnchorPane();
         this.root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/visuals/game2.fxml")));
-
-
     }
 
     @FXML
@@ -155,7 +153,7 @@ public class Gui extends Application implements IGui{
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call(){
-                Platform.runLater(() -> Effects.getInstance().easyGameZoomIn(camera, startAnchor, background,() -> {
+                Platform.runLater(() -> Effects.getInstance().gameZoomIn(camera, startAnchor, background,1000, 10, -145.5, 14.5,() -> {
                     Platform.runLater(() -> {
 
                         setStartEasyGame();
@@ -178,7 +176,7 @@ public class Gui extends Application implements IGui{
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                Platform.runLater(() -> Effects.getInstance().mediumGameZoomIn(camera, startAnchor, mediumBackground,() -> {
+                Platform.runLater(() -> Effects.getInstance().gameZoomIn(camera, startAnchor, mediumBackground, 1000.9, 10, 117, 14.5,() -> {
                     Platform.runLater(() -> {
 
                         setStartMediumGame();
@@ -202,7 +200,7 @@ public class Gui extends Application implements IGui{
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call(){
-                Platform.runLater(() -> Effects.getInstance().hardGameZoomIn(camera, startAnchor, hardBackground,() -> {
+                Platform.runLater(() -> Effects.getInstance().gameZoomIn(camera, startAnchor, hardBackground,1000.7, 10, 380, 14.5,() -> {
                     Platform.runLater(() -> {
 
                         setStartHardGame();

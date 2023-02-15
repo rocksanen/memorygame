@@ -8,17 +8,12 @@ import javafx.util.Duration;
 
 public class BackGroundMover {
 
-
     private Timeline timeline;
-    private final ImageView imageView;
 
-    public BackGroundMover(ImageView imageView) {
 
-        this.imageView = imageView;
+    public BackGroundMover() {}
 
-    }
-
-    public void Animate() {
+    public void animate(ImageView imageView) {
 
         final double x = imageView.getLayoutX();
         final double y = imageView.getLayoutY();
