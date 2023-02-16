@@ -398,7 +398,8 @@ public class Gui extends Application implements IGui {
 
         easyCubeFactory.createCubics(easyGrid, memoryObjects);
 
-
+        refreshUserScores(EASY);
+        setWorldScore(EASY);
 
     }
 
