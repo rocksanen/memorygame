@@ -2,9 +2,10 @@ package model;
 
 import database.dao.AccountDAO;
 import database.dao.IAccountDAO;
-import database.dao.ILeaderboardDAO;
 import database.dao.LeaderboardDAO;
 import database.entity.Account;
+
+import java.util.ArrayList;
 
 
 /**
@@ -36,15 +37,27 @@ public class User {
     /**
      * Personal scores of the player
      */
+    private Scoreboard easyScores;
+
+    /**
+     * Personal scores of the player
+     */
+    private Scoreboard mediumScores;
+
+    /**
+     * Personal scores of the player
+     */
+    private Scoreboard hardScores;
+
+    /**
+     * Personal scores of the player
+     */
     private Scoreboard personalScores;
+
     /**
      * DAO class for database connection
      */
     private IAccountDAO accountdao;
-    /**
-     * DAO class for database connection
-     */
-    private ILeaderboardDAO leaderboarddao;
 
     /**
      * Private constructor for the User class
@@ -54,10 +67,9 @@ public class User {
     private User() {
         this.username = "tony the tiger";
         this.userId = null;
-        this.personalScores = null;
+        this.easyScores = null;
 
         this.accountdao = new AccountDAO();
-        this.leaderboarddao = new LeaderboardDAO();
     }
 
     /**
@@ -90,7 +102,9 @@ public class User {
             if (account.getAccountid() != null) {
                 this.userId = account.getAccountid();
                 this.username = account.getUsername();
-                this.personalScores = new Scoreboard(leaderboarddao.getAccountScores(userId));
+                this.easyScores = new Scoreboard();
+                this.mediumScores = new Scoreboard();
+                this.hardScores = new Scoreboard();
                 return true;
             }
 
@@ -117,7 +131,9 @@ public class User {
 
         this.userId = account.getAccountid();
         this.username = account.getUsername();
-        this.personalScores = new Scoreboard(leaderboarddao.getAccountScores(userId));
+        this.easyScores = new Scoreboard();
+        this.mediumScores = new Scoreboard();
+        this.hardScores = new Scoreboard();
         return true;
     }
 
@@ -138,7 +154,7 @@ public class User {
     public boolean logout() {
         this.username = "tony the tiger";
         this.userId = null;
-        this.personalScores = null;
+        this.easyScores = null;
         return true;
     }
 
@@ -147,14 +163,43 @@ public class User {
     }
 
     /**
-     * Getter for the personal scores. Also refreshes the list from the database
+     * Getter for the personal scores.
      *
-     * @return - see {@link #personalScores}
+     * @return - see {@link #easyScores}
      */
-    public Scoreboard getPersonalScores() {
-        this.personalScores = new Scoreboard(leaderboarddao.getAccountScores(userId));
-        return personalScores;
+    public Scoreboard getScores(ModeType difficulty) {
+
+        switch (difficulty) {
+            case EASY:
+                return easyScores;
+            case MEDIUM:
+                return mediumScores;
+            case HARD:
+                return hardScores;
+            default:
+                return personalScores;
+        }
     }
+
+    /**
+     * fetcher for the personal scores from server.
+     *
+     * @return - see {@link #easyScores}
+     */
+    public ArrayList<Score> fetchScores(ModeType difficulty) {
+
+        switch (difficulty) {
+            case EASY:
+                return easyScores.fetchUserScores(userId, difficulty);
+            case MEDIUM:
+                return mediumScores.fetchUserScores(userId, difficulty);
+            case HARD:
+                return hardScores.fetchUserScores(userId, difficulty);
+            default:
+                return null;
+        }
+    }
+
 
     /**
      * Adds a score to the personal scores
@@ -163,7 +208,7 @@ public class User {
      * @param difficulty - see {@link Scoreboard#addScore(Double, int, ModeType, String)}
      */
     public void addScore(Double time, int points, ModeType difficulty) {
-        personalScores.addScore(time, points, difficulty, username);
+        easyScores.addScore(time, points, difficulty, username);
     }
 
     /**
@@ -201,12 +246,6 @@ public class User {
      */
     @Override
     public String toString() {
-        return "User{" +
-                "username='" + username + '\'' +
-                ", userId=" + userId +
-                ", personalScores=" + personalScores +
-                ", accountdao=" + accountdao +
-                ", leaderboarddao=" + leaderboarddao +
-                '}';
+        return "niet";
     }
 }
