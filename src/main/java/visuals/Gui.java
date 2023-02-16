@@ -70,10 +70,8 @@ public class Gui extends Application implements IGui {
     ImageView mediumBackground;
     @FXML
     ImageView hardBackground;
-    @FXML
-    ImageView hardSpread;
-    @FXML
-    ImageView mediumSpread;
+    @FXML ImageView hardSpread;
+    @FXML ImageView mediumSpread;
     @FXML
     VBox vBox = new VBox();
 
@@ -129,6 +127,7 @@ public class Gui extends Application implements IGui {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+
         this.primaryStage = primaryStage;
         this.scene = new Scene(root, 1250, 750);
         camera.setFieldOfView(25);
