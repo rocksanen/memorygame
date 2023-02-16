@@ -20,7 +20,7 @@
     <children>
         <ImageView fx:id="background" fitHeight="750.0" fitWidth="1300.0">
             <image>
-                <Image url="@Images/background.png" />
+                <Image url="@images/background.png" />
             </image>
             <effect>
                 <GaussianBlur radius="10.59" />
@@ -28,7 +28,7 @@
         </ImageView>
         <ImageView fitHeight="600.0" fitWidth="645.0" layoutX="348.0" layoutY="75.0" opacity="0.79">
             <image>
-                <Image url="@Images/frame1.png" />
+                <Image url="@images/frame1.png" />
             </image>
             <effect>
                 <SepiaTone level="0.0" />
