@@ -153,10 +153,10 @@ public class Gui extends Application implements IGui {
         this.primaryStage.setResizable(false);
         this.primaryStage.show();
 
-        AudioMemory.getInstance().playSong(ModeType.MAIN);
-        Effects.getInstance().bringGameUp(startBlack, weDidIt, groupFour);
+        Platform.runLater(() -> AudioMemory.getInstance().playSong(ModeType.MAIN));
+        Platform.runLater(() -> Effects.getInstance().bringGameUp(startBlack, weDidIt, groupFour));
         //startBlack.setVisible(false);
-        Effects.getInstance().setGlow(pergament);
+        Platform.runLater(() -> Effects.getInstance().setGlow(pergament));
         Effects.getInstance().playGlow();
 
 
@@ -241,10 +241,10 @@ public class Gui extends Application implements IGui {
                 Platform.runLater(() -> Effects.getInstance().gameZoomIn(camera, startAnchor, background, 1000, 10, -145.5, 14.5, () -> {
                     Platform.runLater(() -> {
 
-                        AudioMemory.getInstance().stopSong(ModeType.MAIN);
-                        AudioMemory.getInstance().playSong(EASY);
+                        Platform.runLater(() -> AudioMemory.getInstance().stopSong(ModeType.MAIN));
+                        Platform.runLater(() -> AudioMemory.getInstance().playSong(EASY));
                         setStartEasyGame();
-                        Effects.getInstance().stopGlow();
+                        Platform.runLater(() -> Effects.getInstance().stopGlow());
 
                     });
                 }));
@@ -269,10 +269,10 @@ public class Gui extends Application implements IGui {
                 Platform.runLater(() -> Effects.getInstance().gameZoomIn(camera, startAnchor, mediumBackground, 1000.9, 10, 117, 14.5, () -> {
                     Platform.runLater(() -> {
 
-                        AudioMemory.getInstance().stopSong(ModeType.MAIN);
-                        AudioMemory.getInstance().playSong(MEDIUM);
+                        Platform.runLater(() -> AudioMemory.getInstance().stopSong(ModeType.MAIN));
+                        Platform.runLater(() -> AudioMemory.getInstance().playSong(MEDIUM));
                         setStartMediumGame();
-                        Effects.getInstance().stopGlow();
+                        Platform.runLater(() -> Effects.getInstance().stopGlow());
 
                     });
                 }));
@@ -298,10 +298,10 @@ public class Gui extends Application implements IGui {
                 Platform.runLater(() -> Effects.getInstance().gameZoomIn(camera, startAnchor, hardBackground, 1000.7, 10, 380, 14.5, () -> {
                     Platform.runLater(() -> {
 
-                        AudioMemory.getInstance().stopSong(ModeType.MAIN);
-                        AudioMemory.getInstance().playSong(ModeType.HARD);
+                        Platform.runLater(() -> AudioMemory.getInstance().stopSong(ModeType.MAIN));
+                        Platform.runLater(() -> AudioMemory.getInstance().playSong(ModeType.HARD));
                         setStartHardGame();
-                        Effects.getInstance().stopGlow();
+                        Platform.runLater(() -> Effects.getInstance().stopGlow());
 
                     });
                 }));
