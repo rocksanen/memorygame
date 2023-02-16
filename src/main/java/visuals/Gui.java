@@ -163,10 +163,7 @@ public class Gui extends Application implements IGui {
         Node worldScoresNode = root.lookup("#worldScores");
         if (worldScoresNode instanceof ListView<?>) {
             worldScores = (ListView<String>) worldScoresNode;
-            setWorldScore(EASY);
         }
-
-
     }
 
     @Override
@@ -255,7 +252,6 @@ public class Gui extends Application implements IGui {
             }
         };
         new Thread(task).start();
-
     }
 
     @FXML
@@ -404,7 +400,6 @@ public class Gui extends Application implements IGui {
 
         refreshUserScores(EASY);
         setWorldScore(EASY);
-
 
     }
 
