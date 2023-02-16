@@ -87,12 +87,13 @@ public class Scoreboard {
      * @param userid
      * @param difficulty
      */
-    protected void fetchScores(Long userid, ModeType difficulty) {
+    public ArrayList<Score> fetchUserScores(Long userid, ModeType difficulty) {
         this.scores = new ArrayList<>();
         List<Leaderboard> leaderboards = leaderboarddao.getAccountScoresByDifficulty(userid, difficulty);
         for (Leaderboard lb : leaderboards) {
             this.scores.add(new Score(lb));
         }
+        return scores;
     }
 
     @Override

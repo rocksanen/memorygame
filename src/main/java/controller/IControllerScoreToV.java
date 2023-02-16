@@ -12,7 +12,7 @@ public interface IControllerScoreToV {
 
     ArrayList<String> getScores(ModeType difficulty);
 
-    ArrayList<String> getPersonalScores();
+    ArrayList<String> getPersonalScores(ModeType difficulty);
 
     int getTotalScore();
 

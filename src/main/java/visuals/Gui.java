@@ -39,6 +39,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 
+import static model.ModeType.MEDIUM;
+
 public class Gui extends Application implements IGui{
 
     private final IControllerVtoE controller = new Controller(this);
@@ -186,9 +188,9 @@ public class Gui extends Application implements IGui{
 
         switch (cubeList.size()) {
 
-           case 6 -> setStartEasyGame();
-           case 12 -> setStartMediumGame();
-           case 20 -> setStartHardGame();
+            case 6 -> setStartEasyGame();
+            case 12 -> setStartMediumGame();
+            case 20 -> setStartHardGame();
         }
     }
 
@@ -204,7 +206,7 @@ public class Gui extends Application implements IGui{
             case 12 -> Platform.runLater(() ->
                     Effects.getInstance().gameZoomOut(
                             gameModePane,mediumGrid,camera,startAnchor,mediumBackground,
-                            1000.9, 35, 117.0, 14.5,ModeType.MEDIUM));
+                            1000.9, 35, 117.0, 14.5, MEDIUM));
             case 20 -> Platform.runLater(() ->
                     Effects.getInstance().gameZoomOut(
                             gameModePane,hardGrid,camera,startAnchor,hardBackground,
@@ -258,7 +260,7 @@ public class Gui extends Application implements IGui{
                     Platform.runLater(() -> {
 
                         AudioMemory.getInstance().stopSong(ModeType.MAIN);
-                        AudioMemory.getInstance().playSong(ModeType.MEDIUM);
+                        AudioMemory.getInstance().playSong(MEDIUM);
                         setStartMediumGame();
                         Effects.getInstance().stopGlow();
 
@@ -436,7 +438,7 @@ public class Gui extends Application implements IGui{
             protected Void call() throws Exception {
                 Platform.runLater(() -> {
                     scoreController.fetchScores(ModeType.EASY);
-                    scoreController.fetchScores(ModeType.MEDIUM);
+                    scoreController.fetchScores(MEDIUM);
                     scoreController.fetchScores(ModeType.HARD);
                     getWorldScore(scoreController.getScores(ModeType.EASY));
                 });
@@ -486,7 +488,7 @@ public class Gui extends Application implements IGui{
                 System.out.println("Login failed");
                 return;
             }
-            setPersonalScores(scoreController.getPersonalScores());
+            setPersonalScores(scoreController.getPersonalScores(MEDIUM));
             signOrReg.setVisible(false);
 
         } catch (Exception e) {
