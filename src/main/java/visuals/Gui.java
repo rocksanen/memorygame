@@ -162,7 +162,6 @@ public class Gui extends Application implements IGui {
         Effects.getInstance().playGlow();
 
 
-
         Node worldScoresNode = root.lookup("#worldScores");
         if (worldScoresNode instanceof ListView<?>) {
             worldScores = (ListView<String>) worldScoresNode;
@@ -459,6 +458,7 @@ public class Gui extends Application implements IGui {
         // Add all the elements from the worldObservable to the worldScores list
         worldScores.getItems().addAll(worldObservable);
     }
+
 
     @Override
     public void setWorldScore(ModeType difficulty) {

@@ -194,7 +194,7 @@
                         <Font name="Yu Gothic Regular" size="39.0" />
                     </font>
                 </Label>
-                <ListView fx:id="worldScores" onMouseClicked="#setWorldScore" prefHeight="280.0" prefWidth="310.0">
+                <ListView fx:id="worldScores" prefHeight="280.0" prefWidth="310.0">
                     <VBox.margin>
                         <Insets top="5.0" />
                     </VBox.margin>
