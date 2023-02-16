@@ -3,7 +3,6 @@ package visuals;
 import controller.Controller;
 import controller.IControllerScoreToV;
 import controller.IControllerVtoE;
-import database.datasource.SqlJpaConn;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -167,7 +166,7 @@ public class Gui extends Application implements IGui {
         Node worldScoresNode = root.lookup("#worldScores");
         if (worldScoresNode instanceof ListView<?>) {
             worldScores = (ListView<String>) worldScoresNode;
-            setWorldScore();
+            setWorldScore(EASY);
         }
 
 
@@ -401,6 +400,8 @@ public class Gui extends Application implements IGui {
         easyCubeFactory.createCubics(easyGrid, memoryObjects);
 
         refreshUserScores(EASY);
+        setWorldScore(EASY);
+
 
     }
 
@@ -410,6 +411,7 @@ public class Gui extends Application implements IGui {
         mediumCubeFactory.createCubics(mediumGrid, memoryObjects);
 
         refreshUserScores(MEDIUM);
+        setWorldScore(MEDIUM);
 
 
     }
@@ -420,6 +422,8 @@ public class Gui extends Application implements IGui {
         hardCubeFactory.createCubics(hardGrid, memoryObjects);
 
         refreshUserScores(HARD);
+        setWorldScore(HARD);
+
 
     }
 
@@ -457,7 +461,7 @@ public class Gui extends Application implements IGui {
     }
 
     @Override
-    public void setWorldScore() {
+    public void setWorldScore(ModeType difficulty) {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -465,10 +469,8 @@ public class Gui extends Application implements IGui {
                     @Override
                     protected Void call() throws Exception {
                         Platform.runLater(() -> {
-                            scoreController.fetchScores(EASY);
-                            scoreController.fetchScores(MEDIUM);
-                            scoreController.fetchScores(ModeType.HARD);
-                            getWorldScore(scoreController.getScores(EASY));
+                            scoreController.fetchScores(difficulty);
+                            getWorldScore(scoreController.getScores(difficulty));
                         });
                         return null;
                     }
