@@ -100,13 +100,6 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
     }
 
     @Override
-    public void setPersonalScore(ArrayList<String> personalScoreList) {
-
-        Platform.runLater(() -> ui.setPersonalScores(personalScoreList));
-
-    }
-
-    @Override
     public void getWorldScore(ArrayList<String> worldScoreList) {
 
         Platform.runLater(() -> ui.getWorldScore(worldScoreList));

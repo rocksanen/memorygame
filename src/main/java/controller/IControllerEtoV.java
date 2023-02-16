@@ -9,5 +9,4 @@ public interface IControllerEtoV {
     void setEasyGame(ArrayList<MemoryObject> memoryObjects);
     void setMediumGame(ArrayList<MemoryObject> memoryObjects);
     void setHardGame(ArrayList<MemoryObject> memoryObjects);
-    void setPersonalScore(ArrayList<String> personalScoreList);
 }

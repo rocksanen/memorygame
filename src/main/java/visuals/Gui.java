@@ -41,7 +41,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 
-import static model.ModeType.MEDIUM;
+import static model.ModeType.*;
 
 public class Gui extends Application implements IGui {
 
@@ -138,11 +138,6 @@ public class Gui extends Application implements IGui {
         camera.setFieldOfView(25);
         this.scene.setCamera(camera);
 
-        Node worldScoresNode = root.lookup("#worldScores");
-        if (worldScoresNode instanceof ListView<?>) {
-            worldScores = (ListView<String>) worldScoresNode;
-            setWorldScore();
-        }
 
         scene.setOnScroll((final ScrollEvent e) -> {
             camera.setTranslateZ(camera.getTranslateZ() + e.getDeltaY());
@@ -166,6 +161,15 @@ public class Gui extends Application implements IGui {
         Effects.getInstance().bringGameUp(startBlack, weDidIt, groupFour);
         Effects.getInstance().setGlow(pergament);
         Effects.getInstance().playGlow();
+
+
+
+        Node worldScoresNode = root.lookup("#worldScores");
+        if (worldScoresNode instanceof ListView<?>) {
+            worldScores = (ListView<String>) worldScoresNode;
+            setWorldScore();
+        }
+
 
     }
 
@@ -214,7 +218,7 @@ public class Gui extends Application implements IGui {
             case 6 -> Platform.runLater(() ->
                     Effects.getInstance().gameZoomOut(
                             gameModePane, easyGrid, camera, startAnchor, background,
-                            1000, 35, -145.5, 14.5, ModeType.EASY));
+                            1000, 35, -145.5, 14.5, EASY));
             case 12 -> Platform.runLater(() ->
                     Effects.getInstance().gameZoomOut(
                             gameModePane, mediumGrid, camera, startAnchor, mediumBackground,
@@ -245,7 +249,7 @@ public class Gui extends Application implements IGui {
                     Platform.runLater(() -> {
 
                         AudioMemory.getInstance().stopSong(ModeType.MAIN);
-                        AudioMemory.getInstance().playSong(ModeType.EASY);
+                        AudioMemory.getInstance().playSong(EASY);
                         setStartEasyGame();
                         Effects.getInstance().stopGlow();
 
@@ -395,18 +399,28 @@ public class Gui extends Application implements IGui {
     public void setEasyGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
 
         easyCubeFactory.createCubics(easyGrid, memoryObjects);
+
+        refreshUserScores(EASY);
+
     }
 
     @Override
     public void setMediumGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
 
         mediumCubeFactory.createCubics(mediumGrid, memoryObjects);
+
+        refreshUserScores(MEDIUM);
+
+
     }
 
     @Override
     public void setHardGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
 
         hardCubeFactory.createCubics(hardGrid, memoryObjects);
+
+        refreshUserScores(HARD);
+
     }
 
     @Override
@@ -451,10 +465,10 @@ public class Gui extends Application implements IGui {
                     @Override
                     protected Void call() throws Exception {
                         Platform.runLater(() -> {
-                            scoreController.fetchScores(ModeType.EASY);
+                            scoreController.fetchScores(EASY);
                             scoreController.fetchScores(MEDIUM);
                             scoreController.fetchScores(ModeType.HARD);
-                            getWorldScore(scoreController.getScores(ModeType.EASY));
+                            getWorldScore(scoreController.getScores(EASY));
                         });
                         return null;
                     }
@@ -469,7 +483,9 @@ public class Gui extends Application implements IGui {
         if (personalList == null) {
             return;
         }
+        personalScores.getItems().clear();
         ObservableList<String> personObservable = FXCollections.observableArrayList();
+        personObservable.clear();
         personObservable.addAll(personalList);
         personalScores.getItems().addAll(personObservable);
     }
@@ -492,6 +508,25 @@ public class Gui extends Application implements IGui {
 
     }
 
+    public void refreshUserScores(ModeType difficulty) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Task<Void> task = new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+                        Platform.runLater(() -> {
+                            setPersonalScores(scoreController.getPersonalScores(difficulty));
+                        });
+                        return null;
+                    }
+                };
+                new Thread(task).start();
+            }
+        });
+    }
+
+
     @FXML
     public void loginPane() {
         String user = name.getText();
@@ -502,7 +537,7 @@ public class Gui extends Application implements IGui {
                 System.out.println("Login failed");
                 return;
             }
-            setPersonalScores(scoreController.getPersonalScores(MEDIUM));
+            refreshUserScores(EASY);
             signOrReg.setVisible(false);
 
         } catch (Exception e) {
