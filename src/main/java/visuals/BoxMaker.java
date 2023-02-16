@@ -1,6 +1,14 @@
 package visuals;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.PointLight;
 import javafx.scene.image.Image;
@@ -8,6 +16,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.transform.Rotate;
+import javafx.util.Duration;
+
 import java.io.FileNotFoundException;
 
 public class BoxMaker {
@@ -19,6 +29,10 @@ public class BoxMaker {
     private final double height;
     private final int id;
     private final Gui gui;
+    private final DoubleProperty rotateValueUp = new SimpleDoubleProperty(0);
+    private final ObjectProperty<Point3D> rotationAxisUp = new SimpleObjectProperty<>(Rotate.X_AXIS);
+    private final DoubleProperty rotateValueDown = new SimpleDoubleProperty(90);
+    private final ObjectProperty<Point3D> rotationAxisDown = new SimpleObjectProperty<>(Rotate.X_AXIS);
 
     public BoxMaker(double width, double height, Image findImage, Image backImage, Image behindImage, Gui gui, int id){
 
@@ -102,7 +116,7 @@ public class BoxMaker {
     }
     private void rotateBox() {
 
-        Platform.runLater(() -> Effects.getInstance().rotateUp(boxGroup));
+        Platform.runLater(() -> rotateUp(boxGroup));
         sendId();
     }
     private void sendId() {gui.sendIdToEngine(this.id);}
@@ -115,7 +129,37 @@ public class BoxMaker {
         light.setColor(Color.WHITE);
     }
 
-    public void resetImage() {Effects.getInstance().rotateDown(boxGroup);}
+    public void resetImage() {rotateDown(boxGroup);}
     public Group getBox() {return boxGroup;}
+
+    private final Timeline timelineUp = new Timeline(
+            new KeyFrame(Duration.ZERO,
+                    new KeyValue(rotateValueUp, 0),
+                    new KeyValue(rotationAxisUp, Rotate.X_AXIS)
+            ),
+            new KeyFrame(Duration.seconds(0.6),
+                    new KeyValue(rotateValueUp, 90))
+    );
+
+    private final Timeline timelineDown = new Timeline(
+            new KeyFrame(Duration.ZERO,
+                    new KeyValue(rotateValueDown,90),
+                    new KeyValue(rotationAxisDown,Rotate.X_AXIS)
+            ),
+            new KeyFrame(Duration.seconds(0.6),
+                    new KeyValue(rotateValueDown,0))
+    );
+
+    public void rotateUp(Group group) {
+        group.rotateProperty().bind(rotateValueUp);
+        group.rotationAxisProperty().bind(rotationAxisUp);
+        timelineUp.playFromStart();
+    }
+
+    public void rotateDown(Group group) {
+        group.rotateProperty().bind(rotateValueDown);
+        group.rotationAxisProperty().bind(rotationAxisDown);
+        timelineDown.playFromStart();
+    }
 }
 

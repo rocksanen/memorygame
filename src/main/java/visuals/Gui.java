@@ -15,9 +15,11 @@ import javafx.scene.Parent;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -26,14 +28,16 @@ import javafx.stage.Stage;
 import model.MemoryObject;
 import model.ModeType;
 import model.Scoreboard;
-import visuals.CubeFactories.EasyCubeFactory;
-import visuals.CubeFactories.HardCubeFactory;
-import visuals.CubeFactories.ICubeFactory;
-import visuals.CubeFactories.MediumCubeFactory;
+import visuals.audio.AudioMemory;
+import visuals.cubeFactories.EasyCubeFactory;
+import visuals.cubeFactories.HardCubeFactory;
+import visuals.cubeFactories.ICubeFactory;
+import visuals.cubeFactories.MediumCubeFactory;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.concurrent.CountDownLatch;
 
 public class Gui extends Application implements IGui{
 
@@ -86,6 +90,18 @@ public class Gui extends Application implements IGui{
 
     @FXML
     AnchorPane startAnchor;
+    @FXML Button newGame;
+    @FXML Button returnMenu;
+
+    @FXML ImageView regLog;
+
+    @FXML AnchorPane startBlack;
+
+    @FXML
+    Label weDidIt;
+    @FXML Label groupFour;
+
+    @FXML ImageView pergament;
 
     ArrayList<BoxMaker> cubeList;
     ICubeFactory easyCubeFactory;
@@ -93,6 +109,9 @@ public class Gui extends Application implements IGui{
     ICubeFactory hardCubeFactory;
     Parent root;
     Scene scene;
+
+    CountDownLatch latch = new CountDownLatch(1);
+
     public static PerspectiveCamera camera = new PerspectiveCamera();
 
     public static void main(String[] args) {launch(args);}
@@ -108,18 +127,31 @@ public class Gui extends Application implements IGui{
         Node worldScoresNode = root.lookup("#worldScores");
         if (worldScoresNode instanceof ListView<?>) {
             worldScores = (ListView<String>) worldScoresNode;
-            setWorldScore();
+            //setWorldScore();
         }
+
+        scene.setOnScroll((final ScrollEvent e) -> {
+            camera.setTranslateZ(camera.getTranslateZ() + e.getDeltaY());
+        });
 
         background = (ImageView) root.lookup("#background");
         mediumBackground = (ImageView) root.lookup("#mediumBackground") ;
         mediumSpread = (ImageView) root.lookup("#mediumSpread");
         hardBackground = (ImageView) root.lookup("#hardBackground") ;
+        startBlack = (AnchorPane) root.lookup("#startBlack");
+        weDidIt = (Label) root.lookup("#weDidIt");
+        groupFour = (Label) root.lookup("#groupFour");
+        pergament = (ImageView) root.lookup("#pergament");
 
         this.primaryStage.setScene(scene);
         this.primaryStage.setFullScreenExitHint ("");
         this.primaryStage.setResizable(false);
         this.primaryStage.show();
+
+        AudioMemory.getInstance().playSong(ModeType.MAIN);
+        Effects.getInstance().bringGameUp(startBlack,weDidIt,groupFour);
+        Effects.getInstance().setGlow(pergament);
+        Effects.getInstance().playGlow();
 
     }
 
@@ -129,6 +161,8 @@ public class Gui extends Application implements IGui{
         startEasyGame = new Button();
         startMediumGame = new Button();
         startHardGame = new Button();
+        newGame = new Button();
+        returnMenu = new Button();
         easyGrid = new GridPane();
         mediumGrid = new GridPane();
         hardGrid = new GridPane();
@@ -136,17 +170,54 @@ public class Gui extends Application implements IGui{
         login = new Button();
         signOrReg = new Pane();
         gameModePane = new Pane();
+        weDidIt = new Label();
+        groupFour = new Label();
+        startBlack = new AnchorPane();
         name = new TextField();
+        pergament = new ImageView();
         password = new TextField();
         startAnchor = new AnchorPane();
         this.root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/visuals/game2.fxml")));
+    }
 
 
+    @FXML
+    public void newGame() {
+
+        switch (cubeList.size()) {
+
+           case 6 -> setStartEasyGame();
+           case 12 -> setStartMediumGame();
+           case 20 -> setStartHardGame();
+        }
     }
 
     @FXML
+    public void returnMenu() {
+
+        switch (cubeList.size()) {
+
+            case 6 -> Platform.runLater(() ->
+                    Effects.getInstance().gameZoomOut(
+                            gameModePane,easyGrid,camera,startAnchor,background,
+                            1000, 35, -145.5, 14.5,ModeType.EASY));
+            case 12 -> Platform.runLater(() ->
+                    Effects.getInstance().gameZoomOut(
+                            gameModePane,mediumGrid,camera,startAnchor,mediumBackground,
+                            1000.9, 35, 117.0, 14.5,ModeType.MEDIUM));
+            case 20 -> Platform.runLater(() ->
+                    Effects.getInstance().gameZoomOut(
+                            gameModePane,hardGrid,camera,startAnchor,hardBackground,
+                            1000.7, 35, 380.0, 14.5,ModeType.HARD));
+        }
+
+        Effects.getInstance().playGlow();
+    }
+    @FXML
     public void easyStartScreenPlay(){
 
+        background.setOpacity(1);
+        background.setVisible(true);
         mediumBackground.setOpacity(0);
         mediumSpread.setOpacity(0);
         hardBackground.setOpacity(0);
@@ -155,10 +226,13 @@ public class Gui extends Application implements IGui{
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call(){
-                Platform.runLater(() -> Effects.getInstance().easyGameZoomIn(camera, startAnchor, background,() -> {
+                Platform.runLater(() -> Effects.getInstance().gameZoomIn(camera, startAnchor, background,1000, 10, -145.5, 14.5,() -> {
                     Platform.runLater(() -> {
 
+                        AudioMemory.getInstance().stopSong(ModeType.MAIN);
+                        AudioMemory.getInstance().playSong(ModeType.EASY);
                         setStartEasyGame();
+                        Effects.getInstance().stopGlow();
 
                     });
                 }));
@@ -171,6 +245,8 @@ public class Gui extends Application implements IGui{
     @FXML
     public void mediumStartScreenPlay(){
 
+        mediumBackground.setVisible(true);
+        mediumBackground.setOpacity(1);
         background.setOpacity(0);
         hardBackground.setOpacity(0);
         hardSpread.setOpacity(0);
@@ -178,10 +254,13 @@ public class Gui extends Application implements IGui{
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                Platform.runLater(() -> Effects.getInstance().mediumGameZoomIn(camera, startAnchor, mediumBackground,() -> {
+                Platform.runLater(() -> Effects.getInstance().gameZoomIn(camera, startAnchor, mediumBackground, 1000.9, 10, 117, 14.5,() -> {
                     Platform.runLater(() -> {
 
+                        AudioMemory.getInstance().stopSong(ModeType.MAIN);
+                        AudioMemory.getInstance().playSong(ModeType.MEDIUM);
                         setStartMediumGame();
+                        Effects.getInstance().stopGlow();
 
                     });
                 }));
@@ -195,6 +274,8 @@ public class Gui extends Application implements IGui{
     @FXML
     public void hardStartScreenPlay(){
 
+        hardBackground.setVisible(true);
+        hardBackground.setOpacity(1);
         background.setOpacity(0);
         mediumBackground.setOpacity(0);
         mediumSpread.setOpacity(0);
@@ -202,10 +283,13 @@ public class Gui extends Application implements IGui{
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call(){
-                Platform.runLater(() -> Effects.getInstance().hardGameZoomIn(camera, startAnchor, hardBackground,() -> {
+                Platform.runLater(() -> Effects.getInstance().gameZoomIn(camera, startAnchor, hardBackground,1000.7, 10, 380, 14.5,() -> {
                     Platform.runLater(() -> {
 
+                        AudioMemory.getInstance().stopSong(ModeType.MAIN);
+                        AudioMemory.getInstance().playSong(ModeType.HARD);
                         setStartHardGame();
+                        Effects.getInstance().stopGlow();
 
                     });
                 }));
@@ -221,13 +305,12 @@ public class Gui extends Application implements IGui{
 
         Platform.runLater(() -> Effects.getInstance().backGroundIn(background));
 
-
-
         mediumGrid.setMouseTransparent(true);
         mediumGrid.setVisible(false);
         hardGrid.setMouseTransparent(true);
         hardGrid.setVisible(false);
         easyGrid.setMouseTransparent(false);
+        easyGrid.setOpacity(1);
         easyGrid.setVisible(true);
 
         if (cubeList != null) {
@@ -252,6 +335,7 @@ public class Gui extends Application implements IGui{
         hardGrid.setVisible(false);
         mediumGrid.setMouseTransparent(false);
         mediumGrid.setVisible(true);
+        mediumGrid.setOpacity(1);
         mediumGrid.setHgap(40);
         mediumGrid.setVgap(20);
 
@@ -270,14 +354,13 @@ public class Gui extends Application implements IGui{
 
         Platform.runLater(() -> Effects.getInstance().backGroundIn(hardBackground));
 
-
-
         easyGrid.setMouseTransparent(true);
         easyGrid.setVisible(false);
         mediumGrid.setMouseTransparent(true);
         mediumGrid.setVisible(false);
         hardGrid.setMouseTransparent(false);
         hardGrid.setVisible(true);
+        hardGrid.setOpacity(1);
         hardGrid.setHgap(70);
         hardGrid.setVgap(50);
 
@@ -333,7 +416,8 @@ public class Gui extends Application implements IGui{
 
     @Override
     public void getWorldScore(ArrayList<String> worldList) {
-
+        // clears the list of previous scores
+        worldScores.getItems().clear();
         // Create an observable list from the worldList
         ObservableList<String> worldObservable = FXCollections.observableArrayList();
         // Add all the elements from the worldList to the worldObservable
@@ -344,8 +428,23 @@ public class Gui extends Application implements IGui{
 
     @Override
     public void setWorldScore() {
-        scoreController.fetchScores(ModeType.EASY);
-        getWorldScore(scoreController.getScores(ModeType.EASY));
+        // fetch scores in a new thread to avoid blocking the UI
+        //         scoreController.fetchScores(ModeType.EASY);
+        //        getWorldScore(scoreController.getScores(ModeType.EASY));
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                Platform.runLater(() -> {
+                    scoreController.fetchScores(ModeType.EASY);
+                    scoreController.fetchScores(ModeType.MEDIUM);
+                    scoreController.fetchScores(ModeType.HARD);
+                    getWorldScore(scoreController.getScores(ModeType.EASY));
+                });
+                return null;
+            }
+        };
+        new Thread(task).start();
+
 
     }
 
@@ -387,7 +486,7 @@ public class Gui extends Application implements IGui{
                 System.out.println("Login failed");
                 return;
             }
-            setPersonalScores(scoreController.getPersonalScores(ModeType.EASY));
+            setPersonalScores(scoreController.getPersonalScores());
             signOrReg.setVisible(false);
 
         } catch (Exception e) {
