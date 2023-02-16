@@ -210,13 +210,13 @@ public class Effects {
                         new KeyValue(first.opacityProperty(),1)),
                 new KeyFrame(Duration.seconds(15),
                         new KeyValue(first.opacityProperty(),0)),
-                new KeyFrame(Duration.seconds(17),
+                new KeyFrame(Duration.seconds(16.8),
                         new KeyValue(second.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(20.5),
                         new KeyValue(second.opacityProperty(),1)),
-                new KeyFrame(Duration.seconds(24),
+                new KeyFrame(Duration.seconds(24.5),
                         new KeyValue(second.opacityProperty(),0)),
-                new KeyFrame(Duration.seconds(26),
+                new KeyFrame(Duration.seconds(26.5),
                         new KeyValue(anchorPane.opacityProperty(),1)),
                 new KeyFrame(Duration.seconds(31),
                         new KeyValue(anchorPane.opacityProperty(),0))
@@ -266,7 +266,7 @@ public class Effects {
 
     public void playGlow() {
 
-        glowLine.play();
+       Platform.runLater(() -> glowLine.play());
 
     }
 }

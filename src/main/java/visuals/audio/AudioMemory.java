@@ -64,7 +64,6 @@ public class AudioMemory {
             case MEDIUM -> stopTheSong(mediumPlayer);
             case HARD -> stopTheSong(hardPlayer);
         }
-
     }
 
     public void pauseSong(ModeType type) {
@@ -97,7 +96,5 @@ public class AudioMemory {
         fadeOut.setOnFinished(event -> mediaPlayer.stop());
         fadeOut.play();
 
-
     }
-
 }
