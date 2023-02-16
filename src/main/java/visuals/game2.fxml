@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.effect.Reflection?>
 <?import javafx.scene.effect.SepiaTone?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -21,7 +22,7 @@
     <children>
         <ImageView id="hardSpread" fx:id="hardSpread" fitHeight="780.0" fitWidth="1400.0">
             <image>
-                <Image url="@Images/hardback4.jpg" />
+                <Image url="@images/hardback4.jpg" />
             </image>
             <effect>
                 <GaussianBlur radius="10.59" />
@@ -29,12 +30,12 @@
         </ImageView>
         <ImageView id="hardBackground" fx:id="hardBackground" fitHeight="744.0" fitWidth="1246.0" layoutX="-1.2" layoutY="3.7">
             <image>
-                <Image url="@Images/hardback4.jpg" />
+                <Image url="@images/hardback4.jpg" />
             </image>
         </ImageView>
         <ImageView id="mediumSpread" fx:id="mediumSpread" fitHeight="780.0" fitWidth="1400.0">
             <image>
-                <Image url="@Images/tigru.jpg" />
+                <Image url="@images/tigru.jpg" />
             </image>
             <effect>
                 <GaussianBlur radius="10.59" />
@@ -42,17 +43,17 @@
         </ImageView>
         <ImageView id="mediumBackground" fx:id="mediumBackground" fitHeight="744.5" fitWidth="1247.0" layoutX="-9.0" layoutY="2.5">
             <image>
-                <Image url="@Images/tigru.jpg" />
+                <Image url="@images/tigru.jpg" />
             </image>
         </ImageView>
         <ImageView id="background" fx:id="background" fitHeight="741.0" fitWidth="1242.0" layoutX="4.0" layoutY="4.9">
             <image>
-                <Image url="@Images/background.png" />
+                <Image url="@images/background.png" />
             </image>
         </ImageView>
         <ImageView id="board" fitHeight="600.0" fitWidth="697.0" layoutX="289.0" layoutY="75.0" opacity="0.79" visible="false">
             <image>
-                <Image url="@Images/frame1.png" />
+                <Image url="@images/frame1.png" />
             </image>
             <effect>
                 <SepiaTone level="0.0" />
@@ -107,64 +108,64 @@
         </VBox>
         <ImageView id="allBorder" fitHeight="754.0" fitWidth="1254.0" layoutX="-2.0" layoutY="-2.0">
             <image>
-                <Image url="@Images/frame3.png" />
+                <Image url="@images/frame3.png" />
             </image>
         </ImageView>
         <AnchorPane id="startAnchor" fx:id="startAnchor" prefHeight="750.0" prefWidth="1250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <Pane fx:id="gameModePane" layoutX="280.0" layoutY="72.0" prefHeight="620.0" prefWidth="922.0">
                     <children>
-                        <ImageView fx:id="regLog" fitHeight="754.0" fitWidth="1257.0" layoutX="-282.0" layoutY="-73.0">
+                        <ImageView id="pergament" fx:id="pergament" fitHeight="754.0" fitWidth="1257.0" layoutX="-282.0" layoutY="-73.0">
                             <image>
-                                <Image url="@Images/reglog.jpg" />
+                                <Image url="@images/pergaBack.jpg" />
                             </image>
                             <effect>
-                                <GaussianBlur radius="5.29" />
+                        <GaussianBlur radius="1.76" />
                             </effect>
                         </ImageView>
                   <ImageView id="startMouthMedium" fitHeight="620.0" fitWidth="435.0" layoutX="438.0" layoutY="60.0" x="-193.5" y="-60.0">
                      <image>
-                        <Image url="@Images/startScroll.png" />
+                        <Image url="@images/startScroll.png" />
                      </image>
                   </ImageView>
                   <ImageView id="startMouthEasy" fitHeight="620.0" fitWidth="435.0" layoutX="-17.5" layoutY="60.0" y="-60.0">
                      <image>
-                        <Image url="@Images/startScroll.png" />
+                        <Image url="@images/startScroll.png" />
                      </image>
                   </ImageView>
                   <ImageView id="startMouthHard" fitHeight="620.0" fitWidth="435.0" layoutX="700.0" layoutY="60.0" x="-193.0" y="-60.0">
                      <image>
-                        <Image url="@Images/startScroll.png" />
+                        <Image url="@images/startScroll.png" />
                      </image>
                   </ImageView>
                         <ImageView id="setStartEasyGame" fitHeight="118.0" fitWidth="198.0" layoutX="101.0" layoutY="259.0" onMouseClicked="#easyStartScreenPlay">
                             <image>
-                                <Image url="@Images/background.png" />
+                                <Image url="@images/background.png" />
                             </image>
                         </ImageView>
                         <ImageView id="setStartMediumGame" fitHeight="118.0" fitWidth="198.0" layoutX="362.0" layoutY="259.0" onMouseClicked="#mediumStartScreenPlay">
                             <image>
-                                <Image url="@Images/tigru.jpg" />
+                                <Image url="@images/tigru.jpg" />
                             </image>
                         </ImageView>
                         <ImageView id="setStartHardGame" fitHeight="118.0" fitWidth="198.0" layoutX="626.0" layoutY="259.0" onMouseClicked="#hardStartScreenPlay">
                             <image>
-                                <Image url="@Images/hardback4.jpg" />
+                                <Image url="@images/hardback4.jpg" />
                             </image>
                         </ImageView>
                         <ImageView id="easyFrame" fitHeight="120.4" fitWidth="200.0" layoutX="100.0" layoutY="257.8">
                             <image>
-                                <Image url="@Images/frame3.png" />
+                                <Image url="@images/frame3.png" />
                             </image>
                         </ImageView>
                         <ImageView id="mediumFrame" fitHeight="120.4" fitWidth="200.0" layoutX="362.5" layoutY="257.8">
                             <image>
-                                <Image url="@Images/frame3.png" />
+                                <Image url="@images/frame3.png" />
                             </image>
                         </ImageView>
                         <ImageView id="hardFrame" fitHeight="120.4" fitWidth="200.0" layoutX="625.0" layoutY="257.8">
                             <image>
-                                <Image url="@Images/frame3.png" />
+                                <Image url="@images/frame3.png" />
                             </image>
                         </ImageView>
                   <Label id="easyText" alignment="CENTER" contentDisplay="CENTER" layoutX="110.0" layoutY="130.0" prefHeight="44.0" prefWidth="176.0" text="EASY" textFill="#ffb700">
@@ -210,7 +211,7 @@
             <children>
                 <ImageView fitHeight="343.0" fitWidth="234.0">
                     <image>
-                        <Image url="@Images/reglog.jpg" />
+                        <Image url="@images/reglog.jpg" />
                     </image>
                     <effect>
                         <GaussianBlur radius="0.0" />
@@ -224,5 +225,25 @@
                 <Button fx:id="login" layoutX="132.0" layoutY="268.0" mnemonicParsing="false" onMouseClicked="#loginPane" prefHeight="36.0" prefWidth="77.0" text="Login" />
             </children>
         </Pane>
+      <AnchorPane fx:id="startBlack" prefHeight="780.0" prefWidth="1250.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="weDidIt" alignment="CENTER" layoutX="290.0" layoutY="300.0" opacity="0.0" text="We Did It Games" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Maiandra GD" size="89.0" />
+               </font>
+               <effect>
+                  <Reflection bottomOpacity="0.08" fraction="0.7" topOpacity="0.27" />
+               </effect>
+            </Label>
+            <Label fx:id="groupFour" alignment="CENTER" layoutX="230.0" layoutY="300.0" opacity="0.0" text="The Mighty Group 4" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Maiandra GD" size="89.0" />
+               </font>
+               <effect>
+                  <Reflection bottomOpacity="0.08" fraction="0.7" topOpacity="0.27" />
+               </effect>
+            </Label>
+         </children>
+      </AnchorPane>
     </children>
 </AnchorPane>
