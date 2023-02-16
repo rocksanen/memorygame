@@ -266,7 +266,7 @@ public class Effects {
 
     public void playGlow() {
 
-        glowLine.play();
+       Platform.runLater(() -> glowLine.play());
 
     }
 }

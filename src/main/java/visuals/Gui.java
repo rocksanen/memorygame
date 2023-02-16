@@ -158,6 +158,8 @@ public class Gui extends Application implements IGui {
 
         AudioMemory.getInstance().playSong(ModeType.MAIN);
         Effects.getInstance().bringGameUp(startBlack, weDidIt, groupFour);
+        //Effects.getInstance().bringGameUp(startBlack,weDidIt,groupFour);
+        startBlack.setVisible(false);
         Effects.getInstance().setGlow(pergament);
         Effects.getInstance().playGlow();
 
@@ -330,6 +332,7 @@ public class Gui extends Application implements IGui {
         easyGrid.setMouseTransparent(false);
         easyGrid.setOpacity(1);
         easyGrid.setVisible(true);
+        easyGrid.setHgap(-80);
 
         if (cubeList != null) {
             cubeList.clear();
@@ -354,7 +357,7 @@ public class Gui extends Application implements IGui {
         mediumGrid.setMouseTransparent(false);
         mediumGrid.setVisible(true);
         mediumGrid.setOpacity(1);
-        mediumGrid.setHgap(40);
+        mediumGrid.setHgap(25);
         mediumGrid.setVgap(20);
 
         if (cubeList != null) {
@@ -379,8 +382,8 @@ public class Gui extends Application implements IGui {
         hardGrid.setMouseTransparent(false);
         hardGrid.setVisible(true);
         hardGrid.setOpacity(1);
-        hardGrid.setHgap(70);
-        hardGrid.setVgap(50);
+        hardGrid.setHgap(58);
+        hardGrid.setVgap(32);
 
         if (cubeList != null) {
             cubeList.clear();

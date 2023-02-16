@@ -45,7 +45,7 @@ public class HardCubeFactory implements ICubeFactory {
             if (imageIndex >= 0 && imageIndex < imageUrlList.size()) {
                 group.getChildren().add(
                         new BoxMaker(
-                                80, 80,
+                                100, 100,
                                 imageUrlList.get(imageIndex),
                                 backImage,
                                 behindImage,
