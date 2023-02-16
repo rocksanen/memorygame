@@ -20,10 +20,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import model.MemoryObject;
 import model.ModeType;
@@ -158,6 +155,7 @@ public class Gui extends Application implements IGui {
 
         AudioMemory.getInstance().playSong(ModeType.MAIN);
         Effects.getInstance().bringGameUp(startBlack, weDidIt, groupFour);
+        //startBlack.setVisible(false);
         Effects.getInstance().setGlow(pergament);
         Effects.getInstance().playGlow();
 
@@ -326,6 +324,7 @@ public class Gui extends Application implements IGui {
         easyGrid.setMouseTransparent(false);
         easyGrid.setOpacity(1);
         easyGrid.setVisible(true);
+        easyGrid.setHgap(-80);
 
         if (cubeList != null) {
             cubeList.clear();
@@ -350,7 +349,7 @@ public class Gui extends Application implements IGui {
         mediumGrid.setMouseTransparent(false);
         mediumGrid.setVisible(true);
         mediumGrid.setOpacity(1);
-        mediumGrid.setHgap(40);
+        mediumGrid.setHgap(25);
         mediumGrid.setVgap(20);
 
         if (cubeList != null) {
@@ -375,8 +374,13 @@ public class Gui extends Application implements IGui {
         hardGrid.setMouseTransparent(false);
         hardGrid.setVisible(true);
         hardGrid.setOpacity(1);
-        hardGrid.setHgap(70);
-        hardGrid.setVgap(50);
+        hardGrid.setHgap(58);
+        hardGrid.setVgap(120);
+
+        for (int i = 0; i < 5; i++) {
+            RowConstraints rowConstraints = new RowConstraints(10);
+            hardGrid.getRowConstraints().add(rowConstraints);
+        }
 
         if (cubeList != null) {
             cubeList.clear();

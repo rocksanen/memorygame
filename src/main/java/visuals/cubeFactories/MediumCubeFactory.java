@@ -44,7 +44,7 @@ public class MediumCubeFactory implements ICubeFactory {
             if(imageIndex >= 0 && imageIndex < imageUrlList.size()) {
                 group.getChildren().add(
                         new BoxMaker(
-                                120,120,
+                                130,130,
                                 imageUrlList.get(imageIndex),
                                 backImage,
                                 behindImage,
