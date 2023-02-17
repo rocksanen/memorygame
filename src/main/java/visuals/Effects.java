@@ -1,8 +1,6 @@
 package visuals;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.control.Label;
@@ -12,6 +10,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import model.ModeType;
 import visuals.audio.AudioMemory;
@@ -86,7 +86,7 @@ public class Effects {
 
             Pane pane, GridPane gridPane, PerspectiveCamera camera,
             AnchorPane startAnchor, ImageView imageView, double zOffset,
-            double fovOffset, double xOffset, double yOffset,ModeType type
+            double fovOffset, double xOffset, double yOffset,ModeType type, ImageView pergamentti
 
     ) {
 
@@ -113,6 +113,7 @@ public class Effects {
             camera.setTranslateY(yOffset);
             imageView.setVisible(false);
             pane.setVisible(true);
+            pergamentti.setVisible(true);
             startAnchor.setOpacity(1);
 
             AudioMemory.getInstance().stopSong(type);
@@ -199,33 +200,39 @@ public class Effects {
         });
     }
 
-    public void bringGameUp(AnchorPane anchorPane, Label first, Label second) {
+    public void bringGameUp(AnchorPane startBlack, Label first, Label second, Pane gamePane, Pane logAndScore) {
 
-        System.out.println(anchorPane.getWidth());
+        System.out.println(startBlack.getWidth());
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO),
-                new KeyFrame(Duration.seconds(7.5),
+                new KeyFrame(Duration.seconds(7.2),
                         new KeyValue(first.opacityProperty(),0)),
-                new KeyFrame(Duration.seconds(11.5),
+                new KeyFrame(Duration.seconds(11.3),
                         new KeyValue(first.opacityProperty(),1)),
-                new KeyFrame(Duration.seconds(15),
+                new KeyFrame(Duration.seconds(14.7),
                         new KeyValue(first.opacityProperty(),0)),
-                new KeyFrame(Duration.seconds(16.8),
+                new KeyFrame(Duration.seconds(16.5),
                         new KeyValue(second.opacityProperty(),0)),
-                new KeyFrame(Duration.seconds(20.5),
+                new KeyFrame(Duration.seconds(20.3),
                         new KeyValue(second.opacityProperty(),1)),
-                new KeyFrame(Duration.seconds(24.5),
+                new KeyFrame(Duration.seconds(24.2),
                         new KeyValue(second.opacityProperty(),0)),
-                new KeyFrame(Duration.seconds(26.5),
-                        new KeyValue(anchorPane.opacityProperty(),1)),
-                new KeyFrame(Duration.seconds(31),
-                        new KeyValue(anchorPane.opacityProperty(),0))
+                new KeyFrame(Duration.seconds(26.2),
+                        new KeyValue(startBlack.opacityProperty(),1)),
+                new KeyFrame(Duration.seconds(36),
+                        new KeyValue(startBlack.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(36),
+                        new KeyValue(gamePane.opacityProperty(),0),
+                        new KeyValue(logAndScore.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(39),
+                        new KeyValue(gamePane.opacityProperty(),1),
+                        new KeyValue(logAndScore.opacityProperty(),1))
         );
 
         timeline.play();
         timeline.setOnFinished(actionEvent -> {
 
-            anchorPane.setMouseTransparent(true);
+            startBlack.setMouseTransparent(true);
 
         });
     }
@@ -238,20 +245,22 @@ public class Effects {
         glowLine = new Timeline(
                 new KeyFrame(Duration.ZERO,
                         new KeyValue(glow.levelProperty(),0)),
-                new KeyFrame(Duration.seconds(0.3),
-                        new KeyValue(glow.levelProperty(),0.09)),
-                new KeyFrame(Duration.seconds(0.6),
-                        new KeyValue(glow.levelProperty(), 0.02)),
-                new KeyFrame(Duration.seconds(0.9),
+                new KeyFrame(Duration.seconds(0.1),
                         new KeyValue(glow.levelProperty(),0.07)),
+                new KeyFrame(Duration.seconds(0.3),
+                        new KeyValue(glow.levelProperty(), 0.02)),
+                new KeyFrame(Duration.seconds(0.5),
+                        new KeyValue(glow.levelProperty(),0.05)),
+                new KeyFrame(Duration.seconds(0.8),
+                        new KeyValue(glow.levelProperty(),0.01)),
+                new KeyFrame(Duration.seconds(1.1),
+                        new KeyValue(glow.levelProperty(),0.08)),
                 new KeyFrame(Duration.seconds(1.2),
-                        new KeyValue(glow.levelProperty(),0.03)),
-                new KeyFrame(Duration.seconds(1.5),
-                        new KeyValue(glow.levelProperty(),0.11)),
-                new KeyFrame(Duration.seconds(1.8),
-                        new KeyValue(glow.levelProperty(),0.4)),
-                new KeyFrame(Duration.seconds(2.2),
-                        new KeyValue(glow.levelProperty(),0.12))
+                        new KeyValue(glow.levelProperty(),0.04)),
+                new KeyFrame(Duration.seconds(1.4),
+                        new KeyValue(glow.levelProperty(),0.06)),
+                new KeyFrame(Duration.seconds(1.9),
+                        new KeyValue(glow.levelProperty(),0.03))
         );
 
         glowLine.setAutoReverse(true);
