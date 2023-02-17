@@ -21,4 +21,6 @@ public interface IGui {
     void setHardGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException;
     void clearStorage();
 
+    void gameOver();
+
 }

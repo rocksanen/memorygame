@@ -21,6 +21,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import model.MemoryObject;
 import model.ModeType;
@@ -155,6 +158,7 @@ public class Gui extends Application implements IGui {
         this.primaryStage.setFullScreenExitHint("");
         this.primaryStage.setResizable(false);
         this.primaryStage.show();
+
 
         Platform.runLater(() -> AudioMemory.getInstance().playSong(ModeType.MAIN));
         Platform.runLater(() -> Effects.getInstance().bringGameUp(startBlack, weDidIt, groupFour, gameModePane,logAndScore));
@@ -437,6 +441,13 @@ public class Gui extends Application implements IGui {
 
 
 
+    }
+
+
+
+    public void gameOver() {
+
+        System.out.println("game over");
     }
 
     @Override
