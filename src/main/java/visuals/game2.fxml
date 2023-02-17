@@ -121,6 +121,11 @@
                   <GaussianBlur radius="1.76" />
                       </effect>
                   </ImageView>
+            <ImageView id="blacksun" fx:id="blacksun" fitHeight="321.0" fitWidth="365.0" layoutX="465.0" layoutY="51.0">
+               <image>
+                  <Image url="@images/blacksun1.png" />
+               </image>
+            </ImageView>
                 <Pane fx:id="gameModePane" layoutX="280.0" layoutY="72.0" opacity="0.0" prefHeight="620.0" prefWidth="922.0">
                     <children>
                   <ImageView id="startMouthMedium" fitHeight="620.0" fitWidth="435.0" layoutX="438.0" layoutY="60.0" x="-193.5" y="-60.0">
@@ -234,6 +239,11 @@
       </Pane>
       <AnchorPane fx:id="startBlack" prefHeight="780.0" prefWidth="1250.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
+            <ImageView id="lightning" fx:id="lightning" fitHeight="457.0" fitWidth="402.0" layoutX="16.0" layoutY="-79.0" opacity="0.0" rotate="-12.0">
+               <image>
+                  <Image url="@images/lightning.png" />
+               </image>
+            </ImageView>
             <Label fx:id="weDidIt" alignment="CENTER" layoutX="290.0" layoutY="300.0" opacity="0.0" text="We Did It Games" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Maiandra GD" size="89.0" />
@@ -250,6 +260,11 @@
                   <Reflection bottomOpacity="0.08" fraction="0.7" topOpacity="0.27" />
                </effect>
             </Label>
+            <ImageView id="sun" fx:id="sun" fitHeight="783.0" fitWidth="1437.0" layoutX="-70.0" opacity="0.0">
+               <image>
+                  <Image url="@images/sunRay.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
     </children>

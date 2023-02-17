@@ -114,6 +114,11 @@ public class Gui extends Application implements IGui {
     ImageView pergament;
 
     @FXML Pane logAndScore;
+    @FXML ImageView sun;
+
+    @FXML ImageView lightning;
+    @FXML ImageView blacksun;
+
 
     ArrayList<BoxMaker> cubeList;
     ICubeFactory easyCubeFactory;
@@ -155,6 +160,9 @@ public class Gui extends Application implements IGui {
         pergament = (ImageView) root.lookup("#pergament");
         gameModePane = (Pane) root.lookup("#gameModePane");
         logAndScore = (Pane) root.lookup("#logAndScore");
+        sun = (ImageView) root.lookup("#sun");
+        lightning = (ImageView) root.lookup("#lightning");
+        blacksun = (ImageView) root.lookup("#blacksun");
 
         this.primaryStage.setScene(scene);
         this.primaryStage.setFullScreenExitHint("");
@@ -163,7 +171,7 @@ public class Gui extends Application implements IGui {
 
 
         Platform.runLater(() -> AudioMemory.getInstance().playSong(ModeType.MAIN));
-        Platform.runLater(() -> Effects.getInstance().bringGameUp(startBlack, weDidIt, groupFour, gameModePane,logAndScore));
+        Platform.runLater(() -> Effects.getInstance().bringGameUp(startBlack, weDidIt, groupFour, gameModePane,logAndScore, sun, lightning, blacksun));
         //startBlack.setVisible(false);
         //gameModePane.setOpacity(1);
         //logAndScore.setOpacity(1);
@@ -201,6 +209,9 @@ public class Gui extends Application implements IGui {
         password = new TextField();
         startAnchor = new AnchorPane();
         logAndScore = new Pane();
+        sun = new ImageView();
+        lightning = new ImageView();
+        blacksun = new ImageView();
         this.root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/visuals/game2.fxml")));
     }
 
