@@ -7,6 +7,8 @@ import database.entity.Account;
 
 import java.util.ArrayList;
 
+import static model.ModeType.*;
+
 
 /**
  * Singleton class for the User
@@ -60,6 +62,11 @@ public class User {
     private IAccountDAO accountdao;
 
     /**
+     * jpa entity for the account
+     */
+    private Account account;
+
+    /**
      * Private constructor for the User class
      * Initializes the username, id and personal scores
      * Also initializes the DAO classes
@@ -68,6 +75,8 @@ public class User {
         this.username = "tony the tiger";
         this.userId = null;
         this.easyScores = null;
+        this.mediumScores = null;
+        this.hardScores = null;
 
         this.accountdao = new AccountDAO();
     }
@@ -100,6 +109,7 @@ public class User {
             System.out.println("sTRINGIFYING ACCOUNT: " + account.toString() + "");
 
             if (account.getAccountid() != null) {
+                this.account = account;
                 this.userId = account.getAccountid();
                 this.username = account.getUsername();
                 this.easyScores = new Scoreboard();
@@ -190,11 +200,14 @@ public class User {
 
         switch (difficulty) {
             case EASY:
-                return easyScores.fetchUserScores(userId, difficulty);
+                easyScores.fetchUserScores(userId, EASY);
+                return easyScores.getScores();
             case MEDIUM:
-                return mediumScores.fetchUserScores(userId, difficulty);
+                mediumScores.fetchUserScores(userId, MEDIUM);
+                return mediumScores.getScores();
             case HARD:
-                return hardScores.fetchUserScores(userId, difficulty);
+                hardScores.fetchUserScores(userId, HARD);
+                return hardScores.getScores();
             default:
                 return null;
         }
@@ -208,7 +221,24 @@ public class User {
      * @param difficulty - see {@link Scoreboard#addScore(Double, int, ModeType, String)}
      */
     public void addScore(Double time, int points, ModeType difficulty) {
-        easyScores.addScore(time, points, difficulty, username);
+        WorldScores ws = WorldScores.getInstance();
+
+        switch (difficulty) {
+            case EASY:
+                easyScores.addScore(time, points, difficulty, username);
+                ws.getEasyScores().addScore(time, points, difficulty, username);
+                break;
+            case MEDIUM:
+                mediumScores.addScore(time, points, difficulty, username);
+                ws.getMediumScores().addScore(time, points, difficulty, username);
+                break;
+            case HARD:
+                hardScores.addScore(time, points, difficulty, username);
+                ws.getHardScores().addScore(time, points, difficulty, username);
+                break;
+            default:
+                break;
+        }
     }
 
     /**
@@ -237,6 +267,10 @@ public class User {
      */
     public Long getUserId() {
         return userId;
+    }
+
+    public Account getAccount() {
+        return account;
     }
 
     /**

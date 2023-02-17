@@ -45,13 +45,26 @@ public class Scoreboard {
     }
 
     public void addScore(Double time, int points, ModeType difficulty, String username) {
-        Account a = accountdao.getAccountByName(username);
+        User u = User.getInstance();
+        Account a = u.getAccount();
         Leaderboard lb = new Leaderboard(a, time, points, difficulty, new Date());
-        leaderboarddao.saveScore(lb);
         scores.add(new Score(lb));
+
+        // sort scores by points (desc) and then time (asc)
+        scores.sort((s1, s2) -> {
+            if (s1.getPoints() == s2.getPoints()) {
+                return s1.getTime().compareTo(s2.getTime());
+            } else {
+                return s2.getPoints() - s1.getPoints();
+            }
+        }); // 🤖
+
+
+        leaderboarddao.saveScore(lb);
     }
 
     public ArrayList<Score> getScores() {
+//        System.out.println("getScores: " + scores);
         return scores;
     }
 
@@ -72,13 +85,14 @@ public class Scoreboard {
      * @param difficulty
      */
     public void fetchWorldScores(ModeType difficulty) {
-        this.scores = new ArrayList<>();
+        this.scores.clear();
         List<Leaderboard> leaderboards = leaderboarddao.readWorldScores(difficulty);
         for (Leaderboard lb : leaderboards) {
             this.scores.add(new Score(lb));
         }
-
-
+//        System.out.println("fetchWorldScores: " + scores);
+//        System.out.println("get iside fetch");
+        this.getScores();
     }
 
     /**
@@ -87,13 +101,15 @@ public class Scoreboard {
      * @param userid
      * @param difficulty
      */
-    public ArrayList<Score> fetchUserScores(Long userid, ModeType difficulty) {
-        this.scores = new ArrayList<>();
+    public void fetchUserScores(Long userid, ModeType difficulty) {
+        this.scores.clear();
         List<Leaderboard> leaderboards = leaderboarddao.getAccountScoresByDifficulty(userid, difficulty);
         for (Leaderboard lb : leaderboards) {
             this.scores.add(new Score(lb));
         }
-        return scores;
+//        System.out.println("fetchWorldScores: " + scores);
+//        System.out.println("get iside fetch");
+        this.getScores();
     }
 
     @Override

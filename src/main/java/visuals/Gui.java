@@ -21,9 +21,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import model.MemoryObject;
 import model.ModeType;
@@ -43,6 +40,9 @@ import java.util.concurrent.CountDownLatch;
 import static model.ModeType.*;
 
 public class Gui extends Application implements IGui {
+
+    private ModeType selectedDifficulty;
+
 
     private final IControllerVtoE controller = new Controller(this);
     private final IControllerScoreToV scoreController = new Controller(this);
@@ -172,7 +172,7 @@ public class Gui extends Application implements IGui {
         Node worldScoresNode = root.lookup("#worldScores");
         if (worldScoresNode instanceof ListView<?>) {
             worldScores = (ListView<String>) worldScoresNode;
-            setWorldScore(EASY);
+            fetchAllScores();
         }
     }
 
@@ -412,40 +412,54 @@ public class Gui extends Application implements IGui {
     @Override
     public void setEasyGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
 
+        selectedDifficulty = EASY;
+
         easyCubeFactory.createCubics(easyGrid, memoryObjects);
 
-        refreshUserScores(EASY);
-        setWorldScore(EASY);
-
-
-
+        setPersonalScores(scoreController.getPersonalScores(EASY));
+        getWorldScore(scoreController.getScores(EASY));
     }
 
     @Override
     public void setMediumGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
 
+        selectedDifficulty = MEDIUM;
+
         mediumCubeFactory.createCubics(mediumGrid, memoryObjects);
 
-        refreshUserScores(MEDIUM);
-        setWorldScore(MEDIUM);
-
+        setPersonalScores(scoreController.getPersonalScores(MEDIUM));
+        getWorldScore(scoreController.getScores(MEDIUM));
 
     }
 
     @Override
     public void setHardGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
 
+        selectedDifficulty = HARD;
+
         hardCubeFactory.createCubics(hardGrid, memoryObjects);
-        refreshUserScores(HARD);
-        setWorldScore(HARD);
-
-
-
+        setPersonalScores(scoreController.getPersonalScores(HARD));
+        getWorldScore(scoreController.getScores(HARD));
     }
 
 
 
     public void gameOver() {
+
+        switch (selectedDifficulty) {
+            case EASY:
+                setPersonalScores(scoreController.getPersonalScores(EASY));
+                getWorldScore(scoreController.getScores(EASY));
+                break;
+            case MEDIUM:
+                setPersonalScores(scoreController.getPersonalScores(MEDIUM));
+                getWorldScore(scoreController.getScores(MEDIUM));
+                break;
+            case HARD:
+                setPersonalScores(scoreController.getPersonalScores(HARD));
+                getWorldScore(scoreController.getScores(HARD));
+                break;
+        }
 
         System.out.println("game over");
     }
@@ -483,14 +497,13 @@ public class Gui extends Application implements IGui {
         Platform.runLater(() -> worldScores.getItems().addAll(worldObservable));
     }
 
-
-    @Override
-    public void setWorldScore(ModeType difficulty) {
+    public void fetchAllScores() {
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                scoreController.fetchScores(difficulty);
-                getWorldScore(scoreController.getScores(difficulty));
+                scoreController.fetchScores(EASY);
+                scoreController.fetchScores(MEDIUM);
+                scoreController.fetchScores(HARD);
                 return null;
             }
         };
@@ -527,11 +540,12 @@ public class Gui extends Application implements IGui {
 
     }
 
-    public void refreshUserScores(ModeType difficulty) {
+    @Override
+    public void fetchUserScores() {
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
-                setPersonalScores(scoreController.getPersonalScores(difficulty));
+                scoreController.fetchPersonalScores();
                 return null;
             }
         };
@@ -549,7 +563,7 @@ public class Gui extends Application implements IGui {
                 System.out.println("Login failed");
                 return;
             }
-            refreshUserScores(EASY);
+            fetchUserScores();
             signOrReg.setVisible(false);
 
         } catch (Exception e) {
