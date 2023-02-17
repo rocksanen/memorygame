@@ -67,21 +67,6 @@ public class Engine implements IEngine {
 
         // get current time
         this.startTime = System.currentTimeMillis();
-
-
-        // temp mock data
-//        User u = User.getInstance();
-//        u.signup("tony", "tiger");
-//        u.login("tony", "tiger");
-//        this.user = u;
-//        u.addScore(Math.random() * 100, (int) (Math.random() * 70 + 50), EASY);
-//
-//
-//        u = User.getInstance();
-//        u.signup("eetu", "soro");
-//        u.login("eetu", "soro");
-//        this.user = u;
-//        u.addScore(Math.random() * 100, (int) (Math.random() * 70 + 50), EASY);
     }
 
     @Override

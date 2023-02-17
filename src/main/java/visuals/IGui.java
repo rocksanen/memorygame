@@ -13,8 +13,6 @@ public interface IGui {
     void clearPair(ArrayList<Integer> storage);
     void getWorldScore(ArrayList<String> worldList);
 
-    void setWorldScore(ModeType difficulty);
-
     void setPersonalScores(ArrayList<String> personalList);
     void setEasyGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException;
     void setMediumGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException;
@@ -23,4 +21,5 @@ public interface IGui {
 
     void gameOver();
 
+    void fetchUserScores();
 }

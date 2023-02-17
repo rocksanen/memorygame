@@ -14,9 +14,6 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
     private final IGui ui;
     private IEngine engine;
 
-    private Scoreboard easyScores = new Scoreboard();
-    private  Scoreboard mediumScores = new Scoreboard();
-    private  Scoreboard hardScores = new Scoreboard();
 
 
     public Controller(IGui ui) {
@@ -125,16 +122,16 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
      */
     @Override
     public void fetchScores(ModeType difficulty) {
-        Scoreboard scores;
+        WorldScores ws = WorldScores.getInstance();
         switch (difficulty) {
             case EASY:
-                easyScores.fetchWorldScores(EASY);
+                ws.getEasyScores().fetchWorldScores(EASY);
                 break;
             case MEDIUM:
-                mediumScores.fetchWorldScores(MEDIUM);
+                ws.getMediumScores().fetchWorldScores(MEDIUM);
                 break;
             case HARD:
-                hardScores.fetchWorldScores(HARD);
+                ws.getHardScores().fetchWorldScores(HARD);
                 break;
             default:
         }
@@ -148,28 +145,43 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
      */
     @Override
     public ArrayList<String> getScores(ModeType difficulty) {
-        Scoreboard scores;
+        WorldScores ws = WorldScores.getInstance();
+        ArrayList<String> scoreList = new ArrayList<>();
         switch (difficulty) {
             case EASY:
-                scores = easyScores;
+                for (Score s : ws.getEasyScores().getScores()) {
+                    scoreList.add(s.getUsername() + " " + s.getPoints());
+                }
                 break;
             case MEDIUM:
-                scores = mediumScores;
+                for (Score s : ws.getMediumScores().getScores()) {
+                    scoreList.add(s.getUsername() + " " + s.getPoints());
+                }
                 break;
             case HARD:
-                scores = hardScores;
+                for (Score s : ws.getHardScores().getScores()) {
+                    scoreList.add(s.getUsername() + " " + s.getPoints());
+                }
                 break;
             default:
                 return null;
         }
-        ArrayList<String> scoreList = new ArrayList<>();
-
-        scores.getScores();
-        for (Score s : scores.getScores()) {
-            scoreList.add(s.getUsername() + " " + s.getPoints());
-        }
-        System.out.println(scoreList);
+//        System.out.println(scoreList);
         return scoreList;
+    }
+
+    @Override
+    public void fetchPersonalScores() {
+        if (this.isLoggedIn() == false) {
+            System.out.println("not logged in!");
+            return;
+        }
+
+        User.getInstance().fetchScores(EASY);
+        User.getInstance().fetchScores(MEDIUM);
+        User.getInstance().fetchScores(HARD);
+
+        return;
     }
 
     @Override
@@ -178,9 +190,24 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
             System.out.println("not logged in!");
             return null;
         }
+
+        switch (difficulty) {
+            case EASY:
+                User.getInstance().getScores(EASY);
+                break;
+            case MEDIUM:
+                User.getInstance().getScores(MEDIUM);
+                break;
+            case HARD:
+                User.getInstance().getScores(HARD);
+                break;
+            default:
+                return null;
+        }
+
         ArrayList<String> scoreList = new ArrayList<>();
 
-        for (Score s : User.getInstance().fetchScores(difficulty)) {
+        for (Score s : User.getInstance().getScores(difficulty).getScores()) {
             scoreList.add(s.getUsername() + " " + s.getPoints());
         }
         System.out.println(scoreList);
