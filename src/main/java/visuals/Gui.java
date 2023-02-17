@@ -21,6 +21,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import model.MemoryObject;
 import model.ModeType;
@@ -154,8 +157,8 @@ public class Gui extends Application implements IGui {
         this.primaryStage.show();
 
         AudioMemory.getInstance().playSong(ModeType.MAIN);
-        Effects.getInstance().bringGameUp(startBlack, weDidIt, groupFour);
-        //startBlack.setVisible(false);
+        //Effects.getInstance().bringGameUp(startBlack, weDidIt, groupFour);
+        startBlack.setVisible(false);
         Effects.getInstance().setGlow(pergament);
         Effects.getInstance().playGlow();
 
@@ -423,6 +426,13 @@ public class Gui extends Application implements IGui {
         setWorldScore(HARD);
 
 
+    }
+
+
+
+    public void gameOver() {
+
+        System.out.println("game over");
     }
 
     @Override

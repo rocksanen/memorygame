@@ -18,6 +18,7 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
     private  Scoreboard mediumScores = new Scoreboard();
     private  Scoreboard hardScores = new Scoreboard();
 
+
     public Controller(IGui ui) {
 
         this.ui = ui;
@@ -94,6 +95,17 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
             try {
                 ui.setHardGame(memoryObjects);
             } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+    @Override
+    public void gameOver() {
+        Platform.runLater(() -> {
+            try {
+                ui.gameOver();
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         });

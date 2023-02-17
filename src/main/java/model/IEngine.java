@@ -23,6 +23,7 @@ public interface IEngine {
     void setPersonalScore();
 
     void clearStorage();
+    void endGame();
 
     int getTotalScore();
 }

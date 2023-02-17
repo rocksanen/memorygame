@@ -16,9 +16,19 @@ public class Engine implements IEngine {
     ArrayList<Integer> storage = new ArrayList<>();
     private final IControllerEtoV controller;
     private final ModeType type;
+
+    public ArrayList<MemoryObject> getComparingList() {
+        return comparingList;
+    }
+
     private final ArrayList<MemoryObject> comparingList = new ArrayList<>();
     private ArrayList<Integer> rightPairList = new ArrayList<Integer>();
     private CompareResultType type2;
+
+    public ArrayList<MemoryObject> getMemoryObjectsList() {
+        return memoryObjectsList;
+    }
+
     private ArrayList<MemoryObject> memoryObjectsList;
 
     //private int foundPairs = 0;
@@ -144,6 +154,7 @@ public class Engine implements IEngine {
         rightPairList.clear();
         System.out.println("Game ended!");
         setPersonalScore();
+
     }
 
     @Override
@@ -188,7 +199,9 @@ public class Engine implements IEngine {
      *
      * @param type the result of the comparison, either equal or not equal.
      */
-    private void updateScore(CompareResultType type) {
+
+    //was private void, changed
+    public void updateScore(CompareResultType type) {
         switch (type) {
             case EQUAL -> {
                 totalScore += nextScore;
@@ -246,7 +259,9 @@ public class Engine implements IEngine {
             clearStorage();
 
             if( rightPairList.size() == memoryObjectsList.size()){
+                controller.gameOver();
                 endGame();
+
             }
         }  else {
             clearPair(objectList);
