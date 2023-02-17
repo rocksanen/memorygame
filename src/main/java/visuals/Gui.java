@@ -124,6 +124,8 @@ public class Gui extends Application implements IGui {
 
     CountDownLatch latch = new CountDownLatch(1);
 
+
+
     public static PerspectiveCamera camera = new PerspectiveCamera();
 
     public static void main(String[] args) {
