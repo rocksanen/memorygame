@@ -496,6 +496,10 @@ public class Gui extends Application implements IGui {
         Platform.runLater(() -> worldScores.getItems().addAll(worldObservable));
     }
 
+    /**
+     * Fetches all the scores from the database
+     * called once at startup and never again 🛳️
+     */
     public void fetchAllScores() {
         Task<Void> task = new Task<Void>() {
             @Override
@@ -509,6 +513,10 @@ public class Gui extends Application implements IGui {
         new Thread(task).start();
     }
 
+    /**
+     * Sets the personal scores in the personal score list
+     * @param personalList the list of personal scores
+     */
     @Override
     public void setPersonalScores(ArrayList<String> personalList) {
         if (personalList == null) {
@@ -521,6 +529,10 @@ public class Gui extends Application implements IGui {
         Platform.runLater(() -> personalScores.getItems().addAll(personObservable));
     }
 
+    /**
+     * Called when the user clicks the login button
+     * if successful, the login pane will be hidden
+     */
     @FXML
     public void registerPane() {
 
@@ -539,6 +551,10 @@ public class Gui extends Application implements IGui {
 
     }
 
+    /**
+     * Fetches the user scores from the database
+     * called once the user has logged in
+     */
     @Override
     public void fetchUserScores() {
         Task<Void> task = new Task<Void>() {
