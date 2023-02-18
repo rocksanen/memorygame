@@ -101,7 +101,7 @@ public class ImageCache {
         hardImageCache.add(login);
         hardImageCache.add(hardback3);
 
-        Image hardBack = new Image(new FileInputStream("src/main/java/visuals/Images/hardback2.jpg"));
+        Image hardBack = new Image(new FileInputStream("src/main/java/visuals/Images/mysticalcu.png"));
         Image hardBehind = new Image(new FileInputStream("src/main/java/visuals/Images/hardBehind1.jpg"));
 
         hardCompImages.add(hardBack);
