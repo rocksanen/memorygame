@@ -12,8 +12,8 @@ import static model.ModeType.*;
 
 /**
  * Singleton class for the User
- * Contains the username, id, and personal scores of the player
- * Also contains the DAO classes for database connection
+ * Contains methods for retrieving and setting user data,
+ * as well as personal scoreboards of the user.
  *
  * @author Eetu Soronen
  * @version 1
@@ -24,37 +24,37 @@ public class User {
      * Singleton instance of the User class
      */
     private static User instance;
+
     /**
      * Username of the player
      */
     private String username;
+
     /**
      * password of the player
      */
     private String password;
+
     /**
      * Id of the player, retrieved from the database.
      */
     private Long userId;
+
     /**
-     * Personal scores of the player
+     * Personal scores for easy difficulty
      */
     private Scoreboard easyScores;
 
     /**
-     * Personal scores of the player
+     * Personal scores for medium difficulty
      */
     private Scoreboard mediumScores;
 
     /**
-     * Personal scores of the player
+     * Personal scores for hard difficulty
      */
     private Scoreboard hardScores;
 
-    /**
-     * Personal scores of the player
-     */
-    private Scoreboard personalScores;
 
     /**
      * DAO class for database connection
@@ -69,7 +69,7 @@ public class User {
     /**
      * Private constructor for the User class
      * Initializes the username, id and personal scores
-     * Also initializes the DAO classes
+     * Also initializes AccountDAO for database connection
      */
     private User() {
         this.username = "tony the tiger";
@@ -106,8 +106,7 @@ public class User {
     public boolean login(String username, String password) {
         try {
             Account account = accountdao.getAccountByNameAndPassword(username, password);
-            System.out.println("sTRINGIFYING ACCOUNT: " + account.toString() + "");
-
+//            System.out.println("sTRINGIFYING ACCOUNT: " + account.toString() + "");
             if (account.getAccountid() != null) {
                 this.account = account;
                 this.userId = account.getAccountid();
@@ -117,10 +116,8 @@ public class User {
                 this.hardScores = new Scoreboard();
                 return true;
             }
-
         } catch (Exception e) {
             System.out.println("Username not found!" + e);
-            ;
         }
         return false;
     }
@@ -135,9 +132,13 @@ public class User {
      * @return true or false depending success of the signup
      */
     public boolean signup(String username, String password) {
-        // save account
+        Account a = accountdao.getAccountByName(username);
+        if (a != null) {
+            System.out.println("Username already exists!");
+            return false;
+        }
         accountdao.saveAccount(new Account(username, password));
-        Account account = accountdao.getAccountByName(username);
+        this.account = accountdao.getAccountByName(username);
 
         this.userId = account.getAccountid();
         this.username = account.getUsername();
@@ -187,7 +188,7 @@ public class User {
             case HARD:
                 return hardScores;
             default:
-                return personalScores;
+                return null;
         }
     }
 
