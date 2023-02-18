@@ -6,6 +6,8 @@ import javafx.scene.PerspectiveCamera;
 import javafx.scene.control.Label;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.Glow;
+import javafx.scene.effect.Reflection;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -15,6 +17,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import model.ModeType;
 import visuals.audio.AudioMemory;
+
+import java.util.ArrayList;
 
 public class Effects {
     private static Effects instance;
@@ -203,7 +207,8 @@ public class Effects {
     public void bringGameUp(
             AnchorPane startBlack, Label first, Label second,
             Pane gamePane, Pane logAndScore, ImageView sun,
-            ImageView lightning, ImageView blacksun) {
+            ImageView lightning, ImageView blacksun, ArrayList<ImageView> mtLista,
+            ImageView miniEasy, ImageView miniMedium, ImageView miniHard) {
 
         Glow textGlow = new Glow();
         textGlow.setLevel(0.6);
@@ -212,25 +217,38 @@ public class Effects {
         GaussianBlur sunblur = new GaussianBlur();
         sun.setEffect(sunblur);
 
+        Reflection reflection = new Reflection();
+        reflection.setBottomOpacity(0.04);
+        reflection.setTopOpacity(0.08);
+        reflection.setTopOffset(0);
+        reflection.setFraction(0);
+
+        first.setEffect(reflection);
+
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO),
                 new KeyFrame(Duration.seconds(7.2),
                         new KeyValue(first.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(11.2),
-                        new KeyValue(lightning.opacityProperty(),0)),
-                new KeyFrame(Duration.seconds(11.3),
+                        new KeyValue(lightning.opacityProperty(),0),
+                        new KeyValue(reflection.fractionProperty(),0)),
+                new KeyFrame(Duration.seconds(11.25),
+                        new KeyValue(reflection.fractionProperty(),reflection.getFraction() + 0.7)),
+                new KeyFrame(Duration.seconds(11.45),
                         new KeyValue(first.opacityProperty(),1),
                         new KeyValue(lightning.opacityProperty(),0.5)),
                 new KeyFrame(Duration.seconds(14.5),
                         new KeyValue(lightning.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(14.7),
                         new KeyValue(first.opacityProperty(),0)),
-                new KeyFrame(Duration.seconds(16.5),
-                        new KeyValue(second.opacityProperty(),0)),
-                new KeyFrame(Duration.seconds(17.5),
+                new KeyFrame(Duration.seconds(16.2),
                         new KeyValue(sun.opacityProperty(),0),
                         new KeyValue(sun.fitWidthProperty(), sun.getFitWidth()),
-                        new KeyValue(sun.rotateProperty(),sun.getRotate())),
+                        new KeyValue(sun.rotateProperty(),sun.getRotate()),
+                        new KeyValue(sun.scaleYProperty(),sun.getScaleY()),
+                        new KeyValue(sun.layoutYProperty(),sun.getLayoutY())),
+                new KeyFrame(Duration.seconds(16.5),
+                        new KeyValue(second.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(20.3),
                         new KeyValue(second.opacityProperty(),1),
                         new KeyValue(sun.opacityProperty(),0.14),
@@ -241,7 +259,7 @@ public class Effects {
                         new KeyValue(textGlow.levelProperty(), textGlow.getLevel() + 0.4)),
                 new KeyFrame(Duration.seconds(24.2),
                         new KeyValue(second.opacityProperty(),0),
-                        new KeyValue(sun.opacityProperty(),0.3)),
+                        new KeyValue(sun.opacityProperty(),0.35)),
                 new KeyFrame(Duration.seconds(26.2),
                         new KeyValue(startBlack.opacityProperty(),1),
                         new KeyValue(sunblur.radiusProperty(),0),
@@ -250,23 +268,80 @@ public class Effects {
                         new KeyValue(blacksun.opacityProperty(),0.6)),
                 new KeyFrame(Duration.seconds(35),
                         new KeyValue(blacksun.layoutYProperty(),blacksun.getLayoutY()),
-                        new KeyValue(blacksun.opacityProperty(),0.5)),
+                        new KeyValue(blacksun.opacityProperty(),0.5),
+                        new KeyValue(gamePane.opacityProperty(),0),
+                        new KeyValue(mtLista.get(0).opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(35.3),
+                        new KeyValue(mtLista.get(0).opacityProperty(),1),
+                        new KeyValue(mtLista.get(1).opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(35.5),
+                        new KeyValue(miniEasy.opacityProperty(),0),
+                        new KeyValue(gamePane.opacityProperty(),1)),
+                new KeyFrame(Duration.seconds(35.6),
+                        new KeyValue(mtLista.get(1).opacityProperty(),1),
+                        new KeyValue(mtLista.get(2).opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(35.9),
+                        new KeyValue(mtLista.get(2).opacityProperty(),1)),
                 new KeyFrame(Duration.seconds(36),
                         new KeyValue(startBlack.opacityProperty(),0),
                         new KeyValue(sun.opacityProperty(),0),
                         new KeyValue(sun.fitWidthProperty(), sun.getFitWidth() + 80),
-                        new KeyValue(sun.layoutXProperty(),sun.getLayoutX() - 20),
+                        new KeyValue(sun.layoutXProperty(),sun.getLayoutX() - 8),
                         new KeyValue(sunblur.radiusProperty(), 50),
-                        new KeyValue(sun.rotateProperty(),sun.getRotate() - 5)),
+                        new KeyValue(sun.rotateProperty(),sun.getRotate() - 8),
+                        new KeyValue(sun.scaleYProperty(),sun.getScaleY() + 0.5),
+                        new KeyValue(sun.layoutYProperty(),sun.getLayoutY() + 130)),
                 new KeyFrame(Duration.seconds(36),
-                        new KeyValue(gamePane.opacityProperty(),0),
-                        new KeyValue(logAndScore.opacityProperty(),0)),
+                        new KeyValue(logAndScore.opacityProperty(),0),
+                        new KeyValue(miniEasy.opacityProperty(),1)),       //////Easy on
                 new KeyFrame(Duration.seconds(37),
                         new KeyValue(blacksun.opacityProperty(),0),
-                        new KeyValue(blacksun.layoutYProperty(),blacksun.getLayoutY() + 30)),
+                        new KeyValue(blacksun.layoutYProperty(),blacksun.getLayoutY() + 15),
+                        new KeyValue(gamePane.opacityProperty(),1)),
+                new KeyFrame(Duration.seconds(37.5),
+                        new KeyValue(mtLista.get(3).opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(37.7),
+                        new KeyValue(mtLista.get(3).opacityProperty(),1),
+                        new KeyValue(mtLista.get(4).opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(37.9),
+                        new KeyValue(mtLista.get(4).opacityProperty(),1),
+                        new KeyValue(mtLista.get(5).opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(38.1),
+                        new KeyValue(mtLista.get(5).opacityProperty(),1),
+                        new KeyValue(mtLista.get(6).opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(38.2),
+                        new KeyValue(miniMedium.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(38.3),
+                        new KeyValue(mtLista.get(6).opacityProperty(),1),
+                        new KeyValue(mtLista.get(7).opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(38.5),
+                        new KeyValue(gamePane.opacityProperty(),1),
+                        new KeyValue(mtLista.get(7).opacityProperty(),1)),
+                new KeyFrame(Duration.seconds(38.5),
+                        new KeyValue(miniMedium.opacityProperty(),1)),       //////Medium on
                 new KeyFrame(Duration.seconds(39),
                         new KeyValue(gamePane.opacityProperty(),1),
-                        new KeyValue(logAndScore.opacityProperty(),1))
+                        new KeyValue(logAndScore.opacityProperty(),1)),
+                new KeyFrame(Duration.seconds(39.2),
+                        new KeyValue(mtLista.get(8).opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(39.5),
+                        new KeyValue(mtLista.get(8).opacityProperty(),1),
+                        new KeyValue(mtLista.get(9).opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(39.8),
+                        new KeyValue(mtLista.get(9).opacityProperty(),1),
+                        new KeyValue(mtLista.get(10).opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(40.1),
+                        new KeyValue(mtLista.get(10).opacityProperty(),1),
+                        new KeyValue(mtLista.get(11).opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(40.4),
+                        new KeyValue(mtLista.get(11).opacityProperty(),1),
+                        new KeyValue(mtLista.get(12).opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(40.5),
+                        new KeyValue(miniHard.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(40.7),
+                        new KeyValue(mtLista.get(12).opacityProperty(),1)),
+                new KeyFrame(Duration.seconds(41),                              //////Hard on
+                        new KeyValue(miniHard.opacityProperty(),1))
         );
 
         timeline.play();
