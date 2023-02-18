@@ -3,6 +3,8 @@ package model;
 /**
  * Singleton class for the WorldScores
  * Contains 3 scoreboards, one for each difficulty
+ * @author Eetu Soronen
+ * @version 1
  */
 public class WorldScores {
 
