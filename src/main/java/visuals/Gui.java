@@ -46,7 +46,6 @@ public class Gui extends Application implements IGui {
 
     private final IControllerVtoE controller = new Controller(this);
     private final IControllerScoreToV scoreController = new Controller(this);
-    private final Scoreboard scoreboard = new Scoreboard(scoreController);
     private final String EASYMODE = "/visuals/game.fxml";
     Stage primaryStage;
     @FXML

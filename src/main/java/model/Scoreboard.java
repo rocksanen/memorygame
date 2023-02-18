@@ -21,17 +21,33 @@ import java.util.List;
  * @version 1
  */
 public class Scoreboard {
+
+    /**
+     * DAO class for database connection
+     */
     private static ILeaderboardDAO leaderboarddao = new LeaderboardDAO();
+
+    /**
+     * DAO class for database connection
+     */
     private static IAccountDAO accountdao = new AccountDAO();
 
-    private IControllerScoreToV controller;
-
+    /**
+     * List of scores
+     */
     private ArrayList<Score> scores;
 
+    /**
+     * Constructor for Scoreboard
+     */
     public Scoreboard() {
         this.scores = new ArrayList<>();
     }
 
+    /**
+     * Constructor for Scoreboard
+     * @param leaderboards list of Leaderboard-objects
+     */
     public Scoreboard(ArrayList<Leaderboard> leaderboards) {
         this.scores = new ArrayList<>();
         for (Leaderboard lb : leaderboards) {
@@ -39,11 +55,13 @@ public class Scoreboard {
         }
     }
 
-    public Scoreboard(IControllerScoreToV controller) {
-
-        this.controller = controller;
-    }
-
+    /**
+     * Adds a score to the scoreboard
+     * @param time  time in seconds
+     * @param points  points
+     * @param difficulty difficulty
+     * @param username username
+     */
     public void addScore(Double time, int points, ModeType difficulty, String username) {
         User u = User.getInstance();
         Account a = u.getAccount();
@@ -58,16 +76,22 @@ public class Scoreboard {
                 return s2.getPoints() - s1.getPoints();
             }
         }); // 🤖
-
-
         leaderboarddao.saveScore(lb);
     }
 
+    /**
+     * Returns the list of scores
+     * @return list of scores
+     */
     public ArrayList<Score> getScores() {
 //        System.out.println("getScores: " + scores);
         return scores;
     }
 
+    /**
+     * Deletes a score from the scoreboard
+     * @param scoreid id of the score to be deleted
+     */
     public void deleteScore(Long scoreid) {
         leaderboarddao.deleteScore(scoreid);
         // find score with scoreid in scores
@@ -82,7 +106,7 @@ public class Scoreboard {
     /**
      * Fetch global scores of select difficulty, sorted by points (desc) and then time (asc)
      *
-     * @param difficulty
+     * @param difficulty difficulty of the scores
      */
     public void fetchWorldScores(ModeType difficulty) {
         this.scores.clear();
@@ -112,6 +136,10 @@ public class Scoreboard {
         this.getScores();
     }
 
+    /**
+     * tostring method for Scoreboard
+     * @return string representation of the scoreboard
+     */
     @Override
     public String toString() {
         return "Scoreboard{" + "scores=" + scores + '}';

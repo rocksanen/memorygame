@@ -166,9 +166,15 @@ public class User {
         this.username = "tony the tiger";
         this.userId = null;
         this.easyScores = null;
+        this.mediumScores = null;
+        this.hardScores = null;
         return true;
     }
 
+    /**
+     * Checks if the user is logged in
+     * @return true if logged in, false if not
+     */
     public boolean isLoggedIn() {
         return userId != null;
     }
@@ -223,6 +229,7 @@ public class User {
      */
     public void addScore(Double time, int points, ModeType difficulty) {
         WorldScores ws = WorldScores.getInstance();
+        if (isLoggedIn() == false) return;
 
         switch (difficulty) {
             case EASY:
@@ -270,6 +277,10 @@ public class User {
         return userId;
     }
 
+    /**
+     * Getter for the account
+     * @return - see {@link #account}
+     */
     public Account getAccount() {
         return account;
     }
