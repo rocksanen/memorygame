@@ -101,7 +101,7 @@ public class User {
      *
      * @param username - see {@link #username}
      * @param password - see {@link #password}
-     * @return true or false depending success of the login
+     * @return true or false depending on success of the login
      */
     public boolean login(String username, String password) {
         try {
@@ -129,7 +129,7 @@ public class User {
      *
      * @param username see {@link #username}
      * @param password see {@link #password}
-     * @return true or false depending success of the signup
+     * @return true or false depending on success of the signup
      */
     public boolean signup(String username, String password) {
         Account a = accountdao.getAccountByName(username);
