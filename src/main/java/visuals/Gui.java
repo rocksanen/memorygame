@@ -113,6 +113,27 @@ public class Gui extends Application implements IGui {
     ImageView pergament;
 
     @FXML Pane logAndScore;
+    @FXML ImageView sun;
+
+    @FXML ImageView lightning;
+    @FXML ImageView blacksun;
+    @FXML ImageView mt1;
+    @FXML ImageView mt2;
+    @FXML ImageView mt3;
+    @FXML ImageView mt4;
+    @FXML ImageView mt5;
+    @FXML ImageView mt6;
+    @FXML ImageView mt7;
+    @FXML ImageView mt8;
+    @FXML ImageView mt9;
+    @FXML ImageView mt10;
+    @FXML ImageView mt11;
+    @FXML ImageView mt12;
+    @FXML ImageView mt13;
+    @FXML ImageView miniEasy;
+    @FXML ImageView miniMedium;
+    @FXML ImageView miniHard;
+
 
     ArrayList<BoxMaker> cubeList;
     ICubeFactory easyCubeFactory;
@@ -121,7 +142,11 @@ public class Gui extends Application implements IGui {
     Parent root;
     Scene scene;
 
+    private ArrayList<ImageView> mtLista = new ArrayList<>();
+
     CountDownLatch latch = new CountDownLatch(1);
+
+
 
     public static PerspectiveCamera camera = new PerspectiveCamera();
 
@@ -152,6 +177,40 @@ public class Gui extends Application implements IGui {
         pergament = (ImageView) root.lookup("#pergament");
         gameModePane = (Pane) root.lookup("#gameModePane");
         logAndScore = (Pane) root.lookup("#logAndScore");
+        sun = (ImageView) root.lookup("#sun");
+        lightning = (ImageView) root.lookup("#lightning");
+        blacksun = (ImageView) root.lookup("#blacksun");
+        mt1 = (ImageView) root.lookup("#mt1");
+        mt2 = (ImageView) root.lookup("#mt2");
+        mt3 = (ImageView) root.lookup("#mt3");
+        mt4 = (ImageView) root.lookup("#mt4");
+        mt5 = (ImageView) root.lookup("#mt5");
+        mt6 = (ImageView) root.lookup("#mt6");
+        mt7 = (ImageView) root.lookup("#mt7");
+        mt8 = (ImageView) root.lookup("#mt8");
+        mt9 = (ImageView) root.lookup("#mt9");
+        mt10 = (ImageView) root.lookup("#mt10");
+        mt11 = (ImageView) root.lookup("#mt11");
+        mt12 = (ImageView) root.lookup("#mt12");
+        mt13 = (ImageView) root.lookup("#mt13");
+        miniEasy = (ImageView) root.lookup("#miniEasy");
+        miniMedium = (ImageView) root.lookup("#miniMedium");
+        miniHard = (ImageView) root.lookup("#miniHard");
+
+
+        mtLista.add(mt1);
+        mtLista.add(mt2);
+        mtLista.add(mt3);
+        mtLista.add(mt4);
+        mtLista.add(mt5);
+        mtLista.add(mt6);
+        mtLista.add(mt7);
+        mtLista.add(mt8);
+        mtLista.add(mt9);
+        mtLista.add(mt10);
+        mtLista.add(mt11);
+        mtLista.add(mt12);
+        mtLista.add(mt13);
 
         this.primaryStage.setScene(scene);
         this.primaryStage.setFullScreenExitHint("");
@@ -160,7 +219,11 @@ public class Gui extends Application implements IGui {
 
 
         Platform.runLater(() -> AudioMemory.getInstance().playSong(ModeType.MAIN));
-        Platform.runLater(() -> Effects.getInstance().bringGameUp(startBlack, weDidIt, groupFour, gameModePane,logAndScore));
+        Platform.runLater(() -> Effects.getInstance().bringGameUp(
+                startBlack, weDidIt, groupFour,
+                gameModePane,logAndScore, sun,
+                lightning, blacksun, mtLista,
+                miniEasy,miniMedium,miniHard));
         //startBlack.setVisible(false);
         //gameModePane.setOpacity(1);
         //logAndScore.setOpacity(1);
@@ -198,6 +261,12 @@ public class Gui extends Application implements IGui {
         password = new TextField();
         startAnchor = new AnchorPane();
         logAndScore = new Pane();
+        sun = new ImageView();
+        lightning = new ImageView();
+        blacksun = new ImageView();
+        miniEasy = new ImageView();
+        miniMedium = new ImageView();
+        miniHard = new ImageView();
         this.root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/visuals/game2.fxml")));
     }
 
