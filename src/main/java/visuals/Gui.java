@@ -18,8 +18,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import model.MemoryObject;
@@ -35,7 +35,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.concurrent.CountDownLatch;
 
 import static model.ModeType.*;
 
@@ -47,6 +46,7 @@ public class Gui extends Application implements IGui {
     private final IControllerVtoE controller = new Controller(this);
     private final IControllerScoreToV scoreController = new Controller(this);
     private final Scoreboard scoreboard = new Scoreboard(scoreController);
+
     private final String EASYMODE = "/visuals/game.fxml";
     Stage primaryStage;
     @FXML
@@ -56,13 +56,13 @@ public class Gui extends Application implements IGui {
     @FXML
     Button startHardGame;
     @FXML
-    GridPane easyGrid;
+    static GridPane easyGrid;
 
     @FXML
-    GridPane mediumGrid;
+    static GridPane mediumGrid;
 
     @FXML
-    GridPane hardGrid;
+    static GridPane hardGrid;
     @FXML
     ListView<String> personalScores;
     @FXML
@@ -113,7 +113,7 @@ public class Gui extends Application implements IGui {
     @FXML
     ImageView pergament;
 
-    @FXML Pane logAndScore;
+    @FXML Pane score;
     @FXML ImageView sun;
 
     @FXML ImageView lightning;
@@ -135,6 +135,17 @@ public class Gui extends Application implements IGui {
     @FXML ImageView miniMedium;
     @FXML ImageView miniHard;
 
+    @FXML ImageView easyFrame;
+    @FXML ImageView mediumFrame;
+    @FXML ImageView hardFrame;
+    @FXML ImageView japan;
+    @FXML ImageView jungle;
+    @FXML ImageView redtree;
+
+    @FXML static Pane logAndReg;
+
+
+
 
     ArrayList<BoxMaker> cubeList;
     ICubeFactory easyCubeFactory;
@@ -143,10 +154,7 @@ public class Gui extends Application implements IGui {
     Parent root;
     Scene scene;
 
-    private ArrayList<ImageView> mtLista = new ArrayList<>();
-
-    CountDownLatch latch = new CountDownLatch(1);
-
+    private final ArrayList<ImageView> mtLista = new ArrayList<>();
 
 
     public static PerspectiveCamera camera = new PerspectiveCamera();
@@ -156,17 +164,12 @@ public class Gui extends Application implements IGui {
     }
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) {
 
         this.primaryStage = primaryStage;
         this.scene = new Scene(root, 1250, 750);
         camera.setFieldOfView(25);
         this.scene.setCamera(camera);
-
-
-        scene.setOnScroll((final ScrollEvent e) -> {
-            camera.setTranslateZ(camera.getTranslateZ() + e.getDeltaY());
-        });
 
         background = (ImageView) root.lookup("#background");
         mediumBackground = (ImageView) root.lookup("#mediumBackground");
@@ -177,10 +180,13 @@ public class Gui extends Application implements IGui {
         groupFour = (Label) root.lookup("#groupFour");
         pergament = (ImageView) root.lookup("#pergament");
         gameModePane = (Pane) root.lookup("#gameModePane");
-        logAndScore = (Pane) root.lookup("#logAndScore");
+        score = (Pane) root.lookup("#score");
         sun = (ImageView) root.lookup("#sun");
         lightning = (ImageView) root.lookup("#lightning");
         blacksun = (ImageView) root.lookup("#blacksun");
+        easyGrid = (GridPane) root.lookup("#easyGrid");
+        mediumGrid = (GridPane) root.lookup("#mediumGrid");
+        hardGrid = (GridPane) root.lookup("#hardGrid");
         mt1 = (ImageView) root.lookup("#mt1");
         mt2 = (ImageView) root.lookup("#mt2");
         mt3 = (ImageView) root.lookup("#mt3");
@@ -197,6 +203,14 @@ public class Gui extends Application implements IGui {
         miniEasy = (ImageView) root.lookup("#miniEasy");
         miniMedium = (ImageView) root.lookup("#miniMedium");
         miniHard = (ImageView) root.lookup("#miniHard");
+        easyFrame = (ImageView) root.lookup("#easyFrame");
+        mediumFrame = (ImageView) root.lookup("#mediumFrame");
+        hardFrame = (ImageView) root.lookup("#hardFrame");
+        japan = (ImageView) root.lookup("#japan");
+        jungle = (ImageView) root.lookup("#jungle");
+        redtree = (ImageView) root.lookup("#redtree");
+        logAndReg = (Pane) root.lookup("#logAndReg");
+
 
 
         mtLista.add(mt1);
@@ -213,23 +227,21 @@ public class Gui extends Application implements IGui {
         mtLista.add(mt12);
         mtLista.add(mt13);
 
+
+
         this.primaryStage.setScene(scene);
         this.primaryStage.setFullScreenExitHint("");
         this.primaryStage.setResizable(false);
         this.primaryStage.show();
 
-
         Platform.runLater(() -> AudioMemory.getInstance().playSong(ModeType.MAIN));
-        Platform.runLater(() -> Effects.getInstance().bringGameUp(
-                startBlack, weDidIt, groupFour,
-                gameModePane,logAndScore, sun,
-                lightning, blacksun, mtLista,
-                miniEasy,miniMedium,miniHard));
-        //startBlack.setVisible(false);
-        //gameModePane.setOpacity(1);
-        //logAndScore.setOpacity(1);
+
+        // If you want intro: "true", if not: "false". But is there life without intro?
+        introOn(true);
+
         Platform.runLater(() -> Effects.getInstance().setGlow(pergament));
-        Effects.getInstance().playGlow();
+        Platform.runLater(() -> Effects.getInstance().playGlow());
+        Visibilities.getInstance().setGridLayoutToVisibility(easyGrid,mediumGrid,hardGrid);
 
 
         Node worldScoresNode = root.lookup("#worldScores");
@@ -261,14 +273,46 @@ public class Gui extends Application implements IGui {
         pergament = new ImageView();
         password = new TextField();
         startAnchor = new AnchorPane();
-        logAndScore = new Pane();
+        score = new Pane();
         sun = new ImageView();
         lightning = new ImageView();
         blacksun = new ImageView();
         miniEasy = new ImageView();
         miniMedium = new ImageView();
         miniHard = new ImageView();
+        logAndReg = new Pane();
+
         this.root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/visuals/game2.fxml")));
+    }
+
+    private void introOn(Boolean introStatus) {
+
+        if(introStatus) {
+
+            Platform.runLater(() -> Effects.getInstance().bringGameUp(
+                    startBlack, weDidIt, groupFour,
+                    gameModePane, logAndReg, sun,
+                    lightning, blacksun, mtLista,
+                    miniEasy,miniMedium,miniHard,
+                    easyFrame,mediumFrame,hardFrame,
+                    japan,jungle,redtree));
+
+        }else{
+
+            startBlack.setVisible(false);
+            gameModePane.setOpacity(1);
+            logAndReg.setVisible(true);
+            logAndReg.setOpacity(1);
+            miniEasy.setOpacity(1);
+            miniMedium.setOpacity(1);
+            miniHard.setOpacity(1);
+            easyFrame.setOpacity(1);
+            mediumFrame.setOpacity(1);
+            hardFrame.setOpacity(1);
+            japan.setOpacity(0.26);
+            jungle.setOpacity(0.2);
+            redtree.setOpacity(0.25);
+        }
     }
 
 
@@ -286,7 +330,6 @@ public class Gui extends Application implements IGui {
     @FXML
     public void returnMenu() {
 
-
         switch (cubeList.size()) {
 
             case 6 -> Platform.runLater(() ->
@@ -296,39 +339,34 @@ public class Gui extends Application implements IGui {
             case 12 -> Platform.runLater(() ->
                     Effects.getInstance().gameZoomOut(
                             gameModePane, mediumGrid, camera, startAnchor, mediumBackground,
-                            1000.9, 35, 117.0, 14.5, MEDIUM, pergament));
+                            1001, 35, 117.2, -144.92, MEDIUM, pergament));
             case 20 -> Platform.runLater(() ->
                     Effects.getInstance().gameZoomOut(
                             gameModePane, hardGrid, camera, startAnchor, hardBackground,
-                            1000.7, 35, 380.0, 14.5, ModeType.HARD, pergament));
+                            1000.7, 35, 384.0, 14.5, ModeType.HARD, pergament));
         }
 
-        Effects.getInstance().playGlow();
+        Platform.runLater(() -> Effects.getInstance().playGlow());
+        Platform.runLater(() -> score.setVisible(false));
     }
 
     @FXML
     public void easyStartScreenPlay() {
 
-        background.setOpacity(1);
-        background.setVisible(true);
-        mediumBackground.setOpacity(0);
-        mediumSpread.setOpacity(0);
-        hardBackground.setOpacity(0);
-        hardSpread.setOpacity(0);
+        Platform.runLater(() -> Effects.getInstance().stopGlow());
+        Platform.runLater(() -> gameBackGroundVisibility(EASY));
 
-        Task<Void> task = new Task<Void>() {
+        Task<Void> task = new Task<>() {
             @Override
             protected Void call() {
-                Platform.runLater(() -> Effects.getInstance().gameZoomIn(camera, startAnchor, background, 1000, 10, -145.5, 14.5, () -> {
-                    Platform.runLater(() -> {
+                Platform.runLater(() -> Effects.getInstance().gameZoomIn(
+                        camera, startAnchor, background, 1000,
+                        10, -145.5, 14.5, () -> {
 
-                        Platform.runLater(() -> AudioMemory.getInstance().stopSong(ModeType.MAIN));
-                        Platform.runLater(() -> AudioMemory.getInstance().playSong(EASY));
-                        setStartEasyGame();
-                        Platform.runLater(() -> Effects.getInstance().stopGlow());
-
-                    });
-                }));
+                            Platform.runLater(() -> AudioMemory.getInstance().stopSong(ModeType.MAIN));
+                            Platform.runLater(() -> AudioMemory.getInstance().playSong(EASY));
+                            setStartEasyGame();
+                        }));
                 return null;
             }
         };
@@ -338,25 +376,20 @@ public class Gui extends Application implements IGui {
     @FXML
     public void mediumStartScreenPlay() {
 
-        mediumBackground.setVisible(true);
-        mediumBackground.setOpacity(1);
-        background.setOpacity(0);
-        hardBackground.setOpacity(0);
-        hardSpread.setOpacity(0);
+        Platform.runLater(() -> Effects.getInstance().stopGlow());
+        Platform.runLater(() -> gameBackGroundVisibility(MEDIUM));
 
-        Task<Void> task = new Task<Void>() {
+        Task<Void> task = new Task<>() {
             @Override
-            protected Void call() throws Exception {
-                Platform.runLater(() -> Effects.getInstance().gameZoomIn(camera, startAnchor, mediumBackground, 1000.9, 10, 117, 14.5, () -> {
-                    Platform.runLater(() -> {
+            protected Void call() {
+                Platform.runLater(() -> Effects.getInstance().gameZoomIn(
+                        camera, startAnchor, mediumBackground,
+                        1001, 10, 117.2, -144.92, () -> {
 
-                        Platform.runLater(() -> AudioMemory.getInstance().stopSong(ModeType.MAIN));
-                        Platform.runLater(() -> AudioMemory.getInstance().playSong(MEDIUM));
-                        setStartMediumGame();
-                        Platform.runLater(() -> Effects.getInstance().stopGlow());
-
-                    });
-                }));
+                            Platform.runLater(() -> AudioMemory.getInstance().stopSong(ModeType.MAIN));
+                            Platform.runLater(() -> AudioMemory.getInstance().playSong(MEDIUM));
+                            setStartMediumGame();
+                        }));
                 return null;
             }
         };
@@ -367,122 +400,103 @@ public class Gui extends Application implements IGui {
     @FXML
     public void hardStartScreenPlay() {
 
-        hardBackground.setVisible(true);
-        hardBackground.setOpacity(1);
-        background.setOpacity(0);
-        mediumBackground.setOpacity(0);
-        mediumSpread.setOpacity(0);
+        Platform.runLater(() -> Effects.getInstance().stopGlow());
+        Platform.runLater(() -> gameBackGroundVisibility(HARD));
 
-        Task<Void> task = new Task<Void>() {
+        Task<Void> task = new Task<>() {
             @Override
             protected Void call() {
-                Platform.runLater(() -> Effects.getInstance().gameZoomIn(camera, startAnchor, hardBackground, 1000.7, 10, 380, 14.5, () -> {
-                    Platform.runLater(() -> {
 
-                        Platform.runLater(() -> AudioMemory.getInstance().stopSong(ModeType.MAIN));
-                        Platform.runLater(() -> AudioMemory.getInstance().playSong(ModeType.HARD));
-                        setStartHardGame();
-                        Platform.runLater(() -> Effects.getInstance().stopGlow());
+                Platform.runLater(() -> Effects.getInstance().gameZoomIn(
+                        camera, startAnchor, hardBackground, 1000.7,
+                        10, 384, 14.5, () -> {
 
-                    });
-                }));
+                            Platform.runLater(() -> AudioMemory.getInstance().stopSong(ModeType.MAIN));
+                            Platform.runLater(() -> AudioMemory.getInstance().playSong(ModeType.HARD));
+                            setStartHardGame();
+                        }));
                 return null;
             }
         };
         new Thread(task).start();
+    }
 
+    private void gameBackGroundVisibility(ModeType type) {
+
+        switch (type) {
+
+            case EASY -> {
+                background.setVisible(true);
+                background.setOpacity(1);
+                mediumBackground.setOpacity(0);
+                mediumSpread.setOpacity(0);
+                hardBackground.setOpacity(0);
+                hardSpread.setOpacity(0);
+            }
+            case MEDIUM -> {
+                mediumBackground.setVisible(true);
+                mediumSpread.setVisible(true);
+                mediumBackground.setOpacity(1);
+                mediumSpread.setOpacity(1);
+                background.setOpacity(0);
+                hardBackground.setOpacity(0);
+                hardSpread.setOpacity(0);
+            }
+            case HARD -> {
+                hardBackground.setVisible(true);
+                hardSpread.setVisible(true);
+                hardBackground.setOpacity(1);
+                hardSpread.setOpacity(1);
+                background.setOpacity(0);
+                mediumBackground.setOpacity(0);
+                mediumSpread.setOpacity(0);
+            }
+        }
     }
 
     @FXML
     public void setStartEasyGame() {
 
-        Platform.runLater(() -> Effects.getInstance().backGroundIn(background));
+        Platform.runLater(() -> Visibilities.getInstance().inGameGrid(easyGrid));
 
-        mediumGrid.setMouseTransparent(true);
-        mediumGrid.setVisible(false);
-        hardGrid.setMouseTransparent(true);
-        hardGrid.setVisible(false);
-        easyGrid.setMouseTransparent(false);
-        easyGrid.setOpacity(1);
-        easyGrid.setVisible(true);
-        easyGrid.setHgap(-80);
-
-        if (cubeList != null) {
-            cubeList.clear();
-        }
+        if (cubeList != null) {cubeList.clear();}
+        Platform.runLater(() -> Visibilities.getInstance().toGame(gameModePane,score,logAndReg,pergament));
         cubeList = new ArrayList<>();
         easyCubeFactory = new EasyCubeFactory(this);
         easyGrid.getChildren().clear();
         controller.startEasyGame();
-        gameModePane.setVisible(false);
-        pergament.setVisible(false);
-
-
-
     }
 
     @FXML
     public void setStartMediumGame() {
 
-        Platform.runLater(() -> Effects.getInstance().backGroundIn(mediumBackground));
+        Platform.runLater(() -> Visibilities.getInstance().inGameGrid(mediumGrid));
 
-        easyGrid.setMouseTransparent(true);
-        easyGrid.setVisible(false);
-        hardGrid.setMouseTransparent(true);
-        hardGrid.setVisible(false);
-        mediumGrid.setMouseTransparent(false);
-        mediumGrid.setVisible(true);
-        mediumGrid.setOpacity(1);
-        mediumGrid.setHgap(25);
-        mediumGrid.setVgap(20);
-
-        if (cubeList != null) {
-            cubeList.clear();
-        }
+        if (cubeList != null) {cubeList.clear();}
+        Platform.runLater(() -> Visibilities.getInstance().toGame(gameModePane,score,logAndReg,pergament));
         cubeList = new ArrayList<>();
         mediumCubeFactory = new MediumCubeFactory(this);
         mediumGrid.getChildren().clear();
         controller.startMediumGame();
-        gameModePane.setVisible(false);
-        pergament.setVisible(false);
     }
 
     @FXML
     public void setStartHardGame() {
 
-        Platform.runLater(() -> Effects.getInstance().backGroundIn(hardBackground));
+        Platform.runLater(() -> Visibilities.getInstance().inGameGrid(hardGrid));
 
-        easyGrid.setMouseTransparent(true);
-        easyGrid.setVisible(false);
-        mediumGrid.setMouseTransparent(true);
-        mediumGrid.setVisible(false);
-        hardGrid.setMouseTransparent(false);
-        hardGrid.setVisible(true);
-        hardGrid.setOpacity(1);
-        hardGrid.setHgap(58);
-        hardGrid.setVgap(120);
-
-        for (int i = 0; i < 5; i++) {
-            RowConstraints rowConstraints = new RowConstraints(10);
-            hardGrid.getRowConstraints().add(rowConstraints);
-        }
-
-        if (cubeList != null) {
-            cubeList.clear();
-        }
+        if (cubeList != null) {cubeList.clear();}
+        Platform.runLater(() -> Visibilities.getInstance().toGame(gameModePane,score,logAndReg,pergament));
         cubeList = new ArrayList<>();
         hardCubeFactory = new HardCubeFactory(this);
         hardGrid.getChildren().clear();
         controller.startHardGame();
-        gameModePane.setVisible(false);
-        pergament.setVisible(false);
     }
 
     @Override
     public void setEasyGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
 
         selectedDifficulty = EASY;
-
         easyCubeFactory.createCubics(easyGrid, memoryObjects);
 
         setPersonalScores(scoreController.getPersonalScores(EASY));
@@ -493,7 +507,6 @@ public class Gui extends Application implements IGui {
     public void setMediumGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
 
         selectedDifficulty = MEDIUM;
-
         mediumCubeFactory.createCubics(mediumGrid, memoryObjects);
 
         setPersonalScores(scoreController.getPersonalScores(MEDIUM));
@@ -505,8 +518,8 @@ public class Gui extends Application implements IGui {
     public void setHardGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
 
         selectedDifficulty = HARD;
-
         hardCubeFactory.createCubics(hardGrid, memoryObjects);
+
         setPersonalScores(scoreController.getPersonalScores(HARD));
         getWorldScore(scoreController.getScores(HARD));
     }
@@ -516,18 +529,18 @@ public class Gui extends Application implements IGui {
     public void gameOver() {
 
         switch (selectedDifficulty) {
-            case EASY:
+            case EASY -> {
                 setPersonalScores(scoreController.getPersonalScores(EASY));
                 getWorldScore(scoreController.getScores(EASY));
-                break;
-            case MEDIUM:
+            }
+            case MEDIUM -> {
                 setPersonalScores(scoreController.getPersonalScores(MEDIUM));
                 getWorldScore(scoreController.getScores(MEDIUM));
-                break;
-            case HARD:
+            }
+            case HARD -> {
                 setPersonalScores(scoreController.getPersonalScores(HARD));
                 getWorldScore(scoreController.getScores(HARD));
-                break;
+            }
         }
 
         System.out.println("game over");
@@ -567,9 +580,9 @@ public class Gui extends Application implements IGui {
     }
 
     public void fetchAllScores() {
-        Task<Void> task = new Task<Void>() {
+        Task<Void> task = new Task<>() {
             @Override
-            protected Void call() throws Exception {
+            protected Void call() {
                 scoreController.fetchScores(EASY);
                 scoreController.fetchScores(MEDIUM);
                 scoreController.fetchScores(HARD);
@@ -597,23 +610,23 @@ public class Gui extends Application implements IGui {
         String user = name.getText();
         String userPassword = password.getText();
 
-        if (controller.isLoggedIn() == true) {
+        if (controller.isLoggedIn()) {
             System.out.println("Already logged in");
             return;
         }
-        if (controller.register(user, userPassword) == false) {
+        if (!controller.register(user, userPassword)) {
             System.out.println("Registration failed");
             return;
         }
-        signOrReg.setVisible(false);
+        logAndReg.setVisible(false);
 
     }
 
     @Override
     public void fetchUserScores() {
-        Task<Void> task = new Task<Void>() {
+        Task<Void> task = new Task<>() {
             @Override
-            protected Void call() throws Exception {
+            protected Void call() {
                 scoreController.fetchPersonalScores();
                 return null;
             }
@@ -628,15 +641,28 @@ public class Gui extends Application implements IGui {
         String userPassword = password.getText();
         try {
             controller.login(user, userPassword);
-            if (controller.isLoggedIn() != true) {
+            if (!controller.isLoggedIn()) {
                 System.out.println("Login failed");
                 return;
             }
             fetchUserScores();
-            signOrReg.setVisible(false);
+            logAndReg.setVisible(false);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    public void hover(ImageView imageView) {
+        Glow glow = new Glow();
+        glow.setLevel(0.2);
+        imageView.setEffect(glow);
+
+    }
+
+    @FXML
+    public void unhover(ImageView image) {
+        image.setEffect(null);
     }
 }
