@@ -123,14 +123,14 @@ public class Score {
      * 💀
      * can easily be changed later to anything, has no relevance to anything
      *
-     * @param seconds
-     * @param modeType
-     * @return
+     * @param seconds time in seconds
+     * @param modeType difficulty
+     * @return grade
      */
     private String scoreGrader(Double seconds, ModeType modeType) {
 
         switch (modeType.toString()) {
-            case "easy":
+            case "easy" -> {
                 if (seconds < 10) {
                     grade = "🎉";
                 } else if (seconds >= 10 && seconds < 20) {
@@ -140,8 +140,8 @@ public class Score {
                 } else if (seconds >= 30 && seconds < 40) {
                     grade = "💀";
                 }
-                break;
-            case "medium":
+            }
+            case "medium" -> {
                 if (seconds < 10) {
                     grade = "Incredible!";
                 } else if (seconds >= 10 && seconds < 20) {
@@ -151,8 +151,8 @@ public class Score {
                 } else if (seconds >= 30 && seconds < 40) {
                     grade = "Try again";
                 }
-                break;
-            case "hard":
+            }
+            case "hard" -> {
                 if (seconds < 10) {
                     grade = "John von Neumann reborn";
                 } else if (seconds >= 10 && seconds < 20) {
@@ -162,10 +162,8 @@ public class Score {
                 } else if (seconds >= 30 && seconds < 40) {
                     grade = "Maybe try an easier difficulty?";
                 }
-
-                break;
-            default:
-                grade = "Hämmästyttävä";
+            }
+            default -> grade = "Hämmästyttävä";
         }
         return grade;
     }

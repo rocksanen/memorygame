@@ -55,8 +55,7 @@ public class AccountDAO implements IAccountDAO {
     public Account getAccount(Long id) {
         System.out.println("getAccount " + id);
         EntityManager em = SqlJpaConn.getInstance();
-        Account a = em.find(Account.class, id);
-        return a;
+        return em.find(Account.class, id);
     }
 
 
@@ -64,14 +63,14 @@ public class AccountDAO implements IAccountDAO {
      * finds an account by name & password
      *
      * @param username account name
-     * @param username account password
+     * @param password account password
      * @return Account-object
      */
     @Override
     public Account getAccountByNameAndPassword(String username, String password) {
         username = username.toLowerCase();
         System.out.println("getAccountByName " + username);
-        Account a = null;
+        Account a;
         EntityManager em = SqlJpaConn.getInstance();
         try {
             Query query = em.createQuery("SELECT a FROM Account a WHERE a.username = :username AND a.password = :password");
@@ -96,7 +95,7 @@ public class AccountDAO implements IAccountDAO {
     public Account getAccountByName(String username) {
         username = username.toLowerCase();
         System.out.println("getAccountByName " + username);
-        Account a = null;
+        Account a;
         EntityManager em = SqlJpaConn.getInstance();
         try {
             Query query = em.createQuery("SELECT a FROM Account a WHERE a.username = :username");
@@ -121,8 +120,7 @@ public class AccountDAO implements IAccountDAO {
         EntityManager em = SqlJpaConn.getInstance();
         String jpqlQuery = "SELECT s FROM Account s";
         Query q = em.createQuery(jpqlQuery);
-        ArrayList<Account> resultList = (ArrayList<Account>) q.getResultList();
-        return resultList;
+        return (ArrayList<Account>) q.getResultList();
     }
 
     /**

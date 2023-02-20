@@ -1,8 +1,5 @@
 package model;
 
-import controller.IControllerScoreToV;
-import database.dao.AccountDAO;
-import database.dao.IAccountDAO;
 import database.dao.ILeaderboardDAO;
 import database.dao.LeaderboardDAO;
 import database.entity.Account;
@@ -17,6 +14,7 @@ import java.util.List;
  * Scoreboard class for the game
  * Contains list of Score-objects and methods for adding and retrieving scores
  * Also contains methods for retrieving scores from the database
+ *
  * @author Eetu Soronen
  * @version 1
  */
@@ -25,17 +23,12 @@ public class Scoreboard {
     /**
      * DAO class for database connection
      */
-    private static ILeaderboardDAO leaderboarddao = new LeaderboardDAO();
-
-    /**
-     * DAO class for database connection
-     */
-    private static IAccountDAO accountdao = new AccountDAO();
+    private static final ILeaderboardDAO leaderboarddao = new LeaderboardDAO();
 
     /**
      * List of scores
      */
-    private ArrayList<Score> scores;
+    private final ArrayList<Score> scores;
 
     /**
      * Constructor for Scoreboard
@@ -46,6 +39,7 @@ public class Scoreboard {
 
     /**
      * Constructor for Scoreboard
+     *
      * @param leaderboards list of Leaderboard-objects
      */
     public Scoreboard(ArrayList<Leaderboard> leaderboards) {
@@ -57,14 +51,18 @@ public class Scoreboard {
 
     /**
      * Adds a score to the scoreboard
-     * @param time  time in seconds
-     * @param points  points
+     *
+     * @param time       time in seconds
+     * @param points     points
      * @param difficulty difficulty
-     * @param username username
      */
-    public void addScore(Double time, int points, ModeType difficulty, String username) {
+    public void addScore(Double time, int points, ModeType difficulty) {
         User u = User.getInstance();
         Account a = u.getAccount();
+        if (a == null) {
+            System.out.println("cant save score if not logged in!");
+            return;
+        }
         Leaderboard lb = new Leaderboard(a, time, points, difficulty, new Date());
         scores.add(new Score(lb));
 
@@ -81,6 +79,7 @@ public class Scoreboard {
 
     /**
      * Returns the list of scores
+     *
      * @return list of scores
      */
     public ArrayList<Score> getScores() {
@@ -90,6 +89,7 @@ public class Scoreboard {
 
     /**
      * Deletes a score from the scoreboard
+     *
      * @param scoreid id of the score to be deleted
      */
     public void deleteScore(Long scoreid) {
@@ -116,14 +116,14 @@ public class Scoreboard {
         }
 //        System.out.println("fetchWorldScores: " + scores);
 //        System.out.println("get iside fetch");
-        this.getScores();
+//        this.getScores();
     }
 
     /**
      * Fetch personal scores of select difficulty, sorted by time
      *
-     * @param userid
-     * @param difficulty
+     * @param userid    id of the user
+     * @param difficulty difficulty level of the scores
      */
     public void fetchUserScores(Long userid, ModeType difficulty) {
         this.scores.clear();
@@ -133,11 +133,12 @@ public class Scoreboard {
         }
 //        System.out.println("fetchWorldScores: " + scores);
 //        System.out.println("get iside fetch");
-        this.getScores();
+//        this.getScores();
     }
 
     /**
      * tostring method for Scoreboard
+     *
      * @return string representation of the scoreboard
      */
     @Override

@@ -11,17 +11,17 @@ public class WorldScores {
     /**
      * Scoreboard for easy difficulty
      */
-    private Scoreboard easyScores;
+    private final Scoreboard easyScores;
 
     /**
      * Scoreboard for medium difficulty
      */
-    private Scoreboard mediumScores;
+    private final Scoreboard mediumScores;
 
     /**
      * Scoreboard for hard difficulty
      */
-    private Scoreboard hardScores;
+    private final Scoreboard hardScores;
 
     /**
      * Singleton instance of the WorldScores class

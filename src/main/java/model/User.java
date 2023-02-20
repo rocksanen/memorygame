@@ -2,10 +2,7 @@ package model;
 
 import database.dao.AccountDAO;
 import database.dao.IAccountDAO;
-import database.dao.LeaderboardDAO;
 import database.entity.Account;
-
-import java.util.ArrayList;
 
 import static model.ModeType.*;
 
@@ -30,10 +27,6 @@ public class User {
      */
     private String username;
 
-    /**
-     * password of the player
-     */
-    private String password;
 
     /**
      * Id of the player, retrieved from the database.
@@ -59,7 +52,7 @@ public class User {
     /**
      * DAO class for database connection
      */
-    private IAccountDAO accountdao;
+    private final IAccountDAO accountdao;
 
     /**
      * jpa entity for the account
@@ -100,7 +93,7 @@ public class User {
      * Searches username from database and updates the instance variables
      *
      * @param username - see {@link #username}
-     * @param password - see {@link #password}
+     * @param password user password
      * @return true or false depending on success of the login
      */
     public boolean login(String username, String password) {
@@ -128,7 +121,7 @@ public class User {
      * and updates the instance variables
      *
      * @param username see {@link #username}
-     * @param password see {@link #password}
+     * @param password user password
      * @return true or false depending on success of the signup
      */
     public boolean signup(String username, String password) {
@@ -173,6 +166,7 @@ public class User {
 
     /**
      * Checks if the user is logged in
+     *
      * @return true if logged in, false if not
      */
     public boolean isLoggedIn() {
@@ -186,37 +180,27 @@ public class User {
      */
     public Scoreboard getScores(ModeType difficulty) {
 
-        switch (difficulty) {
-            case EASY:
-                return easyScores;
-            case MEDIUM:
-                return mediumScores;
-            case HARD:
-                return hardScores;
-            default:
-                return null;
-        }
+        return switch (difficulty) {
+            case EASY -> easyScores;
+            case MEDIUM -> mediumScores;
+            case HARD -> hardScores;
+            default -> null;
+        };
     }
 
     /**
      * fetcher for the personal scores from server.
-     *
-     * @return - see {@link #easyScores}
+     * see Scoreboard#fetchUserScores(Long, ModeType)
      */
-    public ArrayList<Score> fetchScores(ModeType difficulty) {
+    public void fetchScores(ModeType difficulty) {
 
         switch (difficulty) {
-            case EASY:
-                easyScores.fetchUserScores(userId, EASY);
-                return easyScores.getScores();
-            case MEDIUM:
-                mediumScores.fetchUserScores(userId, MEDIUM);
-                return mediumScores.getScores();
-            case HARD:
-                hardScores.fetchUserScores(userId, HARD);
-                return hardScores.getScores();
-            default:
-                return null;
+            case EASY -> easyScores.fetchUserScores(userId, EASY);
+
+            case MEDIUM -> mediumScores.fetchUserScores(userId, MEDIUM);
+
+            case HARD -> hardScores.fetchUserScores(userId, HARD);
+
         }
     }
 
@@ -224,28 +208,28 @@ public class User {
     /**
      * Adds a score to the personal scores
      *
-     * @param time       - see {@link Scoreboard#addScore(Double, int, ModeType, String)}
-     * @param difficulty - see {@link Scoreboard#addScore(Double, int, ModeType, String)}
+     * @param time       - see {@link Scoreboard#addScore(Double, int, ModeType)}
+     * @param difficulty - see {@link Scoreboard#addScore(Double, int, ModeType)}
      */
     public void addScore(Double time, int points, ModeType difficulty) {
         WorldScores ws = WorldScores.getInstance();
-        if (isLoggedIn() == false) return;
+        if (!isLoggedIn()) return;
 
         switch (difficulty) {
-            case EASY:
-                easyScores.addScore(time, points, difficulty, username);
-                ws.getEasyScores().addScore(time, points, difficulty, username);
-                break;
-            case MEDIUM:
-                mediumScores.addScore(time, points, difficulty, username);
-                ws.getMediumScores().addScore(time, points, difficulty, username);
-                break;
-            case HARD:
-                hardScores.addScore(time, points, difficulty, username);
-                ws.getHardScores().addScore(time, points, difficulty, username);
-                break;
-            default:
-                break;
+            case EASY -> {
+                easyScores.addScore(time, points, difficulty);
+                ws.getEasyScores().addScore(time, points, difficulty);
+            }
+            case MEDIUM -> {
+                mediumScores.addScore(time, points, difficulty);
+                ws.getMediumScores().addScore(time, points, difficulty);
+            }
+            case HARD -> {
+                hardScores.addScore(time, points, difficulty);
+                ws.getHardScores().addScore(time, points, difficulty);
+            }
+            default -> {
+            }
         }
     }
 
@@ -258,7 +242,7 @@ public class User {
         if (userId == null) return false;
         try {
             boolean deleted = accountdao.deleteAccount(instance.userId);
-            if (deleted == true) {
+            if (deleted) {
                 return logout();
             }
 
@@ -279,6 +263,7 @@ public class User {
 
     /**
      * Getter for the account
+     *
      * @return - see {@link #account}
      */
     public Account getAccount() {
