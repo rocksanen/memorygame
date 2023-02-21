@@ -10,6 +10,10 @@ import javafx.scene.layout.RowConstraints;
 public class Visibilities {
 
     private static Visibilities instance;
+    private Pane gameMode;
+    private Pane score;
+    private Pane logAndReg;
+    private ImageView pergament;
 
     public Visibilities(){}
 
@@ -23,7 +27,15 @@ public class Visibilities {
 
         return instance;
     }
-        public void toGame(Pane gameMode, Pane score, Pane logAndReg, ImageView pergament) {
+
+        public void setToGameObjects(Pane gameMode, Pane score, Pane logAndReg, ImageView pergament) {
+
+            this.gameMode = gameMode;
+            this.score = score;
+            this.logAndReg = logAndReg;
+            this.pergament = pergament;
+        }
+        public void toGame() {
 
             gameMode.setVisible(false);
             pergament.setVisible(false);
@@ -31,7 +43,7 @@ public class Visibilities {
             logAndReg.setVisible(false);
         }
 
-        public void offGame(ImageView gameBackGround, Pane gameMode, ImageView pergament) {
+        public void offGame(ImageView gameBackGround) {
 
             Platform.runLater(() -> gameBackGround.setVisible(false));
             Platform.runLater(() -> pergament.setVisible(true));
@@ -48,14 +60,12 @@ public class Visibilities {
         private void easyGridLayout(double hGap, GridPane gridPane) {
 
             gridPane.setHgap(hGap);
-
         }
 
         private void mediumGridLayout(double hGap, double vGap, GridPane gridPane) {
 
             gridPane.setHgap(hGap);
             gridPane.setVgap(vGap);
-
         }
 
         private void hardGridLayout(double hGap, double vGap, int rowConstraint, int rows,GridPane gridPane) {
@@ -73,7 +83,6 @@ public class Visibilities {
             gridPane.setMouseTransparent(false);
             gridPane.setVisible(true);
             gridPane.setOpacity(1);
-
         }
 
         public void offGameGrid(GridPane gridPane) {
@@ -81,6 +90,5 @@ public class Visibilities {
             gridPane.setMouseTransparent(true);
             gridPane.setVisible(false);
             gridPane.setOpacity(0);
-
         }
 }

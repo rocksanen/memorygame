@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1250.0" style="-fx-background-color: beige;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.Gui">
+<AnchorPane prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.Gui">
     <children>
         <ImageView id="hardSpread" fx:id="hardSpread" fitHeight="780.0" fitWidth="1400.0" opacity="0.0">
             <image>
@@ -100,7 +100,7 @@
                 </Button>
             </children>
         </VBox>
-        <AnchorPane id="startAnchor" fx:id="startAnchor" prefHeight="750.0" prefWidth="1250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane id="menuAnkkuri" fx:id="menuAnkkuri" prefHeight="750.0" prefWidth="1250.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                   <ImageView id="pergament" fx:id="pergament" fitHeight="754.0" fitWidth="1279.0">
                       <image>
@@ -189,14 +189,6 @@
                         <BoxBlur />
                      </effect>
                   </Pane>
-                  <ImageView id="mapBack" fitHeight="792.0" fitWidth="1503.0" layoutX="-280.0" layoutY="-71.0" opacity="0.0">
-                     <image>
-                        <Image url="@images/mapAtmosphere.png" />
-                     </image>
-                     <effect>
-                        <ColorAdjust brightness="-1.0" />
-                     </effect>
-                  </ImageView>
                   <ImageView id="jungle" fx:id="jungle" fitHeight="544.0" fitWidth="769.0" layoutX="-83.0" layoutY="33.0" opacity="0.0">
                      <image>
                         <Image url="@images/jungle.png" />
@@ -266,7 +258,7 @@
                         <ColorAdjust hue="-0.08" saturation="0.52" />
                      </effect>
                         </ImageView>
-                  <ImageView fitHeight="110.0" fitWidth="102.0" layoutX="15.0" layoutY="115.0" mouseTransparent="true">
+                  <ImageView id="compass" fitHeight="110.0" fitWidth="102.0" layoutX="15.0" layoutY="115.0" mouseTransparent="true">
                      <image>
                         <Image url="@images/compass.png" />
                      </image>
@@ -336,7 +328,7 @@
                 <Button fx:id="login" layoutX="138.0" layoutY="274.0" mnemonicParsing="false" onMouseClicked="#loginPane" prefHeight="36.0" prefWidth="70.0" text="Login" />
          </children>
       </Pane>
-      <AnchorPane fx:id="startBlack" prefHeight="780.0" prefWidth="1250.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane id="startBlack" fx:id="startBlack" prefHeight="780.0" prefWidth="1250.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView id="lightning" fx:id="lightning" fitHeight="457.0" fitWidth="402.0" layoutX="16.0" layoutY="-79.0" opacity="0.0" rotate="-12.0">
                <image>

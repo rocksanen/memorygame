@@ -1,39 +1,83 @@
 package visuals;
 
+import com.sun.jdi.VoidType;
 import javafx.animation.*;
 import javafx.application.Platform;
-import javafx.scene.PerspectiveCamera;
 import javafx.scene.control.Label;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.Glow;
 import javafx.scene.effect.Reflection;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import model.ModeType;
 import visuals.audio.AudioMemory;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+
 
 public class Effects {
     private static Effects instance;
     private final Timeline timelineBlur = new Timeline();
-    private final Timeline timelineIN = new Timeline();
-    private final Timeline timelineOUT = new Timeline();
     private final GaussianBlur gaussianBlur = new GaussianBlur();
-
     private Timeline glowLine;
-    private ImageView inView = new ImageView();
-    private ImageView outView = new ImageView();
+    ImageView japan;
+    ImageView jungle;
+    ImageView redtree;
+    ImageView miniEasy;
+    ImageView miniMedium;
+    ImageView miniHard;
+    ImageView easyFrame;
+    ImageView mediumFrame;
+    ImageView hardFrame;
+    ImageView pergament;
+    AnchorPane menuAnkkuri;
+    AnchorPane startBlack;
+    Pane gamePane;
+    ArrayList<ImageView> mtLista;
+    final double japanStart = 0.26;
+    final double jungleStart = 0.2;
+    final double redtreeStart = 0.35;
     private final BackGroundMover backGroundMover = new BackGroundMover();
 
     public Effects() {
         initializeTimelines();
+    }
+
+    public void setEssenceImages(ImageView japan, ImageView jungle, ImageView redtree) {
+
+        this.japan = japan;
+        this.jungle = jungle;
+        this.redtree = redtree;
+    }
+
+    public void setGeneralObjects(
+            ImageView pergament, AnchorPane menuAnkkuri, AnchorPane startBlack,
+            Pane gamePane, ArrayList<ImageView> mtLista) {
+
+        this.pergament = pergament;
+        this.menuAnkkuri = menuAnkkuri;
+        this.startBlack = startBlack;
+        this.gamePane = gamePane;
+        this.mtLista = mtLista;
+
+
+    }
+
+    public void setMiniImagesAndFrames(
+
+            ImageView miniEasy, ImageView miniMedium, ImageView miniHard,
+            ImageView easyFrame, ImageView mediumFrame, ImageView hardFrame) {
+
+            this.miniEasy = miniEasy;
+            this.miniMedium = miniMedium;
+            this.miniHard = miniHard;
+            this.easyFrame = easyFrame;
+            this.mediumFrame = mediumFrame;
+            this.hardFrame = hardFrame;
     }
 
     private void initializeTimelines() {
@@ -42,17 +86,6 @@ public class Effects {
                 new KeyFrame(Duration.ZERO, new KeyValue(gaussianBlur.radiusProperty(), 0)),
                 new KeyFrame(Duration.seconds(6), new KeyValue(gaussianBlur.radiusProperty(), 10.58))
         );
-
-        timelineIN.getKeyFrames().setAll(
-                new KeyFrame(Duration.ZERO, new KeyValue(inView.opacityProperty(), 0)),
-                new KeyFrame(Duration.seconds(1), new KeyValue(inView.opacityProperty(), 1))
-        );
-
-        timelineOUT.getKeyFrames().setAll(
-                new KeyFrame(Duration.ZERO, new KeyValue(outView.opacityProperty(), 1)),
-                new KeyFrame(Duration.seconds(1.5), new KeyValue(outView.opacityProperty(), 0))
-        );
-
     }
     public static Effects getInstance(){
 
@@ -62,37 +95,29 @@ public class Effects {
         return instance;
     }
 
-    public void backGroundIn(ImageView imageView) {
-
-        timelineOUT.stop();
-        inView = imageView;
-        timelineIN.play();
-    }
-
-    public void backGroundOut(ImageView imageView) {
-
-        timelineOUT.stop();
-        outView = imageView;
-        timelineOUT.play();
-    }
-
     public void backGroundBlurIn(ImageView imageView) {
 
         gaussianBlur.setRadius(0);
         imageView.setEffect(gaussianBlur);
         timelineBlur.stop();
-        timelineBlur.setCycleCount(1);
         timelineBlur.play();
     }
 
 
     public void gameZoomOut(
 
-            Pane gameMode, GridPane cubeGrid, PerspectiveCamera camera,
-            AnchorPane startAnchor, ImageView gameBackGround, double zOffset,
-            double fovOffset, double xOffset, double yOffset,ModeType type, ImageView pergamentti
+            GridPane cubeGrid,
+            ImageView gameBackGround, double zOffset,
+            double fovOffset, double xOffset, double yOffset,ModeType type
 
     ) {
+
+        switch (type) {
+
+            case EASY -> miniEasy.setOpacity(1);
+            case MEDIUM -> miniMedium.setOpacity(1);
+            case HARD -> miniHard.setOpacity(1);
+        }
 
         Platform.runLater(backGroundMover::stop);
         Platform.runLater(backGroundMover::returnToPositionZero);
@@ -111,12 +136,14 @@ public class Effects {
         blurOut.setOnFinished(actionEvent -> {
 
             Platform.runLater(() -> Visibilities.getInstance().offGameGrid(cubeGrid));
-            camera.setTranslateZ(zOffset);
-            camera.setFieldOfView(fovOffset);
-            camera.setTranslateX(xOffset);
-            camera.setTranslateY(yOffset);
+            Visibilities.getInstance().offGame(gameBackGround);
 
-            Visibilities.getInstance().offGame(gameBackGround,gameMode,pergamentti);
+            Gui.camera.setTranslateZ(zOffset);
+            Gui.camera.setFieldOfView(fovOffset);
+            Gui.camera.setTranslateX(xOffset);
+            Gui.camera.setTranslateY(yOffset);
+
+            menuAnkkuri.setOpacity(1);
 
             Platform.runLater(() -> Gui.logAndReg.setVisible(true));
 
@@ -125,16 +152,32 @@ public class Effects {
 
             Timeline timelineZoomOut = new Timeline(
                     new KeyFrame(Duration.ZERO,
-                            new KeyValue(camera.translateZProperty(), camera.getTranslateZ()),
-                            new KeyValue(camera.fieldOfViewProperty(), camera.getFieldOfView()),
-                            new KeyValue(camera.translateXProperty(), camera.getTranslateX()),
-                            new KeyValue(camera.translateYProperty(), camera.getTranslateY())
+                            new KeyValue(Gui.camera.translateZProperty(), Gui.camera.getTranslateZ()),
+                            new KeyValue(Gui.camera.fieldOfViewProperty(), Gui.camera.getFieldOfView()),
+                            new KeyValue(Gui.camera.translateXProperty(), Gui.camera.getTranslateX()),
+                            new KeyValue(Gui.camera.translateYProperty(), Gui.camera.getTranslateY()),
+                            new KeyValue(pergament.opacityProperty(),0),
+                            new KeyValue(miniEasy.opacityProperty(),miniEasy.getOpacity()),
+                            new KeyValue(miniMedium.opacityProperty(),miniMedium.getOpacity()),
+                            new KeyValue(miniHard.opacityProperty(),miniHard.getOpacity()),
+                            new KeyValue(japan.opacityProperty(),0),
+                            new KeyValue(jungle.opacityProperty(),0),
+                            new KeyValue(redtree.opacityProperty(),0)
+
+
                     ),
-                    new KeyFrame(Duration.seconds(2),
-                            new KeyValue(camera.translateZProperty(), 0),
-                            new KeyValue(camera.fieldOfViewProperty(), 25),
-                            new KeyValue(camera.translateXProperty(), 0),
-                            new KeyValue(camera.translateYProperty(), 0)
+                    new KeyFrame(Duration.seconds(1.8),
+                            new KeyValue(Gui.camera.translateZProperty(), 0),
+                            new KeyValue(Gui.camera.fieldOfViewProperty(), 25),
+                            new KeyValue(Gui.camera.translateXProperty(), 0),
+                            new KeyValue(Gui.camera.translateYProperty(), 0),
+                            new KeyValue(pergament.opacityProperty(),1),
+                            new KeyValue(miniEasy.opacityProperty(),1),
+                            new KeyValue(miniMedium.opacityProperty(),1),
+                            new KeyValue(miniHard.opacityProperty(),1),
+                            new KeyValue(japan.opacityProperty(),japanStart),
+                            new KeyValue(jungle.opacityProperty(),jungleStart),
+                            new KeyValue(redtree.opacityProperty(),redtreeStart)
                     )
             );
 
@@ -142,77 +185,128 @@ public class Effects {
 
             timelineZoomOut.setOnFinished(actionEvent1 -> {
 
-                Platform.runLater(() -> startAnchor.setMouseTransparent(false));
+                Platform.runLater(this::playGlow);
+                Platform.runLater(() -> menuAnkkuri.setMouseTransparent(false));
             });
         });
     }
 
     public void gameZoomIn(
 
-            PerspectiveCamera camera, AnchorPane startAnchor, ImageView imageView,
+            ImageView gameBackGround,
             double zOffset, double fovOffset, double xOffset,
-            double yOffset, Runnable callback
+            double yOffset, ModeType type, Gui gui
 
     ) {
 
-        final double z = camera.getTranslateZ();
-        final double fov = camera.getFieldOfView();
-        final double x = camera.getTranslateX();
-        final double y = camera.getTranslateY();
+        final double z = Gui.camera.getTranslateZ();
+        final double fov = Gui.camera.getFieldOfView();
+        final double x = Gui.camera.getTranslateX();
+        final double y = Gui.camera.getTranslateY();
+
+        double easyFinish = 0;
+        double mediumFinish = 0;
+        double hardFinish = 0;
+
+        switch (type) {
+
+            case EASY -> {
+
+                miniEasy.setOpacity(1);
+                easyFinish = 1;
+
+            }
+            case MEDIUM -> {
+
+                miniMedium.setOpacity(1);
+                mediumFinish = 1;
+
+            }
+            case HARD -> {
+
+                miniHard.setOpacity(1);
+                hardFinish = 1;
+
+            }
+        }
 
 
-        Timeline timelineZoom = new Timeline(
-                new KeyFrame(Duration.ZERO,
-                        new KeyValue(camera.translateZProperty(), z),
-                        new KeyValue(camera.fieldOfViewProperty(), fov),
-                        new KeyValue(camera.translateXProperty(), x),
-                        new KeyValue(camera.translateYProperty(), y)
-                ),
-                new KeyFrame(Duration.seconds(2),
-                        new KeyValue(camera.translateZProperty(), z + zOffset),
-                        new KeyValue(camera.fieldOfViewProperty(), fov + fovOffset),
-                        new KeyValue(camera.translateXProperty(), x + xOffset),
-                        new KeyValue(camera.translateYProperty(), y + yOffset)
-                )
-        );
+            Timeline timelineZoom = new Timeline(
 
-        timelineZoom.play();
-        timelineZoom.setOnFinished(actionEvent -> {
-
-            Timeline timeline = new Timeline(
                     new KeyFrame(Duration.ZERO,
-                            new KeyValue(startAnchor.opacityProperty(), 0),
-                            new KeyValue(camera.translateXProperty(), camera.getTranslateX()),
-                            new KeyValue(camera.translateYProperty(), camera.getTranslateY()),
-                            new KeyValue(camera.translateZProperty(), camera.getTranslateZ())
+                            new KeyValue(Gui.camera.translateZProperty(), z),
+                            new KeyValue(Gui.camera.fieldOfViewProperty(), fov),
+                            new KeyValue(Gui.camera.translateXProperty(), x),
+                            new KeyValue(Gui.camera.translateYProperty(), y),
+                            new KeyValue(pergament.opacityProperty(),1),
+                            new KeyValue(miniEasy.opacityProperty(),1),
+                            new KeyValue(miniMedium.opacityProperty(),1),
+                            new KeyValue(miniHard.opacityProperty(),1),
+                            new KeyValue(japan.opacityProperty(),japanStart),
+                            new KeyValue(jungle.opacityProperty(),jungleStart),
+                            new KeyValue(redtree.opacityProperty(),redtreeStart)
+
                     ),
-                    new KeyFrame(Duration.seconds(0.0001),
-                            new KeyValue(startAnchor.opacityProperty(), 1),
-                            new KeyValue(camera.translateXProperty(), x),
-                            new KeyValue(camera.translateYProperty(), y),
-                            new KeyValue(camera.translateZProperty(), z)
+                    new KeyFrame(Duration.seconds(0.9),
+                            new KeyValue(Gui.camera.translateZProperty(), z + zOffset/2),
+                            new KeyValue(Gui.camera.fieldOfViewProperty(), fov + fovOffset/2),
+                            new KeyValue(Gui.camera.translateXProperty(), x + xOffset/2),
+                            new KeyValue(Gui.camera.translateYProperty(), y + yOffset/2)),
+                    new KeyFrame(Duration.seconds(1.8),
+                            new KeyValue(Gui.camera.translateZProperty(), z + zOffset),
+                            new KeyValue(Gui.camera.fieldOfViewProperty(), fov + fovOffset),
+                            new KeyValue(Gui.camera.translateXProperty(), x + xOffset),
+                            new KeyValue(Gui.camera.translateYProperty(), y + yOffset),
+                            new KeyValue(pergament.opacityProperty(),0),
+                            new KeyValue(miniEasy.opacityProperty(),easyFinish),
+                            new KeyValue(miniMedium.opacityProperty(),mediumFinish),
+                            new KeyValue(miniHard.opacityProperty(),hardFinish),
+                            new KeyValue(japan.opacityProperty(),0),
+                            new KeyValue(jungle.opacityProperty(),0),
+                            new KeyValue(redtree.opacityProperty(),0)
                     )
             );
-            startAnchor.setMouseTransparent(true);
-            timeline.play();
-            callback.run();
-            timeline.setOnFinished(actionEvent1 -> {
+            timelineZoom.play();
 
-                backGroundBlurIn(imageView);
-                backGroundMover.animate(imageView);
-                Platform.runLater(backGroundMover::play);
+
+            timelineZoom.setOnFinished(actionEvent -> {
+                Platform.runLater(() -> {
+                    Timeline timeline = new Timeline(
+                            new KeyFrame(Duration.ZERO,
+                                    new KeyValue(menuAnkkuri.opacityProperty(), 1),
+                                    new KeyValue(Gui.camera.translateXProperty(), Gui.camera.getTranslateX()),
+                                    new KeyValue(Gui.camera.translateYProperty(), Gui.camera.getTranslateY()),
+                                    new KeyValue(Gui.camera.translateZProperty(), Gui.camera.getTranslateZ())
+                            ),
+                            new KeyFrame(Duration.seconds(0.0001),
+                                    new KeyValue(menuAnkkuri.opacityProperty(), 0),
+                                    new KeyValue(Gui.camera.translateXProperty(), x),
+                                    new KeyValue(Gui.camera.translateYProperty(), y),
+                                    new KeyValue(Gui.camera.translateZProperty(), z)
+                            )
+                    );
+
+                    menuAnkkuri.setMouseTransparent(true);
+                    timeline.play();
+                    gui.startChoose(type);
+                    timeline.setOnFinished(actionEvent1 -> {
+                        Platform.runLater(() -> AudioMemory.getInstance().stopSong(ModeType.MAIN));
+                        Platform.runLater(() -> AudioMemory.getInstance().playSong(type));
+                        Platform.runLater(() -> backGroundBlurIn(gameBackGround));
+                        Platform.runLater(() -> backGroundMover.animate(gameBackGround));
+                        Platform.runLater(backGroundMover::play);
+                        Gui.camera.setFieldOfView(1);
+                    });
+                });
             });
-        });
     }
 
 
     public void bringGameUp(
-            AnchorPane startBlack, Label first, Label second,
-            Pane gamePane, Pane logAndReg, ImageView sun,
-            ImageView lightning, ImageView blacksun, ArrayList<ImageView> mtLista,
-            ImageView miniEasy, ImageView miniMedium, ImageView miniHard,
-            ImageView easyFrame, ImageView mediumFrame, ImageView hardFrame,
-            ImageView japan, ImageView jungle, ImageView redtree) {
+            Label first, Label second,
+            Pane logAndReg, ImageView sun,
+            ImageView lightning, ImageView blacksun,
+            ImageView easyFrame, ImageView mediumFrame, ImageView hardFrame) {
 
         Glow textGlow = new Glow();
         textGlow.setLevel(0.6);
