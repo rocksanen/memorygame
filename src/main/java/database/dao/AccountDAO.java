@@ -58,7 +58,6 @@ public class AccountDAO implements IAccountDAO {
         return em.find(Account.class, id);
     }
 
-
     /**
      * finds an account by name & password
      *

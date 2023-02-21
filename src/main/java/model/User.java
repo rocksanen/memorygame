@@ -4,6 +4,8 @@ import database.dao.AccountDAO;
 import database.dao.IAccountDAO;
 import database.entity.Account;
 
+import java.util.concurrent.locks.Lock;
+
 import static model.ModeType.*;
 
 
@@ -97,8 +99,29 @@ public class User {
      * @return true or false depending on success of the login
      */
     public boolean login(String username, String password) {
+        Locksmith l = new Locksmith();
+
+        // try to encrypt the password
+        String hashedPassword = null;
         try {
-            Account account = accountdao.getAccountByNameAndPassword(username, password);
+            hashedPassword = l.hashPassword(password);
+            System.out.println("Encrypted password: " + hashedPassword);
+        } catch (Exception e) {
+            System.out.println("Error encrypting password: " + e);
+            return false;
+        }
+
+        // try to decrypt the password
+        try {
+            boolean allgood = l.checkPassword(password, hashedPassword);
+            System.out.println("Decrypted password: " + allgood);
+        } catch (Exception e) {
+            System.out.println("Error decrypting password: " + e);
+            return false;
+        }
+
+        try {
+            Account account = accountdao.getAccountByNameAndPassword(username, hashedPassword);
 //            System.out.println("sTRINGIFYING ACCOUNT: " + account.toString() + "");
             if (account.getAccountid() != null) {
                 this.account = account;
@@ -125,12 +148,34 @@ public class User {
      * @return true or false depending on success of the signup
      */
     public boolean signup(String username, String password) {
+        Locksmith l = new Locksmith();
+
+        // try to encrypt the password
+        String hashedPassword = null;
+        try {
+            hashedPassword = l.hashPassword(password);
+            System.out.println("Encrypted password: " + hashedPassword);
+        } catch (Exception e) {
+            System.out.println("Error encrypting password: " + e);
+            return false;
+        }
+
+        // try to decrypt the password
+        try {
+            boolean allgood = l.checkPassword(password, hashedPassword);
+            System.out.println("Decrypted password: " + allgood);
+        } catch (Exception e) {
+            System.out.println("Error decrypting password: " + e);
+            return false;
+        }
+
+
         Account a = accountdao.getAccountByName(username);
         if (a != null) {
             System.out.println("Username already exists!");
             return false;
         }
-        accountdao.saveAccount(new Account(username, password));
+        accountdao.saveAccount(new Account(username, hashedPassword));
         this.account = accountdao.getAccountByName(username);
 
         this.userId = account.getAccountid();
