@@ -93,6 +93,7 @@ public class User {
 
     /**
      * Searches username from database and updates the instance variables
+     * password is hashed and the hash is compared to the one in the database
      *
      * @param username - see {@link #username}
      * @param password user password
@@ -142,6 +143,8 @@ public class User {
     /**
      * Searches username from db, creates it if it does not exist
      * and updates the instance variables
+     * also hashes the password before saving it
+     * no salt since that's unhealthy 🧑‍⚕️
      *
      * @param username see {@link #username}
      * @param password user password

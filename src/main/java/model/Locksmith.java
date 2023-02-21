@@ -6,10 +6,17 @@ import java.util.Base64;
 
 
 /**
+ * Class for hashing and checking passwords
  * Rainbow table attacks? I love rainbows! and tables! Don't attack them! 🌈
+ *
  */
 public class Locksmith {
 
+  /**
+   * Hashes a password using SHA-256 and Base64-encoding
+   * @param password The password to hash
+   * @return
+   */
   // This method takes a password and returns a hashed version of the password
   public static String hashPassword(String password) {
     try {
@@ -26,6 +33,12 @@ public class Locksmith {
     }
   }
 
+  /**
+   * Checks whether a password matches a hashed password
+   * @param password The password to check
+   * @param hashedPassword The hashed password to check against
+   * @return
+   */
   // This method takes a password and a hashed password, and checks whether the password matches the hashed password
   public static boolean checkPassword(String password, String hashedPassword) {
     // Decode the hashed password from Base64 back into a byte array
