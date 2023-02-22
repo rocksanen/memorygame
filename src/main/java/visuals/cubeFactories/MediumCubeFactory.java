@@ -52,10 +52,9 @@ public class MediumCubeFactory implements ICubeFactory {
                                 behindImage,
                                 gui,i).getBox());
 
-
-
                 group.setCursor(Cursor.HAND);
-                gridPane.add(group, i % 4, i / 4);
+                int finalI1 = i;
+                Platform.runLater(() -> gridPane.add(group, finalI1 % 4, finalI1 / 4));
                 GridPane.setHalignment(group, HPos.CENTER);
                 GridPane.setValignment(group, VPos.CENTER);
 

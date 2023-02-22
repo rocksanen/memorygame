@@ -2,10 +2,10 @@ package visuals;
 
 import javafx.application.Platform;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
+import model.ModeType;
 
 public class Visibilities {
 
@@ -14,17 +14,28 @@ public class Visibilities {
     private Pane score;
     private Pane logAndReg;
     private ImageView pergament;
+    private ImageView background;
+    private ImageView mediumBackground;
+    private ImageView mediumSpread;
+    private ImageView hardBackground;
+    private ImageView hardSpread;
 
+    public void setGameBackGrounds(
+            ImageView background,ImageView mediumBackground,ImageView mediumSpread,
+            ImageView hardBackground,ImageView hardSpread) {
+
+        this.background = background;
+        this.mediumBackground = mediumBackground;
+        this.mediumSpread = mediumSpread;
+        this.hardBackground = hardBackground;
+        this.hardSpread = hardSpread;
+    }
     public Visibilities(){}
-
     public static Visibilities getInstance() {
 
         if(instance == null) {
-
             instance = new Visibilities();
-
         }
-
         return instance;
     }
 
@@ -91,4 +102,39 @@ public class Visibilities {
             gridPane.setVisible(false);
             gridPane.setOpacity(0);
         }
+
+
+
+        public void gameBackGroundVisibility(ModeType type) {
+
+            switch (type) {
+
+                case EASY -> {
+                    background.setVisible(true);
+                    background.setOpacity(1);
+                    mediumBackground.setOpacity(0);
+                    mediumSpread.setOpacity(0);
+                    hardBackground.setOpacity(0);
+                    hardSpread.setOpacity(0);
+                }
+                case MEDIUM -> {
+                    mediumBackground.setVisible(true);
+                    mediumSpread.setVisible(true);
+                    mediumBackground.setOpacity(1);
+                    mediumSpread.setOpacity(1);
+                    background.setOpacity(0);
+                    hardBackground.setOpacity(0);
+                    hardSpread.setOpacity(0);
+                }
+                case HARD -> {
+                    hardBackground.setVisible(true);
+                    hardSpread.setVisible(true);
+                    hardBackground.setOpacity(1);
+                    hardSpread.setOpacity(1);
+                    background.setOpacity(0);
+                    mediumBackground.setOpacity(0);
+                    mediumSpread.setOpacity(0);
+                }
+        }
+    }
 }

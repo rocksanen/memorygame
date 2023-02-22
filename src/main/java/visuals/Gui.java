@@ -154,6 +154,7 @@ public class Gui extends Application implements IGui{
         Platform.runLater(() -> Effects.getInstance().setGlow(pergament));
         Platform.runLater(() -> Effects.getInstance().playGlow());
         Visibilities.getInstance().setGridLayoutToVisibility(easyGrid,mediumGrid,hardGrid);
+        Visibilities.getInstance().setGameBackGrounds(background,mediumBackground,mediumSpread,hardBackground,hardSpread);
 
         // If you want scores: "true", if not: "false".
         scoresOn(true);
@@ -163,163 +164,16 @@ public class Gui extends Application implements IGui{
 
         this.root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/visuals/game2.fxml")));
 
-        startBlack = (AnchorPane) root.lookup("#startBlack");
-        menuAnkkuri = (AnchorPane) root.lookup("#menuAnkkuri");
-        weDidIt = (Label) root.lookup("#weDidIt");
-        groupFour = (Label) root.lookup("#groupFour");
-        gameModePane = (Pane) root.lookup("#gameModePane");
-        score = (Pane) root.lookup("#score");
-        easyGrid = (GridPane) root.lookup("#easyGrid");
-        mediumGrid = (GridPane) root.lookup("#mediumGrid");
-        hardGrid = (GridPane) root.lookup("#hardGrid");
-        logAndReg = (Pane) root.lookup("#logAndReg");
-
-        personalScores = new ListView<>();
-        startEasyGame = new Button();
-        startMediumGame = new Button();
-        startHardGame = new Button();
-        newGame = new Button();
-        returnMenu = new Button();
-
+        panesAndMisc();
         setIntroImages();
         setMenuImages();
         setGameImages();
-
-
 
         Effects.getInstance().setMiniImagesAndFrames(miniEasy, miniMedium, miniHard, easyFrame, mediumFrame, hardFrame);
         Effects.getInstance().setEssenceImages(japan,jungle,redtree);
         Effects.getInstance().setGeneralObjects(pergament, menuAnkkuri, startBlack, gameModePane, mtLista);
         Visibilities.getInstance().setToGameObjects(gameModePane,score,logAndReg,pergament);
     }
-
-    private void setIntroImages() {
-
-        sun = (ImageView) root.lookup("#sun");
-        sun.setImage(ImageCache.getInstance().getIntroCache().get(0));
-        lightning = (ImageView) root.lookup("#lightning");
-        lightning.setImage(ImageCache.getInstance().getIntroCache().get(1));
-        blacksun = (ImageView) root.lookup("#blacksun");
-        blacksun.setImage(ImageCache.getInstance().getIntroCache().get(2));
-    }
-
-    private void setMenuImages() {
-
-        pergament = (ImageView) root.lookup("#pergament");
-        pergament.setImage(ImageCache.getInstance().getMenuCache().get(0));
-        miniEasy = (ImageView) root.lookup("#miniEasy");
-        miniEasy.setImage(ImageCache.getInstance().getMenuCache().get(1));
-        miniMedium = (ImageView) root.lookup("#miniMedium");
-        miniMedium.setImage(ImageCache.getInstance().getMenuCache().get(2));
-        miniHard = (ImageView) root.lookup("#miniHard");
-        miniHard.setImage(ImageCache.getInstance().getMenuCache().get(3));
-        easyFrame = (ImageView) root.lookup("#easyFrame");
-        easyFrame.setImage(ImageCache.getInstance().getMenuCache().get(4));
-        mediumFrame = (ImageView) root.lookup("#mediumFrame");
-        mediumFrame.setImage(ImageCache.getInstance().getMenuCache().get(5));
-        hardFrame = (ImageView) root.lookup("#hardFrame");
-        hardFrame.setImage(ImageCache.getInstance().getMenuCache().get(6));
-        japan = (ImageView) root.lookup("#japan");
-        japan.setImage(ImageCache.getInstance().getMenuCache().get(7));
-        jungle = (ImageView) root.lookup("#jungle");
-        jungle.setImage(ImageCache.getInstance().getMenuCache().get(8));
-        redtree = (ImageView) root.lookup("#redtree");
-        redtree.setImage(ImageCache.getInstance().getMenuCache().get(9));
-
-        mt1 = (ImageView) root.lookup("#mt1");
-        mt1.setImage(ImageCache.getInstance().getMenuCache().get(10));
-        mt2 = (ImageView) root.lookup("#mt2");
-        mt2.setImage(ImageCache.getInstance().getMenuCache().get(11));
-        mt3 = (ImageView) root.lookup("#mt3");
-        mt3.setImage(ImageCache.getInstance().getMenuCache().get(12));
-        mt4 = (ImageView) root.lookup("#mt4");
-        mt4.setImage(ImageCache.getInstance().getMenuCache().get(13));
-        mt5 = (ImageView) root.lookup("#mt5");
-        mt5.setImage(ImageCache.getInstance().getMenuCache().get(14));
-        mt6 = (ImageView) root.lookup("#mt6");
-        mt6.setImage(ImageCache.getInstance().getMenuCache().get(15));
-        mt7 = (ImageView) root.lookup("#mt7");
-        mt7.setImage(ImageCache.getInstance().getMenuCache().get(16));
-        mt8 = (ImageView) root.lookup("#mt8");
-        mt8.setImage(ImageCache.getInstance().getMenuCache().get(17));
-        mt9 = (ImageView) root.lookup("#mt9");
-        mt9.setImage(ImageCache.getInstance().getMenuCache().get(18));
-        mt10 = (ImageView) root.lookup("#mt10");
-        mt10.setImage(ImageCache.getInstance().getMenuCache().get(19));
-        mt11 = (ImageView) root.lookup("#mt11");
-        mt11.setImage(ImageCache.getInstance().getMenuCache().get(20));
-        mt12 = (ImageView) root.lookup("#mt12");
-        mt12.setImage(ImageCache.getInstance().getMenuCache().get(21));
-        mt13 = (ImageView) root.lookup("#mt13");
-        mt13.setImage(ImageCache.getInstance().getMenuCache().get(22));
-
-        mtLista.add(mt1);
-        mtLista.add(mt2);
-        mtLista.add(mt3);
-        mtLista.add(mt4);
-        mtLista.add(mt5);
-        mtLista.add(mt6);
-        mtLista.add(mt7);
-        mtLista.add(mt8);
-        mtLista.add(mt9);
-        mtLista.add(mt10);
-        mtLista.add(mt11);
-        mtLista.add(mt12);
-        mtLista.add(mt13);
-
-    }
-
-    private void setGameImages() {
-
-        background = (ImageView) root.lookup("#background");
-        background.setImage(ImageCache.getInstance().getGameBackGroundCache().get(0));
-        mediumBackground = (ImageView) root.lookup("#mediumBackground");
-        mediumSpread = (ImageView) root.lookup("#mediumSpread");
-        mediumBackground.setImage(ImageCache.getInstance().getGameBackGroundCache().get(1));
-        mediumSpread.setImage(ImageCache.getInstance().getGameBackGroundCache().get(1));
-        hardBackground = (ImageView) root.lookup("#hardBackground");
-        hardSpread = (ImageView) root.lookup("#hardSpread");
-        hardBackground.setImage(ImageCache.getInstance().getGameBackGroundCache().get(2));
-        hardSpread.setImage(ImageCache.getInstance().getGameBackGroundCache().get(2));
-
-    }
-
-    private void introOn(Boolean introStatus) {
-
-        if(introStatus) {
-
-            Platform.runLater(() -> Effects.getInstance().bringGameUp(
-                    weDidIt, groupFour, logAndReg,
-                    sun, lightning, blacksun,
-                    easyFrame,mediumFrame, hardFrame));
-
-        }else{
-
-            startBlack.setVisible(false);
-            gameModePane.setOpacity(1);
-            logAndReg.setVisible(true);
-            logAndReg.setOpacity(1);
-            miniEasy.setOpacity(1);
-            miniMedium.setOpacity(1);
-            miniHard.setOpacity(1);
-            easyFrame.setOpacity(1);
-            mediumFrame.setOpacity(1);
-            hardFrame.setOpacity(1);
-            japan.setOpacity(0.26);
-            jungle.setOpacity(0.2);
-            redtree.setOpacity(0.35);
-        }
-    }
-
-    private void scoresOn(Boolean on) {
-
-            Node worldScoresNode = root.lookup("#worldScores");
-            if (worldScoresNode instanceof ListView<?>) {
-                worldScores = (ListView<String>) worldScoresNode;
-            }
-            if (on) {fetchAllScores();}
-    }
-
 
     @FXML
     public void newGame() {
@@ -358,35 +212,38 @@ public class Gui extends Application implements IGui{
     public void easyStartScreenPlay() {
 
         Platform.runLater(() -> Effects.getInstance().stopGlow());
-        Platform.runLater(() -> gameBackGroundVisibility(EASY));
+        Platform.runLater(() -> Visibilities.getInstance().gameBackGroundVisibility(EASY));
 
-        Effects.getInstance().gameZoomIn(
+        Platform.runLater(() -> Effects.getInstance().gameZoomIn(
                 background, 1000,
                 10, -145.5, 14.5,
-                EASY,this);
+                EASY,this));
+
     }
     @FXML
     public void mediumStartScreenPlay() {
 
         Platform.runLater(() -> Effects.getInstance().stopGlow());
-        Platform.runLater(() -> gameBackGroundVisibility(MEDIUM));
+        Platform.runLater(() -> Visibilities.getInstance().gameBackGroundVisibility(MEDIUM));
 
-        Effects.getInstance().gameZoomIn(
+        Platform.runLater(() ->         Effects.getInstance().gameZoomIn(
                 mediumBackground,
                 1001, 10, 117.2, -144.92,
-                MEDIUM,this);
+                MEDIUM,this));
+
     }
 
     @FXML
     public void hardStartScreenPlay() {
 
         Platform.runLater(() -> Effects.getInstance().stopGlow());
-        Platform.runLater(() -> gameBackGroundVisibility(HARD));
+        Platform.runLater(() -> Visibilities.getInstance().gameBackGroundVisibility(HARD));
 
-        Effects.getInstance().gameZoomIn(
+        Platform.runLater(() -> Effects.getInstance().gameZoomIn(
                 hardBackground, 1000.7,
                 10, 384, 14.5,
-                HARD,this);
+                HARD,this));
+
     }
 
     public void startChoose(ModeType type) {
@@ -400,41 +257,6 @@ public class Gui extends Application implements IGui{
 
 
     }
-
-    private void gameBackGroundVisibility(ModeType type) {
-
-        switch (type) {
-
-            case EASY -> {
-                background.setVisible(true);
-                background.setOpacity(1);
-                mediumBackground.setOpacity(0);
-                mediumSpread.setOpacity(0);
-                hardBackground.setOpacity(0);
-                hardSpread.setOpacity(0);
-            }
-            case MEDIUM -> {
-                mediumBackground.setVisible(true);
-                mediumSpread.setVisible(true);
-                mediumBackground.setOpacity(1);
-                mediumSpread.setOpacity(1);
-                background.setOpacity(0);
-                hardBackground.setOpacity(0);
-                hardSpread.setOpacity(0);
-            }
-            case HARD -> {
-                hardBackground.setVisible(true);
-                hardSpread.setVisible(true);
-                hardBackground.setOpacity(1);
-                hardSpread.setOpacity(1);
-                background.setOpacity(0);
-                mediumBackground.setOpacity(0);
-                mediumSpread.setOpacity(0);
-            }
-        }
-    }
-
-
 
     @FXML
     public void setStartEasyGame() {
@@ -635,17 +457,152 @@ public class Gui extends Application implements IGui{
         }
     }
 
-    @FXML
-    public void hover(ImageView imageView) {
-        Glow glow = new Glow();
-        glow.setLevel(0.2);
-        imageView.setEffect(glow);
+    private void panesAndMisc(){
+
+        startBlack = (AnchorPane) root.lookup("#startBlack");
+        menuAnkkuri = (AnchorPane) root.lookup("#menuAnkkuri");
+        weDidIt = (Label) root.lookup("#weDidIt");
+        groupFour = (Label) root.lookup("#groupFour");
+        gameModePane = (Pane) root.lookup("#gameModePane");
+        score = (Pane) root.lookup("#score");
+        easyGrid = (GridPane) root.lookup("#easyGrid");
+        mediumGrid = (GridPane) root.lookup("#mediumGrid");
+        hardGrid = (GridPane) root.lookup("#hardGrid");
+        logAndReg = (Pane) root.lookup("#logAndReg");
+
+        personalScores = new ListView<>();
+        startEasyGame = new Button();
+        startMediumGame = new Button();
+        startHardGame = new Button();
+        newGame = new Button();
+        returnMenu = new Button();
+
+    }
+    private void setIntroImages() {
+
+        sun = (ImageView) root.lookup("#sun");
+        sun.setImage(ImageCache.getInstance().getIntroCache().get(0));
+        lightning = (ImageView) root.lookup("#lightning");
+        lightning.setImage(ImageCache.getInstance().getIntroCache().get(1));
+        blacksun = (ImageView) root.lookup("#blacksun");
+        blacksun.setImage(ImageCache.getInstance().getIntroCache().get(2));
+    }
+
+    private void setMenuImages() {
+
+        pergament = (ImageView) root.lookup("#pergament");
+        pergament.setImage(ImageCache.getInstance().getMenuCache().get(0));
+        miniEasy = (ImageView) root.lookup("#miniEasy");
+        miniEasy.setImage(ImageCache.getInstance().getMenuCache().get(1));
+        miniMedium = (ImageView) root.lookup("#miniMedium");
+        miniMedium.setImage(ImageCache.getInstance().getMenuCache().get(2));
+        miniHard = (ImageView) root.lookup("#miniHard");
+        miniHard.setImage(ImageCache.getInstance().getMenuCache().get(3));
+        easyFrame = (ImageView) root.lookup("#easyFrame");
+        easyFrame.setImage(ImageCache.getInstance().getMenuCache().get(4));
+        mediumFrame = (ImageView) root.lookup("#mediumFrame");
+        mediumFrame.setImage(ImageCache.getInstance().getMenuCache().get(5));
+        hardFrame = (ImageView) root.lookup("#hardFrame");
+        hardFrame.setImage(ImageCache.getInstance().getMenuCache().get(6));
+        japan = (ImageView) root.lookup("#japan");
+        japan.setImage(ImageCache.getInstance().getMenuCache().get(7));
+        jungle = (ImageView) root.lookup("#jungle");
+        jungle.setImage(ImageCache.getInstance().getMenuCache().get(8));
+        redtree = (ImageView) root.lookup("#redtree");
+        redtree.setImage(ImageCache.getInstance().getMenuCache().get(9));
+
+        mt1 = (ImageView) root.lookup("#mt1");
+        mt1.setImage(ImageCache.getInstance().getMenuCache().get(10));
+        mt2 = (ImageView) root.lookup("#mt2");
+        mt2.setImage(ImageCache.getInstance().getMenuCache().get(11));
+        mt3 = (ImageView) root.lookup("#mt3");
+        mt3.setImage(ImageCache.getInstance().getMenuCache().get(12));
+        mt4 = (ImageView) root.lookup("#mt4");
+        mt4.setImage(ImageCache.getInstance().getMenuCache().get(13));
+        mt5 = (ImageView) root.lookup("#mt5");
+        mt5.setImage(ImageCache.getInstance().getMenuCache().get(14));
+        mt6 = (ImageView) root.lookup("#mt6");
+        mt6.setImage(ImageCache.getInstance().getMenuCache().get(15));
+        mt7 = (ImageView) root.lookup("#mt7");
+        mt7.setImage(ImageCache.getInstance().getMenuCache().get(16));
+        mt8 = (ImageView) root.lookup("#mt8");
+        mt8.setImage(ImageCache.getInstance().getMenuCache().get(17));
+        mt9 = (ImageView) root.lookup("#mt9");
+        mt9.setImage(ImageCache.getInstance().getMenuCache().get(18));
+        mt10 = (ImageView) root.lookup("#mt10");
+        mt10.setImage(ImageCache.getInstance().getMenuCache().get(19));
+        mt11 = (ImageView) root.lookup("#mt11");
+        mt11.setImage(ImageCache.getInstance().getMenuCache().get(20));
+        mt12 = (ImageView) root.lookup("#mt12");
+        mt12.setImage(ImageCache.getInstance().getMenuCache().get(21));
+        mt13 = (ImageView) root.lookup("#mt13");
+        mt13.setImage(ImageCache.getInstance().getMenuCache().get(22));
+
+        mtLista.add(mt1);
+        mtLista.add(mt2);
+        mtLista.add(mt3);
+        mtLista.add(mt4);
+        mtLista.add(mt5);
+        mtLista.add(mt6);
+        mtLista.add(mt7);
+        mtLista.add(mt8);
+        mtLista.add(mt9);
+        mtLista.add(mt10);
+        mtLista.add(mt11);
+        mtLista.add(mt12);
+        mtLista.add(mt13);
 
     }
 
-    @FXML
-    public void unhover(ImageView image) {
-        image.setEffect(null);
+    private void setGameImages() {
+
+        background = (ImageView) root.lookup("#background");
+        background.setImage(ImageCache.getInstance().getGameBackGroundCache().get(0));
+        mediumBackground = (ImageView) root.lookup("#mediumBackground");
+        mediumSpread = (ImageView) root.lookup("#mediumSpread");
+        mediumBackground.setImage(ImageCache.getInstance().getGameBackGroundCache().get(1));
+        mediumSpread.setImage(ImageCache.getInstance().getGameBackGroundCache().get(1));
+        hardBackground = (ImageView) root.lookup("#hardBackground");
+        hardSpread = (ImageView) root.lookup("#hardSpread");
+        hardBackground.setImage(ImageCache.getInstance().getGameBackGroundCache().get(2));
+        hardSpread.setImage(ImageCache.getInstance().getGameBackGroundCache().get(2));
+
+    }
+
+    private void introOn(Boolean introStatus) {
+
+        if(introStatus) {
+
+            Platform.runLater(() -> Effects.getInstance().bringGameUp(
+                    weDidIt, groupFour, logAndReg,
+                    sun, lightning, blacksun,
+                    easyFrame,mediumFrame, hardFrame));
+
+        }else{
+
+            startBlack.setVisible(false);
+            gameModePane.setOpacity(1);
+            logAndReg.setVisible(true);
+            logAndReg.setOpacity(1);
+            miniEasy.setOpacity(1);
+            miniMedium.setOpacity(1);
+            miniHard.setOpacity(1);
+            easyFrame.setOpacity(1);
+            mediumFrame.setOpacity(1);
+            hardFrame.setOpacity(1);
+            japan.setOpacity(0.26);
+            jungle.setOpacity(0.2);
+            redtree.setOpacity(0.35);
+        }
+    }
+
+    private void scoresOn(Boolean on) {
+
+        Node worldScoresNode = root.lookup("#worldScores");
+        if (worldScoresNode instanceof ListView<?>) {
+            worldScores = (ListView<String>) worldScoresNode;
+        }
+        if (on) {fetchAllScores();}
     }
 
 
