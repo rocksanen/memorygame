@@ -47,7 +47,8 @@ public class EasyCubeFactory implements ICubeFactory {
                                 behindImage,
                                 gui,i).getBox());
                 group.setCursor(Cursor.HAND);
-                gridPane.add(group, i % 2, i / 2);
+                int finalI1 = i;
+                Platform.runLater(() -> gridPane.add(group, finalI1 % 2, finalI1 / 2));
                 GridPane.setHalignment(group, HPos.CENTER);
                 GridPane.setValignment(group, VPos.CENTER);
                 int finalI = i;

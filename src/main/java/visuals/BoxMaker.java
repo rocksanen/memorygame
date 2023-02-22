@@ -10,21 +10,17 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
-import javafx.scene.PointLight;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
+import javafx.scene.shape.CullFace;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
-
-import java.io.FileNotFoundException;
 
 public class BoxMaker {
     private Box backFace, topFace, rightFace, leftFace, frontFace, bottomFace;
     private PhongMaterial material1,material2,material3,material4,material5,material6;
     private Group boxGroup;
-    private PointLight light;
     private final double width;
     private final double height;
     private final int id;
@@ -42,7 +38,6 @@ public class BoxMaker {
         this.height = height;
         createMaterials(findImage,backImage,behindImage);
         createFaces();
-        createLight();
         createGroup();
         gui.addToCubeList(this);
     }
@@ -69,6 +64,7 @@ public class BoxMaker {
         rightFace.setTranslateZ(width/2);
         rightFace.setRotationAxis(Rotate.Y_AXIS);
         rightFace.setRotate(90);
+        rightFace.setCullFace(CullFace.BACK);
 
         leftFace = new Box(width, height, 0);
         leftFace.setMaterial(material5);
@@ -76,17 +72,21 @@ public class BoxMaker {
         leftFace.setTranslateZ(width/2);
         leftFace.setRotationAxis(Rotate.Y_AXIS);
         leftFace.setRotate(90);
+        leftFace.setCullFace(CullFace.BACK);
+
 
         backFace = new Box(width, height, 0);
         backFace.setMaterial(material1);
         backFace.setTranslateZ(width);
         backFace.setRotationAxis(Rotate.Z_AXIS);
+        backFace.setCullFace(CullFace.BACK);
 
         frontFace = new Box(width, height, 0);
         frontFace.setMaterial(material2);
         frontFace.setTranslateZ(0);
         frontFace.setTranslateY(0);
         frontFace.setRotationAxis(Rotate.Z_AXIS);
+        frontFace.setCullFace(CullFace.BACK);
 
         topFace = new Box(width, height, 0);
         topFace.setMaterial(material3);
@@ -95,6 +95,7 @@ public class BoxMaker {
         topFace.setTranslateZ(width/2);
         topFace.setRotationAxis(Rotate.X_AXIS);
         topFace.setRotate(-90);
+        topFace.setCullFace(CullFace.BACK);
 
         bottomFace = new Box(width, height, 0);
         bottomFace.setMaterial(material6);
@@ -103,14 +104,13 @@ public class BoxMaker {
         bottomFace.setTranslateZ(width/2);
         bottomFace.setRotate(-90);
         bottomFace.setRotationAxis(Rotate.X_AXIS);
+        bottomFace.setCullFace(CullFace.BACK);
 
     }
 
 
     private void createGroup() {
-
         boxGroup = new Group();
-        Gui.camera.setFieldOfView(1);
         boxGroup.getChildren().addAll(backFace,bottomFace,topFace,frontFace,rightFace,leftFace);
         boxGroup.setOnMouseClicked(mouseEvent -> rotateBox());
     }
@@ -120,16 +120,7 @@ public class BoxMaker {
         sendId();
     }
     private void sendId() {gui.sendIdToEngine(this.id);}
-    private void createLight() {
-
-        light = new PointLight();
-        light.setTranslateX(0);
-        light.setTranslateY(0);
-        light.setTranslateZ(20);
-        light.setColor(Color.WHITE);
-    }
-
-    public void resetImage() {rotateDown(boxGroup);}
+    public void resetImage() {Platform.runLater(() -> rotateDown(boxGroup));}
     public Group getBox() {return boxGroup;}
 
     private final Timeline timelineUp = new Timeline(

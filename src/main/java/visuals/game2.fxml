@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.BoxBlur?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.effect.Reflection?>
-<?import javafx.scene.effect.SepiaTone?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -19,9 +20,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1250.0" style="-fx-background-color: beige;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.Gui">
+<AnchorPane prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.Gui">
     <children>
-        <ImageView id="hardSpread" fx:id="hardSpread" fitHeight="780.0" fitWidth="1400.0">
+        <ImageView id="hardSpread" fx:id="hardSpread" fitHeight="780.0" fitWidth="1400.0" opacity="0.0">
             <image>
                 <Image url="@images/hardback4.jpg" />
             </image>
@@ -29,12 +30,12 @@
                 <GaussianBlur radius="10.59" />
             </effect>
         </ImageView>
-        <ImageView id="hardBackground" fx:id="hardBackground" fitHeight="744.0" fitWidth="1246.0" layoutX="-1.2" layoutY="3.7">
+        <ImageView id="hardBackground" fx:id="hardBackground" fitHeight="744.0" fitWidth="1246.0" layoutX="-1.2" layoutY="3.7" opacity="0.0">
             <image>
                 <Image url="@images/hardback4.jpg" />
             </image>
         </ImageView>
-        <ImageView id="mediumSpread" fx:id="mediumSpread" fitHeight="780.0" fitWidth="1400.0">
+        <ImageView id="mediumSpread" fx:id="mediumSpread" fitHeight="780.0" fitWidth="1400.0" opacity="0.0">
             <image>
                 <Image url="@images/tigru.jpg" />
             </image>
@@ -42,25 +43,17 @@
                 <GaussianBlur radius="10.59" />
             </effect>
         </ImageView>
-        <ImageView id="mediumBackground" fx:id="mediumBackground" fitHeight="744.5" fitWidth="1247.0" layoutX="-9.0" layoutY="2.5">
+        <ImageView id="mediumBackground" fx:id="mediumBackground" fitHeight="744.5" fitWidth="1247.0" layoutX="-3.0" layoutY="5.5" opacity="0.0">
             <image>
                 <Image url="@images/tigru.jpg" />
             </image>
         </ImageView>
-        <ImageView id="background" fx:id="background" fitHeight="741.0" fitWidth="1242.0" layoutX="4.0" layoutY="4.9">
+        <ImageView id="background" fx:id="background" fitHeight="741.0" fitWidth="1242.0" layoutX="4.0" layoutY="4.9" opacity="0.0">
             <image>
                 <Image url="@images/background.png" />
             </image>
         </ImageView>
-        <ImageView id="board" fitHeight="600.0" fitWidth="697.0" layoutX="289.0" layoutY="75.0" opacity="0.79" visible="false">
-            <image>
-                <Image url="@images/frame1.png" />
-            </image>
-            <effect>
-                <SepiaTone level="0.0" />
-            </effect>
-        </ImageView>
-        <GridPane id="mediumGrid" fx:id="mediumGrid" alignment="CENTER" layoutX="338.0" layoutY="113.0" prefHeight="517.0" prefWidth="599.0">
+        <GridPane id="mediumGrid" fx:id="mediumGrid" alignment="CENTER" layoutX="338.0" layoutY="113.0" mouseTransparent="true" opacity="0.0" prefHeight="517.0" prefWidth="599.0" visible="false">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -71,7 +64,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
         </GridPane>
-        <GridPane id="easyGrid" fx:id="easyGrid" alignment="CENTER" layoutX="342.0" layoutY="100.0" prefHeight="550.0" prefWidth="580.0">
+        <GridPane id="easyGrid" fx:id="easyGrid" alignment="CENTER" layoutX="342.0" layoutY="100.0" mouseTransparent="true" opacity="0.0" prefHeight="550.0" prefWidth="580.0" visible="false">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -82,7 +75,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
         </GridPane>
-        <GridPane id="hardGrid" fx:id="hardGrid" alignment="CENTER" layoutX="338.0" layoutY="115.0" maxHeight="620.0" maxWidth="580.0" prefHeight="620.0" prefWidth="580.0">
+        <GridPane id="hardGrid" fx:id="hardGrid" alignment="CENTER" layoutX="338.0" layoutY="115.0" maxHeight="620.0" maxWidth="580.0" mouseTransparent="true" opacity="0.0" prefHeight="620.0" prefWidth="580.0" visible="false">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -107,9 +100,9 @@
                 </Button>
             </children>
         </VBox>
-        <AnchorPane id="startAnchor" fx:id="startAnchor" prefHeight="750.0" prefWidth="1250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane id="menuAnkkuri" fx:id="menuAnkkuri" prefHeight="750.0" prefWidth="1250.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                  <ImageView id="pergament" fx:id="pergament" fitHeight="754.0" fitWidth="1257.0">
+                  <ImageView id="pergament" fx:id="pergament" fitHeight="754.0" fitWidth="1279.0">
                       <image>
                           <Image url="@images/pergaBack.jpg" />
                       </image>
@@ -117,7 +110,7 @@
                   <GaussianBlur radius="1.76" />
                       </effect>
                   </ImageView>
-            <ImageView id="blacksun" fx:id="blacksun" fitHeight="321.0" fitWidth="365.0" layoutX="465.0" layoutY="51.0">
+            <ImageView id="blacksun" fx:id="blacksun" fitHeight="321.0" fitWidth="365.0" layoutX="465.0" layoutY="51.0" opacity="0.0">
                <image>
                   <Image url="@images/blacksun1.png" />
                </image>
@@ -141,52 +134,52 @@
                               <Image url="@images/mt3.png" />
                            </image>
                         </ImageView>
-                        <ImageView id="mt4" fx:id="mt4" fitHeight="50.0" fitWidth="30.0" layoutX="212.0" layoutY="378.0" opacity="0.0" rotate="-8.0">
+                        <ImageView id="mt4" fx:id="mt4" fitHeight="50.0" fitWidth="30.0" layoutX="305.0" layoutY="323.0" opacity="0.0" rotate="-84.0">
                            <image>
                               <Image url="@images/mt4.png" />
                            </image>
                         </ImageView>
-                        <ImageView id="mt5" fx:id="mt5" fitHeight="37.0" fitWidth="45.0" layoutX="240.0" layoutY="420.0" opacity="0.0" rotate="-12.0">
+                        <ImageView id="mt5" fx:id="mt5" fitHeight="37.0" fitWidth="45.0" layoutX="338.0" layoutY="313.0" opacity="0.0" rotate="-75.7">
                            <image>
                               <Image url="@images/mt5.png" />
                            </image>
                         </ImageView>
-                        <ImageView id="mt6" fx:id="mt6" fitHeight="25.0" fitWidth="50.0" layoutX="296.0" layoutY="440.0" opacity="0.0" rotate="-3.0">
+                        <ImageView id="mt6" fx:id="mt6" fitHeight="25.0" fitWidth="50.0" layoutX="370.0" layoutY="290.0" opacity="0.0" rotate="143.9">
                            <image>
                               <Image url="@images/mt6.png" />
                            </image>
                         </ImageView>
-                        <ImageView id="mt7" fx:id="mt7" fitHeight="31.0" fitWidth="42.0" layoutX="358.0" layoutY="416.0" opacity="0.0">
+                        <ImageView id="mt7" fx:id="mt7" fitHeight="31.0" fitWidth="42.0" layoutX="415.0" layoutY="260.0" opacity="0.0" rotate="-5.0">
                            <image>
                               <Image url="@images/mt7.png" />
                            </image>
                         </ImageView>
-                        <ImageView id="mt8" fx:id="mt8" fitHeight="30.0" fitWidth="25.0" layoutX="401.0" layoutY="384.0" opacity="0.0" rotate="12.0">
+                        <ImageView id="mt8" fx:id="mt8" fitHeight="38.0" fitWidth="25.0" layoutX="450.0" layoutY="225.0" opacity="0.0" rotate="12.0">
                            <image>
                               <Image url="@images/mt8.png" />
                            </image>
                         </ImageView>
-                        <ImageView id="mt9" fx:id="mt9" fitHeight="37.0" fitWidth="36.0" layoutX="450.0" layoutY="217.0" opacity="0.0" rotate="-12.0">
+                        <ImageView id="mt9" fx:id="mt9" fitHeight="37.0" fitWidth="36.0" layoutX="565.0" layoutY="105.0" opacity="0.0" rotate="51.7">
                            <image>
                               <Image url="@images/mt9.png" />
                            </image>
                         </ImageView>
-                        <ImageView id="mt10" fx:id="mt10" fitHeight="27.0" fitWidth="45.0" layoutX="484.0" layoutY="182.0" opacity="0.0" rotate="-15.0">
+                        <ImageView id="mt10" fx:id="mt10" fitHeight="27.0" fitWidth="45.0" layoutX="607.0" layoutY="115.0" opacity="0.0" rotate="31.0">
                            <image>
                               <Image url="@images/mt10.png" />
                            </image>
                         </ImageView>
-                        <ImageView id="mt11" fx:id="mt11" fitHeight="19.0" fitWidth="45.0" layoutX="549.0" layoutY="170.0" opacity="0.0" rotate="3.0">
+                        <ImageView id="mt11" fx:id="mt11" fitHeight="19.0" fitWidth="45.0" layoutX="655.0" layoutY="142.0" opacity="0.0" rotate="39.7">
                            <image>
                               <Image url="@images/mt13.png" />
                            </image>
                         </ImageView>
-                        <ImageView id="mt12" fx:id="mt12" fitHeight="25.0" fitWidth="48.0" layoutX="615.0" layoutY="179.0" opacity="0.0" rotate="10.0">
+                        <ImageView id="mt12" fx:id="mt12" fitHeight="25.0" fitWidth="48.0" layoutX="690.0" layoutY="179.0" opacity="0.0" rotate="45.0">
                            <image>
                               <Image url="@images/mt11.png" />
                            </image>
                         </ImageView>
-                        <ImageView id="mt13" fx:id="mt13" fitHeight="45.0" fitWidth="28.0" layoutX="666.0" layoutY="204.0" opacity="0.0" rotate="-4.0">
+                        <ImageView id="mt13" fx:id="mt13" fitHeight="45.0" fitWidth="28.0" layoutX="715.0" layoutY="212.0" opacity="0.0" rotate="20.0">
                            <image>
                               <Image url="@images/mt12.png" />
                            </image>
@@ -196,37 +189,76 @@
                         <BoxBlur />
                      </effect>
                   </Pane>
+                  <ImageView id="jungle" fx:id="jungle" fitHeight="544.0" fitWidth="769.0" layoutX="-83.0" layoutY="33.0" opacity="0.0">
+                     <image>
+                        <Image url="@images/jungle.png" />
+                     </image>
+                     <effect>
+                        <ColorAdjust saturation="0.88" />
+                     </effect>
+                  </ImageView>
+                  <ImageView id="japan" fx:id="japan" fitHeight="344.0" fitWidth="366.0" layoutX="21.0" layoutY="277.0" opacity="0.0">
+                     <image>
+                        <Image url="@images/cherry.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView id="redtree" fx:id="redtree" fitHeight="368.0" fitWidth="516.0" layoutX="504.0" layoutY="312.0" opacity="0.0">
+                     <image>
+                        <Image url="@images/redtree.png" />
+                     </image>
+                     <effect>
+                        <ColorAdjust hue="-0.26" />
+                     </effect>
+                  </ImageView>
                         <ImageView id="miniEasy" fx:id="miniEasy" fitHeight="118.0" fitWidth="198.0" layoutX="101.0" layoutY="259.0" onMouseClicked="#easyStartScreenPlay" opacity="0.0">
                             <image>
                                 <Image url="@images/background.png" />
                             </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                         </ImageView>
-                        <ImageView id="miniMedium" fx:id="miniMedium" fitHeight="118.0" fitWidth="198.0" layoutX="362.0" layoutY="259.0" onMouseClicked="#mediumStartScreenPlay" opacity="0.0">
+                        <ImageView id="miniMedium" fx:id="miniMedium" fitHeight="118.0" fitWidth="198.0" layoutX="363.0" layoutY="100.0" onMouseClicked="#mediumStartScreenPlay" opacity="0.0">
                             <image>
                                 <Image url="@images/tigru.jpg" />
                             </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                         </ImageView>
-                        <ImageView id="miniHard" fx:id="miniHard" fitHeight="118.0" fitWidth="198.0" layoutX="626.0" layoutY="259.0" onMouseClicked="#hardStartScreenPlay" opacity="0.0">
+                        <ImageView id="miniHard" fx:id="miniHard" fitHeight="118.0" fitWidth="198.0" layoutX="630.0" layoutY="259.0" onMouseClicked="#hardStartScreenPlay" opacity="0.0">
                             <image>
                                 <Image url="@images/hardback4.jpg" />
                             </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                         </ImageView>
-                        <ImageView id="easyFrame" fitHeight="120.4" fitWidth="200.0" layoutX="100.0" layoutY="257.8">
+                        <ImageView id="easyFrame" fx:id="easyFrame" fitHeight="120.4" fitWidth="200.0" layoutX="100.0" layoutY="257.8" opacity="0.0">
                             <image>
                                 <Image url="@images/frame3.png" />
                             </image>
+                     <effect>
+                        <ColorAdjust hue="-0.08" saturation="0.52" />
+                     </effect>
                         </ImageView>
-                        <ImageView id="mediumFrame" fitHeight="120.4" fitWidth="200.0" layoutX="362.5" layoutY="257.8">
+                        <ImageView id="mediumFrame" fx:id="mediumFrame" fitHeight="120.4" fitWidth="199.3" layoutX="363.0" layoutY="98.8" opacity="0.0">
                             <image>
                                 <Image url="@images/frame3.png" />
                             </image>
+                     <effect>
+                        <ColorAdjust hue="-0.08" saturation="0.52" />
+                     </effect>
                         </ImageView>
-                        <ImageView id="hardFrame" fitHeight="120.4" fitWidth="200.0" layoutX="625.0" layoutY="257.8">
+                        <ImageView id="hardFrame" fx:id="hardFrame" fitHeight="120.4" fitWidth="200.0" layoutX="629.0" layoutY="257.8" opacity="0.0">
                             <image>
                                 <Image url="@images/frame3.png" />
                             </image>
+                     <effect>
+                        <ColorAdjust hue="-0.08" saturation="0.52" />
+                     </effect>
                         </ImageView>
-                  <ImageView fitHeight="110.0" fitWidth="102.0" layoutX="15.0" layoutY="115.0">
+                  <ImageView id="compass" fitHeight="110.0" fitWidth="102.0" layoutX="15.0" layoutY="115.0" mouseTransparent="true">
                      <image>
                         <Image url="@images/compass.png" />
                      </image>
@@ -235,12 +267,15 @@
                 </Pane>
             </children>
         </AnchorPane>
-        <ImageView id="allBorder" fitHeight="754.0" fitWidth="1254.0" layoutX="-2.0" layoutY="-2.0">
+        <ImageView id="allBorder" fitHeight="754.0" fitWidth="1254.0" layoutX="-2.0" layoutY="-2.0" mouseTransparent="true">
             <image>
                 <Image url="@images/frame3.png" />
             </image>
+         <effect>
+            <ColorAdjust hue="-0.08" saturation="0.52" />
+         </effect>
         </ImageView>
-      <Pane id="logAndScore" fx:id="logAndScore" opacity="0.0" prefHeight="755.0" prefWidth="256.0" AnchorPane.leftAnchor="10.0">
+      <Pane id="score" fx:id="score" prefHeight="755.0" prefWidth="256.0" visible="false" AnchorPane.leftAnchor="10.0">
          <children>
               <VBox layoutY="9.0" prefHeight="741.0" prefWidth="234.0">
                   <children>
@@ -262,30 +297,38 @@
                       <ListView fx:id="personalScores" prefHeight="280.0" prefWidth="310.0" />
                   </children>
               </VBox>
-              <Pane fx:id="signOrReg" layoutY="400.0" prefHeight="343.0" prefWidth="234.0">
-                  <children>
-                      <ImageView fitHeight="294.0" fitWidth="234.0" layoutY="10.0">
-                          <image>
-                              <Image url="@images/reglog.jpg" />
-                          </image>
-                          <effect>
-                              <GaussianBlur radius="0.0" />
-                          </effect>
-                      </ImageView>
-                      <Label alignment="CENTER" layoutX="50.0" layoutY="50.0" prefHeight="30.0" prefWidth="120.0" text="User name:" textFill="#fcfcfc" />
-                      <TextField fx:id="name" layoutX="36.0" layoutY="80.0" prefHeight="25.0" prefWidth="158.0" />
-                      <Label alignment="CENTER" layoutX="50.0" layoutY="142.0" prefHeight="30.0" prefWidth="120.0" text="Password:" textFill="WHITE" />
-                      <TextField fx:id="password" layoutX="36.0" layoutY="172.0" prefHeight="25.0" prefWidth="158.0" />
-                      <Button fx:id="register" layoutX="22.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#registerPane" prefHeight="36.0" prefWidth="77.0" text="Register" />
-                      <Button fx:id="login" layoutX="132.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#loginPane" prefHeight="36.0" prefWidth="77.0" text="Login" />
-                  </children>
-              </Pane>
          </children>
          <padding>
             <Insets left="10.0" />
          </padding>
       </Pane>
-      <AnchorPane fx:id="startBlack" prefHeight="780.0" prefWidth="1250.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane id="logAndReg" fx:id="logAndReg" layoutX="20.0" layoutY="340.0" opacity="0.0" prefHeight="377.0" prefWidth="262.0">
+         <children>
+                <ImageView fitHeight="409.0" fitWidth="372.0" layoutX="-48.0">
+                    <image>
+                        <Image url="@images/log4.png" />
+                    </image>
+                    <effect>
+                        <GaussianBlur radius="0.0" />
+                    </effect>
+                </ImageView>
+                <Label alignment="CENTER" layoutX="47.0" layoutY="61.0" prefHeight="43.0" prefWidth="169.0" text="Username:">
+               <font>
+                  <Font name="Blackadder ITC" size="34.0" />
+               </font>
+            </Label>
+                <TextField fx:id="name" layoutX="52.0" layoutY="120.0" opacity="0.6" prefHeight="25.0" prefWidth="158.0" />
+                <Label alignment="CENTER" layoutX="47.0" layoutY="149.0" prefHeight="43.0" prefWidth="169.0" text="Password:">
+               <font>
+                  <Font name="Blackadder ITC" size="34.0" />
+               </font>
+            </Label>
+                <TextField fx:id="password" layoutX="52.0" layoutY="207.0" opacity="0.6" prefHeight="25.0" prefWidth="158.0" />
+                <Button fx:id="register" layoutX="54.0" layoutY="274.0" mnemonicParsing="false" onMouseClicked="#registerPane" prefHeight="36.0" prefWidth="70.0" text="Register" />
+                <Button fx:id="login" layoutX="138.0" layoutY="274.0" mnemonicParsing="false" onMouseClicked="#loginPane" prefHeight="36.0" prefWidth="70.0" text="Login" />
+         </children>
+      </Pane>
+      <AnchorPane id="startBlack" fx:id="startBlack" prefHeight="780.0" prefWidth="1250.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView id="lightning" fx:id="lightning" fitHeight="457.0" fitWidth="402.0" layoutX="16.0" layoutY="-79.0" opacity="0.0" rotate="-12.0">
                <image>

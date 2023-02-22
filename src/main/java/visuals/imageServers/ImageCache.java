@@ -15,6 +15,9 @@ public class ImageCache {
     private final ArrayList<Image> easyCompImages = new ArrayList<>();
     private final ArrayList<Image> mediumCompImages = new ArrayList<>();
     private final ArrayList<Image> hardCompImages = new ArrayList<>();
+    private final ArrayList<Image> gameBackGroundImages = new ArrayList<>();
+    private final ArrayList<Image> introImages = new ArrayList<>();
+    private final ArrayList<Image> menuImages = new ArrayList<>();
     private ImageCache(){};
 
     public static ImageCache getInstance() {
@@ -106,6 +109,98 @@ public class ImageCache {
 
         hardCompImages.add(hardBack);
         hardCompImages.add(hardBehind);
+
+    }
+
+    public void addToGameBackGroundCache() throws FileNotFoundException {
+
+        Image easyBack = new Image(new FileInputStream("src/main/java/visuals/images/background.png"));
+        Image mediumBack = new Image(new FileInputStream("src/main/java/visuals/images/tigru.jpg"));
+        Image hardBack = new Image(new FileInputStream("src/main/java/visuals/images/hardback4.jpg"));
+
+        gameBackGroundImages.add(easyBack);
+        gameBackGroundImages.add(mediumBack);
+        gameBackGroundImages.add(hardBack);
+    }
+
+
+    public void addToIntroCache() throws FileNotFoundException {
+
+        Image sun = new Image(new FileInputStream("src/main/java/visuals/images/sunRay.png"));
+        Image lightning = new Image(new FileInputStream("src/main/java/visuals/images/lightning.png"));
+        Image blackSun = new Image(new FileInputStream("src/main/java/visuals/images/blacksun1.png"));
+
+        introImages.add(sun);
+        introImages.add(lightning);
+        introImages.add(blackSun);
+
+    }
+
+    public void addToMenuCache() throws FileNotFoundException {
+
+        Image pergament = new Image(new FileInputStream("src/main/java/visuals/images/pergaBack.jpg"));
+        Image miniEasy = new Image(new FileInputStream("src/main/java/visuals/images/background.png"));
+        Image miniMedium = new Image(new FileInputStream("src/main/java/visuals/images/tigru.jpg"));
+        Image miniHard = new Image(new FileInputStream("src/main/java/visuals/images/hardback4.jpg"));
+        Image easyFrame = new Image(new FileInputStream("src/main/java/visuals/images/frame3.png"));
+        Image mediumFrame = new Image(new FileInputStream("src/main/java/visuals/images/frame3.png"));
+        Image hardFrame = new Image(new FileInputStream("src/main/java/visuals/images/frame3.png"));
+        Image japan = new Image(new FileInputStream("src/main/java/visuals/images/cherry.png"));
+        Image jungle = new Image(new FileInputStream("src/main/java/visuals/images/jungle.png"));
+        Image redtree = new Image(new FileInputStream("src/main/java/visuals/images/redtree.png"));
+        Image mt1 = new Image(new FileInputStream("src/main/java/visuals/images/mt1.png"));
+        Image mt2 = new Image(new FileInputStream("src/main/java/visuals/images/mt2.png"));
+        Image mt3 = new Image(new FileInputStream("src/main/java/visuals/images/mt3.png"));
+        Image mt4 = new Image(new FileInputStream("src/main/java/visuals/images/mt4.png"));
+        Image mt5 = new Image(new FileInputStream("src/main/java/visuals/images/mt5.png"));
+        Image mt6 = new Image(new FileInputStream("src/main/java/visuals/images/mt6.png"));
+        Image mt7 = new Image(new FileInputStream("src/main/java/visuals/images/mt7.png"));
+        Image mt8 = new Image(new FileInputStream("src/main/java/visuals/images/mt8.png"));
+        Image mt9 = new Image(new FileInputStream("src/main/java/visuals/images/mt9.png"));
+        Image mt10 = new Image(new FileInputStream("src/main/java/visuals/images/mt10.png"));
+        Image mt11 = new Image(new FileInputStream("src/main/java/visuals/images/mt13.png"));
+        Image mt12 = new Image(new FileInputStream("src/main/java/visuals/images/mt11.png"));
+        Image mt13 = new Image(new FileInputStream("src/main/java/visuals/images/mt12.png"));
+
+        menuImages.add(pergament);
+        menuImages.add(miniEasy);
+        menuImages.add(miniMedium);
+        menuImages.add(miniHard);
+        menuImages.add(easyFrame);
+        menuImages.add(mediumFrame);
+        menuImages.add(hardFrame);
+        menuImages.add(japan);
+        menuImages.add(jungle);
+        menuImages.add(redtree);
+        menuImages.add(mt1);
+        menuImages.add(mt2);
+        menuImages.add(mt3);
+        menuImages.add(mt4);
+        menuImages.add(mt5);
+        menuImages.add(mt6);
+        menuImages.add(mt7);
+        menuImages.add(mt8);
+        menuImages.add(mt9);
+        menuImages.add(mt10);
+        menuImages.add(mt11);
+        menuImages.add(mt12);
+        menuImages.add(mt13);
+
+    }
+
+    public ArrayList<Image> getMenuCache() {
+
+        return menuImages;
+    }
+
+    public ArrayList<Image> getIntroCache() {
+
+        return introImages;
+    }
+
+    public ArrayList<Image> getGameBackGroundCache() {
+
+        return gameBackGroundImages;
 
     }
 
