@@ -6,8 +6,10 @@ import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
+import javafx.scene.PointLight;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import model.MemoryObject;
 import visuals.BoxMaker;
@@ -51,7 +53,8 @@ public class MediumCubeFactory implements ICubeFactory {
                                 gui,i).getBox());
 
                 group.setCursor(Cursor.HAND);
-                gridPane.add(group, i % 4, i / 4);
+                int finalI1 = i;
+                Platform.runLater(() -> gridPane.add(group, finalI1 % 4, finalI1 / 4));
                 GridPane.setHalignment(group, HPos.CENTER);
                 GridPane.setValignment(group, VPos.CENTER);
 
