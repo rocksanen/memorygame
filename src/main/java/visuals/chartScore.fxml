@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<?import javafx.scene.control.Label?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.ChartGUI">
+
+    <LineChart fx:id="lineChart" layoutX="28.0" layoutY="47.0" prefHeight="310.0" prefWidth="545.0">
+        <xAxis>
+            <NumberAxis label="Time (seconds)">
+                <tickLabelFont>
+                    <Font size="14.0" />
+                </tickLabelFont>
+            </NumberAxis>
+        </xAxis>
+        <yAxis>
+            <NumberAxis label="Score">
+                <tickLabelFont>
+                    <Font size="14.0" />
+                </tickLabelFont>
+            </NumberAxis>
+        </yAxis>
+    </LineChart>
+
+    <Label layoutX="28.0" layoutY="14.0" text="Stats">
+        <font>
+            <Font size="20.0" />
+        </font>
+    </Label>
+
+</AnchorPane>

@@ -17,13 +17,15 @@ public class MainApp extends Application {
         ImageCache.getInstance().addToMediumCache();
         ImageCache.getInstance().addToHardCache();
         ImageCache.getInstance().addToGameBackGroundCache();
-        visuals.Gui.main(args);
+       // visuals.Gui.main(args);
+        visuals.ChartGUI.main(args);
     }
 
     @Override
     public void start(Stage arg0) throws IOException {
-
-        IGui gui = new Gui();
-        gui.start(arg0);
+        IChartGUI chart = new ChartGUI();
+        chart.start(arg0);
+       // IGui gui = new Gui();
+        //gui.start(arg0);
     }
 }
