@@ -216,6 +216,7 @@ public class Gui extends Application implements IGui{
 
         Platform.runLater(() -> Effects.getInstance().stopGlow());
         Platform.runLater(() -> Visibilities.getInstance().gameBackGroundVisibility(EASY));
+        Platform.runLater(() -> logAndReg.setVisible(false));
 
         Platform.runLater(() -> Effects.getInstance().gameZoomIn(
                 background, 1000,
@@ -228,6 +229,7 @@ public class Gui extends Application implements IGui{
 
         Platform.runLater(() -> Effects.getInstance().stopGlow());
         Platform.runLater(() -> Visibilities.getInstance().gameBackGroundVisibility(MEDIUM));
+        Platform.runLater(() -> logAndReg.setVisible(false));
 
         Platform.runLater(() ->         Effects.getInstance().gameZoomIn(
                 mediumBackground,
@@ -241,6 +243,7 @@ public class Gui extends Application implements IGui{
 
         Platform.runLater(() -> Effects.getInstance().stopGlow());
         Platform.runLater(() -> Visibilities.getInstance().gameBackGroundVisibility(HARD));
+        Platform.runLater(() -> logAndReg.setVisible(false));
 
         Platform.runLater(() -> Effects.getInstance().gameZoomIn(
                 hardBackground, 1000.7,
@@ -257,7 +260,7 @@ public class Gui extends Application implements IGui{
             case MEDIUM -> setStartMediumGame();
             case HARD -> setStartHardGame();
         }
-
+        Platform.runLater(() -> Visibilities.getInstance().toGame());
 
     }
 
@@ -265,12 +268,10 @@ public class Gui extends Application implements IGui{
     public void setStartEasyGame() {
 
         Platform.runLater(() -> Visibilities.getInstance().inGameGrid(easyGrid));
-
         if (cubeList != null) {cubeList.clear();}
-        Platform.runLater(() -> Visibilities.getInstance().toGame());
         cubeList = new ArrayList<>();
-        easyCubeFactory = new EasyCubeFactory(this);
         easyGrid.getChildren().clear();
+        easyCubeFactory = new EasyCubeFactory(this);
         controller.startEasyGame();
     }
 
@@ -278,12 +279,10 @@ public class Gui extends Application implements IGui{
     public void setStartMediumGame() {
 
         Platform.runLater(() -> Visibilities.getInstance().inGameGrid(mediumGrid));
-
         if (cubeList != null) {cubeList.clear();}
-        Platform.runLater(() -> Visibilities.getInstance().toGame());
         cubeList = new ArrayList<>();
-        mediumCubeFactory = new MediumCubeFactory(this);
         mediumGrid.getChildren().clear();
+        mediumCubeFactory = new MediumCubeFactory(this);
         controller.startMediumGame();
     }
 
@@ -291,12 +290,10 @@ public class Gui extends Application implements IGui{
     public void setStartHardGame() {
 
         Platform.runLater(() -> Visibilities.getInstance().inGameGrid(hardGrid));
-
         if (cubeList != null) {cubeList.clear();}
-        Platform.runLater(() -> Visibilities.getInstance().toGame());
         cubeList = new ArrayList<>();
-        hardCubeFactory = new HardCubeFactory(this);
         hardGrid.getChildren().clear();
+        hardCubeFactory = new HardCubeFactory(this);
         controller.startHardGame();
     }
 
@@ -312,6 +309,7 @@ public class Gui extends Application implements IGui{
 
     @Override
     public void setMediumGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
+
 
         selectedDifficulty = MEDIUM;
         mediumCubeFactory.createCubics(mediumGrid, memoryObjects);
@@ -479,7 +477,6 @@ public class Gui extends Application implements IGui{
         startHardGame = new Button();
         newGame = new Button();
         returnMenu = new Button();
-
     }
     private void setIntroImages() {
 

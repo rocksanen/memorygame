@@ -50,6 +50,10 @@ public class BackGroundMover {
                         new KeyValue(background.layoutYProperty(), startY))
         );
         positionZero.play();
+
+        positionZero.setOnFinished(actionEvent -> {
+            positionZero.stop();
+        });
     }
 
     public void play() {
@@ -59,4 +63,6 @@ public class BackGroundMover {
     public void stop() {
         timeline.stop();
     }
+
+
 }

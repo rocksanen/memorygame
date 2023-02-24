@@ -51,7 +51,7 @@ public class Visibilities {
             gameMode.setVisible(false);
             pergament.setVisible(false);
             score.setVisible(true);
-            logAndReg.setVisible(false);
+            //logAndReg.setVisible(false);
         }
 
         public void offGame(ImageView gameBackGround) {
