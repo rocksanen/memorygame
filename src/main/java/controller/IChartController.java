@@ -9,9 +9,13 @@ public interface IChartController {
 
     int getTotalScore();
 
-    void test();
-
     ArrayList<String> getScores(ModeType difficulty);
     void fetchUserScores();
     ArrayList<Number> getUserScores(ModeType difficulty);
+
+    ArrayList<Number> getUserTime(ModeType difficulty);
+
+    void logout();
+
+    boolean isLoggedIn();
 }

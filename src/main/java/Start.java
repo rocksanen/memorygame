@@ -15,7 +15,6 @@ public class Start {
 	 * @param args
 	 */
 	public static void main(String args[]) throws FileNotFoundException {
-
 		MainApp.main(args);
 		
 	}

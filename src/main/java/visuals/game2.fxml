@@ -88,9 +88,14 @@
         </GridPane>
         <VBox id="nappulat" fx:id="vBox" layoutX="1066.4000244140625" prefHeight="700.0" prefWidth="300.0">
             <children>
+                <Button id="statsGame" fx:id="stats" mnemonicParsing="false" onMouseClicked="#statsGame" prefHeight="75.0" prefWidth="158.0" text="Stats">
+                <VBox.margin>
+                    <Insets top="250.0" />
+                </VBox.margin>
+                </Button>
                 <Button id="newGame" fx:id="newGame" mnemonicParsing="false" onMouseClicked="#newGame" prefHeight="75.0" prefWidth="158.0" text="New Game">
                     <VBox.margin>
-                        <Insets top="300.0" />
+                        <Insets top="20.0" />
                     </VBox.margin>
                 </Button>
                 <Button id="returnMenu" fx:id="returnMenu" mnemonicParsing="false" onMouseClicked="#returnMenu" prefHeight="75.0" prefWidth="158.0" text="Return">

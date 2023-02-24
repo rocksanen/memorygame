@@ -77,18 +77,13 @@ public class ChartController implements IChartController{
         return engine.getTotalScore();
     }
 
-    @Override
-    public void test(){
-        System.out.println("This is a test!");
-    }
-
-
-
 
     @Override
     public ArrayList<Number> getUserScores(ModeType difficulty) {
-
-
+        if (this.isLoggedIn() == false) {
+            System.out.println("not logged in!");
+            return null;
+        }
         switch (difficulty) {
             case EASY -> User.getInstance().getScores(EASY);
             case MEDIUM -> User.getInstance().getScores(MEDIUM);
@@ -100,15 +95,45 @@ public class ChartController implements IChartController{
 
         ArrayList<Number> scoreList = new ArrayList<>();
 
-        Scoreboard scoreboard = User.getInstance().getScores(difficulty);
-        if (scoreboard != null) {
-            for (Score s : scoreboard.getScores()) {
-                scoreList.add(s.getPoints());
-            }
-        } else {
-            System.out.println("Error: Unable to fetch scores from database");
+        for (Score s : User.getInstance().getScores(difficulty).getScores()) {
+            scoreList.add(s.getPoints());
         }
-        System.out.println("Score List:  " +scoreList);
         return scoreList;
     }
+
+    @Override
+    public ArrayList<Number> getUserTime(ModeType difficulty) {
+        if (this.isLoggedIn() == false) {
+            System.out.println("not logged in!");
+            return null;
+        }
+        switch (difficulty) {
+            case EASY -> User.getInstance().getScores(EASY);
+            case MEDIUM -> User.getInstance().getScores(MEDIUM);
+            case HARD -> User.getInstance().getScores(HARD);
+            default -> {
+                return null;
+            }
+        }
+
+        ArrayList<Number> timeList = new ArrayList<>();
+
+        for (Score s : User.getInstance().getScores(difficulty).getScores()) {
+            timeList.add(s.getTime());
+        }
+        return timeList;
+    }
+
+    @Override
+    public void logout() {
+        User user = User.getInstance();
+        user.logout();
+    }
+
+    @Override
+    public boolean isLoggedIn() {
+        User user = User.getInstance();
+        return user.isLoggedIn();
+    }
+
 }

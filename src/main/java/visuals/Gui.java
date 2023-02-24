@@ -1,8 +1,6 @@
 package visuals;
 
-import controller.Controller;
-import controller.IControllerScoreToV;
-import controller.IControllerVtoE;
+import controller.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -17,7 +15,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.MemoryObject;
 import model.ModeType;
@@ -36,9 +36,14 @@ import java.util.Objects;
 
 import static model.ModeType.*;
 
-public class Gui extends Application implements IGui{
+public class Gui extends Application implements IGui, IChartGUI {
+
+
 
     private ModeType selectedDifficulty;
+
+    private final IChartController scoreController2 = new ChartController( this);
+
     private final IControllerVtoE controller = new Controller(this);
     private final IControllerScoreToV scoreController = new Controller(this);
     private final Scoreboard scoreboard = new Scoreboard(scoreController);
@@ -148,7 +153,7 @@ public class Gui extends Application implements IGui{
         this.primaryStage.show();
 
         // If you want intro: "true", if not: "false". But is there life without intro?
-        introOn(true);
+        introOn(false);
 
         Platform.runLater(() -> AudioMemory.getInstance().playSong(ModeType.MAIN));
         Platform.runLater(() -> Effects.getInstance().setGlow(pergament));
@@ -606,4 +611,13 @@ public class Gui extends Application implements IGui{
     }
 
 
+    public void statsGame(MouseEvent mouseEvent) {
+        ChartGUI c = new ChartGUI();
+
+        try {
+            c.start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
