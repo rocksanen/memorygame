@@ -4,6 +4,7 @@ import database.datasource.SqlJpaConn;
 import database.entity.Account;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
+import model.Locksmith;
 
 import java.util.ArrayList;
 
@@ -148,6 +149,27 @@ public class AccountDAO implements IAccountDAO {
             }
         }
         return false;
+    }
+
+    /**
+     * converts plaintext password to hashes
+     * run this once and never again
+     *
+     * checks if password is under certain length (40 chars)
+     * and hashes the password if it is
+     * hashes seem to be 45 chars long so this should work ¯\_(ツ)_/¯
+     */
+    @Override
+    public void passwordHasher() {
+        Locksmith locksmith = new Locksmith();
+        EntityManager em = SqlJpaConn.getInstance();
+        ArrayList<Account> accounts = getAllAccounts();
+        for (Account a : accounts) {
+            if (a.getPassword().length() > 40) {
+                a.setPassword(locksmith.hashPassword(a.getPassword()));
+            }
+            em.getTransaction().commit();
+        }
     }
 }
 
