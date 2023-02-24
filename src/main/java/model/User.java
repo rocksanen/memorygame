@@ -2,18 +2,17 @@ package model;
 
 import database.dao.AccountDAO;
 import database.dao.IAccountDAO;
-import database.dao.LeaderboardDAO;
 import database.entity.Account;
 
-import java.util.ArrayList;
+import java.util.concurrent.locks.Lock;
 
 import static model.ModeType.*;
 
 
 /**
  * Singleton class for the User
- * Contains the username, id, and personal scores of the player
- * Also contains the DAO classes for database connection
+ * Contains methods for retrieving and setting user data,
+ * as well as personal scoreboards of the user.
  *
  * @author Eetu Soronen
  * @version 1
@@ -24,42 +23,38 @@ public class User {
      * Singleton instance of the User class
      */
     private static User instance;
+
     /**
      * Username of the player
      */
     private String username;
-    /**
-     * password of the player
-     */
-    private String password;
+
+
     /**
      * Id of the player, retrieved from the database.
      */
     private Long userId;
+
     /**
-     * Personal scores of the player
+     * Personal scores for easy difficulty
      */
     private Scoreboard easyScores;
 
     /**
-     * Personal scores of the player
+     * Personal scores for medium difficulty
      */
     private Scoreboard mediumScores;
 
     /**
-     * Personal scores of the player
+     * Personal scores for hard difficulty
      */
     private Scoreboard hardScores;
 
-    /**
-     * Personal scores of the player
-     */
-    private Scoreboard personalScores;
 
     /**
      * DAO class for database connection
      */
-    private IAccountDAO accountdao;
+    private final IAccountDAO accountdao;
 
     /**
      * jpa entity for the account
@@ -69,7 +64,7 @@ public class User {
     /**
      * Private constructor for the User class
      * Initializes the username, id and personal scores
-     * Also initializes the DAO classes
+     * Also initializes AccountDAO for database connection
      */
     private User() {
         this.username = "tony the tiger";
@@ -98,16 +93,37 @@ public class User {
 
     /**
      * Searches username from database and updates the instance variables
+     * password is hashed and the hash is compared to the one in the database
      *
      * @param username - see {@link #username}
-     * @param password - see {@link #password}
-     * @return true or false depending success of the login
+     * @param password user password
+     * @return true or false depending on success of the login
      */
     public boolean login(String username, String password) {
-        try {
-            Account account = accountdao.getAccountByNameAndPassword(username, password);
-            System.out.println("sTRINGIFYING ACCOUNT: " + account.toString() + "");
+        Locksmith l = new Locksmith();
 
+        // try to encrypt the password
+        String hashedPassword = null;
+        try {
+            hashedPassword = l.hashPassword(password);
+            System.out.println("Encrypted password: " + hashedPassword);
+        } catch (Exception e) {
+            System.out.println("Error encrypting password: " + e);
+            return false;
+        }
+
+        // try to decrypt the password
+        try {
+            boolean allgood = l.checkPassword(password, hashedPassword);
+            System.out.println("Decrypted password: " + allgood);
+        } catch (Exception e) {
+            System.out.println("Error decrypting password: " + e);
+            return false;
+        }
+
+        try {
+            Account account = accountdao.getAccountByNameAndPassword(username, hashedPassword);
+//            System.out.println("sTRINGIFYING ACCOUNT: " + account.toString() + "");
             if (account.getAccountid() != null) {
                 this.account = account;
                 this.userId = account.getAccountid();
@@ -117,10 +133,8 @@ public class User {
                 this.hardScores = new Scoreboard();
                 return true;
             }
-
         } catch (Exception e) {
             System.out.println("Username not found!" + e);
-            ;
         }
         return false;
     }
@@ -129,15 +143,43 @@ public class User {
     /**
      * Searches username from db, creates it if it does not exist
      * and updates the instance variables
+     * also hashes the password before saving it
+     * no salt since that's unhealthy 🧑‍⚕️
      *
      * @param username see {@link #username}
-     * @param password see {@link #password}
-     * @return true or false depending success of the signup
+     * @param password user password
+     * @return true or false depending on success of the signup
      */
     public boolean signup(String username, String password) {
-        // save account
-        accountdao.saveAccount(new Account(username, password));
-        Account account = accountdao.getAccountByName(username);
+        Locksmith l = new Locksmith();
+
+        // try to encrypt the password
+        String hashedPassword = null;
+        try {
+            hashedPassword = l.hashPassword(password);
+            System.out.println("Encrypted password: " + hashedPassword);
+        } catch (Exception e) {
+            System.out.println("Error encrypting password: " + e);
+            return false;
+        }
+
+        // try to decrypt the password
+        try {
+            boolean allgood = l.checkPassword(password, hashedPassword);
+            System.out.println("Decrypted password: " + allgood);
+        } catch (Exception e) {
+            System.out.println("Error decrypting password: " + e);
+            return false;
+        }
+
+
+        Account a = accountdao.getAccountByName(username);
+        if (a != null) {
+            System.out.println("Username already exists!");
+            return false;
+        }
+        accountdao.saveAccount(new Account(username, hashedPassword));
+        this.account = accountdao.getAccountByName(username);
 
         this.userId = account.getAccountid();
         this.username = account.getUsername();
@@ -165,9 +207,16 @@ public class User {
         this.username = "tony the tiger";
         this.userId = null;
         this.easyScores = null;
+        this.mediumScores = null;
+        this.hardScores = null;
         return true;
     }
 
+    /**
+     * Checks if the user is logged in
+     *
+     * @return true if logged in, false if not
+     */
     public boolean isLoggedIn() {
         return userId != null;
     }
@@ -179,37 +228,27 @@ public class User {
      */
     public Scoreboard getScores(ModeType difficulty) {
 
-        switch (difficulty) {
-            case EASY:
-                return easyScores;
-            case MEDIUM:
-                return mediumScores;
-            case HARD:
-                return hardScores;
-            default:
-                return personalScores;
-        }
+        return switch (difficulty) {
+            case EASY -> easyScores;
+            case MEDIUM -> mediumScores;
+            case HARD -> hardScores;
+            default -> null;
+        };
     }
 
     /**
      * fetcher for the personal scores from server.
-     *
-     * @return - see {@link #easyScores}
+     * see Scoreboard#fetchUserScores(Long, ModeType)
      */
-    public ArrayList<Score> fetchScores(ModeType difficulty) {
+    public void fetchScores(ModeType difficulty) {
 
         switch (difficulty) {
-            case EASY:
-                easyScores.fetchUserScores(userId, EASY);
-                return easyScores.getScores();
-            case MEDIUM:
-                mediumScores.fetchUserScores(userId, MEDIUM);
-                return mediumScores.getScores();
-            case HARD:
-                hardScores.fetchUserScores(userId, HARD);
-                return hardScores.getScores();
-            default:
-                return null;
+            case EASY -> easyScores.fetchUserScores(userId, EASY);
+
+            case MEDIUM -> mediumScores.fetchUserScores(userId, MEDIUM);
+
+            case HARD -> hardScores.fetchUserScores(userId, HARD);
+
         }
     }
 
@@ -217,27 +256,28 @@ public class User {
     /**
      * Adds a score to the personal scores
      *
-     * @param time       - see {@link Scoreboard#addScore(Double, int, ModeType, String)}
-     * @param difficulty - see {@link Scoreboard#addScore(Double, int, ModeType, String)}
+     * @param time       - see {@link Scoreboard#addScore(Double, int, ModeType)}
+     * @param difficulty - see {@link Scoreboard#addScore(Double, int, ModeType)}
      */
     public void addScore(Double time, int points, ModeType difficulty) {
         WorldScores ws = WorldScores.getInstance();
+        if (!isLoggedIn()) return;
 
         switch (difficulty) {
-            case EASY:
-                easyScores.addScore(time, points, difficulty, username);
-                ws.getEasyScores().addScore(time, points, difficulty, username);
-                break;
-            case MEDIUM:
-                mediumScores.addScore(time, points, difficulty, username);
-                ws.getMediumScores().addScore(time, points, difficulty, username);
-                break;
-            case HARD:
-                hardScores.addScore(time, points, difficulty, username);
-                ws.getHardScores().addScore(time, points, difficulty, username);
-                break;
-            default:
-                break;
+            case EASY -> {
+                easyScores.addScore(time, points, difficulty);
+                ws.getEasyScores().addScore(time, points, difficulty);
+            }
+            case MEDIUM -> {
+                mediumScores.addScore(time, points, difficulty);
+                ws.getMediumScores().addScore(time, points, difficulty);
+            }
+            case HARD -> {
+                hardScores.addScore(time, points, difficulty);
+                ws.getHardScores().addScore(time, points, difficulty);
+            }
+            default -> {
+            }
         }
     }
 
@@ -250,7 +290,7 @@ public class User {
         if (userId == null) return false;
         try {
             boolean deleted = accountdao.deleteAccount(instance.userId);
-            if (deleted == true) {
+            if (deleted) {
                 return logout();
             }
 
@@ -269,6 +309,11 @@ public class User {
         return userId;
     }
 
+    /**
+     * Getter for the account
+     *
+     * @return - see {@link #account}
+     */
     public Account getAccount() {
         return account;
     }

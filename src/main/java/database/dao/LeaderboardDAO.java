@@ -56,8 +56,7 @@ public class LeaderboardDAO implements ILeaderboardDAO {
         // why is accountid typed twice? ¯\_(ツ)_/¯
         Query query = em.createQuery("SELECT l FROM Leaderboard l WHERE l.accountid.accountid = :accountid ORDER BY points desc, time asc limit 100");
         query.setParameter("accountid", accountid);
-        ArrayList<Leaderboard> scores = (ArrayList<Leaderboard>) query.getResultList();
-        return scores;
+        return (ArrayList<Leaderboard>) query.getResultList();
     }
 
     /**
@@ -75,8 +74,7 @@ public class LeaderboardDAO implements ILeaderboardDAO {
         Query query = em.createQuery("SELECT l FROM Leaderboard l WHERE l.accountid.accountid = :accountid AND l.difficulty = :difficulty ORDER BY points desc, time asc limit 100");
         query.setParameter("accountid", accountid);
         query.setParameter("difficulty", difficulty);
-        ArrayList<Leaderboard> scores = (ArrayList<Leaderboard>) query.getResultList();
-        return scores;
+        return (ArrayList<Leaderboard>) query.getResultList();
     }
 
     /**
@@ -91,8 +89,7 @@ public class LeaderboardDAO implements ILeaderboardDAO {
         // why is accountid typed twice? ¯\_(ツ)_/¯
         Query query = em.createQuery("SELECT l FROM Leaderboard l WHERE l.difficulty = :difficulty ORDER BY points desc, time asc limit 100");
         query.setParameter("difficulty", difficulty);
-        ArrayList<Leaderboard> scores = (ArrayList<Leaderboard>) query.getResultList();
-        return scores;
+        return (ArrayList<Leaderboard>) query.getResultList();
     }
 
     /**

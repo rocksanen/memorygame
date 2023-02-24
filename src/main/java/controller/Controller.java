@@ -14,8 +14,6 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
     private final IGui ui;
     private IEngine engine;
 
-
-
     public Controller(IGui ui) {
 
         this.ui = ui;
@@ -108,13 +106,6 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
         });
     }
 
-    @Override
-    public void getWorldScore(ArrayList<String> worldScoreList) {
-
-        Platform.runLater(() -> ui.getWorldScore(worldScoreList));
-
-    }
-
     /**
      * fetches scores form db, and stores them in the correct scoreboard
      *
@@ -170,6 +161,10 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
         return scoreList;
     }
 
+    /**
+     * fetches the personal scores for the logged in user
+     * and stores them in the correct scoreboard
+     */
     @Override
     public void fetchPersonalScores() {
         if (this.isLoggedIn() == false) {
@@ -184,6 +179,11 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
         return;
     }
 
+    /**
+     * returns the personal scores for the given difficulty formatted for gui
+     * @param difficulty the difficulty to get scores for
+     * @return the personal scores for the given difficulty formatted for gui
+     */
     @Override
     public ArrayList<String> getPersonalScores(ModeType difficulty) {
         if (this.isLoggedIn() == false) {
@@ -235,30 +235,53 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
         return engine.getNextScore();
     }
 
+    /**
+     * returns the score for the next wrong guess
+     * @param username the username of the user
+     * @param password the password of the user
+     * @return true if the user was successfully logged in
+     */
     @Override
     public boolean login(String username, String password) {
         User user = User.getInstance();
         return user.login(username, password);
     }
 
+    /**
+     * registers a new user
+     * @param username the username of the new user
+     * @param password the password of the new user
+     * @return true if the user was successfully registered
+     */
     @Override
     public boolean register(String username, String password) {
         User user = User.getInstance();
         return user.signup(username, password);
     }
 
+    /**
+     * logs out the user if logged in
+     */
     @Override
     public void logout() {
         User user = User.getInstance();
         user.logout();
     }
 
+    /**
+     * returns true if the user is logged in
+     * @return true if the user is logged in
+     */
     @Override
     public boolean isLoggedIn() {
         User user = User.getInstance();
         return user.isLoggedIn();
     }
 
+    /**
+     * returns the username of the logged in user
+     * @return the username of the logged in user
+     */
     @Override
     public String getUsername() {
         User user = User.getInstance();

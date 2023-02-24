@@ -1,8 +1,5 @@
 package model;
 
-import controller.IControllerScoreToV;
-import database.dao.AccountDAO;
-import database.dao.IAccountDAO;
 import database.dao.ILeaderboardDAO;
 import database.dao.LeaderboardDAO;
 import database.entity.Account;
@@ -17,21 +14,34 @@ import java.util.List;
  * Scoreboard class for the game
  * Contains list of Score-objects and methods for adding and retrieving scores
  * Also contains methods for retrieving scores from the database
+ *
  * @author Eetu Soronen
  * @version 1
  */
 public class Scoreboard {
-    private static ILeaderboardDAO leaderboarddao = new LeaderboardDAO();
-    private static IAccountDAO accountdao = new AccountDAO();
 
-    private IControllerScoreToV controller;
+    /**
+     * DAO class for database connection
+     */
+    private static final ILeaderboardDAO leaderboarddao = new LeaderboardDAO();
 
-    private ArrayList<Score> scores;
+    /**
+     * List of scores
+     */
+    private final ArrayList<Score> scores;
 
+    /**
+     * Constructor for Scoreboard
+     */
     public Scoreboard() {
         this.scores = new ArrayList<>();
     }
 
+    /**
+     * Constructor for Scoreboard
+     *
+     * @param leaderboards list of Leaderboard-objects
+     */
     public Scoreboard(ArrayList<Leaderboard> leaderboards) {
         this.scores = new ArrayList<>();
         for (Leaderboard lb : leaderboards) {
@@ -39,14 +49,20 @@ public class Scoreboard {
         }
     }
 
-    public Scoreboard(IControllerScoreToV controller) {
-
-        this.controller = controller;
-    }
-
-    public void addScore(Double time, int points, ModeType difficulty, String username) {
+    /**
+     * Adds a score to the scoreboard
+     *
+     * @param time       time in seconds
+     * @param points     points
+     * @param difficulty difficulty
+     */
+    public void addScore(Double time, int points, ModeType difficulty) {
         User u = User.getInstance();
         Account a = u.getAccount();
+        if (a == null) {
+            System.out.println("cant save score if not logged in!");
+            return;
+        }
         Leaderboard lb = new Leaderboard(a, time, points, difficulty, new Date());
         scores.add(new Score(lb));
 
@@ -58,16 +74,24 @@ public class Scoreboard {
                 return s2.getPoints() - s1.getPoints();
             }
         }); // 🤖
-
-
         leaderboarddao.saveScore(lb);
     }
 
+    /**
+     * Returns the list of scores
+     *
+     * @return list of scores
+     */
     public ArrayList<Score> getScores() {
 //        System.out.println("getScores: " + scores);
         return scores;
     }
 
+    /**
+     * Deletes a score from the scoreboard
+     *
+     * @param scoreid id of the score to be deleted
+     */
     public void deleteScore(Long scoreid) {
         leaderboarddao.deleteScore(scoreid);
         // find score with scoreid in scores
@@ -82,7 +106,7 @@ public class Scoreboard {
     /**
      * Fetch global scores of select difficulty, sorted by points (desc) and then time (asc)
      *
-     * @param difficulty
+     * @param difficulty difficulty of the scores
      */
     public void fetchWorldScores(ModeType difficulty) {
         this.scores.clear();
@@ -92,14 +116,14 @@ public class Scoreboard {
         }
 //        System.out.println("fetchWorldScores: " + scores);
 //        System.out.println("get iside fetch");
-        this.getScores();
+//        this.getScores();
     }
 
     /**
      * Fetch personal scores of select difficulty, sorted by time
      *
-     * @param userid
-     * @param difficulty
+     * @param userid    id of the user
+     * @param difficulty difficulty level of the scores
      */
     public void fetchUserScores(Long userid, ModeType difficulty) {
         this.scores.clear();
@@ -109,9 +133,14 @@ public class Scoreboard {
         }
 //        System.out.println("fetchWorldScores: " + scores);
 //        System.out.println("get iside fetch");
-        this.getScores();
+//        this.getScores();
     }
 
+    /**
+     * tostring method for Scoreboard
+     *
+     * @return string representation of the scoreboard
+     */
     @Override
     public String toString() {
         return "Scoreboard{" + "scores=" + scores + '}';
