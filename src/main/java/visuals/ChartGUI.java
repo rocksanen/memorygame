@@ -63,15 +63,11 @@ public class ChartGUI extends Application implements IChartGUI {
             easyScoreSeries.getData().add(new XYChart.Data<>(easyTime.get(i), easyScore.get(i)));
         }
 
-
-
         XYChart.Series<Number, Number> mediumScoreSeries = new XYChart.Series<>();
         mediumScoreSeries.setName("Medium");
         for (int i = 0; i < mediumScore.size(); i++) {
             mediumScoreSeries.getData().add(new XYChart.Data<>(mediumTime.get(i), mediumScore.get(i)));
         }
-
-
 
         XYChart.Series<Number, Number> hardScoreSeries = new XYChart.Series<>();
         hardScoreSeries.setName("Hard");
@@ -79,14 +75,11 @@ public class ChartGUI extends Application implements IChartGUI {
             hardScoreSeries.getData().add(new XYChart.Data<>(hardTime.get(i), hardScore.get(i)));
         }
 
-
-
         // Add the series to the stacked area chart
         stackedAreaChart.getData().addAll(easyScoreSeries,mediumScoreSeries, hardScoreSeries);
 
 
         // Create a button with a circle shape of the color which represents the Easy data
-
         Button easyButton = new Button("Easy");
         easyButton.setCursor(Cursor.HAND);
         easyButton.setShape(new Circle(10));
@@ -101,8 +94,6 @@ public class ChartGUI extends Application implements IChartGUI {
         hardButton.setCursor(Cursor.HAND);
         hardButton.setShape(new Circle(10));
         hardButton.setStyle("-fx-background-color: #51c56b; -fx-min-width: 20px; -fx-min-height: 20px;");
-
-
 
         easyButton.setOnMouseClicked(event -> {
             if (easyScoreSeries.getNode().isVisible()) {
@@ -134,7 +125,6 @@ public class ChartGUI extends Application implements IChartGUI {
         });
 
 
-
         stackedAreaChart.setLegendVisible(false);
         stackedAreaChart.setPadding(new Insets(10, 10, 30, 10));
         stackedAreaChart.setPrefSize(800, 600);
@@ -161,9 +151,4 @@ public class ChartGUI extends Application implements IChartGUI {
         stage.show();
 
     }
-
-
-
-
-
 }

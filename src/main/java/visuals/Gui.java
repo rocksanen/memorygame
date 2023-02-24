@@ -155,7 +155,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         this.primaryStage.show();
 
         // If you want intro: "true", if not: "false". But is there life without intro?
-        introOn(false);
+        introOn(true);
 
         Platform.runLater(() -> AudioMemory.getInstance().playSong(ModeType.MAIN));
         Platform.runLater(() -> Effects.getInstance().setGlow(pergament));
