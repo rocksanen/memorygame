@@ -8,20 +8,23 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.*;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.PerspectiveCamera;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
-import javafx.stage.Modality;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.MemoryObject;
 import model.ModeType;
-import model.Scoreboard;
 import visuals.audio.AudioMemory;
 import visuals.cubeFactories.EasyCubeFactory;
 import visuals.cubeFactories.HardCubeFactory;
@@ -46,7 +49,6 @@ public class Gui extends Application implements IGui, IChartGUI {
 
     private final IControllerVtoE controller = new Controller(this);
     private final IControllerScoreToV scoreController = new Controller(this);
-    private final Scoreboard scoreboard = new Scoreboard(scoreController);
     Stage primaryStage;
     @FXML
     Button startEasyGame;
@@ -218,6 +220,7 @@ public class Gui extends Application implements IGui, IChartGUI {
 
         Platform.runLater(() -> Effects.getInstance().stopGlow());
         Platform.runLater(() -> Visibilities.getInstance().gameBackGroundVisibility(EASY));
+        Platform.runLater(() -> logAndReg.setVisible(false));
 
         Platform.runLater(() -> Effects.getInstance().gameZoomIn(
                 background, 1000,
@@ -230,6 +233,7 @@ public class Gui extends Application implements IGui, IChartGUI {
 
         Platform.runLater(() -> Effects.getInstance().stopGlow());
         Platform.runLater(() -> Visibilities.getInstance().gameBackGroundVisibility(MEDIUM));
+        Platform.runLater(() -> logAndReg.setVisible(false));
 
         Platform.runLater(() ->         Effects.getInstance().gameZoomIn(
                 mediumBackground,
@@ -243,6 +247,7 @@ public class Gui extends Application implements IGui, IChartGUI {
 
         Platform.runLater(() -> Effects.getInstance().stopGlow());
         Platform.runLater(() -> Visibilities.getInstance().gameBackGroundVisibility(HARD));
+        Platform.runLater(() -> logAndReg.setVisible(false));
 
         Platform.runLater(() -> Effects.getInstance().gameZoomIn(
                 hardBackground, 1000.7,
@@ -259,7 +264,7 @@ public class Gui extends Application implements IGui, IChartGUI {
             case MEDIUM -> setStartMediumGame();
             case HARD -> setStartHardGame();
         }
-
+        Platform.runLater(() -> Visibilities.getInstance().toGame());
 
     }
 
@@ -267,12 +272,10 @@ public class Gui extends Application implements IGui, IChartGUI {
     public void setStartEasyGame() {
 
         Platform.runLater(() -> Visibilities.getInstance().inGameGrid(easyGrid));
-
         if (cubeList != null) {cubeList.clear();}
-        Platform.runLater(() -> Visibilities.getInstance().toGame());
         cubeList = new ArrayList<>();
-        easyCubeFactory = new EasyCubeFactory(this);
         easyGrid.getChildren().clear();
+        easyCubeFactory = new EasyCubeFactory(this);
         controller.startEasyGame();
     }
 
@@ -280,12 +283,10 @@ public class Gui extends Application implements IGui, IChartGUI {
     public void setStartMediumGame() {
 
         Platform.runLater(() -> Visibilities.getInstance().inGameGrid(mediumGrid));
-
         if (cubeList != null) {cubeList.clear();}
-        Platform.runLater(() -> Visibilities.getInstance().toGame());
         cubeList = new ArrayList<>();
-        mediumCubeFactory = new MediumCubeFactory(this);
         mediumGrid.getChildren().clear();
+        mediumCubeFactory = new MediumCubeFactory(this);
         controller.startMediumGame();
     }
 
@@ -293,12 +294,10 @@ public class Gui extends Application implements IGui, IChartGUI {
     public void setStartHardGame() {
 
         Platform.runLater(() -> Visibilities.getInstance().inGameGrid(hardGrid));
-
         if (cubeList != null) {cubeList.clear();}
-        Platform.runLater(() -> Visibilities.getInstance().toGame());
         cubeList = new ArrayList<>();
-        hardCubeFactory = new HardCubeFactory(this);
         hardGrid.getChildren().clear();
+        hardCubeFactory = new HardCubeFactory(this);
         controller.startHardGame();
     }
 
@@ -314,6 +313,7 @@ public class Gui extends Application implements IGui, IChartGUI {
 
     @Override
     public void setMediumGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
+
 
         selectedDifficulty = MEDIUM;
         mediumCubeFactory.createCubics(mediumGrid, memoryObjects);
@@ -481,7 +481,6 @@ public class Gui extends Application implements IGui, IChartGUI {
         startHardGame = new Button();
         newGame = new Button();
         returnMenu = new Button();
-
     }
     private void setIntroImages() {
 

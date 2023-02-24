@@ -107,7 +107,7 @@
         </VBox>
         <AnchorPane id="menuAnkkuri" fx:id="menuAnkkuri" prefHeight="750.0" prefWidth="1250.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                  <ImageView id="pergament" fx:id="pergament" fitHeight="754.0" fitWidth="1279.0">
+                  <ImageView id="pergament" fx:id="pergament" cache="true" fitHeight="754.0" fitWidth="1279.0">
                       <image>
                           <Image url="@images/pergaBack.jpg" />
                       </image>
@@ -199,7 +199,7 @@
                         <Image url="@images/jungle.png" />
                      </image>
                      <effect>
-                        <ColorAdjust saturation="0.88" />
+                        <ColorAdjust saturation="0.02" />
                      </effect>
                   </ImageView>
                   <ImageView id="japan" fx:id="japan" fitHeight="344.0" fitWidth="366.0" layoutX="21.0" layoutY="277.0" opacity="0.0">
