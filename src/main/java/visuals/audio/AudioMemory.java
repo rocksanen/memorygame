@@ -18,6 +18,8 @@ public class AudioMemory {
     private final MediaPlayer mediumPlayer;
     private final MediaPlayer hardPlayer;
 
+    private final MediaPlayer menuRetoSong;
+
     private AudioMemory() {
 
         String mainSong = "src/main/java/visuals/audio/audioFiles/mainSong.mp3";
@@ -28,6 +30,8 @@ public class AudioMemory {
         Media mediumMedia = new Media(new File(mediumSong).toURI().toString());
         String hardSong = "src/main/java/visuals/audio/audioFiles/hardSong.mp3";
         Media hardMedia = new Media(new File(hardSong).toURI().toString());
+        String menuRetro = "src/main/java/visuals/audio/audioFiles/menuRetro.mp3";
+        Media menuMedia = new Media(new File(menuRetro).toURI().toString());
 
         mainPlayer = new MediaPlayer(mainMedia);
         mainPlayer.setCycleCount(10);
@@ -37,6 +41,9 @@ public class AudioMemory {
         mediumPlayer.setCycleCount(10);
         hardPlayer = new MediaPlayer(hardMedia);
         hardPlayer.setCycleCount(10);
+        menuRetoSong = new MediaPlayer(menuMedia);
+        menuRetoSong.setCycleCount(10);
+
     }
 
     public static AudioMemory getInstance() {
@@ -50,6 +57,7 @@ public class AudioMemory {
 
         switch (type) {
             case MAIN -> playTheSong(mainPlayer);
+            case MENU -> playTheSong(menuRetoSong);
             case EASY -> playTheSong(easyPlayer);
             case MEDIUM -> playTheSong(mediumPlayer);
             case HARD -> playTheSong(hardPlayer);
@@ -60,6 +68,7 @@ public class AudioMemory {
 
         switch (type) {
             case MAIN -> stopTheSong(mainPlayer);
+            case MENU -> stopTheSong(menuRetoSong);
             case EASY -> stopTheSong(easyPlayer);
             case MEDIUM -> stopTheSong(mediumPlayer);
             case HARD -> stopTheSong(hardPlayer);
@@ -82,7 +91,7 @@ public class AudioMemory {
         mediaPlayer.play();
 
         Timeline fadeIn = new Timeline(
-                new KeyFrame(Duration.seconds(1), new KeyValue(mediaPlayer.volumeProperty(), 1))
+                new KeyFrame(Duration.seconds(5), new KeyValue(mediaPlayer.volumeProperty(), 1))
         );
         fadeIn.play();
 

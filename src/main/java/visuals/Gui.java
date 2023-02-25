@@ -1,6 +1,9 @@
 package visuals;
 
 import controller.*;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -8,21 +11,25 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.PerspectiveCamera;
-import javafx.scene.Scene;
+import javafx.geometry.Point3D;
+import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.Sphere;
+import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.MemoryObject;
 import model.ModeType;
 import visuals.audio.AudioMemory;
@@ -32,6 +39,7 @@ import visuals.cubeFactories.ICubeFactory;
 import visuals.cubeFactories.MediumCubeFactory;
 import visuals.imageServers.ImageCache;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -127,6 +135,30 @@ public class Gui extends Application implements IGui, IChartGUI {
     @FXML ImageView jungle;
     @FXML ImageView redtree;
     @FXML static Pane logAndReg;
+
+    @FXML ImageView dirt;
+
+    @FXML
+    Sphere earth;
+
+    @FXML ImageView burningsun;
+
+    private static final double CAMERA_INITIAL_DISTANCE = -1000;
+    private static final double CAMERA_INITIAL_X_ANGLE = 0.0;
+    private static final double CAMERA_INITIAL_Y_ANGLE = 0.0;
+    private static final double CAMERA_NEAR_CLIP = 0.1;
+    private static final double CAMERA_FAR_CLIP = 10000.0;
+
+    private double mousePosX;
+    private double mouseOldX;
+    private final Rotate rotateY = new Rotate(0, Rotate.Y_AXIS);
+
+    private final Rotate rotateZ = new Rotate(0, Rotate.Z_AXIS);
+    private final Rotate jungleZ = new Rotate(0, Rotate.Z_AXIS);
+    private final Rotate rotateX = new Rotate(CAMERA_INITIAL_X_ANGLE, Rotate.Z_AXIS);
+    private final Translate translate = new Translate(1250/2, 750/2, 0);
+
+
     ArrayList<BoxMaker> cubeList;
     ICubeFactory easyCubeFactory;
     ICubeFactory mediumCubeFactory;
@@ -150,6 +182,26 @@ public class Gui extends Application implements IGui, IChartGUI {
         this.scene.setCamera(camera);
         this.scene.getCamera().setNearClip(0.1);
 
+
+        scene.setOnMousePressed(event -> {
+            mousePosX = event.getSceneX();
+            mouseOldX = event.getSceneX();
+        });
+
+        scene.setOnMouseMoved(event -> {
+            mouseOldX = mousePosX;
+            mousePosX = event.getSceneX();
+            double deltaX = (mousePosX - mouseOldX);
+            if (event.isPrimaryButtonDown()) {
+                rotateY.setAngle(rotateY.getAngle() + deltaX / 5.0);
+                pergament.getTransforms().setAll(rotateY);
+            }
+        });
+
+
+
+
+
         this.primaryStage.setScene(scene);
         this.primaryStage.setResizable(false);
         this.primaryStage.show();
@@ -157,11 +209,61 @@ public class Gui extends Application implements IGui, IChartGUI {
         // If you want intro: "true", if not: "false". But is there life without intro?
         introOn(true);
 
-        Platform.runLater(() -> AudioMemory.getInstance().playSong(ModeType.MAIN));
+        //Platform.runLater(() -> AudioMemory.getInstance().playSong(ModeType.MAIN));
+        //Platform.runLater(() -> AudioMemory.getInstance().playSong(MENU));
         Platform.runLater(() -> Effects.getInstance().setGlow(pergament));
         Platform.runLater(() -> Effects.getInstance().playGlow());
         Visibilities.getInstance().setGridLayoutToVisibility(easyGrid,mediumGrid,hardGrid);
         Visibilities.getInstance().setGameBackGrounds(background,mediumBackground,mediumSpread,hardBackground,hardSpread);
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO),
+                new KeyFrame(Duration.seconds(0.5),
+                        new KeyValue(dirt.scaleXProperty(),dirt.getScaleX())),
+                new KeyFrame(Duration.seconds(15),
+                        new KeyValue(dirt.scaleXProperty(),dirt.getScaleX() + 0.4))
+        );
+
+        redtree.getTransforms().add(rotateZ);
+        jungle.getTransforms().add(jungleZ);
+
+        Timeline redLine = new Timeline(
+                new KeyFrame(Duration.ZERO),
+                new KeyFrame(Duration.seconds(0.5),
+                        new KeyValue(rotateZ.angleProperty(),0)),
+                new KeyFrame(Duration.seconds(15),
+                        new KeyValue(rotateZ.angleProperty(),4))
+        );
+
+        Timeline jungleLine = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(jungleZ.angleProperty(),0)),
+                new KeyFrame(Duration.seconds(20),
+                        new KeyValue(jungleZ.angleProperty(), -1.2))
+        );
+
+        Timeline japanLine = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(japan.layoutYProperty(),japan.getLayoutY())),
+                new KeyFrame(Duration.seconds(12),
+                        new KeyValue(japan.layoutYProperty(),japan.getLayoutY() + 10))
+        );
+
+        japanLine.setAutoReverse(true);
+        japanLine.setCycleCount(Timeline.INDEFINITE);
+        japanLine.play();
+
+        jungleLine.setAutoReverse(true);
+        jungleLine.setCycleCount(Timeline.INDEFINITE);
+        jungleLine.play();
+
+        redLine.setAutoReverse(true);
+        redLine.setCycleCount(Timeline.INDEFINITE);
+        redLine.play();
+        timeline.setAutoReverse(true);
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+
 
         // If you want scores: "true", if not: "false".
         scoresOn(true);
@@ -171,6 +273,7 @@ public class Gui extends Application implements IGui, IChartGUI {
 
         this.root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/visuals/game2.fxml")));
 
+
         panesAndMisc();
         setIntroImages();
         setMenuImages();
@@ -178,7 +281,7 @@ public class Gui extends Application implements IGui, IChartGUI {
 
         Effects.getInstance().setMiniImagesAndFrames(miniEasy, miniMedium, miniHard, easyFrame, mediumFrame, hardFrame);
         Effects.getInstance().setEssenceImages(japan,jungle,redtree);
-        Effects.getInstance().setGeneralObjects(pergament, menuAnkkuri, startBlack, gameModePane, mtLista);
+        Effects.getInstance().setGeneralObjects(pergament, menuAnkkuri, startBlack, gameModePane, mtLista, burningsun);
         Visibilities.getInstance().setToGameObjects(gameModePane,score,logAndReg,pergament);
     }
 
@@ -201,11 +304,11 @@ public class Gui extends Application implements IGui, IChartGUI {
             case 6 ->
                     Effects.getInstance().gameZoomOut(
                             easyGrid, background,
-                            1000, 35, -145.5, 14.5, EASY);
+                            800, 35, -145.5, 14.5, EASY);
             case 12 ->
                     Effects.getInstance().gameZoomOut(
                             mediumGrid, mediumBackground,
-                            1001, 35, 117.2, -144.92, MEDIUM);
+                            1101, 35, 117.2, -144.92, MEDIUM);
             case 20 ->
                     Effects.getInstance().gameZoomOut(
                             hardGrid, hardBackground,
@@ -223,7 +326,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         Platform.runLater(() -> logAndReg.setVisible(false));
 
         Platform.runLater(() -> Effects.getInstance().gameZoomIn(
-                background, 1000,
+                background, 800,
                 10, -145.5, 14.5,
                 EASY,this));
 
@@ -237,7 +340,7 @@ public class Gui extends Application implements IGui, IChartGUI {
 
         Platform.runLater(() ->         Effects.getInstance().gameZoomIn(
                 mediumBackground,
-                1001, 10, 117.2, -144.92,
+                1101, 10, 117.2, -144.92,
                 MEDIUM,this));
 
     }
@@ -494,6 +597,10 @@ public class Gui extends Application implements IGui, IChartGUI {
 
     private void setMenuImages() {
 
+        burningsun = (ImageView) root.lookup("#burningsun");
+        burningsun.setImage(ImageCache.getInstance().getMenuCache().get(24));
+        dirt = (ImageView) root.lookup("#dirt");
+        dirt.setImage(ImageCache.getInstance().getMenuCache().get(23));
         pergament = (ImageView) root.lookup("#pergament");
         pergament.setImage(ImageCache.getInstance().getMenuCache().get(0));
         miniEasy = (ImageView) root.lookup("#miniEasy");
@@ -514,48 +621,6 @@ public class Gui extends Application implements IGui, IChartGUI {
         jungle.setImage(ImageCache.getInstance().getMenuCache().get(8));
         redtree = (ImageView) root.lookup("#redtree");
         redtree.setImage(ImageCache.getInstance().getMenuCache().get(9));
-
-        mt1 = (ImageView) root.lookup("#mt1");
-        mt1.setImage(ImageCache.getInstance().getMenuCache().get(10));
-        mt2 = (ImageView) root.lookup("#mt2");
-        mt2.setImage(ImageCache.getInstance().getMenuCache().get(11));
-        mt3 = (ImageView) root.lookup("#mt3");
-        mt3.setImage(ImageCache.getInstance().getMenuCache().get(12));
-        mt4 = (ImageView) root.lookup("#mt4");
-        mt4.setImage(ImageCache.getInstance().getMenuCache().get(13));
-        mt5 = (ImageView) root.lookup("#mt5");
-        mt5.setImage(ImageCache.getInstance().getMenuCache().get(14));
-        mt6 = (ImageView) root.lookup("#mt6");
-        mt6.setImage(ImageCache.getInstance().getMenuCache().get(15));
-        mt7 = (ImageView) root.lookup("#mt7");
-        mt7.setImage(ImageCache.getInstance().getMenuCache().get(16));
-        mt8 = (ImageView) root.lookup("#mt8");
-        mt8.setImage(ImageCache.getInstance().getMenuCache().get(17));
-        mt9 = (ImageView) root.lookup("#mt9");
-        mt9.setImage(ImageCache.getInstance().getMenuCache().get(18));
-        mt10 = (ImageView) root.lookup("#mt10");
-        mt10.setImage(ImageCache.getInstance().getMenuCache().get(19));
-        mt11 = (ImageView) root.lookup("#mt11");
-        mt11.setImage(ImageCache.getInstance().getMenuCache().get(20));
-        mt12 = (ImageView) root.lookup("#mt12");
-        mt12.setImage(ImageCache.getInstance().getMenuCache().get(21));
-        mt13 = (ImageView) root.lookup("#mt13");
-        mt13.setImage(ImageCache.getInstance().getMenuCache().get(22));
-
-        mtLista.add(mt1);
-        mtLista.add(mt2);
-        mtLista.add(mt3);
-        mtLista.add(mt4);
-        mtLista.add(mt5);
-        mtLista.add(mt6);
-        mtLista.add(mt7);
-        mtLista.add(mt8);
-        mtLista.add(mt9);
-        mtLista.add(mt10);
-        mtLista.add(mt11);
-        mtLista.add(mt12);
-        mtLista.add(mt13);
-
     }
 
     private void setGameImages() {
@@ -594,9 +659,11 @@ public class Gui extends Application implements IGui, IChartGUI {
             easyFrame.setOpacity(1);
             mediumFrame.setOpacity(1);
             hardFrame.setOpacity(1);
-            japan.setOpacity(0.26);
-            jungle.setOpacity(0.2);
-            redtree.setOpacity(0.35);
+            japan.setOpacity(0.4);
+            jungle.setOpacity(0.26);
+            redtree.setOpacity(0.75);
+            Platform.runLater(() -> Effects.getInstance().playBuringSun());
+            AudioMemory.getInstance().playSong(MENU);
         }
     }
 

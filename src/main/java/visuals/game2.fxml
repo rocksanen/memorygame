@@ -107,17 +107,27 @@
         </VBox>
         <AnchorPane id="menuAnkkuri" fx:id="menuAnkkuri" prefHeight="750.0" prefWidth="1250.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                  <ImageView id="pergament" fx:id="pergament" cache="true" fitHeight="754.0" fitWidth="1279.0">
+                  <ImageView id="pergament" fx:id="pergament" fitHeight="754.0" fitWidth="1254.0" scaleX="1.2" scaleY="1.2" translateZ="200.0">
                       <image>
-                          <Image url="@images/pergaBack.jpg" />
+                          <Image url="@images/testaperga7.jpg" />
                       </image>
                       <effect>
                   <GaussianBlur radius="1.76" />
                       </effect>
                   </ImageView>
+            <ImageView id="burningsun" fx:id="burningsun" fitHeight="369.0" fitWidth="360.0" layoutX="-270.0" layoutY="-59.0" opacity="0.0">
+               <image>
+                  <Image url="@images/burningsun.png" />
+               </image>
+            </ImageView>
             <ImageView id="blacksun" fx:id="blacksun" fitHeight="321.0" fitWidth="365.0" layoutX="465.0" layoutY="51.0" opacity="0.0">
                <image>
                   <Image url="@images/blacksun1.png" />
+               </image>
+            </ImageView>
+            <ImageView id="dirt" fx:id="dirt" fitHeight="762.0" fitWidth="1270.0" opacity="0.61" translateZ="-500.0">
+               <image>
+                  <Image url="@images/dirt.png" />
                </image>
             </ImageView>
                 <Pane id="gameModePane" fx:id="gameModePane" layoutX="280.0" layoutY="72.0" opacity="0.0" prefHeight="620.0" prefWidth="922.0">
@@ -194,7 +204,7 @@
                         <BoxBlur />
                      </effect>
                   </Pane>
-                  <ImageView id="jungle" fx:id="jungle" fitHeight="544.0" fitWidth="769.0" layoutX="-83.0" layoutY="33.0" opacity="0.0">
+                  <ImageView id="jungle" fx:id="jungle" fitHeight="544.0" fitWidth="1283.0" layoutX="-313.0" layoutY="33.0" opacity="0.0" scaleX="1.25" scaleY="1.25" translateZ="300.0">
                      <image>
                         <Image url="@images/jungle.png" />
                      </image>
@@ -202,12 +212,12 @@
                         <ColorAdjust saturation="0.02" />
                      </effect>
                   </ImageView>
-                  <ImageView id="japan" fx:id="japan" fitHeight="344.0" fitWidth="366.0" layoutX="21.0" layoutY="277.0" opacity="0.0">
+                  <ImageView id="japan" fx:id="japan" fitHeight="321.0" fitWidth="480.0" layoutX="-93.0" layoutY="258.0" opacity="0.0">
                      <image>
                         <Image url="@images/cherry.png" />
                      </image>
                   </ImageView>
-                  <ImageView id="redtree" fx:id="redtree" fitHeight="368.0" fitWidth="516.0" layoutX="504.0" layoutY="312.0" opacity="0.0">
+                  <ImageView id="redtree" fx:id="redtree" fitHeight="413.0" fitWidth="516.0" layoutX="504.0" layoutY="250.0" opacity="0.0" translateZ="-200.0">
                      <image>
                         <Image url="@images/redtree.png" />
                      </image>
@@ -215,7 +225,7 @@
                         <ColorAdjust hue="-0.26" />
                      </effect>
                   </ImageView>
-                        <ImageView id="miniEasy" fx:id="miniEasy" fitHeight="118.0" fitWidth="198.0" layoutX="101.0" layoutY="259.0" onMouseClicked="#easyStartScreenPlay" opacity="0.0">
+                        <ImageView id="miniEasy" fx:id="miniEasy" fitHeight="118.0" fitWidth="198.0" layoutX="101.0" layoutY="259.0" onMouseClicked="#easyStartScreenPlay" opacity="0.0" translateZ="-200.0">
                             <image>
                                 <Image url="@images/background.png" />
                             </image>
@@ -223,7 +233,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                         </ImageView>
-                        <ImageView id="miniMedium" fx:id="miniMedium" fitHeight="118.0" fitWidth="198.0" layoutX="363.0" layoutY="100.0" onMouseClicked="#mediumStartScreenPlay" opacity="0.0">
+                        <ImageView id="miniMedium" fx:id="miniMedium" fitHeight="118.0" fitWidth="198.0" layoutX="363.0" layoutY="100.0" onMouseClicked="#mediumStartScreenPlay" opacity="0.0" translateZ="100.0">
                             <image>
                                 <Image url="@images/tigru.jpg" />
                             </image>
@@ -239,20 +249,20 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                         </ImageView>
-                        <ImageView id="easyFrame" fx:id="easyFrame" fitHeight="120.4" fitWidth="200.0" layoutX="100.0" layoutY="257.8" opacity="0.0">
+                        <ImageView id="easyFrame" fx:id="easyFrame" fitHeight="120.4" fitWidth="200.0" layoutX="100.0" layoutY="257.8" opacity="0.0" translateZ="-200.0">
                             <image>
                                 <Image url="@images/frame3.png" />
                             </image>
                      <effect>
-                        <ColorAdjust hue="-0.08" saturation="0.52" />
+                        <ColorAdjust brightness="-0.97" hue="-0.02" saturation="-1.0" />
                      </effect>
                         </ImageView>
-                        <ImageView id="mediumFrame" fx:id="mediumFrame" fitHeight="120.4" fitWidth="199.3" layoutX="363.0" layoutY="98.8" opacity="0.0">
+                        <ImageView id="mediumFrame" fx:id="mediumFrame" fitHeight="120.4" fitWidth="199.3" layoutX="363.0" layoutY="98.8" opacity="0.0" translateZ="100.0">
                             <image>
                                 <Image url="@images/frame3.png" />
                             </image>
                      <effect>
-                        <ColorAdjust hue="-0.08" saturation="0.52" />
+                        <ColorAdjust brightness="-0.97" hue="-0.02" saturation="-1.0" />
                      </effect>
                         </ImageView>
                         <ImageView id="hardFrame" fx:id="hardFrame" fitHeight="120.4" fitWidth="200.0" layoutX="629.0" layoutY="257.8" opacity="0.0">
@@ -260,14 +270,9 @@
                                 <Image url="@images/frame3.png" />
                             </image>
                      <effect>
-                        <ColorAdjust hue="-0.08" saturation="0.52" />
+                        <ColorAdjust brightness="-0.97" hue="-0.02" saturation="-1.0" />
                      </effect>
                         </ImageView>
-                  <ImageView id="compass" fitHeight="110.0" fitWidth="102.0" layoutX="15.0" layoutY="115.0" mouseTransparent="true">
-                     <image>
-                        <Image url="@images/compass.png" />
-                     </image>
-                  </ImageView>
                     </children>
                 </Pane>
             </children>
@@ -277,7 +282,7 @@
                 <Image url="@images/frame3.png" />
             </image>
          <effect>
-            <ColorAdjust hue="-0.08" saturation="0.52" />
+            <ColorAdjust brightness="-0.97" hue="-0.02" saturation="-1.0" />
          </effect>
         </ImageView>
       <Pane id="score" fx:id="score" prefHeight="755.0" prefWidth="256.0" visible="false" AnchorPane.leftAnchor="10.0">
