@@ -22,7 +22,6 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage arg0) throws IOException {
-
         IGui gui = new Gui();
         gui.start(arg0);
     }

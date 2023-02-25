@@ -1,8 +1,6 @@
 package visuals;
 
-import controller.Controller;
-import controller.IControllerScoreToV;
-import controller.IControllerVtoE;
+import controller.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -19,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -40,9 +39,14 @@ import java.util.Objects;
 
 import static model.ModeType.*;
 
-public class Gui extends Application implements IGui{
+public class Gui extends Application implements IGui, IChartGUI {
+
+
 
     private ModeType selectedDifficulty;
+
+    private final IChartController scoreController2 = new ChartController( this);
+
     private final IControllerVtoE controller = new Controller(this);
     private final IControllerScoreToV scoreController = new Controller(this);
     Stage primaryStage;
@@ -606,4 +610,13 @@ public class Gui extends Application implements IGui{
     }
 
 
+    public void statsGame(MouseEvent mouseEvent) {
+        ChartGUI c = new ChartGUI();
+
+        try {
+            c.start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
