@@ -10,6 +10,7 @@
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.effect.Reflection?>
+<?import javafx.scene.effect.SepiaTone?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -111,11 +112,11 @@
                       <image>
                           <Image url="@images/testaperga7.jpg" />
                       </image>
-                      <effect>
-                  <GaussianBlur radius="1.76" />
-                      </effect>
+               <effect>
+                  <SepiaTone />
+               </effect>
                   </ImageView>
-            <ImageView id="burningsun" fx:id="burningsun" fitHeight="369.0" fitWidth="360.0" layoutX="-270.0" layoutY="-59.0" opacity="0.0">
+            <ImageView id="burningsun" fx:id="burningsun" fitHeight="369.0" fitWidth="360.0" layoutX="-260.0" layoutY="-59.0" opacity="0.0">
                <image>
                   <Image url="@images/burningsun.png" />
                </image>
@@ -275,9 +276,14 @@
                         </ImageView>
                     </children>
                 </Pane>
+            <ImageView fitHeight="1218.0" fitWidth="1616.0" layoutX="-181.0" layoutY="-139.0">
+               <image>
+                  <Image url="@images/tv.png" />
+               </image>
+            </ImageView>
             </children>
         </AnchorPane>
-        <ImageView id="allBorder" fitHeight="754.0" fitWidth="1254.0" layoutX="-2.0" layoutY="-2.0" mouseTransparent="true">
+        <ImageView id="allBorder" fitHeight="754.0" fitWidth="1254.0" layoutX="-2.0" layoutY="-2.0" mouseTransparent="true" visible="false">
             <image>
                 <Image url="@images/frame3.png" />
             </image>
@@ -312,7 +318,7 @@
             <Insets left="10.0" />
          </padding>
       </Pane>
-      <Pane id="logAndReg" fx:id="logAndReg" layoutX="20.0" layoutY="340.0" opacity="0.0" prefHeight="377.0" prefWidth="262.0">
+      <Pane id="logAndReg" fx:id="logAndReg" layoutX="20.0" layoutY="340.0" opacity="0.0" prefHeight="377.0" prefWidth="262.0" visible="false">
          <children>
                 <ImageView fitHeight="409.0" fitWidth="372.0" layoutX="-48.0">
                     <image>

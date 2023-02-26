@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.Glow;
 import javafx.scene.effect.Reflection;
+import javafx.scene.effect.SepiaTone;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -416,10 +417,13 @@ public class Effects {
 
         Platform.runLater(() -> AudioMemory.getInstance().playSong(ModeType.MENU));
 
+        SepiaTone sepiaTone = new SepiaTone();
+        sepiaTone.setLevel(1);
+        Platform.runLater(() -> pergament.setEffect(sepiaTone));
 
         Timeline timelySun = new Timeline(
                 new KeyFrame(Duration.ZERO),
-                new KeyFrame(Duration.seconds(31))
+                new KeyFrame(Duration.seconds(30))
         );
 
 
@@ -473,13 +477,13 @@ public class Effects {
                         new KeyValue(sun.layoutYProperty(),sun.getLayoutY())),
                 new KeyFrame(Duration.seconds(14.5),
                         new KeyValue(second.opacityProperty(),0)),
-                new KeyFrame(Duration.seconds(15),
+                new KeyFrame(Duration.seconds(14.8),
                         new KeyValue(second.opacityProperty(),1),
                         new KeyValue(sun.opacityProperty(),0.14),
                         new KeyValue(sun.layoutXProperty(),sun.getLayoutX())),
                 new KeyFrame(Duration.seconds(24.2),
                         new KeyValue(second.opacityProperty(),0),
-                        new KeyValue(sun.opacityProperty(),0.35)),
+                        new KeyValue(sun.opacityProperty(),0.4)),
                 new KeyFrame(Duration.seconds(26.2),
                         new KeyValue(startBlack.opacityProperty(),1),
                         new KeyValue(sunblur.radiusProperty(),0),
@@ -490,7 +494,7 @@ public class Effects {
                         new KeyValue(gamePane.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(35),
                         new KeyValue(blacksun.layoutYProperty(),blacksun.getLayoutY()),
-                        new KeyValue(blacksun.opacityProperty(),0.5),
+                        new KeyValue(blacksun.opacityProperty(),0.7),
                         new KeyValue(gamePane.opacityProperty(),1)),
                 new KeyFrame(Duration.seconds(36.4),
                         new KeyValue(startBlack.opacityProperty(),0),
@@ -528,9 +532,11 @@ public class Effects {
                         new KeyValue(hardFrame.opacityProperty(),1),
                         new KeyValue(redtree.opacityProperty(),redtreeStart)),
                 new KeyFrame(Duration.seconds(40.6),
-                        new KeyValue(logAndReg.opacityProperty(),0)),
+                        new KeyValue(logAndReg.opacityProperty(),0),
+                        new KeyValue(sepiaTone.levelProperty(), 1)),
                 new KeyFrame(Duration.seconds(40.7),
-                        new KeyValue(logAndReg.opacityProperty(),1))
+                        new KeyValue(logAndReg.opacityProperty(),1),
+                        new KeyValue(sepiaTone.levelProperty(), 0))
         );
 
         timeline.play();
@@ -558,19 +564,19 @@ public class Effects {
         burningsun.setOpacity(0.3);
         burningSunLine = new Timeline(
                 new KeyFrame(Duration.ZERO,
-                        new KeyValue(burningsun.layoutXProperty(),-270),
+                        new KeyValue(burningsun.layoutXProperty(),-260),
                         new KeyValue(burningsun.layoutYProperty(),-59)),
                 new KeyFrame(Duration.minutes(1.5),
                         new KeyValue(burningsun.layoutYProperty(),-59 - 80)),
                 new KeyFrame(Duration.minutes(3),
-                        new KeyValue(burningsun.layoutXProperty(),-270 + 1460),
+                        new KeyValue(burningsun.layoutXProperty(),-260 + 1470),
                         new KeyValue(burningsun.layoutYProperty(),-59))
         );
 
         burningSunLine.playFromStart();
         burningSunLine.setOnFinished(actionEvent -> {
 
-            burningsun.setLayoutX(-270);
+            burningsun.setLayoutX(-260);
             burningsun.setLayoutY(-59);
 
             burningSunLine.play();
