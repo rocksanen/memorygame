@@ -138,7 +138,7 @@ public class ImageCache {
 
     public void addToMenuCache() throws FileNotFoundException {
 
-        Image pergament = new Image(new FileInputStream("src/main/java/visuals/images/pergaBack.jpg"));
+        Image pergament = new Image(new FileInputStream("src/main/java/visuals/images/testaperga7.jpg"));
         Image miniEasy = new Image(new FileInputStream("src/main/java/visuals/images/background.png"));
         Image miniMedium = new Image(new FileInputStream("src/main/java/visuals/images/tigru.jpg"));
         Image miniHard = new Image(new FileInputStream("src/main/java/visuals/images/hardback4.jpg"));
@@ -161,6 +161,8 @@ public class ImageCache {
         Image mt11 = new Image(new FileInputStream("src/main/java/visuals/images/mt13.png"));
         Image mt12 = new Image(new FileInputStream("src/main/java/visuals/images/mt11.png"));
         Image mt13 = new Image(new FileInputStream("src/main/java/visuals/images/mt12.png"));
+        Image dirt = new Image(new FileInputStream("src/main/java/visuals/images/dirt.png"));
+        Image burningsun = new Image(new FileInputStream("src/main/java/visuals/images/burningsun.png"));
 
         menuImages.add(pergament);
         menuImages.add(miniEasy);
@@ -185,6 +187,8 @@ public class ImageCache {
         menuImages.add(mt11);
         menuImages.add(mt12);
         menuImages.add(mt13);
+        menuImages.add(dirt);
+        menuImages.add(burningsun);
 
     }
 
