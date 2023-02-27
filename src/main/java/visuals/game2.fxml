@@ -108,7 +108,7 @@
         </VBox>
         <AnchorPane id="menuAnkkuri" fx:id="menuAnkkuri" prefHeight="750.0" prefWidth="1250.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                  <ImageView id="pergament" fx:id="pergament" fitHeight="754.0" fitWidth="1254.0" scaleX="1.2" scaleY="1.2" translateZ="200.0">
+                  <ImageView id="pergament" fx:id="pergament" fitHeight="754.0" fitWidth="1260.0" scaleX="1.2" scaleY="1.2" translateZ="200.0">
                       <image>
                           <Image url="@images/testaperga7.jpg" />
                       </image>
@@ -276,14 +276,14 @@
                         </ImageView>
                     </children>
                 </Pane>
-            <ImageView fitHeight="1218.0" fitWidth="1616.0" layoutX="-181.0" layoutY="-139.0">
-               <image>
-                  <Image url="@images/tv.png" />
-               </image>
-            </ImageView>
             </children>
         </AnchorPane>
-        <ImageView id="allBorder" fitHeight="754.0" fitWidth="1254.0" layoutX="-2.0" layoutY="-2.0" mouseTransparent="true" visible="false">
+      <ImageView id="telkku" fitHeight="1218.0" fitWidth="1616.0" layoutX="-181.0" layoutY="-139.0">
+         <image>
+            <Image url="@images/tv.png" />
+         </image>
+      </ImageView>
+        <ImageView id="allBorder" fitHeight="754.0" fitWidth="1254.0" layoutX="-2.0" layoutY="-2.0" mouseTransparent="true" opacity="0.0" visible="false">
             <image>
                 <Image url="@images/frame3.png" />
             </image>
@@ -318,7 +318,7 @@
             <Insets left="10.0" />
          </padding>
       </Pane>
-      <Pane id="logAndReg" fx:id="logAndReg" layoutX="20.0" layoutY="340.0" opacity="0.0" prefHeight="377.0" prefWidth="262.0" visible="false">
+      <Pane id="logAndReg" fx:id="logAndReg" layoutX="20.0" layoutY="340.0" opacity="0.0" prefHeight="377.0" prefWidth="262.0">
          <children>
                 <ImageView fitHeight="409.0" fitWidth="372.0" layoutX="-48.0">
                     <image>
@@ -367,6 +367,14 @@
             <ImageView id="sun" fx:id="sun" fitHeight="783.0" fitWidth="1437.0" layoutX="-70.0" opacity="0.0">
                <image>
                   <Image url="@images/sunRay.png" />
+               </image>
+               <effect>
+                  <SepiaTone level="0.72" />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="80.0" fitWidth="800.0" layoutX="230.0" layoutY="320.0" visible="false">
+               <image>
+                  <Image url="@images/mightygroup.png" />
                </image>
             </ImageView>
          </children>

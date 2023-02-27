@@ -1,6 +1,5 @@
 package visuals;
 
-import com.sun.jdi.VoidType;
 import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
@@ -8,16 +7,15 @@ import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.Glow;
 import javafx.scene.effect.Reflection;
 import javafx.scene.effect.SepiaTone;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import model.ModeType;
+import org.jetbrains.annotations.NotNull;
 import visuals.audio.AudioMemory;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 
@@ -41,7 +39,6 @@ public class Effects {
     private GridPane cubeGrid;
     private ImageView gameBackGround;
     private Pane gamePane;
-    private ArrayList<ImageView> mtLista;
     private final double japanStart = 0.4; //0.26
     private final double jungleStart = 0.26; // 0.2
     private final double redtreeStart = 0.75; //0.35
@@ -67,13 +64,12 @@ public class Effects {
 
     public void setGeneralObjects(
             ImageView pergament, AnchorPane menuAnkkuri, AnchorPane startBlack,
-            Pane gamePane, ArrayList<ImageView> mtLista, ImageView burningsun) {
+            Pane gamePane,ImageView burningsun) {
 
         this.pergament = pergament;
         this.menuAnkkuri = menuAnkkuri;
         this.startBlack = startBlack;
         this.gamePane = gamePane;
-        this.mtLista = mtLista;
         this.burningsun = burningsun;
 
     }
@@ -106,7 +102,7 @@ public class Effects {
         return instance;
     }
 
-    public void backGroundBlurIn(ImageView imageView) {
+    public void backGroundBlurIn(@NotNull ImageView imageView) {
 
         gaussianBlur.setRadius(0);
         imageView.setEffect(gaussianBlur);
@@ -119,7 +115,7 @@ public class Effects {
 
             GridPane cubeGrid,
             ImageView gameBackGround, double zOffset,
-            double fovOffset, double xOffset, double yOffset,ModeType type
+            double fovOffset, double xOffset, double yOffset, @NotNull ModeType type
     ) {
 
         this.cubeGrid = cubeGrid;
@@ -239,8 +235,8 @@ public class Effects {
         menuAnkkuri.setOpacity(1);
 
         Platform.runLater(() -> Gui.logAndReg.setVisible(true));
-        AudioMemory.getInstance().stopSong(type);
-        AudioMemory.getInstance().playSong(ModeType.MAIN);
+        Platform.runLater(() -> AudioMemory.getInstance().stopSong(type));
+        Platform.runLater(() -> AudioMemory.getInstance().playSong(ModeType.MENU));
 
         zoomOutCamera();
         zoomOutOpacities();
@@ -250,7 +246,7 @@ public class Effects {
 
             ImageView gameBackGround,
             double zOffset, double fovOffset, double xOffset,
-            double yOffset, ModeType type, Gui gui
+            double yOffset, @NotNull ModeType type, Gui gui
 
     ) {
 
@@ -293,7 +289,6 @@ public class Effects {
 
     private void cameraZoomIn(Gui gui) {
 
-
         Timeline timelineZoomIn = new Timeline(
 
                 new KeyFrame(Duration.ZERO,
@@ -321,6 +316,8 @@ public class Effects {
         timelineZoomIn.setOnFinished(actionEvent -> {
 
             timelineZoomIn.stop();
+            AudioMemory.getInstance().stopSong(ModeType.MENU);
+            AudioMemory.getInstance().playSong(type);
             cameraZoomInEndings(gui);
         });
     }
@@ -358,12 +355,10 @@ public class Effects {
         });
     }
 
-    private void quickSwitchCameraEndings(Gui gui) {
+    private void quickSwitchCameraEndings(@NotNull Gui gui) {
 
         Gui.camera.setFieldOfView(1);
         gui.startChoose(type);
-        AudioMemory.getInstance().stopSong(ModeType.MAIN);
-        AudioMemory.getInstance().playSong(type);
         Platform.runLater(() -> backGroundMover.animate(gameBackGround));
         Platform.runLater(backGroundMover::play);
         Platform.runLater(() -> backGroundBlurIn(gameBackGround));
@@ -408,22 +403,26 @@ public class Effects {
     }
 
 
-    public void bringGameUp(
-            Label first, Label second,
-            Pane logAndReg, ImageView sun,
-            ImageView lightning, ImageView blacksun,
-            ImageView easyFrame, ImageView mediumFrame, ImageView hardFrame) {
+    public void intro(
+            @NotNull Label first, @NotNull Label second,
+            @NotNull Pane logAndReg, @NotNull ImageView sun,
+            @NotNull ImageView lightning, @NotNull ImageView blacksun,
+            @NotNull ImageView easyFrame, @NotNull ImageView mediumFrame, @NotNull ImageView hardFrame) {
 
 
-        Platform.runLater(() -> AudioMemory.getInstance().playSong(ModeType.MENU));
 
+        AudioMemory.noIntro = true;
         SepiaTone sepiaTone = new SepiaTone();
         sepiaTone.setLevel(1);
         Platform.runLater(() -> pergament.setEffect(sepiaTone));
 
+        SepiaTone sunTone = new SepiaTone();
+        sunTone.setLevel(0);
+        Platform.runLater(() -> sun.setEffect(sunTone));
+
         Timeline timelySun = new Timeline(
                 new KeyFrame(Duration.ZERO),
-                new KeyFrame(Duration.seconds(30))
+                new KeyFrame(Duration.seconds(28.5))
         );
 
 
@@ -452,6 +451,8 @@ public class Effects {
 
         first.setEffect(reflection);
 
+
+
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO),
                 new KeyFrame(Duration.seconds(3.5),
@@ -479,11 +480,12 @@ public class Effects {
                         new KeyValue(second.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(14.8),
                         new KeyValue(second.opacityProperty(),1),
-                        new KeyValue(sun.opacityProperty(),0.14),
+                        new KeyValue(sun.opacityProperty(),0.24),
                         new KeyValue(sun.layoutXProperty(),sun.getLayoutX())),
                 new KeyFrame(Duration.seconds(24.2),
                         new KeyValue(second.opacityProperty(),0),
-                        new KeyValue(sun.opacityProperty(),0.4)),
+                        new KeyValue(sun.opacityProperty(),0.4),
+                        new KeyValue(sunTone.levelProperty(),0)),
                 new KeyFrame(Duration.seconds(26.2),
                         new KeyValue(startBlack.opacityProperty(),1),
                         new KeyValue(sunblur.radiusProperty(),0),
@@ -495,7 +497,8 @@ public class Effects {
                 new KeyFrame(Duration.seconds(35),
                         new KeyValue(blacksun.layoutYProperty(),blacksun.getLayoutY()),
                         new KeyValue(blacksun.opacityProperty(),0.7),
-                        new KeyValue(gamePane.opacityProperty(),1)),
+                        new KeyValue(gamePane.opacityProperty(),1),
+                        new KeyValue(sunTone.levelProperty(), 0.9)),
                 new KeyFrame(Duration.seconds(36.4),
                         new KeyValue(startBlack.opacityProperty(),0),
                         new KeyValue(sun.opacityProperty(),0),                   // 0
@@ -542,6 +545,7 @@ public class Effects {
         timeline.play();
         timeline.setOnFinished(actionEvent -> {
 
+            //moveCamera();
             blacksun.setDisable(true);
             blacksun.setVisible(false);
             sun.setDisable(true);
@@ -580,12 +584,41 @@ public class Effects {
             burningsun.setLayoutY(-59);
 
             burningSunLine.play();
+
+
         });
     }
 
     public void playBuringSun() {
 
         burningSunMove();
+
+    }
+
+    public void moveCamera() {
+
+        double transx = Gui.camera.getTranslateX();
+        double transz = Gui.camera.getTranslateZ();
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(Gui.camera.translateXProperty(),transx),
+                        new KeyValue(Gui.camera.translateZProperty(),transz)),
+                new KeyFrame(Duration.seconds(5),
+                        new KeyValue(Gui.camera.translateZProperty(),Gui.camera.getTranslateZ() + 5),
+                        new KeyValue(Gui.camera.translateXProperty(),Gui.camera.getTranslateX() - 5)),
+                new KeyFrame(Duration.seconds(10),
+                        new KeyValue(Gui.camera.translateXProperty(),Gui.camera.getTranslateX() + 5),
+                        new KeyValue(Gui.camera.translateZProperty(),Gui.camera.getTranslateZ() - 5)),
+                new KeyFrame(Duration.seconds(15),
+                        new KeyValue(Gui.camera.translateXProperty(),Gui.camera.getTranslateX() - 5),
+                        new KeyValue(Gui.camera.translateZProperty(),Gui.camera.getTranslateZ() + 5))
+        );
+
+        timeline.setAutoReverse(true);
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+
 
     }
 
@@ -596,7 +629,7 @@ public class Effects {
 
     }
 
-    public void setGlow(ImageView imageView) {
+    public void setGlow(@NotNull ImageView imageView) {
 
         Glow glow = new Glow();
         imageView.setEffect(glow);

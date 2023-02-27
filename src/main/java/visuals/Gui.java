@@ -11,22 +11,17 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Point3D;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.GaussianBlur;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
@@ -39,8 +34,6 @@ import visuals.cubeFactories.HardCubeFactory;
 import visuals.cubeFactories.ICubeFactory;
 import visuals.cubeFactories.MediumCubeFactory;
 import visuals.imageServers.ImageCache;
-
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,12 +43,8 @@ import static model.ModeType.*;
 
 public class Gui extends Application implements IGui, IChartGUI {
 
-
-
     private ModeType selectedDifficulty;
-
     private final IChartController scoreController2 = new ChartController( this);
-
     private final IControllerVtoE controller = new Controller(this);
     private final IControllerScoreToV scoreController = new Controller(this);
     Stage primaryStage;
@@ -113,19 +102,6 @@ public class Gui extends Application implements IGui, IChartGUI {
     @FXML ImageView sun;
     @FXML ImageView lightning;
     @FXML ImageView blacksun;
-    @FXML ImageView mt1;
-    @FXML ImageView mt2;
-    @FXML ImageView mt3;
-    @FXML ImageView mt4;
-    @FXML ImageView mt5;
-    @FXML ImageView mt6;
-    @FXML ImageView mt7;
-    @FXML ImageView mt8;
-    @FXML ImageView mt9;
-    @FXML ImageView mt10;
-    @FXML ImageView mt11;
-    @FXML ImageView mt12;
-    @FXML ImageView mt13;
     @FXML ImageView miniEasy;
     @FXML ImageView miniMedium;
     @FXML ImageView miniHard;
@@ -136,12 +112,7 @@ public class Gui extends Application implements IGui, IChartGUI {
     @FXML ImageView jungle;
     @FXML ImageView redtree;
     @FXML static Pane logAndReg;
-
     @FXML ImageView dirt;
-
-    @FXML
-    Sphere earth;
-
     @FXML ImageView burningsun;
 
     private static final double CAMERA_INITIAL_DISTANCE = -1000;
@@ -149,33 +120,26 @@ public class Gui extends Application implements IGui, IChartGUI {
     private static final double CAMERA_INITIAL_Y_ANGLE = 0.0;
     private static final double CAMERA_NEAR_CLIP = 0.1;
     private static final double CAMERA_FAR_CLIP = 10000.0;
-
     private double mousePosX;
     private double mouseOldX;
     private final Rotate rotateY = new Rotate(0, Rotate.Y_AXIS);
-
     private final Rotate rotateZ = new Rotate(0, Rotate.Z_AXIS);
     private final Rotate jungleZ = new Rotate(0, Rotate.Z_AXIS);
     private final Rotate rotateX = new Rotate(CAMERA_INITIAL_X_ANGLE, Rotate.Z_AXIS);
     private final Translate translate = new Translate(1250/2, 750/2, 0);
-
-
-    ArrayList<BoxMaker> cubeList;
-    ICubeFactory easyCubeFactory;
-    ICubeFactory mediumCubeFactory;
-    ICubeFactory hardCubeFactory;
-    Parent root;
-    Scene scene;
-    private final ArrayList<ImageView> mtLista = new ArrayList<>();
+    private ArrayList<BoxMaker> cubeList;
+    private ICubeFactory easyCubeFactory;
+    private ICubeFactory mediumCubeFactory;
+    private ICubeFactory hardCubeFactory;
+    private Parent root;
+    private Scene scene;
     public static PerspectiveCamera camera = new PerspectiveCamera();
-
     public static void main(String[] args) {launch(args);}
 
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-
-        initOtto();
+        initGoods();
 
         this.primaryStage = primaryStage;
         this.scene = new Scene(root, 1250, 750);
@@ -184,6 +148,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         this.scene.getCamera().setNearClip(0.1);
 
 
+        /*
         scene.setOnMousePressed(event -> {
             mousePosX = event.getSceneX();
             mouseOldX = event.getSceneX();
@@ -199,9 +164,7 @@ public class Gui extends Application implements IGui, IChartGUI {
             }
         });
 
-
-
-
+         */
 
         this.primaryStage.setScene(scene);
         this.primaryStage.setResizable(false);
@@ -210,13 +173,12 @@ public class Gui extends Application implements IGui, IChartGUI {
         // If you want intro: "true", if not: "false". But is there life without intro?
         introOn(true);
 
-        //Platform.runLater(() -> AudioMemory.getInstance().playSong(ModeType.MAIN));
-        //Platform.runLater(() -> AudioMemory.getInstance().playSong(MENU));
+
         Platform.runLater(() -> Effects.getInstance().setGlow(pergament));
         Platform.runLater(() -> Effects.getInstance().playGlow());
         Visibilities.getInstance().setGridLayoutToVisibility(easyGrid,mediumGrid,hardGrid);
         Visibilities.getInstance().setGameBackGrounds(background,mediumBackground,mediumSpread,hardBackground,hardSpread);
-
+        AudioMemory.getInstance().playTheIntro();
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO),
                 new KeyFrame(Duration.seconds(0.5),
@@ -243,17 +205,6 @@ public class Gui extends Application implements IGui, IChartGUI {
                         new KeyValue(jungleZ.angleProperty(), -1.2))
         );
 
-        Timeline japanLine = new Timeline(
-                new KeyFrame(Duration.ZERO,
-                        new KeyValue(japan.layoutYProperty(),japan.getLayoutY())),
-                new KeyFrame(Duration.seconds(12),
-                        new KeyValue(japan.layoutYProperty(),japan.getLayoutY() + 10))
-        );
-
-        japanLine.setAutoReverse(true);
-        japanLine.setCycleCount(Timeline.INDEFINITE);
-        japanLine.play();
-
         jungleLine.setAutoReverse(true);
         jungleLine.setCycleCount(Timeline.INDEFINITE);
         jungleLine.play();
@@ -270,7 +221,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         scoresOn(true);
     }
 
-    public void initOtto() throws IOException {
+    public void initGoods() throws IOException {
 
         this.root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/visuals/game2.fxml")));
 
@@ -282,7 +233,7 @@ public class Gui extends Application implements IGui, IChartGUI {
 
         Effects.getInstance().setMiniImagesAndFrames(miniEasy, miniMedium, miniHard, easyFrame, mediumFrame, hardFrame);
         Effects.getInstance().setEssenceImages(japan,jungle,redtree);
-        Effects.getInstance().setGeneralObjects(pergament, menuAnkkuri, startBlack, gameModePane, mtLista, burningsun);
+        Effects.getInstance().setGeneralObjects(pergament, menuAnkkuri, startBlack, gameModePane,burningsun);
         Visibilities.getInstance().setToGameObjects(gameModePane,score,logAndReg,pergament);
     }
 
@@ -339,7 +290,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         Platform.runLater(() -> Visibilities.getInstance().gameBackGroundVisibility(MEDIUM));
         Platform.runLater(() -> logAndReg.setVisible(false));
 
-        Platform.runLater(() ->         Effects.getInstance().gameZoomIn(
+        Platform.runLater(() -> Effects.getInstance().gameZoomIn(
                 mediumBackground,
                 1101, 10, 117.2, -144.92,
                 MEDIUM,this));
@@ -369,6 +320,8 @@ public class Gui extends Application implements IGui, IChartGUI {
             case HARD -> setStartHardGame();
         }
         Platform.runLater(() -> Visibilities.getInstance().toGame());
+
+        if(AudioMemory.noIntro) {Platform.runLater(() -> AudioMemory.getInstance().stopTheIntro());}
 
     }
 
@@ -643,7 +596,7 @@ public class Gui extends Application implements IGui, IChartGUI {
 
         if(introStatus) {
 
-            Platform.runLater(() -> Effects.getInstance().bringGameUp(
+            Platform.runLater(() -> Effects.getInstance().intro(
                     weDidIt, groupFour, logAndReg,
                     sun, lightning, blacksun,
                     easyFrame,mediumFrame, hardFrame));
