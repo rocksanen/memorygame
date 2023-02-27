@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -36,19 +37,47 @@
                 <Image url="@images/hardback4.jpg" />
             </image>
         </ImageView>
-        <ImageView id="mediumSpread" fx:id="mediumSpread" fitHeight="780.0" fitWidth="1400.0" opacity="0.0">
+      <ImageView id="mediumSpread" fx:id="mediumSpread1" fitHeight="780.0" fitWidth="2800.0" layoutX="-1100.0" layoutY="10.0" opacity="0.0" rotate="79.0" visible="false">
+         <image>
+            <Image url="@images/tigru.jpg" />
+         </image>
+         <rotationAxis>
+            <Point3D y="1.0" />
+         </rotationAxis>
+      </ImageView>
+      <ImageView id="midR" fitHeight="750.0" fitWidth="1250.0">
+         <image>
+            <Image url="@images/midR.png" />
+         </image>
+      </ImageView>
+        <ImageView id="mediumBackground" fx:id="mediumBackground" fitHeight="744.5" fitWidth="1247.0" layoutX="-3.0" layoutY="5.5">
             <image>
                 <Image url="@images/tigru.jpg" />
             </image>
-            <effect>
-                <GaussianBlur radius="10.59" />
-            </effect>
         </ImageView>
-        <ImageView id="mediumBackground" fx:id="mediumBackground" fitHeight="744.5" fitWidth="1247.0" layoutX="-3.0" layoutY="5.5" opacity="0.0">
-            <image>
-                <Image url="@images/tigru.jpg" />
-            </image>
-        </ImageView>
+      <ImageView id="midTop" fitHeight="750.0" fitWidth="1250.0">
+         <image>
+            <Image url="@images/midTop.png" />
+         </image>
+      </ImageView>
+      <ImageView id="midL" fitHeight="750.0" fitWidth="1250.0">
+         <image>
+            <Image url="@images/midL.png" />
+         </image>
+      </ImageView>
+      <ImageView id="midBot" fitHeight="750.0" fitWidth="1250.0">
+         <image>
+            <Image url="@images/midBot.png" />
+         </image>
+      </ImageView>
+      <ImageView id="midgrid" fitHeight="750.0" fitWidth="1250.0" opacity="0.75">
+         <image>
+            <Image url="@images/gird.png" />
+         </image>
+         <effect>
+            <GaussianBlur radius="2.35" />
+         </effect>
+      </ImageView>
         <ImageView id="background" fx:id="background" fitHeight="741.0" fitWidth="1242.0" layoutX="4.0" layoutY="4.9" opacity="0.0">
             <image>
                 <Image url="@images/background.png" />
@@ -124,6 +153,11 @@
             <ImageView id="blacksun" fx:id="blacksun" fitHeight="321.0" fitWidth="365.0" layoutX="465.0" layoutY="51.0" opacity="0.0">
                <image>
                   <Image url="@images/blacksun1.png" />
+               </image>
+            </ImageView>
+            <ImageView id="memomaze" fx:id="memomaze" fitHeight="207.0" fitWidth="700.0" layoutX="270.0" layoutY="80.0" opacity="0.0">
+               <image>
+                  <Image url="@images/memomaze.png" />
                </image>
             </ImageView>
             <ImageView id="dirt" fx:id="dirt" fitHeight="762.0" fitWidth="1270.0" opacity="0.61" translateZ="-500.0">
