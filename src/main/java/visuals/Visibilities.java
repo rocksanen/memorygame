@@ -119,7 +119,7 @@ public class Visibilities {
                 }
                 case MEDIUM -> {
                     mediumBackground.setVisible(true);
-                    mediumSpread.setVisible(true);
+                    mediumSpread.setVisible(false);        ////true!!!!!!!!!!!!!!!!!!!!!!!!
                     mediumBackground.setOpacity(1);
                     mediumSpread.setOpacity(1);
                     background.setOpacity(0);

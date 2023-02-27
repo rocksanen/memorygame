@@ -72,6 +72,7 @@ public class Gui extends Application implements IGui, IChartGUI {
     ImageView hardBackground;
     @FXML ImageView hardSpread;
     @FXML ImageView mediumSpread;
+    @FXML ImageView midgrid;
     @FXML
     VBox vBox = new VBox();
     @FXML
@@ -114,6 +115,7 @@ public class Gui extends Application implements IGui, IChartGUI {
     @FXML static Pane logAndReg;
     @FXML ImageView dirt;
     @FXML ImageView burningsun;
+    @FXML ImageView memomaze;
 
     private static final double CAMERA_INITIAL_DISTANCE = -1000;
     private static final double CAMERA_INITIAL_X_ANGLE = 0.0;
@@ -234,6 +236,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         Effects.getInstance().setMiniImagesAndFrames(miniEasy, miniMedium, miniHard, easyFrame, mediumFrame, hardFrame);
         Effects.getInstance().setEssenceImages(japan,jungle,redtree);
         Effects.getInstance().setGeneralObjects(pergament, menuAnkkuri, startBlack, gameModePane,burningsun);
+        Effects.getInstance().setBackGrounds(mediumBackground, midgrid);
         Visibilities.getInstance().setToGameObjects(gameModePane,score,logAndReg,pergament);
     }
 
@@ -319,8 +322,8 @@ public class Gui extends Application implements IGui, IChartGUI {
             case MEDIUM -> setStartMediumGame();
             case HARD -> setStartHardGame();
         }
-        Platform.runLater(() -> Visibilities.getInstance().toGame());
 
+        Platform.runLater(() -> Visibilities.getInstance().toGame());
         if(AudioMemory.noIntro) {Platform.runLater(() -> AudioMemory.getInstance().stopTheIntro());}
 
     }
@@ -547,6 +550,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         lightning.setImage(ImageCache.getInstance().getIntroCache().get(1));
         blacksun = (ImageView) root.lookup("#blacksun");
         blacksun.setImage(ImageCache.getInstance().getIntroCache().get(2));
+        memomaze = (ImageView) root.lookup("#memomaze");
     }
 
     private void setMenuImages() {
@@ -575,6 +579,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         jungle.setImage(ImageCache.getInstance().getMenuCache().get(8));
         redtree = (ImageView) root.lookup("#redtree");
         redtree.setImage(ImageCache.getInstance().getMenuCache().get(9));
+        midgrid = (ImageView) root.lookup("#midgrid");
     }
 
     private void setGameImages() {
@@ -599,7 +604,7 @@ public class Gui extends Application implements IGui, IChartGUI {
             Platform.runLater(() -> Effects.getInstance().intro(
                     weDidIt, groupFour, logAndReg,
                     sun, lightning, blacksun,
-                    easyFrame,mediumFrame, hardFrame));
+                    easyFrame,mediumFrame, hardFrame, memomaze));
 
         }else{
 

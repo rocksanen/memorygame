@@ -48,6 +48,9 @@ public class Effects {
     private double xOffset;
     private double yOffset;
     private ImageView burningsun;
+    private ImageView midgrid;
+
+    private ImageView mediumBackGround;
     private final BackGroundMover backGroundMover = new BackGroundMover();
 
     private Timeline burningSunLine;
@@ -60,6 +63,17 @@ public class Effects {
         this.japan = japan;
         this.jungle = jungle;
         this.redtree = redtree;
+    }
+
+
+    public void setBackGrounds(ImageView mediumBackGround, ImageView midgrid) {
+
+        this.mediumBackGround = mediumBackGround;
+        this.midgrid = midgrid;
+
+
+
+
     }
 
     public void setGeneralObjects(
@@ -350,6 +364,7 @@ public class Effects {
 
         quickSwitch.setOnFinished(actionEvent1 -> {
 
+
             quickSwitch.stop();
             quickSwitchCameraEndings(gui);
         });
@@ -358,10 +373,53 @@ public class Effects {
     private void quickSwitchCameraEndings(@NotNull Gui gui) {
 
         Gui.camera.setFieldOfView(1);
+
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(mediumBackGround.fitWidthProperty(),mediumBackGround.getFitWidth()),
+                        new KeyValue(mediumBackGround.fitHeightProperty(),mediumBackGround.getFitHeight()),
+                        new KeyValue(mediumBackGround.layoutYProperty(),-139),
+                        new KeyValue(mediumBackGround.layoutXProperty(),-181)),
+                new KeyFrame(Duration.seconds(2),
+                        new KeyValue(mediumBackGround.fitWidthProperty(),138),
+                        new KeyValue(mediumBackGround.fitHeightProperty(),82),
+                        new KeyValue(mediumBackGround.layoutYProperty(),334),
+                        new KeyValue(mediumBackGround.layoutXProperty(),556))
+        );
+
+        //timeline.play();
+
         gui.startChoose(type);
-        Platform.runLater(() -> backGroundMover.animate(gameBackGround));
-        Platform.runLater(backGroundMover::play);
-        Platform.runLater(() -> backGroundBlurIn(gameBackGround));
+// Create a Timeline to scale the grid
+        Timeline timeline1 = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(midgrid.scaleYProperty(), 1),
+                        new KeyValue(midgrid.scaleXProperty(), 1),
+                        new KeyValue(midgrid.translateZProperty(), 0)),
+                new KeyFrame(Duration.seconds(0.1),
+                        new KeyValue(midgrid.scaleYProperty(), 1.08),
+                        new KeyValue(midgrid.scaleXProperty(), 1.08),
+                        new KeyValue(midgrid.translateZProperty(), 1000))
+        );
+
+// Set the animation to repeat indefinitely
+        timeline1.setCycleCount(Animation.INDEFINITE);
+
+// Start the animation
+        timeline1.play();
+
+        timeline.setOnFinished(actionEvent -> {
+
+
+        });
+
+
+
+
+        //Platform.runLater(() -> backGroundMover.animate(gameBackGround));
+        //Platform.runLater(backGroundMover::play);
+        //Platform.runLater(() -> backGroundBlurIn(gameBackGround));
     }
 
     private void opacitiesIn(
@@ -407,8 +465,8 @@ public class Effects {
             @NotNull Label first, @NotNull Label second,
             @NotNull Pane logAndReg, @NotNull ImageView sun,
             @NotNull ImageView lightning, @NotNull ImageView blacksun,
-            @NotNull ImageView easyFrame, @NotNull ImageView mediumFrame, @NotNull ImageView hardFrame) {
-
+            @NotNull ImageView easyFrame, @NotNull ImageView mediumFrame, @NotNull ImageView hardFrame,
+            ImageView memomaze) {
 
 
         AudioMemory.noIntro = true;
@@ -425,8 +483,6 @@ public class Effects {
                 new KeyFrame(Duration.seconds(28.5))
         );
 
-
-
         timelySun.setOnFinished(actionEvent -> {
 
             Platform.runLater(this::burningSunMove);
@@ -434,7 +490,6 @@ public class Effects {
         });
 
         timelySun.play();
-
 
         final Glow textGlow = new Glow();
         textGlow.setLevel(0.6);
@@ -450,8 +505,6 @@ public class Effects {
         reflection.setFraction(0);
 
         first.setEffect(reflection);
-
-
 
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO),
@@ -489,14 +542,12 @@ public class Effects {
                 new KeyFrame(Duration.seconds(26.2),
                         new KeyValue(startBlack.opacityProperty(),1),
                         new KeyValue(sunblur.radiusProperty(),0),
-                        new KeyValue(blacksun.opacityProperty(),0)),
+                        new KeyValue(memomaze.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(31),
-                        new KeyValue(blacksun.opacityProperty(),0.6)),
+                        new KeyValue(memomaze.opacityProperty(),1)),
                 new KeyFrame(Duration.seconds(33),
                         new KeyValue(gamePane.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(35),
-                        new KeyValue(blacksun.layoutYProperty(),blacksun.getLayoutY()),
-                        new KeyValue(blacksun.opacityProperty(),0.7),
                         new KeyValue(gamePane.opacityProperty(),1),
                         new KeyValue(sunTone.levelProperty(), 0.9)),
                 new KeyFrame(Duration.seconds(36.4),
@@ -507,13 +558,16 @@ public class Effects {
                         new KeyValue(sunblur.radiusProperty(), 50),
                         new KeyValue(sun.rotateProperty(),sun.getRotate() - 8),
                         new KeyValue(sun.scaleYProperty(),sun.getScaleY() + 0.5),
-                        new KeyValue(sun.layoutYProperty(),sun.getLayoutY() + 130),
-                        new KeyValue(blacksun.opacityProperty(),0),
-                        new KeyValue(blacksun.layoutYProperty(),blacksun.getLayoutY() - 15)),
+                        new KeyValue(sun.layoutYProperty(),sun.getLayoutY() + 130)),
+                new KeyFrame(Duration.seconds(38),
+                        new KeyValue(memomaze.layoutYProperty(),memomaze.getLayoutY()),
+                        new KeyValue(memomaze.opacityProperty(),1)),
                 new KeyFrame(Duration.seconds(40),
                         new KeyValue(miniEasy.opacityProperty(),0),                 // Easy start!!!!
                         new KeyValue(easyFrame.opacityProperty(),0),
-                        new KeyValue(japan.opacityProperty(),0)),
+                        new KeyValue(japan.opacityProperty(),0),
+                        new KeyValue(memomaze.layoutYProperty(),memomaze.getLayoutY() - 80),
+                        new KeyValue(memomaze.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(40.2),
                         new KeyValue(miniEasy.opacityProperty(),1),                 // Easy on!!!
                         new KeyValue(easyFrame.opacityProperty(),1),
@@ -582,18 +636,11 @@ public class Effects {
 
             burningsun.setLayoutX(-260);
             burningsun.setLayoutY(-59);
-
             burningSunLine.play();
-
-
         });
     }
 
-    public void playBuringSun() {
-
-        burningSunMove();
-
-    }
+    public void playBuringSun() {burningSunMove();}
 
     public void moveCamera() {
 
