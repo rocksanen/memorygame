@@ -10,13 +10,14 @@ import javafx.scene.effect.SepiaTone;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import model.ModeType;
 import org.jetbrains.annotations.NotNull;
 import visuals.audio.AudioMemory;
-
-import java.util.ArrayList;
 
 
 public class Effects {
@@ -51,6 +52,8 @@ public class Effects {
     private final BackGroundMover backGroundMover = new BackGroundMover();
 
     private Timeline burningSunLine;
+    private Label labelLoggedIn;
+
     public Effects() {
         initializeTimelines();
     }
@@ -64,13 +67,14 @@ public class Effects {
 
     public void setGeneralObjects(
             ImageView pergament, AnchorPane menuAnkkuri, AnchorPane startBlack,
-            Pane gamePane,ImageView burningsun) {
+            Pane gamePane, ImageView burningsun, Label textLoggedIn) {
 
         this.pergament = pergament;
         this.menuAnkkuri = menuAnkkuri;
         this.startBlack = startBlack;
         this.gamePane = gamePane;
         this.burningsun = burningsun;
+        this.labelLoggedIn = textLoggedIn;
 
     }
 
@@ -94,9 +98,10 @@ public class Effects {
                 new KeyFrame(Duration.seconds(6), new KeyValue(gaussianBlur.radiusProperty(), 10.58))
         );
     }
-    public static Effects getInstance(){
 
-        if(instance == null) {
+    public static Effects getInstance() {
+
+        if (instance == null) {
             instance = new Effects();
         }
         return instance;
@@ -142,11 +147,11 @@ public class Effects {
 
         Timeline blurOut = new Timeline(
                 new KeyFrame(Duration.ZERO,
-                        new KeyValue(cubeGrid.opacityProperty(),cubeGrid.getOpacity()),
+                        new KeyValue(cubeGrid.opacityProperty(), cubeGrid.getOpacity()),
                         new KeyValue(gaussianBlur.radiusProperty(), gaussianBlur.getRadius())),
                 new KeyFrame(Duration.seconds(1),
-                        new KeyValue(gaussianBlur.radiusProperty(),0),
-                        new KeyValue(cubeGrid.opacityProperty(),0))
+                        new KeyValue(gaussianBlur.radiusProperty(), 0),
+                        new KeyValue(cubeGrid.opacityProperty(), 0))
         );
 
         blurOut.playFromStart();
@@ -184,31 +189,32 @@ public class Effects {
             zoomOutCameraEndings();
         });
     }
+
     private void zoomOutOpacities() {
 
         Timeline opacityOut = new Timeline(
                 new KeyFrame(Duration.ZERO,
-                        new KeyValue(pergament.opacityProperty(),0),
-                        new KeyValue(miniEasy.opacityProperty(),miniEasy.getOpacity()),
-                        new KeyValue(miniMedium.opacityProperty(),miniMedium.getOpacity()),
-                        new KeyValue(miniHard.opacityProperty(),miniHard.getOpacity()),
-                        new KeyValue(japan.opacityProperty(),0),
-                        new KeyValue(jungle.opacityProperty(),0),
-                        new KeyValue(redtree.opacityProperty(),0),
-                        new KeyValue(easyFrame.opacityProperty(),easyFrame.getOpacity()),
-                        new KeyValue(mediumFrame.opacityProperty(),mediumFrame.getOpacity()),
-                        new KeyValue(hardFrame.opacityProperty(),hardFrame.getOpacity())),
+                        new KeyValue(pergament.opacityProperty(), 0),
+                        new KeyValue(miniEasy.opacityProperty(), miniEasy.getOpacity()),
+                        new KeyValue(miniMedium.opacityProperty(), miniMedium.getOpacity()),
+                        new KeyValue(miniHard.opacityProperty(), miniHard.getOpacity()),
+                        new KeyValue(japan.opacityProperty(), 0),
+                        new KeyValue(jungle.opacityProperty(), 0),
+                        new KeyValue(redtree.opacityProperty(), 0),
+                        new KeyValue(easyFrame.opacityProperty(), easyFrame.getOpacity()),
+                        new KeyValue(mediumFrame.opacityProperty(), mediumFrame.getOpacity()),
+                        new KeyValue(hardFrame.opacityProperty(), hardFrame.getOpacity())),
                 new KeyFrame(Duration.seconds(2.8),
-                        new KeyValue(pergament.opacityProperty(),1),
-                        new KeyValue(miniEasy.opacityProperty(),1),
-                        new KeyValue(miniMedium.opacityProperty(),1),
-                        new KeyValue(miniHard.opacityProperty(),1),
-                        new KeyValue(japan.opacityProperty(),japanStart),
-                        new KeyValue(jungle.opacityProperty(),jungleStart),
-                        new KeyValue(redtree.opacityProperty(),redtreeStart),
-                        new KeyValue(easyFrame.opacityProperty(),1),
-                        new KeyValue(mediumFrame.opacityProperty(),1),
-                        new KeyValue(hardFrame.opacityProperty(),1))
+                        new KeyValue(pergament.opacityProperty(), 1),
+                        new KeyValue(miniEasy.opacityProperty(), 1),
+                        new KeyValue(miniMedium.opacityProperty(), 1),
+                        new KeyValue(miniHard.opacityProperty(), 1),
+                        new KeyValue(japan.opacityProperty(), japanStart),
+                        new KeyValue(jungle.opacityProperty(), jungleStart),
+                        new KeyValue(redtree.opacityProperty(), redtreeStart),
+                        new KeyValue(easyFrame.opacityProperty(), 1),
+                        new KeyValue(mediumFrame.opacityProperty(), 1),
+                        new KeyValue(hardFrame.opacityProperty(), 1))
         );
 
         opacityOut.playFromStart();
@@ -222,6 +228,7 @@ public class Effects {
         Platform.runLater(this::playGlow);
         Platform.runLater(() -> menuAnkkuri.setMouseTransparent(false));
     }
+
     private void zoomOutBlurEndings() {
 
         Platform.runLater(() -> Visibilities.getInstance().offGameGrid(cubeGrid));
@@ -283,7 +290,7 @@ public class Effects {
         }
 
         cameraZoomIn(gui);
-        opacitiesIn(easyFinish,mediumFinish,hardFinish, easyFrameFinish, mediumFrameFinish, hardFrameFinish);
+        opacitiesIn(easyFinish, mediumFinish, hardFinish, easyFrameFinish, mediumFrameFinish, hardFrameFinish);
     }
 
 
@@ -298,10 +305,10 @@ public class Effects {
                         new KeyValue(Gui.camera.translateYProperty(), 0)
                 ),
                 new KeyFrame(Duration.seconds(1.4),
-                        new KeyValue(Gui.camera.translateZProperty(), 0 + zOffset/2),
-                        new KeyValue(Gui.camera.fieldOfViewProperty(), 25 + fovOffset/2),
-                        new KeyValue(Gui.camera.translateXProperty(), 0 + xOffset/2),
-                        new KeyValue(Gui.camera.translateYProperty(), 0 + yOffset/2)),
+                        new KeyValue(Gui.camera.translateZProperty(), 0 + zOffset / 2),
+                        new KeyValue(Gui.camera.fieldOfViewProperty(), 25 + fovOffset / 2),
+                        new KeyValue(Gui.camera.translateXProperty(), 0 + xOffset / 2),
+                        new KeyValue(Gui.camera.translateYProperty(), 0 + yOffset / 2)),
                 new KeyFrame(Duration.seconds(2.8),
                         new KeyValue(Gui.camera.translateZProperty(), 0 + zOffset),
                         new KeyValue(Gui.camera.fieldOfViewProperty(), 25 + fovOffset),
@@ -366,32 +373,32 @@ public class Effects {
 
     private void opacitiesIn(
             double easyFinish, double mediumFinish, double hardFinish,
-            double easeFrameFinish, double mediumFrameFinish, double hardFrameFinish ) {
+            double easeFrameFinish, double mediumFrameFinish, double hardFrameFinish) {
 
         Timeline opacitiesIn = new Timeline(
                 new KeyFrame(Duration.ZERO,
-                        new KeyValue(pergament.opacityProperty(),1),
-                        new KeyValue(miniEasy.opacityProperty(),1),
-                        new KeyValue(miniMedium.opacityProperty(),1),
-                        new KeyValue(miniHard.opacityProperty(),1),
-                        new KeyValue(japan.opacityProperty(),japanStart),
-                        new KeyValue(jungle.opacityProperty(),jungleStart),
-                        new KeyValue(redtree.opacityProperty(),redtreeStart),
-                        new KeyValue(easyFrame.opacityProperty(),1),
-                        new KeyValue(mediumFrame.opacityProperty(),1),
-                        new KeyValue(hardFrame.opacityProperty(),1)),
+                        new KeyValue(pergament.opacityProperty(), 1),
+                        new KeyValue(miniEasy.opacityProperty(), 1),
+                        new KeyValue(miniMedium.opacityProperty(), 1),
+                        new KeyValue(miniHard.opacityProperty(), 1),
+                        new KeyValue(japan.opacityProperty(), japanStart),
+                        new KeyValue(jungle.opacityProperty(), jungleStart),
+                        new KeyValue(redtree.opacityProperty(), redtreeStart),
+                        new KeyValue(easyFrame.opacityProperty(), 1),
+                        new KeyValue(mediumFrame.opacityProperty(), 1),
+                        new KeyValue(hardFrame.opacityProperty(), 1)),
                 new KeyFrame(Duration.seconds(2.8),
-                        new KeyValue(pergament.opacityProperty(),0),
-                        new KeyValue(miniEasy.opacityProperty(),easyFinish),
-                        new KeyValue(miniMedium.opacityProperty(),mediumFinish),
-                        new KeyValue(miniHard.opacityProperty(),hardFinish),
-                        new KeyValue(japan.opacityProperty(),0),
-                        new KeyValue(redtree.opacityProperty(),0),
-                        new KeyValue(easyFrame.opacityProperty(),easeFrameFinish),
-                        new KeyValue(mediumFrame.opacityProperty(),mediumFrameFinish),
-                        new KeyValue(hardFrame.opacityProperty(),hardFrameFinish)),
+                        new KeyValue(pergament.opacityProperty(), 0),
+                        new KeyValue(miniEasy.opacityProperty(), easyFinish),
+                        new KeyValue(miniMedium.opacityProperty(), mediumFinish),
+                        new KeyValue(miniHard.opacityProperty(), hardFinish),
+                        new KeyValue(japan.opacityProperty(), 0),
+                        new KeyValue(redtree.opacityProperty(), 0),
+                        new KeyValue(easyFrame.opacityProperty(), easeFrameFinish),
+                        new KeyValue(mediumFrame.opacityProperty(), mediumFrameFinish),
+                        new KeyValue(hardFrame.opacityProperty(), hardFrameFinish)),
                 new KeyFrame(Duration.seconds(3),
-                        new KeyValue(jungle.opacityProperty(),0))
+                        new KeyValue(jungle.opacityProperty(), 0))
         );
 
         opacitiesIn.playFromStart();
@@ -407,8 +414,8 @@ public class Effects {
             @NotNull Label first, @NotNull Label second,
             @NotNull Pane logAndReg, @NotNull ImageView sun,
             @NotNull ImageView lightning, @NotNull ImageView blacksun,
-            @NotNull ImageView easyFrame, @NotNull ImageView mediumFrame, @NotNull ImageView hardFrame) {
-
+            @NotNull ImageView easyFrame, @NotNull ImageView mediumFrame, @NotNull ImageView hardFrame,
+            Label textLoggedIn) {
 
 
         AudioMemory.noIntro = true;
@@ -424,7 +431,6 @@ public class Effects {
                 new KeyFrame(Duration.ZERO),
                 new KeyFrame(Duration.seconds(28.5))
         );
-
 
 
         timelySun.setOnFinished(actionEvent -> {
@@ -452,93 +458,92 @@ public class Effects {
         first.setEffect(reflection);
 
 
-
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO),
                 new KeyFrame(Duration.seconds(3.5),
-                        new KeyValue(first.opacityProperty(),0)),
+                        new KeyValue(first.opacityProperty(), 0)),
                 new KeyFrame(Duration.seconds(5.8),
-                        new KeyValue(first.opacityProperty(),1)),
+                        new KeyValue(first.opacityProperty(), 1)),
                 new KeyFrame(Duration.seconds(7.05),
-                        new KeyValue(lightning.opacityProperty(),0)),                  ///Lightning start!
+                        new KeyValue(lightning.opacityProperty(), 0)),                  ///Lightning start!
                 new KeyFrame(Duration.seconds(7.15),
-                        new KeyValue(reflection.fractionProperty(),0)),
+                        new KeyValue(reflection.fractionProperty(), 0)),
                 new KeyFrame(Duration.seconds(7.18),
-                        new KeyValue(reflection.fractionProperty(),reflection.getFraction() + 0.7)),
+                        new KeyValue(reflection.fractionProperty(), reflection.getFraction() + 0.7)),
                 new KeyFrame(Duration.seconds(7.25),
-                        new KeyValue(lightning.opacityProperty(),0.6)),
+                        new KeyValue(lightning.opacityProperty(), 0.6)),
                 new KeyFrame(Duration.seconds(13.5),
-                        new KeyValue(lightning.opacityProperty(),0)),                  ///Lightning end!
+                        new KeyValue(lightning.opacityProperty(), 0)),                  ///Lightning end!
                 new KeyFrame(Duration.seconds(13.7),
-                        new KeyValue(first.opacityProperty(),0),
-                        new KeyValue(sun.opacityProperty(),0),
+                        new KeyValue(first.opacityProperty(), 0),
+                        new KeyValue(sun.opacityProperty(), 0),
                         new KeyValue(sun.fitWidthProperty(), sun.getFitWidth()),
-                        new KeyValue(sun.rotateProperty(),sun.getRotate()),
-                        new KeyValue(sun.scaleYProperty(),sun.getScaleY()),
-                        new KeyValue(sun.layoutYProperty(),sun.getLayoutY())),
+                        new KeyValue(sun.rotateProperty(), sun.getRotate()),
+                        new KeyValue(sun.scaleYProperty(), sun.getScaleY()),
+                        new KeyValue(sun.layoutYProperty(), sun.getLayoutY())),
                 new KeyFrame(Duration.seconds(14.5),
-                        new KeyValue(second.opacityProperty(),0)),
+                        new KeyValue(second.opacityProperty(), 0)),
                 new KeyFrame(Duration.seconds(14.8),
-                        new KeyValue(second.opacityProperty(),1),
-                        new KeyValue(sun.opacityProperty(),0.24),
-                        new KeyValue(sun.layoutXProperty(),sun.getLayoutX())),
+                        new KeyValue(second.opacityProperty(), 1),
+                        new KeyValue(sun.opacityProperty(), 0.24),
+                        new KeyValue(sun.layoutXProperty(), sun.getLayoutX())),
                 new KeyFrame(Duration.seconds(24.2),
-                        new KeyValue(second.opacityProperty(),0),
-                        new KeyValue(sun.opacityProperty(),0.4),
-                        new KeyValue(sunTone.levelProperty(),0)),
+                        new KeyValue(second.opacityProperty(), 0),
+                        new KeyValue(sun.opacityProperty(), 0.4),
+                        new KeyValue(sunTone.levelProperty(), 0)),
                 new KeyFrame(Duration.seconds(26.2),
-                        new KeyValue(startBlack.opacityProperty(),1),
-                        new KeyValue(sunblur.radiusProperty(),0),
-                        new KeyValue(blacksun.opacityProperty(),0)),
+                        new KeyValue(startBlack.opacityProperty(), 1),
+                        new KeyValue(sunblur.radiusProperty(), 0),
+                        new KeyValue(blacksun.opacityProperty(), 0)),
                 new KeyFrame(Duration.seconds(31),
-                        new KeyValue(blacksun.opacityProperty(),0.6)),
+                        new KeyValue(blacksun.opacityProperty(), 0.6)),
                 new KeyFrame(Duration.seconds(33),
-                        new KeyValue(gamePane.opacityProperty(),0)),
+                        new KeyValue(gamePane.opacityProperty(), 0)),
                 new KeyFrame(Duration.seconds(35),
-                        new KeyValue(blacksun.layoutYProperty(),blacksun.getLayoutY()),
-                        new KeyValue(blacksun.opacityProperty(),0.7),
-                        new KeyValue(gamePane.opacityProperty(),1),
+                        new KeyValue(blacksun.layoutYProperty(), blacksun.getLayoutY()),
+                        new KeyValue(blacksun.opacityProperty(), 0.7),
+                        new KeyValue(gamePane.opacityProperty(), 1),
                         new KeyValue(sunTone.levelProperty(), 0.9)),
                 new KeyFrame(Duration.seconds(36.4),
-                        new KeyValue(startBlack.opacityProperty(),0),
-                        new KeyValue(sun.opacityProperty(),0),                   // 0
+                        new KeyValue(startBlack.opacityProperty(), 0),
+                        new KeyValue(sun.opacityProperty(), 0),                   // 0
                         new KeyValue(sun.fitWidthProperty(), sun.getFitWidth() + 80),
-                        new KeyValue(sun.layoutXProperty(),sun.getLayoutX() - 8),
+                        new KeyValue(sun.layoutXProperty(), sun.getLayoutX() - 8),
                         new KeyValue(sunblur.radiusProperty(), 50),
-                        new KeyValue(sun.rotateProperty(),sun.getRotate() - 8),
-                        new KeyValue(sun.scaleYProperty(),sun.getScaleY() + 0.5),
-                        new KeyValue(sun.layoutYProperty(),sun.getLayoutY() + 130),
-                        new KeyValue(blacksun.opacityProperty(),0),
-                        new KeyValue(blacksun.layoutYProperty(),blacksun.getLayoutY() - 15)),
+                        new KeyValue(sun.rotateProperty(), sun.getRotate() - 8),
+                        new KeyValue(sun.scaleYProperty(), sun.getScaleY() + 0.5),
+                        new KeyValue(sun.layoutYProperty(), sun.getLayoutY() + 130),
+                        new KeyValue(blacksun.opacityProperty(), 0),
+                        new KeyValue(blacksun.layoutYProperty(), blacksun.getLayoutY() - 15)),
                 new KeyFrame(Duration.seconds(40),
-                        new KeyValue(miniEasy.opacityProperty(),0),                 // Easy start!!!!
-                        new KeyValue(easyFrame.opacityProperty(),0),
-                        new KeyValue(japan.opacityProperty(),0)),
+                        new KeyValue(miniEasy.opacityProperty(), 0),                 // Easy start!!!!
+                        new KeyValue(easyFrame.opacityProperty(), 0),
+                        new KeyValue(japan.opacityProperty(), 0)),
                 new KeyFrame(Duration.seconds(40.2),
-                        new KeyValue(miniEasy.opacityProperty(),1),                 // Easy on!!!
-                        new KeyValue(easyFrame.opacityProperty(),1),
-                        new KeyValue(japan.opacityProperty(),japanStart)),
+                        new KeyValue(miniEasy.opacityProperty(), 1),                 // Easy on!!!
+                        new KeyValue(easyFrame.opacityProperty(), 1),
+                        new KeyValue(japan.opacityProperty(), japanStart)),
                 new KeyFrame(Duration.seconds(40.2),
-                        new KeyValue(miniMedium.opacityProperty(),0),               ////Medium start!!
-                        new KeyValue(mediumFrame.opacityProperty(),0),
-                        new KeyValue(jungle.opacityProperty(),0)),
+                        new KeyValue(miniMedium.opacityProperty(), 0),               ////Medium start!!
+                        new KeyValue(mediumFrame.opacityProperty(), 0),
+                        new KeyValue(jungle.opacityProperty(), 0)),
                 new KeyFrame(Duration.seconds(40.4),
-                        new KeyValue(miniMedium.opacityProperty(),1),
-                        new KeyValue(mediumFrame.opacityProperty(),1),
-                        new KeyValue(jungle.opacityProperty(),jungleStart)),       //////Medium on  0.426
+                        new KeyValue(miniMedium.opacityProperty(), 1),
+                        new KeyValue(mediumFrame.opacityProperty(), 1),
+                        new KeyValue(jungle.opacityProperty(), jungleStart)),       //////Medium on  0.426
                 new KeyFrame(Duration.seconds(40.4),
-                        new KeyValue(miniHard.opacityProperty(),0),             ////Hard start!!!
-                        new KeyValue(hardFrame.opacityProperty(),0),
-                        new KeyValue(redtree.opacityProperty(),0)),
+                        new KeyValue(miniHard.opacityProperty(), 0),             ////Hard start!!!
+                        new KeyValue(hardFrame.opacityProperty(), 0),
+                        new KeyValue(redtree.opacityProperty(), 0)),
                 new KeyFrame(Duration.seconds(40.6),                              //////Hard on 0.494
-                        new KeyValue(miniHard.opacityProperty(),1),
-                        new KeyValue(hardFrame.opacityProperty(),1),
-                        new KeyValue(redtree.opacityProperty(),redtreeStart)),
+                        new KeyValue(miniHard.opacityProperty(), 1),
+                        new KeyValue(hardFrame.opacityProperty(), 1),
+                        new KeyValue(redtree.opacityProperty(), redtreeStart)),
                 new KeyFrame(Duration.seconds(40.6),
-                        new KeyValue(logAndReg.opacityProperty(),0),
+                        new KeyValue(logAndReg.opacityProperty(), 0),
                         new KeyValue(sepiaTone.levelProperty(), 1)),
                 new KeyFrame(Duration.seconds(40.7),
-                        new KeyValue(logAndReg.opacityProperty(),1),
+                        new KeyValue(logAndReg.opacityProperty(), 1),
                         new KeyValue(sepiaTone.levelProperty(), 0))
         );
 
@@ -560,6 +565,8 @@ public class Effects {
             second.setVisible(false);
             timeline.stop();
 
+
+            textLoggedIn.setVisible(true);
         });
     }
 
@@ -568,13 +575,13 @@ public class Effects {
         burningsun.setOpacity(0.3);
         burningSunLine = new Timeline(
                 new KeyFrame(Duration.ZERO,
-                        new KeyValue(burningsun.layoutXProperty(),-260),
-                        new KeyValue(burningsun.layoutYProperty(),-59)),
+                        new KeyValue(burningsun.layoutXProperty(), -260),
+                        new KeyValue(burningsun.layoutYProperty(), -59)),
                 new KeyFrame(Duration.minutes(1.5),
-                        new KeyValue(burningsun.layoutYProperty(),-59 - 80)),
+                        new KeyValue(burningsun.layoutYProperty(), -59 - 80)),
                 new KeyFrame(Duration.minutes(3),
-                        new KeyValue(burningsun.layoutXProperty(),-260 + 1470),
-                        new KeyValue(burningsun.layoutYProperty(),-59))
+                        new KeyValue(burningsun.layoutXProperty(), -260 + 1470),
+                        new KeyValue(burningsun.layoutYProperty(), -59))
         );
 
         burningSunLine.playFromStart();
@@ -602,17 +609,17 @@ public class Effects {
 
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO,
-                        new KeyValue(Gui.camera.translateXProperty(),transx),
-                        new KeyValue(Gui.camera.translateZProperty(),transz)),
+                        new KeyValue(Gui.camera.translateXProperty(), transx),
+                        new KeyValue(Gui.camera.translateZProperty(), transz)),
                 new KeyFrame(Duration.seconds(5),
-                        new KeyValue(Gui.camera.translateZProperty(),Gui.camera.getTranslateZ() + 5),
-                        new KeyValue(Gui.camera.translateXProperty(),Gui.camera.getTranslateX() - 5)),
+                        new KeyValue(Gui.camera.translateZProperty(), Gui.camera.getTranslateZ() + 5),
+                        new KeyValue(Gui.camera.translateXProperty(), Gui.camera.getTranslateX() - 5)),
                 new KeyFrame(Duration.seconds(10),
-                        new KeyValue(Gui.camera.translateXProperty(),Gui.camera.getTranslateX() + 5),
-                        new KeyValue(Gui.camera.translateZProperty(),Gui.camera.getTranslateZ() - 5)),
+                        new KeyValue(Gui.camera.translateXProperty(), Gui.camera.getTranslateX() + 5),
+                        new KeyValue(Gui.camera.translateZProperty(), Gui.camera.getTranslateZ() - 5)),
                 new KeyFrame(Duration.seconds(15),
-                        new KeyValue(Gui.camera.translateXProperty(),Gui.camera.getTranslateX() - 5),
-                        new KeyValue(Gui.camera.translateZProperty(),Gui.camera.getTranslateZ() + 5))
+                        new KeyValue(Gui.camera.translateXProperty(), Gui.camera.getTranslateX() - 5),
+                        new KeyValue(Gui.camera.translateZProperty(), Gui.camera.getTranslateZ() + 5))
         );
 
         timeline.setAutoReverse(true);
@@ -636,23 +643,23 @@ public class Effects {
 
         glowLine = new Timeline(
                 new KeyFrame(Duration.ZERO,
-                        new KeyValue(glow.levelProperty(),0)),
+                        new KeyValue(glow.levelProperty(), 0)),
                 new KeyFrame(Duration.seconds(0.1),
-                        new KeyValue(glow.levelProperty(),0.07)),
+                        new KeyValue(glow.levelProperty(), 0.07)),
                 new KeyFrame(Duration.seconds(0.3),
                         new KeyValue(glow.levelProperty(), 0.02)),
                 new KeyFrame(Duration.seconds(0.5),
-                        new KeyValue(glow.levelProperty(),0.05)),
+                        new KeyValue(glow.levelProperty(), 0.05)),
                 new KeyFrame(Duration.seconds(0.8),
-                        new KeyValue(glow.levelProperty(),0.01)),
+                        new KeyValue(glow.levelProperty(), 0.01)),
                 new KeyFrame(Duration.seconds(1.1),
-                        new KeyValue(glow.levelProperty(),0.08)),
+                        new KeyValue(glow.levelProperty(), 0.08)),
                 new KeyFrame(Duration.seconds(1.2),
-                        new KeyValue(glow.levelProperty(),0.04)),
+                        new KeyValue(glow.levelProperty(), 0.04)),
                 new KeyFrame(Duration.seconds(1.4),
-                        new KeyValue(glow.levelProperty(),0.06)),
+                        new KeyValue(glow.levelProperty(), 0.06)),
                 new KeyFrame(Duration.seconds(1.9),
-                        new KeyValue(glow.levelProperty(),0.03))
+                        new KeyValue(glow.levelProperty(), 0.03))
         );
 
         glowLine.setAutoReverse(true);

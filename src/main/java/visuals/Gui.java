@@ -11,17 +11,17 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
@@ -34,20 +34,26 @@ import visuals.cubeFactories.HardCubeFactory;
 import visuals.cubeFactories.ICubeFactory;
 import visuals.cubeFactories.MediumCubeFactory;
 import visuals.imageServers.ImageCache;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import static javafx.scene.text.Font.loadFont;
 import static model.ModeType.*;
 
 public class Gui extends Application implements IGui, IChartGUI {
 
     private ModeType selectedDifficulty;
-    private final IChartController scoreController2 = new ChartController( this);
+    private final IChartController scoreController2 = new ChartController(this);
     private final IControllerVtoE controller = new Controller(this);
     private final IControllerScoreToV scoreController = new Controller(this);
     Stage primaryStage;
+
+    @FXML
+    Label labelLoggedIn;
     @FXML
     Button startEasyGame;
     @FXML
@@ -70,8 +76,10 @@ public class Gui extends Application implements IGui, IChartGUI {
     ImageView mediumBackground;
     @FXML
     ImageView hardBackground;
-    @FXML ImageView hardSpread;
-    @FXML ImageView mediumSpread;
+    @FXML
+    ImageView hardSpread;
+    @FXML
+    ImageView mediumSpread;
     @FXML
     VBox vBox = new VBox();
     @FXML
@@ -98,22 +106,38 @@ public class Gui extends Application implements IGui, IChartGUI {
     Label groupFour;
     @FXML
     ImageView pergament;
-    @FXML Pane score;
-    @FXML ImageView sun;
-    @FXML ImageView lightning;
-    @FXML ImageView blacksun;
-    @FXML ImageView miniEasy;
-    @FXML ImageView miniMedium;
-    @FXML ImageView miniHard;
-    @FXML ImageView easyFrame;
-    @FXML ImageView mediumFrame;
-    @FXML ImageView hardFrame;
-    @FXML ImageView japan;
-    @FXML ImageView jungle;
-    @FXML ImageView redtree;
-    @FXML static Pane logAndReg;
-    @FXML ImageView dirt;
-    @FXML ImageView burningsun;
+    @FXML
+    Pane score;
+    @FXML
+    ImageView sun;
+    @FXML
+    ImageView lightning;
+    @FXML
+    ImageView blacksun;
+    @FXML
+    ImageView miniEasy;
+    @FXML
+    ImageView miniMedium;
+    @FXML
+    ImageView miniHard;
+    @FXML
+    ImageView easyFrame;
+    @FXML
+    ImageView mediumFrame;
+    @FXML
+    ImageView hardFrame;
+    @FXML
+    ImageView japan;
+    @FXML
+    ImageView jungle;
+    @FXML
+    ImageView redtree;
+    @FXML
+    static Pane logAndReg;
+    @FXML
+    ImageView dirt;
+    @FXML
+    ImageView burningsun;
 
     private static final double CAMERA_INITIAL_DISTANCE = -1000;
     private static final double CAMERA_INITIAL_X_ANGLE = 0.0;
@@ -126,7 +150,7 @@ public class Gui extends Application implements IGui, IChartGUI {
     private final Rotate rotateZ = new Rotate(0, Rotate.Z_AXIS);
     private final Rotate jungleZ = new Rotate(0, Rotate.Z_AXIS);
     private final Rotate rotateX = new Rotate(CAMERA_INITIAL_X_ANGLE, Rotate.Z_AXIS);
-    private final Translate translate = new Translate(1250/2, 750/2, 0);
+    private final Translate translate = new Translate(1250 / 2, 750 / 2, 0);
     private ArrayList<BoxMaker> cubeList;
     private ICubeFactory easyCubeFactory;
     private ICubeFactory mediumCubeFactory;
@@ -134,7 +158,10 @@ public class Gui extends Application implements IGui, IChartGUI {
     private Parent root;
     private Scene scene;
     public static PerspectiveCamera camera = new PerspectiveCamera();
-    public static void main(String[] args) {launch(args);}
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -176,15 +203,15 @@ public class Gui extends Application implements IGui, IChartGUI {
 
         Platform.runLater(() -> Effects.getInstance().setGlow(pergament));
         Platform.runLater(() -> Effects.getInstance().playGlow());
-        Visibilities.getInstance().setGridLayoutToVisibility(easyGrid,mediumGrid,hardGrid);
-        Visibilities.getInstance().setGameBackGrounds(background,mediumBackground,mediumSpread,hardBackground,hardSpread);
+        Visibilities.getInstance().setGridLayoutToVisibility(easyGrid, mediumGrid, hardGrid);
+        Visibilities.getInstance().setGameBackGrounds(background, mediumBackground, mediumSpread, hardBackground, hardSpread);
         AudioMemory.getInstance().playTheIntro();
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO),
                 new KeyFrame(Duration.seconds(0.5),
-                        new KeyValue(dirt.scaleXProperty(),dirt.getScaleX())),
+                        new KeyValue(dirt.scaleXProperty(), dirt.getScaleX())),
                 new KeyFrame(Duration.seconds(15),
-                        new KeyValue(dirt.scaleXProperty(),dirt.getScaleX() + 0.4))
+                        new KeyValue(dirt.scaleXProperty(), dirt.getScaleX() + 0.4))
         );
 
         redtree.getTransforms().add(rotateZ);
@@ -193,14 +220,14 @@ public class Gui extends Application implements IGui, IChartGUI {
         Timeline redLine = new Timeline(
                 new KeyFrame(Duration.ZERO),
                 new KeyFrame(Duration.seconds(0.5),
-                        new KeyValue(rotateZ.angleProperty(),0)),
+                        new KeyValue(rotateZ.angleProperty(), 0)),
                 new KeyFrame(Duration.seconds(15),
-                        new KeyValue(rotateZ.angleProperty(),4))
+                        new KeyValue(rotateZ.angleProperty(), 4))
         );
 
         Timeline jungleLine = new Timeline(
                 new KeyFrame(Duration.ZERO,
-                        new KeyValue(jungleZ.angleProperty(),0)),
+                        new KeyValue(jungleZ.angleProperty(), 0)),
                 new KeyFrame(Duration.seconds(20),
                         new KeyValue(jungleZ.angleProperty(), -1.2))
         );
@@ -232,9 +259,9 @@ public class Gui extends Application implements IGui, IChartGUI {
         setGameImages();
 
         Effects.getInstance().setMiniImagesAndFrames(miniEasy, miniMedium, miniHard, easyFrame, mediumFrame, hardFrame);
-        Effects.getInstance().setEssenceImages(japan,jungle,redtree);
-        Effects.getInstance().setGeneralObjects(pergament, menuAnkkuri, startBlack, gameModePane,burningsun);
-        Visibilities.getInstance().setToGameObjects(gameModePane,score,logAndReg,pergament);
+        Effects.getInstance().setEssenceImages(japan, jungle, redtree);
+        Effects.getInstance().setGeneralObjects(pergament, menuAnkkuri, startBlack, gameModePane, burningsun, labelLoggedIn);
+        Visibilities.getInstance().setToGameObjects(gameModePane, score, logAndReg, pergament);
     }
 
     @FXML
@@ -253,18 +280,18 @@ public class Gui extends Application implements IGui, IChartGUI {
 
         switch (cubeList.size()) {
 
-            case 6 ->
-                    Effects.getInstance().gameZoomOut(
-                            easyGrid, background,
-                            800, 35, -145.5, 14.5, EASY);
-            case 12 ->
-                    Effects.getInstance().gameZoomOut(
-                            mediumGrid, mediumBackground,
-                            1101, 35, 117.2, -144.92, MEDIUM);
-            case 20 ->
-                    Effects.getInstance().gameZoomOut(
-                            hardGrid, hardBackground,
-                            1000.7, 35, 384.0, 14.5, ModeType.HARD);
+            case 6 -> Effects.getInstance().gameZoomOut(
+                    easyGrid, background,
+                    800, 35, -145.5, 14.5, EASY
+            );
+            case 12 -> Effects.getInstance().gameZoomOut(
+                    mediumGrid, mediumBackground,
+                    1101, 35, 117.2, -144.92, MEDIUM
+            );
+            case 20 -> Effects.getInstance().gameZoomOut(
+                    hardGrid, hardBackground,
+                    1000.7, 35, 384.0, 14.5, ModeType.HARD
+            );
         }
 
         Platform.runLater(() -> score.setVisible(false));
@@ -280,9 +307,10 @@ public class Gui extends Application implements IGui, IChartGUI {
         Platform.runLater(() -> Effects.getInstance().gameZoomIn(
                 background, 800,
                 10, -145.5, 14.5,
-                EASY,this));
+                EASY, this));
 
     }
+
     @FXML
     public void mediumStartScreenPlay() {
 
@@ -293,7 +321,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         Platform.runLater(() -> Effects.getInstance().gameZoomIn(
                 mediumBackground,
                 1101, 10, 117.2, -144.92,
-                MEDIUM,this));
+                MEDIUM, this));
 
     }
 
@@ -307,7 +335,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         Platform.runLater(() -> Effects.getInstance().gameZoomIn(
                 hardBackground, 1000.7,
                 10, 384, 14.5,
-                HARD,this));
+                HARD, this));
 
     }
 
@@ -321,7 +349,9 @@ public class Gui extends Application implements IGui, IChartGUI {
         }
         Platform.runLater(() -> Visibilities.getInstance().toGame());
 
-        if(AudioMemory.noIntro) {Platform.runLater(() -> AudioMemory.getInstance().stopTheIntro());}
+        if (AudioMemory.noIntro) {
+            Platform.runLater(() -> AudioMemory.getInstance().stopTheIntro());
+        }
 
     }
 
@@ -329,7 +359,9 @@ public class Gui extends Application implements IGui, IChartGUI {
     public void setStartEasyGame() {
 
         Platform.runLater(() -> Visibilities.getInstance().inGameGrid(easyGrid));
-        if (cubeList != null) {cubeList.clear();}
+        if (cubeList != null) {
+            cubeList.clear();
+        }
         cubeList = new ArrayList<>();
         easyGrid.getChildren().clear();
         easyCubeFactory = new EasyCubeFactory(this);
@@ -340,7 +372,9 @@ public class Gui extends Application implements IGui, IChartGUI {
     public void setStartMediumGame() {
 
         Platform.runLater(() -> Visibilities.getInstance().inGameGrid(mediumGrid));
-        if (cubeList != null) {cubeList.clear();}
+        if (cubeList != null) {
+            cubeList.clear();
+        }
         cubeList = new ArrayList<>();
         mediumGrid.getChildren().clear();
         mediumCubeFactory = new MediumCubeFactory(this);
@@ -351,7 +385,9 @@ public class Gui extends Application implements IGui, IChartGUI {
     public void setStartHardGame() {
 
         Platform.runLater(() -> Visibilities.getInstance().inGameGrid(hardGrid));
-        if (cubeList != null) {cubeList.clear();}
+        if (cubeList != null) {
+            cubeList.clear();
+        }
         cubeList = new ArrayList<>();
         hardGrid.getChildren().clear();
         hardCubeFactory = new HardCubeFactory(this);
@@ -378,6 +414,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         setPersonalScores(scoreController.getPersonalScores(MEDIUM));
         getWorldScore(scoreController.getScores(MEDIUM));
 
+
     }
 
     @Override
@@ -389,7 +426,6 @@ public class Gui extends Application implements IGui, IChartGUI {
         setPersonalScores(scoreController.getPersonalScores(HARD));
         getWorldScore(scoreController.getScores(HARD));
     }
-
 
 
     public void gameOver() {
@@ -446,15 +482,40 @@ public class Gui extends Application implements IGui, IChartGUI {
     }
 
     public void fetchAllScores() {
-        Task<Void> task = new Task<>() {
+        Task<Boolean> task = new Task<>() {
             @Override
-            protected Void call() {
-                scoreController.fetchScores(EASY);
-                scoreController.fetchScores(MEDIUM);
-                scoreController.fetchScores(HARD);
-                return null;
+            protected Boolean call() {
+                try {
+                    database.datasource.SqlJpaConn.getInstance();
+                    scoreController.fetchPersonalScores();
+                    scoreController.fetchScores(EASY);
+                    scoreController.fetchScores(MEDIUM);
+                    scoreController.fetchScores(HARD);
+                    return true;
+                } catch (Exception e) {
+                    return false;
+                }
             }
         };
+
+        // Add a listener to the task's value property to handle the result
+        task.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                // Do something if the task returns true
+                System.out.println("fetchallscores Task returned true");
+            } else {
+                // Do something if the task returns false
+                System.out.println("fetchallscores Task returned false");
+                // Show the error message.
+                System.out.println("Error connecting to database.");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Virhe");
+                alert.setHeaderText("Virhe..");
+                alert.setContentText("Ei yhteyttä tietokantaan");
+                alert.showAndWait();
+
+            }
+        });
         new Thread(task).start();
     }
 
@@ -485,21 +546,44 @@ public class Gui extends Application implements IGui, IChartGUI {
             return;
         }
         logAndReg.setVisible(false);
-
+        labelLoggedIn.setText("Logged in as " + controller.getUsername());
     }
 
     @Override
     public void fetchUserScores() {
-        Task<Void> task = new Task<>() {
+        Task<Boolean> task = new Task<>() {
             @Override
-            protected Void call() {
-                scoreController.fetchPersonalScores();
-                return null;
+            protected Boolean call() {
+                try {
+                    database.datasource.SqlJpaConn.getInstance();
+                    scoreController.fetchPersonalScores();
+                    return true;
+                } catch (Exception e) {
+                    return false;
+                }
             }
         };
+
+        // Add a listener to the task's value property to handle the result
+        task.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                // Do something if the task returns true
+                System.out.println("fetchallscores Task returned true");
+            } else {
+                // Do something if the task returns false
+                System.out.println("fetchallscores Task returned false");
+                // Show the error message.
+                System.out.println("Error connecting to database.");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Virhe");
+                alert.setHeaderText("Virhe..");
+                alert.setContentText("Ei yhteyttä tietokantaan");
+                alert.showAndWait();
+
+            }
+        });
         new Thread(task).start();
     }
-
 
     @FXML
     public void loginPane() {
@@ -513,13 +597,14 @@ public class Gui extends Application implements IGui, IChartGUI {
             }
             fetchUserScores();
             logAndReg.setVisible(false);
+            labelLoggedIn.setText("Logged in as " + controller.getUsername());
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void panesAndMisc(){
+    private void panesAndMisc() {
 
         startBlack = (AnchorPane) root.lookup("#startBlack");
         menuAnkkuri = (AnchorPane) root.lookup("#menuAnkkuri");
@@ -538,7 +623,18 @@ public class Gui extends Application implements IGui, IChartGUI {
         startHardGame = new Button();
         newGame = new Button();
         returnMenu = new Button();
+
+        labelLoggedIn = (Label) root.lookup("#labelLoggedIn");
+
+        URL url = Gui.class.getClassLoader().getResource("fonts/outrun_future.otf");
+        System.out.println(url);
+        // get the font from the resources, set size and add it to the label
+        labelLoggedIn.setFont(Font.loadFont(url.toExternalForm(), 18));
+
+        labelLoggedIn.setStyle("-fx-background-color: rgba(0,0,0,0.50);-fx-background-radius: 5; -fx-padding: 1 6 1 6");
+
     }
+
     private void setIntroImages() {
 
         sun = (ImageView) root.lookup("#sun");
@@ -594,14 +690,15 @@ public class Gui extends Application implements IGui, IChartGUI {
 
     private void introOn(Boolean introStatus) {
 
-        if(introStatus) {
+        if (introStatus) {
 
             Platform.runLater(() -> Effects.getInstance().intro(
                     weDidIt, groupFour, logAndReg,
                     sun, lightning, blacksun,
-                    easyFrame,mediumFrame, hardFrame));
+                    easyFrame, mediumFrame, hardFrame, labelLoggedIn));
 
-        }else{
+        } else {
+            labelLoggedIn.setVisible(true);
 
             startBlack.setVisible(false);
             gameModePane.setOpacity(1);
@@ -627,7 +724,9 @@ public class Gui extends Application implements IGui, IChartGUI {
         if (worldScoresNode instanceof ListView<?>) {
             worldScores = (ListView<String>) worldScoresNode;
         }
-        if (on) {fetchAllScores();}
+        if (on) {
+            fetchAllScores();
+        }
     }
 
 

@@ -291,6 +291,14 @@
             <ColorAdjust brightness="-0.97" hue="-0.02" saturation="-1.0" />
          </effect>
         </ImageView>
+      <Label fx:id="labelLoggedIn" style="-fx-background-color: 169,169,169,0.5; -fx-background-radius: 3;" text="Not Logged In" textFill="WHITE" visible="false" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="80.0">
+         <font>
+            <Font name="Papyrus" size="24.0" />
+         </font>
+         <padding>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+         </padding>
+      </Label>
       <Pane id="score" fx:id="score" prefHeight="755.0" prefWidth="256.0" visible="false" AnchorPane.leftAnchor="10.0">
          <children>
               <VBox layoutY="9.0" prefHeight="741.0" prefWidth="234.0">
