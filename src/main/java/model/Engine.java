@@ -33,6 +33,8 @@ public class Engine implements IEngine {
 
     //private int foundPairs = 0;
 
+    private int activeId;
+
     private int test;
     /**
      * logged in user
@@ -123,6 +125,7 @@ public class Engine implements IEngine {
 
         MemoryObject memoryObject = memoryObjectsList.get(i);
         memoryObject.setActive();
+        activeId = memoryObject.getIdNumber();
         if(!rightPairList.contains(memoryObject.getTypeId()) ){
                 comparingList.add(memoryObject);
                 storage.add(i);
@@ -133,6 +136,10 @@ public class Engine implements IEngine {
             comparingList.clear();
         }
 
+    }
+
+    public int getActiveId()  {
+        return activeId;
     }
 
     public void endGame () {

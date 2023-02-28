@@ -28,6 +28,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.MemoryObject;
 import model.ModeType;
+import model.Timer1;
 import visuals.audio.AudioMemory;
 import visuals.cubeFactories.EasyCubeFactory;
 import visuals.cubeFactories.HardCubeFactory;
@@ -40,6 +41,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static javafx.scene.text.Font.loadFont;
 import static model.ModeType.*;
@@ -198,7 +201,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         this.primaryStage.show();
 
         // If you want intro: "true", if not: "false". But is there life without intro?
-        introOn(true);
+        introOn(false);
 
 
         Platform.runLater(() -> Effects.getInstance().setGlow(pergament));
@@ -267,6 +270,9 @@ public class Gui extends Application implements IGui, IChartGUI {
     @FXML
     public void newGame() {
 
+        Timer t = new Timer();
+        TimerTask task = new Timer1();
+        t.schedule(task, 0, 100);
         switch (cubeList.size()) {
 
             case 6 -> setStartEasyGame();
@@ -340,7 +346,6 @@ public class Gui extends Application implements IGui, IChartGUI {
     }
 
     public void startChoose(ModeType type) {
-
         switch (type) {
 
             case EASY -> setStartEasyGame();
@@ -446,6 +451,11 @@ public class Gui extends Application implements IGui, IChartGUI {
         }
 
         System.out.println("game over");
+    }
+
+    @Override
+    public void getActive() {
+
     }
 
     @Override

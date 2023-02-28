@@ -106,6 +106,12 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
         });
     }
 
+    @Override
+    public void sendActive() {
+        ui.getActive();
+        engine.getActiveId();
+    }
+
     /**
      * fetches scores form db, and stores them in the correct scoreboard
      *

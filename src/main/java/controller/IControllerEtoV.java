@@ -11,5 +11,6 @@ public interface IControllerEtoV {
     void setHardGame(ArrayList<MemoryObject> memoryObjects);
 
     void gameOver();
+    void sendActive();
 
 }
