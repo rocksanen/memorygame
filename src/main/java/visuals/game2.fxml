@@ -360,7 +360,12 @@
             <Insets left="10.0" />
          </padding>
       </Pane>
-      <Pane id="logAndReg" fx:id="logAndReg" layoutX="20.0" layoutY="340.0" opacity="0.0" prefHeight="377.0" prefWidth="262.0">
+      <Button fx:id="buttonLogout" mnemonicParsing="false" onAction="#setButtonLogout" prefHeight="36.0" prefWidth="100.0" text="Logout" visible="false" AnchorPane.leftAnchor="95.0" AnchorPane.topAnchor="660.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Pane id="logAndReg" fx:id="logAndReg" layoutX="20.0" layoutY="340.0" opacity="0.0" prefHeight="380.0" prefWidth="250.0">
          <children>
                 <ImageView fitHeight="409.0" fitWidth="372.0" layoutX="-48.0">
                     <image>
@@ -382,8 +387,8 @@
                </font>
             </Label>
                 <TextField fx:id="password" layoutX="52.0" layoutY="207.0" opacity="0.6" prefHeight="25.0" prefWidth="158.0" />
-                <Button fx:id="register" layoutX="54.0" layoutY="274.0" mnemonicParsing="false" onMouseClicked="#registerPane" prefHeight="36.0" prefWidth="70.0" text="Register" />
-                <Button fx:id="login" layoutX="138.0" layoutY="274.0" mnemonicParsing="false" onMouseClicked="#loginPane" prefHeight="36.0" prefWidth="70.0" text="Login" />
+                <Button fx:id="register" layoutX="55.0" layoutY="300.0" mnemonicParsing="false" onMouseClicked="#registerPane" prefHeight="36.0" prefWidth="140.0" text="Register" />
+                <Button fx:id="login" layoutX="75.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#loginPane" prefHeight="36.0" prefWidth="100.0" text="Login" />
          </children>
       </Pane>
       <AnchorPane id="startBlack" fx:id="startBlack" prefHeight="780.0" prefWidth="1250.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

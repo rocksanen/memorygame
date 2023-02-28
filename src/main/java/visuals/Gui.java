@@ -53,6 +53,8 @@ public class Gui extends Application implements IGui, IChartGUI {
     Stage primaryStage;
 
     @FXML
+    Button buttonLogout;
+    @FXML
     Label labelLoggedIn;
     @FXML
     Button startEasyGame;
@@ -599,13 +601,26 @@ public class Gui extends Application implements IGui, IChartGUI {
         returnMenu = new Button();
 
         labelLoggedIn = (Label) root.lookup("#labelLoggedIn");
+        buttonLogout = (Button) root.lookup("#buttonLogout");
+        login = (Button) root.lookup("#login");
+        register = (Button) root.lookup("#register");
+        name = (TextField) root.lookup("#name");
+        password = (TextField) root.lookup("#password");
 
         URL url = Gui.class.getClassLoader().getResource("fonts/outrun_future.otf");
-        System.out.println(url);
         // get the font from the resources, set size and add it to the label
-        labelLoggedIn.setFont(Font.loadFont(url.toExternalForm(), 18));
-
+        Font outrun = Font.loadFont(url.toExternalForm(), 18);
+        labelLoggedIn.setFont(outrun);
         labelLoggedIn.setStyle("-fx-background-color: rgba(0,0,0,0.50);-fx-background-radius: 5; -fx-padding: 1 6 1 6");
+
+        buttonLogout.setFont(outrun);
+        // make button logout purple with shadow, white text and hover effect
+        buttonLogout.setStyle("-fx-background-color: #6005a8; -fx-background-radius: 5; -fx-padding: 1 6 1 6; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
+
+        login.setFont(outrun);
+        login.setStyle("-fx-background-color: #6005a8; -fx-background-radius: 5; -fx-padding: 1 6 1 6; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
+        register.setFont(outrun);
+        register.setStyle("-fx-background-color: #6005a8; -fx-background-radius: 5; -fx-padding: 1 6 1 6; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
 
     }
 
@@ -671,10 +686,11 @@ public class Gui extends Application implements IGui, IChartGUI {
             Platform.runLater(() -> Effects.getInstance().intro(
                     weDidIt, groupFour, logAndReg,
                     sun, lightning, blacksun,
-                    easyFrame, mediumFrame, hardFrame, memomaze, labelLoggedIn));
+                    easyFrame, mediumFrame, hardFrame, memomaze, labelLoggedIn,buttonLogout));
 
         } else {
             labelLoggedIn.setVisible(true);
+            buttonLogout.setVisible(true);
 
             startBlack.setVisible(false);
             gameModePane.setOpacity(1);
@@ -703,6 +719,22 @@ public class Gui extends Application implements IGui, IChartGUI {
         if (on) {
             fetchAllScores();
         }
+    }
+
+
+    @FXML
+    public void setButtonLogout() {
+        buttonLogout.setOnAction(event -> {
+            try {
+                controller.logout();
+                labelLoggedIn.setText("Not logged in");
+                name.clear();
+                password.clear();
+                logAndReg.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
 
