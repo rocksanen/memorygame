@@ -25,6 +25,7 @@ public interface IEngine {
     void clearStorage();
     void endGame();
     int getActiveId();
+    long getTimerTime();
 
     int getTotalScore();
 }

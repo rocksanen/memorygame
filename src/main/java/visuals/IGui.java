@@ -20,7 +20,8 @@ public interface IGui {
     void clearStorage();
 
     void gameOver();
-    void getActive();
+    void setTimerTime(long timerTime);
+    void setActiveID(int activeID);
 
     void fetchUserScores();
 }

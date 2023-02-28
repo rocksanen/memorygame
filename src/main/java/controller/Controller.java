@@ -107,9 +107,14 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
     }
 
     @Override
-    public void sendActive() {
-        ui.getActive();
-        engine.getActiveId();
+    public void getActive(int id) {
+        ui.setActiveID(engine.getActiveId());
+        System.out.println(engine.getActiveId());
+    }
+
+    @Override
+    public void getTime() {
+        ui.setTimerTime(engine.getTimerTime());
     }
 
     /**

@@ -13,8 +13,4 @@ public class Timer1 extends TimerTask {
             cancel();
         }
     }
-
-    private int getTime() {
-        return i;
-    }
 }

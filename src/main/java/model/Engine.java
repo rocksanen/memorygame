@@ -62,6 +62,12 @@ public class Engine implements IEngine {
      */
     int incorrectTries = 0;
 
+    private long timerTime = 1000;
+    public long getTimerTime() {
+        return timerTime;
+    }
+
+
 
     public Engine(ModeType type, IControllerEtoV controller) {
         this.type = type;
@@ -76,12 +82,16 @@ public class Engine implements IEngine {
 
         switch (this.type) {
             case EASY -> {
+                timerTime = 1000;
+                controller.getTime();
                 addMemoryObjectsToList(6);
                 suffleObjects();
                 controller.setEasyGame(memoryObjectsList);
 
             }
             case MEDIUM -> {
+                timerTime = 800;
+                controller.getTime();
                 addMemoryObjectsToList(12);
                 suffleObjects();
                 controller.setMediumGame(memoryObjectsList);
@@ -90,6 +100,8 @@ public class Engine implements IEngine {
             }
 
             case HARD -> {
+                timerTime = 600;
+                controller.getTime();
                 addMemoryObjectsToList(20);
                 suffleObjects();
                 controller.setHardGame(memoryObjectsList);
@@ -124,8 +136,8 @@ public class Engine implements IEngine {
     public void addToComparing(int i) {
 
         MemoryObject memoryObject = memoryObjectsList.get(i);
-        memoryObject.setActive();
         activeId = memoryObject.getIdNumber();
+        controller.getActive(activeId);
         if(!rightPairList.contains(memoryObject.getTypeId()) ){
                 comparingList.add(memoryObject);
                 storage.add(i);

@@ -160,6 +160,19 @@ public class Gui extends Application implements IGui, IChartGUI {
     private ICubeFactory hardCubeFactory;
     private Parent root;
     private Scene scene;
+
+    private long timerTime;
+    public void setTimerTime(long timerTime) {
+        this.timerTime = timerTime;
+    }
+
+
+    public void setActiveID(int activeID) {
+        this.activeID = activeID;
+        System.out.println(activeID);
+    }
+
+    private int activeID;
     public static PerspectiveCamera camera = new PerspectiveCamera();
 
     public static void main(String[] args) {
@@ -272,7 +285,7 @@ public class Gui extends Application implements IGui, IChartGUI {
 
         Timer t = new Timer();
         TimerTask task = new Timer1();
-        t.schedule(task, 0, 100);
+        t.schedule(task, 0, timerTime);
         switch (cubeList.size()) {
 
             case 6 -> setStartEasyGame();
@@ -453,10 +466,6 @@ public class Gui extends Application implements IGui, IChartGUI {
         System.out.println("game over");
     }
 
-    @Override
-    public void getActive() {
-
-    }
 
     @Override
     public void clearStorage() {
