@@ -1,15 +1,23 @@
 # Memory Game
 Game where you flip cards to find pairs. Made with JavaFX.
+
+By Otto Oksanen, Eetu Soronen, Hasan Safdari & Samu Oksala
 ## Table of Contents
 * [Instructions](#instructions)
-* [About The Project](#about-the-project)
 * [Getting Started](#getting-started)
+* [About The Project](#about-the-project)
+* [Vision](#vision)
+
 
 ## Instructions
 To get started, build the game in Intellij with Java version 17 or higher.
 
-## About The Project
-This project was made for ohjelmistotuotantoprojekti 1 course at Metropolia UAS.
-
 ## Getting Started
 After building the game, you can select one of three difficulties and get started immediately. Database server not included in the repo.
+
+## About The Project
+This project was made for ohjelmistotuotantoprojekti 1 course at Metropolia UAS.
+The project is a simple memory game designed for anyone who wants to improve their memory.
+
+## Vision
+Our vision was to create a fun memory game that's easily accessible. The game was made to improve the players mental capabilities.
