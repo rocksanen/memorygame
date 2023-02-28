@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -36,19 +37,47 @@
                 <Image url="@images/hardback4.jpg" />
             </image>
         </ImageView>
-        <ImageView id="mediumSpread" fx:id="mediumSpread" fitHeight="780.0" fitWidth="1400.0" opacity="0.0">
+      <ImageView id="mediumSpread" fx:id="mediumSpread1" fitHeight="780.0" fitWidth="2800.0" layoutX="-1100.0" layoutY="10.0" opacity="0.0" rotate="79.0" visible="false">
+         <image>
+            <Image url="@images/tigru.jpg" />
+         </image>
+         <rotationAxis>
+            <Point3D y="1.0" />
+         </rotationAxis>
+      </ImageView>
+      <ImageView id="midR" fitHeight="750.0" fitWidth="1250.0">
+         <image>
+            <Image url="@images/midR.png" />
+         </image>
+      </ImageView>
+        <ImageView id="mediumBackground" fx:id="mediumBackground" fitHeight="744.5" fitWidth="1247.0" layoutX="-3.0" layoutY="5.5">
             <image>
                 <Image url="@images/tigru.jpg" />
             </image>
-            <effect>
-                <GaussianBlur radius="10.59" />
-            </effect>
         </ImageView>
-        <ImageView id="mediumBackground" fx:id="mediumBackground" fitHeight="744.5" fitWidth="1247.0" layoutX="-3.0" layoutY="5.5" opacity="0.0">
-            <image>
-                <Image url="@images/tigru.jpg" />
-            </image>
-        </ImageView>
+      <ImageView id="midTop" fitHeight="750.0" fitWidth="1250.0">
+         <image>
+            <Image url="@images/midTop.png" />
+         </image>
+      </ImageView>
+      <ImageView id="midL" fitHeight="750.0" fitWidth="1250.0">
+         <image>
+            <Image url="@images/midL.png" />
+         </image>
+      </ImageView>
+      <ImageView id="midBot" fitHeight="750.0" fitWidth="1250.0">
+         <image>
+            <Image url="@images/midBot.png" />
+         </image>
+      </ImageView>
+      <ImageView id="midgrid" fitHeight="750.0" fitWidth="1250.0" opacity="0.75">
+         <image>
+            <Image url="@images/gird.png" />
+         </image>
+         <effect>
+            <GaussianBlur radius="2.35" />
+         </effect>
+      </ImageView>
         <ImageView id="background" fx:id="background" fitHeight="741.0" fitWidth="1242.0" layoutX="4.0" layoutY="4.9" opacity="0.0">
             <image>
                 <Image url="@images/background.png" />
@@ -122,6 +151,11 @@
             <ImageView id="blacksun" fx:id="blacksun" fitHeight="321.0" fitWidth="365.0" layoutX="465.0" layoutY="51.0" opacity="0.0">
                <image>
                   <Image url="@images/blacksun1.png" />
+               </image>
+            </ImageView>
+            <ImageView id="memomaze" fx:id="memomaze" fitHeight="207.0" fitWidth="700.0" layoutX="270.0" layoutY="80.0" opacity="0.0">
+               <image>
+                  <Image url="@images/memomaze.png" />
                </image>
             </ImageView>
             <ImageView id="dirt" fx:id="dirt" fitHeight="762.0" fitWidth="1270.0" opacity="0.61" translateZ="-500.0">
@@ -232,7 +266,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                         </ImageView>
-                        <ImageView id="miniMedium" fx:id="miniMedium" fitHeight="118.0" fitWidth="198.0" layoutX="363.0" layoutY="100.0" onMouseClicked="#mediumStartScreenPlay" opacity="0.0" translateZ="100.0">
+                        <ImageView id="miniMedium" fx:id="miniMedium" fitHeight="118.0" fitWidth="198.0" layoutX="363.0" layoutY="100.0" onMouseClicked="#mediumStartScreenPlay" opacity="0.0" translateZ="70.0">
                             <image>
                                 <Image url="@images/tigru.jpg" />
                             </image>
@@ -256,7 +290,7 @@
                         <ColorAdjust brightness="-0.97" hue="-0.02" saturation="-1.0" />
                      </effect>
                         </ImageView>
-                        <ImageView id="mediumFrame" fx:id="mediumFrame" fitHeight="120.4" fitWidth="199.3" layoutX="363.0" layoutY="98.8" opacity="0.0" translateZ="100.0">
+                        <ImageView id="mediumFrame" fx:id="mediumFrame" fitHeight="120.4" fitWidth="199.3" layoutX="363.0" layoutY="98.8" opacity="0.0" translateZ="70.0">
                             <image>
                                 <Image url="@images/frame3.png" />
                             </image>
@@ -289,6 +323,14 @@
             <ColorAdjust brightness="-0.97" hue="-0.02" saturation="-1.0" />
          </effect>
         </ImageView>
+      <Label fx:id="labelLoggedIn" style="-fx-background-color: 169,169,169,0.5; -fx-background-radius: 3;" text="Not Logged In" textFill="WHITE" visible="false" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="80.0">
+         <font>
+            <Font name="Papyrus" size="24.0" />
+         </font>
+         <padding>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+         </padding>
+      </Label>
       <Pane id="score" fx:id="score" prefHeight="755.0" prefWidth="256.0" visible="false" AnchorPane.leftAnchor="10.0">
          <children>
               <VBox layoutY="9.0" prefHeight="741.0" prefWidth="234.0">
@@ -316,33 +358,36 @@
             <Insets left="10.0" />
          </padding>
       </Pane>
-      <Pane id="logAndReg" fx:id="logAndReg" layoutX="20.0" layoutY="340.0" opacity="0.0" prefHeight="377.0" prefWidth="262.0">
+      <Pane id="logAndReg" fx:id="logAndReg" opacity="0.0" layoutX="30.0" layoutY="340.0">
          <children>
-
-                <ImageView fitHeight="409.0" fitWidth="372.0" layoutX="-48.0">
-                    <image>
-                        <Image url="@images/log4.png" />
-                    </image>
-                    <effect>
-                        <GaussianBlur radius="0.0" />
-                    </effect>
-                </ImageView>
-
-                <Label alignment="CENTER" layoutX="47.0" layoutY="61.0" prefHeight="43.0" prefWidth="169.0" text="Username:">
-               <font>
-                  <Font name="Blackadder ITC" size="34.0" />
-               </font>
-            </Label>
-                <TextField fx:id="name" layoutX="52.0" layoutY="120.0" opacity="0.6" prefHeight="25.0" prefWidth="158.0" />
-                <Label alignment="CENTER" layoutX="47.0" layoutY="149.0" prefHeight="43.0" prefWidth="169.0" text="Password:">
-               <font>
-                  <Font name="Blackadder ITC" size="34.0" />
-               </font>
-            </Label>
-                <TextField fx:id="password" layoutX="52.0" layoutY="207.0" opacity="0.6" prefHeight="25.0" prefWidth="158.0" />
-                <Button fx:id="register" layoutX="54.0" layoutY="274.0" mnemonicParsing="false" onMouseClicked="#registerPane" prefHeight="36.0" prefWidth="70.0" text="Register" />
-                <Button fx:id="login" layoutX="138.0" layoutY="274.0" mnemonicParsing="false" onMouseClicked="#loginPane" prefHeight="36.0" prefWidth="70.0" text="Login" />
-            <Button fx:id="stats" mnemonicParsing="false" onMouseClicked="#statsGame" text="Stats" textAlignment="CENTER" />
+            <Button fx:id="buttonLogout" layoutX="75.0" layoutY="250.0" mnemonicParsing="false" onAction="#setButtonLogout" prefHeight="36.0" prefWidth="100.0" text="Logout" visible="false" />
+            <Pane id="paneLogin" fx:id="paneLogin" prefHeight="380.0" prefWidth="250.0">
+               <children>
+                      <ImageView fitHeight="409.0" fitWidth="372.0" layoutX="-48.0">
+                          <image>
+                              <Image url="@images/log4.png" />
+                          </image>
+                          <effect>
+                              <GaussianBlur radius="0.0" />
+                          </effect>
+                      </ImageView>
+                      <Label alignment="CENTER" layoutX="47.0" layoutY="61.0" prefHeight="43.0" prefWidth="169.0" text="Username:">
+                     <font>
+                        <Font name="Blackadder ITC" size="34.0" />
+                     </font>
+                  </Label>
+                      <TextField fx:id="name" layoutX="52.0" layoutY="120.0" opacity="0.6" prefHeight="25.0" prefWidth="158.0" />
+                      <Label alignment="CENTER" layoutX="47.0" layoutY="149.0" prefHeight="43.0" prefWidth="169.0" text="Password:">
+                     <font>
+                        <Font name="Blackadder ITC" size="34.0" />
+                     </font>
+                  </Label>
+                      <TextField fx:id="password" layoutX="52.0" layoutY="207.0" opacity="0.6" prefHeight="25.0" prefWidth="158.0" />
+                      <Button fx:id="register" layoutX="55.0" layoutY="300.0" mnemonicParsing="false" onMouseClicked="#registerPane" prefHeight="36.0" prefWidth="140.0" text="Register" />
+                      <Button fx:id="login" layoutX="75.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#loginPane" prefHeight="36.0" prefWidth="100.0" text="Login" />
+                      <Button fx:id="stats" mnemonicParsing="false" onMouseClicked="#statsGame" text="Stats" textAlignment="CENTER" />
+               </children>
+            </Pane>
          </children>
       </Pane>
       <AnchorPane id="startBlack" fx:id="startBlack" prefHeight="780.0" prefWidth="1250.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
