@@ -384,23 +384,9 @@ public class Effects {
         Gui.camera.setFieldOfView(1);
 
 
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.ZERO,
-                        new KeyValue(mediumBackGround.fitWidthProperty(),mediumBackGround.getFitWidth()),
-                        new KeyValue(mediumBackGround.fitHeightProperty(),mediumBackGround.getFitHeight()),
-                        new KeyValue(mediumBackGround.layoutYProperty(),-139),
-                        new KeyValue(mediumBackGround.layoutXProperty(),-181)),
-                new KeyFrame(Duration.seconds(2),
-                        new KeyValue(mediumBackGround.fitWidthProperty(),138),
-                        new KeyValue(mediumBackGround.fitHeightProperty(),82),
-                        new KeyValue(mediumBackGround.layoutYProperty(),334),
-                        new KeyValue(mediumBackGround.layoutXProperty(),556))
-        );
-
-        //timeline.play();
-
         gui.startChoose(type);
-// Create a Timeline to scale the grid
+
+        /*
         Timeline timeline1 = new Timeline(
                 new KeyFrame(Duration.ZERO,
                         new KeyValue(midgrid.scaleYProperty(), 1),
@@ -412,30 +398,16 @@ public class Effects {
                         new KeyValue(midgrid.translateZProperty(), 1000))
         );
 
-// Set the animation to repeat indefinitely
+
         timeline1.setCycleCount(Animation.INDEFINITE);
 
-// Start the animation
+
         timeline1.play();
 
-        Timeline timeline2 = new Timeline(
-                new KeyFrame(Duration.ZERO,
-                        new KeyValue(mediumBackGround.scaleXProperty(),1)),
-                new KeyFrame(Duration.seconds(15),
-                        new KeyValue(mediumBackGround.scaleXProperty(),1.5))
-        );
+         */
 
-        //timeline2.play();
-        timeline.setOnFinished(actionEvent -> {
-
-
-        });
-
-
-
-
-        //Platform.runLater(() -> backGroundMover.animate(gameBackGround));
-        //Platform.runLater(backGroundMover::play);
+        Platform.runLater(() -> backGroundMover.animate(gameBackGround));
+        Platform.runLater(backGroundMover::play);
         //Platform.runLater(() -> backGroundBlurIn(gameBackGround));
     }
 

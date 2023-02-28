@@ -124,6 +124,12 @@ public class Gui extends Application implements IGui, IChartGUI {
     @FXML ImageView dirt;
     @FXML ImageView burningsun;
     @FXML ImageView memomaze;
+    @FXML ImageView midR;
+    @FXML ImageView midTop;
+    @FXML ImageView midL;
+    @FXML ImageView midBot;
+    @FXML ImageView midend;
+
 
     private static final double CAMERA_INITIAL_DISTANCE = -1000;
     private static final double CAMERA_INITIAL_X_ANGLE = 0.0;
@@ -157,25 +163,6 @@ public class Gui extends Application implements IGui, IChartGUI {
         this.scene.setCamera(camera);
         this.scene.getCamera().setNearClip(0.1);
 
-
-        /*
-        scene.setOnMousePressed(event -> {
-            mousePosX = event.getSceneX();
-            mouseOldX = event.getSceneX();
-        });
-
-        scene.setOnMouseMoved(event -> {
-            mouseOldX = mousePosX;
-            mousePosX = event.getSceneX();
-            double deltaX = (mousePosX - mouseOldX);
-            if (event.isPrimaryButtonDown()) {
-                rotateY.setAngle(rotateY.getAngle() + deltaX / 5.0);
-                pergament.getTransforms().setAll(rotateY);
-            }
-        });
-
-         */
-
         this.primaryStage.setScene(scene);
         this.primaryStage.setResizable(false);
         this.primaryStage.show();
@@ -187,7 +174,9 @@ public class Gui extends Application implements IGui, IChartGUI {
         Platform.runLater(() -> Effects.getInstance().setGlow(pergament));
         Platform.runLater(() -> Effects.getInstance().playGlow());
         Visibilities.getInstance().setGridLayoutToVisibility(easyGrid, mediumGrid, hardGrid);
-        Visibilities.getInstance().setGameBackGrounds(background, mediumBackground, mediumSpread, hardBackground, hardSpread);
+        Visibilities.getInstance().setGameBackGrounds(
+                background, mediumBackground, mediumSpread,
+                hardBackground, hardSpread, midgrid, midR,midTop,midL,midBot, midend);
         AudioMemory.getInstance().playTheIntro();
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO),
@@ -268,10 +257,11 @@ public class Gui extends Application implements IGui, IChartGUI {
                     easyGrid, background,
                     800, 35, -145.5, 14.5, EASY
             );
-            case 12 -> Effects.getInstance().gameZoomOut(
+            case 12 ->  Effects.getInstance().gameZoomOut(
                     mediumGrid, mediumBackground,
-                    1101, 35, 117.2, -144.92, MEDIUM
+                    1071, 35, 117.2, -144.92, MEDIUM
             );
+
             case 20 -> Effects.getInstance().gameZoomOut(
                     hardGrid, hardBackground,
                     1000.7, 35, 384.0, 14.5, ModeType.HARD
@@ -304,7 +294,7 @@ public class Gui extends Application implements IGui, IChartGUI {
 
         Platform.runLater(() -> Effects.getInstance().gameZoomIn(
                 mediumBackground,
-                1101, 10, 117.2, -144.92,
+                1071, 10, 117.2, -144.92,
                 MEDIUM,this));
 
     }
@@ -676,6 +666,11 @@ public class Gui extends Application implements IGui, IChartGUI {
         hardSpread = (ImageView) root.lookup("#hardSpread");
         hardBackground.setImage(ImageCache.getInstance().getGameBackGroundCache().get(2));
         hardSpread.setImage(ImageCache.getInstance().getGameBackGroundCache().get(2));
+        midR = (ImageView) root.lookup("#midR");
+        midTop = (ImageView) root.lookup("#midTop");
+        midL = (ImageView) root.lookup("#midL");
+        midBot = (ImageView) root.lookup("#midBot");
+        midend = (ImageView) root.lookup("#midend");
 
     }
 

@@ -268,7 +268,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                         </ImageView>
-                        <ImageView id="miniMedium" fx:id="miniMedium" fitHeight="118.0" fitWidth="198.0" layoutX="363.0" layoutY="100.0" onMouseClicked="#mediumStartScreenPlay" opacity="0.0" translateZ="100.0">
+                        <ImageView id="miniMedium" fx:id="miniMedium" fitHeight="118.0" fitWidth="198.0" layoutX="363.0" layoutY="100.0" onMouseClicked="#mediumStartScreenPlay" opacity="0.0" translateZ="70.0">
                             <image>
                                 <Image url="@images/tigru.jpg" />
                             </image>
@@ -292,7 +292,7 @@
                         <ColorAdjust brightness="-0.97" hue="-0.02" saturation="-1.0" />
                      </effect>
                         </ImageView>
-                        <ImageView id="mediumFrame" fx:id="mediumFrame" fitHeight="120.4" fitWidth="199.3" layoutX="363.0" layoutY="98.8" opacity="0.0" translateZ="100.0">
+                        <ImageView id="mediumFrame" fx:id="mediumFrame" fitHeight="120.4" fitWidth="199.3" layoutX="363.0" layoutY="98.8" opacity="0.0" translateZ="70.0">
                             <image>
                                 <Image url="@images/frame3.png" />
                             </image>
