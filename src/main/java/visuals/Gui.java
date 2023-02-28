@@ -710,10 +710,11 @@ public class Gui extends Application implements IGui, IChartGUI {
             Platform.runLater(() -> Effects.getInstance().intro(
                     weDidIt, groupFour, logAndReg,
                     sun, lightning, blacksun,
-                    easyFrame, mediumFrame, hardFrame, labelLoggedIn));
+                    easyFrame, mediumFrame, hardFrame, labelLoggedIn, buttonLogout));
 
         } else {
             labelLoggedIn.setVisible(true);
+            buttonLogout.setVisible(true);
 
             startBlack.setVisible(false);
             gameModePane.setOpacity(1);

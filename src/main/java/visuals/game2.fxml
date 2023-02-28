@@ -326,12 +326,12 @@
             <Insets left="10.0" />
          </padding>
       </Pane>
-      <Button fx:id="buttonLogout" mnemonicParsing="false" onAction="#setButtonLogout" prefHeight="36.0" prefWidth="100.0" text="Logout" AnchorPane.bottomAnchor="220.0" AnchorPane.leftAnchor="100.0">
+      <Button fx:id="buttonLogout" mnemonicParsing="false" onAction="#setButtonLogout" prefHeight="36.0" prefWidth="100.0" text="Logout" visible="false" AnchorPane.leftAnchor="95.0" AnchorPane.topAnchor="660.0">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Pane id="logAndReg" fx:id="logAndReg" layoutX="20.0" layoutY="340.0" opacity="0.0" prefHeight="377.0" prefWidth="250.0">
+      <Pane id="logAndReg" fx:id="logAndReg" layoutX="20.0" layoutY="340.0" opacity="0.0" prefHeight="380.0" prefWidth="250.0">
          <children>
                 <ImageView fitHeight="409.0" fitWidth="372.0" layoutX="-48.0">
                     <image>
