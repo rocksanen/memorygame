@@ -409,6 +409,14 @@ public class Effects {
 // Start the animation
         timeline1.play();
 
+        Timeline timeline2 = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(mediumBackGround.scaleXProperty(),1)),
+                new KeyFrame(Duration.seconds(15),
+                        new KeyValue(mediumBackGround.scaleXProperty(),1.5))
+        );
+
+        //timeline2.play();
         timeline.setOnFinished(actionEvent -> {
 
 
