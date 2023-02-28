@@ -21,7 +21,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.Gui">
+<AnchorPane prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.Gui">
     <children>
         <ImageView id="hardSpread" fx:id="hardSpread" fitHeight="780.0" fitWidth="1400.0" opacity="0.0">
             <image>
@@ -89,14 +89,10 @@
         </GridPane>
         <VBox id="nappulat" fx:id="vBox" layoutX="1066.4000244140625" prefHeight="700.0" prefWidth="300.0">
             <children>
-                <Button id="statsGame" fx:id="stats" mnemonicParsing="false" onMouseClicked="#statsGame" prefHeight="75.0" prefWidth="158.0" text="Stats">
-                <VBox.margin>
-                    <Insets top="250.0" />
-                </VBox.margin>
-                </Button>
+
                 <Button id="newGame" fx:id="newGame" mnemonicParsing="false" onMouseClicked="#newGame" prefHeight="75.0" prefWidth="158.0" text="New Game">
                     <VBox.margin>
-                        <Insets top="20.0" />
+                        <Insets top="300.0" />
                     </VBox.margin>
                 </Button>
                 <Button id="returnMenu" fx:id="returnMenu" mnemonicParsing="false" onMouseClicked="#returnMenu" prefHeight="75.0" prefWidth="158.0" text="Return">
@@ -108,6 +104,7 @@
         </VBox>
         <AnchorPane id="menuAnkkuri" fx:id="menuAnkkuri" prefHeight="750.0" prefWidth="1250.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
+
                   <ImageView id="pergament" fx:id="pergament" fitHeight="754.0" fitWidth="1260.0" scaleX="1.2" scaleY="1.2" translateZ="200.0">
                       <image>
                           <Image url="@images/testaperga7.jpg" />
@@ -116,6 +113,7 @@
                   <SepiaTone />
                </effect>
                   </ImageView>
+
             <ImageView id="burningsun" fx:id="burningsun" fitHeight="369.0" fitWidth="360.0" layoutX="-260.0" layoutY="-59.0" opacity="0.0">
                <image>
                   <Image url="@images/burningsun.png" />
@@ -320,6 +318,7 @@
       </Pane>
       <Pane id="logAndReg" fx:id="logAndReg" layoutX="20.0" layoutY="340.0" opacity="0.0" prefHeight="377.0" prefWidth="262.0">
          <children>
+
                 <ImageView fitHeight="409.0" fitWidth="372.0" layoutX="-48.0">
                     <image>
                         <Image url="@images/log4.png" />
@@ -328,6 +327,7 @@
                         <GaussianBlur radius="0.0" />
                     </effect>
                 </ImageView>
+
                 <Label alignment="CENTER" layoutX="47.0" layoutY="61.0" prefHeight="43.0" prefWidth="169.0" text="Username:">
                <font>
                   <Font name="Blackadder ITC" size="34.0" />
@@ -342,6 +342,7 @@
                 <TextField fx:id="password" layoutX="52.0" layoutY="207.0" opacity="0.6" prefHeight="25.0" prefWidth="158.0" />
                 <Button fx:id="register" layoutX="54.0" layoutY="274.0" mnemonicParsing="false" onMouseClicked="#registerPane" prefHeight="36.0" prefWidth="70.0" text="Register" />
                 <Button fx:id="login" layoutX="138.0" layoutY="274.0" mnemonicParsing="false" onMouseClicked="#loginPane" prefHeight="36.0" prefWidth="70.0" text="Login" />
+            <Button fx:id="stats" mnemonicParsing="false" onMouseClicked="#statsGame" text="Stats" textAlignment="CENTER" />
          </children>
       </Pane>
       <AnchorPane id="startBlack" fx:id="startBlack" prefHeight="780.0" prefWidth="1250.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -380,4 +381,5 @@
          </children>
       </AnchorPane>
     </children>
+    
 </AnchorPane>

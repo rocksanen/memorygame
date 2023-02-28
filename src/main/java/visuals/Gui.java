@@ -54,6 +54,9 @@ public class Gui extends Application implements IGui, IChartGUI {
     Button startMediumGame;
     @FXML
     Button startHardGame;
+
+    @FXML
+    Button stats;
     @FXML
     static GridPane easyGrid;
     @FXML
@@ -171,7 +174,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         this.primaryStage.show();
 
         // If you want intro: "true", if not: "false". But is there life without intro?
-        introOn(true);
+        introOn(false);
 
 
         Platform.runLater(() -> Effects.getInstance().setGlow(pergament));
@@ -512,7 +515,7 @@ public class Gui extends Application implements IGui, IChartGUI {
                 return;
             }
             fetchUserScores();
-            logAndReg.setVisible(false);
+            logAndReg.setVisible(true);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -520,6 +523,7 @@ public class Gui extends Application implements IGui, IChartGUI {
     }
 
     private void panesAndMisc(){
+        stats = (Button) root.lookup("#stats");
 
         startBlack = (AnchorPane) root.lookup("#startBlack");
         menuAnkkuri = (AnchorPane) root.lookup("#menuAnkkuri");
@@ -630,7 +634,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         if (on) {fetchAllScores();}
     }
 
-
+    @FXML
     public void statsGame(MouseEvent mouseEvent) {
         ChartGUI c = new ChartGUI();
 

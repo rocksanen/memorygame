@@ -28,12 +28,23 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
+/**
+ * The type Chart gui.
+ */
 public class ChartGUI extends Application implements IChartGUI {
 
+    /**
+     * The Stacked area chart.
+     */
     AreaChart<Number, Number> stackedAreaChart = new AreaChart<>(new NumberAxis(), new NumberAxis());
 
     private final IChartController scoreController2 = new ChartController(this);
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {launch(args);}
     @Override
     public void start(Stage stage) throws IOException {

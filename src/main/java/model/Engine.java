@@ -11,12 +11,23 @@ import static model.CompareResultType.NOTEQUAL;
 import static model.ModeType.EASY;
 
 
+/**
+ * The type Engine.
+ */
 public class Engine implements IEngine {
 
+    /**
+     * The Storage.
+     */
     ArrayList<Integer> storage = new ArrayList<>();
     private final IControllerEtoV controller;
     private final ModeType type;
 
+    /**
+     * Gets comparing list.
+     *
+     * @return the comparing list
+     */
     public ArrayList<MemoryObject> getComparingList() {
         return comparingList;
     }
@@ -25,6 +36,11 @@ public class Engine implements IEngine {
     private ArrayList<Integer> rightPairList = new ArrayList<Integer>();
     private CompareResultType type2;
 
+    /**
+     * Gets memory objects list.
+     *
+     * @return the memory objects list
+     */
     public ArrayList<MemoryObject> getMemoryObjectsList() {
         return memoryObjectsList;
     }
@@ -61,6 +77,12 @@ public class Engine implements IEngine {
     int incorrectTries = 0;
 
 
+    /**
+     * Instantiates a new Engine.
+     *
+     * @param type       the type
+     * @param controller the controller
+     */
     public Engine(ModeType type, IControllerEtoV controller) {
         this.type = type;
         this.controller = controller;
@@ -184,8 +206,7 @@ public class Engine implements IEngine {
      *
      * @param type the result of the comparison, either equal or not equal.
      */
-
-    //was private void, changed
+//was private void, changed
     public void updateScore(CompareResultType type) {
         switch (type) {
             case EQUAL -> {
