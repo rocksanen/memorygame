@@ -4,6 +4,8 @@ import controller.IControllerEtoV;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.CompletableFuture;
 
 import static model.CompareResultType.EQUAL;
@@ -16,6 +18,16 @@ public class Engine implements IEngine {
     ArrayList<Integer> storage = new ArrayList<>();
     private final IControllerEtoV controller;
     private final ModeType type;
+
+    public boolean isReturnStatus() {
+        return returnStatus;
+    }
+
+    public void setReturnStatus(boolean returnStatus) {
+        this.returnStatus = returnStatus;
+    }
+
+    private boolean returnStatus;
 
     public ArrayList<MemoryObject> getComparingList() {
         return comparingList;
@@ -32,6 +44,8 @@ public class Engine implements IEngine {
     private ArrayList<MemoryObject> memoryObjectsList;
 
     //private int foundPairs = 0;
+
+    private int activeId;
 
     private int test;
     /**
@@ -60,10 +74,20 @@ public class Engine implements IEngine {
      */
     int incorrectTries = 0;
 
+    private long timerTime = 1000;
+    public long getTimerTime() {
+        return timerTime;
+    }
+
+    Timer t;
+    TimerTask task;
 
     public Engine(ModeType type, IControllerEtoV controller) {
+
         this.type = type;
         this.controller = controller;
+        this.t = new Timer();
+        this.task = new Timer1(controller);
 
         // get current time
         this.startTime = System.currentTimeMillis();
@@ -74,12 +98,18 @@ public class Engine implements IEngine {
 
         switch (this.type) {
             case EASY -> {
+                timerTime = 1000;
+                runTimer();
+                controller.getTime();
                 addMemoryObjectsToList(6);
                 suffleObjects();
                 controller.setEasyGame(memoryObjectsList);
 
             }
             case MEDIUM -> {
+                timerTime = 800;
+                runTimer();
+                controller.getTime();
                 addMemoryObjectsToList(12);
                 suffleObjects();
                 controller.setMediumGame(memoryObjectsList);
@@ -88,6 +118,9 @@ public class Engine implements IEngine {
             }
 
             case HARD -> {
+                timerTime = 600;
+                runTimer();
+                controller.getTime();
                 addMemoryObjectsToList(20);
                 suffleObjects();
                 controller.setHardGame(memoryObjectsList);
@@ -122,7 +155,8 @@ public class Engine implements IEngine {
     public void addToComparing(int i) {
 
         MemoryObject memoryObject = memoryObjectsList.get(i);
-        memoryObject.setActive();
+        activeId = memoryObject.getIdNumber();
+        controller.getActive(activeId);
         if(!rightPairList.contains(memoryObject.getTypeId()) ){
                 comparingList.add(memoryObject);
                 storage.add(i);
@@ -135,10 +169,18 @@ public class Engine implements IEngine {
 
     }
 
+    public int getActiveId()  {
+        return activeId;
+    }
+
     public void endGame () {
         rightPairList.clear();
         System.out.println("Game ended!");
+        // Make IF NOT returned
         setPersonalScore();
+        task.cancel();
+        t.cancel();
+
 
     }
 
@@ -252,6 +294,10 @@ public class Engine implements IEngine {
             clearPair(objectList);
             updateScore(NOTEQUAL);
         }
+    }
+
+    public void runTimer() {
+        t.schedule(task, 0, timerTime);
     }
 
     public String toString() {

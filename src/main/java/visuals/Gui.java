@@ -176,6 +176,34 @@ public class Gui extends Application implements IGui, IChartGUI {
     private ICubeFactory hardCubeFactory;
     private Parent root;
     private Scene scene;
+
+    public boolean isReturnStatus() {
+        return returnStatus;
+    }
+
+    private boolean returnStatus;
+
+
+
+    public void setActiveID(int activeID) {
+        this.activeID = activeID;
+        System.out.println(activeID);
+    }
+
+    @Override
+    public void getTime(int i) {
+        System.out.println(i);
+        if (i <= 0) {
+            returnMenu();
+        }
+
+    }
+
+    public int getActiveID() {
+        return activeID;
+    }
+
+    private int activeID;
     public static PerspectiveCamera camera = new PerspectiveCamera();
 
     public static void main(String[] args) {
@@ -198,7 +226,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         this.primaryStage.show();
 
         // If you want intro: "true", if not: "false". But is there life without intro?
-        introOn(true);
+        introOn(false);
 
 
         Platform.runLater(() -> Effects.getInstance().setGlow(pergament));
@@ -280,7 +308,9 @@ public class Gui extends Application implements IGui, IChartGUI {
 
     @FXML
     public void returnMenu() {
-
+        returnStatus = true;
+        controller.sendReturnSignal();
+        returnStatus = false;
         switch (cubeList.size()) {
 
             case 6 -> Effects.getInstance().gameZoomOut(
@@ -344,7 +374,6 @@ public class Gui extends Application implements IGui, IChartGUI {
     }
 
     public void startChoose(ModeType type) {
-
         switch (type) {
 
             case EASY -> setStartEasyGame();
@@ -451,6 +480,7 @@ public class Gui extends Application implements IGui, IChartGUI {
 
         System.out.println("game over");
     }
+
 
     @Override
     public void clearStorage() {

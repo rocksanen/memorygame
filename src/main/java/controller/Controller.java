@@ -52,6 +52,11 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
     }
 
     @Override
+    public void sendReturnSignal() {
+        engine.endGame();
+    }
+
+    @Override
     public void clearPair(ArrayList<Integer> storage) {
 
         Platform.runLater(() -> ui.clearPair(storage));
@@ -104,6 +109,26 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
                 throw new RuntimeException(e);
             }
         });
+    }
+
+    @Override
+    public void getActive(int id) {
+        ui.setActiveID(engine.getActiveId());
+    }
+
+    @Override
+    public void getTime() {
+
+    }
+
+    @Override
+    public void setTimer(int i) {
+        ui.getTime(i);
+    }
+
+    @Override
+    public void getReturnSignal() {
+
     }
 
     /**

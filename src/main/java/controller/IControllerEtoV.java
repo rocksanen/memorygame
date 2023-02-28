@@ -11,5 +11,10 @@ public interface IControllerEtoV {
     void setHardGame(ArrayList<MemoryObject> memoryObjects);
 
     void gameOver();
+    void getActive(int id);
+    void getTime();
 
+    void setTimer(int i);
+
+    void getReturnSignal();
 }
