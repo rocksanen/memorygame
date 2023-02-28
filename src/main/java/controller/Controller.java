@@ -52,6 +52,11 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
     }
 
     @Override
+    public void sendReturnSignal() {
+        engine.endGame();
+    }
+
+    @Override
     public void clearPair(ArrayList<Integer> storage) {
 
         Platform.runLater(() -> ui.clearPair(storage));
@@ -109,12 +114,21 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
     @Override
     public void getActive(int id) {
         ui.setActiveID(engine.getActiveId());
-        System.out.println(engine.getActiveId());
     }
 
     @Override
     public void getTime() {
-        ui.setTimerTime(engine.getTimerTime());
+
+    }
+
+    @Override
+    public void setTimer(int i) {
+        ui.getTime(i);
+    }
+
+    @Override
+    public void getReturnSignal() {
+
     }
 
     /**

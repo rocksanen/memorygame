@@ -28,7 +28,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.MemoryObject;
 import model.ModeType;
-import model.Timer1;
 import visuals.audio.AudioMemory;
 import visuals.cubeFactories.EasyCubeFactory;
 import visuals.cubeFactories.HardCubeFactory;
@@ -41,8 +40,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import static javafx.scene.text.Font.loadFont;
 import static model.ModeType.*;
@@ -161,15 +158,30 @@ public class Gui extends Application implements IGui, IChartGUI {
     private Parent root;
     private Scene scene;
 
-    private long timerTime;
-    public void setTimerTime(long timerTime) {
-        this.timerTime = timerTime;
+    public boolean isReturnStatus() {
+        return returnStatus;
     }
+
+    private boolean returnStatus;
+
 
 
     public void setActiveID(int activeID) {
         this.activeID = activeID;
         System.out.println(activeID);
+    }
+
+    @Override
+    public void getTime(int i) {
+        System.out.println(i);
+        if (i <= 0) {
+            returnMenu();
+        }
+
+    }
+
+    public int getActiveID() {
+        return activeID;
     }
 
     private int activeID;
@@ -283,9 +295,6 @@ public class Gui extends Application implements IGui, IChartGUI {
     @FXML
     public void newGame() {
 
-        Timer t = new Timer();
-        TimerTask task = new Timer1();
-        t.schedule(task, 0, timerTime);
         switch (cubeList.size()) {
 
             case 6 -> setStartEasyGame();
@@ -296,7 +305,9 @@ public class Gui extends Application implements IGui, IChartGUI {
 
     @FXML
     public void returnMenu() {
-
+        returnStatus = true;
+        controller.sendReturnSignal();
+        returnStatus = false;
         switch (cubeList.size()) {
 
             case 6 -> Effects.getInstance().gameZoomOut(

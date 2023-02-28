@@ -14,4 +14,7 @@ public interface IControllerEtoV {
     void getActive(int id);
     void getTime();
 
+    void setTimer(int i);
+
+    void getReturnSignal();
 }
