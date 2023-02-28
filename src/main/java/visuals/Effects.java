@@ -455,7 +455,7 @@ public class Effects {
             @NotNull Pane logAndReg, @NotNull ImageView sun,
             @NotNull ImageView lightning, @NotNull ImageView blacksun,
             @NotNull ImageView easyFrame, @NotNull ImageView mediumFrame, @NotNull ImageView hardFrame,
-            ImageView memomaze, Label textLoggedIn, Button buttonLogout) {
+            ImageView memomaze, Label textLoggedIn) {
 
 
 
@@ -609,7 +609,6 @@ public class Effects {
 
 
             textLoggedIn.setVisible(true);
-            buttonLogout.setVisible(true);
         });
     }
 
