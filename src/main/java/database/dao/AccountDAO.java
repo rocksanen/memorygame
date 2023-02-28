@@ -154,7 +154,7 @@ public class AccountDAO implements IAccountDAO {
     /**
      * converts plaintext password to hashes
      * run this once and never again
-     *
+     * <p>
      * checks if password is under certain length (40 chars)
      * and hashes the password if it is
      * hashes seem to be 45 chars long so this should work ¯\_(ツ)_/¯
@@ -163,13 +163,18 @@ public class AccountDAO implements IAccountDAO {
     public void passwordHasher() {
         Locksmith locksmith = new Locksmith();
         EntityManager em = SqlJpaConn.getInstance();
+        em.getTransaction().begin();
         ArrayList<Account> accounts = getAllAccounts();
         for (Account a : accounts) {
-            if (a.getPassword().length() > 40) {
+            if (a.getPassword().length() < 40) {
+                System.out.println("hashing " + a.getUsername());
+                System.out.println("old password: " + a.getPassword());
                 a.setPassword(locksmith.hashPassword(a.getPassword()));
+                System.out.println("new password: " + a.getPassword());
             }
-            em.getTransaction().commit();
+            System.out.println("--------------------");
         }
+        em.getTransaction().commit();
     }
 }
 
