@@ -2,6 +2,7 @@ package visuals;
 
 import javafx.animation.*;
 import javafx.application.Platform;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.Glow;
@@ -415,7 +416,7 @@ public class Effects {
             @NotNull Pane logAndReg, @NotNull ImageView sun,
             @NotNull ImageView lightning, @NotNull ImageView blacksun,
             @NotNull ImageView easyFrame, @NotNull ImageView mediumFrame, @NotNull ImageView hardFrame,
-            Label textLoggedIn) {
+            Label textLoggedIn, Button buttonLogout) {
 
 
         AudioMemory.noIntro = true;
@@ -567,6 +568,7 @@ public class Effects {
 
 
             textLoggedIn.setVisible(true);
+            buttonLogout.setVisible(true);
         });
     }
 
