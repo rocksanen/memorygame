@@ -363,7 +363,7 @@
       <Pane id="logAndReg" fx:id="logAndReg" opacity="0.0" layoutX="30.0" layoutY="340.0">
          <children>
             <Button fx:id="buttonLogout" layoutX="75.0" layoutY="250.0" mnemonicParsing="false" onAction="#setButtonLogout" prefHeight="36.0" prefWidth="100.0" text="Logout" visible="false" />
-            <Pane id="logAndRegOld" fx:id="logAndRegOld" prefHeight="380.0" prefWidth="250.0">
+            <Pane id="paneLogin" fx:id="paneLogin" prefHeight="380.0" prefWidth="250.0">
                <children>
                       <ImageView fitHeight="409.0" fitWidth="372.0" layoutX="-48.0">
                           <image>

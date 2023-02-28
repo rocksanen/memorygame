@@ -154,6 +154,8 @@ public class Gui extends Application implements IGui, IChartGUI {
     ImageView midBot;
     @FXML
     ImageView midend;
+    @FXML
+    Pane paneLogin;
 
 
     private static final double CAMERA_INITIAL_DISTANCE = -1000;
@@ -547,7 +549,7 @@ public class Gui extends Application implements IGui, IChartGUI {
             System.out.println("Registration failed");
             return;
         }
-        logAndReg.setVisible(false);
+        paneLogin.setVisible(false);
         buttonLogout.setVisible(true);
 
         labelLoggedIn.setText("Logged in as " + controller.getUsername());
@@ -600,7 +602,7 @@ public class Gui extends Application implements IGui, IChartGUI {
                 return;
             }
             fetchUserScores();
-            logAndReg.setVisible(false);
+            paneLogin.setVisible(false);
             buttonLogout.setVisible(true);
             labelLoggedIn.setText("Logged in as " + controller.getUsername());
 
@@ -635,6 +637,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         register = (Button) root.lookup("#register");
         name = (TextField) root.lookup("#name");
         password = (TextField) root.lookup("#password");
+        paneLogin = (Pane) root.lookup("#paneLogin");
 
         URL url = Gui.class.getClassLoader().getResource("fonts/outrun_future.otf");
         // get the font from the resources, set size and add it to the label
@@ -765,7 +768,7 @@ public class Gui extends Application implements IGui, IChartGUI {
                 password.clear();
 
                 buttonLogout.setVisible(false);
-                logAndReg.setVisible(true);
+                paneLogin.setVisible(true);
             } catch (Exception e) {
                 e.printStackTrace();
             }
