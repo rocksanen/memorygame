@@ -179,6 +179,8 @@ public class Engine implements IEngine {
         // Make IF NOT returned
         setPersonalScore();
         task.cancel();
+        t.cancel();
+
 
     }
 
