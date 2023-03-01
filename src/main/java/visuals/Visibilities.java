@@ -134,7 +134,7 @@ public class Visibilities {
                     midTop.setVisible(false);
                     midL.setVisible(false);
                     midBot.setVisible(false);
-                    midend.setVisible(false);
+                    //midend.setVisible(false);
                     hardBackground.setOpacity(0);
                     hardSpread.setOpacity(0);
                 }
@@ -148,7 +148,7 @@ public class Visibilities {
                     midTop.setVisible(true);
                     midL.setVisible(true);
                     midBot.setVisible(true);
-                    midend.setVisible(true);
+                    //midend.setVisible(true);
                     background.setOpacity(0);
                     hardBackground.setOpacity(0);
                     hardSpread.setOpacity(0);
@@ -166,7 +166,7 @@ public class Visibilities {
                     midTop.setVisible(false);
                     midL.setVisible(false);
                     midBot.setVisible(false);
-                    midend.setVisible(false);
+                    //midend.setVisible(false);
                 }
         }
     }

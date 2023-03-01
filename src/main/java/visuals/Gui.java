@@ -160,6 +160,32 @@ public class Gui extends Application implements IGui, IChartGUI {
     @FXML
     Pane paneLogin;
 
+    @FXML Label w1;
+    @FXML Label w2;
+    @FXML Label w3;
+    @FXML Label w4;
+    @FXML Label w5;
+    @FXML Label w6;
+    @FXML Label w7;
+    @FXML Label w8;
+    @FXML Label w9;
+    @FXML Label w10;
+
+    @FXML Label p1;
+    @FXML Label p2;
+    @FXML Label p3;
+    @FXML Label p4;
+    @FXML Label p5;
+    @FXML Label p6;
+    @FXML Label p7;
+    @FXML Label p8;
+    @FXML Label p9;
+    @FXML Label p10;
+
+    private static final ArrayList<Label> worldLabels = new ArrayList<>();
+    private static final ArrayList<Label> personalLabels = new ArrayList<>();
+
+
     private static final double CAMERA_INITIAL_DISTANCE = -1000;
     private static final double CAMERA_INITIAL_X_ANGLE = 0.0;
     private static final double CAMERA_INITIAL_Y_ANGLE = 0.0;
@@ -207,11 +233,13 @@ public class Gui extends Application implements IGui, IChartGUI {
     public static PerspectiveCamera camera = new PerspectiveCamera();
 
     public static void main(String[] args) {
+
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+
 
         initGoods();
 
@@ -493,14 +521,20 @@ public class Gui extends Application implements IGui, IChartGUI {
 
     @Override
     public void getWorldScore(ArrayList<String> worldList) {
-        // clears the list of previous scores
-        Platform.runLater(() -> worldScores.getItems().clear());
-        // Create an observable list from the worldList
-        ObservableList<String> worldObservable = FXCollections.observableArrayList();
-        // Add all the elements from the worldList to the worldObservable
-        worldObservable.addAll(worldList);
-        // Add all the elements from the worldObservable to the worldScores list
-        Platform.runLater(() -> worldScores.getItems().addAll(worldObservable));
+
+
+        for(int i = 0; i < 10; i++) {
+
+            if(i == 9) {
+
+                worldLabels.get(i).setText("" + (i + 1) + ". " + worldList.get(i).toUpperCase());
+
+            }else{
+                worldLabels.get(i).setText(" " + (i + 1) + ". " + worldList.get(i).toUpperCase());
+            }
+
+
+        }
     }
 
     public void fetchAllScores() {
@@ -546,11 +580,23 @@ public class Gui extends Application implements IGui, IChartGUI {
         if (personalList == null) {
             return;
         }
-        Platform.runLater(() -> personalScores.getItems().clear());
-        ObservableList<String> personObservable = FXCollections.observableArrayList();
-        personObservable.clear();
-        personObservable.addAll(personalList);
-        Platform.runLater(() -> personalScores.getItems().addAll(personObservable));
+
+        for(int i = 0; i < 10; i++) {
+
+            personalLabels.get(i).setText("");
+
+        }
+
+        for(int i = 0; i < 10 && i < personalList.size(); i++) {
+            if(i == 9) {
+
+                personalLabels.get(i).setText("" + (i + 1) + ". " + personalList.get(i).toUpperCase());
+
+            }else {
+
+                personalLabels.get(i).setText(" " + (i + 1) + ". " + personalList.get(i).toUpperCase());
+            }
+        }
     }
 
     @FXML
@@ -661,6 +707,51 @@ public class Gui extends Application implements IGui, IChartGUI {
         name = (TextField) root.lookup("#name");
         password = (TextField) root.lookup("#password");
         paneLogin = (Pane) root.lookup("#paneLogin");
+
+        w1 = (Label) root.lookup("#w1");
+        w2 = (Label) root.lookup("#w2");
+        w3 = (Label) root.lookup("#w3");
+        w4 = (Label) root.lookup("#w4");
+        w5 = (Label) root.lookup("#w5");
+        w6 = (Label) root.lookup("#w6");
+        w7 = (Label) root.lookup("#w7");
+        w8 = (Label) root.lookup("#w8");
+        w9 = (Label) root.lookup("#w9");
+        w10 = (Label) root.lookup("#w10");
+
+
+        worldLabels.add(w1);
+        worldLabels.add(w2);
+        worldLabels.add(w3);
+        worldLabels.add(w4);
+        worldLabels.add(w5);
+        worldLabels.add(w6);
+        worldLabels.add(w7);
+        worldLabels.add(w8);
+        worldLabels.add(w9);
+        worldLabels.add(w10);
+
+        p1 = (Label) root.lookup("#p1");
+        p2 = (Label) root.lookup("#p2");
+        p3 = (Label) root.lookup("#p3");
+        p4 = (Label) root.lookup("#p4");
+        p5 = (Label) root.lookup("#p5");
+        p6 = (Label) root.lookup("#p6");
+        p7 = (Label) root.lookup("#p7");
+        p8 = (Label) root.lookup("#p8");
+        p9 = (Label) root.lookup("#p9");
+        p10 = (Label) root.lookup("#p10");
+
+        personalLabels.add(p1);
+        personalLabels.add(p2);
+        personalLabels.add(p3);
+        personalLabels.add(p4);
+        personalLabels.add(p5);
+        personalLabels.add(p6);
+        personalLabels.add(p7);
+        personalLabels.add(p8);
+        personalLabels.add(p9);
+        personalLabels.add(p10);
 
         URL url = Gui.class.getClassLoader().getResource("fonts/outrun_future.otf");
         // get the font from the resources, set size and add it to the label
@@ -781,13 +872,7 @@ public class Gui extends Application implements IGui, IChartGUI {
 
     private void scoresOn(Boolean on) {
 
-        Node worldScoresNode = root.lookup("#worldScores");
-        if (worldScoresNode instanceof ListView<?>) {
-            worldScores = (ListView<String>) worldScoresNode;
-        }
-        if (on) {
-            fetchAllScores();
-        }
+        if (on) {fetchAllScores();}
     }
 
     @FXML
