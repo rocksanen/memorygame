@@ -360,6 +360,7 @@
       </Pane>
       <Pane id="logAndReg" fx:id="logAndReg" opacity="0.0" layoutX="30.0" layoutY="340.0">
          <children>
+             <Button fx:id="stats" mnemonicParsing="false" onMouseClicked="#statsGame" layoutX="75.0" layoutY="150.0" text="Stats" prefHeight="36.0"  prefWidth="100.0" textAlignment="CENTER" visible="false"/>
             <Button fx:id="buttonLogout" layoutX="75.0" layoutY="250.0" mnemonicParsing="false" onAction="#setButtonLogout" prefHeight="36.0" prefWidth="100.0" text="Logout" visible="false" />
             <Pane id="paneLogin" fx:id="paneLogin" prefHeight="380.0" prefWidth="250.0">
                <children>
@@ -385,7 +386,7 @@
                       <TextField fx:id="password" layoutX="52.0" layoutY="207.0" opacity="0.6" prefHeight="25.0" prefWidth="158.0" />
                       <Button fx:id="register" layoutX="55.0" layoutY="300.0" mnemonicParsing="false" onMouseClicked="#registerPane" prefHeight="36.0" prefWidth="140.0" text="Register" />
                       <Button fx:id="login" layoutX="75.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#loginPane" prefHeight="36.0" prefWidth="100.0" text="Login" />
-                      <Button fx:id="stats" mnemonicParsing="false" onMouseClicked="#statsGame" text="Stats" textAlignment="CENTER" />
+
                </children>
             </Pane>
          </children>

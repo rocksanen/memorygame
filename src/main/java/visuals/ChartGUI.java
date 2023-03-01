@@ -70,18 +70,27 @@ public class ChartGUI extends Application implements IChartGUI {
         // Create a series for each difficulty level
         XYChart.Series<Number, Number> easyScoreSeries = new XYChart.Series<>();
         easyScoreSeries.setName("Easy");
+        if (easyScore == null || easyTime == null) {
+            throw new NullPointerException("easyScore or easyTime is null");
+        }
         for (int i = 0; i < easyScore.size(); i++) {
             easyScoreSeries.getData().add(new XYChart.Data<>(easyTime.get(i), easyScore.get(i)));
         }
 
         XYChart.Series<Number, Number> mediumScoreSeries = new XYChart.Series<>();
         mediumScoreSeries.setName("Medium");
+        if (mediumScore == null || mediumTime == null) {
+            throw new NullPointerException("mediumScore or mediumTime is null");
+        }
         for (int i = 0; i < mediumScore.size(); i++) {
             mediumScoreSeries.getData().add(new XYChart.Data<>(mediumTime.get(i), mediumScore.get(i)));
         }
 
         XYChart.Series<Number, Number> hardScoreSeries = new XYChart.Series<>();
         hardScoreSeries.setName("Hard");
+        if (hardScore == null || hardTime == null) {
+            throw new NullPointerException("hardScore or hardTime is null");
+        }
         for (int i = 0; i < hardScore.size(); i++) {
             hardScoreSeries.getData().add(new XYChart.Data<>(hardTime.get(i), hardScore.get(i)));
         }
@@ -107,6 +116,10 @@ public class ChartGUI extends Application implements IChartGUI {
         hardButton.setStyle("-fx-background-color: #51c56b; -fx-min-width: 20px; -fx-min-height: 20px;");
 
         easyButton.setOnMouseClicked(event -> {
+            Node node = easyScoreSeries.getNode();
+            if( node == null){
+                throw new NullPointerException("Null returned");
+            }
             if (easyScoreSeries.getNode().isVisible()) {
                 easyScoreSeries.getNode().setVisible(false);
                 easyButton.setStyle("-fx-background-color: #cccccc; -fx-min-width: 20px; -fx-min-height: 20px;");
@@ -116,6 +129,10 @@ public class ChartGUI extends Application implements IChartGUI {
             }
         });
         mediumButton.setOnMouseClicked(event -> {
+            Node node = easyScoreSeries.getNode();
+            if( node == null){
+                throw new NullPointerException("Null returned");
+            }
             if (mediumScoreSeries.getNode().isVisible()) {
                 mediumScoreSeries.getNode().setVisible(false);
                 mediumButton.setStyle("-fx-background-color: #cccccc; -fx-min-width: 20px; -fx-min-height: 20px;");
@@ -126,6 +143,10 @@ public class ChartGUI extends Application implements IChartGUI {
         });
 
         hardButton.setOnMouseClicked(event -> {
+            Node node = easyScoreSeries.getNode();
+            if( node == null){
+                throw new NullPointerException("Null returned");
+            }
             if (hardScoreSeries.getNode().isVisible()) {
                 hardScoreSeries.getNode().setVisible(false);
                 hardButton.setStyle("-fx-background-color: #cccccc; -fx-min-width: 20px; -fx-min-height: 20px;");

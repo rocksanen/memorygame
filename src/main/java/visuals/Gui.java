@@ -569,7 +569,6 @@ public class Gui extends Application implements IGui, IChartGUI {
         }
         paneLogin.setVisible(false);
         buttonLogout.setVisible(true);
-
         labelLoggedIn.setText("Logged in as " + controller.getUsername());
     }
 
@@ -617,11 +616,14 @@ public class Gui extends Application implements IGui, IChartGUI {
             controller.login(user, userPassword);
             if (!controller.isLoggedIn()) {
                 System.out.println("Login failed");
+                stats.setVisible(false);
                 return;
             }
             fetchUserScores();
             paneLogin.setVisible(false);
             buttonLogout.setVisible(true);
+            stats.setVisible(true);
+
             labelLoggedIn.setText("Logged in as " + controller.getUsername());
 
         } catch (Exception e) {
@@ -631,7 +633,6 @@ public class Gui extends Application implements IGui, IChartGUI {
 
     private void panesAndMisc() {
 
-        stats = (Button) root.lookup("#stats");
         startBlack = (AnchorPane) root.lookup("#startBlack");
         menuAnkkuri = (AnchorPane) root.lookup("#menuAnkkuri");
         weDidIt = (Label) root.lookup("#weDidIt");
@@ -651,7 +652,10 @@ public class Gui extends Application implements IGui, IChartGUI {
         returnMenu = new Button();
 
         labelLoggedIn = (Label) root.lookup("#labelLoggedIn");
+
         buttonLogout = (Button) root.lookup("#buttonLogout");
+        stats = (Button) root.lookup("#stats");
+
         login = (Button) root.lookup("#login");
         register = (Button) root.lookup("#register");
         name = (TextField) root.lookup("#name");
@@ -664,10 +668,17 @@ public class Gui extends Application implements IGui, IChartGUI {
         labelLoggedIn.setFont(outrun);
         labelLoggedIn.setStyle("-fx-background-color: rgba(0,0,0,0.50);-fx-background-radius: 5; -fx-padding: 1 6 1 6");
 
+
+
         buttonLogout.setFont(outrun);
         // make button logout purple with shadow, white text and hover effect
+
         buttonLogout.setStyle(
                 "-fx-background-color: #6005a8; -fx-background-radius: 5; -fx-padding: 1 6 1 6; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
+        stats.setFont(outrun);
+        stats.setStyle(
+                "-fx-background-color: #6005a8; -fx-background-radius: 5; -fx-padding: 1 6 1 6; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
+
 
         login.setFont(outrun);
         login.setStyle(
