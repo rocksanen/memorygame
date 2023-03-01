@@ -62,6 +62,9 @@ public class Gui extends Application implements IGui, IChartGUI {
     Button startMediumGame;
     @FXML
     Button startHardGame;
+
+    @FXML
+    Button stats;
     @FXML
     static GridPane easyGrid;
     @FXML
@@ -157,7 +160,6 @@ public class Gui extends Application implements IGui, IChartGUI {
     @FXML
     Pane paneLogin;
 
-
     private static final double CAMERA_INITIAL_DISTANCE = -1000;
     private static final double CAMERA_INITIAL_X_ANGLE = 0.0;
     private static final double CAMERA_INITIAL_Y_ANGLE = 0.0;
@@ -182,8 +184,6 @@ public class Gui extends Application implements IGui, IChartGUI {
     }
 
     private boolean returnStatus;
-
-
 
     public void setActiveID(int activeID) {
         this.activeID = activeID;
@@ -228,7 +228,6 @@ public class Gui extends Application implements IGui, IChartGUI {
         // If you want intro: "true", if not: "false". But is there life without intro?
         introOn(false);
 
-
         Platform.runLater(() -> Effects.getInstance().setGlow(pergament));
         Platform.runLater(() -> Effects.getInstance().playGlow());
         Visibilities.getInstance().setGridLayoutToVisibility(easyGrid, mediumGrid, hardGrid);
@@ -241,8 +240,7 @@ public class Gui extends Application implements IGui, IChartGUI {
                 new KeyFrame(Duration.seconds(0.5),
                         new KeyValue(dirt.scaleXProperty(), dirt.getScaleX())),
                 new KeyFrame(Duration.seconds(15),
-                        new KeyValue(dirt.scaleXProperty(), dirt.getScaleX() + 0.4))
-        );
+                        new KeyValue(dirt.scaleXProperty(), dirt.getScaleX() + 0.4)));
 
         redtree.getTransforms().add(rotateZ);
         jungle.getTransforms().add(jungleZ);
@@ -252,15 +250,13 @@ public class Gui extends Application implements IGui, IChartGUI {
                 new KeyFrame(Duration.seconds(0.5),
                         new KeyValue(rotateZ.angleProperty(), 0)),
                 new KeyFrame(Duration.seconds(15),
-                        new KeyValue(rotateZ.angleProperty(), 4))
-        );
+                        new KeyValue(rotateZ.angleProperty(), 4)));
 
         Timeline jungleLine = new Timeline(
                 new KeyFrame(Duration.ZERO,
                         new KeyValue(jungleZ.angleProperty(), 0)),
                 new KeyFrame(Duration.seconds(20),
-                        new KeyValue(jungleZ.angleProperty(), -1.2))
-        );
+                        new KeyValue(jungleZ.angleProperty(), -1.2)));
 
         jungleLine.setAutoReverse(true);
         jungleLine.setCycleCount(Timeline.INDEFINITE);
@@ -273,7 +269,6 @@ public class Gui extends Application implements IGui, IChartGUI {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
 
-
         // If you want scores: "true", if not: "false".
         scoresOn(true);
     }
@@ -282,7 +277,6 @@ public class Gui extends Application implements IGui, IChartGUI {
 
         this.root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/visuals/game2.fxml")));
 
-
         panesAndMisc();
         setIntroImages();
         setMenuImages();
@@ -290,7 +284,8 @@ public class Gui extends Application implements IGui, IChartGUI {
 
         Effects.getInstance().setMiniImagesAndFrames(miniEasy, miniMedium, miniHard, easyFrame, mediumFrame, hardFrame);
         Effects.getInstance().setEssenceImages(japan, jungle, redtree);
-        Effects.getInstance().setGeneralObjects(pergament, menuAnkkuri, startBlack, gameModePane, burningsun, labelLoggedIn);
+        Effects.getInstance().setGeneralObjects(pergament, menuAnkkuri, startBlack, gameModePane, burningsun,
+                labelLoggedIn);
         Effects.getInstance().setBackGrounds(mediumBackground, midgrid);
         Visibilities.getInstance().setToGameObjects(gameModePane, score, logAndReg, pergament);
     }
@@ -315,17 +310,14 @@ public class Gui extends Application implements IGui, IChartGUI {
 
             case 6 -> Effects.getInstance().gameZoomOut(
                     easyGrid, background,
-                    800, 35, -145.5, 14.5, EASY
-            );
+                    800, 35, -145.5, 14.5, EASY);
             case 12 -> Effects.getInstance().gameZoomOut(
                     mediumGrid, mediumBackground,
-                    1071, 35, 117.2, -144.92, MEDIUM
-            );
+                    1071, 35, 117.2, -144.92, MEDIUM);
 
             case 20 -> Effects.getInstance().gameZoomOut(
                     hardGrid, hardBackground,
-                    1000.7, 35, 384.0, 14.5, ModeType.HARD
-            );
+                    1000.7, 35, 384.0, 14.5, ModeType.HARD);
         }
 
         Platform.runLater(() -> score.setVisible(false));
@@ -440,13 +432,11 @@ public class Gui extends Application implements IGui, IChartGUI {
     @Override
     public void setMediumGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
 
-
         selectedDifficulty = MEDIUM;
         mediumCubeFactory.createCubics(mediumGrid, memoryObjects);
 
         setPersonalScores(scoreController.getPersonalScores(MEDIUM));
         getWorldScore(scoreController.getScores(MEDIUM));
-
 
     }
 
@@ -459,7 +449,6 @@ public class Gui extends Application implements IGui, IChartGUI {
         setPersonalScores(scoreController.getPersonalScores(HARD));
         getWorldScore(scoreController.getScores(HARD));
     }
-
 
     public void gameOver() {
 
@@ -480,7 +469,6 @@ public class Gui extends Application implements IGui, IChartGUI {
 
         System.out.println("game over");
     }
-
 
     @Override
     public void clearStorage() {
@@ -581,7 +569,6 @@ public class Gui extends Application implements IGui, IChartGUI {
         }
         paneLogin.setVisible(false);
         buttonLogout.setVisible(true);
-
         labelLoggedIn.setText("Logged in as " + controller.getUsername());
     }
 
@@ -629,11 +616,14 @@ public class Gui extends Application implements IGui, IChartGUI {
             controller.login(user, userPassword);
             if (!controller.isLoggedIn()) {
                 System.out.println("Login failed");
+                stats.setVisible(false);
                 return;
             }
             fetchUserScores();
             paneLogin.setVisible(false);
             buttonLogout.setVisible(true);
+            stats.setVisible(true);
+
             labelLoggedIn.setText("Logged in as " + controller.getUsername());
 
         } catch (Exception e) {
@@ -662,7 +652,10 @@ public class Gui extends Application implements IGui, IChartGUI {
         returnMenu = new Button();
 
         labelLoggedIn = (Label) root.lookup("#labelLoggedIn");
+
         buttonLogout = (Button) root.lookup("#buttonLogout");
+        stats = (Button) root.lookup("#stats");
+
         login = (Button) root.lookup("#login");
         register = (Button) root.lookup("#register");
         name = (TextField) root.lookup("#name");
@@ -675,14 +668,24 @@ public class Gui extends Application implements IGui, IChartGUI {
         labelLoggedIn.setFont(outrun);
         labelLoggedIn.setStyle("-fx-background-color: rgba(0,0,0,0.50);-fx-background-radius: 5; -fx-padding: 1 6 1 6");
 
+
+
         buttonLogout.setFont(outrun);
         // make button logout purple with shadow, white text and hover effect
-        buttonLogout.setStyle("-fx-background-color: #6005a8; -fx-background-radius: 5; -fx-padding: 1 6 1 6; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
+
+        buttonLogout.setStyle(
+                "-fx-background-color: #6005a8; -fx-background-radius: 5; -fx-padding: 1 6 1 6; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
+        stats.setFont(outrun);
+        stats.setStyle(
+                "-fx-background-color: #6005a8; -fx-background-radius: 5; -fx-padding: 1 6 1 6; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
+
 
         login.setFont(outrun);
-        login.setStyle("-fx-background-color: #6005a8; -fx-background-radius: 5; -fx-padding: 1 6 1 6; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
+        login.setStyle(
+                "-fx-background-color: #6005a8; -fx-background-radius: 5; -fx-padding: 1 6 1 6; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
         register.setFont(outrun);
-        register.setStyle("-fx-background-color: #6005a8; -fx-background-radius: 5; -fx-padding: 1 6 1 6; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
+        register.setStyle(
+                "-fx-background-color: #6005a8; -fx-background-radius: 5; -fx-padding: 1 6 1 6; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
 
     }
 
@@ -787,7 +790,6 @@ public class Gui extends Application implements IGui, IChartGUI {
         }
     }
 
-
     @FXML
     public void setButtonLogout() {
         buttonLogout.setOnAction(event -> {
@@ -805,7 +807,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         });
     }
 
-
+    @FXML
     public void statsGame(MouseEvent mouseEvent) {
         ChartGUI c = new ChartGUI();
 
