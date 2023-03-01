@@ -6,7 +6,7 @@ import java.util.TimerTask;
 
 public class Timer1 extends TimerTask {
 
-    private IControllerEtoV controller;
+    private final IControllerEtoV controller;
     public Timer1(IControllerEtoV controller) {
         this.controller = controller;
     }

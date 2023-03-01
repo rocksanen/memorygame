@@ -177,8 +177,7 @@ public class Engine implements IEngine {
     public void addToComparing(int i) {
 
         MemoryObject memoryObject = memoryObjectsList.get(i);
-        activeId = memoryObject.getIdNumber();
-        controller.getActive(activeId);
+        controller.getActive(i);
         if (!rightPairList.contains(memoryObject.getTypeId())) {
             comparingList.add(memoryObject);
             storage.add(i);

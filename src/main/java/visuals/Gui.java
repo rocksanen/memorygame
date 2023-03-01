@@ -40,6 +40,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 
 import static javafx.scene.text.Font.loadFont;
 import static model.ModeType.*;
@@ -110,7 +111,7 @@ public class Gui extends Application implements IGui, IChartGUI {
     @FXML
     Label weDidIt;
     @FXML
-    Label groupFour;
+    ImageView groupFour;
     @FXML
     ImageView pergament;
     @FXML
@@ -205,23 +206,25 @@ public class Gui extends Application implements IGui, IChartGUI {
     private Parent root;
     private Scene scene;
 
+    private int activeCount = 0;
+
     public boolean isReturnStatus() {
         return returnStatus;
     }
 
     private boolean returnStatus;
 
-    public void setActiveID(int activeID) {
-        this.activeID = activeID;
-        System.out.println(activeID);
-    }
+
 
     @Override
     public void getTime(int i) {
-        System.out.println(i);
+
+        /*
         if (i <= 0) {
             returnMenu();
         }
+
+         */
 
     }
 
@@ -254,7 +257,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         this.primaryStage.show();
 
         // If you want intro: "true", if not: "false". But is there life without intro?
-        introOn(false);
+        introOn(true);
 
         Platform.runLater(() -> Effects.getInstance().setGlow(pergament));
         Platform.runLater(() -> Effects.getInstance().playGlow());
@@ -331,9 +334,13 @@ public class Gui extends Application implements IGui, IChartGUI {
 
     @FXML
     public void returnMenu() {
+
+        /*
         returnStatus = true;
         controller.sendReturnSignal();
         returnStatus = false;
+
+         */
         switch (cubeList.size()) {
 
             case 6 -> Effects.getInstance().gameZoomOut(
@@ -510,9 +517,36 @@ public class Gui extends Application implements IGui, IChartGUI {
     @Override
     public void clearPair(ArrayList<Integer> storage) {
 
-        cubeList.get(storage.get(0)).resetImage();
-        cubeList.get(storage.get(1)).resetImage();
+        int firstIndex = storage.get(0);
+        int secondIndex = storage.get(1);
+
+        cubeList.get(firstIndex).resetImage();
+        cubeList.get(secondIndex).resetImage();
         clearStorage();
+
+        CompletableFuture.runAsync(() -> {
+
+            try {
+
+                Thread.sleep(700);
+                cubeList.get(firstIndex).setActive();
+                cubeList.get(secondIndex).setActive();
+                cubeList.get(firstIndex).getBox().setMouseTransparent(false);
+                cubeList.get(secondIndex).getBox().setMouseTransparent(false);
+
+            }catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public void setActiveID(int activeID) {
+
+        if(!cubeList.get(activeID).getActiveState()) {
+
+            cubeList.get(activeID).getBox().setMouseTransparent(true);
+            cubeList.get(activeID).setActive();
+        }
     }
 
     public void sendIdToEngine(int id) {
@@ -682,7 +716,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         startBlack = (AnchorPane) root.lookup("#startBlack");
         menuAnkkuri = (AnchorPane) root.lookup("#menuAnkkuri");
         weDidIt = (Label) root.lookup("#weDidIt");
-        groupFour = (Label) root.lookup("#groupFour");
+        groupFour = (ImageView) root.lookup("#groupFour");
         gameModePane = (Pane) root.lookup("#gameModePane");
         score = (Pane) root.lookup("#score");
         easyGrid = (GridPane) root.lookup("#easyGrid");
@@ -755,7 +789,7 @@ public class Gui extends Application implements IGui, IChartGUI {
 
         URL url = Gui.class.getClassLoader().getResource("fonts/outrun_future.otf");
         // get the font from the resources, set size and add it to the label
-        Font outrun = Font.loadFont(url.toExternalForm(), 18);
+        Font outrun = Font.loadFont(url.toExternalForm(), 13);
         labelLoggedIn.setFont(outrun);
         labelLoggedIn.setStyle("-fx-background-color: rgba(0,0,0,0.50);-fx-background-radius: 5; -fx-padding: 1 6 1 6");
 
@@ -765,18 +799,18 @@ public class Gui extends Application implements IGui, IChartGUI {
         // make button logout purple with shadow, white text and hover effect
 
         buttonLogout.setStyle(
-                "-fx-background-color: #6005a8; -fx-background-radius: 5; -fx-padding: 1 6 1 6; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
+                "-fx-background-color: rgba(0,0,0,0.50); -fx-background-radius: 5; -fx-padding: 1 2 1 2; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
         stats.setFont(outrun);
         stats.setStyle(
-                "-fx-background-color: #6005a8; -fx-background-radius: 5; -fx-padding: 1 6 1 6; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
+                "-fx-background-color: rgba(0,0,0,0.50); -fx-background-radius: 5; -fx-padding: 1 2 1 2; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
 
 
         login.setFont(outrun);
         login.setStyle(
-                "-fx-background-color: #6005a8; -fx-background-radius: 5; -fx-padding: 1 6 1 6; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
+                "-fx-background-color: rgba(0,0,0,0.50); -fx-background-radius: 5; -fx-padding: 1 2 1 2; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
         register.setFont(outrun);
         register.setStyle(
-                "-fx-background-color: #6005a8; -fx-background-radius: 5; -fx-padding: 1 6 1 6; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
+                "-fx-background-color: rgba(0,0,0,0.50); -fx-background-radius: 5; -fx-padding: 1 2 1 2; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
 
     }
 

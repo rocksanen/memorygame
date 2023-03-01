@@ -5,10 +5,7 @@ import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.effect.GaussianBlur;
-import javafx.scene.effect.Glow;
-import javafx.scene.effect.Reflection;
-import javafx.scene.effect.SepiaTone;
+import javafx.scene.effect.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -451,7 +448,7 @@ public class Effects {
 
 
     public void intro(
-            @NotNull Label first, @NotNull Label second,
+            @NotNull Label first, @NotNull ImageView groupFour,
             @NotNull Pane logAndReg, @NotNull ImageView sun,
             @NotNull ImageView lightning, @NotNull ImageView blacksun,
             @NotNull ImageView easyFrame, @NotNull ImageView mediumFrame, @NotNull ImageView hardFrame,
@@ -483,9 +480,19 @@ public class Effects {
 
         timelySun.play();
 
+        /*
         final Glow textGlow = new Glow();
-        textGlow.setLevel(0.6);
-        second.setEffect(textGlow);
+        textGlow.setLevel(0);
+        groupFour.setEffect(textGlow);
+
+         */
+
+        BoxBlur fourblur = new BoxBlur();
+        fourblur.setIterations(1);
+        fourblur.setHeight(0);
+        fourblur.setWidth(0);
+
+        groupFour.setEffect(fourblur);
 
         final GaussianBlur sunblur = new GaussianBlur();
         sun.setEffect(sunblur);
@@ -523,13 +530,19 @@ public class Effects {
                         new KeyValue(sun.scaleYProperty(), sun.getScaleY()),
                         new KeyValue(sun.layoutYProperty(), sun.getLayoutY())),
                 new KeyFrame(Duration.seconds(14.5),
-                        new KeyValue(second.opacityProperty(), 0)),
+                        new KeyValue(groupFour.opacityProperty(), 0)),
                 new KeyFrame(Duration.seconds(14.8),
-                        new KeyValue(second.opacityProperty(), 1),
+                        new KeyValue(groupFour.opacityProperty(), 1),
                         new KeyValue(sun.opacityProperty(), 0.24),
                         new KeyValue(sun.layoutXProperty(), sun.getLayoutX())),
+                new KeyFrame(Duration.seconds(16.8),
+                        new KeyValue(fourblur.widthProperty(),0)),
+                new KeyFrame(Duration.seconds(17),
+                        new KeyValue(fourblur.widthProperty(),13)),
+                new KeyFrame(Duration.seconds(17.2),
+                        new KeyValue(fourblur.widthProperty(),0)),
                 new KeyFrame(Duration.seconds(24.2),
-                        new KeyValue(second.opacityProperty(), 0),
+                        new KeyValue(groupFour.opacityProperty(), 0),
                         new KeyValue(sun.opacityProperty(), 0.4),
                         new KeyValue(sunTone.levelProperty(), 0)),
                 new KeyFrame(Duration.seconds(26.2),
@@ -603,8 +616,8 @@ public class Effects {
             lightning.setVisible(false);
             first.setDisable(true);
             first.setVisible(false);
-            second.setDisable(true);
-            second.setVisible(false);
+            groupFour.setDisable(true);
+            groupFour.setVisible(false);
             timeline.stop();
 
 

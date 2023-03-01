@@ -145,7 +145,7 @@ public class ImageCache {
         Image easyFrame = new Image(new FileInputStream("src/main/java/visuals/images/frame3.png"));
         Image mediumFrame = new Image(new FileInputStream("src/main/java/visuals/images/frame3.png"));
         Image hardFrame = new Image(new FileInputStream("src/main/java/visuals/images/frame3.png"));
-        Image japan = new Image(new FileInputStream("src/main/java/visuals/images/cherry.png"));
+        Image japan = new Image(new FileInputStream("src/main/java/visuals/images/cherry2.png"));
         Image jungle = new Image(new FileInputStream("src/main/java/visuals/images/jungle.png"));
         Image redtree = new Image(new FileInputStream("src/main/java/visuals/images/redtree.png"));
         Image mt1 = new Image(new FileInputStream("src/main/java/visuals/images/mt1.png"));
