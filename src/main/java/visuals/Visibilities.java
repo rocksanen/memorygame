@@ -7,6 +7,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import model.ModeType;
 
+import java.util.ArrayList;
+
 public class Visibilities {
 
     private static Visibilities instance;
@@ -26,12 +28,17 @@ public class Visibilities {
     private ImageView midL;
     private ImageView midBot;
     private ImageView midend;
+    private ImageView easyTop;
+    private ImageView easyL;
+    private ImageView easyBot;
+
+    private ArrayList<ImageView> gameWalls;
 
     public void setGameBackGrounds(
             ImageView background,ImageView mediumBackground,ImageView mediumSpread,
             ImageView hardBackground,ImageView hardSpread,ImageView midgrid,
             ImageView midR,ImageView midTop,ImageView midL,ImageView midBot,
-            ImageView midend) {
+            ImageView midend, ImageView easyTop, ImageView easyL, ImageView easyBot) {
 
         this.background = background;
         this.mediumBackground = mediumBackground;
@@ -44,6 +51,26 @@ public class Visibilities {
         this.midL = midL;
         this.midBot = midBot;
         this.midend = midend;
+        this.easyTop = easyTop;
+        this.easyL = easyL;
+        this.easyBot = easyBot;
+
+        this.gameWalls = new ArrayList<>();
+
+        gameWalls.add(this.midgrid);
+        gameWalls.add(this.easyTop);
+        gameWalls.add(this.easyL);
+        gameWalls.add(this.easyBot);
+        gameWalls.add(this.midTop);
+        gameWalls.add(this.midL);
+        gameWalls.add(this.midBot);
+    }
+
+    public void gameWallVisibilityOff() {
+
+        for(ImageView wall: gameWalls) {
+            wall.setVisible(false);
+        }
     }
     public Visibilities(){}
     public static Visibilities getInstance() {
@@ -129,12 +156,6 @@ public class Visibilities {
                     background.setOpacity(1);
                     mediumBackground.setOpacity(0);
                     mediumSpread.setOpacity(0);
-                    midgrid.setVisible(false);
-                    midR.setVisible(false);
-                    midTop.setVisible(false);
-                    midL.setVisible(false);
-                    midBot.setVisible(false);
-                    midend.setVisible(false);
                     hardBackground.setOpacity(0);
                     hardSpread.setOpacity(0);
                 }
@@ -143,12 +164,6 @@ public class Visibilities {
                     mediumSpread.setVisible(false);        ////true!!!!!!!!!!!!!!!!!!!!!!!!
                     mediumBackground.setOpacity(1);
                     mediumSpread.setOpacity(1);
-                    midgrid.setVisible(true);
-                    midR.setVisible(true);
-                    midTop.setVisible(true);
-                    midL.setVisible(true);
-                    midBot.setVisible(true);
-                    midend.setVisible(true);
                     background.setOpacity(0);
                     hardBackground.setOpacity(0);
                     hardSpread.setOpacity(0);
@@ -161,12 +176,6 @@ public class Visibilities {
                     background.setOpacity(0);
                     mediumBackground.setOpacity(0);
                     mediumSpread.setOpacity(0);
-                    midgrid.setVisible(false);
-                    midR.setVisible(false);
-                    midTop.setVisible(false);
-                    midL.setVisible(false);
-                    midBot.setVisible(false);
-                    midend.setVisible(false);
                 }
         }
     }

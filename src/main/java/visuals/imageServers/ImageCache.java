@@ -1,6 +1,7 @@
 package visuals.imageServers;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -117,10 +118,28 @@ public class ImageCache {
         Image easyBack = new Image(new FileInputStream("src/main/java/visuals/images/background.png"));
         Image mediumBack = new Image(new FileInputStream("src/main/java/visuals/images/tigru.jpg"));
         Image hardBack = new Image(new FileInputStream("src/main/java/visuals/images/hardback4.jpg"));
+        Image midR = new Image(new FileInputStream("src/main/java/visuals/images/midR.png"));
+        Image midTop = new Image(new FileInputStream("src/main/java/visuals/images/midTop.png"));
+        Image midL = new Image(new FileInputStream("src/main/java/visuals/images/midL.png"));
+        Image midBot = new Image(new FileInputStream("src/main/java/visuals/images/midBot.png"));
+        //Image midend = new Image(new FileInputStream(""));
+        Image easyTop = new Image(new FileInputStream("src/main/java/visuals/images/easyTop.png"));
+        Image easyBot = new Image(new FileInputStream("src/main/java/visuals/images/easyBot.png"));
+        Image easyL = new Image(new FileInputStream("src/main/java/visuals/images/easyL2.png"));
+        Image midgrid = new Image(new FileInputStream("src/main/java/visuals/images/gird.png"));
 
         gameBackGroundImages.add(easyBack);
         gameBackGroundImages.add(mediumBack);
         gameBackGroundImages.add(hardBack);
+        gameBackGroundImages.add(midR);
+        gameBackGroundImages.add(midTop);
+        gameBackGroundImages.add(midL);
+        gameBackGroundImages.add(midBot);
+        gameBackGroundImages.add(easyTop);
+        gameBackGroundImages.add(easyBot);
+        gameBackGroundImages.add(easyL);
+        gameBackGroundImages.add(midgrid);
+
     }
 
 
@@ -129,10 +148,16 @@ public class ImageCache {
         Image sun = new Image(new FileInputStream("src/main/java/visuals/images/sunRay.png"));
         Image lightning = new Image(new FileInputStream("src/main/java/visuals/images/lightning.png"));
         Image blackSun = new Image(new FileInputStream("src/main/java/visuals/images/blacksun1.png"));
+        Image memomaze = new Image(new FileInputStream("src/main/java/visuals/images/memomaze.png"));
+        Image loading = new Image(new FileInputStream("src/main/java/visuals/images/loading.png"));
+        Image mightyfour= new Image(new FileInputStream("src/main/java/visuals/images/mighty4.png"));
 
         introImages.add(sun);
         introImages.add(lightning);
         introImages.add(blackSun);
+        introImages.add(memomaze);
+        introImages.add(loading);
+        introImages.add(mightyfour);
 
     }
 
@@ -145,7 +170,7 @@ public class ImageCache {
         Image easyFrame = new Image(new FileInputStream("src/main/java/visuals/images/frame3.png"));
         Image mediumFrame = new Image(new FileInputStream("src/main/java/visuals/images/frame3.png"));
         Image hardFrame = new Image(new FileInputStream("src/main/java/visuals/images/frame3.png"));
-        Image japan = new Image(new FileInputStream("src/main/java/visuals/images/cherry.png"));
+        Image japan = new Image(new FileInputStream("src/main/java/visuals/images/cherry2.png"));
         Image jungle = new Image(new FileInputStream("src/main/java/visuals/images/jungle.png"));
         Image redtree = new Image(new FileInputStream("src/main/java/visuals/images/redtree.png"));
         Image mt1 = new Image(new FileInputStream("src/main/java/visuals/images/mt1.png"));
@@ -163,6 +188,7 @@ public class ImageCache {
         Image mt13 = new Image(new FileInputStream("src/main/java/visuals/images/mt12.png"));
         Image dirt = new Image(new FileInputStream("src/main/java/visuals/images/dirt.png"));
         Image burningsun = new Image(new FileInputStream("src/main/java/visuals/images/burningsun.png"));
+
 
         menuImages.add(pergament);
         menuImages.add(miniEasy);

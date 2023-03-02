@@ -113,7 +113,7 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
 
     @Override
     public void getActive(int id) {
-        ui.setActiveID(engine.getActiveId());
+        ui.setActiveID(id);
     }
 
     @Override
@@ -151,6 +151,7 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
                 break;
             default:
         }
+
     }
 
     /**
