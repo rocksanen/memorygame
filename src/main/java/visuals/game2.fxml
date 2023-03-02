@@ -10,6 +10,7 @@
 <?import javafx.scene.effect.BoxBlur?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.effect.SepiaTone?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -44,32 +45,61 @@
             <Point3D y="1.0" />
          </rotationAxis>
       </ImageView>
-      <ImageView id="midR" fitHeight="750.0" fitWidth="1250.0">
+      <ImageView id="midR" fitHeight="750.0" fitWidth="1250.0" visible="false">
          <image>
             <Image url="@images/midR.png" />
          </image>
       </ImageView>
-        <ImageView id="mediumBackground" fx:id="mediumBackground" fitHeight="744.5" fitWidth="1247.0" layoutX="-3.0" layoutY="5.5">
+        <ImageView id="mediumBackground" fx:id="mediumBackground" fitHeight="744.5" fitWidth="1247.0" layoutX="-3.0" layoutY="5.5" opacity="0.0">
             <image>
                 <Image url="@images/tigru.jpg" />
             </image>
         </ImageView>
-      <ImageView id="midTop" fitHeight="750.0" fitWidth="1250.0">
+      <ImageView id="midTop" fitHeight="750.0" fitWidth="1250.0" visible="false">
          <image>
             <Image url="@images/midTop.png" />
          </image>
       </ImageView>
-      <ImageView id="midL" fitHeight="750.0" fitWidth="1250.0">
+      <ImageView id="midL" fitHeight="750.0" fitWidth="1250.0" visible="false">
          <image>
             <Image url="@images/midL.png" />
          </image>
       </ImageView>
-      <ImageView id="midBot" fitHeight="750.0" fitWidth="1250.0">
+      <ImageView id="midBot" fitHeight="750.0" fitWidth="1250.0" visible="false">
          <image>
             <Image url="@images/midBot.png" />
          </image>
+         <effect>
+            <ColorAdjust brightness="-0.11" />
+         </effect>
       </ImageView>
-      <ImageView id="midgrid" fitHeight="750.0" fitWidth="1250.0" opacity="0.75">
+        <ImageView id="background" fx:id="background" fitHeight="741.0" fitWidth="1242.0" layoutX="4.0" layoutY="4.9" visible="false">
+            <image>
+                <Image url="@images/background.png" />
+            </image>
+        </ImageView>
+      <ImageView id="easyL" fx:id="easyL" fitHeight="750.0" fitWidth="1250.0" visible="false">
+         <image>
+            <Image url="@images/easyL2.png" />
+         </image>
+         <effect>
+            <SepiaTone level="0.22" />
+         </effect>
+      </ImageView>
+      <ImageView id="easyTop" fx:id="easyTop" fitHeight="750.0" fitWidth="1250.0" visible="false">
+         <image>
+            <Image url="@images/easyTop.png" />
+         </image>
+      </ImageView>
+      <ImageView id="easyBot" fx:id="easyBot" fitHeight="750.0" fitWidth="1250.0" visible="false">
+         <image>
+            <Image url="@images/easyBot.png" />
+         </image>
+         <effect>
+            <ColorAdjust brightness="-0.13" />
+         </effect>
+      </ImageView>
+      <ImageView id="midgrid" fitHeight="750.0" fitWidth="1250.0" opacity="0.75" visible="false">
          <image>
             <Image url="@images/gird.png" />
          </image>
@@ -77,12 +107,7 @@
             <GaussianBlur radius="2.35" />
          </effect>
       </ImageView>
-        <ImageView id="background" fx:id="background" fitHeight="741.0" fitWidth="1242.0" layoutX="4.0" layoutY="4.9" opacity="0.0">
-            <image>
-                <Image url="@images/background.png" />
-            </image>
-        </ImageView>
-      <ImageView fitHeight="241.0" fitWidth="280.0" layoutX="820.0" layoutY="459.0">
+      <ImageView id="dancer" fitHeight="241.0" fitWidth="280.0" layoutX="820.0" layoutY="459.0" visible="false">
          <image>
             <Image url="@images/dance.gif" />
          </image>
@@ -120,10 +145,10 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
         </GridPane>
-        <VBox id="nappulat" fx:id="vBox" layoutX="1057.0" prefHeight="700.0" prefWidth="309.0">
+        <VBox id="nappulat" fx:id="vBox" layoutX="1031.0" prefHeight="700.0" prefWidth="176.0">
             <children>
 
-                <Button id="newGame" fx:id="newGame" mnemonicParsing="false" onMouseClicked="#newGame" prefHeight="75.0" prefWidth="102.0" text="New Game">
+                <Button id="newGame" fx:id="newGame" mnemonicParsing="false" onMouseClicked="#newGame" opacity="0.0" prefHeight="75.0" prefWidth="102.0" text="New Game">
                     <VBox.margin>
                         <Insets top="300.0" />
                     </VBox.margin>
@@ -131,7 +156,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                 </Button>
-                <Button id="returnMenu" fx:id="returnMenu" mnemonicParsing="false" mouseTransparent="true" onMouseClicked="#returnMenu" prefHeight="75.0" prefWidth="102.0" text="Return">
+                <Button id="returnMenu" fx:id="returnMenu" mnemonicParsing="false" onMouseClicked="#returnMenu" opacity="0.0" prefHeight="75.0" prefWidth="102.0" text="Return">
                     <VBox.margin>
                         <Insets top="20.0" />
                     </VBox.margin>
@@ -141,17 +166,17 @@
                 </Button>
             </children>
         </VBox>
-      <ImageView id="play" fitHeight="75.0" fitWidth="102.0" layoutX="1058.0" layoutY="300.0" mouseTransparent="true">
+      <ImageView id="play" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="300.0" mouseTransparent="true">
          <image>
-            <Image url="@images/playretro.jpg" />
+            <Image url="@images/playretro.png" />
          </image>
          <effect>
             <SepiaTone level="0.61" />
          </effect>
       </ImageView>
-      <ImageView id="return" fitHeight="75.0" fitWidth="102.0" layoutX="1058.0" layoutY="395.0">
+      <ImageView id="return" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="395.0" mouseTransparent="true">
          <image>
-            <Image url="@images/return.jpg" />
+            <Image url="@images/return.png" />
          </image>
          <effect>
             <SepiaTone level="0.61" />
@@ -182,6 +207,11 @@
             <ImageView id="memomaze" fx:id="memomaze" fitHeight="207.0" fitWidth="700.0" layoutX="270.0" layoutY="80.0" opacity="0.0">
                <image>
                   <Image url="@images/memomaze.png" />
+               </image>
+            </ImageView>
+            <ImageView id="loading" fx:id="loading" fitHeight="67.0" fitWidth="200.0" layoutX="530.0" layoutY="350.0" opacity="0.0">
+               <image>
+                  <Image url="@images/loading.png" />
                </image>
             </ImageView>
             <ImageView id="dirt" fx:id="dirt" fitHeight="762.0" fitWidth="1270.0" opacity="0.61" translateZ="-500.0">
@@ -285,16 +315,16 @@
             <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
          </padding>
       </Label>
-      <Pane id="score" fx:id="score" layoutX="73.0" layoutY="65.0" prefHeight="620.0" prefWidth="238.0" visible="false" AnchorPane.leftAnchor="73.0">
+      <Pane id="score" fx:id="score" layoutX="73.0" layoutY="65.0" prefHeight="620.0" prefWidth="232.0" visible="false" AnchorPane.leftAnchor="73.0">
          <children>
-            <Pane id="worldscores" opacity="0.96" prefHeight="300.0" prefWidth="235.0">
+            <Pane id="worldscores" prefHeight="300.0" prefWidth="210.0">
                <children>
-                  <ImageView id="worback" fitHeight="300.0" fitWidth="235.0" opacity="0.59">
+                  <ImageView fitHeight="280.0" fitWidth="210.0" layoutX="-9.0" layoutY="21.0">
                      <image>
-                        <Image url="@images/retrogradi.jpg" />
+                        <Image url="@images/scoresback.jpg" />
                      </image>
                   </ImageView>
-                  <ImageView id="worldscores" fitHeight="35.0" fitWidth="235.0">
+                  <ImageView id="worldscores" fitHeight="35.0" fitWidth="191.0" layoutY="-12.0">
                      <image>
                         <Image url="@images/worldscores.png" />
                      </image>
@@ -302,7 +332,22 @@
                         <Bloom threshold="0.48" />
                      </effect>
                   </ImageView>
-                  <Label fx:id="w1" layoutY="40.0" prefHeight="26.0" prefWidth="235.0" text="POTTO 6800" textAlignment="CENTER" textFill="#cef5ff">
+                  <Label fx:id="w1" layoutX="16.0" layoutY="68.0" prefHeight="26.0" prefWidth="176.0" text="1. POT 6800" textAlignment="CENTER" textFill="#ffb028">
+                     <font>
+                        <Font name="OCR A Extended" size="22.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <effect>
+                        <ColorAdjust hue="0.73" saturation="1.0">
+                           <input>
+                              <Glow level="1.0" />
+                           </input>
+                        </ColorAdjust>
+                     </effect>
+                  </Label>
+                  <Label fx:id="w2" layoutX="16.0" layoutY="108.0" prefHeight="26.0" prefWidth="147.0" text="2. POT 6800" textAlignment="CENTER" textFill="#ffb028">
                      <font>
                         <Font name="OCR A Extended" size="22.0" />
                      </font>
@@ -313,7 +358,7 @@
                         <Bloom />
                      </effect>
                   </Label>
-                  <Label fx:id="w2" layoutY="66.0" prefHeight="26.0" prefWidth="235.0" text="POTTO 6800" textAlignment="CENTER" textFill="#cef5ff">
+                  <Label fx:id="w3" layoutX="16.0" layoutY="148.0" prefHeight="26.0" prefWidth="147.0" text="3. POT 6800" textAlignment="CENTER" textFill="#ffb028">
                      <font>
                         <Font name="OCR A Extended" size="22.0" />
                      </font>
@@ -324,7 +369,7 @@
                         <Bloom />
                      </effect>
                   </Label>
-                  <Label fx:id="w3" layoutY="92.0" prefHeight="26.0" prefWidth="235.0" text="POTTO 6800" textAlignment="CENTER" textFill="#cef5ff">
+                  <Label fx:id="w4" layoutX="16.0" layoutY="188.0" prefHeight="26.0" prefWidth="147.0" text="4. POT 6800" textAlignment="CENTER" textFill="#ffb028">
                      <font>
                         <Font name="OCR A Extended" size="22.0" />
                      </font>
@@ -335,7 +380,7 @@
                         <Bloom />
                      </effect>
                   </Label>
-                  <Label fx:id="w4" layoutY="118.0" prefHeight="26.0" prefWidth="235.0" text="POTTO 6800" textAlignment="CENTER" textFill="#cef5ff">
+                  <Label fx:id="w5" layoutX="16.0" layoutY="228.0" prefHeight="26.0" prefWidth="147.0" text="5. POT 6800" textAlignment="CENTER" textFill="#ffb028">
                      <font>
                         <Font name="OCR A Extended" size="22.0" />
                      </font>
@@ -346,7 +391,7 @@
                         <Bloom />
                      </effect>
                   </Label>
-                  <Label fx:id="w5" layoutY="144.0" prefHeight="26.0" prefWidth="235.0" text="POTTO 6800" textAlignment="CENTER" textFill="#cef5ff">
+                  <Label fx:id="w6" layoutY="170.0" prefHeight="26.0" prefWidth="235.0" text="POTTO 6800" textAlignment="CENTER" textFill="#ffb028" visible="false">
                      <font>
                         <Font name="OCR A Extended" size="22.0" />
                      </font>
@@ -357,7 +402,7 @@
                         <Bloom />
                      </effect>
                   </Label>
-                  <Label fx:id="w6" layoutY="170.0" prefHeight="26.0" prefWidth="235.0" text="POTTO 6800" textAlignment="CENTER" textFill="#cef5ff">
+                  <Label fx:id="w7" layoutY="196.0" prefHeight="26.0" prefWidth="235.0" text="POTTO 6800" textAlignment="CENTER" textFill="#ffb028" visible="false">
                      <font>
                         <Font name="OCR A Extended" size="22.0" />
                      </font>
@@ -368,7 +413,7 @@
                         <Bloom />
                      </effect>
                   </Label>
-                  <Label fx:id="w7" layoutY="196.0" prefHeight="26.0" prefWidth="235.0" text="POTTO 6800" textAlignment="CENTER" textFill="#cef5ff">
+                  <Label fx:id="w8" layoutY="222.0" prefHeight="26.0" prefWidth="235.0" text="POTTO 6800" textAlignment="CENTER" textFill="#ffb028" visible="false">
                      <font>
                         <Font name="OCR A Extended" size="22.0" />
                      </font>
@@ -379,7 +424,7 @@
                         <Bloom />
                      </effect>
                   </Label>
-                  <Label fx:id="w8" layoutY="222.0" prefHeight="26.0" prefWidth="235.0" text="POTTO 6800" textAlignment="CENTER" textFill="#cef5ff">
+                  <Label fx:id="w9" layoutY="248.0" prefHeight="26.0" prefWidth="235.0" text="POTTO 6800" textAlignment="CENTER" textFill="#ffb028" visible="false">
                      <font>
                         <Font name="OCR A Extended" size="22.0" />
                      </font>
@@ -390,18 +435,7 @@
                         <Bloom />
                      </effect>
                   </Label>
-                  <Label fx:id="w9" layoutY="248.0" prefHeight="26.0" prefWidth="235.0" text="POTTO 6800" textAlignment="CENTER" textFill="#cef5ff">
-                     <font>
-                        <Font name="OCR A Extended" size="22.0" />
-                     </font>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <effect>
-                        <Bloom />
-                     </effect>
-                  </Label>
-                  <Label fx:id="w10" layoutY="274.0" prefHeight="26.0" prefWidth="235.0" text="POTTO 6800" textAlignment="CENTER" textFill="#cef5ff">
+                  <Label fx:id="w10" layoutY="274.0" prefHeight="26.0" prefWidth="235.0" text="POTTO 6800" textAlignment="CENTER" textFill="#ffb028" visible="false">
                      <font>
                         <Font name="OCR A Extended" size="22.0" />
                      </font>
@@ -414,14 +448,14 @@
                   </Label>
                </children>
             </Pane>
-            <Pane layoutY="320.0" prefHeight="300.0" prefWidth="235.0">
+            <Pane id="personalscoresPane" layoutY="320.0" prefHeight="300.0" prefWidth="235.0">
                <children>
-                  <ImageView id="perback" fitHeight="300.0" fitWidth="235.0" opacity="0.59">
+                  <ImageView id="perback" fitHeight="280.0" fitWidth="210.0" layoutX="-9.0" layoutY="18.0">
                      <image>
-                        <Image url="@images/retrogradi.jpg" />
+                        <Image url="@images/scoresback.jpg" />
                      </image>
                   </ImageView>
-                  <ImageView id="personalscores" fitHeight="35.0" fitWidth="235.0">
+                  <ImageView id="personalscores" fitHeight="35.0" fitWidth="191.0" layoutY="-15.0">
                      <image>
                         <Image url="@images/personalscores.png" />
                      </image>
@@ -429,7 +463,22 @@
                         <Bloom threshold="0.48" />
                      </effect>
                   </ImageView>
-                  <Label fx:id="p1" layoutY="40.0" prefHeight="26.0" prefWidth="235.0" textAlignment="CENTER" textFill="#cef5ff">
+                  <Label fx:id="p1" layoutX="16.0" layoutY="65.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
+                     <font>
+                        <Font name="OCR A Extended" size="22.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <effect>
+                        <ColorAdjust hue="0.73" saturation="1.0">
+                           <input>
+                              <Glow level="1.0" />
+                           </input>
+                        </ColorAdjust>
+                     </effect>
+                  </Label>
+                  <Label fx:id="p2" layoutX="16.0" layoutY="105.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
                      <font>
                         <Font name="OCR A Extended" size="22.0" />
                      </font>
@@ -440,7 +489,7 @@
                         <Bloom />
                      </effect>
                   </Label>
-                  <Label fx:id="p2" layoutY="66.0" prefHeight="26.0" prefWidth="235.0" textAlignment="CENTER" textFill="#cef5ff">
+                  <Label fx:id="p3" layoutX="16.0" layoutY="145.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
                      <font>
                         <Font name="OCR A Extended" size="22.0" />
                      </font>
@@ -451,7 +500,7 @@
                         <Bloom />
                      </effect>
                   </Label>
-                  <Label fx:id="p3" layoutY="92.0" prefHeight="26.0" prefWidth="235.0" textAlignment="CENTER" textFill="#cef5ff">
+                  <Label fx:id="p4" layoutX="16.0" layoutY="185.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
                      <font>
                         <Font name="OCR A Extended" size="22.0" />
                      </font>
@@ -462,18 +511,7 @@
                         <Bloom />
                      </effect>
                   </Label>
-                  <Label fx:id="p4" layoutY="118.0" prefHeight="26.0" prefWidth="235.0" textAlignment="CENTER" textFill="#cef5ff">
-                     <font>
-                        <Font name="OCR A Extended" size="22.0" />
-                     </font>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <effect>
-                        <Bloom />
-                     </effect>
-                  </Label>
-                  <Label fx:id="p5" layoutY="144.0" prefHeight="26.0" prefWidth="235.0" textAlignment="CENTER" textFill="#cef5ff">
+                  <Label fx:id="p5" layoutX="16.0" layoutY="225.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
                      <font>
                         <Font name="OCR A Extended" size="22.0" />
                      </font>
@@ -598,12 +636,12 @@
                   <Image url="@images/lightning.png" />
                </image>
             </ImageView>
-            <Label fx:id="weDidIt" alignment="CENTER" layoutX="270.0" layoutY="270.0" opacity="0.0" text="We Did It Games" textAlignment="CENTER" textFill="WHITE">
+            <Label fx:id="weDidIt" alignment="CENTER" layoutX="260.0" layoutY="270.0" opacity="0.0" text="We Did It Games" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Jokerman" size="89.0" />
                </font>
             </Label>
-            <ImageView id="sun" fx:id="sun" fitHeight="783.0" fitWidth="1437.0" layoutX="-70.0" opacity="0.0">
+            <ImageView id="sun" fx:id="sun" fitHeight="783.0" fitWidth="1437.0" layoutX="-85.0" opacity="0.0">
                <image>
                   <Image url="@images/sunRay.png" />
                </image>

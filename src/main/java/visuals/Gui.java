@@ -158,6 +158,10 @@ public class Gui extends Application implements IGui, IChartGUI {
     ImageView midBot;
     @FXML
     ImageView midend;
+    @FXML ImageView easyTop;
+    @FXML ImageView easyL;
+    @FXML ImageView easyBot;
+
     @FXML
     Pane paneLogin;
 
@@ -182,6 +186,8 @@ public class Gui extends Application implements IGui, IChartGUI {
     @FXML Label p8;
     @FXML Label p9;
     @FXML Label p10;
+
+    @FXML ImageView loading;
 
     private static final ArrayList<Label> worldLabels = new ArrayList<>();
     private static final ArrayList<Label> personalLabels = new ArrayList<>();
@@ -264,7 +270,8 @@ public class Gui extends Application implements IGui, IChartGUI {
         Visibilities.getInstance().setGridLayoutToVisibility(easyGrid, mediumGrid, hardGrid);
         Visibilities.getInstance().setGameBackGrounds(
                 background, mediumBackground, mediumSpread,
-                hardBackground, hardSpread, midgrid, midR, midTop, midL, midBot, midend);
+                hardBackground, hardSpread, midgrid, midR,
+                midTop, midL, midBot, midend,easyTop,easyL,easyBot);
         AudioMemory.getInstance().playTheIntro();
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO),
@@ -317,7 +324,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         Effects.getInstance().setEssenceImages(japan, jungle, redtree);
         Effects.getInstance().setGeneralObjects(pergament, menuAnkkuri, startBlack, gameModePane, burningsun,
                 labelLoggedIn);
-        Effects.getInstance().setBackGrounds(mediumBackground, midgrid);
+        Effects.getInstance().setBackGrounds(mediumBackground, midgrid, midTop,midL,midBot,easyTop,easyL,easyBot);
         Visibilities.getInstance().setToGameObjects(gameModePane, score, logAndReg, pergament);
     }
 
@@ -335,12 +342,10 @@ public class Gui extends Application implements IGui, IChartGUI {
     @FXML
     public void returnMenu() {
 
-        /*
         returnStatus = true;
         controller.sendReturnSignal();
         returnStatus = false;
 
-         */
         switch (cubeList.size()) {
 
             case 6 -> Effects.getInstance().gameZoomOut(
@@ -355,6 +360,7 @@ public class Gui extends Application implements IGui, IChartGUI {
                     1000.7, 35, 384.0, 14.5, ModeType.HARD);
         }
 
+        Visibilities.getInstance().gameWallVisibilityOff();
         Platform.runLater(() -> score.setVisible(false));
     }
 
@@ -553,23 +559,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         controller.sendIdToEngine(id);
     }
 
-    @Override
-    public void getWorldScore(ArrayList<String> worldList) {
 
-
-        for(int i = 0; i < 10; i++) {
-
-            if(i == 9) {
-
-                worldLabels.get(i).setText("" + (i + 1) + ". " + worldList.get(i).toUpperCase());
-
-            }else{
-                worldLabels.get(i).setText(" " + (i + 1) + ". " + worldList.get(i).toUpperCase());
-            }
-
-
-        }
-    }
 
     public void fetchAllScores() {
         Task<Boolean> task = new Task<>() {
@@ -610,26 +600,35 @@ public class Gui extends Application implements IGui, IChartGUI {
     }
 
     @Override
+    public void getWorldScore(ArrayList<String> worldList) {
+
+
+        for(int i = 0; i < 5; i++) {
+
+            String[] words = worldList.get(i).split("\\s+");
+            String name = words[0];
+            name = name.substring(0,3);
+            String points = words[1];
+
+            worldLabels.get(i).setText(" " + (i + 1) + "." + name.toUpperCase() + " " + points.toUpperCase());
+        }
+    }
+    @Override
     public void setPersonalScores(ArrayList<String> personalList) {
         if (personalList == null) {
             return;
         }
 
-        for(int i = 0; i < 10; i++) {
+        for(int i = 0; i < 10; i++) {personalLabels.get(i).setText("");}
 
-            personalLabels.get(i).setText("");
+        for(int i = 0; i < 5; i++) {
 
-        }
+            String[] words = personalList.get(i).split("\\s+");
+            String name = words[0];
+            name = name.substring(0,3);
+            String points = words[1];
 
-        for(int i = 0; i < 10 && i < personalList.size(); i++) {
-            if(i == 9) {
-
-                personalLabels.get(i).setText("" + (i + 1) + ". " + personalList.get(i).toUpperCase());
-
-            }else {
-
-                personalLabels.get(i).setText(" " + (i + 1) + ". " + personalList.get(i).toUpperCase());
-            }
+            personalLabels.get(i).setText(" " + (i + 1) + "." + name.toUpperCase() + " " + points.toUpperCase());
         }
     }
 
@@ -716,7 +715,6 @@ public class Gui extends Application implements IGui, IChartGUI {
         startBlack = (AnchorPane) root.lookup("#startBlack");
         menuAnkkuri = (AnchorPane) root.lookup("#menuAnkkuri");
         weDidIt = (Label) root.lookup("#weDidIt");
-        groupFour = (ImageView) root.lookup("#groupFour");
         gameModePane = (Pane) root.lookup("#gameModePane");
         score = (Pane) root.lookup("#score");
         easyGrid = (GridPane) root.lookup("#easyGrid");
@@ -823,6 +821,11 @@ public class Gui extends Application implements IGui, IChartGUI {
         blacksun = (ImageView) root.lookup("#blacksun");
         blacksun.setImage(ImageCache.getInstance().getIntroCache().get(2));
         memomaze = (ImageView) root.lookup("#memomaze");
+        memomaze.setImage(ImageCache.getInstance().getIntroCache().get(3));
+        loading = (ImageView) root.lookup("#loading");
+        loading.setImage(ImageCache.getInstance().getIntroCache().get(4));
+        groupFour = (ImageView) root.lookup("#groupFour");
+        groupFour.setImage(ImageCache.getInstance().getIntroCache().get(5));
     }
 
     private void setMenuImages() {
@@ -851,7 +854,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         jungle.setImage(ImageCache.getInstance().getMenuCache().get(8));
         redtree = (ImageView) root.lookup("#redtree");
         redtree.setImage(ImageCache.getInstance().getMenuCache().get(9));
-        midgrid = (ImageView) root.lookup("#midgrid");
+
     }
 
     private void setGameImages() {
@@ -867,10 +870,23 @@ public class Gui extends Application implements IGui, IChartGUI {
         hardBackground.setImage(ImageCache.getInstance().getGameBackGroundCache().get(2));
         hardSpread.setImage(ImageCache.getInstance().getGameBackGroundCache().get(2));
         midR = (ImageView) root.lookup("#midR");
+        midR.setImage(ImageCache.getInstance().getGameBackGroundCache().get(3));
         midTop = (ImageView) root.lookup("#midTop");
+        midTop.setImage(ImageCache.getInstance().getGameBackGroundCache().get(4));
         midL = (ImageView) root.lookup("#midL");
+        midL.setImage(ImageCache.getInstance().getGameBackGroundCache().get(5));
         midBot = (ImageView) root.lookup("#midBot");
-        midend = (ImageView) root.lookup("#midend");
+        midBot.setImage(ImageCache.getInstance().getGameBackGroundCache().get(6));
+        easyTop = (ImageView) root.lookup("#easyTop");
+        easyTop.setImage(ImageCache.getInstance().getGameBackGroundCache().get(7));
+        easyBot = (ImageView) root.lookup("#easyBot");
+        easyBot.setImage(ImageCache.getInstance().getGameBackGroundCache().get(8));
+        easyL = (ImageView) root.lookup("#easyL");
+        easyL.setImage(ImageCache.getInstance().getGameBackGroundCache().get(9));
+        midgrid = (ImageView) root.lookup("#midgrid");
+        midgrid.setImage(ImageCache.getInstance().getGameBackGroundCache().get(10));
+        //midend = (ImageView) root.lookup("#midend");
+        //midend.setImage(ImageCache.getInstance().getGameBackGroundCache().get(7));
 
     }
 
@@ -881,7 +897,7 @@ public class Gui extends Application implements IGui, IChartGUI {
             Platform.runLater(() -> Effects.getInstance().intro(
                     weDidIt, groupFour, logAndReg,
                     sun, lightning, blacksun,
-                    easyFrame, mediumFrame, hardFrame, memomaze, labelLoggedIn));
+                    easyFrame, mediumFrame, hardFrame, memomaze, labelLoggedIn, loading));
 
         } else {
             labelLoggedIn.setVisible(true);
