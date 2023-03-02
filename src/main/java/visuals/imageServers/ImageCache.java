@@ -127,6 +127,9 @@ public class ImageCache {
         Image easyBot = new Image(new FileInputStream("src/main/java/visuals/images/easyBot.png"));
         Image easyL = new Image(new FileInputStream("src/main/java/visuals/images/easyL2.png"));
         Image midgrid = new Image(new FileInputStream("src/main/java/visuals/images/gird.png"));
+        Image hardGrid = new Image(new FileInputStream("src/main/java/visuals/images/girdHard.png"));
+        Image hardR = new Image(new FileInputStream("src/main/java/visuals/images/hardR.png"));
+        Image hardL = new Image(new FileInputStream("src/main/java/visuals/images/hardL.png"));
 
         gameBackGroundImages.add(easyBack);
         gameBackGroundImages.add(mediumBack);
@@ -139,6 +142,9 @@ public class ImageCache {
         gameBackGroundImages.add(easyBot);
         gameBackGroundImages.add(easyL);
         gameBackGroundImages.add(midgrid);
+        gameBackGroundImages.add(hardGrid);
+        gameBackGroundImages.add(hardR);
+        gameBackGroundImages.add(hardL);
 
     }
 

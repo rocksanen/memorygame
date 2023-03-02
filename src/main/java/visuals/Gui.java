@@ -186,6 +186,9 @@ public class Gui extends Application implements IGui, IChartGUI {
     @FXML Label p8;
     @FXML Label p9;
     @FXML Label p10;
+    @FXML ImageView hardGridImage;
+    @FXML ImageView hardR;
+    @FXML ImageView hardL;
 
     @FXML ImageView loading;
 
@@ -322,9 +325,8 @@ public class Gui extends Application implements IGui, IChartGUI {
 
         Effects.getInstance().setMiniImagesAndFrames(miniEasy, miniMedium, miniHard, easyFrame, mediumFrame, hardFrame);
         Effects.getInstance().setEssenceImages(japan, jungle, redtree);
-        Effects.getInstance().setGeneralObjects(pergament, menuAnkkuri, startBlack, gameModePane, burningsun,
-                labelLoggedIn);
-        Effects.getInstance().setBackGrounds(mediumBackground, midgrid, midTop,midL,midBot,easyTop,easyL,easyBot);
+        Effects.getInstance().setGeneralObjects(pergament, menuAnkkuri, startBlack, gameModePane, burningsun, labelLoggedIn);
+        Effects.getInstance().setBackGrounds(mediumBackground, midgrid, midTop,midL,midBot,easyTop,easyL,easyBot,hardGridImage,hardR,hardL);
         Visibilities.getInstance().setToGameObjects(gameModePane, score, logAndReg, pergament);
     }
 
@@ -885,6 +887,13 @@ public class Gui extends Application implements IGui, IChartGUI {
         easyL.setImage(ImageCache.getInstance().getGameBackGroundCache().get(9));
         midgrid = (ImageView) root.lookup("#midgrid");
         midgrid.setImage(ImageCache.getInstance().getGameBackGroundCache().get(10));
+        hardGridImage = (ImageView) root.lookup("#hardGridImage");
+        hardGridImage.setImage(ImageCache.getInstance().getGameBackGroundCache().get(11));
+        hardR = (ImageView) root.lookup("#hardR");
+        hardR.setImage(ImageCache.getInstance().getGameBackGroundCache().get(12));
+        hardL = (ImageView) root.lookup("#hardL");
+        hardL.setImage(ImageCache.getInstance().getGameBackGroundCache().get(13));
+
         //midend = (ImageView) root.lookup("#midend");
         //midend.setImage(ImageCache.getInstance().getGameBackGroundCache().get(7));
 

@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -56,6 +57,9 @@ public class Effects {
     ImageView easyTop;
     ImageView easyL;
     ImageView easyBot;
+    ImageView hardGridImage;
+    ImageView hardR;
+    ImageView hardL;
 
     private ImageView mediumBackGround;
     private final BackGroundMover backGroundMover = new BackGroundMover();
@@ -77,7 +81,8 @@ public class Effects {
 
     public void setBackGrounds(
             ImageView mediumBackGround, ImageView midgrid, ImageView midTop,
-            ImageView midL, ImageView midBot, ImageView easyTop, ImageView easyL, ImageView easyBot) {
+            ImageView midL, ImageView midBot, ImageView easyTop, ImageView easyL,
+            ImageView easyBot, ImageView hardGridImage, ImageView hardR, ImageView hardL) {
 
         this.mediumBackGround = mediumBackGround;
         this.midgrid = midgrid;
@@ -87,6 +92,9 @@ public class Effects {
         this.easyTop = easyTop;
         this.easyL = easyL;
         this.easyBot = easyBot;
+        this.hardGridImage = hardGridImage;
+        this.hardR = hardR;
+        this.hardL = hardL;
 
 
 
@@ -180,7 +188,7 @@ public class Effects {
                     miniMedium.setOpacity(1);
                 }
                 case HARD -> {
-                    zoomOutBlurEndings();
+                    zoomOutHardWalls();
                     miniHard.setOpacity(1);
                 }
             }
@@ -228,6 +236,35 @@ public class Effects {
                 new KeyFrame(Duration.seconds(1),
                         new KeyValue(midgrid.visibleProperty(),false)),
                 new KeyFrame(Duration.seconds(1.5))
+        );
+
+        timeline.playFromStart();
+
+        timeline.setOnFinished(actionEvent -> {
+
+            timeline.stop();
+
+            zoomOutBlurEndings();
+
+        });
+
+
+
+
+    }
+
+    private void zoomOutHardWalls() {
+
+
+        Timeline timeline = new Timeline(
+
+                new KeyFrame(Duration.seconds(0.4),
+                        new KeyValue(hardL.visibleProperty(),false)),
+                new KeyFrame(Duration.seconds(0.6),
+                        new KeyValue(hardR.visibleProperty(),false)),
+                new KeyFrame(Duration.seconds(0.8),
+                        new KeyValue(hardGridImage.visibleProperty(),false)),
+                new KeyFrame(Duration.seconds(1.2))
         );
 
         timeline.playFromStart();
@@ -515,8 +552,24 @@ public class Effects {
 
     private void hardEntrance(Gui gui) {
 
-        System.out.println("kikkeli");
-        zoomInFinalEndings(gui);
+        Timeline timeline = new Timeline(
+
+                new KeyFrame(Duration.seconds(0.3),
+                        new KeyValue(hardGridImage.visibleProperty(),true)),
+                new KeyFrame(Duration.seconds(0.6),
+                        new KeyValue(hardR.visibleProperty(),true)),
+                new KeyFrame(Duration.seconds(0.9),
+                        new KeyValue(hardL.visibleProperty(),true)),
+                new KeyFrame(Duration.seconds(1.2))
+        );
+
+        timeline.playFromStart();
+
+        timeline.setOnFinished(actionEvent -> {
+            timeline.stop();
+            zoomInFinalEndings(gui);
+
+        });
     }
 
     private void zoomInFinalEndings(Gui gui) {
