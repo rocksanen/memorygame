@@ -161,39 +161,66 @@ public class Gui extends Application implements IGui, IChartGUI {
     ImageView midBot;
     @FXML
     ImageView midend;
-    @FXML ImageView easyTop;
-    @FXML ImageView easyL;
-    @FXML ImageView easyBot;
+    @FXML
+    ImageView easyTop;
+    @FXML
+    ImageView easyL;
+    @FXML
+    ImageView easyBot;
 
     @FXML
     Pane paneLogin;
 
-    @FXML Label w1;
-    @FXML Label w2;
-    @FXML Label w3;
-    @FXML Label w4;
-    @FXML Label w5;
-    @FXML Label w6;
-    @FXML Label w7;
-    @FXML Label w8;
-    @FXML Label w9;
-    @FXML Label w10;
+    @FXML
+    Label w1;
+    @FXML
+    Label w2;
+    @FXML
+    Label w3;
+    @FXML
+    Label w4;
+    @FXML
+    Label w5;
+    @FXML
+    Label w6;
+    @FXML
+    Label w7;
+    @FXML
+    Label w8;
+    @FXML
+    Label w9;
+    @FXML
+    Label w10;
 
-    @FXML Label p1;
-    @FXML Label p2;
-    @FXML Label p3;
-    @FXML Label p4;
-    @FXML Label p5;
-    @FXML Label p6;
-    @FXML Label p7;
-    @FXML Label p8;
-    @FXML Label p9;
-    @FXML Label p10;
-    @FXML ImageView hardGridImage;
-    @FXML ImageView hardR;
-    @FXML ImageView hardL;
+    @FXML
+    Label p1;
+    @FXML
+    Label p2;
+    @FXML
+    Label p3;
+    @FXML
+    Label p4;
+    @FXML
+    Label p5;
+    @FXML
+    Label p6;
+    @FXML
+    Label p7;
+    @FXML
+    Label p8;
+    @FXML
+    Label p9;
+    @FXML
+    Label p10;
+    @FXML
+    ImageView hardGridImage;
+    @FXML
+    ImageView hardR;
+    @FXML
+    ImageView hardL;
 
-    @FXML ImageView loading;
+    @FXML
+    ImageView loading;
 
     private static final ArrayList<Label> worldLabels = new ArrayList<>();
     private static final ArrayList<Label> personalLabels = new ArrayList<>();
@@ -221,14 +248,13 @@ public class Gui extends Application implements IGui, IChartGUI {
     private int activeCount = 0;
 
     private static final ArrayList<Group> activeList = new ArrayList<>();
+
     public boolean isReturnStatus() {
         return returnStatus;
     }
 
     private boolean returnStatus;
     private boolean playIntro = true;
-
-
 
 
     @Override
@@ -270,7 +296,7 @@ public class Gui extends Application implements IGui, IChartGUI {
             // load a properties file
             prop.load(input);
             // get the property value and print it out
-            System.out.println("skipintro value from properties: " + prop.getProperty("playIntro"));
+            System.out.println("playIntro value from properties: " + prop.getProperty("playIntro"));
             playIntro = Boolean.parseBoolean(prop.getProperty("playIntro"));
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -280,6 +306,12 @@ public class Gui extends Application implements IGui, IChartGUI {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+
+        Platform.setImplicitExit(true);
+        primaryStage.setOnCloseRequest((ae) -> {
+            Platform.exit();
+            System.exit(0);
+        });
 
 
         loadProperties();
@@ -304,7 +336,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         Visibilities.getInstance().setGameBackGrounds(
                 background, mediumBackground, mediumSpread,
                 hardBackground, hardSpread, midgrid, midR,
-                midTop, midL, midBot, midend,easyTop,easyL,easyBot);
+                midTop, midL, midBot, midend, easyTop, easyL, easyBot);
         AudioMemory.getInstance().playTheIntro();
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO),
@@ -356,7 +388,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         Effects.getInstance().setMiniImagesAndFrames(miniEasy, miniMedium, miniHard, easyFrame, mediumFrame, hardFrame);
         Effects.getInstance().setEssenceImages(japan, jungle, redtree);
         Effects.getInstance().setGeneralObjects(pergament, menuAnkkuri, startBlack, gameModePane, burningsun, labelLoggedIn);
-        Effects.getInstance().setBackGrounds(mediumBackground, midgrid, midTop,midL,midBot,easyTop,easyL,easyBot,hardGridImage,hardR,hardL);
+        Effects.getInstance().setBackGrounds(mediumBackground, midgrid, midTop, midL, midBot, easyTop, easyL, easyBot, hardGridImage, hardR, hardL);
         Visibilities.getInstance().setToGameObjects(gameModePane, score, logAndReg, pergament);
     }
 
@@ -572,13 +604,13 @@ public class Gui extends Application implements IGui, IChartGUI {
                 cubeList.get(firstIndex).getBox().setMouseTransparent(false);
                 cubeList.get(secondIndex).getBox().setMouseTransparent(false);
 
-                for(BoxMaker cube: cubeList) {
+                for (BoxMaker cube : cubeList) {
 
-                    if(!cube.getActiveState()) {
+                    if (!cube.getActiveState()) {
                         cube.getBox().setMouseTransparent(false);
                     }
                 }
-            }catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         });
@@ -586,19 +618,19 @@ public class Gui extends Application implements IGui, IChartGUI {
 
     public void setActiveID(int activeID) {
 
-        if(!cubeList.get(activeID).getActiveState()) {
+        if (!cubeList.get(activeID).getActiveState()) {
 
             cubeList.get(activeID).getBox().setMouseTransparent(true);
             cubeList.get(activeID).setActive();
 
-            if(activeList.size() < 2) {
+            if (activeList.size() < 2) {
                 activeList.add(cubeList.get(activeID).getBox());
             }
         }
 
-        if(activeList.size() == 2) {
-            for(BoxMaker cube: cubeList) {
-                if(!cube.getActiveState()) {
+        if (activeList.size() == 2) {
+            for (BoxMaker cube : cubeList) {
+                if (!cube.getActiveState()) {
                     cube.getBox().setMouseTransparent(true);
                 }
             }
@@ -612,12 +644,12 @@ public class Gui extends Application implements IGui, IChartGUI {
         CompletableFuture.runAsync(() -> {
             try {
                 Thread.sleep(700);
-                for(BoxMaker cube: cubeList) {
-                    if(!cube.getActiveState()) {
+                for (BoxMaker cube : cubeList) {
+                    if (!cube.getActiveState()) {
                         cube.getBox().setMouseTransparent(false);
                     }
                 }
-            }catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         });
@@ -626,7 +658,6 @@ public class Gui extends Application implements IGui, IChartGUI {
     public void sendIdToEngine(int id) {
         controller.sendIdToEngine(id);
     }
-
 
 
     public void fetchAllScores() {
@@ -671,29 +702,32 @@ public class Gui extends Application implements IGui, IChartGUI {
     public void getWorldScore(ArrayList<String> worldList) {
 
 
-        for(int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
 
             String[] words = worldList.get(i).split("\\s+");
             String name = words[0];
-            name = name.substring(0,3);
+            name = name.substring(0, 3);
             String points = words[1];
 
             worldLabels.get(i).setText(" " + (i + 1) + "." + name.toUpperCase() + " " + points.toUpperCase());
         }
     }
+
     @Override
     public void setPersonalScores(ArrayList<String> personalList) {
         if (personalList == null) {
             return;
         }
 
-        for(int i = 0; i < 10; i++) {personalLabels.get(i).setText("");}
+        for (int i = 0; i < 10; i++) {
+            personalLabels.get(i).setText("");
+        }
 
-        for(int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
 
             String[] words = personalList.get(i).split("\\s+");
             String name = words[0];
-            name = name.substring(0,3);
+            name = name.substring(0, 3);
             String points = words[1];
 
             personalLabels.get(i).setText(" " + (i + 1) + "." + name.toUpperCase() + " " + points.toUpperCase());
@@ -860,7 +894,6 @@ public class Gui extends Application implements IGui, IChartGUI {
         labelLoggedIn.setStyle("-fx-background-color: rgba(0,0,0,0.50);-fx-background-radius: 5; -fx-padding: 1 6 1 6");
 
 
-
         buttonLogout.setFont(outrun);
         // make button logout purple with shadow, white text and hover effect
 
@@ -997,7 +1030,9 @@ public class Gui extends Application implements IGui, IChartGUI {
 
     private void scoresOn(Boolean on) {
 
-        if (on) {fetchAllScores();}
+        if (on) {
+            fetchAllScores();
+        }
     }
 
     @FXML
