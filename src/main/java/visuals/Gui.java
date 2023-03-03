@@ -249,7 +249,6 @@ public class Gui extends Application implements IGui, IChartGUI {
 
     private int activeID;
     public static PerspectiveCamera camera = new PerspectiveCamera();
-    private boolean playIntro = true;
 
     public static void main(String[] args) {
 
