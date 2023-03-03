@@ -173,9 +173,9 @@ public class ImageCache {
         Image miniEasy = new Image(new FileInputStream("src/main/java/visuals/images/background.png"));
         Image miniMedium = new Image(new FileInputStream("src/main/java/visuals/images/tigru.jpg"));
         Image miniHard = new Image(new FileInputStream("src/main/java/visuals/images/hardback4.jpg"));
-        Image easyFrame = new Image(new FileInputStream("src/main/java/visuals/images/frame3.png"));
-        Image mediumFrame = new Image(new FileInputStream("src/main/java/visuals/images/frame3.png"));
-        Image hardFrame = new Image(new FileInputStream("src/main/java/visuals/images/frame3.png"));
+        Image easyFrame = new Image(new FileInputStream("src/main/java/visuals/images/easyneo.png"));
+        Image mediumFrame = new Image(new FileInputStream("src/main/java/visuals/images/medneo.png"));
+        Image hardFrame = new Image(new FileInputStream("src/main/java/visuals/images/hardneo.png"));
         Image japan = new Image(new FileInputStream("src/main/java/visuals/images/cherry2.png"));
         Image jungle = new Image(new FileInputStream("src/main/java/visuals/images/jungle.png"));
         Image redtree = new Image(new FileInputStream("src/main/java/visuals/images/redtree.png"));
@@ -194,6 +194,18 @@ public class ImageCache {
         Image mt13 = new Image(new FileInputStream("src/main/java/visuals/images/mt12.png"));
         Image dirt = new Image(new FileInputStream("src/main/java/visuals/images/dirt.png"));
         Image burningsun = new Image(new FileInputStream("src/main/java/visuals/images/burningsun.png"));
+        Image easydes1 = new Image(new FileInputStream("src/main/java/visuals/images/easydes1.png"));
+        Image easydes2 = new Image(new FileInputStream("src/main/java/visuals/images/easydes2.png"));
+        Image easydes3 = new Image(new FileInputStream("src/main/java/visuals/images/easydes3.png"));
+        Image kotoku = new Image(new FileInputStream("src/main/java/visuals/images/kotoku.png"));
+        Image tigerden = new Image(new FileInputStream("src/main/java/visuals/images/tigerden2.png"));
+        Image treeoflife = new Image(new FileInputStream("src/main/java/visuals/images/treeoflife2.png"));
+        Image medes1 = new Image(new FileInputStream("src/main/java/visuals/images/medes1.png"));
+        Image medes2 = new Image(new FileInputStream("src/main/java/visuals/images/medes2.png"));
+        Image medes3 = new Image(new FileInputStream("src/main/java/visuals/images/medes3.png"));
+        Image hardes1 = new Image(new FileInputStream("src/main/java/visuals/images/hardes1.png"));
+        Image hardes2 = new Image(new FileInputStream("src/main/java/visuals/images/hardes2.png"));
+        Image hardes3 = new Image(new FileInputStream("src/main/java/visuals/images/hardes3.png"));
 
 
         menuImages.add(pergament);
@@ -221,6 +233,18 @@ public class ImageCache {
         menuImages.add(mt13);
         menuImages.add(dirt);
         menuImages.add(burningsun);
+        menuImages.add(easydes1);
+        menuImages.add(easydes2);
+        menuImages.add(easydes3);
+        menuImages.add(kotoku);
+        menuImages.add(tigerden);
+        menuImages.add(treeoflife);
+        menuImages.add(medes1);
+        menuImages.add(medes2);
+        menuImages.add(medes3);
+        menuImages.add(hardes1);
+        menuImages.add(hardes2);
+        menuImages.add(hardes3);
 
     }
 

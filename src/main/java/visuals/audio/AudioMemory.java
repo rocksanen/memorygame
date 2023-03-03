@@ -85,10 +85,15 @@ public class AudioMemory {
         mediaPlayer.play();
 
         Timeline fadeIn = new Timeline(
-                new KeyFrame(Duration.seconds(1), new KeyValue(mediaPlayer.volumeProperty(), 0))
+                new KeyFrame(Duration.seconds(1), new KeyValue(mediaPlayer.volumeProperty(), 1))
         );
         fadeIn.play();
 
+    }
+
+    public MediaPlayer introSong() {
+
+        return menuRetoSong;
     }
 
     public void playTheIntro() {
@@ -97,7 +102,7 @@ public class AudioMemory {
         menuRetoSong.play();
 
         Timeline fadeIn = new Timeline(
-                new KeyFrame(Duration.seconds(5), new KeyValue(menuRetoSong.volumeProperty(), 0))
+                new KeyFrame(Duration.seconds(5), new KeyValue(menuRetoSong.volumeProperty(), 1))
         );
         fadeIn.play();
 

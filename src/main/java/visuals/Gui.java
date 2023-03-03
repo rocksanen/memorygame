@@ -6,22 +6,19 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.*;
 import javafx.scene.control.*;
-import javafx.scene.effect.BlurType;
-import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Bloom;
+import javafx.scene.effect.Glow;
+import javafx.scene.effect.SepiaTone;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
@@ -35,7 +32,6 @@ import visuals.cubeFactories.ICubeFactory;
 import visuals.cubeFactories.MediumCubeFactory;
 import visuals.imageServers.ImageCache;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -218,9 +214,20 @@ public class Gui extends Application implements IGui, IChartGUI {
     ImageView hardR;
     @FXML
     ImageView hardL;
-
     @FXML
     ImageView loading;
+    @FXML ImageView easydes1;
+    @FXML ImageView easydes2;
+    @FXML ImageView easydes3;
+    @FXML ImageView medes1;
+    @FXML ImageView medes2;
+    @FXML ImageView medes3;
+    @FXML ImageView hardes1;
+    @FXML ImageView hardes2;
+    @FXML ImageView hardes3;
+    @FXML ImageView kotoku;
+    @FXML ImageView tigerden;
+    @FXML ImageView treeoflife;
 
     private static final ArrayList<Label> worldLabels = new ArrayList<>();
     private static final ArrayList<Label> personalLabels = new ArrayList<>();
@@ -335,7 +342,6 @@ public class Gui extends Application implements IGui, IChartGUI {
                 background, mediumBackground, mediumSpread,
                 hardBackground, hardSpread, midgrid, midR,
                 midTop, midL, midBot, midend, easyTop, easyL, easyBot);
-        AudioMemory.getInstance().playTheIntro();
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO),
                 new KeyFrame(Duration.seconds(0.5),
@@ -641,7 +647,7 @@ public class Gui extends Application implements IGui, IChartGUI {
 
         CompletableFuture.runAsync(() -> {
             try {
-                Thread.sleep(700);
+                Thread.sleep(500);
                 for (BoxMaker cube : cubeList) {
                     if (!cube.getActiveState()) {
                         cube.getBox().setMouseTransparent(false);
@@ -707,7 +713,7 @@ public class Gui extends Application implements IGui, IChartGUI {
             name = name.substring(0, 3);
             String points = words[1];
 
-            worldLabels.get(i).setText(" " + (i + 1) + "." + name.toUpperCase() + " " + points.toUpperCase());
+            worldLabels.get(i).setText((i + 1) + "." + name.toUpperCase() + " " + points.toUpperCase());
         }
     }
 
@@ -717,7 +723,7 @@ public class Gui extends Application implements IGui, IChartGUI {
             return;
         }
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             personalLabels.get(i).setText("");
         }
 
@@ -728,7 +734,7 @@ public class Gui extends Application implements IGui, IChartGUI {
             name = name.substring(0, 3);
             String points = words[1];
 
-            personalLabels.get(i).setText(" " + (i + 1) + "." + name.toUpperCase() + " " + points.toUpperCase());
+            personalLabels.get(i).setText((i + 1) + "." + name.toUpperCase() + " " + points.toUpperCase());
         }
     }
 
@@ -942,19 +948,44 @@ public class Gui extends Application implements IGui, IChartGUI {
         miniHard = (ImageView) root.lookup("#miniHard");
         miniHard.setImage(ImageCache.getInstance().getMenuCache().get(3));
         easyFrame = (ImageView) root.lookup("#easyFrame");
-        //easyFrame.setImage(ImageCache.getInstance().getMenuCache().get(4));
+        easyFrame.setImage(ImageCache.getInstance().getMenuCache().get(4));
         mediumFrame = (ImageView) root.lookup("#mediumFrame");
-        //mediumFrame.setImage(ImageCache.getInstance().getMenuCache().get(5));
+        mediumFrame.setImage(ImageCache.getInstance().getMenuCache().get(5));
         hardFrame = (ImageView) root.lookup("#hardFrame");
-        //hardFrame.setImage(ImageCache.getInstance().getMenuCache().get(6));
+        hardFrame.setImage(ImageCache.getInstance().getMenuCache().get(6));
         japan = (ImageView) root.lookup("#japan");
         japan.setImage(ImageCache.getInstance().getMenuCache().get(7));
         jungle = (ImageView) root.lookup("#jungle");
         jungle.setImage(ImageCache.getInstance().getMenuCache().get(8));
         redtree = (ImageView) root.lookup("#redtree");
         redtree.setImage(ImageCache.getInstance().getMenuCache().get(9));
-
+        easydes1 = (ImageView) root.lookup("#easydes1");
+        easydes1.setImage(ImageCache.getInstance().getMenuCache().get(25));
+        easydes2 = (ImageView) root.lookup("#easydes2");
+        easydes2.setImage(ImageCache.getInstance().getMenuCache().get(26));
+        easydes3 = (ImageView) root.lookup("#easydes3");
+        easydes3.setImage(ImageCache.getInstance().getMenuCache().get(27));
+        kotoku = (ImageView) root.lookup("#kotoku");
+        kotoku.setImage(ImageCache.getInstance().getMenuCache().get(28));
+        tigerden = (ImageView) root.lookup("#tigerden");
+        tigerden.setImage(ImageCache.getInstance().getMenuCache().get(29));
+        treeoflife = (ImageView) root.lookup("#treeoflife");
+        treeoflife.setImage(ImageCache.getInstance().getMenuCache().get(30));
+        medes1 = (ImageView) root.lookup("#medes1");
+        medes1.setImage(ImageCache.getInstance().getMenuCache().get(31));
+        medes2 = (ImageView) root.lookup("#medes2");
+        medes2.setImage(ImageCache.getInstance().getMenuCache().get(32));
+        medes3 = (ImageView) root.lookup("#medes3");
+        medes3.setImage(ImageCache.getInstance().getMenuCache().get(33));
+        hardes1 = (ImageView) root.lookup("#hardes1");
+        hardes1.setImage(ImageCache.getInstance().getMenuCache().get(34));
+        hardes2 = (ImageView) root.lookup("#hardes2");
+        hardes2.setImage(ImageCache.getInstance().getMenuCache().get(35));
+        hardes3 = (ImageView) root.lookup("#hardes3");
+        hardes3.setImage(ImageCache.getInstance().getMenuCache().get(36));
     }
+
+
 
     private void setGameImages() {
 
@@ -996,6 +1027,69 @@ public class Gui extends Application implements IGui, IChartGUI {
 
     }
 
+    @FXML
+    public void easyInfoOn() {displayInfoOn(easydes1,easydes2,easydes3);}
+
+    @FXML
+    public void easyInfoOff(){displayInfoOff(easydes1,easydes2,easydes3);}
+
+    @FXML
+    public void mediumInfoOn() {displayInfoOn(medes1,medes2,medes3);}
+
+    @FXML
+    public void mediumInfoOff() {displayInfoOff(medes1,medes2,medes3);}
+
+    @FXML
+    public void hardInfoOn() {displayInfoOn(hardes1,hardes2,hardes3);}
+
+    @FXML
+    public void hardInfoOff() {displayInfoOff(hardes1,hardes2,hardes3);}
+
+
+    private void displayInfoOn(ImageView a, ImageView b, ImageView c) {
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(a.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(0.2),
+                        new KeyValue(a.opacityProperty(),1),
+                        new KeyValue(b.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(0.4),
+                        new KeyValue(b.opacityProperty(),1),
+                        new KeyValue(c.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(0.6),
+                        new KeyValue(c.opacityProperty(),1))
+        );
+        timeline.playFromStart();
+
+        timeline.setOnFinished(actionEvent -> {
+            timeline.stop();
+        });
+    }
+
+    private void displayInfoOff(ImageView a, ImageView b, ImageView c) {
+
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(a.opacityProperty(),1)),
+                new KeyFrame(Duration.seconds(0.2),
+                        new KeyValue(a.opacityProperty(),0),
+                        new KeyValue(b.opacityProperty(),1)),
+                new KeyFrame(Duration.seconds(0.4),
+                        new KeyValue(b.opacityProperty(),0),
+                        new KeyValue(c.opacityProperty(),1)),
+                new KeyFrame(Duration.seconds(0.6),
+                        new KeyValue(c.opacityProperty(),0))
+        );
+
+        timeline.playFromStart();
+
+        timeline.setOnFinished(actionEvent -> {
+            timeline.stop();
+        });
+    }
+
     private void introOn(Boolean introStatus) {
 
         if (introStatus) {
@@ -1003,7 +1097,9 @@ public class Gui extends Application implements IGui, IChartGUI {
             Platform.runLater(() -> Effects.getInstance().intro(
                     weDidIt, groupFour, logAndReg,
                     sun, lightning, blacksun,
-                    easyFrame, mediumFrame, hardFrame, memomaze, labelLoggedIn, loading));
+                    easyFrame, mediumFrame, hardFrame,
+                    memomaze, labelLoggedIn, loading,
+                    kotoku,tigerden,treeoflife));
 
         } else {
             labelLoggedIn.setVisible(true);
@@ -1021,6 +1117,9 @@ public class Gui extends Application implements IGui, IChartGUI {
             japan.setOpacity(0.4);
             jungle.setOpacity(0.26);
             redtree.setOpacity(0.75);
+            kotoku.setOpacity(1);
+            tigerden.setOpacity(1);
+            treeoflife.setOpacity(1);
             Platform.runLater(() -> Effects.getInstance().playBuringSun());
             AudioMemory.getInstance().playSong(MENU);
         }
