@@ -286,9 +286,7 @@ public class Gui extends Application implements IGui, IChartGUI {
      * after the fxml file has been fully loaded.
      */
     @FXML
-    private void initialize() {
-
-    }
+    private void initialize() {}
 
     private void loadProperties() {
         try (InputStream input = Gui.class.getClassLoader().getResource("config.properties").openStream()) {
@@ -944,11 +942,11 @@ public class Gui extends Application implements IGui, IChartGUI {
         miniHard = (ImageView) root.lookup("#miniHard");
         miniHard.setImage(ImageCache.getInstance().getMenuCache().get(3));
         easyFrame = (ImageView) root.lookup("#easyFrame");
-        easyFrame.setImage(ImageCache.getInstance().getMenuCache().get(4));
+        //easyFrame.setImage(ImageCache.getInstance().getMenuCache().get(4));
         mediumFrame = (ImageView) root.lookup("#mediumFrame");
-        mediumFrame.setImage(ImageCache.getInstance().getMenuCache().get(5));
+        //mediumFrame.setImage(ImageCache.getInstance().getMenuCache().get(5));
         hardFrame = (ImageView) root.lookup("#hardFrame");
-        hardFrame.setImage(ImageCache.getInstance().getMenuCache().get(6));
+        //hardFrame.setImage(ImageCache.getInstance().getMenuCache().get(6));
         japan = (ImageView) root.lookup("#japan");
         japan.setImage(ImageCache.getInstance().getMenuCache().get(7));
         jungle = (ImageView) root.lookup("#jungle");

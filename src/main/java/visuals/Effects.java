@@ -631,7 +631,7 @@ public class Effects {
                         new KeyValue(mediumFrame.opacityProperty(), mediumFrameFinish),
                         new KeyValue(hardFrame.opacityProperty(), hardFrameFinish)),
                 new KeyFrame(Duration.seconds(3),
-                        new KeyValue(jungle.opacityProperty(), 0))
+                        new KeyValue(jungle.opacityProperty(), 0.3))
         );
 
         opacitiesIn.playFromStart();
