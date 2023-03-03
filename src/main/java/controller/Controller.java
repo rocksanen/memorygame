@@ -313,4 +313,11 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
         User user = User.getInstance();
         return user.getUsername();
     }
+
+    @Override
+    public void sendComparingSuccess() {
+
+        ui.compareFoundMatch();
+
+    }
 }

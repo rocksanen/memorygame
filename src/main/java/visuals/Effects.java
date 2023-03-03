@@ -167,6 +167,8 @@ public class Effects {
         this.yOffset = yOffset;
         this.type = type;
 
+        Platform.runLater(() -> Visibilities.getInstance().offGameGrid(cubeGrid));  // This is actually very important...
+
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO,
                         new KeyValue(cubeGrid.opacityProperty(),1)),
@@ -195,7 +197,7 @@ public class Effects {
 
             Platform.runLater(backGroundMover::stop);
             Platform.runLater(backGroundMover::returnToPositionZero);
-            //Platform.runLater(() -> Visibilities.getInstance().offGameGrid(cubeGrid));
+
     }
 
     private void zoomOutEasyWalls() {
@@ -247,10 +249,6 @@ public class Effects {
             zoomOutBlurEndings();
 
         });
-
-
-
-
     }
 
     private void zoomOutHardWalls() {
@@ -508,13 +506,22 @@ public class Effects {
         Timeline timeline = new Timeline(
 
                 new KeyFrame(Duration.seconds(0.2),
-                        new KeyValue(midgrid.visibleProperty(),true)),
+                        new KeyValue(midgrid.visibleProperty(),true),
+                        new KeyValue(midgrid.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(0.4),
-                        new KeyValue(easyTop.visibleProperty(),true)),
+                        new KeyValue(easyTop.visibleProperty(),true),
+                        new KeyValue(midgrid.opacityProperty(),1),
+                        new KeyValue(easyTop.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(0.6),
-                        new KeyValue(easyL.visibleProperty(),true)),
+                        new KeyValue(easyL.visibleProperty(),true),
+                        new KeyValue(easyTop.opacityProperty(),1),
+                        new KeyValue(easyL.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(0.8),
-                        new KeyValue(easyBot.visibleProperty(),true)),
+                        new KeyValue(easyBot.visibleProperty(),true),
+                        new KeyValue(easyL.opacityProperty(),1),
+                        new KeyValue(easyBot.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(1),
+                        new KeyValue(easyBot.opacityProperty(),1)),
                 new KeyFrame(Duration.seconds(1.2))
         );
 
@@ -530,14 +537,24 @@ public class Effects {
     private void mediumEntrance(Gui gui) {
 
         Timeline timeline = new Timeline(
+
                 new KeyFrame(Duration.seconds(0.2),
-                        new KeyValue(midgrid.visibleProperty(),true)),
+                        new KeyValue(midgrid.visibleProperty(),true),
+                        new KeyValue(midgrid.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(0.4),
-                        new KeyValue(midTop.visibleProperty(),true)),
+                        new KeyValue(midTop.visibleProperty(),true),
+                        new KeyValue(midgrid.opacityProperty(),1),
+                        new KeyValue(midTop.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(0.6),
-                        new KeyValue(midL.visibleProperty(),true)),
+                        new KeyValue(midL.visibleProperty(),true),
+                        new KeyValue(midTop.opacityProperty(),1),
+                        new KeyValue(midL.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(0.8),
-                        new KeyValue(midBot.visibleProperty(),true)),
+                        new KeyValue(midBot.visibleProperty(),true),
+                        new KeyValue(midL.opacityProperty(),1),
+                        new KeyValue(midBot.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(1),
+                        new KeyValue(midBot.opacityProperty(),1)),
                 new KeyFrame(Duration.seconds(1.2))
         );
 
@@ -554,13 +571,19 @@ public class Effects {
 
         Timeline timeline = new Timeline(
 
-                new KeyFrame(Duration.seconds(0.3),
-                        new KeyValue(hardGridImage.visibleProperty(),true)),
+                new KeyFrame(Duration.seconds(0.2),
+                        new KeyValue(hardGridImage.visibleProperty(),true),
+                        new KeyValue(hardGridImage.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(0.4),
+                        new KeyValue(hardR.visibleProperty(),true),
+                        new KeyValue(hardGridImage.opacityProperty(),1),
+                        new KeyValue(hardR.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(0.6),
-                        new KeyValue(hardR.visibleProperty(),true)),
-                new KeyFrame(Duration.seconds(0.9),
-                        new KeyValue(hardL.visibleProperty(),true)),
-                new KeyFrame(Duration.seconds(1.2))
+                        new KeyValue(hardL.visibleProperty(),true),
+                        new KeyValue(hardR.opacityProperty(),1),
+                        new KeyValue(hardL.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(0.8),
+                        new KeyValue(hardL.opacityProperty(),1))
         );
 
         timeline.playFromStart();

@@ -217,6 +217,7 @@ public class Gui extends Application implements IGui, IChartGUI {
 
     private int activeCount = 0;
 
+    private static final ArrayList<Group> activeList = new ArrayList<>();
     public boolean isReturnStatus() {
         return returnStatus;
     }
@@ -542,6 +543,12 @@ public class Gui extends Application implements IGui, IChartGUI {
                 cubeList.get(firstIndex).getBox().setMouseTransparent(false);
                 cubeList.get(secondIndex).getBox().setMouseTransparent(false);
 
+                for(BoxMaker cube: cubeList) {
+
+                    if(!cube.getActiveState()) {
+                        cube.getBox().setMouseTransparent(false);
+                    }
+                }
             }catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -554,7 +561,37 @@ public class Gui extends Application implements IGui, IChartGUI {
 
             cubeList.get(activeID).getBox().setMouseTransparent(true);
             cubeList.get(activeID).setActive();
+
+            if(activeList.size() < 2) {
+                activeList.add(cubeList.get(activeID).getBox());
+            }
         }
+
+        if(activeList.size() == 2) {
+            for(BoxMaker cube: cubeList) {
+                if(!cube.getActiveState()) {
+                    cube.getBox().setMouseTransparent(true);
+                }
+            }
+            activeList.clear();
+        }
+    }
+
+    @Override
+    public void compareFoundMatch() {
+
+        CompletableFuture.runAsync(() -> {
+            try {
+                Thread.sleep(700);
+                for(BoxMaker cube: cubeList) {
+                    if(!cube.getActiveState()) {
+                        cube.getBox().setMouseTransparent(false);
+                    }
+                }
+            }catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     public void sendIdToEngine(int id) {

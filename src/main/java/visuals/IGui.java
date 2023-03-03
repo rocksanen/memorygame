@@ -23,4 +23,6 @@ public interface IGui {
     void getTime(int i);
     void fetchUserScores();
     boolean isReturnStatus();
+
+    void compareFoundMatch();
 }
