@@ -141,17 +141,17 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
         switch (difficulty) {
             case EASY:
                 for (Score s : ws.getEasyScores().getScores()) {
-                    scoreList.add(s.getUsername() + " " + s.getPoints());
+                    scoreList.add(formatScore(s));
                 }
                 break;
             case MEDIUM:
                 for (Score s : ws.getMediumScores().getScores()) {
-                    scoreList.add(s.getUsername() + " " + s.getPoints());
+                    scoreList.add(formatScore(s));
                 }
                 break;
             case HARD:
                 for (Score s : ws.getHardScores().getScores()) {
-                    scoreList.add(s.getUsername() + " " + s.getPoints());
+                    scoreList.add(formatScore(s));
                 }
                 break;
             default:
@@ -159,6 +159,20 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
         }
 //        System.out.println(scoreList);
         return scoreList;
+    }
+
+
+    // change formatting as you wish
+    /**
+     * converts score-object to a string that will be displayed in GUI.
+     * @param score the score to format
+     * @return the formatted score
+     */
+    @Override
+    public String formatScore(Score score) {
+        String format = String.format("%-30s %-10d", score.getUsername(), score.getPoints());
+        System.out.println(format);
+        return format;
     }
 
     /**
