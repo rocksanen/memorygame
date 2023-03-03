@@ -91,6 +91,11 @@ public class AudioMemory {
 
     }
 
+    public MediaPlayer introSong() {
+
+        return menuRetoSong;
+    }
+
     public void playTheIntro() {
 
         menuRetoSong.setVolume(0);

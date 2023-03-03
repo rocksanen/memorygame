@@ -2,6 +2,9 @@ package visuals;
 
 import javafx.animation.*;
 import javafx.application.Platform;
+import javafx.beans.property.DoubleProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -631,7 +634,7 @@ public class Effects {
                         new KeyValue(mediumFrame.opacityProperty(), mediumFrameFinish),
                         new KeyValue(hardFrame.opacityProperty(), hardFrameFinish)),
                 new KeyFrame(Duration.seconds(3),
-                        new KeyValue(jungle.opacityProperty(), 0))
+                        new KeyValue(jungle.opacityProperty(), 0.3))
         );
 
         opacitiesIn.playFromStart();
@@ -648,7 +651,12 @@ public class Effects {
             @NotNull Pane logAndReg, @NotNull ImageView sun,
             @NotNull ImageView lightning, @NotNull ImageView blacksun,
             @NotNull ImageView easyFrame, @NotNull ImageView mediumFrame, @NotNull ImageView hardFrame,
-            ImageView memomaze, Label textLoggedIn, ImageView loading) {
+            ImageView memomaze, Label textLoggedIn, ImageView loading,
+            ImageView kotoku, ImageView tigerden, ImageView treeoflife) {
+
+
+
+
 
 
 
@@ -695,9 +703,11 @@ public class Effects {
 
         first.setEffect(reflection);
 
+        EventHandler<ActionEvent> startAudio = arg0 -> AudioMemory.getInstance().playTheIntro();
+
 
         Timeline timeline = new Timeline(
-                new KeyFrame(Duration.ZERO),
+                new KeyFrame(Duration.ZERO,startAudio),
                 new KeyFrame(Duration.seconds(3.5),
                         new KeyValue(first.opacityProperty(), 0)),
                 new KeyFrame(Duration.seconds(5.8),
@@ -719,9 +729,9 @@ public class Effects {
                         new KeyValue(sun.rotateProperty(), sun.getRotate()),
                         new KeyValue(sun.scaleYProperty(), sun.getScaleY()),
                         new KeyValue(sun.layoutYProperty(), sun.getLayoutY())),
-                new KeyFrame(Duration.seconds(14.5),
-                        new KeyValue(groupFour.opacityProperty(), 0)),
                 new KeyFrame(Duration.seconds(14.8),
+                        new KeyValue(groupFour.opacityProperty(), 0)),
+                new KeyFrame(Duration.seconds(15.1),
                         new KeyValue(groupFour.opacityProperty(), 1),
                         new KeyValue(sun.opacityProperty(), 0.24),
                         new KeyValue(sun.layoutXProperty(), sun.getLayoutX())),
@@ -772,39 +782,49 @@ public class Effects {
                         new KeyValue(memomaze.layoutYProperty(),memomaze.getLayoutY()),
                         new KeyValue(memomaze.opacityProperty(),1),
                         new KeyValue(loading.opacityProperty(),0)),
-                new KeyFrame(Duration.seconds(40),
+                new KeyFrame(Duration.seconds(40.2),
                         new KeyValue(miniEasy.opacityProperty(),0),                 // Easy start!!!!
                         new KeyValue(easyFrame.opacityProperty(),0),
                         new KeyValue(japan.opacityProperty(),0),
                         new KeyValue(memomaze.layoutYProperty(),memomaze.getLayoutY() - 80),
-                        new KeyValue(memomaze.opacityProperty(),0)),
-                new KeyFrame(Duration.seconds(40.2),
+                        new KeyValue(memomaze.opacityProperty(),0),
+                        new KeyValue(kotoku.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(40.4),
                         new KeyValue(miniEasy.opacityProperty(),1),                 // Easy on!!!
                         new KeyValue(easyFrame.opacityProperty(),1),
-                        new KeyValue(japan.opacityProperty(),japanStart)),
-                new KeyFrame(Duration.seconds(40.2),
+                        new KeyValue(japan.opacityProperty(),japanStart),
+                        new KeyValue(kotoku.opacityProperty(),1)),
+                new KeyFrame(Duration.seconds(40.4),
                         new KeyValue(miniMedium.opacityProperty(),0),               ////Medium start!!
                         new KeyValue(mediumFrame.opacityProperty(),0),
-                        new KeyValue(jungle.opacityProperty(),0)),
-                new KeyFrame(Duration.seconds(40.4),
+                        new KeyValue(jungle.opacityProperty(),0),
+                        new KeyValue(tigerden.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(40.6),
                         new KeyValue(miniMedium.opacityProperty(),1),
                         new KeyValue(mediumFrame.opacityProperty(),1),
-                        new KeyValue(jungle.opacityProperty(),jungleStart)),       //////Medium on  0.426
-                new KeyFrame(Duration.seconds(40.4),
+                        new KeyValue(jungle.opacityProperty(),jungleStart),
+                        new KeyValue(tigerden.opacityProperty(),1)),       //////Medium on  0.426
+                new KeyFrame(Duration.seconds(40.6),
                         new KeyValue(miniHard.opacityProperty(), 0),             ////Hard start!!!
                         new KeyValue(hardFrame.opacityProperty(), 0),
-                        new KeyValue(redtree.opacityProperty(), 0)),
-                new KeyFrame(Duration.seconds(40.6),                              //////Hard on 0.494
+                        new KeyValue(redtree.opacityProperty(), 0),
+                        new KeyValue(treeoflife.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(40.8),                              //////Hard on 0.494
                         new KeyValue(miniHard.opacityProperty(), 1),
                         new KeyValue(hardFrame.opacityProperty(), 1),
-                        new KeyValue(redtree.opacityProperty(), redtreeStart)),
-                new KeyFrame(Duration.seconds(40.6),
+                        new KeyValue(redtree.opacityProperty(), redtreeStart),
+                        new KeyValue(treeoflife.opacityProperty(),1)),
+                new KeyFrame(Duration.seconds(40.8),
                         new KeyValue(logAndReg.opacityProperty(), 0),
                         new KeyValue(sepiaTone.levelProperty(), 1)),
-                new KeyFrame(Duration.seconds(40.7),
+                new KeyFrame(Duration.seconds(40.9),
                         new KeyValue(logAndReg.opacityProperty(), 1),
                         new KeyValue(sepiaTone.levelProperty(), 0))
         );
+
+
+
+
 
         timeline.play();
         timeline.setOnFinished(actionEvent -> {
