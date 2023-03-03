@@ -117,7 +117,7 @@ public class AudioMemory {
     private void stopTheSong(MediaPlayer mediaPlayer) {
 
         Timeline fadeOut = new Timeline(
-                new KeyFrame(Duration.seconds(0.7), new KeyValue(mediaPlayer.volumeProperty(), 0))
+                new KeyFrame(Duration.seconds(1), new KeyValue(mediaPlayer.volumeProperty(), 0))
         );
         fadeOut.setOnFinished(event -> mediaPlayer.stop());
         fadeOut.play();

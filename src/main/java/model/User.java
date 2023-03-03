@@ -325,6 +325,6 @@ public class User {
      */
     @Override
     public String toString() {
-        return "niet";
+        return "Het";
     }
 }

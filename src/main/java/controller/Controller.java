@@ -52,6 +52,11 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
     }
 
     @Override
+    public void sendReturnSignal() {
+        engine.endGame();
+    }
+
+    @Override
     public void clearPair(ArrayList<Integer> storage) {
 
         Platform.runLater(() -> ui.clearPair(storage));
@@ -106,6 +111,26 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
         });
     }
 
+    @Override
+    public void getActive(int id) {
+        ui.setActiveID(id);
+    }
+
+    @Override
+    public void getTime() {
+
+    }
+
+    @Override
+    public void setTimer(int i) {
+        ui.getTime(i);
+    }
+
+    @Override
+    public void getReturnSignal() {
+
+    }
+
     /**
      * fetches scores form db, and stores them in the correct scoreboard
      *
@@ -126,6 +151,7 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
                 break;
             default:
         }
+
     }
 
     /**
@@ -300,5 +326,12 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
     public String getUsername() {
         User user = User.getInstance();
         return user.getUsername();
+    }
+
+    @Override
+    public void sendComparingSuccess() {
+
+        ui.compareFoundMatch();
+
     }
 }

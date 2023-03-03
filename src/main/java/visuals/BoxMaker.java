@@ -30,6 +30,8 @@ public class BoxMaker {
     private final DoubleProperty rotateValueDown = new SimpleDoubleProperty(90);
     private final ObjectProperty<Point3D> rotationAxisDown = new SimpleObjectProperty<>(Rotate.X_AXIS);
 
+    private Boolean isActive = false;
+
     public BoxMaker(double width, double height, Image findImage, Image backImage, Image behindImage, Gui gui, int id){
 
         this.id = id;
@@ -40,6 +42,22 @@ public class BoxMaker {
         createFaces();
         createGroup();
         gui.addToCubeList(this);
+    }
+
+    public Integer getCubeId() {
+
+        return this.id;
+    }
+
+    public void setActive() {
+
+        isActive = !isActive;
+
+    }
+
+    public Boolean getActiveState() {
+
+        return isActive;
     }
     private void createMaterials(Image findImage, Image backImage, Image behindImage){
 

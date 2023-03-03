@@ -4,18 +4,41 @@ import controller.IControllerEtoV;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.CompletableFuture;
 
 import static model.CompareResultType.EQUAL;
 import static model.CompareResultType.NOTEQUAL;
 import static model.ModeType.EASY;
 
-
+/**
+ * The type Engine.
+ */
 public class Engine implements IEngine {
 
+    /**
+     * The Storage.
+     */
     ArrayList<Integer> storage = new ArrayList<>();
     private final IControllerEtoV controller;
     private final ModeType type;
+
+    /**
+     * Gets comparing list.
+     *
+     * @return the comparing list
+     */
+
+    public boolean isReturnStatus() {
+        return returnStatus;
+    }
+
+    public void setReturnStatus(boolean returnStatus) {
+        this.returnStatus = returnStatus;
+    }
+
+    private boolean returnStatus;
 
     public ArrayList<MemoryObject> getComparingList() {
         return comparingList;
@@ -25,13 +48,20 @@ public class Engine implements IEngine {
     private ArrayList<Integer> rightPairList = new ArrayList<Integer>();
     private CompareResultType type2;
 
+    /**
+     * Gets memory objects list.
+     *
+     * @return the memory objects list
+     */
     public ArrayList<MemoryObject> getMemoryObjectsList() {
         return memoryObjectsList;
     }
 
     private ArrayList<MemoryObject> memoryObjectsList;
 
-    //private int foundPairs = 0;
+    // private int foundPairs = 0;
+
+    private int activeId;
 
     private int test;
     /**
@@ -60,10 +90,27 @@ public class Engine implements IEngine {
      */
     int incorrectTries = 0;
 
+    private long timerTime = 1000;
 
+    public long getTimerTime() {
+        return timerTime;
+    }
+
+    Timer t;
+    TimerTask task;
+
+    /**
+     * Instantiates a new Engine.
+     *
+     * @param type       the type
+     * @param controller the controller
+     */
     public Engine(ModeType type, IControllerEtoV controller) {
+
         this.type = type;
         this.controller = controller;
+        this.t = new Timer();
+        this.task = new Timer1(controller);
 
         // get current time
         this.startTime = System.currentTimeMillis();
@@ -74,20 +121,28 @@ public class Engine implements IEngine {
 
         switch (this.type) {
             case EASY -> {
+                timerTime = 1000;
+                runTimer();
+                controller.getTime();
                 addMemoryObjectsToList(6);
                 suffleObjects();
                 controller.setEasyGame(memoryObjectsList);
 
             }
             case MEDIUM -> {
+                timerTime = 800;
+                runTimer();
+                controller.getTime();
                 addMemoryObjectsToList(12);
                 suffleObjects();
                 controller.setMediumGame(memoryObjectsList);
 
-
             }
 
             case HARD -> {
+                timerTime = 600;
+                runTimer();
+                controller.getTime();
                 addMemoryObjectsToList(20);
                 suffleObjects();
                 controller.setHardGame(memoryObjectsList);
@@ -122,10 +177,10 @@ public class Engine implements IEngine {
     public void addToComparing(int i) {
 
         MemoryObject memoryObject = memoryObjectsList.get(i);
-        memoryObject.setActive();
-        if(!rightPairList.contains(memoryObject.getTypeId()) ){
-                comparingList.add(memoryObject);
-                storage.add(i);
+        controller.getActive(i);
+        if (!rightPairList.contains(memoryObject.getTypeId())) {
+            comparingList.add(memoryObject);
+            storage.add(i);
         }
 
         if (comparingList.size() == 2) {
@@ -135,10 +190,17 @@ public class Engine implements IEngine {
 
     }
 
-    public void endGame () {
+    public int getActiveId() {
+        return activeId;
+    }
+
+    public void endGame() {
         rightPairList.clear();
         System.out.println("Game ended!");
+        // Make IF NOT returned
         setPersonalScore();
+        task.cancel();
+        t.cancel();
 
     }
 
@@ -160,7 +222,6 @@ public class Engine implements IEngine {
         }
     }
 
-
     /**
      * Called by a method that ends the game. Saves the score to the leaderboard.
      * Only if logged in.
@@ -178,14 +239,15 @@ public class Engine implements IEngine {
     }
 
     /**
-     * Updates the total score and the next score. In case of equal, the total score is increased by the next score.
-     * In case of not equal, the next score is decreased by 100 * the number of incorrect tries.
+     * Updates the total score and the next score. In case of equal, the total score
+     * is increased by the next score.
+     * In case of not equal, the next score is decreased by 100 * the number of
+     * incorrect tries.
      * The next score is never less than 100.
      *
      * @param type the result of the comparison, either equal or not equal.
      */
-
-    //was private void, changed
+    // was private void, changed
     public void updateScore(CompareResultType type) {
         switch (type) {
             case EQUAL -> {
@@ -236,22 +298,28 @@ public class Engine implements IEngine {
     @Override
     public void compareObjects(ArrayList<MemoryObject> objectList) {
 
-        if(objectList.get(0).getTypeId().equals(objectList.get(1).getTypeId()) && objectList.get(0) != objectList.get(1)) {
+        if (objectList.get(0).getTypeId().equals(objectList.get(1).getTypeId())
+                && objectList.get(0) != objectList.get(1)) {
 
             rightPairList.add(objectList.get(0).getTypeId());
             rightPairList.add(objectList.get(1).getTypeId());
             updateScore(EQUAL);
+            controller.sendComparingSuccess();
             clearStorage();
 
-            if( rightPairList.size() == memoryObjectsList.size()){
+            if (rightPairList.size() == memoryObjectsList.size()) {
                 controller.gameOver();
                 endGame();
 
             }
-        }  else {
+        } else {
             clearPair(objectList);
             updateScore(NOTEQUAL);
         }
+    }
+
+    public void runTimer() {
+        t.schedule(task, 0, timerTime);
     }
 
     public String toString() {

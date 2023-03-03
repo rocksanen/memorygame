@@ -8,6 +8,7 @@ public interface IControllerVtoE {
     void startHardGame();
     void sendIdToEngine(int id);
     void clearStorage();
+    void sendReturnSignal();
 
     boolean login(String username, String password);
 
