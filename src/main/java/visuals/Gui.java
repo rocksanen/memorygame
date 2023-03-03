@@ -35,11 +35,14 @@ import visuals.cubeFactories.ICubeFactory;
 import visuals.cubeFactories.MediumCubeFactory;
 import visuals.imageServers.ImageCache;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Properties;
 
 import static javafx.scene.text.Font.loadFont;
 import static model.ModeType.*;
@@ -177,14 +180,38 @@ public class Gui extends Application implements IGui, IChartGUI {
     private Parent root;
     private Scene scene;
     public static PerspectiveCamera camera = new PerspectiveCamera();
+    private boolean playIntro = true;
 
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * Initializes the controller class. This method is automatically called
+     * after the fxml file has been fully loaded.
+     */
+    @FXML
+    private void initialize() {
+
+    }
+
+    private void loadProperties() {
+        try (InputStream input = Gui.class.getClassLoader().getResource("config.properties").openStream()) {
+            Properties prop = new Properties();
+            // load a properties file
+            prop.load(input);
+            // get the property value and print it out
+            System.out.println("skipintro value from properties: " + prop.getProperty("playIntro"));
+            playIntro = Boolean.parseBoolean(prop.getProperty("playIntro"));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+
     @Override
     public void start(Stage primaryStage) throws IOException {
-
+        loadProperties();
         initGoods();
 
         this.primaryStage = primaryStage;
@@ -198,7 +225,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         this.primaryStage.show();
 
         // If you want intro: "true", if not: "false". But is there life without intro?
-        introOn(true);
+        introOn(playIntro);
 
 
         Platform.runLater(() -> Effects.getInstance().setGlow(pergament));
