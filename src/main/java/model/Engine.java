@@ -304,6 +304,7 @@ public class Engine implements IEngine {
             rightPairList.add(objectList.get(0).getTypeId());
             rightPairList.add(objectList.get(1).getTypeId());
             updateScore(EQUAL);
+            controller.sendComparingSuccess();
             clearStorage();
 
             if (rightPairList.size() == memoryObjectsList.size()) {

@@ -99,9 +99,27 @@
             <ColorAdjust brightness="-0.13" />
          </effect>
       </ImageView>
-      <ImageView id="midgrid" fitHeight="750.0" fitWidth="1250.0" opacity="0.75" visible="false">
+      <ImageView id="hardL" fx:id="hardL" fitHeight="750.0" fitWidth="1250.0" opacity="0.55" visible="false">
+         <image>
+            <Image url="@images/hardL.png" />
+         </image>
+      </ImageView>
+      <ImageView id="hardR" fx:id="hardR" fitHeight="750.0" fitWidth="1250.0" opacity="0.5" visible="false">
+         <image>
+            <Image url="@images/hardR.png" />
+         </image>
+      </ImageView>
+      <ImageView id="midgrid" fx:id="midgrid" fitHeight="750.0" fitWidth="1250.0" visible="false">
          <image>
             <Image url="@images/gird.png" />
+         </image>
+         <effect>
+            <GaussianBlur radius="2.35" />
+         </effect>
+      </ImageView>
+      <ImageView id="hardGridImage" fx:id="hardGridImage" fitHeight="750.0" fitWidth="1250.0" visible="false">
+         <image>
+            <Image url="@images/girdHard.png" />
          </image>
          <effect>
             <GaussianBlur radius="2.35" />
