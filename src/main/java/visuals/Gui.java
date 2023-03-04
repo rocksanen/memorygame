@@ -1160,6 +1160,7 @@ public class Gui extends Application implements IGui, IChartGUI {
                 password.clear();
 
                 buttonLogout.setVisible(false);
+                stats.setVisible(false);
                 paneLogin.setVisible(true);
             } catch (Exception e) {
                 e.printStackTrace();
