@@ -45,6 +45,7 @@ public class Visibilities {
         this.mediumSpread = mediumSpread;
         this.hardBackground = hardBackground;
         this.hardSpread = hardSpread;
+
         this.midgrid = midgrid;
         this.midR = midR;
         this.midTop = midTop;
@@ -64,6 +65,8 @@ public class Visibilities {
         gameWalls.add(this.midTop);
         gameWalls.add(this.midL);
         gameWalls.add(this.midBot);
+
+
     }
 
     public void gameWallVisibilityOff() {
@@ -161,7 +164,7 @@ public class Visibilities {
                 }
                 case MEDIUM -> {
                     mediumBackground.setVisible(true);
-                    mediumSpread.setVisible(false);        ////true!!!!!!!!!!!!!!!!!!!!!!!!
+                    mediumSpread.setVisible(true);        ////true!!!!!!!!!!!!!!!!!!!!!!!!
                     mediumBackground.setOpacity(1);
                     mediumSpread.setOpacity(1);
                     background.setOpacity(0);
