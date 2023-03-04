@@ -625,7 +625,7 @@
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
-            <Button fx:id="buttonLogout" layoutX="40.0" layoutY="110.0" mnemonicParsing="false" onAction="#setButtonLogout" prefHeight="20.0" prefWidth="102.0" text="Logout" visible="false">
+            <Button fx:id="buttonLogout" layoutX="40.0" layoutY="110.0" mnemonicParsing="false" onMouseClicked="#setButtonLogout" prefHeight="20.0" prefWidth="102.0" text="Logout" visible="false">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
@@ -649,7 +649,7 @@
                      </effect>
                   </ImageView>
                       <TextField fx:id="password" layoutX="52.0" layoutY="193.0" opacity="0.6" prefHeight="25.0" prefWidth="158.0" />
-                      <Button fx:id="register" layoutX="75.0" layoutY="269.0" mnemonicParsing="false" onMouseClicked="#registerPane" prefHeight="20.0" prefWidth="110.0" text="Register">
+                   <Button fx:id="register" layoutX="75.0" layoutY="269.0" mnemonicParsing="false" onMouseClicked="#registerPane" prefHeight="20.0" prefWidth="110.0" text="Register">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
@@ -698,5 +698,5 @@
          </children>
       </AnchorPane>
     </children>
-    
+
 </AnchorPane>
