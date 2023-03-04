@@ -228,41 +228,32 @@ public class Gui extends Application implements IGui, IChartGUI {
     @FXML ImageView kotoku;
     @FXML ImageView tigerden;
     @FXML ImageView treeoflife;
+    @FXML ImageView telkku;
+    @FXML ImageView play;
+    @FXML ImageView returngame;
+
+    @FXML ImageView movingjungle;
+
+    @FXML ImageView easyend;
 
     private static final ArrayList<Label> worldLabels = new ArrayList<>();
     private static final ArrayList<Label> personalLabels = new ArrayList<>();
 
-
-    private static final double CAMERA_INITIAL_DISTANCE = -1000;
-    private static final double CAMERA_INITIAL_X_ANGLE = 0.0;
-    private static final double CAMERA_INITIAL_Y_ANGLE = 0.0;
-    private static final double CAMERA_NEAR_CLIP = 0.1;
-    private static final double CAMERA_FAR_CLIP = 10000.0;
-    private double mousePosX;
-    private double mouseOldX;
-    private final Rotate rotateY = new Rotate(0, Rotate.Y_AXIS);
     private final Rotate rotateZ = new Rotate(0, Rotate.Z_AXIS);
+
     private final Rotate jungleZ = new Rotate(0, Rotate.Z_AXIS);
-    private final Rotate rotateX = new Rotate(CAMERA_INITIAL_X_ANGLE, Rotate.Z_AXIS);
-    private final Translate translate = new Translate(1250 / 2, 750 / 2, 0);
     private ArrayList<BoxMaker> cubeList;
     private ICubeFactory easyCubeFactory;
     private ICubeFactory mediumCubeFactory;
     private ICubeFactory hardCubeFactory;
     private Parent root;
     private Scene scene;
-
-    private int activeCount = 0;
-
     private static final ArrayList<Group> activeList = new ArrayList<>();
-
     public boolean isReturnStatus() {
         return returnStatus;
     }
-
     private boolean returnStatus;
     private boolean playIntro = true;
-
 
     @Override
     public void getTime(int i) {
@@ -318,7 +309,6 @@ public class Gui extends Application implements IGui, IChartGUI {
             System.exit(0);
         });
 
-
         loadProperties();
         initGoods();
 
@@ -332,52 +322,9 @@ public class Gui extends Application implements IGui, IChartGUI {
         this.primaryStage.setResizable(false);
         this.primaryStage.show();
 
-        // If you want intro: "true", if not: "false". But is there life without intro?
-        introOn(playIntro);
-
-        Platform.runLater(() -> Effects.getInstance().setGlow(pergament));
-        Platform.runLater(() -> Effects.getInstance().playGlow());
-        Visibilities.getInstance().setGridLayoutToVisibility(easyGrid, mediumGrid, hardGrid);
-        Visibilities.getInstance().setGameBackGrounds(
-                background, mediumBackground, mediumSpread,
-                hardBackground, hardSpread, midgrid, midR,
-                midTop, midL, midBot, midend, easyTop, easyL, easyBot);
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.ZERO),
-                new KeyFrame(Duration.seconds(0.5),
-                        new KeyValue(dirt.scaleXProperty(), dirt.getScaleX())),
-                new KeyFrame(Duration.seconds(15),
-                        new KeyValue(dirt.scaleXProperty(), dirt.getScaleX() + 0.4)));
-
-        redtree.getTransforms().add(rotateZ);
-        jungle.getTransforms().add(jungleZ);
-
-        Timeline redLine = new Timeline(
-                new KeyFrame(Duration.ZERO),
-                new KeyFrame(Duration.seconds(0.5),
-                        new KeyValue(rotateZ.angleProperty(), 0)),
-                new KeyFrame(Duration.seconds(15),
-                        new KeyValue(rotateZ.angleProperty(), 4)));
-
-        Timeline jungleLine = new Timeline(
-                new KeyFrame(Duration.ZERO,
-                        new KeyValue(jungleZ.angleProperty(), 0)),
-                new KeyFrame(Duration.seconds(20),
-                        new KeyValue(jungleZ.angleProperty(), -1.2)));
-
-        jungleLine.setAutoReverse(true);
-        jungleLine.setCycleCount(Timeline.INDEFINITE);
-        jungleLine.play();
-
-        redLine.setAutoReverse(true);
-        redLine.setCycleCount(Timeline.INDEFINITE);
-        redLine.play();
-        timeline.setAutoReverse(true);
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
-
         // If you want scores: "true", if not: "false".
         scoresOn(true);
+        introOn(playIntro);
     }
 
     public void initGoods() throws IOException {
@@ -391,9 +338,18 @@ public class Gui extends Application implements IGui, IChartGUI {
 
         Effects.getInstance().setMiniImagesAndFrames(miniEasy, miniMedium, miniHard, easyFrame, mediumFrame, hardFrame);
         Effects.getInstance().setEssenceImages(japan, jungle, redtree);
-        Effects.getInstance().setGeneralObjects(pergament, menuAnkkuri, startBlack, gameModePane, burningsun, labelLoggedIn);
-        Effects.getInstance().setBackGrounds(mediumBackground, midgrid, midTop, midL, midBot, easyTop, easyL, easyBot, hardGridImage, hardR, hardL);
+        Effects.getInstance().setGeneralObjects(pergament, menuAnkkuri, startBlack, gameModePane, burningsun, labelLoggedIn, telkku);
         Visibilities.getInstance().setToGameObjects(gameModePane, score, logAndReg, pergament);
+        Visibilities.getInstance().setGridLayoutToVisibility(easyGrid, mediumGrid, hardGrid);
+        Visibilities.getInstance().setGameBackGrounds(
+                background, mediumBackground, mediumSpread,
+                hardBackground, hardSpread, midgrid, midR,
+                midTop, midL, midBot, midend, easyTop, easyL, easyBot);
+        Effects.getInstance().setBackGrounds(
+                mediumBackground, midgrid, midTop,
+                midL, midBot, easyTop, easyL,
+                easyBot, hardGridImage, hardR,
+                hardL, mediumSpread, dirt, play, returngame, movingjungle, easyend);
     }
 
     @FXML
@@ -413,6 +369,19 @@ public class Gui extends Application implements IGui, IChartGUI {
         returnStatus = true;
         controller.sendReturnSignal();
         returnStatus = false;
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(telkku.opacityProperty(),1),
+                        new KeyValue(play.opacityProperty(),1),
+                        new KeyValue(returngame.opacityProperty(),1)),
+                new KeyFrame(Duration.seconds(0.6),
+                        new KeyValue(telkku.opacityProperty(),0),
+                        new KeyValue(play.opacityProperty(),0),
+                        new KeyValue(returngame.opacityProperty(),0))
+        );
+
+        timeline.play();
+
 
         switch (cubeList.size()) {
 
@@ -428,8 +397,11 @@ public class Gui extends Application implements IGui, IChartGUI {
                     1000.7, 35, 384.0, 14.5, ModeType.HARD);
         }
 
-        Visibilities.getInstance().gameWallVisibilityOff();
+
         Platform.runLater(() -> score.setVisible(false));
+        miniEasy.setMouseTransparent(false);
+        miniMedium.setMouseTransparent(false);
+        miniHard.setMouseTransparent(false);
     }
 
     @FXML
@@ -438,6 +410,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         Platform.runLater(() -> Effects.getInstance().stopGlow());
         Platform.runLater(() -> Visibilities.getInstance().gameBackGroundVisibility(EASY));
         Platform.runLater(() -> logAndReg.setVisible(false));
+        miniEasy.setMouseTransparent(true);
 
         Platform.runLater(() -> Effects.getInstance().gameZoomIn(
                 background, 800,
@@ -452,6 +425,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         Platform.runLater(() -> Effects.getInstance().stopGlow());
         Platform.runLater(() -> Visibilities.getInstance().gameBackGroundVisibility(MEDIUM));
         Platform.runLater(() -> logAndReg.setVisible(false));
+        miniMedium.setMouseTransparent(true);
 
         Platform.runLater(() -> Effects.getInstance().gameZoomIn(
                 mediumBackground,
@@ -466,6 +440,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         Platform.runLater(() -> Effects.getInstance().stopGlow());
         Platform.runLater(() -> Visibilities.getInstance().gameBackGroundVisibility(HARD));
         Platform.runLater(() -> logAndReg.setVisible(false));
+        miniHard.setMouseTransparent(true);
 
         Platform.runLater(() -> Effects.getInstance().gameZoomIn(
                 hardBackground, 1000.7,
@@ -983,6 +958,8 @@ public class Gui extends Application implements IGui, IChartGUI {
         hardes2.setImage(ImageCache.getInstance().getMenuCache().get(35));
         hardes3 = (ImageView) root.lookup("#hardes3");
         hardes3.setImage(ImageCache.getInstance().getMenuCache().get(36));
+        telkku = (ImageView) root.lookup("#telkku");
+
     }
 
 
@@ -1021,6 +998,10 @@ public class Gui extends Application implements IGui, IChartGUI {
         hardR.setImage(ImageCache.getInstance().getGameBackGroundCache().get(12));
         hardL = (ImageView) root.lookup("#hardL");
         hardL.setImage(ImageCache.getInstance().getGameBackGroundCache().get(13));
+        play = (ImageView) root.lookup("#play");
+        returngame = (ImageView) root.lookup("#returngame");
+        movingjungle = (ImageView) root.lookup("#movingjungle");
+        easyend = (ImageView) root.lookup("#easyend");
 
         //midend = (ImageView) root.lookup("#midend");
         //midend.setImage(ImageCache.getInstance().getGameBackGroundCache().get(7));
@@ -1103,7 +1084,8 @@ public class Gui extends Application implements IGui, IChartGUI {
 
         } else {
             labelLoggedIn.setVisible(true);
-
+            menuAnkkuri.setVisible(true);
+            midgrid.setVisible(false);
             startBlack.setVisible(false);
             gameModePane.setOpacity(1);
             logAndReg.setVisible(true);
@@ -1114,14 +1096,50 @@ public class Gui extends Application implements IGui, IChartGUI {
             easyFrame.setOpacity(1);
             mediumFrame.setOpacity(1);
             hardFrame.setOpacity(1);
-            japan.setOpacity(0.4);
-            jungle.setOpacity(0.26);
+            japan.setOpacity(0.6);
+            jungle.setOpacity(0.29);
             redtree.setOpacity(0.75);
             kotoku.setOpacity(1);
             tigerden.setOpacity(1);
             treeoflife.setOpacity(1);
             Platform.runLater(() -> Effects.getInstance().playBuringSun());
             AudioMemory.getInstance().playSong(MENU);
+            Platform.runLater(() -> Effects.getInstance().setGlow(pergament));
+            Platform.runLater(() -> Effects.getInstance().playGlow());
+
+            Timeline backMover = new Timeline(
+                    new KeyFrame(Duration.ZERO),
+                    new KeyFrame(Duration.seconds(0.5),
+                            new KeyValue(dirt.scaleXProperty(), dirt.getScaleX())),
+                    new KeyFrame(Duration.seconds(15),
+                            new KeyValue(dirt.scaleXProperty(), dirt.getScaleX() + 0.4)));
+
+            redtree.getTransforms().add(rotateZ);
+            jungle.getTransforms().add(jungleZ);
+
+            Timeline redLine = new Timeline(
+                    new KeyFrame(Duration.ZERO),
+                    new KeyFrame(Duration.seconds(0.5),
+                            new KeyValue(rotateZ.angleProperty(), 0)),
+                    new KeyFrame(Duration.seconds(15),
+                            new KeyValue(rotateZ.angleProperty(), 4)));
+
+            Timeline jungleLine = new Timeline(
+                    new KeyFrame(Duration.ZERO,
+                            new KeyValue(jungleZ.angleProperty(), 0)),
+                    new KeyFrame(Duration.seconds(20),
+                            new KeyValue(jungleZ.angleProperty(), -1.2)));
+
+            jungleLine.setAutoReverse(true);
+            jungleLine.setCycleCount(Timeline.INDEFINITE);
+            jungleLine.play();
+
+            redLine.setAutoReverse(true);
+            redLine.setCycleCount(Timeline.INDEFINITE);
+            redLine.play();
+            backMover.setAutoReverse(true);
+            backMover.setCycleCount(Timeline.INDEFINITE);
+            backMover.play();
         }
     }
 
