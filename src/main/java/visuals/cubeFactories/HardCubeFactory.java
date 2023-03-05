@@ -52,6 +52,19 @@ public class HardCubeFactory implements ICubeFactory {
                                 gui, i).getBox());
 
                 group.setCursor(Cursor.HAND);
+
+                group.setOnMouseEntered(mouseEvent -> {
+
+                    group.setScaleX(1.05);
+                    group.setScaleY(1.05);
+                });
+
+                group.setOnMouseExited(mouseEvent -> {
+
+                    group.setScaleX(1);
+                    group.setScaleY(1);
+                });
+
                 int finalI1 = i;
                 Platform.runLater(() -> gridPane.add(group, finalI1 % groupsPerRow, finalI1 / groupsPerRow));
                 GridPane.setHalignment(group, HPos.CENTER);
