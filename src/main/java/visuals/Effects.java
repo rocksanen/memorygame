@@ -596,18 +596,18 @@ public class Effects {
                 new KeyFrame(Duration.seconds(0.2),
                         new KeyValue(easyTop.visibleProperty(),true),
                         new KeyValue(easyTop.opacityProperty(),0)),
-                new KeyFrame(Duration.seconds(0.4),
+                new KeyFrame(Duration.seconds(0.3),
                         new KeyValue(easyL.visibleProperty(),false),            //true
                         new KeyValue(easyTop.opacityProperty(),0.55),
                         new KeyValue(easyL.opacityProperty(),0)),
-                new KeyFrame(Duration.seconds(0.6),
+                new KeyFrame(Duration.seconds(0.4),
                         new KeyValue(easyBot.visibleProperty(),true),
                         new KeyValue(easyL.opacityProperty(),0),                //1
                         new KeyValue(easyBot.opacityProperty(),0)),
-                new KeyFrame(Duration.seconds(0.8),
+                new KeyFrame(Duration.seconds(0.5),
                         new KeyValue(easyBot.opacityProperty(),1),
                         new KeyValue(easyend.opacityProperty(),0)),
-                new KeyFrame(Duration.seconds(1),
+                new KeyFrame(Duration.seconds(0.6),
                         new KeyValue(midgrid.opacityProperty(),0.75),
                         new KeyValue(easyend.opacityProperty(),1),
                         new KeyValue(easyneo.opacityProperty(),0.55))
@@ -654,7 +654,10 @@ public class Effects {
         timeline.setOnFinished(actionEvent -> {
             timeline.stop();
 
-            zoomInFinalEndings(gui);
+
+
+
+
 
             Timeline neoline = new Timeline(
                     new KeyFrame(Duration.seconds(0.4),
@@ -676,13 +679,18 @@ public class Effects {
                             new KeyValue(midneo4.opacityProperty(),1),
                             new KeyValue(midneo3.opacityProperty(),0)),
                     new KeyFrame(Duration.seconds(2.5),
-                            new KeyValue(midneo4.opacityProperty(),0))
+                            new KeyValue(midneo4.opacityProperty(),0)),
+                    new KeyFrame(Duration.seconds(3))
             );
 
             neoline.play();
+            zoomInFinalEndings(gui);
+
+
 
             neoline.setOnFinished(actionEvent1 -> {
                 neoline.stop();
+
             });
 
 
@@ -704,15 +712,15 @@ public class Effects {
                         new KeyValue(hardGridImage.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(0.3),
                         new KeyValue(hardR.visibleProperty(),true),
-                        new KeyValue(hardR.opacityProperty(),0)),
+                        new KeyValue(hardR.opacityProperty(),0),
+                        new KeyValue(hardneo.opacityProperty(),0.6)),
                 new KeyFrame(Duration.seconds(0.6),
                         new KeyValue(hardL.visibleProperty(),true),
                         new KeyValue(hardR.opacityProperty(),0.3),
                         new KeyValue(hardL.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(0.9),
                         new KeyValue(hardL.opacityProperty(),0.3),
-                        new KeyValue(hardGridImage.opacityProperty(),1),
-                        new KeyValue(hardneo.opacityProperty(),0.6))
+                        new KeyValue(hardGridImage.opacityProperty(),1))
         );
 
         timeline.playFromStart();

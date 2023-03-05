@@ -31,7 +31,7 @@
                 <GaussianBlur radius="10.59" />
             </effect>
         </ImageView>
-        <ImageView id="hardBackground" fx:id="hardBackground" fitHeight="744.0" fitWidth="1246.0" layoutX="-1.2" layoutY="3.7" opacity="0.0">
+        <ImageView id="hardBackground" fx:id="hardBackground" fitHeight="746.0" fitWidth="1250.0" layoutX="-2.8" layoutY="4.8" opacity="0.0">
             <image>
                 <Image url="@images/hardback4.jpg" />
             </image>
@@ -52,7 +52,7 @@
             <Image url="@images/midR.png" />
          </image>
       </ImageView>
-        <ImageView id="mediumBackground" fx:id="mediumBackground" fitHeight="751.0" fitWidth="1257.0" layoutX="-7.9" layoutY="2.0" opacity="0.0">
+        <ImageView id="mediumBackground" fx:id="mediumBackground" fitHeight="752.0" fitWidth="1258.0" layoutX="-8.5" layoutY="2.0" opacity="0.0">
             <image>
                 <Image url="@images/tigru.jpg" />
             </image>
@@ -75,7 +75,7 @@
             <ColorAdjust brightness="-0.11" />
          </effect>
       </ImageView>
-        <ImageView id="background" fx:id="background" fitHeight="749.0" fitWidth="1255.0" layoutX="-3.0" visible="false">
+        <ImageView id="background" fx:id="background" fitHeight="750.0" fitWidth="1257.5" layoutX="-4.0" visible="false">
             <image>
                 <Image url="@images/background.png" />
             </image>
