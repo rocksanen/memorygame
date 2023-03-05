@@ -424,7 +424,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         miniEasy.setMouseTransparent(true);
 
         Platform.runLater(() -> Effects.getInstance().gameZoomIn(
-                background, 800,
+                background, 803,
                 10, -145.5, 14.5,
                 EASY, this));
 
@@ -437,6 +437,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         Platform.runLater(() -> Visibilities.getInstance().gameBackGroundVisibility(MEDIUM));
         Platform.runLater(() -> logAndReg.setVisible(false));
         miniMedium.setMouseTransparent(true);
+
 
         Platform.runLater(() -> Effects.getInstance().gameZoomIn(
                 mediumBackground,
@@ -452,6 +453,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         Platform.runLater(() -> Visibilities.getInstance().gameBackGroundVisibility(HARD));
         Platform.runLater(() -> logAndReg.setVisible(false));
         miniHard.setMouseTransparent(true);
+
 
         Platform.runLater(() -> Effects.getInstance().gameZoomIn(
                 hardBackground, 1000.7,
