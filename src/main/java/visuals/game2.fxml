@@ -47,27 +47,27 @@
             <GaussianBlur />
          </effect>
       </ImageView>
-      <ImageView id="midR" fitHeight="750.0" fitWidth="1250.0" opacity="0.0" visible="false">
+      <ImageView id="midR" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" opacity="0.0" visible="false">
          <image>
             <Image url="@images/midR.png" />
          </image>
       </ImageView>
-        <ImageView id="mediumBackground" fx:id="mediumBackground" fitHeight="744.5" fitWidth="1247.0" layoutX="-3.0" layoutY="5.5" opacity="0.0">
+        <ImageView id="mediumBackground" fx:id="mediumBackground" fitHeight="751.0" fitWidth="1257.0" layoutX="-7.9" layoutY="2.0" opacity="0.0">
             <image>
                 <Image url="@images/tigru.jpg" />
             </image>
         </ImageView>
-      <ImageView id="midTop" fitHeight="750.0" fitWidth="1250.0" opacity="0.0">
+      <ImageView id="midTop" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" opacity="0.0">
          <image>
             <Image url="@images/midTop.png" />
          </image>
       </ImageView>
-      <ImageView id="midL" fitHeight="750.0" fitWidth="1250.0" opacity="0.0">
+      <ImageView id="midL" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" opacity="0.0">
          <image>
             <Image url="@images/midL.png" />
          </image>
       </ImageView>
-      <ImageView id="midBot" fitHeight="750.0" fitWidth="1250.0" opacity="0.0">
+      <ImageView id="midBot" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" opacity="0.0">
          <image>
             <Image url="@images/midBot.png" />
          </image>
@@ -75,12 +75,12 @@
             <ColorAdjust brightness="-0.11" />
          </effect>
       </ImageView>
-        <ImageView id="background" fx:id="background" fitHeight="741.0" fitWidth="1242.0" layoutX="4.0" layoutY="4.9" visible="false">
+        <ImageView id="background" fx:id="background" fitHeight="749.0" fitWidth="1255.0" layoutX="-3.0" visible="false">
             <image>
                 <Image url="@images/background.png" />
             </image>
         </ImageView>
-      <ImageView id="easyL" fx:id="easyL" fitHeight="750.0" fitWidth="1250.0" visible="false">
+      <ImageView id="easyL" fx:id="easyL" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" visible="false">
          <image>
             <Image url="@images/easyL2.png" />
          </image>
@@ -88,12 +88,12 @@
             <SepiaTone level="0.22" />
          </effect>
       </ImageView>
-      <ImageView id="easyTop" fx:id="easyTop" fitHeight="750.0" fitWidth="1250.0" visible="false">
+      <ImageView id="easyTop" fx:id="easyTop" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" visible="false">
          <image>
             <Image url="@images/easyTop.png" />
          </image>
       </ImageView>
-      <ImageView id="easyBot" fx:id="easyBot" fitHeight="750.0" fitWidth="1250.0" visible="false">
+      <ImageView id="easyBot" fx:id="easyBot" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" visible="false">
          <image>
             <Image url="@images/midBot.png" />
          </image>
@@ -101,27 +101,27 @@
             <ColorAdjust brightness="-0.13" />
          </effect>
       </ImageView>
-      <ImageView id="easyneo" fx:id="easyneo" fitHeight="933.3" fitWidth="1599.0" layoutX="-174.2" layoutY="-92.0" opacity="0.0">
+      <ImageView id="easyneo" fx:id="easyneo" fitHeight="933.3" fitWidth="1599.0" layoutX="-174.2" layoutY="-92.0" mouseTransparent="true" opacity="0.0">
          <image>
             <Image url="@images/easyneo.png" />
          </image>
       </ImageView>
-      <ImageView id="hardL" fx:id="hardL" fitHeight="750.0" fitWidth="1250.0" opacity="0.55" visible="false">
+      <ImageView id="hardL" fx:id="hardL" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" opacity="0.55" visible="false">
          <image>
             <Image url="@images/hardL.png" />
          </image>
       </ImageView>
-      <ImageView id="hardR" fx:id="hardR" fitHeight="750.0" fitWidth="1250.0" opacity="0.5" visible="false">
+      <ImageView id="hardR" fx:id="hardR" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" opacity="0.5" visible="false">
          <image>
             <Image url="@images/hardR.png" />
          </image>
       </ImageView>
-      <ImageView id="hardneo" fx:id="easyneo1" fitHeight="933.3" fitWidth="1599.0" layoutX="-174.2" layoutY="-92.0" opacity="0.0">
+      <ImageView id="hardneo" fx:id="hardneo" fitHeight="933.3" fitWidth="1599.0" layoutX="-174.2" layoutY="-92.0" mouseTransparent="true" opacity="0.0">
          <image>
             <Image url="@images/hardneo.png" />
          </image>
       </ImageView>
-      <ImageView id="movingjungle" fx:id="movingjungle" fitHeight="75.0" fitWidth="123.0" layoutX="564.0" layoutY="338.0" opacity="0.0">
+      <ImageView id="movingjungle" fx:id="movingjungle" fitHeight="75.0" fitWidth="123.0" layoutX="564.0" layoutY="338.0" mouseTransparent="true" opacity="0.0">
          <image>
             <Image url="@images/movingjungle.gif" />
          </image>
@@ -129,7 +129,7 @@
             <Point3D y="1.0" />
          </rotationAxis>
       </ImageView>
-      <ImageView id="hardGridImage" fx:id="hardGridImage" fitHeight="750.0" fitWidth="1250.0" visible="false">
+      <ImageView id="hardGridImage" fx:id="hardGridImage" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" visible="false">
          <image>
             <Image url="@images/girdHard.png" />
          </image>
@@ -160,7 +160,7 @@
             <Image url="@images/midneo4.png" />
          </image>
       </ImageView>
-      <ImageView id="midgrid" fx:id="midgrid" fitHeight="750.0" fitWidth="1250.0" opacity="0.0">
+      <ImageView id="midgrid" fx:id="midgrid" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" opacity="0.0">
          <image>
             <Image url="@images/gird.png" />
          </image>
