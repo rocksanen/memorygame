@@ -5,6 +5,6 @@
 /.idea/*
 /.idea/
 /Muistipeli.iml
-/.DS_Store
+/.DS_Store/
 
 config.properties

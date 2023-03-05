@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Side;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -16,14 +17,17 @@ import javafx.scene.chart.StackedAreaChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.ModeType;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -50,11 +54,20 @@ public class ChartGUI extends Application implements IChartGUI {
     public void start(Stage stage) throws IOException {
 
 
+        stackedAreaChart.getXAxis().setStyle("-fx-tick-label-fill: BLACK; -fx-font-family: Papyrus; -fx-font-size: 16px;");
+        stackedAreaChart.getYAxis().setStyle("-fx-tick-label-fill: BLACK; -fx-font-family: Papyrus; -fx-font-size: 16px;");
 
         // Create a StackedAreaChart object
-        stackedAreaChart.setTitle("Progress Chart");
+
+        stackedAreaChart.setTitle("Your Progress");
+        stackedAreaChart.lookup(".chart-title").setStyle("-fx-font-family: Papyrus; -fx-font-size: 23px; -fx-font-weight: BOLD");
+
         stackedAreaChart.getXAxis().setLabel("Time (s)");
         stackedAreaChart.getYAxis().setLabel("Points");
+        Region plotBackground = (Region) stackedAreaChart.lookup(".chart-plot-background");
+        plotBackground.setStyle("-fx-background-color: rgba(255, 255, 255, 0);");
+        stackedAreaChart.setVerticalGridLinesVisible(false);
+        stackedAreaChart.setHorizontalGridLinesVisible(false);
 
 
         ArrayList<Number> easyScore = scoreController2.getUserScores(ModeType.EASY);
@@ -129,7 +142,7 @@ public class ChartGUI extends Application implements IChartGUI {
             }
         });
         mediumButton.setOnMouseClicked(event -> {
-            Node node = easyScoreSeries.getNode();
+            Node node = mediumScoreSeries.getNode();
             if( node == null){
                 throw new NullPointerException("Null returned");
             }
@@ -143,7 +156,7 @@ public class ChartGUI extends Application implements IChartGUI {
         });
 
         hardButton.setOnMouseClicked(event -> {
-            Node node = easyScoreSeries.getNode();
+            Node node = hardScoreSeries.getNode();
             if( node == null){
                 throw new NullPointerException("Null returned");
             }
@@ -156,10 +169,10 @@ public class ChartGUI extends Application implements IChartGUI {
             }
         });
 
-
         stackedAreaChart.setLegendVisible(false);
         stackedAreaChart.setPadding(new Insets(10, 10, 30, 10));
-        stackedAreaChart.setPrefSize(800, 600);
+        stackedAreaChart.setPrefSize(750, 550);
+
 
         //Empty Space for below the buttons that buttons should be a little up
         Region spacer = new Region();
@@ -175,12 +188,42 @@ public class ChartGUI extends Application implements IChartGUI {
         hBox.setAlignment(Pos.CENTER);
         hBox.getChildren().addAll(easyButton, mediumButton, hardButton);
 
-        vBox.getChildren().addAll(stackedAreaChart,hBox, spacer);
+        vBox.getChildren().addAll(stackedAreaChart,hBox);
+
+        VBox mainBox = new VBox();
+        mainBox.getChildren().addAll(vBox, hBox, spacer);
+
+        // Load the image file
+
+        Image backgroundImage = new Image("file:src/main/java/visuals/images/mountain.jpeg");
+
+        // Create a BackgroundImage object with the loaded image
+        BackgroundImage background = new BackgroundImage(
+                backgroundImage,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                new BackgroundSize(
+                        BackgroundSize.DEFAULT.getWidth(),
+                        BackgroundSize.DEFAULT.getHeight(),
+                        true,
+                        true,
+                        true,
+                        true
+                ));
+
+
+
+        // Set the background of the StackPane to the BackgroundImage
+        Background bgCover = new Background(background);
+        mainBox.setBackground(bgCover);
+
 
         // Display the scene
-        Scene scene = new Scene(vBox);
+        Scene scene = new Scene(mainBox);
         stage.setScene(scene);
         stage.show();
 
     }
 }
+
