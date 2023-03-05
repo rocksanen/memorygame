@@ -68,7 +68,12 @@ public class Effects {
     ImageView returngame;
     ImageView movingjungle;
     ImageView easyend;
-
+    ImageView midneo;
+    ImageView midneo2;
+    ImageView midneo3;
+    ImageView midneo4;
+    ImageView easyneo;
+    ImageView hardneo;
     private ImageView mediumBackGround;
     private final BackGroundMover backGroundMover = new BackGroundMover();
 
@@ -92,7 +97,9 @@ public class Effects {
             ImageView midL, ImageView midBot, ImageView easyTop, ImageView easyL,
             ImageView easyBot, ImageView hardGridImage, ImageView hardR,
             ImageView hardL, ImageView mediumSpread, ImageView dirt, ImageView play,
-            ImageView returngame, ImageView movingjungle, ImageView easyend) {
+            ImageView returngame, ImageView movingjungle, ImageView easyend,
+            ImageView midneo,ImageView midneo2,ImageView midneo3,ImageView midneo4,
+            ImageView easyneo, ImageView hardneo) {
 
         this.mediumBackGround = mediumBackGround;
         this.midgrid = midgrid;
@@ -111,6 +118,12 @@ public class Effects {
         this.returngame = returngame;
         this.movingjungle = movingjungle;
         this.easyend = easyend;
+        this.midneo = midneo;
+        this.midneo2 = midneo2;
+        this.midneo3 = midneo3;
+        this.midneo4 = midneo4;
+        this.easyneo = easyneo;
+        this.hardneo = hardneo;
 
     }
 
@@ -218,8 +231,9 @@ public class Effects {
 
        Timeline timeline = new Timeline(
                new KeyFrame(Duration.ZERO,
-                       new KeyValue(midgrid.opacityProperty(),1),
-                       new KeyValue(easyend.opacityProperty(),1)),
+                       new KeyValue(midgrid.opacityProperty(),0.75),
+                       new KeyValue(easyend.opacityProperty(),1),
+                       new KeyValue(easyneo.opacityProperty(),0.5)),
                new KeyFrame(Duration.seconds(0.2),
                        new KeyValue(easyend.opacityProperty(),0)),
                new KeyFrame(Duration.seconds(0.4),
@@ -233,7 +247,8 @@ public class Effects {
                new KeyFrame(Duration.seconds(1),
                        new KeyValue(easyTop.opacityProperty(),0)),
                new KeyFrame(Duration.seconds(1.2),
-                       new KeyValue(midgrid.opacityProperty(),0))
+                       new KeyValue(midgrid.opacityProperty(),0),
+                       new KeyValue(easyneo.opacityProperty(),0))
        );
 
        timeline.play();
@@ -255,11 +270,14 @@ public class Effects {
         Timeline timeline = new Timeline(
 
                 new KeyFrame(Duration.ZERO,
-                        new KeyValue(movingjungle.opacityProperty(),1)),
+                        new KeyValue(movingjungle.opacityProperty(),1),
+                        new KeyValue(midneo.opacityProperty(),0.68),
+                        new KeyValue(midneo3.opacityProperty(),0.3),
+                        new KeyValue(midneo4.opacityProperty(),1)),
                 new KeyFrame(Duration.seconds(0.2),
                         new KeyValue(movingjungle.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(0.4),
-                        new KeyValue(midgrid.opacityProperty(),1)),
+                        new KeyValue(midgrid.opacityProperty(),0.75)),
                 new KeyFrame(Duration.seconds(0.6),
                         new KeyValue(midBot.opacityProperty(),1)),
                 new KeyFrame(Duration.seconds(0.8),
@@ -269,7 +287,10 @@ public class Effects {
                         new KeyValue(midL.opacityProperty(),0),
                         new KeyValue(midTop.opacityProperty(),1)),
                 new KeyFrame(Duration.seconds(1.2),
-                        new KeyValue(midTop.opacityProperty(),0)),
+                        new KeyValue(midTop.opacityProperty(),0),
+                        new KeyValue(midneo.opacityProperty(),0),
+                        new KeyValue(midneo3.opacityProperty(),0),
+                        new KeyValue(midneo4.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(1.4),
                         new KeyValue(midgrid.opacityProperty(),0))
         );
@@ -291,16 +312,18 @@ public class Effects {
         Timeline timeline = new Timeline(
 
                 new KeyFrame(Duration.seconds(0.2),
-                        new KeyValue(hardGridImage.opacityProperty(),1)),
+                        new KeyValue(hardGridImage.opacityProperty(),1),
+                        new KeyValue(hardneo.opacityProperty(),0.75)),
                 new KeyFrame(Duration.seconds(0.4),
-                        new KeyValue(hardL.opacityProperty(),1)),
+                        new KeyValue(hardL.opacityProperty(),0.3)),
                 new KeyFrame(Duration.seconds(0.6),
                         new KeyValue(hardL.opacityProperty(),0),
-                        new KeyValue(hardR.opacityProperty(),1)),
+                        new KeyValue(hardR.opacityProperty(),0.3)),
                 new KeyFrame(Duration.seconds(0.8),
                         new KeyValue(hardR.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(1),
-                        new KeyValue(hardGridImage.opacityProperty(),0))
+                        new KeyValue(hardGridImage.opacityProperty(),0),
+                        new KeyValue(hardneo.opacityProperty(),0))
         );
 
         timeline.playFromStart();
@@ -400,6 +423,7 @@ public class Effects {
 
         Visibilities.getInstance().gameWallVisibilityOff();
         Visibilities.getInstance().offGame(gameBackGround);
+        midneo.setOpacity(0);
 
         Gui.camera.setTranslateZ(zOffset);
         Gui.camera.setFieldOfView(fovOffset);
@@ -442,19 +466,19 @@ public class Effects {
             case EASY -> {
                 miniEasy.setOpacity(1);
                 easyFinish = 1;
-                easyFrameFinish = 0.25;
+                easyFrameFinish = 0;
             }
             case MEDIUM -> {
                 miniMedium.setOpacity(1);
                 mediumFinish = 1;
-                mediumFrameFinish = 0.25;
+                mediumFrameFinish = 0;
                 mediumSpread.setVisible(true);
 
             }
             case HARD -> {
                 miniHard.setOpacity(1);
                 hardFinish = 1;
-                hardFrameFinish = 0.25;
+                hardFrameFinish = 0;
             }
         }
 
@@ -492,6 +516,7 @@ public class Effects {
         timelineZoomIn.setOnFinished(actionEvent -> {
 
             telkku.setOpacity(0);
+
             timelineZoomIn.stop();
             AudioMemory.getInstance().stopSong(ModeType.MENU);
             AudioMemory.getInstance().playSong(type);
@@ -542,10 +567,8 @@ public class Effects {
 
 
         Timeline timeline = new Timeline(
-                new KeyFrame(Duration.ZERO,
-                        new KeyValue(telkku.opacityProperty(),0)),
-                new KeyFrame(Duration.seconds(0.3),
-                        new KeyValue(telkku.opacityProperty(),1))
+                new KeyFrame(Duration.ZERO),
+                new KeyFrame(Duration.seconds(0.3))
         );
 
         timeline.play();
@@ -563,34 +586,38 @@ public class Effects {
 
     private void easyEntrance(Gui gui) {
 
+
         Timeline timeline = new Timeline(
 
                 new KeyFrame(Duration.seconds(0.1),
                         new KeyValue(midgrid.visibleProperty(),true),
-                        new KeyValue(midgrid.opacityProperty(),0)),
+                        new KeyValue(midgrid.opacityProperty(),0),
+                        new KeyValue(easyneo.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(0.2),
                         new KeyValue(easyTop.visibleProperty(),true),
                         new KeyValue(easyTop.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(0.4),
-                        new KeyValue(easyL.visibleProperty(),true),
-                        new KeyValue(easyTop.opacityProperty(),0.75),
+                        new KeyValue(easyL.visibleProperty(),false),            //true
+                        new KeyValue(easyTop.opacityProperty(),0.55),
                         new KeyValue(easyL.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(0.6),
                         new KeyValue(easyBot.visibleProperty(),true),
-                        new KeyValue(easyL.opacityProperty(),1),
+                        new KeyValue(easyL.opacityProperty(),0),                //1
                         new KeyValue(easyBot.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(0.8),
                         new KeyValue(easyBot.opacityProperty(),1),
                         new KeyValue(easyend.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(1),
-                        new KeyValue(midgrid.opacityProperty(),1),
-                        new KeyValue(easyend.opacityProperty(),1))
+                        new KeyValue(midgrid.opacityProperty(),0.75),
+                        new KeyValue(easyend.opacityProperty(),1),
+                        new KeyValue(easyneo.opacityProperty(),0.55))
         );
 
         timeline.playFromStart();
 
         timeline.setOnFinished(actionEvent -> {
             timeline.stop();
+
             zoomInFinalEndings(gui);
 
         });
@@ -619,35 +646,50 @@ public class Effects {
                         new KeyValue(movingjungle.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(1),
                         new KeyValue(movingjungle.opacityProperty(),1),
-                        new KeyValue(midgrid.opacityProperty(),1))
+                        new KeyValue(midgrid.opacityProperty(),0.75))
         );
 
         timeline.playFromStart();
 
         timeline.setOnFinished(actionEvent -> {
             timeline.stop();
+
             zoomInFinalEndings(gui);
+
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            Platform.runLater(() -> midneo.setOpacity(0.68));
+            Platform.runLater(() -> midneo4.setOpacity(1));
+            Platform.runLater(() -> midneo3.setOpacity(0.1));
+
 
         });
     }
 
     private void hardEntrance(Gui gui) {
 
+
+
         Timeline timeline = new Timeline(
 
                 new KeyFrame(Duration.seconds(0.1),
                         new KeyValue(hardGridImage.visibleProperty(),true),
-                        new KeyValue(hardGridImage.opacityProperty(),0)),
+                        new KeyValue(hardGridImage.opacityProperty(),0),
+                        new KeyValue(hardneo.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(0.3),
                         new KeyValue(hardR.visibleProperty(),true),
                         new KeyValue(hardR.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(0.6),
                         new KeyValue(hardL.visibleProperty(),true),
-                        new KeyValue(hardR.opacityProperty(),0.75),
+                        new KeyValue(hardR.opacityProperty(),0.3),
                         new KeyValue(hardL.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(0.9),
-                        new KeyValue(hardL.opacityProperty(),0.75),
-                        new KeyValue(hardGridImage.opacityProperty(),1))
+                        new KeyValue(hardL.opacityProperty(),0.3),
+                        new KeyValue(hardGridImage.opacityProperty(),1),
+                        new KeyValue(hardneo.opacityProperty(),0.75))
         );
 
         timeline.playFromStart();
@@ -664,6 +706,7 @@ public class Effects {
         gui.startChoose(type);
         Platform.runLater(() -> backGroundMover.animate(gameBackGround));
         Platform.runLater(backGroundMover::play);
+
         Timeline playAndreturn = new Timeline(
                 new KeyFrame(Duration.ZERO,
                         new KeyValue(play.opacityProperty(),0),
@@ -676,7 +719,89 @@ public class Effects {
         playAndreturn.play();
         playAndreturn.setOnFinished(actionEvent1 -> {
             playAndreturn.stop();
+
+            //animateMediumNeonLambs();
         });
+    }
+
+    private void animateMediumNeonLambs() {
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(midneo.opacityProperty(),1)),
+                new KeyFrame(Duration.seconds(0.9),
+                        new KeyValue(midneo.opacityProperty(),1)),
+                new KeyFrame(Duration.seconds(1),
+                        new KeyValue(midneo.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(1.5),
+                        new KeyValue(midneo2.opacityProperty(),0),
+                        new KeyValue(midneo.opacityProperty(),0),
+                        new KeyValue(midneo3.opacityProperty(),0),
+                        new KeyValue(midneo4.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(2),
+                        new KeyValue(midneo2.opacityProperty(),0.5),
+                        new KeyValue(midneo3.opacityProperty(),0),
+                        new KeyValue(midneo.opacityProperty(),0),
+                        new KeyValue(midneo4.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(2.5),
+                        new KeyValue(midneo2.opacityProperty(),0.5),
+                        new KeyValue(midneo3.opacityProperty(),0),
+                        new KeyValue(midneo.opacityProperty(),0),
+                        new KeyValue(midneo4.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(3),
+                        new KeyValue(midneo2.opacityProperty(),0),
+                        new KeyValue(midneo3.opacityProperty(),0),
+                        new KeyValue(midneo.opacityProperty(),0),
+                        new KeyValue(midneo4.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(3.5),
+                        new KeyValue(midneo3.opacityProperty(),0),
+                        new KeyValue(midneo2.opacityProperty(),0),
+                        new KeyValue(midneo.opacityProperty(),0),
+                        new KeyValue(midneo4.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(4),
+                        new KeyValue(midneo3.opacityProperty(),0.3),
+                        new KeyValue(midneo2.opacityProperty(),0),
+                        new KeyValue(midneo.opacityProperty(),0),
+                        new KeyValue(midneo4.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(4.5),
+                        new KeyValue(midneo3.opacityProperty(),0.3),
+                        new KeyValue(midneo2.opacityProperty(),0),
+                        new KeyValue(midneo.opacityProperty(),0),
+                        new KeyValue(midneo4.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(5),
+                        new KeyValue(midneo3.opacityProperty(),0),
+                        new KeyValue(midneo2.opacityProperty(),0),
+                        new KeyValue(midneo.opacityProperty(),0),
+                        new KeyValue(midneo4.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(5.5),
+                        new KeyValue(midneo4.opacityProperty(),0),
+                        new KeyValue(midneo.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(6),
+                        new KeyValue(midneo4.opacityProperty(),0.9),
+                        new KeyValue(midneo3.opacityProperty(),0),
+                        new KeyValue(midneo.opacityProperty(),0),
+                        new KeyValue(midneo2.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(6.5),
+                        new KeyValue(midneo4.opacityProperty(),0.9),
+                        new KeyValue(midneo3.opacityProperty(),0),
+                        new KeyValue(midneo.opacityProperty(),0),
+                        new KeyValue(midneo2.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(7),
+                        new KeyValue(midneo4.opacityProperty(),0),
+                        new KeyValue(midneo3.opacityProperty(),0),
+                        new KeyValue(midneo.opacityProperty(),0),
+                        new KeyValue(midneo2.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(7.5),
+                        new KeyValue(midneo4.opacityProperty(),0),
+                        new KeyValue(midneo3.opacityProperty(),0),
+                        new KeyValue(midneo.opacityProperty(),0),
+                        new KeyValue(midneo2.opacityProperty(),0))
+        );
+
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.playFromStart();
+
+
 
 
     }
