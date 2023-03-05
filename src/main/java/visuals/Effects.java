@@ -684,6 +684,7 @@ public class Effects {
             );
 
             neoline.play();
+            neoline.setDelay(Duration.seconds(0.5));
             zoomInFinalEndings(gui);
 
 
