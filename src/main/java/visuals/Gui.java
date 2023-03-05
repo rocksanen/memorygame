@@ -286,7 +286,11 @@ public class Gui extends Application implements IGui, IChartGUI {
     @FXML
     private void initialize() {}
 
+    /**
+     * Loads the properties file and sets the playIntro boolean value.
+     */
     private void loadProperties() {
+        // you need config.properties file in your resources directory. playIntro=[boolean] value is checked from there
         try (InputStream input = Gui.class.getClassLoader().getResource("config.properties").openStream()) {
             Properties prop = new Properties();
             // load a properties file
@@ -294,7 +298,7 @@ public class Gui extends Application implements IGui, IChartGUI {
             // get the property value and print it out
             System.out.println("playIntro value from properties: " + prop.getProperty("playIntro"));
             playIntro = Boolean.parseBoolean(prop.getProperty("playIntro"));
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -812,10 +816,10 @@ public class Gui extends Application implements IGui, IChartGUI {
 
         labelLoggedIn = (Label) root.lookup("#labelLoggedIn");
 
+        buttonLogout = (Button) root.lookup("#buttonLogout");
         stats = (Button) root.lookup("#stats");
 
         login = (Button) root.lookup("#login");
-        buttonLogout = (Button) root.lookup("#buttonLogout");
         register = (Button) root.lookup("#register");
         name = (TextField) root.lookup("#name");
         password = (TextField) root.lookup("#password");
