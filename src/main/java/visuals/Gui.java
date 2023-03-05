@@ -456,8 +456,8 @@ public class Gui extends Application implements IGui, IChartGUI {
 
 
         Platform.runLater(() -> Effects.getInstance().gameZoomIn(
-                hardBackground, 1000.7,
-                10, 384, 14.5,
+                hardBackground, 1002,
+                10, 384, 14,
                 HARD, this));
 
     }

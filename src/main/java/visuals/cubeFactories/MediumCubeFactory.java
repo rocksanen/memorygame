@@ -1,12 +1,17 @@
 package visuals.cubeFactories;
 
 import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.PointLight;
+import javafx.scene.effect.Glow;
+import javafx.scene.effect.SepiaTone;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -16,6 +21,7 @@ import visuals.BoxMaker;
 import visuals.Gui;
 import visuals.imageServers.ImageCache;
 
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -27,6 +33,7 @@ public class MediumCubeFactory implements ICubeFactory {
     private final Image behindImage;
 
     public MediumCubeFactory(Gui gui){
+
 
         this.gui = gui;
         this.backImage = ImageCache.getInstance().getMediumComp().get(0);
@@ -53,6 +60,19 @@ public class MediumCubeFactory implements ICubeFactory {
                                 gui,i).getBox());
 
                 group.setCursor(Cursor.HAND);
+
+                group.setOnMouseEntered(mouseEvent -> {
+
+                    group.setScaleX(1.05);
+                    group.setScaleY(1.05);
+                });
+
+                group.setOnMouseExited(mouseEvent -> {
+
+                    group.setScaleX(1);
+                    group.setScaleY(1);
+                });
+
                 int finalI1 = i;
                 Platform.runLater(() -> gridPane.add(group, finalI1 % 4, finalI1 / 4));
                 GridPane.setHalignment(group, HPos.CENTER);

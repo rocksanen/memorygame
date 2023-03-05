@@ -48,7 +48,7 @@ public class ImageCache {
         easyImageCache.add(pupu);
         easyImageCache.add(tiikeri);
 
-        Image easyBack = new Image(new FileInputStream("src/main/java/visuals/Images/ladders.jpg"));
+        Image easyBack = new Image(new FileInputStream("src/main/java/visuals/Images/ladders2.jpg"));
         Image easyBehind = new Image(new FileInputStream("src/main/java/visuals/Images/background.png"));
 
         easyCompImages.add(easyBack);
@@ -64,6 +64,7 @@ public class ImageCache {
         Image boyGirl = new Image(new FileInputStream("src/main/java/visuals/Images/boyGirlHard.png"));
         Image happyGirl = new Image(new FileInputStream("src/main/java/visuals/Images/happyGirlHard.png"));
         Image bird = new Image(new FileInputStream("src/main/java/visuals/Images/birdHard.png"));
+        Image tigr = new Image(new FileInputStream("src/main/java/visuals/images/uustigru5.jpg"));
 
         mediumImageCache.add(goldDragon);
         mediumImageCache.add(greenDragon);
@@ -75,8 +76,9 @@ public class ImageCache {
         Image mediumBack = new Image(new FileInputStream("src/main/java/visuals/Images/stone4.png"));
         Image mediumBehind = new Image(new FileInputStream("src/main/java/visuals/Images/mediumCubeBack.jpg"));
 
-        mediumCompImages.add(mediumBack);
+        mediumCompImages.add(tigr);
         mediumCompImages.add(mediumBehind);
+
 
     }
 
@@ -105,7 +107,7 @@ public class ImageCache {
         hardImageCache.add(login);
         hardImageCache.add(hardback3);
 
-        Image hardBack = new Image(new FileInputStream("src/main/java/visuals/Images/mysticalcu.png"));
+        Image hardBack = new Image(new FileInputStream("src/main/java/visuals/Images/hardtree2.jpg"));
         Image hardBehind = new Image(new FileInputStream("src/main/java/visuals/Images/hardBehind1.jpg"));
 
         hardCompImages.add(hardBack);
