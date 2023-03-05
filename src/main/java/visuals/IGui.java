@@ -2,7 +2,6 @@ package visuals;
 
 import javafx.stage.Stage;
 import model.MemoryObject;
-import model.ModeType;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 
 import static org.junit.jupiter.api.Assertions.*;
-class EngineTest {
+public class EngineTest {
 
     private Engine e;
     IGui ui;

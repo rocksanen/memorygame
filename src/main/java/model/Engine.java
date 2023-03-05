@@ -10,7 +10,6 @@ import java.util.concurrent.CompletableFuture;
 
 import static model.CompareResultType.EQUAL;
 import static model.CompareResultType.NOTEQUAL;
-import static model.ModeType.EASY;
 
 /**
  * The type Engine.
@@ -199,9 +198,13 @@ public class Engine implements IEngine {
         System.out.println("Game ended!");
         // Make IF NOT returned
         setPersonalScore();
+        stopTimer();
+
+    }
+
+    public void stopTimer() {
         task.cancel();
         t.cancel();
-
     }
 
     @Override
