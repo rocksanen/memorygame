@@ -278,9 +278,7 @@ public class Effects {
 
                 new KeyFrame(Duration.ZERO,
                         new KeyValue(movingjungle.opacityProperty(),1),
-                        new KeyValue(midneo.opacityProperty(),0.68),
-                        new KeyValue(midneo3.opacityProperty(),0.3),
-                        new KeyValue(midneo4.opacityProperty(),1)),
+                        new KeyValue(midneo.opacityProperty(),0.68)),
                 new KeyFrame(Duration.seconds(0.2),
                         new KeyValue(movingjungle.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(0.4),
@@ -295,9 +293,7 @@ public class Effects {
                         new KeyValue(midTop.opacityProperty(),1)),
                 new KeyFrame(Duration.seconds(1.2),
                         new KeyValue(midTop.opacityProperty(),0),
-                        new KeyValue(midneo.opacityProperty(),0),
-                        new KeyValue(midneo3.opacityProperty(),0),
-                        new KeyValue(midneo4.opacityProperty(),0)),
+                        new KeyValue(midneo.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(1.4),
                         new KeyValue(midgrid.opacityProperty(),0))
         );
@@ -320,7 +316,7 @@ public class Effects {
 
                 new KeyFrame(Duration.seconds(0.2),
                         new KeyValue(hardGridImage.opacityProperty(),1),
-                        new KeyValue(hardneo.opacityProperty(),0.75)),
+                        new KeyValue(hardneo.opacityProperty(),hardneo.getOpacity())),
                 new KeyFrame(Duration.seconds(0.4),
                         new KeyValue(hardL.opacityProperty(),0.3)),
                 new KeyFrame(Duration.seconds(0.6),
@@ -340,6 +336,7 @@ public class Effects {
             timeline.stop();
 
             zoomOutBlurEndings();
+
 
         });
 
@@ -398,9 +395,13 @@ public class Effects {
                         new KeyValue(japan.opacityProperty(), 0),
                         new KeyValue(jungle.opacityProperty(), 0),
                         new KeyValue(redtree.opacityProperty(), 0),
-                        new KeyValue(easyFrame.opacityProperty(), easyFrame.getOpacity()),
-                        new KeyValue(mediumFrame.opacityProperty(), mediumFrame.getOpacity()),
-                        new KeyValue(hardFrame.opacityProperty(), hardFrame.getOpacity())),
+                        new KeyValue(easyFrame.opacityProperty(),0),
+                        new KeyValue(mediumFrame.opacityProperty(),0),
+                        new KeyValue(hardFrame.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(0.3),
+                        new KeyValue(easyFrame.opacityProperty(),1),
+                        new KeyValue(mediumFrame.opacityProperty(),1),
+                        new KeyValue(hardFrame.opacityProperty(),1)),
                 new KeyFrame(Duration.seconds(2.8),
                         new KeyValue(pergament.opacityProperty(), 1),
                         new KeyValue(miniEasy.opacityProperty(), 1),
@@ -408,10 +409,7 @@ public class Effects {
                         new KeyValue(miniHard.opacityProperty(), 1),
                         new KeyValue(japan.opacityProperty(), japanStart),
                         new KeyValue(jungle.opacityProperty(), jungleStart),
-                        new KeyValue(redtree.opacityProperty(), redtreeStart),
-                        new KeyValue(easyFrame.opacityProperty(), 1),
-                        new KeyValue(mediumFrame.opacityProperty(), 1),
-                        new KeyValue(hardFrame.opacityProperty(), 1))
+                        new KeyValue(redtree.opacityProperty(), redtreeStart))
         );
 
         opacityOut.playFromStart();
@@ -533,8 +531,9 @@ public class Effects {
 
     private void cameraZoomInEndings(Gui gui) {
 
-        menuAnkkuri.setMouseTransparent(true);
+
         quickSwitchCamera(gui);
+        menuAnkkuri.setMouseTransparent(true);
     }
 
     private void quickSwitchCamera(Gui gui) {
@@ -546,7 +545,7 @@ public class Effects {
                         new KeyValue(Gui.camera.translateYProperty(), Gui.camera.getTranslateY()),
                         new KeyValue(Gui.camera.translateZProperty(), Gui.camera.getTranslateZ())
                 ),
-                new KeyFrame(Duration.seconds(0.001),
+                new KeyFrame(Duration.seconds(0.0001),
                         new KeyValue(menuAnkkuri.opacityProperty(), 0),
                         new KeyValue(Gui.camera.translateXProperty(), 0),
                         new KeyValue(Gui.camera.translateYProperty(), 0),
@@ -593,13 +592,14 @@ public class Effects {
 
     private void easyEntrance(Gui gui) {
 
+        easyneo.setOpacity(0.55);
 
         Timeline timeline = new Timeline(
 
                 new KeyFrame(Duration.seconds(0.1),
                         new KeyValue(midgrid.visibleProperty(),true),
                         new KeyValue(midgrid.opacityProperty(),0),
-                        new KeyValue(easyneo.opacityProperty(),0)),
+                        new KeyValue(easyneo.opacityProperty(),0.55)),
                 new KeyFrame(Duration.seconds(0.2),
                         new KeyValue(easyTop.visibleProperty(),true),
                         new KeyValue(easyTop.opacityProperty(),0)),
@@ -663,14 +663,36 @@ public class Effects {
 
             zoomInFinalEndings(gui);
 
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            Platform.runLater(() -> midneo.setOpacity(0.68));
-            Platform.runLater(() -> midneo4.setOpacity(1));
-            Platform.runLater(() -> midneo3.setOpacity(0.1));
+            Timeline neoline = new Timeline(
+                    new KeyFrame(Duration.seconds(0.4),
+                            new KeyValue(midneo.opacityProperty(),0)),
+                    new KeyFrame(Duration.seconds(0.5),
+                            new KeyValue(midneo.opacityProperty(),0.68)),
+                    new KeyFrame(Duration.seconds(0.9),
+                            new KeyValue(midneo2.opacityProperty(),0)),
+                    new KeyFrame(Duration.seconds(1),
+                            new KeyValue(midneo2.opacityProperty(),0.6)),
+                    new KeyFrame(Duration.seconds(1.4),
+                            new KeyValue(midneo3.opacityProperty(),0)),
+                    new KeyFrame(Duration.seconds(1.5),
+                            new KeyValue(midneo3.opacityProperty(),0.3),
+                            new KeyValue(midneo2.opacityProperty(),0)),
+                    new KeyFrame(Duration.seconds(1.9),
+                            new KeyValue(midneo4.opacityProperty(),0)),
+                    new KeyFrame(Duration.seconds(2),
+                            new KeyValue(midneo4.opacityProperty(),1),
+                            new KeyValue(midneo3.opacityProperty(),0)),
+                    new KeyFrame(Duration.seconds(2.5),
+                            new KeyValue(midneo4.opacityProperty(),0))
+            );
+
+            neoline.play();
+
+            neoline.setOnFinished(actionEvent1 -> {
+                neoline.stop();
+            });
+
+
 
 
         });
@@ -682,10 +704,11 @@ public class Effects {
 
         Timeline timeline = new Timeline(
 
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(hardneo.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(0.1),
                         new KeyValue(hardGridImage.visibleProperty(),true),
-                        new KeyValue(hardGridImage.opacityProperty(),0),
-                        new KeyValue(hardneo.opacityProperty(),0)),
+                        new KeyValue(hardGridImage.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(0.3),
                         new KeyValue(hardR.visibleProperty(),true),
                         new KeyValue(hardR.opacityProperty(),0)),
@@ -696,7 +719,7 @@ public class Effects {
                 new KeyFrame(Duration.seconds(0.9),
                         new KeyValue(hardL.opacityProperty(),0.3),
                         new KeyValue(hardGridImage.opacityProperty(),1),
-                        new KeyValue(hardneo.opacityProperty(),0.75))
+                        new KeyValue(hardneo.opacityProperty(),0.6))
         );
 
         timeline.playFromStart();
@@ -829,16 +852,21 @@ public class Effects {
                         new KeyValue(easyFrame.opacityProperty(), 1),
                         new KeyValue(mediumFrame.opacityProperty(), 1),
                         new KeyValue(hardFrame.opacityProperty(), 1)),
+                new KeyFrame(Duration.seconds(2.3),
+                        new KeyValue(easyFrame.opacityProperty(), 1),
+                        new KeyValue(mediumFrame.opacityProperty(), 1),
+                        new KeyValue(hardFrame.opacityProperty(), 1)),
+                new KeyFrame(Duration.seconds(2.5),
+                        new KeyValue(easyFrame.opacityProperty(), 0),
+                        new KeyValue(mediumFrame.opacityProperty(), 0),
+                        new KeyValue(hardFrame.opacityProperty(), 0)),
                 new KeyFrame(Duration.seconds(2.8),
                         new KeyValue(pergament.opacityProperty(), 0),
                         new KeyValue(miniEasy.opacityProperty(), easyFinish),
                         new KeyValue(miniMedium.opacityProperty(), mediumFinish),
                         new KeyValue(miniHard.opacityProperty(), hardFinish),
                         new KeyValue(japan.opacityProperty(), 0),
-                        new KeyValue(redtree.opacityProperty(), 0),
-                        new KeyValue(easyFrame.opacityProperty(), easeFrameFinish),
-                        new KeyValue(mediumFrame.opacityProperty(), mediumFrameFinish),
-                        new KeyValue(hardFrame.opacityProperty(), hardFrameFinish)),
+                        new KeyValue(redtree.opacityProperty(), 0)),
                 new KeyFrame(Duration.seconds(3),
                         new KeyValue(jungle.opacityProperty(), 0.3))
         );
