@@ -812,10 +812,10 @@ public class Gui extends Application implements IGui, IChartGUI {
 
         labelLoggedIn = (Label) root.lookup("#labelLoggedIn");
 
-        buttonLogout = (Button) root.lookup("#buttonLogout");
         stats = (Button) root.lookup("#stats");
 
         login = (Button) root.lookup("#login");
+        buttonLogout = (Button) root.lookup("#buttonLogout");
         register = (Button) root.lookup("#register");
         name = (TextField) root.lookup("#name");
         password = (TextField) root.lookup("#password");
@@ -1152,7 +1152,6 @@ public class Gui extends Application implements IGui, IChartGUI {
 
     @FXML
     public void setButtonLogout() {
-        buttonLogout.setOnAction(event -> {
             try {
                 controller.logout();
                 labelLoggedIn.setText("Not logged in");
@@ -1160,11 +1159,11 @@ public class Gui extends Application implements IGui, IChartGUI {
                 password.clear();
 
                 buttonLogout.setVisible(false);
+                stats.setVisible(false);
                 paneLogin.setVisible(true);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        });
     }
 
     @FXML
