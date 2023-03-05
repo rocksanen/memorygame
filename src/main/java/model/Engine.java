@@ -198,9 +198,13 @@ public class Engine implements IEngine {
         System.out.println("Game ended!");
         // Make IF NOT returned
         setPersonalScore();
+        stopTimer();
+
+    }
+
+    public void stopTimer() {
         task.cancel();
         t.cancel();
-
     }
 
     @Override

@@ -27,6 +27,7 @@ public interface IEngine {
     void setReturnStatus(boolean returnStatus);
     int getActiveId();
     long getTimerTime();
+    void stopTimer();
 
     int getTotalScore();
 }

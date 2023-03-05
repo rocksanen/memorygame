@@ -57,6 +57,11 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
     }
 
     @Override
+    public void killTimer() {
+        engine.stopTimer();
+    }
+
+    @Override
     public void clearPair(ArrayList<Integer> storage) {
 
         Platform.runLater(() -> ui.clearPair(storage));
