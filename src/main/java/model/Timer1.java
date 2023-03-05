@@ -19,6 +19,7 @@ public class Timer1 extends TimerTask {
     public void run() {
         i--;
         controller.setTimer(i);
+        System.out.println(i);
         if (i <= 0) {
             cancel();
         }

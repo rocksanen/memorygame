@@ -10,7 +10,6 @@ import java.util.concurrent.CompletableFuture;
 
 import static model.CompareResultType.EQUAL;
 import static model.CompareResultType.NOTEQUAL;
-import static model.ModeType.EASY;
 
 /**
  * The type Engine.

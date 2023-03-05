@@ -1,6 +1,5 @@
 package controller;
 
-import model.ModeType;
 
 public interface IControllerVtoE {
     void startEasyGame();
