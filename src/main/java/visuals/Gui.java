@@ -235,6 +235,14 @@ public class Gui extends Application implements IGui, IChartGUI {
     @FXML ImageView movingjungle;
 
     @FXML ImageView easyend;
+    @FXML ImageView midneo;
+    @FXML ImageView midneo2;
+    @FXML ImageView midneo3;
+    @FXML ImageView midneo4;
+
+    @FXML ImageView easyneo;
+    @FXML ImageView hardneo;
+
 
     private static final ArrayList<Label> worldLabels = new ArrayList<>();
     private static final ArrayList<Label> personalLabels = new ArrayList<>();
@@ -349,7 +357,8 @@ public class Gui extends Application implements IGui, IChartGUI {
                 mediumBackground, midgrid, midTop,
                 midL, midBot, easyTop, easyL,
                 easyBot, hardGridImage, hardR,
-                hardL, mediumSpread, dirt, play, returngame, movingjungle, easyend);
+                hardL, mediumSpread, dirt, play, returngame, movingjungle,
+                easyend,midneo,midneo2,midneo3,midneo4,easyneo,hardneo);
     }
 
     @FXML
@@ -371,11 +380,9 @@ public class Gui extends Application implements IGui, IChartGUI {
         returnStatus = false;
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO,
-                        new KeyValue(telkku.opacityProperty(),1),
                         new KeyValue(play.opacityProperty(),1),
                         new KeyValue(returngame.opacityProperty(),1)),
                 new KeyFrame(Duration.seconds(0.6),
-                        new KeyValue(telkku.opacityProperty(),0),
                         new KeyValue(play.opacityProperty(),0),
                         new KeyValue(returngame.opacityProperty(),0))
         );
@@ -960,6 +967,8 @@ public class Gui extends Application implements IGui, IChartGUI {
         hardes3.setImage(ImageCache.getInstance().getMenuCache().get(36));
         telkku = (ImageView) root.lookup("#telkku");
 
+
+
     }
 
 
@@ -999,9 +1008,23 @@ public class Gui extends Application implements IGui, IChartGUI {
         hardL = (ImageView) root.lookup("#hardL");
         hardL.setImage(ImageCache.getInstance().getGameBackGroundCache().get(13));
         play = (ImageView) root.lookup("#play");
+        play.setImage(ImageCache.getInstance().getGameBackGroundCache().get(14));
         returngame = (ImageView) root.lookup("#returngame");
+        returngame.setImage(ImageCache.getInstance().getGameBackGroundCache().get(15));
         movingjungle = (ImageView) root.lookup("#movingjungle");
         easyend = (ImageView) root.lookup("#easyend");
+        midneo = (ImageView) root.lookup("#midneo");
+        midneo.setImage(ImageCache.getInstance().getGameBackGroundCache().get(18));
+        midneo2 = (ImageView) root.lookup("#midneo2");
+        midneo2.setImage(ImageCache.getInstance().getGameBackGroundCache().get(19));
+        midneo3 = (ImageView) root.lookup("#midneo3");
+        midneo3.setImage(ImageCache.getInstance().getGameBackGroundCache().get(20));
+        midneo4 = (ImageView) root.lookup("#midneo4");
+        midneo4.setImage(ImageCache.getInstance().getGameBackGroundCache().get(21));
+        easyneo = (ImageView) root.lookup("#easyneo");
+        easyneo.setImage(ImageCache.getInstance().getGameBackGroundCache().get(22));
+        hardneo = (ImageView) root.lookup("#hardneo");
+        hardneo.setImage(ImageCache.getInstance().getGameBackGroundCache().get(23));
 
         //midend = (ImageView) root.lookup("#midend");
         //midend.setImage(ImageCache.getInstance().getGameBackGroundCache().get(7));

@@ -124,12 +124,23 @@ public class ImageCache {
         Image midBot = new Image(new FileInputStream("src/main/java/visuals/images/midBot.png"));
         //Image midend = new Image(new FileInputStream(""));
         Image easyTop = new Image(new FileInputStream("src/main/java/visuals/images/easyTop.png"));
-        Image easyBot = new Image(new FileInputStream("src/main/java/visuals/images/easyBot.png"));
+        Image easyBot = new Image(new FileInputStream("src/main/java/visuals/images/midBot.png")); // easybot!!!
         Image easyL = new Image(new FileInputStream("src/main/java/visuals/images/easyL2.png"));
         Image midgrid = new Image(new FileInputStream("src/main/java/visuals/images/gird.png"));
         Image hardGrid = new Image(new FileInputStream("src/main/java/visuals/images/girdHard.png"));
         Image hardR = new Image(new FileInputStream("src/main/java/visuals/images/hardR.png"));
         Image hardL = new Image(new FileInputStream("src/main/java/visuals/images/hardL.png"));
+        Image play = new Image(new FileInputStream("src/main/java/visuals/images/playretro.png"));
+        Image returngame = new Image(new FileInputStream("src/main/java/visuals/images/return.png"));
+        Image movingjungle = new Image(new FileInputStream("src/main/java/visuals/images/midR.jpg"));
+        Image easyend = new Image(new FileInputStream("src/main/java/visuals/images/midR.jpg"));
+        Image midneo = new Image(new FileInputStream("src/main/java/visuals/images/medneo.png"));
+        Image midneo2 = new Image(new FileInputStream("src/main/java/visuals/images/midneo2.png"));
+        Image midneo3 = new Image(new FileInputStream("src/main/java/visuals/images/midneo3.png"));
+        Image midneo4 = new Image(new FileInputStream("src/main/java/visuals/images/midneo4.png"));
+        Image easyneo = new Image(new FileInputStream("src/main/java/visuals/images/easyneo.png"));
+        Image hardneo = new Image(new FileInputStream("src/main/java/visuals/images/hardneo.png"));
+
 
         gameBackGroundImages.add(easyBack);
         gameBackGroundImages.add(mediumBack);
@@ -145,6 +156,16 @@ public class ImageCache {
         gameBackGroundImages.add(hardGrid);
         gameBackGroundImages.add(hardR);
         gameBackGroundImages.add(hardL);
+        gameBackGroundImages.add(play);
+        gameBackGroundImages.add(returngame);
+        gameBackGroundImages.add(movingjungle);
+        gameBackGroundImages.add(easyend);
+        gameBackGroundImages.add(midneo);
+        gameBackGroundImages.add(midneo2);
+        gameBackGroundImages.add(midneo3);
+        gameBackGroundImages.add(midneo4);
+        gameBackGroundImages.add(easyneo);
+        gameBackGroundImages.add(hardneo);
 
     }
 
