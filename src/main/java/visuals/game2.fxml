@@ -95,11 +95,16 @@
       </ImageView>
       <ImageView id="easyBot" fx:id="easyBot" fitHeight="750.0" fitWidth="1250.0" visible="false">
          <image>
-            <Image url="@images/easyBot.png" />
+            <Image url="@images/midBot.png" />
          </image>
          <effect>
             <ColorAdjust brightness="-0.13" />
          </effect>
+      </ImageView>
+      <ImageView id="easyneo" fx:id="easyneo" fitHeight="933.3" fitWidth="1599.0" layoutX="-174.2" layoutY="-92.0" opacity="0.0">
+         <image>
+            <Image url="@images/easyneo.png" />
+         </image>
       </ImageView>
       <ImageView id="hardL" fx:id="hardL" fitHeight="750.0" fitWidth="1250.0" opacity="0.55" visible="false">
          <image>
@@ -111,6 +116,11 @@
             <Image url="@images/hardR.png" />
          </image>
       </ImageView>
+      <ImageView id="hardneo" fx:id="easyneo1" fitHeight="933.3" fitWidth="1599.0" layoutX="-174.2" layoutY="-92.0" opacity="0.0">
+         <image>
+            <Image url="@images/hardneo.png" />
+         </image>
+      </ImageView>
       <ImageView id="movingjungle" fx:id="movingjungle" fitHeight="75.0" fitWidth="123.0" layoutX="564.0" layoutY="338.0" opacity="0.0">
          <image>
             <Image url="@images/movingjungle.gif" />
@@ -118,14 +128,6 @@
          <rotationAxis>
             <Point3D y="1.0" />
          </rotationAxis>
-      </ImageView>
-      <ImageView id="midgrid" fx:id="midgrid" fitHeight="750.0" fitWidth="1250.0" opacity="0.0">
-         <image>
-            <Image url="@images/gird.png" />
-         </image>
-         <effect>
-            <GaussianBlur radius="1.76" />
-         </effect>
       </ImageView>
       <ImageView id="hardGridImage" fx:id="hardGridImage" fitHeight="750.0" fitWidth="1250.0" visible="false">
          <image>
@@ -135,12 +137,47 @@
             <GaussianBlur radius="1.76" />
          </effect>
       </ImageView>
+      <ImageView id="midneo" fx:id="midneo" fitHeight="933.3" fitWidth="1599.0" layoutX="-174.2" layoutY="-92.0" mouseTransparent="true" opacity="0.0">
+         <image>
+            <Image url="@images/medneo.png" />
+         </image>
+         <effect>
+            <SepiaTone />
+         </effect>
+      </ImageView>
+      <ImageView id="midneo2" fx:id="midneo2" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" opacity="0.0">
+         <image>
+            <Image url="@images/midneo2.png" />
+         </image>
+      </ImageView>
+      <ImageView id="midneo3" fx:id="midneo3" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" opacity="0.0">
+         <image>
+            <Image url="@images/midneo3.png" />
+         </image>
+      </ImageView>
+      <ImageView id="midneo4" fx:id="midneo4" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" opacity="0.0">
+         <image>
+            <Image url="@images/midneo4.png" />
+         </image>
+      </ImageView>
+      <ImageView id="midgrid" fx:id="midgrid" fitHeight="750.0" fitWidth="1250.0" opacity="0.0">
+         <image>
+            <Image url="@images/gird.png" />
+         </image>
+         <effect>
+            <SepiaTone>
+               <input>
+                  <ColorAdjust brightness="0.03" />
+               </input>
+            </SepiaTone>
+         </effect>
+      </ImageView>
       <ImageView id="easyend" fx:id="easyend" fitHeight="75.0" fitWidth="123.0" layoutX="564.0" layoutY="337.0" opacity="0.0">
          <image>
             <Image url="@images/dance.gif" />
          </image>
       </ImageView>
-        <GridPane id="mediumGrid" fx:id="mediumGrid" alignment="CENTER" layoutX="338.0" layoutY="113.0" mouseTransparent="true" opacity="0.0" prefHeight="517.0" prefWidth="599.0" visible="false">
+        <GridPane id="mediumGrid" fx:id="mediumGrid" alignment="CENTER" layoutX="325.0" layoutY="113.0" mouseTransparent="true" opacity="0.0" prefHeight="517.0" prefWidth="599.0" visible="false">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -151,7 +188,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
         </GridPane>
-        <GridPane id="easyGrid" fx:id="easyGrid" alignment="CENTER" layoutX="342.0" layoutY="100.0" mouseTransparent="true" opacity="0.0" prefHeight="550.0" prefWidth="580.0" visible="false">
+        <GridPane id="easyGrid" fx:id="easyGrid" alignment="CENTER" layoutX="340.0" layoutY="100.0" mouseTransparent="true" opacity="0.0" prefHeight="550.0" prefWidth="580.0" visible="false">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -212,7 +249,7 @@
       </ImageView>
         <AnchorPane id="menuAnkkuri" fx:id="menuAnkkuri" prefHeight="750.0" prefWidth="1250.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-
+      
                   <ImageView id="pergament" fx:id="pergament" fitHeight="754.0" fitWidth="1260.0" scaleX="1.2" scaleY="1.2" translateZ="200.0">
                       <image>
                           <Image url="@images/testaperga7.jpg" />
