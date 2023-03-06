@@ -52,6 +52,16 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
     }
 
     @Override
+    public void sendReturnSignal() {
+        engine.endGame();
+    }
+
+    @Override
+    public void killTimer() {
+        engine.stopTimer();
+    }
+
+    @Override
     public void clearPair(ArrayList<Integer> storage) {
 
         Platform.runLater(() -> ui.clearPair(storage));
@@ -108,13 +118,22 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
 
     @Override
     public void getActive(int id) {
-        ui.setActiveID(engine.getActiveId());
-        System.out.println(engine.getActiveId());
+        ui.setActiveID(id);
     }
 
     @Override
     public void getTime() {
-        ui.setTimerTime(engine.getTimerTime());
+
+    }
+
+    @Override
+    public void setTimer(int i) {
+        ui.getTime(i);
+    }
+
+    @Override
+    public void getReturnSignal() {
+
     }
 
     /**
@@ -137,6 +156,7 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
                 break;
             default:
         }
+
     }
 
     /**
@@ -152,17 +172,17 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
         switch (difficulty) {
             case EASY:
                 for (Score s : ws.getEasyScores().getScores()) {
-                    scoreList.add(s.getUsername() + " " + s.getPoints());
+                    scoreList.add(formatScore(s));
                 }
                 break;
             case MEDIUM:
                 for (Score s : ws.getMediumScores().getScores()) {
-                    scoreList.add(s.getUsername() + " " + s.getPoints());
+                    scoreList.add(formatScore(s));
                 }
                 break;
             case HARD:
                 for (Score s : ws.getHardScores().getScores()) {
-                    scoreList.add(s.getUsername() + " " + s.getPoints());
+                    scoreList.add(formatScore(s));
                 }
                 break;
             default:
@@ -170,6 +190,20 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
         }
 //        System.out.println(scoreList);
         return scoreList;
+    }
+
+
+    // change formatting as you wish
+    /**
+     * converts score-object to a string that will be displayed in GUI.
+     * @param score the score to format
+     * @return the formatted score
+     */
+    @Override
+    public String formatScore(Score score) {
+        String format = String.format("%-30s %-10d", score.getUsername(), score.getPoints());
+        System.out.println(format);
+        return format;
     }
 
     /**
@@ -297,5 +331,12 @@ public class Controller implements IControllerVtoE, IControllerEtoV, IController
     public String getUsername() {
         User user = User.getInstance();
         return user.getUsername();
+    }
+
+    @Override
+    public void sendComparingSuccess() {
+
+        ui.compareFoundMatch();
+
     }
 }

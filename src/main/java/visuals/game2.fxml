@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.BoxBlur?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.GaussianBlur?>
-<?import javafx.scene.effect.Reflection?>
+<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.effect.SepiaTone?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -31,30 +31,153 @@
                 <GaussianBlur radius="10.59" />
             </effect>
         </ImageView>
-        <ImageView id="hardBackground" fx:id="hardBackground" fitHeight="744.0" fitWidth="1246.0" layoutX="-1.2" layoutY="3.7" opacity="0.0">
+        <ImageView id="hardBackground" fx:id="hardBackground" fitHeight="746.0" fitWidth="1250.0" layoutX="-2.8" layoutY="4.8" opacity="0.0">
             <image>
                 <Image url="@images/hardback4.jpg" />
             </image>
         </ImageView>
-        <ImageView id="mediumSpread" fx:id="mediumSpread" fitHeight="780.0" fitWidth="1400.0" opacity="0.0">
+      <ImageView id="mediumSpread" fx:id="mediumSpread1" fitHeight="780.0" fitWidth="1320.0" layoutX="-10.0" layoutY="-10.0" visible="false">
+         <image>
+            <Image url="@images/tigru.jpg" />
+         </image>
+         <rotationAxis>
+            <Point3D y="1.0" />
+         </rotationAxis>
+         <effect>
+            <GaussianBlur />
+         </effect>
+      </ImageView>
+      <ImageView id="midR" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" opacity="0.0" visible="false">
+         <image>
+            <Image url="@images/midR.png" />
+         </image>
+      </ImageView>
+        <ImageView id="mediumBackground" fx:id="mediumBackground" fitHeight="752.0" fitWidth="1258.0" layoutX="-8.5" layoutY="2.0" opacity="0.0">
             <image>
                 <Image url="@images/tigru.jpg" />
             </image>
-            <effect>
-                <GaussianBlur radius="10.59" />
-            </effect>
         </ImageView>
-        <ImageView id="mediumBackground" fx:id="mediumBackground" fitHeight="744.5" fitWidth="1247.0" layoutX="-3.0" layoutY="5.5" opacity="0.0">
-            <image>
-                <Image url="@images/tigru.jpg" />
-            </image>
-        </ImageView>
-        <ImageView id="background" fx:id="background" fitHeight="741.0" fitWidth="1242.0" layoutX="4.0" layoutY="4.9" opacity="0.0">
+      <ImageView id="midTop" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" opacity="0.0">
+         <image>
+            <Image url="@images/midTop.png" />
+         </image>
+      </ImageView>
+      <ImageView id="midL" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" opacity="0.0">
+         <image>
+            <Image url="@images/midL.png" />
+         </image>
+      </ImageView>
+      <ImageView id="midBot" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" opacity="0.0">
+         <image>
+            <Image url="@images/midBot.png" />
+         </image>
+         <effect>
+            <ColorAdjust brightness="-0.11" />
+         </effect>
+      </ImageView>
+        <ImageView id="background" fx:id="background" fitHeight="750.0" fitWidth="1257.5" layoutX="-4.0" visible="false">
             <image>
                 <Image url="@images/background.png" />
             </image>
         </ImageView>
-        <GridPane id="mediumGrid" fx:id="mediumGrid" alignment="CENTER" layoutX="338.0" layoutY="113.0" mouseTransparent="true" opacity="0.0" prefHeight="517.0" prefWidth="599.0" visible="false">
+      <ImageView id="easyL" fx:id="easyL" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" visible="false">
+         <image>
+            <Image url="@images/easyL2.png" />
+         </image>
+         <effect>
+            <SepiaTone level="0.22" />
+         </effect>
+      </ImageView>
+      <ImageView id="easyTop" fx:id="easyTop" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" visible="false">
+         <image>
+            <Image url="@images/easyTop.png" />
+         </image>
+      </ImageView>
+      <ImageView id="easyBot" fx:id="easyBot" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" visible="false">
+         <image>
+            <Image url="@images/midBot.png" />
+         </image>
+         <effect>
+            <ColorAdjust brightness="-0.13" />
+         </effect>
+      </ImageView>
+      <ImageView id="easyneo" fx:id="easyneo" fitHeight="933.3" fitWidth="1599.0" layoutX="-174.2" layoutY="-92.0" mouseTransparent="true" opacity="0.0">
+         <image>
+            <Image url="@images/easyneo.png" />
+         </image>
+      </ImageView>
+      <ImageView id="hardL" fx:id="hardL" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" opacity="0.55" visible="false">
+         <image>
+            <Image url="@images/hardL.png" />
+         </image>
+      </ImageView>
+      <ImageView id="hardR" fx:id="hardR" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" opacity="0.5" visible="false">
+         <image>
+            <Image url="@images/hardR.png" />
+         </image>
+      </ImageView>
+      <ImageView id="hardneo" fx:id="hardneo" fitHeight="933.3" fitWidth="1599.0" layoutX="-174.2" layoutY="-92.0" mouseTransparent="true" opacity="0.0">
+         <image>
+            <Image url="@images/hardneo.png" />
+         </image>
+      </ImageView>
+      <ImageView id="movingjungle" fx:id="movingjungle" fitHeight="75.0" fitWidth="123.0" layoutX="564.0" layoutY="338.0" mouseTransparent="true" opacity="0.0">
+         <image>
+            <Image url="@images/movingjungle.gif" />
+         </image>
+         <rotationAxis>
+            <Point3D y="1.0" />
+         </rotationAxis>
+      </ImageView>
+      <ImageView id="hardGridImage" fx:id="hardGridImage" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" visible="false">
+         <image>
+            <Image url="@images/girdHard.png" />
+         </image>
+         <effect>
+            <GaussianBlur radius="1.76" />
+         </effect>
+      </ImageView>
+      <ImageView id="midneo" fx:id="midneo" fitHeight="933.3" fitWidth="1599.0" layoutX="-174.2" layoutY="-92.0" mouseTransparent="true" opacity="0.0">
+         <image>
+            <Image url="@images/medneo.png" />
+         </image>
+         <effect>
+            <SepiaTone />
+         </effect>
+      </ImageView>
+      <ImageView id="midneo2" fx:id="midneo2" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" opacity="0.0">
+         <image>
+            <Image url="@images/midneo2.png" />
+         </image>
+      </ImageView>
+      <ImageView id="midneo3" fx:id="midneo3" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" opacity="0.0">
+         <image>
+            <Image url="@images/midneo3.png" />
+         </image>
+      </ImageView>
+      <ImageView id="midneo4" fx:id="midneo4" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" opacity="0.0">
+         <image>
+            <Image url="@images/midneo4.png" />
+         </image>
+      </ImageView>
+      <ImageView id="midgrid" fx:id="midgrid" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" opacity="0.0">
+         <image>
+            <Image url="@images/gird.png" />
+         </image>
+         <effect>
+            <SepiaTone>
+               <input>
+                  <ColorAdjust brightness="0.03" />
+               </input>
+            </SepiaTone>
+         </effect>
+      </ImageView>
+      <ImageView id="easyend" fx:id="easyend" fitHeight="75.0" fitWidth="123.0" layoutX="564.0" layoutY="337.0" opacity="0.0">
+         <image>
+            <Image url="@images/dance.gif" />
+         </image>
+      </ImageView>
+        <GridPane id="mediumGrid" fx:id="mediumGrid" alignment="CENTER" layoutX="325.0" layoutY="113.0" mouseTransparent="true" opacity="0.0" prefHeight="517.0" prefWidth="599.0" visible="false">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -65,7 +188,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
         </GridPane>
-        <GridPane id="easyGrid" fx:id="easyGrid" alignment="CENTER" layoutX="342.0" layoutY="100.0" mouseTransparent="true" opacity="0.0" prefHeight="550.0" prefWidth="580.0" visible="false">
+        <GridPane id="easyGrid" fx:id="easyGrid" alignment="CENTER" layoutX="340.0" layoutY="100.0" mouseTransparent="true" opacity="0.0" prefHeight="550.0" prefWidth="580.0" visible="false">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -87,35 +210,52 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
         </GridPane>
-        <VBox id="nappulat" fx:id="vBox" layoutX="1066.4000244140625" prefHeight="700.0" prefWidth="300.0">
+        <VBox id="nappulat" fx:id="vBox" layoutX="1031.0" layoutY="-10.0" prefHeight="700.0" prefWidth="176.0">
             <children>
-                <Button id="statsGame" fx:id="stats" mnemonicParsing="false" onMouseClicked="#statsGame" prefHeight="75.0" prefWidth="158.0" text="Stats">
-                <VBox.margin>
-                    <Insets top="250.0" />
-                </VBox.margin>
+
+                <Button id="newGame" fx:id="newGame" mnemonicParsing="false" onMouseClicked="#newGame" opacity="0.0" prefHeight="75.0" prefWidth="102.0" text="New Game">
+                    <VBox.margin>
+                        <Insets top="300.0" />
+                    </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
                 </Button>
-                <Button id="newGame" fx:id="newGame" mnemonicParsing="false" onMouseClicked="#newGame" prefHeight="75.0" prefWidth="158.0" text="New Game">
+                <Button id="returnMenu" fx:id="returnMenu" mnemonicParsing="false" onMouseClicked="#returnMenu" opacity="0.0" prefHeight="75.0" prefWidth="102.0" text="Return">
                     <VBox.margin>
                         <Insets top="20.0" />
                     </VBox.margin>
-                </Button>
-                <Button id="returnMenu" fx:id="returnMenu" mnemonicParsing="false" onMouseClicked="#returnMenu" prefHeight="75.0" prefWidth="158.0" text="Return">
-                    <VBox.margin>
-                        <Insets top="20.0" />
-                    </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
                 </Button>
             </children>
         </VBox>
+      <ImageView id="play" fx:id="play" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="290.0" mouseTransparent="true" opacity="0.0">
+         <image>
+            <Image url="@images/playretro.png" />
+         </image>
+         <effect>
+            <SepiaTone level="0.61" />
+         </effect>
+      </ImageView>
+      <ImageView id="returngame" fx:id="returngame" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="385.0" mouseTransparent="true" opacity="0.0">
+         <image>
+            <Image url="@images/return.png" />
+         </image>
+         <effect>
+            <SepiaTone level="0.61" />
+         </effect>
+      </ImageView>
         <AnchorPane id="menuAnkkuri" fx:id="menuAnkkuri" prefHeight="750.0" prefWidth="1250.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
+      
                   <ImageView id="pergament" fx:id="pergament" fitHeight="754.0" fitWidth="1260.0" scaleX="1.2" scaleY="1.2" translateZ="200.0">
                       <image>
                           <Image url="@images/testaperga7.jpg" />
                       </image>
-               <effect>
-                  <SepiaTone />
-               </effect>
                   </ImageView>
+
             <ImageView id="burningsun" fx:id="burningsun" fitHeight="369.0" fitWidth="360.0" layoutX="-260.0" layoutY="-59.0" opacity="0.0">
                <image>
                   <Image url="@images/burningsun.png" />
@@ -126,6 +266,16 @@
                   <Image url="@images/blacksun1.png" />
                </image>
             </ImageView>
+            <ImageView id="memomaze" fx:id="memomaze" fitHeight="207.0" fitWidth="700.0" layoutX="270.0" layoutY="80.0" opacity="0.0">
+               <image>
+                  <Image url="@images/memomaze.png" />
+               </image>
+            </ImageView>
+            <ImageView id="loading" fx:id="loading" fitHeight="67.0" fitWidth="200.0" layoutX="510.0" layoutY="370.0" opacity="0.0">
+               <image>
+                  <Image url="@images/loading.png" />
+               </image>
+            </ImageView>
             <ImageView id="dirt" fx:id="dirt" fitHeight="762.0" fitWidth="1270.0" opacity="0.61" translateZ="-500.0">
                <image>
                   <Image url="@images/dirt.png" />
@@ -133,78 +283,6 @@
             </ImageView>
                 <Pane id="gameModePane" fx:id="gameModePane" layoutX="280.0" layoutY="72.0" opacity="0.0" prefHeight="620.0" prefWidth="922.0">
                     <children>
-                  <Pane id="mapTracks" opacity="0.46" prefHeight="618.0" prefWidth="922.0">
-                     <children>
-                        <ImageView id="mt1" fx:id="mt1" fitHeight="28.0" fitWidth="50.0" layoutX="105.0" layoutY="163.0" opacity="0.0" rotate="5.0">
-                           <image>
-                              <Image url="@images/mt1.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView id="mt2" fx:id="mt2" fitHeight="40.0" fitWidth="36.0" layoutX="155.0" layoutY="173.0" opacity="0.0">
-                           <image>
-                              <Image url="@images/mt2.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView id="mt3" fx:id="mt3" fitHeight="50.0" fitWidth="30.0" layoutX="182.0" layoutY="204.0" opacity="0.0">
-                           <image>
-                              <Image url="@images/mt3.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView id="mt4" fx:id="mt4" fitHeight="50.0" fitWidth="30.0" layoutX="305.0" layoutY="323.0" opacity="0.0" rotate="-84.0">
-                           <image>
-                              <Image url="@images/mt4.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView id="mt5" fx:id="mt5" fitHeight="37.0" fitWidth="45.0" layoutX="338.0" layoutY="313.0" opacity="0.0" rotate="-75.7">
-                           <image>
-                              <Image url="@images/mt5.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView id="mt6" fx:id="mt6" fitHeight="25.0" fitWidth="50.0" layoutX="370.0" layoutY="290.0" opacity="0.0" rotate="143.9">
-                           <image>
-                              <Image url="@images/mt6.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView id="mt7" fx:id="mt7" fitHeight="31.0" fitWidth="42.0" layoutX="415.0" layoutY="260.0" opacity="0.0" rotate="-5.0">
-                           <image>
-                              <Image url="@images/mt7.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView id="mt8" fx:id="mt8" fitHeight="38.0" fitWidth="25.0" layoutX="450.0" layoutY="225.0" opacity="0.0" rotate="12.0">
-                           <image>
-                              <Image url="@images/mt8.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView id="mt9" fx:id="mt9" fitHeight="37.0" fitWidth="36.0" layoutX="565.0" layoutY="105.0" opacity="0.0" rotate="51.7">
-                           <image>
-                              <Image url="@images/mt9.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView id="mt10" fx:id="mt10" fitHeight="27.0" fitWidth="45.0" layoutX="607.0" layoutY="115.0" opacity="0.0" rotate="31.0">
-                           <image>
-                              <Image url="@images/mt10.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView id="mt11" fx:id="mt11" fitHeight="19.0" fitWidth="45.0" layoutX="655.0" layoutY="142.0" opacity="0.0" rotate="39.7">
-                           <image>
-                              <Image url="@images/mt13.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView id="mt12" fx:id="mt12" fitHeight="25.0" fitWidth="48.0" layoutX="690.0" layoutY="179.0" opacity="0.0" rotate="45.0">
-                           <image>
-                              <Image url="@images/mt11.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView id="mt13" fx:id="mt13" fitHeight="45.0" fitWidth="28.0" layoutX="715.0" layoutY="212.0" opacity="0.0" rotate="20.0">
-                           <image>
-                              <Image url="@images/mt12.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                     <effect>
-                        <BoxBlur />
-                     </effect>
-                  </Pane>
                   <ImageView id="jungle" fx:id="jungle" fitHeight="544.0" fitWidth="1283.0" layoutX="-313.0" layoutY="33.0" opacity="0.0" scaleX="1.25" scaleY="1.25" translateZ="300.0">
                      <image>
                         <Image url="@images/jungle.png" />
@@ -215,10 +293,10 @@
                   </ImageView>
                   <ImageView id="japan" fx:id="japan" fitHeight="321.0" fitWidth="480.0" layoutX="-93.0" layoutY="258.0" opacity="0.0">
                      <image>
-                        <Image url="@images/cherry.png" />
+                        <Image url="@images/cherry2.png" />
                      </image>
                   </ImageView>
-                  <ImageView id="redtree" fx:id="redtree" fitHeight="413.0" fitWidth="516.0" layoutX="504.0" layoutY="250.0" opacity="0.0" translateZ="-200.0">
+                  <ImageView id="redtree" fx:id="redtree" fitHeight="413.0" fitWidth="516.0" layoutX="504.0" layoutY="250.0" opacity="0.0" translateZ="60.0">
                      <image>
                         <Image url="@images/redtree.png" />
                      </image>
@@ -226,7 +304,19 @@
                         <ColorAdjust hue="-0.26" />
                      </effect>
                   </ImageView>
-                        <ImageView id="miniEasy" fx:id="miniEasy" fitHeight="118.0" fitWidth="198.0" layoutX="101.0" layoutY="259.0" onMouseClicked="#easyStartScreenPlay" opacity="0.0" translateZ="-200.0">
+                        <ImageView id="easyFrame" fx:id="easyFrame" fitHeight="150.0" fitWidth="257.0" layoutX="71.0" layoutY="242.8" opacity="0.0" translateZ="-200.0">
+                            <image>
+                                <Image url="@images/easyneo.png" />
+                            </image>
+                     <effect>
+                        <Glow level="0.85">
+                           <input>
+                              <Glow level="0.82" />
+                           </input>
+                        </Glow>
+                     </effect>
+                        </ImageView>
+                        <ImageView id="miniEasy" fx:id="miniEasy" fitHeight="118.0" fitWidth="198.0" layoutX="101.0" layoutY="259.0" onMouseClicked="#easyStartScreenPlay" onMouseEntered="#easyInfoOn" onMouseExited="#easyInfoOff" opacity="0.0" translateZ="-200.0">
                             <image>
                                 <Image url="@images/background.png" />
                             </image>
@@ -234,7 +324,27 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                         </ImageView>
-                        <ImageView id="miniMedium" fx:id="miniMedium" fitHeight="118.0" fitWidth="198.0" layoutX="363.0" layoutY="100.0" onMouseClicked="#mediumStartScreenPlay" opacity="0.0" translateZ="100.0">
+                  <ImageView id="kotoku" fx:id="kotoku" fitHeight="41.0" fitWidth="200.0" layoutX="100.0" layoutY="217.0" opacity="0.0" translateZ="-200.0">
+                     <image>
+                        <Image url="@images/kotoku.png" />
+                     </image>
+                     <effect>
+                        <Glow level="0.7" />
+                     </effect>
+                  </ImageView>
+                        <ImageView id="mediumFrame" fx:id="mediumFrame" fitHeight="151.0" fitWidth="255.5" layoutX="334.5" layoutY="83.0" opacity="0.0" translateZ="68.0">
+                            <image>
+                                <Image url="@images/medneo.png" />
+                            </image>
+                     <effect>
+                        <Glow level="1.0">
+                           <input>
+                              <SepiaTone />
+                           </input>
+                        </Glow>
+                     </effect>
+                        </ImageView>
+                        <ImageView id="miniMedium" fx:id="miniMedium" fitHeight="118.0" fitWidth="198.0" layoutX="363.0" layoutY="100.0" onMouseClicked="#mediumStartScreenPlay" onMouseEntered="#mediumInfoOn" onMouseExited="#mediumInfoOff" opacity="0.0" translateZ="68.0">
                             <image>
                                 <Image url="@images/tigru.jpg" />
                             </image>
@@ -242,7 +352,27 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                         </ImageView>
-                        <ImageView id="miniHard" fx:id="miniHard" fitHeight="118.0" fitWidth="198.0" layoutX="630.0" layoutY="259.0" onMouseClicked="#hardStartScreenPlay" opacity="0.0">
+                  <ImageView id="tigerden" fx:id="tigerden" fitHeight="37.0" fitWidth="200.0" layoutX="361.0" layoutY="60.0" opacity="0.0" translateZ="70.0">
+                     <image>
+                        <Image url="@images/tigerden2.png" />
+                     </image>
+                     <effect>
+                        <Glow level="0.41" />
+                     </effect>
+                  </ImageView>
+                        <ImageView id="hardFrame" fx:id="hardFrame" fitHeight="150.0" fitWidth="257.0" layoutX="600.5" layoutY="243.0" opacity="0.0">
+                            <image>
+                                <Image url="@images/hardneo.png" />
+                            </image>
+                     <effect>
+                        <Glow level="1.0">
+                           <input>
+                              <Glow level="0.67" />
+                           </input>
+                        </Glow>
+                     </effect>
+                        </ImageView>
+                        <ImageView id="miniHard" fx:id="miniHard" fitHeight="118.0" fitWidth="198.0" layoutX="630.0" layoutY="259.0" onMouseClicked="#hardStartScreenPlay" onMouseEntered="#hardInfoOn" onMouseExited="#hardInfoOff" opacity="0.0">
                             <image>
                                 <Image url="@images/hardback4.jpg" />
                             </image>
@@ -250,35 +380,91 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                         </ImageView>
-                        <ImageView id="easyFrame" fx:id="easyFrame" fitHeight="120.4" fitWidth="200.0" layoutX="100.0" layoutY="257.8" opacity="0.0" translateZ="-200.0">
-                            <image>
-                                <Image url="@images/frame3.png" />
-                            </image>
+                  <ImageView id="treeoflife" fx:id="treeoflife" fitHeight="36.0" fitWidth="200.0" layoutX="626.0" layoutY="220.0" opacity="0.0">
+                     <image>
+                        <Image url="@images/treeoflife2.png" />
+                     </image>
                      <effect>
-                        <ColorAdjust brightness="-0.97" hue="-0.02" saturation="-1.0" />
+                        <Glow level="0.81" />
                      </effect>
-                        </ImageView>
-                        <ImageView id="mediumFrame" fx:id="mediumFrame" fitHeight="120.4" fitWidth="199.3" layoutX="363.0" layoutY="98.8" opacity="0.0" translateZ="100.0">
-                            <image>
-                                <Image url="@images/frame3.png" />
-                            </image>
+                  </ImageView>
+                  <ImageView id="easydes1" fx:id="easydes1" fitHeight="50.0" fitWidth="180.0" layoutX="109.0" layoutY="84.0" opacity="0.0" translateZ="-200.0">
+                     <image>
+                        <Image url="@images/easydes1.png" />
+                     </image>
                      <effect>
-                        <ColorAdjust brightness="-0.97" hue="-0.02" saturation="-1.0" />
+                        <Glow />
                      </effect>
-                        </ImageView>
-                        <ImageView id="hardFrame" fx:id="hardFrame" fitHeight="120.4" fitWidth="200.0" layoutX="629.0" layoutY="257.8" opacity="0.0">
-                            <image>
-                                <Image url="@images/frame3.png" />
-                            </image>
+                  </ImageView>
+                  <ImageView id="easydes2" fx:id="easydes2" fitHeight="50.0" fitWidth="180.0" layoutX="103.0" layoutY="123.0" opacity="0.0" translateZ="-200.0">
+                     <image>
+                        <Image url="@images/easydes2.png" />
+                     </image>
                      <effect>
-                        <ColorAdjust brightness="-0.97" hue="-0.02" saturation="-1.0" />
+                        <Glow />
                      </effect>
-                        </ImageView>
+                  </ImageView>
+                  <ImageView id="easydes3" fx:id="easydes3" fitHeight="50.0" fitWidth="180.0" layoutX="113.0" layoutY="160.0" opacity="0.0" translateZ="-200.0">
+                     <image>
+                        <Image url="@images/easydes3.png" />
+                     </image>
+                     <effect>
+                        <Glow />
+                     </effect>
+                  </ImageView>
+                  <ImageView id="medes1" fx:id="medes1" fitHeight="50.0" fitWidth="180.0" layoutX="372.0" layoutY="240.0" opacity="0.0">
+                     <image>
+                        <Image url="@images/medes1.png" />
+                     </image>
+                     <effect>
+                        <Glow />
+                     </effect>
+                  </ImageView>
+                  <ImageView id="medes2" fx:id="medes2" fitHeight="50.0" fitWidth="180.0" layoutX="364.0" layoutY="283.0" opacity="0.0">
+                     <image>
+                        <Image url="@images/medes2.png" />
+                     </image>
+                     <effect>
+                        <Glow />
+                     </effect>
+                  </ImageView>
+                  <ImageView id="medes3" fx:id="medes3" fitHeight="50.0" fitWidth="180.0" layoutX="374.0" layoutY="324.0" opacity="0.0">
+                     <image>
+                        <Image url="@images/medes3.png" />
+                     </image>
+                     <effect>
+                        <Glow />
+                     </effect>
+                  </ImageView>
+                  <ImageView id="hardes1" fx:id="hardes1" fitHeight="50.0" fitWidth="180.0" layoutX="637.0" layoutY="84.0" opacity="0.0">
+                     <image>
+                        <Image url="@images/hardes1.png" />
+                     </image>
+                     <effect>
+                        <Glow />
+                     </effect>
+                  </ImageView>
+                  <ImageView id="hardes2" fx:id="hardes2" fitHeight="50.0" fitWidth="180.0" layoutX="634.0" layoutY="124.0" opacity="0.0">
+                     <image>
+                        <Image url="@images/hardes2.png" />
+                     </image>
+                     <effect>
+                        <Glow />
+                     </effect>
+                  </ImageView>
+                  <ImageView id="hardes3" fx:id="hardes3" fitHeight="50.0" fitWidth="180.0" layoutX="642.0" layoutY="163.0" opacity="0.0">
+                     <image>
+                        <Image url="@images/hardes3.png" />
+                     </image>
+                     <effect>
+                        <Glow />
+                     </effect>
+                  </ImageView>
                     </children>
                 </Pane>
             </children>
         </AnchorPane>
-      <ImageView id="telkku" fitHeight="1218.0" fitWidth="1616.0" layoutX="-181.0" layoutY="-139.0">
+      <ImageView id="telkku" fx:id="telkku" fitHeight="1218.0" fitWidth="1616.0" layoutX="-181.0" layoutY="-139.0">
          <image>
             <Image url="@images/tv.png" />
          </image>
@@ -291,7 +477,7 @@
             <ColorAdjust brightness="-0.97" hue="-0.02" saturation="-1.0" />
          </effect>
         </ImageView>
-      <Label fx:id="labelLoggedIn" style="-fx-background-color: 169,169,169,0.5; -fx-background-radius: 3;" text="Not Logged In" textFill="WHITE" visible="false" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="80.0">
+      <Label id="labelLoggedIn" fx:id="labelLoggedIn" layoutX="1025.0" layoutY="65.0" prefHeight="18.0" style="-fx-background-color: 169,169,169,0.5; -fx-background-radius: 3;" text="Not Logged In" textFill="WHITE" visible="false">
          <font>
             <Font name="Papyrus" size="24.0" />
          </font>
@@ -299,62 +485,218 @@
             <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
          </padding>
       </Label>
-      <Pane id="score" fx:id="score" prefHeight="755.0" prefWidth="256.0" visible="false" AnchorPane.leftAnchor="10.0">
+      <Pane id="score" fx:id="score" layoutX="73.0" layoutY="82.0" prefHeight="585.0" prefWidth="232.0" visible="false" AnchorPane.leftAnchor="73.0">
          <children>
-              <VBox layoutY="9.0" prefHeight="741.0" prefWidth="234.0">
-                  <children>
-                      <Label prefHeight="58.0" prefWidth="278.0" text="World scores">
-                          <font>
-                              <Font name="Yu Gothic Regular" size="39.0" />
-                          </font>
-                      </Label>
-                      <ListView fx:id="worldScores" prefHeight="280.0" prefWidth="310.0">
-                          <VBox.margin>
-                              <Insets top="5.0" />
-                          </VBox.margin>
-                      </ListView>
-                      <Label prefHeight="58.0" prefWidth="278.0" text="Your scores">
-                          <font>
-                              <Font name="Yu Gothic Regular" size="39.0" />
-                          </font>
-                      </Label>
-                      <ListView fx:id="personalScores" prefHeight="280.0" prefWidth="310.0" />
-                  </children>
-              </VBox>
+            <Pane id="worldscores" layoutY="21.0" prefHeight="241.0" prefWidth="184.0" style="-fx-background-color: black;">
+               <children>
+                  <ImageView id="worldback" fitHeight="261.0" fitWidth="200.0" layoutX="-9.0" layoutY="-10.0">
+                     <image>
+                        <Image url="@images/scorepohja2.png" />
+                     </image>
+                     <effect>
+                        <Glow level="0.5">
+                           <input>
+                              <SepiaTone level="0.5" />
+                           </input></Glow>
+                     </effect>
+                  </ImageView>
+                  <ImageView id="worldscores" fitHeight="35.0" fitWidth="170.0" layoutX="6.0" layoutY="10.0">
+                     <image>
+                        <Image url="@images/worldscores2.png" />
+                     </image>
+                     <effect>
+                        <Glow level="0.4" />
+                     </effect>
+                  </ImageView>
+                  <Label fx:id="w1" layoutX="23.0" layoutY="48.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
+                     <font>
+                        <Font name="OCR A Extended" size="22.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <effect>
+                        <Glow level="1.0" />
+                     </effect>
+                  </Label>
+                  <Label fx:id="w2" layoutX="23.0" layoutY="83.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
+                     <font>
+                        <Font name="OCR A Extended" size="22.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <effect>
+                        <Glow level="1.0" />
+                     </effect>
+                  </Label>
+                  <Label fx:id="w3" layoutX="23.0" layoutY="118.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
+                     <font>
+                        <Font name="OCR A Extended" size="22.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <effect>
+                        <Glow level="1.0" />
+                     </effect>
+                  </Label>
+                  <Label fx:id="w4" layoutX="23.0" layoutY="153.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
+                     <font>
+                        <Font name="OCR A Extended" size="22.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <effect>
+                        <Glow level="1.0" />
+                     </effect>
+                  </Label>
+                  <Label fx:id="w5" layoutX="23.0" layoutY="188.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
+                     <font>
+                        <Font name="OCR A Extended" size="22.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <effect>
+                        <Glow level="1.0" />
+                     </effect>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane id="personalscoresPane" layoutY="320.0" prefHeight="241.0" prefWidth="184.0" style="-fx-background-color: black;">
+               <children>
+                  <ImageView id="perback" fitHeight="261.0" fitWidth="200.0" layoutX="-9.0" layoutY="-10.0">
+                     <image>
+                        <Image url="@images/scorepohja2.png" />
+                     </image>
+                     <effect>
+                        <Glow level="0.5">
+                           <input>
+                              <SepiaTone level="0.6" />
+                           </input></Glow>
+                     </effect>
+                  </ImageView>
+                  <ImageView id="personalscores" fitHeight="35.0" fitWidth="170.0" layoutX="6.0" layoutY="10.0">
+                     <image>
+                        <Image url="@images/personalscore2.png" />
+                     </image>
+                     <effect>
+                        <Glow level="0.41" />
+                     </effect>
+                  </ImageView>
+                  <Label fx:id="p1" layoutX="23.0" layoutY="48.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
+                     <font>
+                        <Font name="OCR A Extended" size="22.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <effect>
+                        <Glow level="1.0" />
+                     </effect>
+                  </Label>
+                  <Label fx:id="p2" layoutX="23.0" layoutY="83.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
+                     <font>
+                        <Font name="OCR A Extended" size="22.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <effect>
+                        <Glow level="1.0" />
+                     </effect>
+                  </Label>
+                  <Label fx:id="p3" layoutX="23.0" layoutY="118.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
+                     <font>
+                        <Font name="OCR A Extended" size="22.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <effect>
+                        <Glow level="1.0" />
+                     </effect>
+                  </Label>
+                  <Label fx:id="p4" layoutX="23.0" layoutY="153.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
+                     <font>
+                        <Font name="OCR A Extended" size="22.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <effect>
+                        <Glow level="1.0" />
+                     </effect>
+                  </Label>
+                  <Label fx:id="p5" layoutX="23.0" layoutY="188.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
+                     <font>
+                        <Font name="OCR A Extended" size="22.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <effect>
+                        <Glow level="1.0" />
+                     </effect>
+                  </Label>
+               </children>
+            </Pane>
          </children>
          <padding>
             <Insets left="10.0" />
          </padding>
+         <rotationAxis>
+            <Point3D y="1.0" />
+         </rotationAxis>
       </Pane>
-      <Button fx:id="buttonLogout" mnemonicParsing="false" onAction="#setButtonLogout" prefHeight="36.0" prefWidth="100.0" text="Logout" visible="false" AnchorPane.leftAnchor="95.0" AnchorPane.topAnchor="660.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
-      <Pane id="logAndReg" fx:id="logAndReg" layoutX="20.0" layoutY="340.0" opacity="0.0" prefHeight="380.0" prefWidth="250.0">
+      <Pane id="logAndReg" fx:id="logAndReg" layoutX="44.0" layoutY="-4.0" opacity="0.0" prefHeight="348.0" prefWidth="235.0">
          <children>
-                <ImageView fitHeight="409.0" fitWidth="372.0" layoutX="-48.0">
-                    <image>
-                        <Image url="@images/log4.png" />
-                    </image>
-                    <effect>
-                        <GaussianBlur radius="0.0" />
-                    </effect>
-                </ImageView>
-                <Label alignment="CENTER" layoutX="47.0" layoutY="61.0" prefHeight="43.0" prefWidth="169.0" text="Username:">
-               <font>
-                  <Font name="Blackadder ITC" size="34.0" />
-               </font>
-            </Label>
-                <TextField fx:id="name" layoutX="52.0" layoutY="120.0" opacity="0.6" prefHeight="25.0" prefWidth="158.0" />
-                <Label alignment="CENTER" layoutX="47.0" layoutY="149.0" prefHeight="43.0" prefWidth="169.0" text="Password:">
-               <font>
-                  <Font name="Blackadder ITC" size="34.0" />
-               </font>
-            </Label>
-                <TextField fx:id="password" layoutX="52.0" layoutY="207.0" opacity="0.6" prefHeight="25.0" prefWidth="158.0" />
-                <Button fx:id="register" layoutX="55.0" layoutY="300.0" mnemonicParsing="false" onMouseClicked="#registerPane" prefHeight="36.0" prefWidth="140.0" text="Register" />
-                <Button fx:id="login" layoutX="75.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#loginPane" prefHeight="36.0" prefWidth="100.0" text="Login" />
+            <ImageView fitHeight="254.0" fitWidth="176.0" layoutX="30.0" layoutY="58.0" opacity="0.03">
+               <image>
+                  <Image url="@images/logtest2.jpg" />
+               </image>
+            </ImageView>
+             <Button fx:id="stats" layoutX="40.0" layoutY="75.0" mnemonicParsing="false" onMouseClicked="#statsGame" prefHeight="20.0" prefWidth="102.0" text="Stats" textAlignment="CENTER" visible="false">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Button fx:id="buttonLogout" layoutX="40.0" layoutY="110.0" mnemonicParsing="false" onMouseClicked="#setButtonLogout" prefHeight="20.0" prefWidth="102.0" text="Logout" visible="false">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <Pane id="paneLogin" fx:id="paneLogin" layoutX="-13.0" layoutY="-19.0" prefHeight="370.0" prefWidth="247.0">
+               <children>
+                  <ImageView id="userImage" fitHeight="40.0" fitWidth="147.0" layoutX="57.0" layoutY="77.0">
+                     <image>
+                        <Image url="@images/username2.png" />
+                     </image>
+                     <effect>
+                        <Glow />
+                     </effect>
+                  </ImageView>
+                      <TextField fx:id="name" layoutX="52.0" layoutY="120.0" opacity="0.6" prefHeight="25.0" prefWidth="158.0" />
+                  <ImageView id="paswordImage" fitHeight="40.0" fitWidth="147.0" layoutX="57.0" layoutY="150.0">
+                     <image>
+                        <Image url="@images/password2.png" />
+                     </image>
+                     <effect>
+                        <Glow />
+                     </effect>
+                  </ImageView>
+                      <TextField fx:id="password" layoutX="52.0" layoutY="193.0" opacity="0.6" prefHeight="25.0" prefWidth="158.0" />
+                   <Button fx:id="register" layoutX="75.0" layoutY="269.0" mnemonicParsing="false" onMouseClicked="#registerPane" prefHeight="20.0" prefWidth="110.0" text="Register">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                      <Button fx:id="login" layoutX="75.0" layoutY="228.0" mnemonicParsing="false" onMouseClicked="#loginPane" prefHeight="20.0" prefWidth="110.0" text="Login">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+
+               </children>
+            </Pane>
          </children>
       </Pane>
       <AnchorPane id="startBlack" fx:id="startBlack" prefHeight="780.0" prefWidth="1250.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -364,20 +706,12 @@
                   <Image url="@images/lightning.png" />
                </image>
             </ImageView>
-            <Label fx:id="weDidIt" alignment="CENTER" layoutX="290.0" layoutY="300.0" opacity="0.0" text="We Did It Games" textAlignment="CENTER" textFill="WHITE">
+            <Label fx:id="weDidIt" alignment="CENTER" layoutX="260.0" layoutY="270.0" opacity="0.0" text="We Did It Games" textAlignment="CENTER" textFill="WHITE">
                <font>
-                  <Font name="Maiandra GD" size="89.0" />
+                  <Font name="Jokerman" size="89.0" />
                </font>
             </Label>
-            <Label fx:id="groupFour" alignment="CENTER" layoutX="230.0" layoutY="300.0" opacity="0.0" text="The Mighty Group 4" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="Maiandra GD" size="89.0" />
-               </font>
-               <effect>
-                  <Reflection bottomOpacity="0.47" fraction="0.7" topOpacity="0.27" />
-               </effect>
-            </Label>
-            <ImageView id="sun" fx:id="sun" fitHeight="783.0" fitWidth="1437.0" layoutX="-70.0" opacity="0.0">
+            <ImageView id="sun" fx:id="sun" fitHeight="783.0" fitWidth="1437.0" layoutX="-85.0" opacity="0.0">
                <image>
                   <Image url="@images/sunRay.png" />
                </image>
@@ -390,7 +724,16 @@
                   <Image url="@images/mightygroup.png" />
                </image>
             </ImageView>
+            <ImageView id="groupFour" fx:id="groupFour" fitHeight="139.0" fitWidth="861.0" layoutX="190.0" layoutY="290.0" opacity="0.0">
+               <image>
+                  <Image url="@images/mighty4.png" />
+               </image>
+               <effect>
+                  <BoxBlur height="0.0" width="0.0" />
+               </effect>
+            </ImageView>
          </children>
       </AnchorPane>
     </children>
+
 </AnchorPane>

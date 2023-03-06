@@ -2,7 +2,6 @@ package visuals;
 
 import javafx.stage.Stage;
 import model.MemoryObject;
-import model.ModeType;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -18,10 +17,11 @@ public interface IGui {
     void setMediumGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException;
     void setHardGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException;
     void clearStorage();
-
     void gameOver();
-    void setTimerTime(long timerTime);
     void setActiveID(int activeID);
-
+    void getTime(int i);
     void fetchUserScores();
+    boolean isReturnStatus();
+
+    void compareFoundMatch();
 }

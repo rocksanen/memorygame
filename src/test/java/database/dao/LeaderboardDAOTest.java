@@ -33,7 +33,7 @@ class LeaderboardDAOTest {
     void saveScore() {
         // Create a test account
         AccountDAO  accountDAO = new AccountDAO();
-        Account account = new Account("test1", "test1");
+        Account account = accountDAO.getAccountByName("test1");
         accountDAO.saveAccount(account);
 
 

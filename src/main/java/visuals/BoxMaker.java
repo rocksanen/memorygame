@@ -10,12 +10,16 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.CullFace;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
+
+import java.io.FileInputStream;
 
 public class BoxMaker {
     private Box backFace, topFace, rightFace, leftFace, frontFace, bottomFace;
@@ -30,6 +34,8 @@ public class BoxMaker {
     private final DoubleProperty rotateValueDown = new SimpleDoubleProperty(90);
     private final ObjectProperty<Point3D> rotationAxisDown = new SimpleObjectProperty<>(Rotate.X_AXIS);
 
+    private Boolean isActive = false;
+
     public BoxMaker(double width, double height, Image findImage, Image backImage, Image behindImage, Gui gui, int id){
 
         this.id = id;
@@ -40,6 +46,22 @@ public class BoxMaker {
         createFaces();
         createGroup();
         gui.addToCubeList(this);
+    }
+
+    public Integer getCubeId() {
+
+        return this.id;
+    }
+
+    public void setActive() {
+
+        isActive = !isActive;
+
+    }
+
+    public Boolean getActiveState() {
+
+        return isActive;
     }
     private void createMaterials(Image findImage, Image backImage, Image behindImage){
 
@@ -87,6 +109,7 @@ public class BoxMaker {
         frontFace.setTranslateY(0);
         frontFace.setRotationAxis(Rotate.Z_AXIS);
         frontFace.setCullFace(CullFace.BACK);
+
 
         topFace = new Box(width, height, 0);
         topFace.setMaterial(material3);

@@ -7,6 +7,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import model.ModeType;
 
+import java.util.ArrayList;
+
 public class Visibilities {
 
     private static Visibilities instance;
@@ -20,15 +22,58 @@ public class Visibilities {
     private ImageView hardBackground;
     private ImageView hardSpread;
 
+    private ImageView midgrid;
+    private ImageView midR;
+    private ImageView midTop;
+    private ImageView midL;
+    private ImageView midBot;
+    private ImageView midend;
+    private ImageView easyTop;
+    private ImageView easyL;
+    private ImageView easyBot;
+
+    private ArrayList<ImageView> gameWalls;
+
     public void setGameBackGrounds(
             ImageView background,ImageView mediumBackground,ImageView mediumSpread,
-            ImageView hardBackground,ImageView hardSpread) {
+            ImageView hardBackground,ImageView hardSpread,ImageView midgrid,
+            ImageView midR,ImageView midTop,ImageView midL,ImageView midBot,
+            ImageView midend, ImageView easyTop, ImageView easyL, ImageView easyBot) {
 
         this.background = background;
         this.mediumBackground = mediumBackground;
         this.mediumSpread = mediumSpread;
         this.hardBackground = hardBackground;
         this.hardSpread = hardSpread;
+
+        this.midgrid = midgrid;
+        this.midR = midR;
+        this.midTop = midTop;
+        this.midL = midL;
+        this.midBot = midBot;
+        this.midend = midend;
+        this.easyTop = easyTop;
+        this.easyL = easyL;
+        this.easyBot = easyBot;
+
+        this.gameWalls = new ArrayList<>();
+
+        gameWalls.add(this.midgrid);
+        gameWalls.add(this.easyTop);
+        gameWalls.add(this.easyL);
+        gameWalls.add(this.easyBot);
+        gameWalls.add(this.midTop);
+        gameWalls.add(this.midL);
+        gameWalls.add(this.midBot);
+
+
+    }
+
+    public void gameWallVisibilityOff() {
+
+        for(ImageView wall: gameWalls) {
+            wall.setVisible(false);
+        }
     }
     public Visibilities(){}
     public static Visibilities getInstance() {
@@ -119,7 +164,7 @@ public class Visibilities {
                 }
                 case MEDIUM -> {
                     mediumBackground.setVisible(true);
-                    mediumSpread.setVisible(true);
+                    mediumSpread.setVisible(true);        ////true!!!!!!!!!!!!!!!!!!!!!!!!
                     mediumBackground.setOpacity(1);
                     mediumSpread.setOpacity(1);
                     background.setOpacity(0);

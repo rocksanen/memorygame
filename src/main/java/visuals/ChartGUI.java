@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Side;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -16,34 +17,57 @@ import javafx.scene.chart.StackedAreaChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.ModeType;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
 
+/**
+ * The type Chart gui.
+ */
 public class ChartGUI extends Application implements IChartGUI {
 
+    /**
+     * The Stacked area chart.
+     */
     AreaChart<Number, Number> stackedAreaChart = new AreaChart<>(new NumberAxis(), new NumberAxis());
 
     private final IChartController scoreController2 = new ChartController(this);
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {launch(args);}
     @Override
     public void start(Stage stage) throws IOException {
 
 
+        stackedAreaChart.getXAxis().setStyle("-fx-tick-label-fill: BLACK; -fx-font-family: Papyrus; -fx-font-size: 16px;");
+        stackedAreaChart.getYAxis().setStyle("-fx-tick-label-fill: BLACK; -fx-font-family: Papyrus; -fx-font-size: 16px;");
 
         // Create a StackedAreaChart object
-        stackedAreaChart.setTitle("Progress Chart");
+
+        stackedAreaChart.setTitle("Your Progress");
+        stackedAreaChart.lookup(".chart-title").setStyle("-fx-font-family: Papyrus; -fx-font-size: 23px; -fx-font-weight: BOLD");
+
         stackedAreaChart.getXAxis().setLabel("Time (s)");
         stackedAreaChart.getYAxis().setLabel("Points");
+        Region plotBackground = (Region) stackedAreaChart.lookup(".chart-plot-background");
+        plotBackground.setStyle("-fx-background-color: rgba(255, 255, 255, 0);");
+        stackedAreaChart.setVerticalGridLinesVisible(false);
+        stackedAreaChart.setHorizontalGridLinesVisible(false);
 
 
         ArrayList<Number> easyScore = scoreController2.getUserScores(ModeType.EASY);
@@ -59,18 +83,27 @@ public class ChartGUI extends Application implements IChartGUI {
         // Create a series for each difficulty level
         XYChart.Series<Number, Number> easyScoreSeries = new XYChart.Series<>();
         easyScoreSeries.setName("Easy");
+        if (easyScore == null || easyTime == null) {
+            throw new NullPointerException("easyScore or easyTime is null");
+        }
         for (int i = 0; i < easyScore.size(); i++) {
             easyScoreSeries.getData().add(new XYChart.Data<>(easyTime.get(i), easyScore.get(i)));
         }
 
         XYChart.Series<Number, Number> mediumScoreSeries = new XYChart.Series<>();
         mediumScoreSeries.setName("Medium");
+        if (mediumScore == null || mediumTime == null) {
+            throw new NullPointerException("mediumScore or mediumTime is null");
+        }
         for (int i = 0; i < mediumScore.size(); i++) {
             mediumScoreSeries.getData().add(new XYChart.Data<>(mediumTime.get(i), mediumScore.get(i)));
         }
 
         XYChart.Series<Number, Number> hardScoreSeries = new XYChart.Series<>();
         hardScoreSeries.setName("Hard");
+        if (hardScore == null || hardTime == null) {
+            throw new NullPointerException("hardScore or hardTime is null");
+        }
         for (int i = 0; i < hardScore.size(); i++) {
             hardScoreSeries.getData().add(new XYChart.Data<>(hardTime.get(i), hardScore.get(i)));
         }
@@ -96,6 +129,10 @@ public class ChartGUI extends Application implements IChartGUI {
         hardButton.setStyle("-fx-background-color: #51c56b; -fx-min-width: 20px; -fx-min-height: 20px;");
 
         easyButton.setOnMouseClicked(event -> {
+            Node node = easyScoreSeries.getNode();
+            if( node == null){
+                throw new NullPointerException("Null returned");
+            }
             if (easyScoreSeries.getNode().isVisible()) {
                 easyScoreSeries.getNode().setVisible(false);
                 easyButton.setStyle("-fx-background-color: #cccccc; -fx-min-width: 20px; -fx-min-height: 20px;");
@@ -105,6 +142,10 @@ public class ChartGUI extends Application implements IChartGUI {
             }
         });
         mediumButton.setOnMouseClicked(event -> {
+            Node node = mediumScoreSeries.getNode();
+            if( node == null){
+                throw new NullPointerException("Null returned");
+            }
             if (mediumScoreSeries.getNode().isVisible()) {
                 mediumScoreSeries.getNode().setVisible(false);
                 mediumButton.setStyle("-fx-background-color: #cccccc; -fx-min-width: 20px; -fx-min-height: 20px;");
@@ -115,6 +156,10 @@ public class ChartGUI extends Application implements IChartGUI {
         });
 
         hardButton.setOnMouseClicked(event -> {
+            Node node = hardScoreSeries.getNode();
+            if( node == null){
+                throw new NullPointerException("Null returned");
+            }
             if (hardScoreSeries.getNode().isVisible()) {
                 hardScoreSeries.getNode().setVisible(false);
                 hardButton.setStyle("-fx-background-color: #cccccc; -fx-min-width: 20px; -fx-min-height: 20px;");
@@ -124,10 +169,10 @@ public class ChartGUI extends Application implements IChartGUI {
             }
         });
 
-
         stackedAreaChart.setLegendVisible(false);
         stackedAreaChart.setPadding(new Insets(10, 10, 30, 10));
-        stackedAreaChart.setPrefSize(800, 600);
+        stackedAreaChart.setPrefSize(750, 550);
+
 
         //Empty Space for below the buttons that buttons should be a little up
         Region spacer = new Region();
@@ -143,12 +188,42 @@ public class ChartGUI extends Application implements IChartGUI {
         hBox.setAlignment(Pos.CENTER);
         hBox.getChildren().addAll(easyButton, mediumButton, hardButton);
 
-        vBox.getChildren().addAll(stackedAreaChart,hBox, spacer);
+        vBox.getChildren().addAll(stackedAreaChart,hBox);
+
+        VBox mainBox = new VBox();
+        mainBox.getChildren().addAll(vBox, hBox, spacer);
+
+        // Load the image file
+
+        Image backgroundImage = new Image("file:src/main/java/visuals/images/mountain.jpeg");
+
+        // Create a BackgroundImage object with the loaded image
+        BackgroundImage background = new BackgroundImage(
+                backgroundImage,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                new BackgroundSize(
+                        BackgroundSize.DEFAULT.getWidth(),
+                        BackgroundSize.DEFAULT.getHeight(),
+                        true,
+                        true,
+                        true,
+                        true
+                ));
+
+
+
+        // Set the background of the StackPane to the BackgroundImage
+        Background bgCover = new Background(background);
+        mainBox.setBackground(bgCover);
+
 
         // Display the scene
-        Scene scene = new Scene(vBox);
+        Scene scene = new Scene(mainBox);
         stage.setScene(scene);
         stage.show();
 
     }
 }
+

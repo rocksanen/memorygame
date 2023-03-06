@@ -1,6 +1,5 @@
 package controller;
 
-import model.ModeType;
 
 public interface IControllerVtoE {
     void startEasyGame();
@@ -8,6 +7,8 @@ public interface IControllerVtoE {
     void startHardGame();
     void sendIdToEngine(int id);
     void clearStorage();
+    void sendReturnSignal();
+    void killTimer();
 
     boolean login(String username, String password);
 

@@ -2,7 +2,6 @@ package visuals;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import visuals.audio.AudioMemory;
 import visuals.imageServers.ImageCache;
 
 import java.io.FileNotFoundException;

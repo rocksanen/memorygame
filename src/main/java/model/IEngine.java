@@ -24,8 +24,10 @@ public interface IEngine {
 
     void clearStorage();
     void endGame();
+    void setReturnStatus(boolean returnStatus);
     int getActiveId();
     long getTimerTime();
+    void stopTimer();
 
     int getTotalScore();
 }

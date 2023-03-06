@@ -3,9 +3,11 @@ package database.dao;
 import database.entity.Account;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,17 +27,16 @@ class AccountDAOTest {
 
     @Test
     void saveAccount() {
+        Random r = new Random();
         Account account = new Account();
-        account.setUsername("testUser");
+        account.setUsername("testUser" + r.nextInt(1000000));
         account.setPassword("testPassword");
         assertTrue(accountDAO.saveAccount(account));
     }
 
     @Test
     void getAccount() {
-        Account acc = new Account();
-        acc.setUsername("testUser");
-        acc.setPassword("testPass");
+        Account acc = accountDAO.getAccountByName("testUser");
         accountDAO.saveAccount(acc);
         assertNotNull(accountDAO.getAccount(acc.getAccountid()));
 
@@ -52,8 +53,8 @@ class AccountDAOTest {
 
     @Test
     void getAllAccounts() {
-        Account acc1 = new Account("testuser5", "password5");
-        Account acc2 = new Account("testuser6", "password6");
+        Account acc1 = accountDAO.getAccountByName("testuser5");
+        Account acc2 = accountDAO.getAccountByName("testuser6");
 
         accountDAO.saveAccount(acc1);
         accountDAO.saveAccount(acc2);
@@ -66,7 +67,14 @@ class AccountDAOTest {
     @Test
     void deleteAccount() {
         // check that the account exists in the database
-        Account retrievedAccount = accountDAO.getAccountByName("testuser5");
+        Account retrievedAccount = accountDAO.getAccountByName("testuser55");
+        if (retrievedAccount == null) {
+            Account acc1 = new Account();
+            acc1.setUsername("testuser55");
+            acc1.setPassword("test123");
+            accountDAO.saveAccount(acc1);
+            retrievedAccount = accountDAO.getAccountByName("testuser55");
+        }
         assertNotNull(retrievedAccount);
 
         // delete the account
@@ -74,7 +82,7 @@ class AccountDAOTest {
         assertTrue(deleteResult);
 
         // check that the account no longer exists in the database
-        retrievedAccount = accountDAO.getAccountByName("testUser");
+        retrievedAccount = accountDAO.getAccountByName("testUser55");
         assertNull(retrievedAccount);
     }
 }

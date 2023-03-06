@@ -3,9 +3,6 @@ package model;
 import database.dao.AccountDAO;
 import database.dao.IAccountDAO;
 import database.entity.Account;
-
-import java.util.concurrent.locks.Lock;
-
 import static model.ModeType.*;
 
 
@@ -325,6 +322,6 @@ public class User {
      */
     @Override
     public String toString() {
-        return "niet";
+        return "Het";
     }
 }
