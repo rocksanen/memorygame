@@ -1,6 +1,8 @@
 # Memory Game
-Game where you flip cards to find pairs. Made with JavaFX.
 
+![image](https://user-images.githubusercontent.com/99963437/223095654-01d4936d-4383-40e1-a820-9a414e12abe9.png)
+
+### Game where you flip cards to find pairs. Made with JavaFX.
 By Otto Oksanen, Eetu Soronen, Hasan Safdari & Samu Oksala
 ## Table of Contents
 * [Instructions](#instructions)
