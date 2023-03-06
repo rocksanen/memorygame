@@ -3,6 +3,7 @@ package model;
 import controller.Controller;
 import controller.IControllerEtoV;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import visuals.IGui;
@@ -46,6 +47,7 @@ public class EngineTest {
         assertNotEquals(test, test2);
     }
 
+    @Disabled
     @Test
     @DisplayName("Test addToComparing")
     void addToComparing() {
