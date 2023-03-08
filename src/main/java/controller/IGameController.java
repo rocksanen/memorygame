@@ -20,16 +20,6 @@ public interface IGameController {
 
     void killTimer();
 
-    boolean login(String username, String password);
-
-    boolean register(String username, String password);
-
-    void logout();
-
-    boolean isLoggedIn();
-
-    String getUsername();
-
     void clearPair(ArrayList<Integer> storage);
 
     void setEasyGame(ArrayList<MemoryObject> memoryObjects);
