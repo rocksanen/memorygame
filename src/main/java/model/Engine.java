@@ -1,6 +1,6 @@
 package model;
 
-import controller.IControllerEtoV;
+import controller.IGameController;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,7 +20,7 @@ public class Engine implements IEngine {
      * The Storage.
      */
     ArrayList<Integer> storage = new ArrayList<>();
-    private final IControllerEtoV controller;
+    private final IGameController controller;
     private final ModeType type;
 
     /**
@@ -104,7 +104,7 @@ public class Engine implements IEngine {
      * @param type       the type
      * @param controller the controller
      */
-    public Engine(ModeType type, IControllerEtoV controller) {
+    public Engine(ModeType type, IGameController controller) {
 
         this.type = type;
         this.controller = controller;

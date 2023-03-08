@@ -5,7 +5,7 @@ import model.Score;
 
 import java.util.ArrayList;
 
-public interface IControllerScoreToV {
+public interface IScoreController {
 
 
     void fetchScores(ModeType difficulty);

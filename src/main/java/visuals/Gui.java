@@ -7,7 +7,6 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
@@ -18,7 +17,6 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import model.MemoryObject;
 import model.ModeType;
@@ -44,8 +42,8 @@ public class Gui extends Application implements IGui, IChartGUI {
 
     private ModeType selectedDifficulty;
     private final IChartController scoreController2 = new ChartController(this);
-    private final IControllerVtoE controller = new Controller(this);
-    private final IControllerScoreToV scoreController = new Controller(this);
+    private final IGameController controller = new GameController(this);
+    private final IScoreController scoreController = new ScoreController(this);
     Stage primaryStage;
 
     @FXML
@@ -712,13 +710,13 @@ public class Gui extends Application implements IGui, IChartGUI {
         }
 
         for (int i = 0; i < 5; i++) {
+//
+//            String[] words = personalList.get(i).split("\\s+");
+//            String name = words[0];
+//            name = name.substring(0, 3);
+//            String points = words[1];
 
-            String[] words = personalList.get(i).split("\\s+");
-            String name = words[0];
-            name = name.substring(0, 3);
-            String points = words[1];
-
-            personalLabels.get(i).setText((i + 1) + "." + name.toUpperCase() + " " + points.toUpperCase());
+            personalLabels.get(i).setText((i + 1) + "." + personalList.get(i));
         }
     }
 
@@ -884,7 +882,6 @@ public class Gui extends Application implements IGui, IChartGUI {
 
         buttonLogout.setFont(outrun);
         // make button logout purple with shadow, white text and hover effect
-
         buttonLogout.setStyle(
                 "-fx-background-color: rgba(0,0,0,0.50); -fx-background-radius: 5; -fx-padding: 1 2 1 2; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
         stats.setFont(outrun);
