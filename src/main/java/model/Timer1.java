@@ -1,13 +1,13 @@
 package model;
 
-import controller.IControllerEtoV;
+import controller.IGameController;
 
 import java.util.TimerTask;
 
 public class Timer1 extends TimerTask {
 
-    private final IControllerEtoV controller;
-    public Timer1(IControllerEtoV controller) {
+    private final IGameController controller;
+    public Timer1(IGameController controller) {
         this.controller = controller;
     }
     public int getI() {

@@ -7,7 +7,6 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
@@ -18,7 +17,6 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import model.MemoryObject;
 import model.ModeType;
@@ -44,8 +42,9 @@ public class Gui extends Application implements IGui, IChartGUI {
 
     private ModeType selectedDifficulty;
     private final IChartController scoreController2 = new ChartController(this);
-    private final IControllerVtoE controller = new Controller(this);
-    private final IControllerScoreToV scoreController = new Controller(this);
+    private final IGameController controller = new GameController(this);
+    private final IScoreController scoreController = new ScoreController(this);
+    private final IUserController userController = new UserController(this);
     Stage primaryStage;
 
     @FXML
@@ -712,13 +711,13 @@ public class Gui extends Application implements IGui, IChartGUI {
         }
 
         for (int i = 0; i < 5; i++) {
+//
+//            String[] words = personalList.get(i).split("\\s+");
+//            String name = words[0];
+//            name = name.substring(0, 3);
+//            String points = words[1];
 
-            String[] words = personalList.get(i).split("\\s+");
-            String name = words[0];
-            name = name.substring(0, 3);
-            String points = words[1];
-
-            personalLabels.get(i).setText((i + 1) + "." + name.toUpperCase() + " " + points.toUpperCase());
+            personalLabels.get(i).setText((i + 1) + "." + personalList.get(i));
         }
     }
 
@@ -728,17 +727,17 @@ public class Gui extends Application implements IGui, IChartGUI {
         String user = name.getText();
         String userPassword = password.getText();
 
-        if (controller.isLoggedIn()) {
+        if (userController.isLoggedIn()) {
             System.out.println("Already logged in");
             return;
         }
-        if (!controller.register(user, userPassword)) {
+        if (!userController.register(user, userPassword)) {
             System.out.println("Registration failed");
             return;
         }
         paneLogin.setVisible(false);
         buttonLogout.setVisible(true);
-        labelLoggedIn.setText("Logged in as " + controller.getUsername());
+        labelLoggedIn.setText("Logged in as " + userController.getUsername());
     }
 
     @Override
@@ -782,8 +781,8 @@ public class Gui extends Application implements IGui, IChartGUI {
         String user = name.getText();
         String userPassword = password.getText();
         try {
-            controller.login(user, userPassword);
-            if (!controller.isLoggedIn()) {
+            userController.login(user, userPassword);
+            if (!userController.isLoggedIn()) {
                 System.out.println("Login failed");
                 stats.setVisible(false);
                 return;
@@ -793,7 +792,7 @@ public class Gui extends Application implements IGui, IChartGUI {
             buttonLogout.setVisible(true);
             stats.setVisible(true);
 
-            labelLoggedIn.setText("Logged in as " + controller.getUsername());
+            labelLoggedIn.setText("Logged in as " + userController.getUsername());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -884,7 +883,6 @@ public class Gui extends Application implements IGui, IChartGUI {
 
         buttonLogout.setFont(outrun);
         // make button logout purple with shadow, white text and hover effect
-
         buttonLogout.setStyle(
                 "-fx-background-color: rgba(0,0,0,0.50); -fx-background-radius: 5; -fx-padding: 1 2 1 2; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
         stats.setFont(outrun);
@@ -1178,7 +1176,7 @@ public class Gui extends Application implements IGui, IChartGUI {
     @FXML
     public void setButtonLogout() {
             try {
-                controller.logout();
+                userController.logout();
                 labelLoggedIn.setText("Not logged in");
                 name.clear();
                 password.clear();

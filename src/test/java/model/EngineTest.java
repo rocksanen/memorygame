@@ -1,7 +1,7 @@
 package model;
 
-import controller.Controller;
-import controller.IControllerEtoV;
+import controller.GameController;
+import controller.IGameController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,12 +15,12 @@ public class EngineTest {
 
     private Engine e;
     IGui ui;
-    private IControllerEtoV controller;
+    private IGameController controller;
 
 
     @BeforeEach
     void setUp() {
-        controller = new Controller(ui);
+        controller = new GameController(ui);
         e = new Engine(ModeType.EASY, controller);
     }
 
