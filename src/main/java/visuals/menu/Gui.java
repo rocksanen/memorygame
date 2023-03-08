@@ -691,12 +691,12 @@ public class Gui extends Application implements IGui, IChartGUI {
 
         for (int i = 0; i < 5; i++) {
 
-            String[] words = worldList.get(i).split("\\s+");
-            String name = words[0];
-            name = name.substring(0, 3);
-            String points = words[1];
+//            String[] words = worldList.get(i).split("\\s+");
+//            String name = words[0];
+//            name = name.substring(0, 3);
+//            String points = words[1];
 
-            worldLabels.get(i).setText((i + 1) + "." + name.toUpperCase() + " " + points.toUpperCase());
+            worldLabels.get(i).setText((i + 1) + "." + worldList.get(i));
         }
     }
 
