@@ -82,7 +82,7 @@ public class ScoreController implements IScoreController {
     @Override
     public String formatScore(Score score) {
         // change formatting as you wish
-        String format = String.format("%-3s %-5d", score.getUsername(), score.getPoints()).toUpperCase();
+        String format = String.format("%3.3s %4d", score.getUsername(), score.getPoints()).toUpperCase();
 //        System.out.println(format);
         return format;
     }
@@ -118,27 +118,26 @@ public class ScoreController implements IScoreController {
             System.out.println("not logged in!");
             return null;
         }
-
+        User u = User.getInstance();
+        ArrayList<String> scoreList = new ArrayList<>();
         switch (difficulty) {
             case EASY:
-                User.getInstance().getScores(EASY);
+                for (Score s : u.getScores(EASY).getScores()) {
+                    scoreList.add(formatScore(s));
+                }
                 break;
             case MEDIUM:
-                User.getInstance().getScores(MEDIUM);
-                break;
+                for (Score s : u.getScores(EASY).getScores()) {
+                    scoreList.add(formatScore(s));
+                }
             case HARD:
-                User.getInstance().getScores(HARD);
-                break;
+                for (Score s : u.getScores(EASY).getScores()) {
+                    scoreList.add(formatScore(s));
+                }
             default:
                 return null;
         }
-
-        ArrayList<String> scoreList = new ArrayList<>();
-
-        for (Score s : User.getInstance().getScores(difficulty).getScores()) {
-            scoreList.add(s.getUsername() + " " + s.getPoints());
-        }
-        System.out.println(scoreList);
+//        System.out.println(scoreList);
         return scoreList;
     }
 
