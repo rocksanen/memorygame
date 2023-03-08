@@ -1,4 +1,4 @@
-package visuals;
+package visuals.menu;
 
 import controller.*;
 import javafx.animation.KeyFrame;
@@ -20,12 +20,12 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.MemoryObject;
 import model.ModeType;
+import visuals.*;
 import visuals.audio.AudioMemory;
-import visuals.cubeFactories.EasyCubeFactory;
-import visuals.cubeFactories.HardCubeFactory;
-import visuals.cubeFactories.ICubeFactory;
-import visuals.cubeFactories.MediumCubeFactory;
+import visuals.cubeFactories.*;
 import visuals.imageServers.ImageCache;
+import visuals.stats.ChartGUI;
+import visuals.stats.IChartGUI;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -135,7 +135,7 @@ public class Gui extends Application implements IGui, IChartGUI {
     @FXML
     ImageView redtree;
     @FXML
-    static Pane logAndReg;
+    public static Pane logAndReg;
     @FXML
     ImageView dirt;
     @FXML

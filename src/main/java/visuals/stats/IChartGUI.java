@@ -1,4 +1,4 @@
-package visuals;
+package visuals.stats;
 
 import javafx.stage.Stage;
 

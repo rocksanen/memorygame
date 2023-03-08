@@ -2,7 +2,7 @@ package controller;
 
 import javafx.application.Platform;
 import model.*;
-import visuals.IGui;
+import visuals.menu.IGui;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
