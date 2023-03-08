@@ -15,6 +15,8 @@ import javafx.util.Duration;
 import model.ModeType;
 import org.jetbrains.annotations.NotNull;
 import visuals.audio.AudioMemory;
+import visuals.effects.BackGroundMover;
+import visuals.menu.Gui;
 
 
 public class Effects {

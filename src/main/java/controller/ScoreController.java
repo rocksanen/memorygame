@@ -1,7 +1,7 @@
 package controller;
 
 import model.*;
-import visuals.IGui;
+import visuals.menu.IGui;
 
 import java.util.ArrayList;
 

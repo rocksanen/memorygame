@@ -1,7 +1,7 @@
 package controller;
 
 import model.User;
-import visuals.IGui;
+import visuals.menu.IGui;
 
 public class UserController implements IUserController {
 

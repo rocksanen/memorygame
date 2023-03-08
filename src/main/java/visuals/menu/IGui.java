@@ -1,4 +1,4 @@
-package visuals;
+package visuals.menu;
 
 import javafx.stage.Stage;
 import model.MemoryObject;

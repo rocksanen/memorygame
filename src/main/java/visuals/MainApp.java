@@ -3,6 +3,8 @@ package visuals;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import visuals.imageServers.ImageCache;
+import visuals.menu.Gui;
+import visuals.menu.IGui;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,7 +18,7 @@ public class MainApp extends Application {
         ImageCache.getInstance().addToMediumCache();
         ImageCache.getInstance().addToHardCache();
         ImageCache.getInstance().addToGameBackGroundCache();
-        visuals.Gui.main(args);
+        Gui.main(args);
     }
 
     @Override

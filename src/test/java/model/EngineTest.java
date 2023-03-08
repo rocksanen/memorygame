@@ -5,7 +5,7 @@ import controller.IGameController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import visuals.IGui;
+import visuals.menu.IGui;
 
 import java.util.ArrayList;
 

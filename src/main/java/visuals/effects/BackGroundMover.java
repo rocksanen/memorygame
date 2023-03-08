@@ -1,4 +1,4 @@
-package visuals;
+package visuals.effects;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;

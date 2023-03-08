@@ -10,8 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import model.MemoryObject;
-import visuals.BoxMaker;
-import visuals.Gui;
+import visuals.menu.Gui;
 import visuals.imageServers.ImageCache;
 
 import java.util.ArrayList;
