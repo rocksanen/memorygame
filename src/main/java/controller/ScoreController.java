@@ -82,7 +82,7 @@ public class ScoreController implements IScoreController {
     @Override
     public String formatScore(Score score) {
         // change formatting as you wish
-        String format = String.format("%3.3s %4d", score.getUsername(), score.getPoints()).toUpperCase();
+        String format = String.format("%-3.3s %4d", score.getUsername(), score.getPoints()).toUpperCase();
 //        System.out.println(format);
         return format;
     }
