@@ -1,7 +1,5 @@
-/src/main/resources/META-INF/*
 /target/
 /out/
-/src/main/resources/META-INF/
 /.idea/*
 /.idea/
 /Muistipeli.iml
