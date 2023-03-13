@@ -1,4 +1,4 @@
-package visuals;
+package visuals.cubeFactories;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -10,16 +10,13 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
-import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.CullFace;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
-
-import java.io.FileInputStream;
+import visuals.menu.Gui;
 
 public class BoxMaker {
     private Box backFace, topFace, rightFace, leftFace, frontFace, bottomFace;

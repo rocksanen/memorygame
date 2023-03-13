@@ -1,7 +1,7 @@
 package controller;
 
 import model.*;
-import visuals.IChartGUI;
+import visuals.stats.IChartGUI;
 
 import java.util.ArrayList;
 
