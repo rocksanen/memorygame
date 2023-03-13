@@ -58,7 +58,7 @@ public class SqlJpaConn {
             configOverrides.put(key, props.getProperty(key));
         }
 
-        // maven can use env variables.
+        // jenkins can use env variables.
         if (configOverrides.isEmpty()) {
             if (System.getenv("MEMORYMAZE_DB_LINK") != null) {
                 configOverrides.put("javax.persistence.jdbc.url", System.getenv("MEMORYMAZE_DB_LINK"));
