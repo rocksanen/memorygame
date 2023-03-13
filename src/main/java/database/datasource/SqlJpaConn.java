@@ -47,39 +47,42 @@ public class SqlJpaConn {
     }
 
     private static Map<String, String> configOverider() {
+        Map<String, String> configOverrides = new HashMap<>();
+
+        // jenkins can (not) use env variables
+        if (System.getenv("MEMORYMAZE_DB_LINK") != null) {
+            System.out.println("link: " + System.getenv("MEMORYMAZE_DB_LINK"));
+            configOverrides.put("jakarta.persistence.jdbc.url", System.getenv("MEMORYMAZE_DB_LINK"));
+        }
+        if (System.getenv("MEMORYMAZE_DB_USER") != null) {
+            System.out.println("user: " + System.getenv("MEMORYMAZE_DB_USER"));
+            configOverrides.put("jakarta.persistence.jdbc.user", System.getenv("MEMORYMAZE_DB_USER"));
+        }
+        if (System.getenv("MEMORYMAZE_DB_PASSWORD") != null) {
+            System.out.println("password: " + System.getenv("MEMORYMAZE_DB_PASSWORD"));
+            configOverrides.put("jakarta.persistence.jdbc.password", System.getenv("MEMORYMAZE_DB_PASSWORD"));
+        }
+
+        if (configOverrides.size() == 3) {
+            return configOverrides;
+        }
+
         Properties props = new Properties();
         try (InputStream input = SqlJpaConn.class.getClassLoader().getResourceAsStream("config.properties")) {
             props.load(input);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
-        Map<String, String> configOverrides = new HashMap<>();
         for (String key : props.stringPropertyNames()) {
             configOverrides.put(key, props.getProperty(key));
         }
 
-        // jenkins can use env variables
-        if (configOverrides.size() < 2) {
-            if (System.getenv("MEMORYMAZE_DB_LINK") != null) {
-                System.out.println("link: " + System.getenv("MEMORYMAZE_DB_LINK"));
-                configOverrides.put("jakarta.persistence.jdbc.url", System.getenv("MEMORYMAZE_DB_LINK"));
-            }
-            if (System.getenv("MEMORYMAZE_DB_USER") != null) {
-                System.out.println("user: " + System.getenv("MEMORYMAZE_DB_USER"));
-                configOverrides.put("jakarta.persistence.jdbc.user", System.getenv("MEMORYMAZE_DB_USER"));
-            }
-            if (System.getenv("MEMORYMAZE_DB_PASSWORD") != null) {
-                System.out.println("password: " + System.getenv("MEMORYMAZE_DB_PASSWORD"));
-                configOverrides.put("jakarta.persistence.jdbc.password", System.getenv("MEMORYMAZE_DB_PASSWORD"));
-            }
-        }
 
-        // print configOverride
-        for (String key : configOverrides.keySet()) {
-            System.out.println(key + "=" + configOverrides.get(key));
-        }
-        System.out.println(configOverrides.size());
+//        // print configOverride
+//        for (String key : configOverrides.keySet()) {
+//            System.out.println(key + "=" + configOverrides.get(key));
+//        }
+//        System.out.println(configOverrides.size());
 
         return configOverrides;
     }
