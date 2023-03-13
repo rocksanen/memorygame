@@ -57,6 +57,19 @@ public class SqlJpaConn {
         for (String key : props.stringPropertyNames()) {
             configOverrides.put(key, props.getProperty(key));
         }
+
+        // maven can use env variables.
+        if (configOverrides.isEmpty()) {
+            if (System.getenv("MEMORYMAZE_DB_LINK") != null) {
+                configOverrides.put("javax.persistence.jdbc.url", System.getenv("MEMORYMAZE_DB_LINK"));
+            }
+            if (System.getenv("MEMORYMAZE_DB_USER") != null) {
+                configOverrides.put("javax.persistence.jdbc.user", System.getenv("MEMORYMAZE_DB_USER"));
+            }
+            if (System.getenv("MEMORYMAZE_DB_PASSWORD") != null) {
+                configOverrides.put("javax.persistence.jdbc.password", System.getenv("MEMORYMAZE_DB_PASSWORD"));
+            }
+        }
         return configOverrides;
     }
 }
