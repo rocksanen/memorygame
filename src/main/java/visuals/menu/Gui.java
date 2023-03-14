@@ -7,6 +7,7 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
@@ -46,6 +47,9 @@ public class Gui extends Application implements IGui, IChartGUI {
     private final IScoreController scoreController = new ScoreController(this);
     private final IUserController userController = new UserController(this);
     Stage primaryStage;
+
+    @FXML
+    Button statsGlobal;
 
     @FXML
     Button buttonLogout;
@@ -211,32 +215,55 @@ public class Gui extends Application implements IGui, IChartGUI {
     ImageView hardL;
     @FXML
     ImageView loading;
-    @FXML ImageView easydes1;
-    @FXML ImageView easydes2;
-    @FXML ImageView easydes3;
-    @FXML ImageView medes1;
-    @FXML ImageView medes2;
-    @FXML ImageView medes3;
-    @FXML ImageView hardes1;
-    @FXML ImageView hardes2;
-    @FXML ImageView hardes3;
-    @FXML ImageView kotoku;
-    @FXML ImageView tigerden;
-    @FXML ImageView treeoflife;
-    @FXML ImageView telkku;
-    @FXML ImageView play;
-    @FXML ImageView returngame;
+    @FXML
+    ImageView easydes1;
+    @FXML
+    ImageView easydes2;
+    @FXML
+    ImageView easydes3;
+    @FXML
+    ImageView medes1;
+    @FXML
+    ImageView medes2;
+    @FXML
+    ImageView medes3;
+    @FXML
+    ImageView hardes1;
+    @FXML
+    ImageView hardes2;
+    @FXML
+    ImageView hardes3;
+    @FXML
+    ImageView kotoku;
+    @FXML
+    ImageView tigerden;
+    @FXML
+    ImageView treeoflife;
+    @FXML
+    ImageView telkku;
+    @FXML
+    ImageView play;
+    @FXML
+    ImageView returngame;
 
-    @FXML ImageView movingjungle;
+    @FXML
+    ImageView movingjungle;
 
-    @FXML ImageView easyend;
-    @FXML ImageView midneo;
-    @FXML ImageView midneo2;
-    @FXML ImageView midneo3;
-    @FXML ImageView midneo4;
+    @FXML
+    ImageView easyend;
+    @FXML
+    ImageView midneo;
+    @FXML
+    ImageView midneo2;
+    @FXML
+    ImageView midneo3;
+    @FXML
+    ImageView midneo4;
 
-    @FXML ImageView easyneo;
-    @FXML ImageView hardneo;
+    @FXML
+    ImageView easyneo;
+    @FXML
+    ImageView hardneo;
 
 
     private static final ArrayList<Label> worldLabels = new ArrayList<>();
@@ -252,9 +279,11 @@ public class Gui extends Application implements IGui, IChartGUI {
     private Parent root;
     private Scene scene;
     private static final ArrayList<Group> activeList = new ArrayList<>();
+
     public boolean isReturnStatus() {
         return returnStatus;
     }
+
     private boolean returnStatus;
     private boolean playIntro = true;
 
@@ -287,7 +316,8 @@ public class Gui extends Application implements IGui, IChartGUI {
      * after the fxml file has been fully loaded.
      */
     @FXML
-    private void initialize() {}
+    private void initialize() {
+    }
 
     /**
      * Loads the properties file and sets the playIntro boolean value.
@@ -357,7 +387,7 @@ public class Gui extends Application implements IGui, IChartGUI {
                 midL, midBot, easyTop, easyL,
                 easyBot, hardGridImage, hardR,
                 hardL, mediumSpread, dirt, play, returngame, movingjungle,
-                easyend,midneo,midneo2,midneo3,midneo4,easyneo,hardneo);
+                easyend, midneo, midneo2, midneo3, midneo4, easyneo, hardneo);
     }
 
     @FXML
@@ -379,11 +409,11 @@ public class Gui extends Application implements IGui, IChartGUI {
         returnStatus = false;
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO,
-                        new KeyValue(play.opacityProperty(),1),
-                        new KeyValue(returngame.opacityProperty(),1)),
+                        new KeyValue(play.opacityProperty(), 1),
+                        new KeyValue(returngame.opacityProperty(), 1)),
                 new KeyFrame(Duration.seconds(0.6),
-                        new KeyValue(play.opacityProperty(),0),
-                        new KeyValue(returngame.opacityProperty(),0))
+                        new KeyValue(play.opacityProperty(), 0),
+                        new KeyValue(returngame.opacityProperty(), 0))
         );
 
         timeline.play();
@@ -822,6 +852,7 @@ public class Gui extends Application implements IGui, IChartGUI {
 
         buttonLogout = (Button) root.lookup("#buttonLogout");
         stats = (Button) root.lookup("#stats");
+        statsGlobal = (Button) root.lookup("#statsGlobal");
 
         login = (Button) root.lookup("#login");
         register = (Button) root.lookup("#register");
@@ -968,9 +999,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         telkku = (ImageView) root.lookup("#telkku");
 
 
-
     }
-
 
 
     private void setGameImages() {
@@ -1032,37 +1061,49 @@ public class Gui extends Application implements IGui, IChartGUI {
     }
 
     @FXML
-    public void easyInfoOn() {displayInfoOn(easydes1,easydes2,easydes3);}
+    public void easyInfoOn() {
+        displayInfoOn(easydes1, easydes2, easydes3);
+    }
 
     @FXML
-    public void easyInfoOff(){displayInfoOff(easydes1,easydes2,easydes3);}
+    public void easyInfoOff() {
+        displayInfoOff(easydes1, easydes2, easydes3);
+    }
 
     @FXML
-    public void mediumInfoOn() {displayInfoOn(medes1,medes2,medes3);}
+    public void mediumInfoOn() {
+        displayInfoOn(medes1, medes2, medes3);
+    }
 
     @FXML
-    public void mediumInfoOff() {displayInfoOff(medes1,medes2,medes3);}
+    public void mediumInfoOff() {
+        displayInfoOff(medes1, medes2, medes3);
+    }
 
     @FXML
-    public void hardInfoOn() {displayInfoOn(hardes1,hardes2,hardes3);}
+    public void hardInfoOn() {
+        displayInfoOn(hardes1, hardes2, hardes3);
+    }
 
     @FXML
-    public void hardInfoOff() {displayInfoOff(hardes1,hardes2,hardes3);}
+    public void hardInfoOff() {
+        displayInfoOff(hardes1, hardes2, hardes3);
+    }
 
 
     private void displayInfoOn(ImageView a, ImageView b, ImageView c) {
 
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO,
-                        new KeyValue(a.opacityProperty(),0)),
+                        new KeyValue(a.opacityProperty(), 0)),
                 new KeyFrame(Duration.seconds(0.2),
-                        new KeyValue(a.opacityProperty(),1),
-                        new KeyValue(b.opacityProperty(),0)),
+                        new KeyValue(a.opacityProperty(), 1),
+                        new KeyValue(b.opacityProperty(), 0)),
                 new KeyFrame(Duration.seconds(0.4),
-                        new KeyValue(b.opacityProperty(),1),
-                        new KeyValue(c.opacityProperty(),0)),
+                        new KeyValue(b.opacityProperty(), 1),
+                        new KeyValue(c.opacityProperty(), 0)),
                 new KeyFrame(Duration.seconds(0.6),
-                        new KeyValue(c.opacityProperty(),1))
+                        new KeyValue(c.opacityProperty(), 1))
         );
         timeline.playFromStart();
 
@@ -1076,15 +1117,15 @@ public class Gui extends Application implements IGui, IChartGUI {
 
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO,
-                        new KeyValue(a.opacityProperty(),1)),
+                        new KeyValue(a.opacityProperty(), 1)),
                 new KeyFrame(Duration.seconds(0.2),
-                        new KeyValue(a.opacityProperty(),0),
-                        new KeyValue(b.opacityProperty(),1)),
+                        new KeyValue(a.opacityProperty(), 0),
+                        new KeyValue(b.opacityProperty(), 1)),
                 new KeyFrame(Duration.seconds(0.4),
-                        new KeyValue(b.opacityProperty(),0),
-                        new KeyValue(c.opacityProperty(),1)),
+                        new KeyValue(b.opacityProperty(), 0),
+                        new KeyValue(c.opacityProperty(), 1)),
                 new KeyFrame(Duration.seconds(0.6),
-                        new KeyValue(c.opacityProperty(),0))
+                        new KeyValue(c.opacityProperty(), 0))
         );
 
         timeline.playFromStart();
@@ -1103,7 +1144,7 @@ public class Gui extends Application implements IGui, IChartGUI {
                     sun, lightning, blacksun,
                     easyFrame, mediumFrame, hardFrame,
                     memomaze, labelLoggedIn, loading,
-                    kotoku,tigerden,treeoflife));
+                    kotoku, tigerden, treeoflife));
 
         } else {
             labelLoggedIn.setVisible(true);
@@ -1174,19 +1215,35 @@ public class Gui extends Application implements IGui, IChartGUI {
     }
 
     @FXML
-    public void setButtonLogout() {
-            try {
-                userController.logout();
-                labelLoggedIn.setText("Not logged in");
-                name.clear();
-                password.clear();
+    public void setStatsGlobal(ActionEvent event) {
+        // open Leaderboards.fxml
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/visuals/stats/Leaderboards.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
 
-                buttonLogout.setVisible(false);
-                stats.setVisible(false);
-                paneLogin.setVisible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void setButtonLogout() {
+        try {
+            userController.logout();
+            labelLoggedIn.setText("Not logged in");
+            name.clear();
+            password.clear();
+
+            buttonLogout.setVisible(false);
+            stats.setVisible(false);
+            paneLogin.setVisible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
