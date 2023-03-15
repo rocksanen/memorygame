@@ -258,7 +258,7 @@ public class Menu implements Initializable, IMenu {
     private boolean returnStatus;
     private boolean playIntro = true;
 
-    //public static PerspectiveCamera camera = new PerspectiveCamera();
+    public static PerspectiveCamera camera = new PerspectiveCamera();
 
 
     @Override
