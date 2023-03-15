@@ -23,7 +23,7 @@ import visuals.*;
 import visuals.audio.AudioMemory;
 import visuals.cubeFactories.*;
 import visuals.effects.menuEffects.BurningSun;
-import visuals.effects.menuEffects.zoomInEffects;
+import visuals.effects.menuEffects.ZoomInEffects;
 import visuals.imageServers.ImageCache;
 import visuals.stats.ChartGUI;
 
@@ -45,7 +45,7 @@ public class Menu implements Initializable, IMenu {
     private final IGameController controller = new GameController(null); // not null : this
     private final IScoreController scoreController = new ScoreController(this);
     private final IUserController userController = new UserController(this);
-    private final zoomInEffects zoomInEffects = new zoomInEffects();
+    private final ZoomInEffects zoomInEffects = new ZoomInEffects();
     private final BurningSun burningSun = new BurningSun();
 
 
@@ -264,6 +264,7 @@ public class Menu implements Initializable, IMenu {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        scoresOn(true);
         loadProperties();
 
         try {
@@ -313,20 +314,6 @@ public class Menu implements Initializable, IMenu {
         }
     }
 
-
-
-        //loadProperties();
-        //scoresOn(true);
-
-        //initGoods();
-
-
-        // If you want scores: "true", if not: "false".
-
-
-        //introOn(playIntro);
-
-
     public void initGoods() throws IOException {
 
         panesAndMisc();
@@ -336,25 +323,8 @@ public class Menu implements Initializable, IMenu {
 
         zoomInEffects.setMiniImagesAndFrames(miniEasy, miniMedium, miniHard, easyFrame, mediumFrame, hardFrame);
         zoomInEffects.setEssenceImages(japan, jungle, redtree);
-        zoomInEffects.setGeneralObjects(pergament, menuAnkkuri, startBlack, gameModePane,labelLoggedIn, telkku);
-
-        //Effects.getInstance().setMiniImagesAndFrames(miniEasy, miniMedium, miniHard, easyFrame, mediumFrame, hardFrame);
-        //Effects.getInstance().setEssenceImages(japan, jungle, redtree);
-        //Effects.getInstance().setGeneralObjects(pergament, menuAnkkuri, startBlack, gameModePane, burningsun, labelLoggedIn, telkku);
+        zoomInEffects.setGeneralObjects(pergament);
         Visibilities.getInstance().setToGameObjects(gameModePane, score, logAndReg, pergament);
-        //Visibilities.getInstance().setGridLayoutToVisibility(easyGrid, mediumGrid, hardGrid);
-        /*Visibilities.getInstance().setGameBackGrounds(
-                background, mediumBackground, mediumSpread,
-                hardBackground, hardSpread, midgrid, midR,
-                midTop, midL, midBot, midend, easyTop, easyL, easyBot);
-        Effects.getInstance().setBackGrounds(
-                mediumBackground, midgrid, midTop,
-                midL, midBot, easyTop, easyL,
-                easyBot, hardGridImage, hardR,
-                hardL, mediumSpread, dirt, play, returngame, movingjungle,
-                easyend,midneo,midneo2,midneo3,midneo4,easyneo,hardneo);
-
-         */
     }
 
     @FXML

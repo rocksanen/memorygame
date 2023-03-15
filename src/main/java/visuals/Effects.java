@@ -15,7 +15,7 @@ import javafx.util.Duration;
 import model.ModeType;
 import org.jetbrains.annotations.NotNull;
 import visuals.audio.AudioMemory;
-import visuals.effects.BackGroundMover;
+import visuals.effects.gameEffects.BackGroundMover;
 import visuals.menu.Menu;
 
 
@@ -193,8 +193,8 @@ public class Effects {
         this.zOffset = zOffset;
         this.fovOffset = fovOffset;
         this.xOffset = xOffset;
-        this.yOffset = yOffset;
         this.type = type;
+        this.yOffset = yOffset;
 
         Platform.runLater(() -> Visibilities.getInstance().offGameGrid(cubeGrid));  // This is actually very important...
 
@@ -261,9 +261,6 @@ public class Effects {
             zoomOutBlurEndings();
 
         });
-
-
-
     }
 
     private void zoomOutMediumWalls() {

@@ -11,13 +11,11 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.CullFace;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
-import visuals.gameModes.FXAbstractGameController;
 import visuals.gameModes.FXIGameController;
 
 public class BoxMaker {
@@ -49,22 +47,8 @@ public class BoxMaker {
 
        // System.out.println("id: " + this.id + " gui " + this.gui + " width " + this.width + " findImage " + findImage.getWidth());
     }
-
-    public Integer getCubeId() {
-
-        return this.id;
-    }
-
-    public void setActive() {
-
-        isActive = !isActive;
-
-    }
-
-    public Boolean getActiveState() {
-
-        return isActive;
-    }
+    public void setActive() {isActive = !isActive;}
+    public Boolean getActiveState() {return isActive;}
     private void createMaterials(Image findImage, Image backImage, Image behindImage){
 
         material1 = new PhongMaterial();
@@ -135,10 +119,10 @@ public class BoxMaker {
 
 
     private void createGroup() {
+
         boxGroup = new Group();
         boxGroup.getChildren().addAll(backFace,bottomFace,topFace,frontFace,rightFace,leftFace);
         boxGroup.setOnMouseClicked(mouseEvent -> rotateBox());
-
     }
     private void rotateBox() {
 

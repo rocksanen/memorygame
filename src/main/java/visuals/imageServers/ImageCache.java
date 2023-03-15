@@ -17,7 +17,7 @@ public class ImageCache {
     private final ArrayList<Image> gameBackGroundImages = new ArrayList<>();
     private final ArrayList<Image> introImages = new ArrayList<>();
     private final ArrayList<Image> menuImages = new ArrayList<>();
-    private ImageCache(){};
+    private ImageCache(){}
 
     public static ImageCache getInstance() {
 
@@ -62,7 +62,6 @@ public class ImageCache {
         Image boyGirl = new Image(new FileInputStream("src/main/java/visuals/Images/boyGirlHard.png"));
         Image happyGirl = new Image(new FileInputStream("src/main/java/visuals/Images/happyGirlHard.png"));
         Image bird = new Image(new FileInputStream("src/main/java/visuals/Images/birdHard.png"));
-        Image tigr = new Image(new FileInputStream("src/main/java/visuals/images/uustigru5.jpg"));
 
         mediumImageCache.add(goldDragon);
         mediumImageCache.add(greenDragon);
@@ -71,10 +70,10 @@ public class ImageCache {
         mediumImageCache.add(bird);
         mediumImageCache.add(happyGirl);
 
-        Image mediumBack = new Image(new FileInputStream("src/main/java/visuals/Images/stone4.png"));
+        Image mediumBack = new Image(new FileInputStream("src/main/java/visuals/images/uustigru5.jpg"));
         Image mediumBehind = new Image(new FileInputStream("src/main/java/visuals/Images/mediumCubeBack.jpg"));
 
-        mediumCompImages.add(tigr);
+        mediumCompImages.add(mediumBack);
         mediumCompImages.add(mediumBehind);
 
 
@@ -142,30 +141,30 @@ public class ImageCache {
         Image hardneo = new Image(new FileInputStream("src/main/java/visuals/images/hardneo.png"));
 
 
-        gameBackGroundImages.add(easyBack);
-        gameBackGroundImages.add(mediumBack);
-        gameBackGroundImages.add(hardBack);
-        gameBackGroundImages.add(midR);
-        gameBackGroundImages.add(midTop);
-        gameBackGroundImages.add(midL);
-        gameBackGroundImages.add(midBot);
-        gameBackGroundImages.add(easyTop);
-        gameBackGroundImages.add(easyBot);
-        gameBackGroundImages.add(easyL);
-        gameBackGroundImages.add(midgrid);
-        gameBackGroundImages.add(hardGrid);
-        gameBackGroundImages.add(hardR);
-        gameBackGroundImages.add(hardL);
-        gameBackGroundImages.add(play);
-        gameBackGroundImages.add(returngame);
-        gameBackGroundImages.add(movingjungle);
-        gameBackGroundImages.add(easyend);
-        gameBackGroundImages.add(midneo);
-        gameBackGroundImages.add(midneo2);
-        gameBackGroundImages.add(midneo3);
-        gameBackGroundImages.add(midneo4);
-        gameBackGroundImages.add(easyneo);
-        gameBackGroundImages.add(hardneo);
+        gameBackGroundImages.add(easyBack);     // 0
+        gameBackGroundImages.add(mediumBack);   // 1
+        gameBackGroundImages.add(hardBack);     // 2
+        gameBackGroundImages.add(midR);         // 3
+        gameBackGroundImages.add(midTop);       // 4
+        gameBackGroundImages.add(midL);         // 5
+        gameBackGroundImages.add(midBot);       // 6
+        gameBackGroundImages.add(easyTop);      // 7
+        gameBackGroundImages.add(easyBot);      // 8
+        gameBackGroundImages.add(easyL);        // 9
+        gameBackGroundImages.add(midgrid);      // 10
+        gameBackGroundImages.add(hardGrid);     // 11
+        gameBackGroundImages.add(hardR);        // 12
+        gameBackGroundImages.add(hardL);        // 13
+        gameBackGroundImages.add(play);         // 14
+        gameBackGroundImages.add(returngame);   // 15
+        gameBackGroundImages.add(movingjungle); // 16
+        gameBackGroundImages.add(easyend);      // 17
+        gameBackGroundImages.add(midneo);       // 18
+        gameBackGroundImages.add(midneo2);      // 19
+        gameBackGroundImages.add(midneo3);      // 20
+        gameBackGroundImages.add(midneo4);      // 21
+        gameBackGroundImages.add(easyneo);      // 22
+        gameBackGroundImages.add(hardneo);      // 23
 
     }
 

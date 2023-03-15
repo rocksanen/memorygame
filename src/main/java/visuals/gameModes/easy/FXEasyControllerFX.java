@@ -7,10 +7,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import model.MemoryObject;
-import visuals.Navigaattori;
 import visuals.cubeFactories.BoxMaker;
 import visuals.cubeFactories.EasyCubeFactory;
 import visuals.cubeFactories.ICubeFactory;
+import visuals.effects.gameEffects.EasyEffects;
 import visuals.gameModes.FXAbstractGameController;
 import visuals.imageServers.ImageCache;
 
@@ -34,16 +34,22 @@ public class FXEasyControllerFX extends FXAbstractGameController implements Init
     @FXML Label w1,w2,w3,w4,w5;
     @FXML ImageView easy3Dgrid;
     @FXML ImageView easyneo;
+    @FXML ImageView easyEnd;
 
     private ICubeFactory easyCubeFactory;
+    private EasyEffects easyEffects;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         setCamera();
         setImages();
-        setStartEasyGame();
+        easyEffects = new EasyEffects();
+        easyEffects.setImagesAndComponents(background,easyTop,easyBot,easyL,easy3Dgrid,play,returngame,easyGridi,easyEnd,easyneo,scorePane);
+        easyEffects.entrance();
         setWorldScore();
+        setStartEasyGame();
     }
 
     @Override
@@ -51,17 +57,7 @@ public class FXEasyControllerFX extends FXAbstractGameController implements Init
         super.setCamera();
     }
 
-    @Override
-    public void setImages() {
 
-        background.setImage(ImageCache.getInstance().getGameBackGroundCache().get(0));
-        easyTop.setImage(ImageCache.getInstance().getGameBackGroundCache().get(7));
-        easyBot.setImage(ImageCache.getInstance().getGameBackGroundCache().get(8));
-        easyL.setImage(ImageCache.getInstance().getGameBackGroundCache().get(9));
-        easy3Dgrid.setImage(ImageCache.getInstance().getGameBackGroundCache().get(10));
-
-        easyGridi.setHgap(-80);
-    }
 
     @FXML
     public void newGame() {
@@ -72,10 +68,8 @@ public class FXEasyControllerFX extends FXAbstractGameController implements Init
     @FXML
     public void returnMenu() {
 
-
-
+        easyEffects.wallsOff();
     }
-
 
     @Override
     public void addToCubeList(BoxMaker cube) {
@@ -130,11 +124,9 @@ public class FXEasyControllerFX extends FXAbstractGameController implements Init
     @Override
     public void setStartEasyGame() {
 
-
         if (cubeList != null) {
             cubeList.clear();
         }
-
         cubeList = new ArrayList<>();
         easyGridi.getChildren().clear();
         easyCubeFactory = new EasyCubeFactory(this);
@@ -156,5 +148,25 @@ public class FXEasyControllerFX extends FXAbstractGameController implements Init
         w5 = Gui.worldLabels.get(4);
 
          */
+    }
+
+    @Override
+    public void setImages() {
+
+        background.setImage(ImageCache.getInstance().getGameBackGroundCache().get(0));
+        easyTop.setImage(ImageCache.getInstance().getGameBackGroundCache().get(7));
+        easyTop.setOpacity(0);
+        easyBot.setImage(ImageCache.getInstance().getGameBackGroundCache().get(8));
+        easyBot.setOpacity(0);
+        easyL.setImage(ImageCache.getInstance().getGameBackGroundCache().get(9));
+        easyL.setOpacity(0);
+        easy3Dgrid.setImage(ImageCache.getInstance().getGameBackGroundCache().get(10));
+        easy3Dgrid.setOpacity(0);
+        play.setImage(ImageCache.getInstance().getGameBackGroundCache().get(14));
+        play.setOpacity(0);
+        returngame.setImage(ImageCache.getInstance().getGameBackGroundCache().get(15));
+        returngame.setOpacity(0);
+        easyGridi.setHgap(-80);
+        easyEnd.setOpacity(0);
     }
 }

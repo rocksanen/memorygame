@@ -10,14 +10,11 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import model.MemoryObject;
-import visuals.gameModes.FXAbstractGameController;
 import visuals.gameModes.FXIGameController;
 import visuals.gameModes.easy.FXEasyControllerFX;
 import visuals.imageServers.ImageCache;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Properties;
 
 public class EasyCubeFactory implements ICubeFactory {
     private final FXEasyControllerFX gui;

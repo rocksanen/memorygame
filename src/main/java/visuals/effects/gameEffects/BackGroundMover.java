@@ -1,4 +1,4 @@
-package visuals.effects;
+package visuals.effects.gameEffects;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -51,9 +51,7 @@ public class BackGroundMover {
         );
         positionZero.play();
 
-        positionZero.setOnFinished(actionEvent -> {
-            positionZero.stop();
-        });
+        positionZero.setOnFinished(actionEvent -> positionZero.stop());
     }
 
     public void play() {

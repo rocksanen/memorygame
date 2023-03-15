@@ -2,12 +2,9 @@ package visuals.gameModes;
 
 import controller.GameController;
 import controller.IGameController;
-import javafx.fxml.FXML;
 import javafx.scene.Group;
 import visuals.Navigaattori;
 import visuals.cubeFactories.BoxMaker;
-
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 

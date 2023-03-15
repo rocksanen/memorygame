@@ -3,28 +3,22 @@ package visuals.effects.menuEffects;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import model.ModeType;
 import org.jetbrains.annotations.NotNull;
 import visuals.Navigaattori;
 import visuals.audio.AudioMemory;
 import visuals.menu.Menu;
-
 import java.io.IOException;
 
-public class zoomInEffects implements IZoomInEffects {
+public class ZoomInEffects implements IZoomInEffects {
 
     private double zOffset;
     private double fovOffset;
     private double xOffset;
     private double yOffset;
     private ModeType type;
-
     private ImageView japan;
     private ImageView jungle;
     private ImageView redtree;
@@ -35,14 +29,6 @@ public class zoomInEffects implements IZoomInEffects {
     private ImageView mediumFrame;
     private ImageView hardFrame;
     private ImageView pergament;
-    private AnchorPane menuAnkkuri;
-    private AnchorPane startBlack;
-    private GridPane cubeGrid;
-    private ImageView gameBackGround;
-    private Pane gamePane;
-
-    private ImageView telkku;
-    private Label labelLoggedIn;
 
 
     @Override
@@ -68,18 +54,7 @@ public class zoomInEffects implements IZoomInEffects {
     }
 
     @Override
-    public void setGeneralObjects(
-            ImageView pergament, AnchorPane menuAnkkuri, AnchorPane startBlack,
-            Pane gamePane,Label textLoggedIn, ImageView telkku) {
-
-        this.pergament = pergament;
-        this.menuAnkkuri = menuAnkkuri;
-        this.startBlack = startBlack;
-        this.gamePane = gamePane;
-        this.labelLoggedIn = textLoggedIn;
-        this.telkku = telkku;
-    }
-
+    public void setGeneralObjects(ImageView pergament) {this.pergament = pergament;}
 
     @Override
     public void gameZoomIn(
@@ -152,8 +127,6 @@ public class zoomInEffects implements IZoomInEffects {
 
         timelineZoomIn.setOnFinished(actionEvent -> {
 
-            telkku.setOpacity(0);
-
             timelineZoomIn.stop();
             AudioMemory.getInstance().stopSong(ModeType.MENU);
             AudioMemory.getInstance().playSong(type);
@@ -165,8 +138,6 @@ public class zoomInEffects implements IZoomInEffects {
     @Override
     public void cameraZoomInEndings(Menu menu) {
 
-        //quickSwitchCamera(menu);
-        menuAnkkuri.setMouseTransparent(true);
         try {
             Navigaattori.getInstance().changeScene(type);
         } catch (IOException e) {
@@ -175,45 +146,46 @@ public class zoomInEffects implements IZoomInEffects {
     }
 
     @Override
-    public void quickSwitchCamera(Menu menu) {
-
-    }
-
-    @Override
-    public void quickSwitchCameraEndings(@NotNull Menu menu) {
-
-    }
-
-    @Override
-    public void easyEntrance(Menu menu) {
-
-    }
-
-    @Override
-    public void mediumEntrance(Menu menu) {
-
-    }
-
-    @Override
-    public void hardEntrance(Menu menu) {
-
-    }
-
-    @Override
-    public void zoomInFinalEndings(Menu menu) {
-
-    }
-
-
-
-    @Override
     public void opacitiesIn(
             double easyFinish, double mediumFinish, double hardFinish,
             double easeFrameFinish, double mediumFrameFinish, double hardFrameFinish) {
 
+        double japanStart = 0.6;
+        double jungleStart = 0.29;
+        double redtreeStart = 0.75;
 
+        Timeline opacitiesIn = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(pergament.opacityProperty(), 1),
+                        new KeyValue(miniEasy.opacityProperty(), 1),
+                        new KeyValue(miniMedium.opacityProperty(), 1),
+                        new KeyValue(miniHard.opacityProperty(), 1),
+                        new KeyValue(japan.opacityProperty(), japanStart),
+                        new KeyValue(jungle.opacityProperty(), jungleStart),
+                        new KeyValue(redtree.opacityProperty(), redtreeStart),
+                        new KeyValue(easyFrame.opacityProperty(), 1),
+                        new KeyValue(mediumFrame.opacityProperty(), 1),
+                        new KeyValue(hardFrame.opacityProperty(), 1)),
+                new KeyFrame(Duration.seconds(2.3),
+                        new KeyValue(easyFrame.opacityProperty(), 1),
+                        new KeyValue(mediumFrame.opacityProperty(), 1),
+                        new KeyValue(hardFrame.opacityProperty(), 1)),
+                new KeyFrame(Duration.seconds(2.5),
+                        new KeyValue(easyFrame.opacityProperty(), 0),
+                        new KeyValue(mediumFrame.opacityProperty(), 0),
+                        new KeyValue(hardFrame.opacityProperty(), 0)),
+                new KeyFrame(Duration.seconds(2.8),
+                        new KeyValue(pergament.opacityProperty(), 0),
+                        new KeyValue(miniEasy.opacityProperty(), easyFinish),
+                        new KeyValue(miniMedium.opacityProperty(), mediumFinish),
+                        new KeyValue(miniHard.opacityProperty(), hardFinish),
+                        new KeyValue(japan.opacityProperty(), 0),
+                        new KeyValue(redtree.opacityProperty(), 0)),
+                new KeyFrame(Duration.seconds(3),
+                        new KeyValue(jungle.opacityProperty(), 0.3))
+        );
 
+        opacitiesIn.playFromStart();
+        opacitiesIn.setOnFinished(actionEvent -> opacitiesIn.stop());
     }
-
-
 }
