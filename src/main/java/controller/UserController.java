@@ -12,6 +12,8 @@ public class UserController implements IUserController {
         this.ui = ui;
     }
 
+    public UserController() { ui = null; }
+
     /**
      * returns the score for the next wrong guess
      *

@@ -1,6 +1,7 @@
 package visuals.stats;
 
 import controller.ScoreController;
+import controller.UserController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,14 +12,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.ModeType;
 import model.Score;
 
 import java.io.IOException;
-import java.time.Instant;
-import java.time.LocalDate;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -48,7 +50,19 @@ public class LeaderboardsController {
     @FXML
     public TableView<Score> scoreTable;
 
+    @FXML
+    public AnchorPane anchorLbs;
+
+    @FXML
+    public Label labelTitle;
+
     private ScoreController scoreController;
+
+    private UserController userController;
+
+    private boolean userOnly;
+
+    private ModeType currentMode;
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -57,8 +71,42 @@ public class LeaderboardsController {
     @FXML
     private void initialize() {
         scoreController = new ScoreController();
+        userController = new UserController();
+
+        currentMode = ModeType.EASY;
+        userOnly = false;
+
+        if (!userController.isLoggedIn()) {
+            buttonUserGlobal.setText("Not logged in");
+            buttonUserGlobal.setDisable(true);
+        }
+
+        // load leaderboards.jpeg from resources and set it as background
+        String imageurl = Objects.requireNonNull(getClass().getClassLoader().getResource("images/leaderboards.jpg")).toExternalForm();
+        anchorLbs.setStyle("-fx-background-image: url('" + imageurl + "'); " +
+                "-fx-background-position: center center; " +
+                "-fx-background-repeat: stretch;");
+
+        initView();
+        updateTable(ModeType.EASY, false);
+    }
+
+    private void initView() {
+        Font.loadFont(Objects.requireNonNull(getClass().getClassLoader().getResource("fonts/VCR_OSD_MONO_1.001.ttf")).toExternalForm(), 14);
+
         initTable();
-        updateTable(ModeType.EASY);
+
+        // set fonts
+        // get the font from resources folder
+
+        // buttons set font and background should be dark purple with white font
+        buttonReturn.setStyle("-fx-font: 18px \"VCR OSD Mono\"; -fx-background-color: #4d004d; -fx-text-fill: white;");
+        buttonEasy.setStyle("-fx-font: 18px \"VCR OSD Mono\"; -fx-background-color: #4d004d; -fx-text-fill: white;");
+        buttonMedium.setStyle("-fx-font: 18px \"VCR OSD Mono\"; -fx-background-color: #4d004d; -fx-text-fill: white;");
+        buttonHard.setStyle("-fx-font: 18px \"VCR OSD Mono\"; -fx-background-color: #4d004d; -fx-text-fill: white;");
+        buttonUserGlobal.setStyle("-fx-font: 18px \"VCR OSD Mono\"; -fx-background-color: #4d004d; -fx-text-fill: white;");
+
+        labelTitle.setStyle("-fx-font: 48px \"VCR OSD Mono\"; -fx-text-fill: white;");
     }
 
     private void initTable() {
@@ -77,8 +125,7 @@ public class LeaderboardsController {
         TableColumn<Score, Date> dateCol = new TableColumn<>("Date");
         dateCol.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
         dateCol.setCellFactory(column -> {
-            // 🤯
-            return new TableCell<Score, Date>() {
+            return new TableCell<>() {
                 @Override
                 protected void updateItem(Date date, boolean empty) {
                     super.updateItem(date, empty);
@@ -93,22 +140,84 @@ public class LeaderboardsController {
             };
         });
 
+        // add mouse click events to nodes. prints score object to console
+        scoreTable.setRowFactory(tv -> {
+            TableRow<Score> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 1 && (!row.isEmpty())) {
+                    Score rowData = row.getItem();
+                    System.out.println(rowData);
+                }
+            });
+            return row;
+        });
+
+
         scoreTable.getColumns().clear();
         scoreTable.getColumns().addAll(nameCol, scoreCol, timeCol, gradeCol, dateCol);
 
+
+        scoreTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        scoreTable.getColumns().forEach(column -> column.setMinWidth(100));
+        gradeCol.setMinWidth(150);
+        dateCol.setMinWidth(150);
+
+        // center text on columns
+        scoreTable.getColumns().forEach(column -> column.setStyle("-fx-alignment: CENTER;"));
+
+        // remove bottom scroll bar
+        scoreTable.setFixedCellSize(25);
+
+        scoreTable.setStyle("-fx-font: 14px \"VCR OSD Mono\";");
     }
 
-    private void updateTable(ModeType mode) {
-        ArrayList<Score> scoreList = scoreController.getScoresRaw(mode);
-        if (scoreList == null || scoreList.isEmpty()) {
-            scoreController.fetchScores(mode);
+
+    private void updateTable(ModeType mode, boolean userOnly) {
+        ArrayList<Score> scoreList;
+        if (userOnly) {
+            scoreList = scoreController.getUserScoresRaw(mode);
+            if (scoreList == null || scoreList.isEmpty()) {
+                scoreController.fetchScores(mode);
+                scoreList = scoreController.getUserScoresRaw(mode);
+            }
+        } else {
             scoreList = scoreController.getScoresRaw(mode);
+            if (scoreList == null || scoreList.isEmpty()) {
+                scoreController.fetchScores(mode);
+                scoreList = scoreController.getScoresRaw(mode);
+            }
         }
+
 
         ObservableList<Score> observableScoreList = FXCollections.observableArrayList(scoreList);
         scoreTable.setItems(observableScoreList);
     }
 
+    @FXML
+    public void setButtonEasy(ActionEvent event) {
+        currentMode = ModeType.EASY;
+        updateTable(ModeType.EASY, userOnly);
+    }
+
+    @FXML
+    public void setButtonMedium(ActionEvent event) {
+        currentMode = ModeType.MEDIUM;
+        updateTable(ModeType.MEDIUM, userOnly);
+    }
+
+    @FXML
+    public void setButtonHard(ActionEvent event) {
+        currentMode = ModeType.HARD;
+        updateTable(ModeType.HARD, userOnly);
+    }
+
+    @FXML
+    public void setButtonUserGlobal(ActionEvent event) {
+
+        userOnly = !userOnly;
+        buttonUserGlobal.setText(userOnly ? "User Scores" : "Global Scores");
+        updateTable(currentMode, userOnly);
+    }
 
     @FXML
     public void setButtonReturn(ActionEvent event) {
