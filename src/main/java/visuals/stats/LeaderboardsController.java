@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.AccessibleAttribute;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -43,9 +44,6 @@ public class LeaderboardsController {
 
     @FXML
     public Button buttonUserGlobal;
-
-    @FXML
-    public StackPane stackPane;
 
     @FXML
     public TableView<Score> scoreTable;
@@ -156,19 +154,29 @@ public class LeaderboardsController {
         scoreTable.getColumns().clear();
         scoreTable.getColumns().addAll(nameCol, scoreCol, timeCol, gradeCol, dateCol);
 
-
-        scoreTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        scoreTable.getColumns().forEach(column -> column.setMinWidth(100));
-        gradeCol.setMinWidth(150);
-        dateCol.setMinWidth(150);
-
         // center text on columns
         scoreTable.getColumns().forEach(column -> column.setStyle("-fx-alignment: CENTER;"));
 
-        // remove bottom scroll bar
-        scoreTable.setFixedCellSize(25);
+        // hide the h-scrollbar
+        // i spent 4 hours on this 🙃🔫
+        nameCol.setMinWidth(140);
+        nameCol.setMaxWidth(140);
+        scoreCol.setMinWidth(90);
+        scoreCol.setMaxWidth(90);
+        timeCol.setMinWidth(90);
+        timeCol.setMaxWidth(90);
+        gradeCol.setMinWidth(90);
+        gradeCol.setMaxWidth(90);
+        dateCol.setMinWidth(150);
+        dateCol.setMaxWidth(150);
+
+        scoreTable.setMinWidth(590);
+        scoreTable.setMaxWidth(590);
+
+        scoreTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         scoreTable.setStyle("-fx-font: 14px \"VCR OSD Mono\";");
+
     }
 
 

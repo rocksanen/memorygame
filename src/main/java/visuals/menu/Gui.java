@@ -49,7 +49,7 @@ public class Gui extends Application implements IGui, IChartGUI {
     Stage primaryStage;
 
     @FXML
-    Button statsGlobal;
+    Button buttonLeaderboards;
 
     @FXML
     Button buttonLogout;
@@ -360,7 +360,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         this.primaryStage.show();
 
         // If you want scores: "true", if not: "false".
-        scoresOn(true);
+        scoresOn();
         introOn(playIntro);
     }
 
@@ -699,6 +699,8 @@ public class Gui extends Application implements IGui, IChartGUI {
             if (newValue) {
                 // Do something if the task returns true
                 System.out.println("fetchallscores Task returned true");
+                buttonLeaderboards.setDisable(false);
+                buttonLeaderboards.setText("Leaderboards");
             } else {
                 // Do something if the task returns false
                 System.out.println("fetchallscores Task returned false");
@@ -852,7 +854,7 @@ public class Gui extends Application implements IGui, IChartGUI {
 
         buttonLogout = (Button) root.lookup("#buttonLogout");
         stats = (Button) root.lookup("#stats");
-        statsGlobal = (Button) root.lookup("#statsGlobal");
+        buttonLeaderboards = (Button) root.lookup("#buttonLeaderboards");
 
         login = (Button) root.lookup("#login");
         register = (Button) root.lookup("#register");
@@ -1207,16 +1209,12 @@ public class Gui extends Application implements IGui, IChartGUI {
         }
     }
 
-    private void scoresOn(Boolean on) {
-
-        if (on) {
-            fetchAllScores();
-        }
+    private void scoresOn() {
+        fetchAllScores();
     }
 
     @FXML
-    public void setStatsGlobal(ActionEvent event) {
-        // open Leaderboards.fxml
+    public void setButtonLeaderboards(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/visuals/stats/Leaderboards.fxml"));
             Parent root = loader.load();
