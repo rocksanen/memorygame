@@ -1,4 +1,5 @@
 package visuals.effects.menuEffects;
 
-public interface IMenuEffects {
+public interface IMenuLayoutEffects {
+
 }

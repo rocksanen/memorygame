@@ -1,7 +1,7 @@
 package controller;
 
 import model.*;
-import visuals.menu.IGui;
+import visuals.menu.IMenu;
 
 import java.util.ArrayList;
 
@@ -10,9 +10,9 @@ import static model.ModeType.*;
 public class ScoreController implements IScoreController {
 
     private IEngine engine;
-    private final IGui ui;
+    private final IMenu ui;
 
-    public ScoreController(IGui ui) {
+    public ScoreController(IMenu ui) {
         this.ui = ui;
     }
 

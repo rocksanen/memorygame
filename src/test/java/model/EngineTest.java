@@ -5,7 +5,7 @@ import controller.IGameController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import visuals.menu.IGui;
+import visuals.menu.IMenu;
 
 import java.util.ArrayList;
 
@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class EngineTest {
 
     private Engine e;
-    IGui ui;
+    IMenu ui;
     private IGameController controller;
 
 

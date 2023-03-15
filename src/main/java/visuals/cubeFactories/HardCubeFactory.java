@@ -10,7 +10,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import model.MemoryObject;
-import visuals.menu.Gui;
+import visuals.gameModes.FXAbstractGameController;
+import visuals.gameModes.hard.FXHardController;
 import visuals.imageServers.ImageCache;
 
 import java.util.ArrayList;
@@ -18,14 +19,14 @@ import java.util.Collections;
 
 public class HardCubeFactory implements ICubeFactory {
 
-    private final Gui gui;
+    private final FXHardController gui;
     private static ArrayList<Image> imageUrlList = new ArrayList<>();
     private final Image backImage;
     private final Image behindImage;
 
-    public HardCubeFactory(Gui gui){
+    public HardCubeFactory(FXAbstractGameController gui){
 
-        this.gui = gui;
+        this.gui = (FXHardController) gui;
         this.backImage = ImageCache.getInstance().getHardComp().get(0);
         this.behindImage = ImageCache.getInstance().getHardComp().get(1);
 

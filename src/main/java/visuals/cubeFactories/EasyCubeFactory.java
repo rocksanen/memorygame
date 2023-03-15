@@ -10,25 +10,30 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import model.MemoryObject;
-import visuals.menu.Gui;
+import visuals.gameModes.FXAbstractGameController;
+import visuals.gameModes.FXIGameController;
+import visuals.gameModes.easy.FXEasyControllerFX;
 import visuals.imageServers.ImageCache;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Properties;
 
 public class EasyCubeFactory implements ICubeFactory {
-    private final Gui gui;
+    private final FXEasyControllerFX gui;
     private static ArrayList<Image> imageUrlList = new ArrayList<>();
     private final Image backImage;
     private final Image behindImage;
 
-    public EasyCubeFactory(Gui gui){
+    public EasyCubeFactory(FXIGameController gui){
 
-        this.gui = gui;
+        this.gui = (FXEasyControllerFX) gui;
         this.backImage = ImageCache.getInstance().getEasyComp().get(0);
         this.behindImage = ImageCache.getInstance().getEasyComp().get(1);
 
         if(imageUrlList.isEmpty()) {imageUrlList = ImageCache.getInstance().getEasyCache();}
         Collections.shuffle(imageUrlList);
+
     }
     @Override
     public void createCubics(GridPane gridPane, ArrayList<MemoryObject> memoryObjects){
@@ -64,6 +69,7 @@ public class EasyCubeFactory implements ICubeFactory {
                 GridPane.setHalignment(group, HPos.CENTER);
                 GridPane.setValignment(group, VPos.CENTER);
                 int finalI = i;
+
 
                 Platform.runLater(() -> {
                     FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.2 + (finalI * 0.2) / 2), group);

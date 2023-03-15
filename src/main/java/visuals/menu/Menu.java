@@ -4,11 +4,10 @@ import controller.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -23,30 +22,35 @@ import model.ModeType;
 import visuals.*;
 import visuals.audio.AudioMemory;
 import visuals.cubeFactories.*;
+import visuals.effects.menuEffects.BurningSun;
+import visuals.effects.menuEffects.zoomInEffects;
 import visuals.imageServers.ImageCache;
 import visuals.stats.ChartGUI;
-import visuals.stats.IChartGUI;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Properties;
+import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
 
 import static model.ModeType.*;
 
-public class Gui extends Application implements IGui, IChartGUI {
+public class Menu implements Initializable, IMenu {
 
     private ModeType selectedDifficulty;
-    private final IChartController scoreController2 = new ChartController(this);
-    private final IGameController controller = new GameController(this);
+    //private final IChartController scoreController2 = new ChartController(this);
+    private final IGameController controller = new GameController(null); // not null : this
     private final IScoreController scoreController = new ScoreController(this);
     private final IUserController userController = new UserController(this);
-    Stage primaryStage;
+    private final zoomInEffects zoomInEffects = new zoomInEffects();
+    private final BurningSun burningSun = new BurningSun();
 
+
+    @FXML
+    ImageView burningsun;
     @FXML
     Button buttonLogout;
     @FXML
@@ -138,8 +142,6 @@ public class Gui extends Application implements IGui, IChartGUI {
     public static Pane logAndReg;
     @FXML
     ImageView dirt;
-    @FXML
-    ImageView burningsun;
     @FXML
     ImageView memomaze;
     @FXML
@@ -239,11 +241,9 @@ public class Gui extends Application implements IGui, IChartGUI {
     @FXML ImageView hardneo;
 
 
-    private static final ArrayList<Label> worldLabels = new ArrayList<>();
+    public static final ArrayList<Label> worldLabels = new ArrayList<>();
     private static final ArrayList<Label> personalLabels = new ArrayList<>();
-
     private final Rotate rotateZ = new Rotate(0, Rotate.Z_AXIS);
-
     private final Rotate jungleZ = new Rotate(0, Rotate.Z_AXIS);
     private ArrayList<BoxMaker> cubeList;
     private ICubeFactory easyCubeFactory;
@@ -257,6 +257,24 @@ public class Gui extends Application implements IGui, IChartGUI {
     }
     private boolean returnStatus;
     private boolean playIntro = true;
+
+    //public static PerspectiveCamera camera = new PerspectiveCamera();
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        loadProperties();
+
+        try {
+            initGoods();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        introOn(playIntro);
+
+    }
 
     @Override
     public void getTime(int i) {
@@ -275,26 +293,15 @@ public class Gui extends Application implements IGui, IChartGUI {
     }
 
     private int activeID;
-    public static PerspectiveCamera camera = new PerspectiveCamera();
 
-    public static void main(String[] args) {
 
-        launch(args);
-    }
-
-    /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been fully loaded.
-     */
-    @FXML
-    private void initialize() {}
 
     /**
      * Loads the properties file and sets the playIntro boolean value.
      */
     private void loadProperties() {
         // you need config.properties file in your resources directory. playIntro=[boolean] value is checked from there
-        try (InputStream input = Gui.class.getClassLoader().getResource("config.properties").openStream()) {
+        try (InputStream input = Menu.class.getClassLoader().getResource("config.properties").openStream()) {
             Properties prop = new Properties();
             // load a properties file
             prop.load(input);
@@ -307,48 +314,36 @@ public class Gui extends Application implements IGui, IChartGUI {
     }
 
 
-    @Override
-    public void start(Stage primaryStage) throws IOException {
 
-        Platform.setImplicitExit(true);
-        primaryStage.setOnCloseRequest((ae) -> {
-            Platform.exit();
-            System.exit(0);
-        });
+        //loadProperties();
+        //scoresOn(true);
 
-        loadProperties();
-        initGoods();
+        //initGoods();
 
-        this.primaryStage = primaryStage;
-        this.scene = new Scene(root, 1250, 750);
-        camera.setFieldOfView(25);
-        this.scene.setCamera(camera);
-        this.scene.getCamera().setNearClip(0.1);
-
-        this.primaryStage.setScene(scene);
-        this.primaryStage.setResizable(false);
-        this.primaryStage.show();
 
         // If you want scores: "true", if not: "false".
-        scoresOn(true);
-        introOn(playIntro);
-    }
+
+
+        //introOn(playIntro);
+
 
     public void initGoods() throws IOException {
-
-        this.root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/visuals/game2.fxml")));
 
         panesAndMisc();
         setIntroImages();
         setMenuImages();
         setGameImages();
 
-        Effects.getInstance().setMiniImagesAndFrames(miniEasy, miniMedium, miniHard, easyFrame, mediumFrame, hardFrame);
-        Effects.getInstance().setEssenceImages(japan, jungle, redtree);
-        Effects.getInstance().setGeneralObjects(pergament, menuAnkkuri, startBlack, gameModePane, burningsun, labelLoggedIn, telkku);
+        zoomInEffects.setMiniImagesAndFrames(miniEasy, miniMedium, miniHard, easyFrame, mediumFrame, hardFrame);
+        zoomInEffects.setEssenceImages(japan, jungle, redtree);
+        zoomInEffects.setGeneralObjects(pergament, menuAnkkuri, startBlack, gameModePane,labelLoggedIn, telkku);
+
+        //Effects.getInstance().setMiniImagesAndFrames(miniEasy, miniMedium, miniHard, easyFrame, mediumFrame, hardFrame);
+        //Effects.getInstance().setEssenceImages(japan, jungle, redtree);
+        //Effects.getInstance().setGeneralObjects(pergament, menuAnkkuri, startBlack, gameModePane, burningsun, labelLoggedIn, telkku);
         Visibilities.getInstance().setToGameObjects(gameModePane, score, logAndReg, pergament);
-        Visibilities.getInstance().setGridLayoutToVisibility(easyGrid, mediumGrid, hardGrid);
-        Visibilities.getInstance().setGameBackGrounds(
+        //Visibilities.getInstance().setGridLayoutToVisibility(easyGrid, mediumGrid, hardGrid);
+        /*Visibilities.getInstance().setGameBackGrounds(
                 background, mediumBackground, mediumSpread,
                 hardBackground, hardSpread, midgrid, midR,
                 midTop, midL, midBot, midend, easyTop, easyL, easyBot);
@@ -358,6 +353,8 @@ public class Gui extends Application implements IGui, IChartGUI {
                 easyBot, hardGridImage, hardR,
                 hardL, mediumSpread, dirt, play, returngame, movingjungle,
                 easyend,midneo,midneo2,midneo3,midneo4,easyneo,hardneo);
+
+         */
     }
 
     @FXML
@@ -414,15 +411,14 @@ public class Gui extends Application implements IGui, IChartGUI {
     public void easyStartScreenPlay() {
 
         Platform.runLater(() -> Effects.getInstance().stopGlow());
-        Platform.runLater(() -> Visibilities.getInstance().gameBackGroundVisibility(EASY));
-        Platform.runLater(() -> logAndReg.setVisible(false));
+        //Platform.runLater(() -> Visibilities.getInstance().gameBackGroundVisibility(EASY));
+        //Platform.runLater(() -> logAndReg.setVisible(false));
         miniEasy.setMouseTransparent(true);
 
-        Platform.runLater(() -> Effects.getInstance().gameZoomIn(
-                background, 803,
+        Platform.runLater(() -> zoomInEffects.gameZoomIn(
+                803,
                 10, -145.5, 14.5,
                 EASY, this));
-
     }
 
     @FXML
@@ -475,6 +471,7 @@ public class Gui extends Application implements IGui, IChartGUI {
     @FXML
     public void setStartEasyGame() {
 
+        /*
         Platform.runLater(() -> Visibilities.getInstance().inGameGrid(easyGrid));
         if (cubeList != null) {
             cubeList.clear();
@@ -483,11 +480,14 @@ public class Gui extends Application implements IGui, IChartGUI {
         easyGrid.getChildren().clear();
         easyCubeFactory = new EasyCubeFactory(this);
         controller.startEasyGame();
+
+         */
     }
 
     @FXML
     public void setStartMediumGame() {
 
+        /*
         Platform.runLater(() -> Visibilities.getInstance().inGameGrid(mediumGrid));
         if (cubeList != null) {
             cubeList.clear();
@@ -496,11 +496,14 @@ public class Gui extends Application implements IGui, IChartGUI {
         mediumGrid.getChildren().clear();
         mediumCubeFactory = new MediumCubeFactory(this);
         controller.startMediumGame();
+
+         */
     }
 
     @FXML
     public void setStartHardGame() {
 
+        /*
         Platform.runLater(() -> Visibilities.getInstance().inGameGrid(hardGrid));
         if (cubeList != null) {
             cubeList.clear();
@@ -509,6 +512,8 @@ public class Gui extends Application implements IGui, IChartGUI {
         hardGrid.getChildren().clear();
         hardCubeFactory = new HardCubeFactory(this);
         controller.startHardGame();
+
+         */
     }
 
     @Override
@@ -678,7 +683,7 @@ public class Gui extends Application implements IGui, IChartGUI {
                 alert.setTitle("Virhe");
                 alert.setHeaderText("Virhe..");
                 alert.setContentText("Ei yhteyttä tietokantaan");
-                alert.showAndWait();
+                Platform.runLater(alert::showAndWait);
 
             }
         });
@@ -689,13 +694,14 @@ public class Gui extends Application implements IGui, IChartGUI {
     public void getWorldScore(ArrayList<String> worldList) {
 
 
+
         for (int i = 0; i < 5; i++) {
 
 //            String[] words = worldList.get(i).split("\\s+");
 //            String name = words[0];
 //            name = name.substring(0, 3);
 //            String points = words[1];
-
+            worldLabels.add(new Label());
             worldLabels.get(i).setText((i + 1) + "." + worldList.get(i));
         }
     }
@@ -801,15 +807,7 @@ public class Gui extends Application implements IGui, IChartGUI {
 
     private void panesAndMisc() {
 
-        startBlack = (AnchorPane) root.lookup("#startBlack");
-        menuAnkkuri = (AnchorPane) root.lookup("#menuAnkkuri");
-        weDidIt = (Label) root.lookup("#weDidIt");
-        gameModePane = (Pane) root.lookup("#gameModePane");
-        score = (Pane) root.lookup("#score");
-        easyGrid = (GridPane) root.lookup("#easyGrid");
-        mediumGrid = (GridPane) root.lookup("#mediumGrid");
-        hardGrid = (GridPane) root.lookup("#hardGrid");
-        logAndReg = (Pane) root.lookup("#logAndReg");
+
 
         personalScores = new ListView<>();
         startEasyGame = new Button();
@@ -817,28 +815,6 @@ public class Gui extends Application implements IGui, IChartGUI {
         startHardGame = new Button();
         newGame = new Button();
         returnMenu = new Button();
-
-        labelLoggedIn = (Label) root.lookup("#labelLoggedIn");
-
-        buttonLogout = (Button) root.lookup("#buttonLogout");
-        stats = (Button) root.lookup("#stats");
-
-        login = (Button) root.lookup("#login");
-        register = (Button) root.lookup("#register");
-        name = (TextField) root.lookup("#name");
-        password = (TextField) root.lookup("#password");
-        paneLogin = (Pane) root.lookup("#paneLogin");
-
-        w1 = (Label) root.lookup("#w1");
-        w2 = (Label) root.lookup("#w2");
-        w3 = (Label) root.lookup("#w3");
-        w4 = (Label) root.lookup("#w4");
-        w5 = (Label) root.lookup("#w5");
-        w6 = (Label) root.lookup("#w6");
-        w7 = (Label) root.lookup("#w7");
-        w8 = (Label) root.lookup("#w8");
-        w9 = (Label) root.lookup("#w9");
-        w10 = (Label) root.lookup("#w10");
 
 
         worldLabels.add(w1);
@@ -852,16 +828,6 @@ public class Gui extends Application implements IGui, IChartGUI {
         worldLabels.add(w9);
         worldLabels.add(w10);
 
-        p1 = (Label) root.lookup("#p1");
-        p2 = (Label) root.lookup("#p2");
-        p3 = (Label) root.lookup("#p3");
-        p4 = (Label) root.lookup("#p4");
-        p5 = (Label) root.lookup("#p5");
-        p6 = (Label) root.lookup("#p6");
-        p7 = (Label) root.lookup("#p7");
-        p8 = (Label) root.lookup("#p8");
-        p9 = (Label) root.lookup("#p9");
-        p10 = (Label) root.lookup("#p10");
 
         personalLabels.add(p1);
         personalLabels.add(p2);
@@ -874,7 +840,7 @@ public class Gui extends Application implements IGui, IChartGUI {
         personalLabels.add(p9);
         personalLabels.add(p10);
 
-        URL url = Gui.class.getClassLoader().getResource("fonts/outrun_future.otf");
+        URL url = Menu.class.getClassLoader().getResource("fonts/outrun_future.otf");
         // get the font from the resources, set size and add it to the label
         Font outrun = Font.loadFont(url.toExternalForm(), 13);
         labelLoggedIn.setFont(outrun);
@@ -901,133 +867,46 @@ public class Gui extends Application implements IGui, IChartGUI {
 
     private void setIntroImages() {
 
-        sun = (ImageView) root.lookup("#sun");
         sun.setImage(ImageCache.getInstance().getIntroCache().get(0));
-        lightning = (ImageView) root.lookup("#lightning");
         lightning.setImage(ImageCache.getInstance().getIntroCache().get(1));
-        blacksun = (ImageView) root.lookup("#blacksun");
         blacksun.setImage(ImageCache.getInstance().getIntroCache().get(2));
-        memomaze = (ImageView) root.lookup("#memomaze");
         memomaze.setImage(ImageCache.getInstance().getIntroCache().get(3));
-        loading = (ImageView) root.lookup("#loading");
         loading.setImage(ImageCache.getInstance().getIntroCache().get(4));
-        groupFour = (ImageView) root.lookup("#groupFour");
         groupFour.setImage(ImageCache.getInstance().getIntroCache().get(5));
     }
 
     private void setMenuImages() {
 
-        burningsun = (ImageView) root.lookup("#burningsun");
         burningsun.setImage(ImageCache.getInstance().getMenuCache().get(24));
-        dirt = (ImageView) root.lookup("#dirt");
         dirt.setImage(ImageCache.getInstance().getMenuCache().get(23));
-        pergament = (ImageView) root.lookup("#pergament");
         pergament.setImage(ImageCache.getInstance().getMenuCache().get(0));
-        miniEasy = (ImageView) root.lookup("#miniEasy");
         miniEasy.setImage(ImageCache.getInstance().getMenuCache().get(1));
-        miniMedium = (ImageView) root.lookup("#miniMedium");
         miniMedium.setImage(ImageCache.getInstance().getMenuCache().get(2));
-        miniHard = (ImageView) root.lookup("#miniHard");
         miniHard.setImage(ImageCache.getInstance().getMenuCache().get(3));
-        easyFrame = (ImageView) root.lookup("#easyFrame");
         easyFrame.setImage(ImageCache.getInstance().getMenuCache().get(4));
-        mediumFrame = (ImageView) root.lookup("#mediumFrame");
         mediumFrame.setImage(ImageCache.getInstance().getMenuCache().get(5));
-        hardFrame = (ImageView) root.lookup("#hardFrame");
         hardFrame.setImage(ImageCache.getInstance().getMenuCache().get(6));
-        japan = (ImageView) root.lookup("#japan");
         japan.setImage(ImageCache.getInstance().getMenuCache().get(7));
-        jungle = (ImageView) root.lookup("#jungle");
         jungle.setImage(ImageCache.getInstance().getMenuCache().get(8));
-        redtree = (ImageView) root.lookup("#redtree");
         redtree.setImage(ImageCache.getInstance().getMenuCache().get(9));
-        easydes1 = (ImageView) root.lookup("#easydes1");
         easydes1.setImage(ImageCache.getInstance().getMenuCache().get(25));
-        easydes2 = (ImageView) root.lookup("#easydes2");
         easydes2.setImage(ImageCache.getInstance().getMenuCache().get(26));
-        easydes3 = (ImageView) root.lookup("#easydes3");
         easydes3.setImage(ImageCache.getInstance().getMenuCache().get(27));
-        kotoku = (ImageView) root.lookup("#kotoku");
         kotoku.setImage(ImageCache.getInstance().getMenuCache().get(28));
-        tigerden = (ImageView) root.lookup("#tigerden");
         tigerden.setImage(ImageCache.getInstance().getMenuCache().get(29));
-        treeoflife = (ImageView) root.lookup("#treeoflife");
         treeoflife.setImage(ImageCache.getInstance().getMenuCache().get(30));
-        medes1 = (ImageView) root.lookup("#medes1");
         medes1.setImage(ImageCache.getInstance().getMenuCache().get(31));
-        medes2 = (ImageView) root.lookup("#medes2");
         medes2.setImage(ImageCache.getInstance().getMenuCache().get(32));
-        medes3 = (ImageView) root.lookup("#medes3");
         medes3.setImage(ImageCache.getInstance().getMenuCache().get(33));
-        hardes1 = (ImageView) root.lookup("#hardes1");
         hardes1.setImage(ImageCache.getInstance().getMenuCache().get(34));
-        hardes2 = (ImageView) root.lookup("#hardes2");
         hardes2.setImage(ImageCache.getInstance().getMenuCache().get(35));
-        hardes3 = (ImageView) root.lookup("#hardes3");
         hardes3.setImage(ImageCache.getInstance().getMenuCache().get(36));
-        telkku = (ImageView) root.lookup("#telkku");
-
-
-
     }
 
 
 
     private void setGameImages() {
 
-        background = (ImageView) root.lookup("#background");
-        background.setImage(ImageCache.getInstance().getGameBackGroundCache().get(0));
-        mediumBackground = (ImageView) root.lookup("#mediumBackground");
-        mediumSpread = (ImageView) root.lookup("#mediumSpread");
-        mediumBackground.setImage(ImageCache.getInstance().getGameBackGroundCache().get(1));
-        mediumSpread.setImage(ImageCache.getInstance().getGameBackGroundCache().get(1));
-        hardBackground = (ImageView) root.lookup("#hardBackground");
-        hardSpread = (ImageView) root.lookup("#hardSpread");
-        hardBackground.setImage(ImageCache.getInstance().getGameBackGroundCache().get(2));
-        hardSpread.setImage(ImageCache.getInstance().getGameBackGroundCache().get(2));
-        midR = (ImageView) root.lookup("#midR");
-        midR.setImage(ImageCache.getInstance().getGameBackGroundCache().get(3));
-        midTop = (ImageView) root.lookup("#midTop");
-        midTop.setImage(ImageCache.getInstance().getGameBackGroundCache().get(4));
-        midL = (ImageView) root.lookup("#midL");
-        midL.setImage(ImageCache.getInstance().getGameBackGroundCache().get(5));
-        midBot = (ImageView) root.lookup("#midBot");
-        midBot.setImage(ImageCache.getInstance().getGameBackGroundCache().get(6));
-        easyTop = (ImageView) root.lookup("#easyTop");
-        easyTop.setImage(ImageCache.getInstance().getGameBackGroundCache().get(7));
-        easyBot = (ImageView) root.lookup("#easyBot");
-        easyBot.setImage(ImageCache.getInstance().getGameBackGroundCache().get(8));
-        easyL = (ImageView) root.lookup("#easyL");
-        easyL.setImage(ImageCache.getInstance().getGameBackGroundCache().get(9));
-        midgrid = (ImageView) root.lookup("#midgrid");
-        midgrid.setImage(ImageCache.getInstance().getGameBackGroundCache().get(10));
-        hardGridImage = (ImageView) root.lookup("#hardGridImage");
-        hardGridImage.setImage(ImageCache.getInstance().getGameBackGroundCache().get(11));
-        hardR = (ImageView) root.lookup("#hardR");
-        hardR.setImage(ImageCache.getInstance().getGameBackGroundCache().get(12));
-        hardL = (ImageView) root.lookup("#hardL");
-        hardL.setImage(ImageCache.getInstance().getGameBackGroundCache().get(13));
-        play = (ImageView) root.lookup("#play");
-        play.setImage(ImageCache.getInstance().getGameBackGroundCache().get(14));
-        returngame = (ImageView) root.lookup("#returngame");
-        returngame.setImage(ImageCache.getInstance().getGameBackGroundCache().get(15));
-        movingjungle = (ImageView) root.lookup("#movingjungle");
-        easyend = (ImageView) root.lookup("#easyend");
-        midneo = (ImageView) root.lookup("#midneo");
-        midneo.setImage(ImageCache.getInstance().getGameBackGroundCache().get(18));
-        midneo2 = (ImageView) root.lookup("#midneo2");
-        midneo2.setImage(ImageCache.getInstance().getGameBackGroundCache().get(19));
-        midneo3 = (ImageView) root.lookup("#midneo3");
-        midneo3.setImage(ImageCache.getInstance().getGameBackGroundCache().get(20));
-        midneo4 = (ImageView) root.lookup("#midneo4");
-        midneo4.setImage(ImageCache.getInstance().getGameBackGroundCache().get(21));
-        easyneo = (ImageView) root.lookup("#easyneo");
-        easyneo.setImage(ImageCache.getInstance().getGameBackGroundCache().get(22));
-        hardneo = (ImageView) root.lookup("#hardneo");
-        hardneo.setImage(ImageCache.getInstance().getGameBackGroundCache().get(23));
-
-        //midend = (ImageView) root.lookup("#midend");
-        //midend.setImage(ImageCache.getInstance().getGameBackGroundCache().get(7));
 
     }
 
@@ -1108,11 +987,10 @@ public class Gui extends Application implements IGui, IChartGUI {
         } else {
             labelLoggedIn.setVisible(true);
             menuAnkkuri.setVisible(true);
-            midgrid.setVisible(false);
             startBlack.setVisible(false);
             gameModePane.setOpacity(1);
-            logAndReg.setVisible(true);
-            logAndReg.setOpacity(1);
+            //logAndReg.setVisible(true);
+            //logAndReg.setOpacity(1);
             miniEasy.setOpacity(1);
             miniMedium.setOpacity(1);
             miniHard.setOpacity(1);
@@ -1125,7 +1003,9 @@ public class Gui extends Application implements IGui, IChartGUI {
             kotoku.setOpacity(1);
             tigerden.setOpacity(1);
             treeoflife.setOpacity(1);
-            Platform.runLater(() -> Effects.getInstance().playBuringSun());
+
+            burningSun.burningSunMove(burningsun);
+            //Platform.runLater(() -> Effects.getInstance().playBuringSun());
             AudioMemory.getInstance().playSong(MENU);
             Platform.runLater(() -> Effects.getInstance().setGlow(pergament));
             Platform.runLater(() -> Effects.getInstance().playGlow());
@@ -1189,6 +1069,7 @@ public class Gui extends Application implements IGui, IChartGUI {
             }
     }
 
+
     @FXML
     public void statsGame(MouseEvent mouseEvent) {
         ChartGUI c = new ChartGUI();
@@ -1199,4 +1080,8 @@ public class Gui extends Application implements IGui, IChartGUI {
             e.printStackTrace();
         }
     }
+
+
+
+
 }

@@ -10,7 +10,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import model.MemoryObject;
-import visuals.menu.Gui;
+import visuals.gameModes.FXAbstractGameController;
+import visuals.gameModes.medium.FXMediumController;
 import visuals.imageServers.ImageCache;
 
 import java.util.ArrayList;
@@ -18,15 +19,15 @@ import java.util.Collections;
 
 public class MediumCubeFactory implements ICubeFactory {
 
-    private final Gui gui;
+    private final FXMediumController gui;
     private static ArrayList<Image> imageUrlList = new ArrayList<>();
     private final Image backImage;
     private final Image behindImage;
 
-    public MediumCubeFactory(Gui gui){
+    public MediumCubeFactory(FXAbstractGameController gui){
 
 
-        this.gui = gui;
+        this.gui = (FXMediumController) gui;
         this.backImage = ImageCache.getInstance().getMediumComp().get(0);
         this.behindImage =ImageCache.getInstance().getMediumComp().get(1);
 

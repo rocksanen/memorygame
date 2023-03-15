@@ -2,7 +2,7 @@ package controller;
 
 import javafx.application.Platform;
 import model.*;
-import visuals.menu.IGui;
+import visuals.gameModes.FXIGameController;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -11,10 +11,10 @@ import static model.ModeType.*;
 
 public class GameController implements IGameController {
 
-    private final IGui ui;
+    private final FXIGameController ui;
     private IEngine engine;
 
-    public GameController(IGui ui) {
+    public GameController(FXIGameController ui) {
         this.ui = ui;
     }
 
@@ -74,6 +74,8 @@ public class GameController implements IGameController {
 
     @Override
     public void setMediumGame(ArrayList<MemoryObject> memoryObjects) {
+
+        /*
         Platform.runLater(() -> {
             try {
                 ui.setMediumGame(memoryObjects);
@@ -82,10 +84,14 @@ public class GameController implements IGameController {
             }
         });
 
+         */
+
     }
 
     @Override
     public void setHardGame(ArrayList<MemoryObject> memoryObjects) {
+
+        /*
         Platform.runLater(() -> {
             try {
                 ui.setHardGame(memoryObjects);
@@ -93,6 +99,8 @@ public class GameController implements IGameController {
                 throw new RuntimeException(e);
             }
         });
+
+         */
     }
 
     @Override
