@@ -1,7 +1,8 @@
 package controller;
 
 import model.*;
-import visuals.menu.IGui;
+import visuals.gameModes.FXIGameController;
+import visuals.menu.IMenu;
 
 import java.util.ArrayList;
 
@@ -10,11 +11,12 @@ import static model.ModeType.*;
 public class ScoreController implements IScoreController {
 
     private IEngine engine;
-    private final IGui ui;
 
-    public ScoreController(IGui ui) {
-        this.ui = ui;
+
+    public ScoreController() {
+
     }
+
 
     /**
      * ui? what for? 🦎

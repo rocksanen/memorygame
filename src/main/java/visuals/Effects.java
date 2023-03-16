@@ -15,8 +15,8 @@ import javafx.util.Duration;
 import model.ModeType;
 import org.jetbrains.annotations.NotNull;
 import visuals.audio.AudioMemory;
-import visuals.effects.BackGroundMover;
-import visuals.menu.Gui;
+import visuals.effects.gameEffects.BackGroundMover;
+import visuals.menu.Menu;
 
 
 public class Effects {
@@ -193,8 +193,8 @@ public class Effects {
         this.zOffset = zOffset;
         this.fovOffset = fovOffset;
         this.xOffset = xOffset;
-        this.yOffset = yOffset;
         this.type = type;
+        this.yOffset = yOffset;
 
         Platform.runLater(() -> Visibilities.getInstance().offGameGrid(cubeGrid));  // This is actually very important...
 
@@ -261,9 +261,6 @@ public class Effects {
             zoomOutBlurEndings();
 
         });
-
-
-
     }
 
     private void zoomOutMediumWalls() {
@@ -350,21 +347,8 @@ public class Effects {
     private void zoomOutCamera() {
 
         Timeline timelineZoomOut = new Timeline(
-                new KeyFrame(Duration.ZERO,
-                        new KeyValue(Gui.camera.translateZProperty(), Gui.camera.getTranslateZ()),
-                        new KeyValue(Gui.camera.fieldOfViewProperty(), Gui.camera.getFieldOfView()),
-                        new KeyValue(Gui.camera.translateXProperty(), Gui.camera.getTranslateX()),
-                        new KeyValue(Gui.camera.translateYProperty(), Gui.camera.getTranslateY())
-                ),
-                new KeyFrame(Duration.seconds(1),
-                        new KeyValue(telkku.opacityProperty(),0)),
-                new KeyFrame(Duration.seconds(2.8),
-                        new KeyValue(Gui.camera.translateZProperty(), 0),
-                        new KeyValue(Gui.camera.fieldOfViewProperty(), 25),
-                        new KeyValue(Gui.camera.translateXProperty(), 0),
-                        new KeyValue(Gui.camera.translateYProperty(), 0),
-                        new KeyValue(telkku.opacityProperty(),1)
-                )
+
+
         );
 
         timelineZoomOut.playFromStart();
@@ -425,14 +409,11 @@ public class Effects {
         Visibilities.getInstance().offGame(gameBackGround);
         midneo.setOpacity(0);
 
-        Gui.camera.setTranslateZ(zOffset);
-        Gui.camera.setFieldOfView(fovOffset);
-        Gui.camera.setTranslateX(xOffset);
-        Gui.camera.setTranslateY(yOffset);
+
 
         menuAnkkuri.setOpacity(1);
 
-        Platform.runLater(() -> Gui.logAndReg.setVisible(true));
+       // Platform.runLater(() -> logAndReg.setVisible(true));
         Platform.runLater(() -> AudioMemory.getInstance().stopSong(type));
         Platform.runLater(() -> AudioMemory.getInstance().playSong(ModeType.MENU));
 
@@ -444,7 +425,7 @@ public class Effects {
 
             ImageView gameBackGround,
             double zOffset, double fovOffset, double xOffset,
-            double yOffset, @NotNull ModeType type, Gui gui
+            double yOffset, @NotNull ModeType type, Menu menu
 
     ) {
 
@@ -482,33 +463,16 @@ public class Effects {
             }
         }
 
-        cameraZoomIn(gui);
+        cameraZoomIn(menu);
         opacitiesIn(easyFinish, mediumFinish, hardFinish, easyFrameFinish, mediumFrameFinish, hardFrameFinish);
     }
 
 
-    private void cameraZoomIn(Gui gui) {
+    private void cameraZoomIn(Menu menu) {
 
         Timeline timelineZoomIn = new Timeline(
 
-                new KeyFrame(Duration.ZERO,
-                        new KeyValue(Gui.camera.translateZProperty(), 0),
-                        new KeyValue(Gui.camera.fieldOfViewProperty(), 25),
-                        new KeyValue(Gui.camera.translateXProperty(), 0),
-                        new KeyValue(Gui.camera.translateYProperty(), 0)
-                ),
-                new KeyFrame(Duration.seconds(1.4),
-                        new KeyValue(Gui.camera.translateZProperty(), 0 + zOffset / 2),
-                        new KeyValue(Gui.camera.fieldOfViewProperty(), 25 + fovOffset / 2),
-                        new KeyValue(Gui.camera.translateXProperty(), 0 + xOffset / 2),
-                        new KeyValue(Gui.camera.translateYProperty(), 0 + yOffset / 2)),
-                new KeyFrame(Duration.seconds(2.8),
-                        new KeyValue(Gui.camera.translateZProperty(), 0 + zOffset),
-                        new KeyValue(Gui.camera.fieldOfViewProperty(), 25 + fovOffset),
-                        new KeyValue(Gui.camera.translateXProperty(), 0 + xOffset),
-                        new KeyValue(Gui.camera.translateYProperty(), 0 + yOffset)
-                ),
-                new KeyFrame(Duration.seconds(3))
+
 
         );
         timelineZoomIn.play();
@@ -520,50 +484,25 @@ public class Effects {
             timelineZoomIn.stop();
             AudioMemory.getInstance().stopSong(ModeType.MENU);
             AudioMemory.getInstance().playSong(type);
-            cameraZoomInEndings(gui);
+            cameraZoomInEndings(menu);
         });
     }
 
-    private void cameraZoomInEndings(Gui gui) {
+    private void cameraZoomInEndings(Menu menu) {
 
 
-        quickSwitchCamera(gui);
+        quickSwitchCamera(menu);
         menuAnkkuri.setMouseTransparent(true);
     }
 
-    private void quickSwitchCamera(Gui gui) {
-
-        Timeline quickSwitch = new Timeline(
-                new KeyFrame(Duration.ZERO,
-                        new KeyValue(menuAnkkuri.opacityProperty(), 1),
-                        new KeyValue(Gui.camera.translateXProperty(), Gui.camera.getTranslateX()),
-                        new KeyValue(Gui.camera.translateYProperty(), Gui.camera.getTranslateY()),
-                        new KeyValue(Gui.camera.translateZProperty(), Gui.camera.getTranslateZ())
-                ),
-                new KeyFrame(Duration.seconds(0.0001),
-                        new KeyValue(menuAnkkuri.opacityProperty(), 0),
-                        new KeyValue(Gui.camera.translateXProperty(), 0),
-                        new KeyValue(Gui.camera.translateYProperty(), 0),
-                        new KeyValue(Gui.camera.translateZProperty(), 0)
-                )
-        );
-
-        menuAnkkuri.setMouseTransparent(true);
-        quickSwitch.play();
+    private void quickSwitchCamera(Menu menu) {
 
 
-
-        quickSwitch.setOnFinished(actionEvent1 -> {
-
-
-            quickSwitch.stop();
-            quickSwitchCameraEndings(gui);
-        });
     }
 
-    private void quickSwitchCameraEndings(@NotNull Gui gui) {
+    private void quickSwitchCameraEndings(@NotNull Menu menu) {
 
-        Gui.camera.setFieldOfView(1);
+
 
 
 
@@ -577,15 +516,15 @@ public class Effects {
 
             switch (type) {
 
-                case EASY -> easyEntrance(gui);
-                case MEDIUM -> mediumEntrance(gui);
-                case HARD -> hardEntrance(gui);
+                case EASY -> easyEntrance(menu);
+                case MEDIUM -> mediumEntrance(menu);
+                case HARD -> hardEntrance(menu);
             }
         });
         //Platform.runLater(() -> backGroundBlurIn(gameBackGround));
     }
 
-    private void easyEntrance(Gui gui) {
+    private void easyEntrance(Menu menu) {
 
         easyneo.setOpacity(0.55);
 
@@ -620,12 +559,12 @@ public class Effects {
         timeline.setOnFinished(actionEvent -> {
             timeline.stop();
 
-            zoomInFinalEndings(gui);
+            zoomInFinalEndings(menu);
 
         });
     }
 
-    private void mediumEntrance(Gui gui) {
+    private void mediumEntrance(Menu menu) {
 
         Timeline timeline = new Timeline(
 
@@ -687,7 +626,7 @@ public class Effects {
 
             neoline.play();
             neoline.setDelay(Duration.seconds(0.5));
-            zoomInFinalEndings(gui);
+            zoomInFinalEndings(menu);
 
 
 
@@ -702,7 +641,7 @@ public class Effects {
         });
     }
 
-    private void hardEntrance(Gui gui) {
+    private void hardEntrance(Menu menu) {
 
 
 
@@ -730,14 +669,14 @@ public class Effects {
 
         timeline.setOnFinished(actionEvent -> {
             timeline.stop();
-            zoomInFinalEndings(gui);
+            zoomInFinalEndings(menu);
 
         });
     }
 
-    private void zoomInFinalEndings(Gui gui) {
+    private void zoomInFinalEndings(Menu menu) {
 
-        gui.startChoose(type);
+
         Platform.runLater(() -> backGroundMover.animate(gameBackGround));
         Platform.runLater(backGroundMover::play);
 
@@ -1147,33 +1086,6 @@ public class Effects {
     }
 
     public void playBuringSun() {burningSunMove();}
-
-    public void moveCamera() {
-
-        double transx = Gui.camera.getTranslateX();
-        double transz = Gui.camera.getTranslateZ();
-
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.ZERO,
-                        new KeyValue(Gui.camera.translateXProperty(), transx),
-                        new KeyValue(Gui.camera.translateZProperty(), transz)),
-                new KeyFrame(Duration.seconds(5),
-                        new KeyValue(Gui.camera.translateZProperty(), Gui.camera.getTranslateZ() + 5),
-                        new KeyValue(Gui.camera.translateXProperty(), Gui.camera.getTranslateX() - 5)),
-                new KeyFrame(Duration.seconds(10),
-                        new KeyValue(Gui.camera.translateXProperty(), Gui.camera.getTranslateX() + 5),
-                        new KeyValue(Gui.camera.translateZProperty(), Gui.camera.getTranslateZ() - 5)),
-                new KeyFrame(Duration.seconds(15),
-                        new KeyValue(Gui.camera.translateXProperty(), Gui.camera.getTranslateX() - 5),
-                        new KeyValue(Gui.camera.translateZProperty(), Gui.camera.getTranslateZ() + 5))
-        );
-
-        timeline.setAutoReverse(true);
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
-
-
-    }
 
     public void stopBurningSun() {
 

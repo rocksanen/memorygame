@@ -1,14 +1,14 @@
 package controller;
 
 import model.User;
-import visuals.menu.IGui;
+import visuals.menu.IMenu;
 
 public class UserController implements IUserController {
 
 
-    private final IGui ui;
+    private final IMenu ui;
 
-    public UserController(IGui ui) {
+    public UserController(IMenu ui) {
         this.ui = ui;
     }
 

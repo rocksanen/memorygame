@@ -84,10 +84,9 @@ public class Visibilities {
         return instance;
     }
 
-        public void setToGameObjects(Pane gameMode, Pane score, Pane logAndReg, ImageView pergament) {
+        public void setToGameObjects(Pane gameMode,Pane logAndReg, ImageView pergament) {
 
             this.gameMode = gameMode;
-            this.score = score;
             this.logAndReg = logAndReg;
             this.pergament = pergament;
         }
