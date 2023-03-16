@@ -114,8 +114,21 @@ public class LeaderboardsController {
         TableColumn<Score, Integer> scoreCol = new TableColumn<>("Points");
         scoreCol.setCellValueFactory(new PropertyValueFactory<>("points"));
 
+
         TableColumn<Score, Double> timeCol = new TableColumn<>("Time (s)");
         timeCol.setCellValueFactory(new PropertyValueFactory<>("time"));
+        timeCol.setCellFactory(column -> new TableCell<Score, Double>() {
+            @Override
+            protected void updateItem(Double item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(String.format("%.2f", item));
+                }
+            }
+        });
+
 
         TableColumn<Score, String> gradeCol = new TableColumn<>("Grade");
         gradeCol.setCellValueFactory(new PropertyValueFactory<>("grade"));

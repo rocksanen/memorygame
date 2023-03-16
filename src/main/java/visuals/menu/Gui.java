@@ -792,6 +792,7 @@ public class Gui extends Application implements IGui, IChartGUI {
             if (newValue) {
                 // Do something if the task returns true
                 System.out.println("fetchallscores Task returned true");
+                buttonLeaderboards.setDisable(false);
             } else {
                 // Do something if the task returns false
                 System.out.println("fetchallscores Task returned false");
