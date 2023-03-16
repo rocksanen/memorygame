@@ -1,6 +1,7 @@
 package controller;
 
 import model.*;
+import visuals.gameModes.FXIGameController;
 import visuals.menu.IMenu;
 
 import java.util.ArrayList;
@@ -10,11 +11,12 @@ import static model.ModeType.*;
 public class ScoreController implements IScoreController {
 
     private IEngine engine;
-    private final IMenu ui;
 
-    public ScoreController(IMenu ui) {
-        this.ui = ui;
+
+    public ScoreController() {
+
     }
+
 
     /**
      * fetches scores form db, and stores them in the correct scoreboard

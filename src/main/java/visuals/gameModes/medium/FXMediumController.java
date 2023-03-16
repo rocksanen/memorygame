@@ -27,6 +27,16 @@ public class FXMediumController extends FXAbstractGameController implements Init
     }
 
     @Override
+    public void setMediumGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
+
+    }
+
+    @Override
+    public void setHardGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
+
+    }
+
+    @Override
     public void gameOver() {
 
     }
@@ -43,6 +53,11 @@ public class FXMediumController extends FXAbstractGameController implements Init
 
     @Override
     public void setWorldScore() {
+
+    }
+
+    @Override
+    public void setPersonalScore() {
 
     }
 

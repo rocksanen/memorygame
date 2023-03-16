@@ -1,5 +1,6 @@
 package visuals.gameModes.hard;
 
+import controller.ScoreController;
 import javafx.fxml.Initializable;
 import model.MemoryObject;
 import visuals.gameModes.FXAbstractGameController;
@@ -27,6 +28,16 @@ public class FXHardController extends FXAbstractGameController implements Initia
     }
 
     @Override
+    public void setMediumGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
+
+    }
+
+    @Override
+    public void setHardGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
+
+    }
+
+    @Override
     public void gameOver() {
 
     }
@@ -43,6 +54,11 @@ public class FXHardController extends FXAbstractGameController implements Initia
 
     @Override
     public void setWorldScore() {
+
+    }
+
+    @Override
+    public void setPersonalScore() {
 
     }
 

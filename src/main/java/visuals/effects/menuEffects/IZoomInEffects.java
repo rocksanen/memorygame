@@ -9,10 +9,9 @@ public interface IZoomInEffects {
 
     void gameZoomIn(
             double zOffset, double fovOffset, double xOffset,
-            double yOffset, @NotNull ModeType type, Menu menu
-    );
-    void cameraZoomIn(Menu menu);
-    void cameraZoomInEndings(Menu menu);
+            double yOffset, @NotNull ModeType type);
+    void cameraZoomIn();
+    void cameraZoomInEndings();
 
     void setMiniImagesAndFrames(
             ImageView miniEasy, ImageView miniMedium, ImageView miniHard,

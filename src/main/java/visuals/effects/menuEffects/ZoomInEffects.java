@@ -9,7 +9,6 @@ import model.ModeType;
 import org.jetbrains.annotations.NotNull;
 import visuals.Navigaattori;
 import visuals.audio.AudioMemory;
-import visuals.menu.Menu;
 import java.io.IOException;
 
 public class ZoomInEffects implements IZoomInEffects {
@@ -59,7 +58,7 @@ public class ZoomInEffects implements IZoomInEffects {
     @Override
     public void gameZoomIn(
             double zOffset, double fovOffset,
-            double xOffset, double yOffset, @NotNull ModeType type, Menu menu) {
+            double xOffset, double yOffset, @NotNull ModeType type) {
 
 
         this.zOffset = zOffset;
@@ -94,12 +93,12 @@ public class ZoomInEffects implements IZoomInEffects {
             }
         }
 
-        cameraZoomIn(menu);
+        cameraZoomIn();
         opacitiesIn(easyFinish, mediumFinish, hardFinish, easyFrameFinish, mediumFrameFinish, hardFrameFinish);
     }
 
     @Override
-    public void cameraZoomIn(Menu menu) {
+    public void cameraZoomIn() {
 
         Timeline timelineZoomIn = new Timeline(
 
@@ -130,13 +129,13 @@ public class ZoomInEffects implements IZoomInEffects {
             timelineZoomIn.stop();
             AudioMemory.getInstance().stopSong(ModeType.MENU);
             AudioMemory.getInstance().playSong(type);
-            cameraZoomInEndings(menu);
+            cameraZoomInEndings();
         });
 
     }
 
     @Override
-    public void cameraZoomInEndings(Menu menu) {
+    public void cameraZoomInEndings() {
 
         try {
             Navigaattori.getInstance().changeScene(type);

@@ -1,25 +1,12 @@
 package visuals.menu;
 
-import model.MemoryObject;
-
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public interface IMenu {
 
-    void clearPair(ArrayList<Integer> storage);
-    void getWorldScore(ArrayList<String> worldList);
-
-    void setPersonalScores(ArrayList<String> personalList);
-    void setEasyGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException;
-    void setMediumGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException;
-    void setHardGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException;
-    void clearStorage();
-    void gameOver();
-    void setActiveID(int activeID);
-    void getTime(int i);
+    //void getWorldScore(ArrayList<String> worldList);
+    //void getPersonalScore(ArrayList<String> personalList);
     void fetchUserScores();
     boolean isReturnStatus();
 
-    void compareFoundMatch();
 }

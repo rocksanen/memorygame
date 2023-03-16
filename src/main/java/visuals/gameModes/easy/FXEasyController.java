@@ -1,18 +1,21 @@
 package visuals.gameModes.easy;
 
+import controller.IScoreController;
+import controller.ScoreController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import model.MemoryObject;
+import model.*;
 import visuals.cubeFactories.BoxMaker;
 import visuals.cubeFactories.EasyCubeFactory;
 import visuals.cubeFactories.ICubeFactory;
 import visuals.effects.gameEffects.EasyEffects;
 import visuals.gameModes.FXAbstractGameController;
 import visuals.imageServers.ImageCache;
+import visuals.menu.Menu;
 
 import java.io.FileNotFoundException;
 import java.net.URL;
@@ -20,7 +23,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
-public class FXEasyControllerFX extends FXAbstractGameController implements Initializable {
+public class FXEasyController extends FXAbstractGameController implements Initializable {
 
     @FXML GridPane easyGridi;
     @FXML ImageView background;
@@ -30,14 +33,29 @@ public class FXEasyControllerFX extends FXAbstractGameController implements Init
     @FXML ImageView play;
     @FXML ImageView returngame;
     @FXML Pane scorePane;
-    @FXML Label p1,p2,p3,p4,p5;
-    @FXML Label w1,w2,w3,w4,w5;
+    @FXML Label p1;
+    @FXML Label p2;
+    @FXML Label p3;
+    @FXML Label p4;
+    @FXML Label p5;
+    @FXML Label w1;
+    @FXML Label w2;
+    @FXML Label w3;
+    @FXML Label w4;
+    @FXML Label w5;
     @FXML ImageView easy3Dgrid;
     @FXML ImageView easyneo;
     @FXML ImageView easyEnd;
 
     private ICubeFactory easyCubeFactory;
     private EasyEffects easyEffects;
+    private ScoreController scoreController;
+
+
+    public void setController(ScoreController scoreController) {
+
+        this.scoreController = scoreController;
+    }
 
 
     @Override
@@ -49,6 +67,7 @@ public class FXEasyControllerFX extends FXAbstractGameController implements Init
         easyEffects.setImagesAndComponents(background,easyTop,easyBot,easyL,easy3Dgrid,play,returngame,easyGridi,easyEnd,easyneo,scorePane);
         easyEffects.entrance();
         setWorldScore();
+        setPersonalScore();
         setStartEasyGame();
     }
 
@@ -96,14 +115,16 @@ public class FXEasyControllerFX extends FXAbstractGameController implements Init
 
     }
 
+
+
     @Override
     public void gameOver() {
 
-        /*
-        setPersonalScores(scoreController.getPersonalScores(EASY));
-        getWorldScore(scoreController.getScores(EASY));
-
-         */
+        Menu.getWorldScore(scoreController.getScores(ModeType.EASY));
+        Menu.getPersonalScore(scoreController.getPersonalScores(ModeType.EASY));
+        setPersonalScore();
+        setWorldScore();
+        System.out.println("game over");
     }
 
     @Override
@@ -140,14 +161,25 @@ public class FXEasyControllerFX extends FXAbstractGameController implements Init
 
     @Override
     public void setWorldScore() {
-        /*
-        w1 = Gui.worldLabels.get(0);
-        w2 = Gui.worldLabels.get(1);
-        w3 = Gui.worldLabels.get(2);
-        w4 = Gui.worldLabels.get(3);
-        w5 = Gui.worldLabels.get(4);
 
-         */
+        w1.setText(Menu.worldList.get(0));
+        w2.setText(Menu.worldList.get(1));
+        w3.setText(Menu.worldList.get(2));
+        w4.setText(Menu.worldList.get(3));
+        w5.setText(Menu.worldList.get(4));
+    }
+
+    @Override
+    public void setPersonalScore() {
+
+        if(Menu.personalList != null) {
+
+            p1.setText(Menu.personalList.get(0));
+            p2.setText(Menu.personalList.get(1));
+            p3.setText(Menu.personalList.get(2));
+            p4.setText(Menu.personalList.get(3));
+            p5.setText(Menu.personalList.get(4));
+        }
     }
 
     @Override
@@ -169,4 +201,10 @@ public class FXEasyControllerFX extends FXAbstractGameController implements Init
         easyGridi.setHgap(-80);
         easyEnd.setOpacity(0);
     }
+
+    @Override
+    public void setMediumGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {}
+
+    @Override
+    public void setHardGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {}
 }

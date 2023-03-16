@@ -11,20 +11,20 @@ import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import model.MemoryObject;
 import visuals.gameModes.FXIGameController;
-import visuals.gameModes.easy.FXEasyControllerFX;
+import visuals.gameModes.easy.FXEasyController;
 import visuals.imageServers.ImageCache;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class EasyCubeFactory implements ICubeFactory {
-    private final FXEasyControllerFX gui;
+    private final FXEasyController gui;
     private static ArrayList<Image> imageUrlList = new ArrayList<>();
     private final Image backImage;
     private final Image behindImage;
 
     public EasyCubeFactory(FXIGameController gui){
 
-        this.gui = (FXEasyControllerFX) gui;
+        this.gui = (FXEasyController) gui;
         this.backImage = ImageCache.getInstance().getEasyComp().get(0);
         this.behindImage = ImageCache.getInstance().getEasyComp().get(1);
 

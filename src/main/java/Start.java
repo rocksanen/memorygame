@@ -1,8 +1,7 @@
-import javafx.application.Application;
-import visuals.MainApp;
+
+
 import visuals.Navigaattori;
 import visuals.imageServers.ImageCache;
-
 import java.io.FileNotFoundException;
 
 /**

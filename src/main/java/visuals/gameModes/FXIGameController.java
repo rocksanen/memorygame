@@ -13,6 +13,8 @@ public interface FXIGameController {
     void clearPair(ArrayList<Integer> storage);
     void clearStorage();
     void setEasyGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException;
+    void setMediumGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException;
+    void setHardGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException;
     void gameOver(); // kesken
     void setActiveID(int activeID);
     void compareFoundMatch();
@@ -20,6 +22,7 @@ public interface FXIGameController {
     void setStartEasyGame();
     void sendIdToEngine(int id);
     void setWorldScore();
+    void setPersonalScore();
     void newGame();
     void returnMenu();
     void setCamera();

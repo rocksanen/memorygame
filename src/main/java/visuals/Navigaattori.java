@@ -1,5 +1,6 @@
 package visuals;
 
+import controller.ScoreController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +10,10 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.ModeType;
+import visuals.gameModes.FXIGameController;
+import visuals.gameModes.easy.FXEasyController;
+import visuals.menu.Menu;
+
 import java.io.IOException;
 import java.util.Objects;
 
@@ -44,7 +49,13 @@ public class Navigaattori extends Application {
         switch (type) {
 
             case MENU -> pane = FXMLLoader.load (Objects.requireNonNull(getClass().getResource(MENU)));
-            case EASY -> pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/visuals/gameModes/easy/easy.fxml")));
+            case EASY -> {
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/visuals/gameModes/easy/easy.fxml"));
+                pane = loader.load();
+                FXEasyController fxEasyController = loader.getController();
+                fxEasyController.setController(new ScoreController());
+            }
             case MEDIUM -> pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/visuals/gameModes/medium/medium.fxml")));
             case HARD -> pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/visuals/gameModes/hard/hard.fxml")));
         }
