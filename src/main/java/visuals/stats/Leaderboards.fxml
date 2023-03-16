@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorLbs" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.stats.LeaderboardsController">
+   <children>
+      <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label fx:id="labelTitle" alignment="CENTER" text="Leaderboards">
+                     <font>
+                        <Font size="48.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="20.0" top="20.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="hboxLbs" VBox.vgrow="ALWAYS">
+               <children>
+                  <TableView fx:id="scoreTable">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="C1" />
+                      <TableColumn prefWidth="75.0" text="C2" />
+                    </columns>
+                     <HBox.margin>
+                        <Insets bottom="15.0" left="15.0" />
+                     </HBox.margin>
+                  </TableView>
+                  <VBox fx:id="vboxInfo" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Pane fx:id="paneStats" prefHeight="400.0" prefWidth="200.0" />
+                        <HBox alignment="CENTER" prefHeight="60.0" spacing="20.0">
+                           <children>
+                            <Button fx:id="buttonEasy" maxHeight="1.7976931348623157E308" minWidth="100.0" mnemonicParsing="false" onAction="#setButtonEasy" text="Easy" />
+                              <Button fx:id="buttonMedium" maxHeight="1.7976931348623157E308" minWidth="100.0" mnemonicParsing="false" onAction="#setButtonMedium" text="Medium" />
+                              <Button fx:id="buttonHard" maxHeight="1.7976931348623157E308" minWidth="100.0" mnemonicParsing="false" onAction="#setButtonHard" text="Hard" />
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER" layoutX="10.0" layoutY="410.0">
+                           <children>
+                              <Button fx:id="buttonUserGlobal" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#setButtonUserGlobal" prefHeight="50.0" prefWidth="200.0" text="Global Scores" />
+                           </children>
+                           <VBox.margin>
+                              <Insets top="30.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Button fx:id="buttonReturn" mnemonicParsing="false" onAction="#setButtonReturn" prefHeight="60.0" prefWidth="200.0" text="Go Back" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+   </children>
+</AnchorPane>

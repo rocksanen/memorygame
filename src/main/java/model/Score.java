@@ -50,6 +50,7 @@ public class Score {
 
     /**
      * Constructor for Score
+     *
      * @param lb Leaderboard-object
      */
     public Score(Leaderboard lb) {
@@ -64,6 +65,7 @@ public class Score {
 
     /**
      * getter for username
+     *
      * @return - see {@link Score#username}
      */
     public String getUsername() {
@@ -72,6 +74,7 @@ public class Score {
 
     /**
      * getter for time
+     *
      * @return - see {@link Score#time}
      */
     public Double getTime() {
@@ -80,6 +83,7 @@ public class Score {
 
     /**
      * getter for difficulty
+     *
      * @return - see {@link Score#difficulty}
      */
     public ModeType getDifficulty() {
@@ -88,6 +92,7 @@ public class Score {
 
     /**
      * getter for grade
+     *
      * @return - see {@link Score#grade}
      */
     public String getGrade() {
@@ -96,6 +101,7 @@ public class Score {
 
     /**
      * getter for timestamp
+     *
      * @return - see {@link Score#timestamp}
      */
     public Date getTimestamp() {
@@ -104,6 +110,7 @@ public class Score {
 
     /**
      * getter for scoreid
+     *
      * @return - see {@link Score#scoreid}
      */
     public Long getScoreid() {
@@ -112,6 +119,7 @@ public class Score {
 
     /**
      * getter for points
+     *
      * @return - see {@link Score#points}
      */
     public int getPoints() {
@@ -123,49 +131,52 @@ public class Score {
      * 💀
      * can easily be changed later to anything, has no relevance to anything
      *
-     * @param seconds time in seconds
+     * @param seconds  time in seconds
      * @param modeType difficulty
      * @return grade
      */
     private String scoreGrader(Double seconds, ModeType modeType) {
 
-        switch (modeType.toString()) {
-            case "easy" -> {
-                if (seconds < 10) {
-                    grade = "🎉";
-                } else if (seconds >= 10 && seconds < 20) {
-                    grade = "😲🤯";
-                } else if (seconds >= 20 && seconds < 30) {
-                    grade = "😲";
-                } else if (seconds >= 30 && seconds < 40) {
-                    grade = "💀";
-                }
-            }
-            case "medium" -> {
-                if (seconds < 10) {
-                    grade = "Incredible!";
-                } else if (seconds >= 10 && seconds < 20) {
-                    grade = "Excellent";
-                } else if (seconds >= 20 && seconds < 30) {
-                    grade = "Well done";
-                } else if (seconds >= 30 && seconds < 40) {
-                    grade = "Try again";
-                }
-            }
-            case "hard" -> {
-                if (seconds < 10) {
-                    grade = "John von Neumann reborn";
-                } else if (seconds >= 10 && seconds < 20) {
-                    grade = "Excellent";
-                } else if (seconds >= 20 && seconds < 30) {
-                    grade = "Well done";
-                } else if (seconds >= 30 && seconds < 40) {
-                    grade = "Maybe try an easier difficulty?";
-                }
-            }
-            default -> grade = "Hämmästyttävä";
-        }
-        return grade;
+        //temp
+        return ("⭐⭐⭐");
+
+//        switch (modeType.toString()) {
+//            case "easy" -> {
+//                if (seconds < 10) {
+//                    grade = "🎉";
+//                } else if (seconds >= 10 && seconds < 20) {
+//                    grade = "😲🤯";
+//                } else if (seconds >= 20 && seconds < 30) {
+//                    grade = "😲";
+//                } else if (seconds >= 30 && seconds < 40) {
+//                    grade = "💀";
+//                }
+//            }
+//            case "medium" -> {
+//                if (seconds < 10) {
+//                    grade = "Incredible!";
+//                } else if (seconds >= 10 && seconds < 20) {
+//                    grade = "Excellent";
+//                } else if (seconds >= 20 && seconds < 30) {
+//                    grade = "Well done";
+//                } else if (seconds >= 30 && seconds < 40) {
+//                    grade = "Try again";
+//                }
+//            }
+//            case "hard" -> {
+//                if (seconds < 10) {
+//                    grade = "John von Neumann reborn";
+//                } else if (seconds >= 10 && seconds < 20) {
+//                    grade = "Excellent";
+//                } else if (seconds >= 20 && seconds < 30) {
+//                    grade = "Well done";
+//                } else if (seconds >= 30 && seconds < 40) {
+//                    grade = "Maybe try an easier difficulty?";
+//                }
+//            }
+//            default -> grade = "Hämmästyttävä";
+//        }
+//        return grade;
     }
 
     /**
@@ -178,9 +189,11 @@ public class Score {
                 "username='" + username + '\'' +
                 ", scoreid=" + scoreid +
                 ", time=" + time +
-                ", difficulty='" + difficulty + '\'' +
+                ", difficulty=" + difficulty +
                 ", timestamp=" + timestamp +
                 ", grade='" + grade + '\'' +
+                ", points=" + points +
                 '}';
     }
 }
+

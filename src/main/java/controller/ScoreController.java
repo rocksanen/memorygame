@@ -17,7 +17,6 @@ public class ScoreController implements IScoreController {
 
     }
 
-
     /**
      * fetches scores form db, and stores them in the correct scoreboard
      *
@@ -74,6 +73,20 @@ public class ScoreController implements IScoreController {
         return scoreList;
     }
 
+    @Override
+    public ArrayList<Score> getScoresRaw(ModeType difficulty) {
+        WorldScores ws = WorldScores.getInstance();
+        switch (difficulty) {
+            case EASY:
+                return ws.getEasyScores().getScores();
+            case MEDIUM:
+                return ws.getMediumScores().getScores();
+            case HARD:
+                return ws.getHardScores().getScores();
+            default:
+                return null;
+        }
+    }
 
     /**
      * converts score-object to a string that will be displayed in GUI.
@@ -88,6 +101,21 @@ public class ScoreController implements IScoreController {
 //        System.out.println(format);
         return format;
     }
+
+    /**
+     * converts score-object to a string that will be displayed in GUI.
+     *
+     * @param score the score to format
+     * @return the formatted score
+     */
+    @Override
+    public String formatScoreVerbose(Score score) {
+        // change formatting as you wish
+        String format = String.format("%-10.10s %4d", score.getUsername(), score.getPoints()).toUpperCase();
+//        System.out.println(format);
+        return format;
+    }
+
 
     /**
      * fetches the personal scores for the logged in user
@@ -141,6 +169,26 @@ public class ScoreController implements IScoreController {
         }
 //        System.out.println(scoreList);
         return scoreList;
+    }
+
+
+    @Override
+    public ArrayList<Score> getUserScoresRaw(ModeType difficulty) {
+        User u = User.getInstance();
+        if (u.isLoggedIn() == false) {
+            System.out.println("not logged in!");
+            return null;
+        }
+        switch (difficulty) {
+            case EASY:
+                return u.getScores(EASY).getScores();
+            case MEDIUM:
+                return u.getScores(MEDIUM).getScores();
+            case HARD:
+                return u.getScores(HARD).getScores();
+            default:
+                return null;
+        }
     }
 
 

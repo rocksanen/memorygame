@@ -58,6 +58,7 @@ public class Navigaattori extends Application {
             }
             case MEDIUM -> pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/visuals/gameModes/medium/medium.fxml")));
             case HARD -> pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/visuals/gameModes/hard/hard.fxml")));
+            case IMPOSSIBLE -> pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/visuals/stats/Leaderboards.fxml")));
         }
 
         MAINSTAGE.getScene().setRoot(pane);

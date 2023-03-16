@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.BoxBlur?>
-<?import javafx.scene.effect.ColorAdjust?>
-<?import javafx.scene.effect.Glow?>
-<?import javafx.scene.effect.SepiaTone?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.menu.Menu">
+<AnchorPane prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.menu.Menu">
     <children>
       <ImageView id="play" fx:id="play" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="290.0" mouseTransparent="true" opacity="0.0">
          <image>
@@ -346,6 +339,7 @@
             </ImageView>
          </children>
       </AnchorPane>
+      <Button fx:id="buttonLeaderboards" mnemonicParsing="false" onAction="#setButtonLeaderboards" text="Leaderboards" />
     </children>
 
 </AnchorPane>

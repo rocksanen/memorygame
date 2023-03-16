@@ -657,6 +657,15 @@
             </Pane>
          </children>
       </Pane>
+      <Button fx:id="buttonLeaderboards" disable="true" mnemonicParsing="false" onAction="#setButtonLeaderboards" onMouseClicked="#statsGame" prefHeight="40.0" text="Loading Scores..." textAlignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <AnchorPane id="startBlack" fx:id="startBlack" prefHeight="780.0" prefWidth="1250.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <AnchorPane id="startBlack" fx:id="startBlack" prefHeight="780.0" prefWidth="1250.0" style="-fx-background-color: black;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView id="lightning" fx:id="lightning" fitHeight="457.0" fitWidth="402.0" layoutX="16.0" layoutY="-79.0" opacity="0.0" rotate="-12.0">
