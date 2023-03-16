@@ -7,8 +7,6 @@ import visuals.gameModes.FXIGameController;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-import static model.ModeType.*;
-
 public class GameController implements IGameController {
 
     private final FXIGameController fxiGameController;
@@ -19,20 +17,8 @@ public class GameController implements IGameController {
     }
 
     @Override
-    public void startEasyGame() {
-        this.engine = new Engine(EASY, this);
-        this.engine.setMemoryObjects();
-    }
-
-    @Override
-    public void startMediumGame() {
-        this.engine = new Engine(ModeType.MEDIUM, this);
-        this.engine.setMemoryObjects();
-    }
-
-    @Override
-    public void startHardGame() {
-        this.engine = new Engine(ModeType.HARD, this);
+    public void startGame(ModeType type) {
+        this.engine = new Engine(type, this);
         this.engine.setMemoryObjects();
     }
 
@@ -62,35 +48,11 @@ public class GameController implements IGameController {
     }
 
     @Override
-    public void setEasyGame(ArrayList<MemoryObject> memoryObjects) {
+    public void setGame(ArrayList<MemoryObject> memoryObjects) {
 
         Platform.runLater(() -> {
             try {
-                fxiGameController.setEasyGame(memoryObjects);
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        });
-    }
-
-    @Override
-    public void setMediumGame(ArrayList<MemoryObject> memoryObjects) {
-
-        Platform.runLater(() -> {
-            try {
-                fxiGameController.setMediumGame(memoryObjects);
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        });
-    }
-
-    @Override
-    public void setHardGame(ArrayList<MemoryObject> memoryObjects) {
-
-        Platform.runLater(() -> {
-            try {
-                fxiGameController.setHardGame(memoryObjects);
+                fxiGameController.setCubesToGame(memoryObjects);
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
