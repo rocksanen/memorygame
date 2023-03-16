@@ -2,7 +2,7 @@ package controller;
 
 import javafx.application.Platform;
 import model.*;
-import visuals.menu.IGui;
+import visuals.gameModes.FXIGameController;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -11,11 +11,11 @@ import static model.ModeType.*;
 
 public class GameController implements IGameController {
 
-    private final IGui ui;
+    private final FXIGameController fxiGameController;
     private IEngine engine;
 
-    public GameController(IGui ui) {
-        this.ui = ui;
+    public GameController(FXIGameController fxiGameController) {
+        this.fxiGameController = fxiGameController;
     }
 
     @Override
@@ -58,14 +58,15 @@ public class GameController implements IGameController {
 
     @Override
     public void clearPair(ArrayList<Integer> storage) {
-        Platform.runLater(() -> ui.clearPair(storage));
+        Platform.runLater(() -> fxiGameController.clearPair(storage));
     }
 
     @Override
     public void setEasyGame(ArrayList<MemoryObject> memoryObjects) {
+
         Platform.runLater(() -> {
             try {
-                ui.setEasyGame(memoryObjects);
+                fxiGameController.setEasyGame(memoryObjects);
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
@@ -74,21 +75,22 @@ public class GameController implements IGameController {
 
     @Override
     public void setMediumGame(ArrayList<MemoryObject> memoryObjects) {
+
         Platform.runLater(() -> {
             try {
-                ui.setMediumGame(memoryObjects);
+                fxiGameController.setMediumGame(memoryObjects);
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
         });
-
     }
 
     @Override
     public void setHardGame(ArrayList<MemoryObject> memoryObjects) {
+
         Platform.runLater(() -> {
             try {
-                ui.setHardGame(memoryObjects);
+                fxiGameController.setHardGame(memoryObjects);
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
@@ -99,7 +101,7 @@ public class GameController implements IGameController {
     public void gameOver() {
         Platform.runLater(() -> {
             try {
-                ui.gameOver();
+                fxiGameController.gameOver();
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -108,7 +110,7 @@ public class GameController implements IGameController {
 
     @Override
     public void getActive(int id) {
-        ui.setActiveID(id);
+        fxiGameController.setActiveID(id);
     }
 
     @Override
@@ -118,7 +120,7 @@ public class GameController implements IGameController {
 
     @Override
     public void setTimer(int i) {
-        ui.getTime(i);
+        fxiGameController.getTime(i);
     }
 
     @Override
@@ -128,6 +130,6 @@ public class GameController implements IGameController {
 
     @Override
     public void sendComparingSuccess() {
-        ui.compareFoundMatch();
+        fxiGameController.compareFoundMatch();
     }
 }

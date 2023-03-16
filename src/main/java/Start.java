@@ -1,5 +1,7 @@
-import visuals.MainApp;
 
+
+import visuals.Navigaattori;
+import visuals.imageServers.ImageCache;
 import java.io.FileNotFoundException;
 
 /**
@@ -14,9 +16,14 @@ public class Start {
 	 * kutsuu Visuals.MainApp.main(args) ja käynnistää simulaattorin
 	 * @param args
 	 */
-	public static void main(String args[]) throws FileNotFoundException {
-		MainApp.main(args);
-		
-	}
+	public static void main(String[] args) throws FileNotFoundException {
 
+		ImageCache.getInstance().addToIntroCache();
+		ImageCache.getInstance().addToMenuCache();
+		ImageCache.getInstance().addToEasyCache();
+		ImageCache.getInstance().addToMediumCache();
+		ImageCache.getInstance().addToHardCache();
+		ImageCache.getInstance().addToGameBackGroundCache();
+		Navigaattori.main(args);
+	}
 }

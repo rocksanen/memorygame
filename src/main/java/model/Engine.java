@@ -175,6 +175,7 @@ public class Engine implements IEngine {
     @Override
     public void addToComparing(int i) {
 
+        System.out.println("tänne meni");
         MemoryObject memoryObject = memoryObjectsList.get(i);
         controller.getActive(i);
         if (!rightPairList.contains(memoryObject.getTypeId())) {
