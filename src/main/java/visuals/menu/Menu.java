@@ -3,14 +3,20 @@ package visuals.menu;
 import controller.*;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import model.ModeType;
 import visuals.*;
 import visuals.audio.AudioMemory;
 import visuals.effects.menuEffects.BurningSun;
@@ -84,6 +90,8 @@ public class Menu implements Initializable, IMenu {
     @FXML ImageView tigerden;
     @FXML ImageView treeoflife;
     @FXML ImageView telkku;
+
+    @FXML Button buttonLeaderboards;
     public static ArrayList<String> worldList;
     public static ArrayList<String> personalList;
     private boolean returnStatus;
@@ -458,6 +466,15 @@ public class Menu implements Initializable, IMenu {
         try {
             c.start(new Stage());
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void setButtonLeaderboards(ActionEvent event) {
+        try {
+            Navigaattori.getInstance().changeScene(ModeType.IMPOSSIBLE);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

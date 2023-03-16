@@ -19,6 +19,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.ModeType;
 import model.Score;
+import visuals.Navigaattori;
 
 import java.io.IOException;
 import java.net.URL;
@@ -242,15 +243,8 @@ public class LeaderboardsController {
 
     @FXML
     public void setButtonReturn(ActionEvent event) {
-        // does not work bcs of intro(?)
-        System.out.println("return to main menu");
         try {
-
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/visuals/game2.fxml")));
-            Scene scene = new Scene(root);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(scene);
-
+            Navigaattori.getInstance().changeScene(ModeType.MENU);
         } catch (IOException e) {
             e.printStackTrace();
         }

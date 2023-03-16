@@ -17,14 +17,6 @@ public class ScoreController implements IScoreController {
 
     }
 
-
-    /**
-     * ui? what for? 🦎
-     */
-    public ScoreController() {
-        ui = null;
-    }
-
     /**
      * fetches scores form db, and stores them in the correct scoreboard
      *
