@@ -2,6 +2,7 @@ package visuals.stats;
 
 import controller.ScoreController;
 import controller.UserController;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,9 +26,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Objects;
+import java.util.*;
 
 public class LeaderboardsController {
 
@@ -54,6 +53,9 @@ public class LeaderboardsController {
 
     @FXML
     public Label labelTitle;
+
+    @FXML
+    public Button buttonRefresh;
 
     private ScoreController scoreController;
 
@@ -104,6 +106,8 @@ public class LeaderboardsController {
         buttonMedium.setStyle("-fx-font: 18px \"VCR OSD Mono\"; -fx-background-color: #4d004d; -fx-text-fill: white;");
         buttonHard.setStyle("-fx-font: 18px \"VCR OSD Mono\"; -fx-background-color: #4d004d; -fx-text-fill: white;");
         buttonUserGlobal.setStyle("-fx-font: 18px \"VCR OSD Mono\"; -fx-background-color: #4d004d; -fx-text-fill: white;");
+        buttonRefresh.setStyle("-fx-font: 18px \"VCR OSD Mono\"; -fx-background-color: #4d004d; -fx-text-fill: white;");
+
 
         labelTitle.setStyle("-fx-font: 48px \"VCR OSD Mono\"; -fx-text-fill: white;");
     }
@@ -248,5 +252,28 @@ public class LeaderboardsController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    public void setButtonRefresh(ActionEvent event) {
+        buttonRefresh.setDisable(true);
+        buttonRefresh.setText("Reloading...");
+        // fetch for all difficulties
+        scoreController.fetchScores(ModeType.EASY);
+        scoreController.fetchScores(ModeType.MEDIUM);
+        scoreController.fetchScores(ModeType.HARD);
+        scoreController.fetchPersonalScores();
+
+        // 5 secs later set disable false and text to reload scores
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    buttonRefresh.setDisable(false);
+                    buttonRefresh.setText("Reload Scores");
+                });
+            }
+        }, 5000);
     }
 }
