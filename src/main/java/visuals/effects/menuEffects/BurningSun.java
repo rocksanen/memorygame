@@ -10,7 +10,6 @@ public class BurningSun{
 
     private Timeline burningSunLine;
 
-
     public void burningSunMove(ImageView burningsun) {
 
         burningsun.setOpacity(0.3);
@@ -33,6 +32,4 @@ public class BurningSun{
             burningSunLine.play();
         });
     }
-
-    //public void playBuringSun() {burningSunMove();}
 }

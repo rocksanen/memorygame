@@ -12,6 +12,14 @@ import java.util.ResourceBundle;
 
 public class FXHardController extends FXAbstractGameController implements Initializable {
 
+    private ScoreController scoreController;
+
+
+    public void setController(ScoreController scoreController) {
+
+        this.scoreController = scoreController;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -23,19 +31,10 @@ public class FXHardController extends FXAbstractGameController implements Initia
     }
 
     @Override
-    public void setEasyGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
+    public void setCubesToGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
 
     }
 
-    @Override
-    public void setMediumGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
-
-    }
-
-    @Override
-    public void setHardGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
-
-    }
 
     @Override
     public void gameOver() {
@@ -43,7 +42,7 @@ public class FXHardController extends FXAbstractGameController implements Initia
     }
 
     @Override
-    public void setStartEasyGame() {
+    public void setStartGame() {
 
     }
 

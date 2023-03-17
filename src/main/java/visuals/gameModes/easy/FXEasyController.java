@@ -1,7 +1,7 @@
 package visuals.gameModes.easy;
 
-import controller.IScoreController;
 import controller.ScoreController;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -14,6 +14,7 @@ import visuals.cubeFactories.EasyCubeFactory;
 import visuals.cubeFactories.ICubeFactory;
 import visuals.effects.gameEffects.EasyEffects;
 import visuals.gameModes.FXAbstractGameController;
+import visuals.gameModes.FXIGameController;
 import visuals.imageServers.ImageCache;
 import visuals.menu.Menu;
 
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
-public class FXEasyController extends FXAbstractGameController implements Initializable {
+public class FXEasyController extends FXAbstractGameController implements Initializable, FXIGameController {
 
     @FXML GridPane easyGridi;
     @FXML ImageView background;
@@ -61,125 +62,21 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        setCamera();
+        Platform.runLater(this::setCamera);
         setImages();
         easyEffects = new EasyEffects();
-        easyEffects.setImagesAndComponents(background,easyTop,easyBot,easyL,easy3Dgrid,play,returngame,easyGridi,easyEnd,easyneo,scorePane);
-        easyEffects.entrance();
-        setWorldScore();
-        setPersonalScore();
-        setStartEasyGame();
+        easyEffects.setImagesAndComponents(
+                background,easyTop,easyBot,easyL,easy3Dgrid,
+                play,returngame,easyGridi,easyEnd,easyneo,scorePane);
+        Platform.runLater(() -> easyEffects.entrance());
+        Platform.runLater(this::setWorldScore);
+        Platform.runLater(this::setPersonalScore);
+        setStartGame();
     }
 
     @Override
     public void setCamera() {
         super.setCamera();
-    }
-
-
-
-    @FXML
-    public void newGame() {
-
-        setStartEasyGame();
-    }
-
-    @FXML
-    public void returnMenu() {
-
-        easyEffects.wallsOff();
-    }
-
-    @Override
-    public void addToCubeList(BoxMaker cube) {
-        super.addToCubeList(cube);
-    }
-
-    @Override
-    public void clearPair(ArrayList<Integer> storage) {
-        super.clearPair(storage);
-    }
-
-    @Override
-    public void clearStorage() {
-        super.clearStorage();
-    }
-
-    @Override
-    public void setEasyGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
-
-        //selectedDifficulty = EASY;
-        easyCubeFactory.createCubics(easyGridi, memoryObjects);
-        //setPersonalScores(scoreController.getPersonalScores(EASY));
-        //getWorldScore(scoreController.getScores(EASY));
-
-    }
-
-
-
-    @Override
-    public void gameOver() {
-
-        Menu.getWorldScore(scoreController.getScores(ModeType.EASY));
-        Menu.getPersonalScore(scoreController.getPersonalScores(ModeType.EASY));
-        setPersonalScore();
-        setWorldScore();
-        System.out.println("game over");
-    }
-
-    @Override
-    public void setActiveID(int activeID) {
-        super.setActiveID(activeID);
-    }
-
-    @Override
-    public void compareFoundMatch() {
-        super.compareFoundMatch();
-    }
-
-    @Override
-    public void getTime(int i) {
-        super.getTime(i);
-    }
-
-    @Override
-    public void setStartEasyGame() {
-
-        if (cubeList != null) {
-            cubeList.clear();
-        }
-        cubeList = new ArrayList<>();
-        easyGridi.getChildren().clear();
-        easyCubeFactory = new EasyCubeFactory(this);
-        gameController.startEasyGame();
-    }
-
-    @Override
-    public void sendIdToEngine(int id) {
-        super.sendIdToEngine(id);
-    }
-
-    @Override
-    public void setWorldScore() {
-
-        w1.setText(Menu.worldList.get(0));
-        w2.setText(Menu.worldList.get(1));
-        w3.setText(Menu.worldList.get(2));
-        w4.setText(Menu.worldList.get(3));
-        w5.setText(Menu.worldList.get(4));
-    }
-
-    @Override
-    public void setPersonalScore() {
-
-        if(Menu.personalList != null) {
-
-            p1.setText(Menu.personalList.get(0));
-            p2.setText(Menu.personalList.get(1));
-            p3.setText(Menu.personalList.get(2));
-            p4.setText(Menu.personalList.get(3));
-            p5.setText(Menu.personalList.get(4));
-        }
     }
 
     @Override
@@ -203,8 +100,105 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     }
 
     @Override
-    public void setMediumGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {}
+    public void setWorldScore() {
+
+        if(Menu.worldList != null && !Menu.worldList.isEmpty()) {
+
+            w1.setText(Menu.worldList.get(0));
+            w2.setText(Menu.worldList.get(1));
+            w3.setText(Menu.worldList.get(2));
+            w4.setText(Menu.worldList.get(3));
+            w5.setText(Menu.worldList.get(4));
+        }
+    }
 
     @Override
-    public void setHardGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {}
+    public void setPersonalScore() {
+
+        if(Menu.personalList != null && !Menu.personalList.isEmpty()) {
+
+            p1.setText(Menu.personalList.get(0));
+            p2.setText(Menu.personalList.get(1));
+            p3.setText(Menu.personalList.get(2));
+            p4.setText(Menu.personalList.get(3));
+            p5.setText(Menu.personalList.get(4));
+        }
+    }
+
+    // To gamecontroller
+    @Override
+    public void setStartGame() {
+
+        if (cubeList != null) {
+            cubeList.clear();
+        }
+        cubeList = new ArrayList<>();
+        easyGridi.getChildren().clear();
+        easyCubeFactory = new EasyCubeFactory(this);
+        gameController.startGame(ModeType.EASY);
+    }
+
+    // From gamecontroller
+    @Override
+    public void setCubesToGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
+
+        easyCubeFactory.createCubics(easyGridi, memoryObjects);
+    }
+
+    @FXML
+    public void newGame() {
+
+        setStartGame();
+    }
+
+    @FXML
+    public void returnMenu() {
+
+        Platform.runLater(() -> easyEffects.wallsOff());
+    }
+
+    @Override
+    public void addToCubeList(BoxMaker cube) {
+        super.addToCubeList(cube);
+    }
+
+    @Override
+    public void clearPair(ArrayList<Integer> storage) {
+        super.clearPair(storage);
+    }
+
+    @Override
+    public void clearStorage() {
+        super.clearStorage();
+    }
+
+    @Override
+    public void gameOver() {
+
+        Menu.getWorldScore(scoreController.getScores(ModeType.EASY));
+        Menu.getPersonalScore(scoreController.getPersonalScores(ModeType.EASY));
+        Platform.runLater(this::setPersonalScore);
+        Platform.runLater(this::setWorldScore);
+        System.out.println("game over");
+    }
+
+    @Override
+    public void setActiveID(int activeID) {
+        super.setActiveID(activeID);
+    }
+
+    @Override
+    public void compareFoundMatch() {
+        super.compareFoundMatch();
+    }
+
+    @Override
+    public void getTime(int i) {
+        super.getTime(i);
+    }
+
+    @Override
+    public void sendIdToEngine(int id) {
+        super.sendIdToEngine(id);
+    }
 }

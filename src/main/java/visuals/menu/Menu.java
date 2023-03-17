@@ -1,30 +1,29 @@
 package visuals.menu;
 
-import controller.*;
+import controller.IScoreController;
+import controller.IUserController;
+import controller.ScoreController;
+import controller.UserController;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.ModeType;
-import visuals.*;
+import visuals.Effects;
+import visuals.Navigaattori;
 import visuals.audio.AudioMemory;
 import visuals.effects.menuEffects.BurningSun;
 import visuals.effects.menuEffects.IMenuLayoutEffects;
 import visuals.effects.menuEffects.MenuLayoutEffects;
 import visuals.effects.menuEffects.ZoomInEffects;
-import visuals.gameModes.FXIGameController;
-import visuals.gameModes.easy.FXEasyController;
 import visuals.imageServers.ImageCache;
 import visuals.stats.ChartGUI;
 import java.io.IOException;
@@ -90,7 +89,6 @@ public class Menu implements Initializable, IMenu {
     @FXML ImageView tigerden;
     @FXML ImageView treeoflife;
     @FXML ImageView telkku;
-
     @FXML Button buttonLeaderboards;
     public static ArrayList<String> worldList;
     public static ArrayList<String> personalList;
@@ -151,8 +149,6 @@ public class Menu implements Initializable, IMenu {
     public boolean isReturnStatus() {
         return returnStatus;
     }
-
-
 
     @FXML
     public void easyStartScreenPlay() {
@@ -223,6 +219,7 @@ public class Menu implements Initializable, IMenu {
     public static void getWorldScore(ArrayList<String> worldscores) {
 
         worldList = new ArrayList<>();
+
         for (int i = 0; i < 5; i++) {
 
             worldList.add((i + 1) + "." + worldscores.get(i));
@@ -239,7 +236,15 @@ public class Menu implements Initializable, IMenu {
 
         for (int i = 0; i < 5; i++) {
 
-            personalList.add((i + 1) + "." + personalscores.get(i));
+            if(i > personalscores.size()) {
+
+                personalList.add("");
+
+            }else{
+
+                personalList.add((i + 1) + "." + personalscores.get(i));
+
+            }
         }
     }
 
@@ -326,6 +331,7 @@ public class Menu implements Initializable, IMenu {
 
         URL url = Menu.class.getClassLoader().getResource("fonts/outrun_future.otf");
         // get the font from the resources, set size and add it to the label
+        assert url != null;
         Font outrun = Font.loadFont(url.toExternalForm(), 13);
         labelLoggedIn.setFont(outrun);
         labelLoggedIn.setStyle("-fx-background-color: rgba(0,0,0,0.50);-fx-background-radius: 5; -fx-padding: 1 6 1 6");
@@ -458,9 +464,8 @@ public class Menu implements Initializable, IMenu {
         }
     }
 
-
     @FXML
-    public void statsGame(MouseEvent mouseEvent) {
+    public void statsGame() {
         ChartGUI c = new ChartGUI();
 
         try {
@@ -471,7 +476,7 @@ public class Menu implements Initializable, IMenu {
     }
 
     @FXML
-    public void setButtonLeaderboards(ActionEvent event) {
+    public void setButtonLeaderboards() {
         try {
             Navigaattori.getInstance().changeScene(ModeType.IMPOSSIBLE);
         } catch (IOException e) {

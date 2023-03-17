@@ -19,10 +19,8 @@ public class ZoomOutEffects implements IZoomOutEffects{
         Navigaattori.camera.setFieldOfView(fovOffset);
         Navigaattori.camera.setTranslateX(xOffset);
         Navigaattori.camera.setTranslateY(yOffset);
-
         Platform.runLater(() -> AudioMemory.getInstance().stopSong(type));
         Platform.runLater(() -> AudioMemory.getInstance().playSong(ModeType.MENU));
-
         zoomOutCamera();
     }
 
