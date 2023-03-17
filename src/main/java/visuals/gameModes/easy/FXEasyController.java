@@ -74,9 +74,6 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     private EasyEffects easyEffects;
     private ScoreController scoreController;
 
-    private ArrayList<String> worldScores;
-    private ArrayList<String> personalScores;
-
 
     public void setController(ScoreController scoreController) {
 
@@ -93,17 +90,13 @@ public class FXEasyController extends FXAbstractGameController implements Initia
         easyEffects.setImagesAndComponents(background, easyTop, easyBot, easyL, easy3Dgrid, play, returngame, easyGridi, easyEnd, easyneo, scorePane);
         easyEffects.entrance();
 
-        UserController userController = new UserController();
-        System.out.println("is logged in? " + userController.isLoggedIn());
-        scoreController = new ScoreController();
-        this.worldScores = scoreController.getTopFiveScores(ModeType.EASY);
-        setWorldScore();
-        this.personalScores = scoreController.getTopFivePersonalScores(ModeType.EASY);
-        System.out.println("personal scores: " + personalScores);
-        setPersonalScore();
-
-        setStartEasyGame();
-
+        easyEffects.setImagesAndComponents(
+                background, easyTop, easyBot, easyL, easy3Dgrid,
+                play, returngame, easyGridi, easyEnd, easyneo, scorePane);
+        Platform.runLater(() -> easyEffects.entrance());
+        Platform.runLater(this::setWorldScore);
+        Platform.runLater(this::setPersonalScore);
+        setStartGame();
     }
 
     @Override
@@ -129,32 +122,6 @@ public class FXEasyController extends FXAbstractGameController implements Initia
         returngame.setOpacity(0);
         easyGridi.setHgap(-80);
         easyEnd.setOpacity(0);
-    }
-
-    @Override
-    public void setWorldScore() {
-
-        if(Menu.worldList != null && !Menu.worldList.isEmpty()) {
-
-            w1.setText(Menu.worldList.get(0));
-            w2.setText(Menu.worldList.get(1));
-            w3.setText(Menu.worldList.get(2));
-            w4.setText(Menu.worldList.get(3));
-            w5.setText(Menu.worldList.get(4));
-        }
-    }
-
-    @Override
-    public void setPersonalScore() {
-
-        if(Menu.personalList != null && !Menu.personalList.isEmpty()) {
-
-            p1.setText(Menu.personalList.get(0));
-            p2.setText(Menu.personalList.get(1));
-            p3.setText(Menu.personalList.get(2));
-            p4.setText(Menu.personalList.get(3));
-            p5.setText(Menu.personalList.get(4));
-        }
     }
 
     // To gamecontroller
@@ -205,32 +172,9 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     }
 
     @Override
-
-    public void setEasyGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
-
-        
-        easyCubeFactory.createCubics(easyGridi, memoryObjects);
-
-
-    }
-
-
-    @Override
     public void gameOver() {
-
-        worldScores = scoreController.getTopFiveScores(ModeType.EASY);
-        personalScores = scoreController.getTopFivePersonalScores(ModeType.EASY);
-
-        setPersonalScore();
-        setWorldScore();
-
-    public void gameOver() {
-
-        Menu.getWorldScore(scoreController.getScores(ModeType.EASY));
-        Menu.getPersonalScore(scoreController.getPersonalScores(ModeType.EASY));
         Platform.runLater(this::setPersonalScore);
         Platform.runLater(this::setWorldScore);
-
         System.out.println("game over");
     }
 
@@ -254,9 +198,10 @@ public class FXEasyController extends FXAbstractGameController implements Initia
         super.sendIdToEngine(id);
     }
 
-
     @Override
     public void setWorldScore() {
+        ArrayList<String> worldScores = scoreController.getTopFiveScores(ModeType.EASY);
+
         w1.setText(worldScores.get(0));
         w2.setText(worldScores.get(1));
         w3.setText(worldScores.get(2));
@@ -264,32 +209,15 @@ public class FXEasyController extends FXAbstractGameController implements Initia
         w5.setText(worldScores.get(4));
     }
 
+
     @Override
     public void setPersonalScore() {
+        ArrayList<String> personalScores = scoreController.getTopFivePersonalScores(ModeType.EASY);
+
         p1.setText(personalScores.get(0));
         p2.setText(personalScores.get(1));
         p3.setText(personalScores.get(2));
         p4.setText(personalScores.get(3));
         p5.setText(personalScores.get(4));
-    }
-
-    @Override
-    public void setImages() {
-
-        background.setImage(ImageCache.getInstance().getGameBackGroundCache().get(0));
-        easyTop.setImage(ImageCache.getInstance().getGameBackGroundCache().get(7));
-        easyTop.setOpacity(0);
-        easyBot.setImage(ImageCache.getInstance().getGameBackGroundCache().get(8));
-        easyBot.setOpacity(0);
-        easyL.setImage(ImageCache.getInstance().getGameBackGroundCache().get(9));
-        easyL.setOpacity(0);
-        easy3Dgrid.setImage(ImageCache.getInstance().getGameBackGroundCache().get(10));
-        easy3Dgrid.setOpacity(0);
-        play.setImage(ImageCache.getInstance().getGameBackGroundCache().get(14));
-        play.setOpacity(0);
-        returngame.setImage(ImageCache.getInstance().getGameBackGroundCache().get(15));
-        returngame.setOpacity(0);
-        easyGridi.setHgap(-80);
-        easyEnd.setOpacity(0);
     }
 }

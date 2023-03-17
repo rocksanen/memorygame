@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public interface IMenu {
 
-
-    void fetchUserScores();
-
+    //void getWorldScore(ArrayList<String> worldList);
+    //void getPersonalScore(ArrayList<String> personalList);
+//    void fetchUserScores();
     boolean isReturnStatus();
 
 }
