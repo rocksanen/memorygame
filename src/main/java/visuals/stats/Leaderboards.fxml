@@ -56,7 +56,7 @@
                         </HBox>
                         <HBox alignment="CENTER" layoutX="10.0" layoutY="410.0" spacing="20.0">
                            <children>
-                              <Button fx:id="buttonUserGlobal" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#setButtonUserGlobal" prefHeight="50.0" prefWidth="200.0" text="Global Scores" />
+                              <Button fx:id="buttonUserGlobal" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#setButtonUserGlobal" prefHeight="50.0" prefWidth="200.0" text="User Scores" />
                               <Button fx:id="buttonRefresh" layoutX="404.0" layoutY="10.0" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#setButtonRefresh" prefHeight="50.0" prefWidth="200.0" text="Reload Scores" />
                            </children>
                            <VBox.margin>
