@@ -47,7 +47,7 @@ public class ScoreController implements IScoreController {
      * @return
      */
     @Override
-    public ArrayList<String> getScores(ModeType difficulty) {
+    public ArrayList<String> getTopFiveScores(ModeType difficulty) {
         WorldScores ws = WorldScores.getInstance();
         ArrayList<String> scoreList = new ArrayList<>();
         switch (difficulty) {
@@ -69,6 +69,11 @@ public class ScoreController implements IScoreController {
             default:
                 return null;
         }
+        // make sure the list is at least 5 long
+        while (scoreList.size() < 5) {
+            scoreList.add(" ");
+        }
+
 //        System.out.println(scoreList);
         return scoreList;
     }
@@ -143,7 +148,7 @@ public class ScoreController implements IScoreController {
      * @return the personal scores for the given difficulty formatted for gui
      */
     @Override
-    public ArrayList<String> getPersonalScores(ModeType difficulty) {
+    public ArrayList<String> getTopFivePersonalScores(ModeType difficulty) {
         if (User.getInstance().isLoggedIn() == false) {
             System.out.println("not logged in!");
             return null;
@@ -167,6 +172,11 @@ public class ScoreController implements IScoreController {
             default:
                 return null;
         }
+        // make sure the list is at least 5 long
+        while (scoreList.size() < 5) {
+            scoreList.add(" ");
+        }
+
 //        System.out.println(scoreList);
         return scoreList;
     }

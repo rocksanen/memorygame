@@ -2,14 +2,9 @@ package visuals.menu;
 
 import controller.*;
 import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -23,8 +18,6 @@ import visuals.effects.menuEffects.BurningSun;
 import visuals.effects.menuEffects.IMenuLayoutEffects;
 import visuals.effects.menuEffects.MenuLayoutEffects;
 import visuals.effects.menuEffects.ZoomInEffects;
-import visuals.gameModes.FXIGameController;
-import visuals.gameModes.easy.FXEasyController;
 import visuals.imageServers.ImageCache;
 import visuals.stats.ChartGUI;
 import java.io.IOException;
@@ -149,8 +142,8 @@ public class Menu implements Initializable, IMenu {
     @FXML
     public void easyStartScreenPlay() {
 
-        getWorldScore(scoreController.getScores(EASY));
-        getPersonalScore(scoreController.getPersonalScores(EASY));
+        getWorldScore(scoreController.getTopFiveScores(EASY));
+        getPersonalScore(scoreController.getTopFivePersonalScores(EASY));
         miniEasy.setMouseTransparent(true);
         Platform.runLater(() -> zoomInEffects.gameZoomIn(803,10,-145.5,14.5,EASY));
     }
@@ -158,8 +151,8 @@ public class Menu implements Initializable, IMenu {
     @FXML
     public void mediumStartScreenPlay() {
 
-        getWorldScore(scoreController.getScores(MEDIUM));
-        getPersonalScore(scoreController.getPersonalScores(MEDIUM));
+        getWorldScore(scoreController.getTopFiveScores(MEDIUM));
+        getPersonalScore(scoreController.getTopFivePersonalScores(MEDIUM));
         miniMedium.setMouseTransparent(true);
         Platform.runLater(() -> zoomInEffects.gameZoomIn(1071,10,117.2,-144.92,MEDIUM));
     }
@@ -167,8 +160,8 @@ public class Menu implements Initializable, IMenu {
     @FXML
     public void hardStartScreenPlay() {
 
-        getWorldScore(scoreController.getScores(HARD));
-        getPersonalScore(scoreController.getPersonalScores(HARD));
+        getWorldScore(scoreController.getTopFiveScores(HARD));
+        getPersonalScore(scoreController.getTopFivePersonalScores(HARD));
         miniHard.setMouseTransparent(true);
         Platform.runLater(() -> zoomInEffects.gameZoomIn(1002,10,384,14,HARD));
     }

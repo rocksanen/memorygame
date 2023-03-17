@@ -1,6 +1,5 @@
 package visuals.gameModes.easy;
 
-import controller.IScoreController;
 import controller.ScoreController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -120,8 +119,8 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     @Override
     public void gameOver() {
 
-        Menu.getWorldScore(scoreController.getScores(ModeType.EASY));
-        Menu.getPersonalScore(scoreController.getPersonalScores(ModeType.EASY));
+        Menu.getWorldScore(scoreController.getTopFiveScores(ModeType.EASY));
+        Menu.getPersonalScore(scoreController.getTopFivePersonalScores(ModeType.EASY));
         setPersonalScore();
         setWorldScore();
         System.out.println("game over");
