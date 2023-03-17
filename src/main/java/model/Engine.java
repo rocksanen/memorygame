@@ -244,6 +244,7 @@ public class Engine implements IEngine {
         CompletableFuture.runAsync(() -> {
             user.addScore(finalTime, totalScore, type);
         });
+
     }
 
     /**

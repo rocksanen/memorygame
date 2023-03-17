@@ -145,12 +145,12 @@ public class ScoreController implements IScoreController {
      */
     @Override
     public ArrayList<String> getTopFivePersonalScores(ModeType difficulty) {
-        if (User.getInstance().isLoggedIn() == false) {
+        User u = User.getInstance();
+        if (!u.isLoggedIn()) {
             System.out.println("not logged in!");
             // return empty array
             return formatScores(new ArrayList<Score>());
         }
-        User u = User.getInstance();
         switch (difficulty) {
             case EASY:
                 return formatScores(u.getScores(EASY).getScores());

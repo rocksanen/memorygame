@@ -1,6 +1,7 @@
 package visuals.gameModes.easy;
 
 import controller.ScoreController;
+import controller.UserController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -91,10 +92,13 @@ public class FXEasyController extends FXAbstractGameController implements Initia
         easyEffects.entrance();
 
 
+        UserController userController = new UserController();
+        System.out.println("is logged in? " + userController.isLoggedIn());
         scoreController = new ScoreController();
         this.worldScores = scoreController.getTopFiveScores(ModeType.EASY);
         setWorldScore();
         this.personalScores = scoreController.getTopFivePersonalScores(ModeType.EASY);
+        System.out.println("personal scores: " + personalScores);
         setPersonalScore();
 
         setStartEasyGame();

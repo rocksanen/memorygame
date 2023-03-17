@@ -20,6 +20,7 @@ import visuals.effects.menuEffects.MenuLayoutEffects;
 import visuals.effects.menuEffects.ZoomInEffects;
 import visuals.imageServers.ImageCache;
 import visuals.stats.ChartGUI;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.ResourceBundle;
+
 import static model.ModeType.*;
 
 public class Menu implements Initializable, IMenu {
@@ -37,54 +39,101 @@ public class Menu implements Initializable, IMenu {
     private final BurningSun burningSun = new BurningSun();
     private final IMenuLayoutEffects menuLayoutEffects = new MenuLayoutEffects();
 
-    @FXML ImageView burningsun;
-    @FXML Button buttonLogout;
-    @FXML Label labelLoggedIn;
-    @FXML Button stats;
-    @FXML ListView<String> personalScores;
-    @FXML ListView<String> worldScores;
-    @FXML Button register;
-    @FXML Button login;
-    @FXML TextField name;
-    @FXML TextField password;
-    @FXML Pane gameModePane;
-    @FXML AnchorPane startBlack;
-    @FXML AnchorPane menuAnkkuri;
-    @FXML Label weDidIt;
-    @FXML ImageView groupFour;
-    @FXML ImageView pergament;
-    @FXML ImageView sun;
-    @FXML ImageView lightning;
-    @FXML ImageView blacksun;
-    @FXML ImageView miniEasy;
-    @FXML ImageView miniMedium;
-    @FXML ImageView miniHard;
-    @FXML ImageView easyFrame;
-    @FXML ImageView mediumFrame;
-    @FXML ImageView hardFrame;
-    @FXML ImageView japan;
-    @FXML ImageView jungle;
-    @FXML ImageView redtree;
-    @FXML Pane logAndReg;
-    @FXML ImageView dirt;
-    @FXML ImageView memomaze;
-    @FXML Pane paneLogin;
-    @FXML ImageView loading;
-    @FXML ImageView easydes1;
-    @FXML ImageView easydes2;
-    @FXML ImageView easydes3;
-    @FXML ImageView medes1;
-    @FXML ImageView medes2;
-    @FXML ImageView medes3;
-    @FXML ImageView hardes1;
-    @FXML ImageView hardes2;
-    @FXML ImageView hardes3;
-    @FXML ImageView kotoku;
-    @FXML ImageView tigerden;
-    @FXML ImageView treeoflife;
-    @FXML ImageView telkku;
+    @FXML
+    ImageView burningsun;
+    @FXML
+    Button buttonLogout;
+    @FXML
+    Label labelLoggedIn;
+    @FXML
+    Button stats;
+    @FXML
+    ListView<String> personalScores;
+    @FXML
+    ListView<String> worldScores;
+    @FXML
+    Button register;
+    @FXML
+    Button login;
+    @FXML
+    TextField name;
+    @FXML
+    TextField password;
+    @FXML
+    Pane gameModePane;
+    @FXML
+    AnchorPane startBlack;
+    @FXML
+    AnchorPane menuAnkkuri;
+    @FXML
+    Label weDidIt;
+    @FXML
+    ImageView groupFour;
+    @FXML
+    ImageView pergament;
+    @FXML
+    ImageView sun;
+    @FXML
+    ImageView lightning;
+    @FXML
+    ImageView blacksun;
+    @FXML
+    ImageView miniEasy;
+    @FXML
+    ImageView miniMedium;
+    @FXML
+    ImageView miniHard;
+    @FXML
+    ImageView easyFrame;
+    @FXML
+    ImageView mediumFrame;
+    @FXML
+    ImageView hardFrame;
+    @FXML
+    ImageView japan;
+    @FXML
+    ImageView jungle;
+    @FXML
+    ImageView redtree;
+    @FXML
+    Pane logAndReg;
+    @FXML
+    ImageView dirt;
+    @FXML
+    ImageView memomaze;
+    @FXML
+    Pane paneLogin;
+    @FXML
+    ImageView loading;
+    @FXML
+    ImageView easydes1;
+    @FXML
+    ImageView easydes2;
+    @FXML
+    ImageView easydes3;
+    @FXML
+    ImageView medes1;
+    @FXML
+    ImageView medes2;
+    @FXML
+    ImageView medes3;
+    @FXML
+    ImageView hardes1;
+    @FXML
+    ImageView hardes2;
+    @FXML
+    ImageView hardes3;
+    @FXML
+    ImageView kotoku;
+    @FXML
+    ImageView tigerden;
+    @FXML
+    ImageView treeoflife;
+    @FXML
+    ImageView telkku;
 
-    @FXML Button buttonLeaderboards;
+    @FXML
+    Button buttonLeaderboards;
     public static ArrayList<String> worldList;
     public static ArrayList<String> personalList;
     private boolean returnStatus;
@@ -138,14 +187,13 @@ public class Menu implements Initializable, IMenu {
     }
 
 
-
     @FXML
     public void easyStartScreenPlay() {
 
         worldList = scoreController.getTopFiveScores(EASY);
         personalList = scoreController.getTopFivePersonalScores(EASY);
         miniEasy.setMouseTransparent(true);
-        Platform.runLater(() -> zoomInEffects.gameZoomIn(803,10,-145.5,14.5,EASY));
+        Platform.runLater(() -> zoomInEffects.gameZoomIn(803, 10, -145.5, 14.5, EASY));
     }
 
     @FXML
@@ -155,7 +203,7 @@ public class Menu implements Initializable, IMenu {
         System.out.println("wordlist: " + worldList);
         personalList = scoreController.getTopFivePersonalScores(MEDIUM);
         miniMedium.setMouseTransparent(true);
-        Platform.runLater(() -> zoomInEffects.gameZoomIn(1071,10,117.2,-144.92,MEDIUM));
+        Platform.runLater(() -> zoomInEffects.gameZoomIn(1071, 10, 117.2, -144.92, MEDIUM));
     }
 
     @FXML
@@ -164,7 +212,7 @@ public class Menu implements Initializable, IMenu {
         worldList = scoreController.getTopFiveScores(HARD);
         personalList = scoreController.getTopFivePersonalScores(HARD);
         miniHard.setMouseTransparent(true);
-        Platform.runLater(() -> zoomInEffects.gameZoomIn(1002,10,384,14,HARD));
+        Platform.runLater(() -> zoomInEffects.gameZoomIn(1002, 10, 384, 14, HARD));
     }
 
     @FXML
@@ -203,6 +251,12 @@ public class Menu implements Initializable, IMenu {
             stats.setVisible(true);
 
             labelLoggedIn.setText("Logged in as " + userController.getUsername());
+
+
+            Thread thread = new Thread(() -> {
+                scoreController.fetchPersonalScores();
+            });
+            thread.start();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -277,17 +331,34 @@ public class Menu implements Initializable, IMenu {
     }
 
     @FXML
-    public void easyInfoOn() {menuLayoutEffects.displayInfoOn(easydes1,easydes2,easydes3);}
+    public void easyInfoOn() {
+        menuLayoutEffects.displayInfoOn(easydes1, easydes2, easydes3);
+    }
+
     @FXML
-    public void easyInfoOff(){menuLayoutEffects.displayInfoOff(easydes1,easydes2,easydes3);}
+    public void easyInfoOff() {
+        menuLayoutEffects.displayInfoOff(easydes1, easydes2, easydes3);
+    }
+
     @FXML
-    public void mediumInfoOn() {menuLayoutEffects.displayInfoOn(medes1,medes2,medes3);}
+    public void mediumInfoOn() {
+        menuLayoutEffects.displayInfoOn(medes1, medes2, medes3);
+    }
+
     @FXML
-    public void mediumInfoOff() {menuLayoutEffects.displayInfoOff(medes1,medes2,medes3);}
+    public void mediumInfoOff() {
+        menuLayoutEffects.displayInfoOff(medes1, medes2, medes3);
+    }
+
     @FXML
-    public void hardInfoOn() {menuLayoutEffects.displayInfoOn(hardes1,hardes2,hardes3);}
+    public void hardInfoOn() {
+        menuLayoutEffects.displayInfoOn(hardes1, hardes2, hardes3);
+    }
+
     @FXML
-    public void hardInfoOff() {menuLayoutEffects.displayInfoOff(hardes1,hardes2,hardes3);}
+    public void hardInfoOff() {
+        menuLayoutEffects.displayInfoOff(hardes1, hardes2, hardes3);
+    }
 
     private void introOn(Boolean introStatus) {
 
@@ -298,7 +369,7 @@ public class Menu implements Initializable, IMenu {
                     sun, lightning, blacksun,
                     easyFrame, mediumFrame, hardFrame,
                     memomaze, labelLoggedIn, loading,
-                    kotoku,tigerden,treeoflife));
+                    kotoku, tigerden, treeoflife));
 
         } else {
 
