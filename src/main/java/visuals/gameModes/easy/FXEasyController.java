@@ -24,31 +24,55 @@ import java.util.ResourceBundle;
 
 public class FXEasyController extends FXAbstractGameController implements Initializable {
 
-    @FXML GridPane easyGridi;
-    @FXML ImageView background;
-    @FXML ImageView easyTop;
-    @FXML ImageView easyL;
-    @FXML ImageView easyBot;
-    @FXML ImageView play;
-    @FXML ImageView returngame;
-    @FXML Pane scorePane;
-    @FXML Label p1;
-    @FXML Label p2;
-    @FXML Label p3;
-    @FXML Label p4;
-    @FXML Label p5;
-    @FXML Label w1;
-    @FXML Label w2;
-    @FXML Label w3;
-    @FXML Label w4;
-    @FXML Label w5;
-    @FXML ImageView easy3Dgrid;
-    @FXML ImageView easyneo;
-    @FXML ImageView easyEnd;
+    @FXML
+    GridPane easyGridi;
+    @FXML
+    ImageView background;
+    @FXML
+    ImageView easyTop;
+    @FXML
+    ImageView easyL;
+    @FXML
+    ImageView easyBot;
+    @FXML
+    ImageView play;
+    @FXML
+    ImageView returngame;
+    @FXML
+    Pane scorePane;
+    @FXML
+    Label p1;
+    @FXML
+    Label p2;
+    @FXML
+    Label p3;
+    @FXML
+    Label p4;
+    @FXML
+    Label p5;
+    @FXML
+    Label w1;
+    @FXML
+    Label w2;
+    @FXML
+    Label w3;
+    @FXML
+    Label w4;
+    @FXML
+    Label w5;
+    @FXML
+    ImageView easy3Dgrid;
+    @FXML
+    ImageView easyneo;
+    @FXML
+    ImageView easyEnd;
 
     private ICubeFactory easyCubeFactory;
     private EasyEffects easyEffects;
     private ScoreController scoreController;
+
+    private ArrayList<String> worldScores;
+    private ArrayList<String> personalScores;
 
 
     public void setController(ScoreController scoreController) {
@@ -63,10 +87,16 @@ public class FXEasyController extends FXAbstractGameController implements Initia
         setCamera();
         setImages();
         easyEffects = new EasyEffects();
-        easyEffects.setImagesAndComponents(background,easyTop,easyBot,easyL,easy3Dgrid,play,returngame,easyGridi,easyEnd,easyneo,scorePane);
+        easyEffects.setImagesAndComponents(background, easyTop, easyBot, easyL, easy3Dgrid, play, returngame, easyGridi, easyEnd, easyneo, scorePane);
         easyEffects.entrance();
+
+
+        scoreController = new ScoreController();
+        this.worldScores = scoreController.getTopFiveScores(ModeType.EASY);
         setWorldScore();
+        this.personalScores = scoreController.getTopFivePersonalScores(ModeType.EASY);
         setPersonalScore();
+
         setStartEasyGame();
     }
 
@@ -74,7 +104,6 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     public void setCamera() {
         super.setCamera();
     }
-
 
 
     @FXML
@@ -115,12 +144,15 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     }
 
 
-
     @Override
     public void gameOver() {
 
-        Menu.getWorldScore(scoreController.getTopFiveScores(ModeType.EASY));
-        Menu.getPersonalScore(scoreController.getTopFivePersonalScores(ModeType.EASY));
+        worldScores = scoreController.getTopFiveScores(ModeType.EASY);
+
+
+//        Menu.getPersonalScore(scoreController.getTopFivePersonalScores(ModeType.EASY));
+        personalScores = scoreController.getTopFivePersonalScores(ModeType.EASY);
+
         setPersonalScore();
         setWorldScore();
         System.out.println("game over");
@@ -160,25 +192,20 @@ public class FXEasyController extends FXAbstractGameController implements Initia
 
     @Override
     public void setWorldScore() {
-
-        w1.setText(Menu.worldList.get(0));
-        w2.setText(Menu.worldList.get(1));
-        w3.setText(Menu.worldList.get(2));
-        w4.setText(Menu.worldList.get(3));
-        w5.setText(Menu.worldList.get(4));
+        w1.setText(worldScores.get(0));
+        w2.setText(worldScores.get(1));
+        w3.setText(worldScores.get(2));
+        w4.setText(worldScores.get(3));
+        w5.setText(worldScores.get(4));
     }
 
     @Override
     public void setPersonalScore() {
-
-        if(Menu.personalList != null) {
-
-            p1.setText(Menu.personalList.get(0));
-            p2.setText(Menu.personalList.get(1));
-            p3.setText(Menu.personalList.get(2));
-            p4.setText(Menu.personalList.get(3));
-            p5.setText(Menu.personalList.get(4));
-        }
+        p1.setText(personalScores.get(0));
+        p2.setText(personalScores.get(1));
+        p3.setText(personalScores.get(2));
+        p4.setText(personalScores.get(3));
+        p5.setText(personalScores.get(4));
     }
 
     @Override
@@ -202,8 +229,10 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     }
 
     @Override
-    public void setMediumGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {}
+    public void setMediumGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
+    }
 
     @Override
-    public void setHardGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {}
+    public void setHardGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
+    }
 }

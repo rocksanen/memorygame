@@ -142,8 +142,8 @@ public class Menu implements Initializable, IMenu {
     @FXML
     public void easyStartScreenPlay() {
 
-        getWorldScore(scoreController.getTopFiveScores(EASY));
-        getPersonalScore(scoreController.getTopFivePersonalScores(EASY));
+        worldList = scoreController.getTopFiveScores(EASY);
+        personalList = scoreController.getTopFivePersonalScores(EASY);
         miniEasy.setMouseTransparent(true);
         Platform.runLater(() -> zoomInEffects.gameZoomIn(803,10,-145.5,14.5,EASY));
     }
@@ -151,8 +151,9 @@ public class Menu implements Initializable, IMenu {
     @FXML
     public void mediumStartScreenPlay() {
 
-        getWorldScore(scoreController.getTopFiveScores(MEDIUM));
-        getPersonalScore(scoreController.getTopFivePersonalScores(MEDIUM));
+        worldList = scoreController.getTopFiveScores(MEDIUM);
+        System.out.println("wordlist: " + worldList);
+        personalList = scoreController.getTopFivePersonalScores(MEDIUM);
         miniMedium.setMouseTransparent(true);
         Platform.runLater(() -> zoomInEffects.gameZoomIn(1071,10,117.2,-144.92,MEDIUM));
     }
@@ -160,33 +161,10 @@ public class Menu implements Initializable, IMenu {
     @FXML
     public void hardStartScreenPlay() {
 
-        getWorldScore(scoreController.getTopFiveScores(HARD));
-        getPersonalScore(scoreController.getTopFivePersonalScores(HARD));
+        worldList = scoreController.getTopFiveScores(HARD);
+        personalList = scoreController.getTopFivePersonalScores(HARD);
         miniHard.setMouseTransparent(true);
         Platform.runLater(() -> zoomInEffects.gameZoomIn(1002,10,384,14,HARD));
-    }
-
-    public static void getWorldScore(ArrayList<String> worldscores) {
-
-        worldList = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-
-            worldList.add((i + 1) + "." + worldscores.get(i));
-        }
-    }
-
-
-    public static void getPersonalScore(ArrayList<String> personalscores) {
-
-        if (personalscores == null) {
-            return;
-        }
-        personalList = new ArrayList<>();
-
-        for (int i = 0; i < 5; i++) {
-
-            personalList.add((i + 1) + "." + personalscores.get(i));
-        }
     }
 
     @FXML

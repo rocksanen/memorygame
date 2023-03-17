@@ -18,6 +18,8 @@ public interface IScoreController {
 
     String formatScoreVerbose(Score score);
 
+    ArrayList<String> formatScores(ArrayList<Score> scores);
+
     void fetchPersonalScores();
 
     ArrayList<String> getTopFivePersonalScores(ModeType difficulty);
