@@ -330,6 +330,7 @@ public class Engine implements IEngine {
     public void runTimer() {
         t.schedule(task, 0, timerTime);
     }
+
     public String toString() {
         return "Pelin tyyppi: " + this.type.toString() + ", Palikoiden määrä: " + memoryObjectsList.size();
     }
