@@ -218,11 +218,23 @@ public class Menu implements Initializable, IMenu {
 
     public static void getWorldScore(ArrayList<String> worldscores) {
 
+        if(worldscores == null) {
+            return;
+        }
+
         worldList = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {
 
-            worldList.add((i + 1) + "." + worldscores.get(i));
+            if(i > worldscores.size()) {
+
+                worldList.add("");
+
+            }else {
+
+                worldList.add((i + 1) + "." + worldscores.get(i));
+
+            }
         }
     }
 

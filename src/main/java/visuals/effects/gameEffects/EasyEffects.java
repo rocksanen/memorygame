@@ -78,6 +78,7 @@ public class EasyEffects extends AbstractGameEffects implements IGameEffects{
         );
 
         timeline.playFromStart();
+        timeline.setOnFinished(actionEvent -> timeline.stop());
     }
 
     @Override
