@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.ResourceBundle;
+
 import static model.ModeType.*;
 
 public class Menu implements Initializable, IMenu {
@@ -42,6 +43,103 @@ public class Menu implements Initializable, IMenu {
     private final ZoomInEffects zoomInEffects = new ZoomInEffects();
     private final BurningSun burningSun = new BurningSun();
     private final IMenuLayoutEffects menuLayoutEffects = new MenuLayoutEffects();
+
+
+    @FXML
+    ImageView burningsun;
+    @FXML
+    Button buttonLogout;
+    @FXML
+    Label labelLoggedIn;
+    @FXML
+    Button stats;
+    @FXML
+    ListView<String> personalScores;
+    @FXML
+    ListView<String> worldScores;
+    @FXML
+    Button register;
+    @FXML
+    Button login;
+    @FXML
+    TextField name;
+    @FXML
+    TextField password;
+    @FXML
+    Pane gameModePane;
+    @FXML
+    AnchorPane startBlack;
+    @FXML
+    AnchorPane menuAnkkuri;
+    @FXML
+    Label weDidIt;
+    @FXML
+    ImageView groupFour;
+    @FXML
+    ImageView pergament;
+    @FXML
+    ImageView sun;
+    @FXML
+    ImageView lightning;
+    @FXML
+    ImageView blacksun;
+    @FXML
+    ImageView miniEasy;
+    @FXML
+    ImageView miniMedium;
+    @FXML
+    ImageView miniHard;
+    @FXML
+    ImageView easyFrame;
+    @FXML
+    ImageView mediumFrame;
+    @FXML
+    ImageView hardFrame;
+    @FXML
+    ImageView japan;
+    @FXML
+    ImageView jungle;
+    @FXML
+    ImageView redtree;
+    @FXML
+    Pane logAndReg;
+    @FXML
+    ImageView dirt;
+    @FXML
+    ImageView memomaze;
+    @FXML
+    Pane paneLogin;
+    @FXML
+    ImageView loading;
+    @FXML
+    ImageView easydes1;
+    @FXML
+    ImageView easydes2;
+    @FXML
+    ImageView easydes3;
+    @FXML
+    ImageView medes1;
+    @FXML
+    ImageView medes2;
+    @FXML
+    ImageView medes3;
+    @FXML
+    ImageView hardes1;
+    @FXML
+    ImageView hardes2;
+    @FXML
+    ImageView hardes3;
+    @FXML
+    ImageView kotoku;
+    @FXML
+    ImageView tigerden;
+    @FXML
+    ImageView treeoflife;
+    @FXML
+    ImageView telkku;
+
+    @FXML
+    Button buttonLeaderboards;
 
     @FXML ImageView burningsun;
     @FXML Button buttonLogout;
@@ -90,6 +188,7 @@ public class Menu implements Initializable, IMenu {
     @FXML ImageView treeoflife;
     @FXML ImageView telkku;
     @FXML Button buttonLeaderboards;
+
     public static ArrayList<String> worldList;
     public static ArrayList<String> personalList;
     private boolean returnStatus;
@@ -142,6 +241,7 @@ public class Menu implements Initializable, IMenu {
         return returnStatus;
     }
 
+
     @FXML
     public void easyStartScreenPlay() {
 
@@ -167,7 +267,79 @@ public class Menu implements Initializable, IMenu {
         worldList = scoreController.getTopFiveScores(HARD);
         personalList = scoreController.getTopFivePersonalScores(HARD);
         miniHard.setMouseTransparent(true);
+
         Platform.runLater(() -> zoomInEffects.gameZoomIn(1002, 10, 384, 14, HARD));
+    }
+
+    public void fetchAllScores() {
+        Task<Boolean> task = new Task<>() {
+            @Override
+            protected Boolean call() {
+                try {
+                    database.datasource.SqlJpaConn.getInstance();
+                    scoreController.fetchPersonalScores();
+                    scoreController.fetchScores(EASY);
+                    scoreController.fetchScores(MEDIUM);
+                    scoreController.fetchScores(HARD);
+                    return true;
+                } catch (Exception e) {
+                    return false;
+                }
+            }
+        };
+
+        // Add a listener to the task's value property to handle the result
+        task.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                // Do something if the task returns true
+                System.out.println("fetchallscores Task returned true");
+            } else {
+                // Do something if the task returns false
+                System.out.println("fetchallscores Task returned false");
+                // Show the error message.
+                System.out.println("Error connecting to database.");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Virhe");
+                alert.setHeaderText("Virhe..");
+                alert.setContentText("Ei yhteyttä tietokantaan");
+                Platform.runLater(alert::showAndWait);
+
+            }
+        });
+        new Thread(task).start();
+    }
+
+
+    public static void getWorldScore(ArrayList<String> worldscores) {
+
+        worldList = new ArrayList<>();
+
+        for (int i = 0; i < 5; i++) {
+
+            worldList.add((i + 1) + "." + worldscores.get(i));
+        }
+    }
+
+
+    public static void getPersonalScore(ArrayList<String> personalscores) {
+
+        if (personalscores == null) {
+            return;
+        }
+        personalList = new ArrayList<>();
+
+        for (int i = 0; i < 5; i++) {
+
+            if(i > personalscores.size()) {
+
+                personalList.add("");
+
+            }else{
+
+                personalList.add((i + 1) + "." + personalscores.get(i));
+
+            }
+        }
     }
 
     @FXML
@@ -287,17 +459,34 @@ public class Menu implements Initializable, IMenu {
     }
 
     @FXML
-    public void easyInfoOn() {menuLayoutEffects.displayInfoOn(easydes1,easydes2,easydes3);}
+    public void easyInfoOn() {
+        menuLayoutEffects.displayInfoOn(easydes1, easydes2, easydes3);
+    }
+
     @FXML
-    public void easyInfoOff(){menuLayoutEffects.displayInfoOff(easydes1,easydes2,easydes3);}
+    public void easyInfoOff() {
+        menuLayoutEffects.displayInfoOff(easydes1, easydes2, easydes3);
+    }
+
     @FXML
-    public void mediumInfoOn() {menuLayoutEffects.displayInfoOn(medes1,medes2,medes3);}
+    public void mediumInfoOn() {
+        menuLayoutEffects.displayInfoOn(medes1, medes2, medes3);
+    }
+
     @FXML
-    public void mediumInfoOff() {menuLayoutEffects.displayInfoOff(medes1,medes2,medes3);}
+    public void mediumInfoOff() {
+        menuLayoutEffects.displayInfoOff(medes1, medes2, medes3);
+    }
+
     @FXML
-    public void hardInfoOn() {menuLayoutEffects.displayInfoOn(hardes1,hardes2,hardes3);}
+    public void hardInfoOn() {
+        menuLayoutEffects.displayInfoOn(hardes1, hardes2, hardes3);
+    }
+
     @FXML
-    public void hardInfoOff() {menuLayoutEffects.displayInfoOff(hardes1,hardes2,hardes3);}
+    public void hardInfoOff() {
+        menuLayoutEffects.displayInfoOff(hardes1, hardes2, hardes3);
+    }
 
     private void introOn(Boolean introStatus) {
 
@@ -308,7 +497,7 @@ public class Menu implements Initializable, IMenu {
                     sun, lightning, blacksun,
                     easyFrame, mediumFrame, hardFrame,
                     memomaze, labelLoggedIn, loading,
-                    kotoku,tigerden,treeoflife));
+                    kotoku, tigerden, treeoflife));
 
         } else {
 
