@@ -241,7 +241,7 @@ public class LeaderboardsController {
     public void setButtonUserGlobal(ActionEvent event) {
 
         userOnly = !userOnly;
-        buttonUserGlobal.setText(userOnly ? "User Scores" : "Global Scores");
+        buttonUserGlobal.setText(userOnly ? "Global Scores" : "User Scores");
         updateTable(currentMode, userOnly);
     }
 

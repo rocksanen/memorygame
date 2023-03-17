@@ -27,27 +27,48 @@ import java.util.ResourceBundle;
 
 public class FXEasyController extends FXAbstractGameController implements Initializable, FXIGameController {
 
-    @FXML GridPane easyGridi;
-    @FXML ImageView background;
-    @FXML ImageView easyTop;
-    @FXML ImageView easyL;
-    @FXML ImageView easyBot;
-    @FXML ImageView play;
-    @FXML ImageView returngame;
-    @FXML Pane scorePane;
-    @FXML Label p1;
-    @FXML Label p2;
-    @FXML Label p3;
-    @FXML Label p4;
-    @FXML Label p5;
-    @FXML Label w1;
-    @FXML Label w2;
-    @FXML Label w3;
-    @FXML Label w4;
-    @FXML Label w5;
-    @FXML ImageView easy3Dgrid;
-    @FXML ImageView easyneo;
-    @FXML ImageView easyEnd;
+    @FXML
+    GridPane easyGridi;
+    @FXML
+    ImageView background;
+    @FXML
+    ImageView easyTop;
+    @FXML
+    ImageView easyL;
+    @FXML
+    ImageView easyBot;
+    @FXML
+    ImageView play;
+    @FXML
+    ImageView returngame;
+    @FXML
+    Pane scorePane;
+    @FXML
+    Label p1;
+    @FXML
+    Label p2;
+    @FXML
+    Label p3;
+    @FXML
+    Label p4;
+    @FXML
+    Label p5;
+    @FXML
+    Label w1;
+    @FXML
+    Label w2;
+    @FXML
+    Label w3;
+    @FXML
+    Label w4;
+    @FXML
+    Label w5;
+    @FXML
+    ImageView easy3Dgrid;
+    @FXML
+    ImageView easyneo;
+    @FXML
+    ImageView easyEnd;
 
     private ICubeFactory easyCubeFactory;
     private EasyEffects easyEffects;
@@ -72,20 +93,9 @@ public class FXEasyController extends FXAbstractGameController implements Initia
         easyEffects.setImagesAndComponents(background, easyTop, easyBot, easyL, easy3Dgrid, play, returngame, easyGridi, easyEnd, easyneo, scorePane);
         easyEffects.entrance();
 
-
-        UserController userController = new UserController();
-        System.out.println("is logged in? " + userController.isLoggedIn());
-        scoreController = new ScoreController();
-        this.worldScores = scoreController.getTopFiveScores(ModeType.EASY);
-        setWorldScore();
-        this.personalScores = scoreController.getTopFivePersonalScores(ModeType.EASY);
-        System.out.println("personal scores: " + personalScores);
-        setPersonalScore();
-
-        setStartEasyGame();
         easyEffects.setImagesAndComponents(
-                background,easyTop,easyBot,easyL,easy3Dgrid,
-                play,returngame,easyGridi,easyEnd,easyneo,scorePane);
+                background, easyTop, easyBot, easyL, easy3Dgrid,
+                play, returngame, easyGridi, easyEnd, easyneo, scorePane);
         Platform.runLater(() -> easyEffects.entrance());
         Platform.runLater(this::setWorldScore);
         Platform.runLater(this::setPersonalScore);
@@ -167,8 +177,8 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     @Override
     public void gameOver() {
 
-        Menu.getWorldScore(scoreController.getTopFiveScores(ModeType.EASY));
-        Menu.getPersonalScore(scoreController.getTopFivePersonalScores(ModeType.EASY));
+        worldScores = scoreController.getTopFiveScores(ModeType.EASY);
+        personalScores = (scoreController.getTopFivePersonalScores(ModeType.EASY));
         Platform.runLater(this::setPersonalScore);
         Platform.runLater(this::setWorldScore);
         System.out.println("game over");
@@ -196,6 +206,8 @@ public class FXEasyController extends FXAbstractGameController implements Initia
 
     @Override
     public void setWorldScore() {
+        worldScores = scoreController.getTopFiveScores(ModeType.EASY);
+
         w1.setText(worldScores.get(0));
         w2.setText(worldScores.get(1));
         w3.setText(worldScores.get(2));
@@ -205,38 +217,12 @@ public class FXEasyController extends FXAbstractGameController implements Initia
 
     @Override
     public void setPersonalScore() {
+        personalScores = scoreController.getTopFivePersonalScores(ModeType.EASY);
+
         p1.setText(personalScores.get(0));
         p2.setText(personalScores.get(1));
         p3.setText(personalScores.get(2));
         p4.setText(personalScores.get(3));
         p5.setText(personalScores.get(4));
-    }
-
-    @Override
-    public void setImages() {
-
-        background.setImage(ImageCache.getInstance().getGameBackGroundCache().get(0));
-        easyTop.setImage(ImageCache.getInstance().getGameBackGroundCache().get(7));
-        easyTop.setOpacity(0);
-        easyBot.setImage(ImageCache.getInstance().getGameBackGroundCache().get(8));
-        easyBot.setOpacity(0);
-        easyL.setImage(ImageCache.getInstance().getGameBackGroundCache().get(9));
-        easyL.setOpacity(0);
-        easy3Dgrid.setImage(ImageCache.getInstance().getGameBackGroundCache().get(10));
-        easy3Dgrid.setOpacity(0);
-        play.setImage(ImageCache.getInstance().getGameBackGroundCache().get(14));
-        play.setOpacity(0);
-        returngame.setImage(ImageCache.getInstance().getGameBackGroundCache().get(15));
-        returngame.setOpacity(0);
-        easyGridi.setHgap(-80);
-        easyEnd.setOpacity(0);
-    }
-
-    @Override
-    public void setMediumGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
-    }
-
-    @Override
-    public void setHardGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
     }
 }
