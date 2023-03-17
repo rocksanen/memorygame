@@ -29,14 +29,12 @@ public class ZoomInEffects implements IZoomInEffects {
     private ImageView hardFrame;
     private ImageView pergament;
 
-
     @Override
     public void setEssenceImages(ImageView japan, ImageView jungle, ImageView redtree) {
 
         this.japan = japan;
         this.jungle = jungle;
         this.redtree = redtree;
-
     }
 
     @Override
@@ -59,7 +57,6 @@ public class ZoomInEffects implements IZoomInEffects {
     public void gameZoomIn(
             double zOffset, double fovOffset,
             double xOffset, double yOffset, @NotNull ModeType type) {
-
 
         this.zOffset = zOffset;
         this.fovOffset = fovOffset;
@@ -131,7 +128,6 @@ public class ZoomInEffects implements IZoomInEffects {
             AudioMemory.getInstance().playSong(type);
             cameraZoomInEndings();
         });
-
     }
 
     @Override

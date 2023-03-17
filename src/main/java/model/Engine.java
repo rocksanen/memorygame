@@ -125,7 +125,7 @@ public class Engine implements IEngine {
                 controller.getTime();
                 addMemoryObjectsToList(6);
                 suffleObjects();
-                controller.setEasyGame(memoryObjectsList);
+                controller.setGame(memoryObjectsList);
 
             }
             case MEDIUM -> {
@@ -134,7 +134,7 @@ public class Engine implements IEngine {
                 controller.getTime();
                 addMemoryObjectsToList(12);
                 suffleObjects();
-                controller.setMediumGame(memoryObjectsList);
+                controller.setGame(memoryObjectsList);
 
             }
 
@@ -144,7 +144,7 @@ public class Engine implements IEngine {
                 controller.getTime();
                 addMemoryObjectsToList(20);
                 suffleObjects();
-                controller.setHardGame(memoryObjectsList);
+                controller.setGame(memoryObjectsList);
             }
 
         }

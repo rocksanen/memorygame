@@ -3,7 +3,6 @@ package visuals.effects.menuEffects;
 import javafx.scene.image.ImageView;
 import model.ModeType;
 import org.jetbrains.annotations.NotNull;
-import visuals.menu.Menu;
 
 public interface IZoomInEffects {
 
@@ -23,5 +22,4 @@ public interface IZoomInEffects {
             double easeFrameFinish, double mediumFrameFinish, double hardFrameFinish
     );
     void setEssenceImages(ImageView japan, ImageView jungle, ImageView redtree);
-
 }
