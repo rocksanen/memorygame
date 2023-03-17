@@ -106,28 +106,24 @@ public class FXHardController extends FXAbstractGameController implements Initia
 
     @Override
     public void setWorldScore() {
+        ArrayList<String> worldScores = scoreController.getTopFiveScores(ModeType.HARD);
 
-        if(Menu.worldList != null && !Menu.worldList.isEmpty()) {
-
-            w1.setText(Menu.worldList.get(0));
-            w2.setText(Menu.worldList.get(1));
-            w3.setText(Menu.worldList.get(2));
-            w4.setText(Menu.worldList.get(3));
-            w5.setText(Menu.worldList.get(4));
-        }
+        w1.setText(worldScores.get(0));
+        w2.setText(worldScores.get(1));
+        w3.setText(worldScores.get(2));
+        w4.setText(worldScores.get(3));
+        w5.setText(worldScores.get(4));
     }
 
     @Override
     public void setPersonalScore() {
+        ArrayList<String> personalScores = scoreController.getTopFivePersonalScores(ModeType.HARD);
 
-        if(Menu.personalList != null && !Menu.personalList.isEmpty()) {
-
-            p1.setText(Menu.personalList.get(0));
-            p2.setText(Menu.personalList.get(1));
-            p3.setText(Menu.personalList.get(2));
-            p4.setText(Menu.personalList.get(3));
-            p5.setText(Menu.personalList.get(4));
-        }
+        p1.setText(personalScores.get(0));
+        p2.setText(personalScores.get(1));
+        p3.setText(personalScores.get(2));
+        p4.setText(personalScores.get(3));
+        p5.setText(personalScores.get(4));
     }
 
     @Override
@@ -176,8 +172,6 @@ public class FXHardController extends FXAbstractGameController implements Initia
     @Override
     public void gameOver() {
 
-        Menu.getWorldScore(scoreController.getScores(ModeType.HARD));
-        Menu.getPersonalScore(scoreController.getPersonalScores(ModeType.HARD));
         Platform.runLater(this::setPersonalScore);
         Platform.runLater(this::setWorldScore);
         System.out.println("game over");

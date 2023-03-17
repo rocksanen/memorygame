@@ -85,8 +85,6 @@ public class FXMediumController extends FXAbstractGameController implements Init
 
     private ScoreController scoreController;
 
-    private ArrayList<String> worldScores;
-    private ArrayList<String> personalScores;
 
 
     public void setController(ScoreController scoreController) {
@@ -145,7 +143,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
 
     @Override
     public void setWorldScore() {
-        worldScores = scoreController.getTopFiveScores(ModeType.MEDIUM);
+        ArrayList<String> worldScores = scoreController.getTopFiveScores(ModeType.HARD);
 
         w1.setText(worldScores.get(0));
         w2.setText(worldScores.get(1));
@@ -154,9 +152,10 @@ public class FXMediumController extends FXAbstractGameController implements Init
         w5.setText(worldScores.get(4));
     }
 
+
     @Override
     public void setPersonalScore() {
-        personalScores = scoreController.getTopFivePersonalScores(ModeType.MEDIUM);
+        ArrayList<String> personalScores = scoreController.getTopFivePersonalScores(ModeType.MEDIUM);
 
         p1.setText(personalScores.get(0));
         p2.setText(personalScores.get(1));
@@ -215,9 +214,6 @@ public class FXMediumController extends FXAbstractGameController implements Init
 
     @Override
     public void gameOver() {
-
-        worldScores = scoreController.getTopFiveScores(ModeType.MEDIUM);
-        personalScores = scoreController.getTopFivePersonalScores(ModeType.MEDIUM);
         Platform.runLater(this::setPersonalScore);
         Platform.runLater(this::setWorldScore);
         System.out.println("game over");

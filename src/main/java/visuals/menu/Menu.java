@@ -141,53 +141,6 @@ public class Menu implements Initializable, IMenu {
     @FXML
     Button buttonLeaderboards;
 
-    @FXML ImageView burningsun;
-    @FXML Button buttonLogout;
-    @FXML Label labelLoggedIn;
-    @FXML Button stats;
-    @FXML ListView<String> personalScores;
-    @FXML ListView<String> worldScores;
-    @FXML Button register;
-    @FXML Button login;
-    @FXML TextField name;
-    @FXML TextField password;
-    @FXML Pane gameModePane;
-    @FXML AnchorPane startBlack;
-    @FXML AnchorPane menuAnkkuri;
-    @FXML Label weDidIt;
-    @FXML ImageView groupFour;
-    @FXML ImageView pergament;
-    @FXML ImageView sun;
-    @FXML ImageView lightning;
-    @FXML ImageView blacksun;
-    @FXML ImageView miniEasy;
-    @FXML ImageView miniMedium;
-    @FXML ImageView miniHard;
-    @FXML ImageView easyFrame;
-    @FXML ImageView mediumFrame;
-    @FXML ImageView hardFrame;
-    @FXML ImageView japan;
-    @FXML ImageView jungle;
-    @FXML ImageView redtree;
-    @FXML Pane logAndReg;
-    @FXML ImageView dirt;
-    @FXML ImageView memomaze;
-    @FXML Pane paneLogin;
-    @FXML ImageView loading;
-    @FXML ImageView easydes1;
-    @FXML ImageView easydes2;
-    @FXML ImageView easydes3;
-    @FXML ImageView medes1;
-    @FXML ImageView medes2;
-    @FXML ImageView medes3;
-    @FXML ImageView hardes1;
-    @FXML ImageView hardes2;
-    @FXML ImageView hardes3;
-    @FXML ImageView kotoku;
-    @FXML ImageView tigerden;
-    @FXML ImageView treeoflife;
-    @FXML ImageView telkku;
-    @FXML Button buttonLeaderboards;
 
     public static ArrayList<String> worldList;
     public static ArrayList<String> personalList;
@@ -271,43 +224,6 @@ public class Menu implements Initializable, IMenu {
         Platform.runLater(() -> zoomInEffects.gameZoomIn(1002, 10, 384, 14, HARD));
     }
 
-    public void fetchAllScores() {
-        Task<Boolean> task = new Task<>() {
-            @Override
-            protected Boolean call() {
-                try {
-                    database.datasource.SqlJpaConn.getInstance();
-                    scoreController.fetchPersonalScores();
-                    scoreController.fetchScores(EASY);
-                    scoreController.fetchScores(MEDIUM);
-                    scoreController.fetchScores(HARD);
-                    return true;
-                } catch (Exception e) {
-                    return false;
-                }
-            }
-        };
-
-        // Add a listener to the task's value property to handle the result
-        task.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                // Do something if the task returns true
-                System.out.println("fetchallscores Task returned true");
-            } else {
-                // Do something if the task returns false
-                System.out.println("fetchallscores Task returned false");
-                // Show the error message.
-                System.out.println("Error connecting to database.");
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Virhe");
-                alert.setHeaderText("Virhe..");
-                alert.setContentText("Ei yhteyttä tietokantaan");
-                Platform.runLater(alert::showAndWait);
-
-            }
-        });
-        new Thread(task).start();
-    }
 
 
     public static void getWorldScore(ArrayList<String> worldscores) {

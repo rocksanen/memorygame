@@ -74,9 +74,6 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     private EasyEffects easyEffects;
     private ScoreController scoreController;
 
-    private ArrayList<String> worldScores;
-    private ArrayList<String> personalScores;
-
 
     public void setController(ScoreController scoreController) {
 
@@ -176,9 +173,6 @@ public class FXEasyController extends FXAbstractGameController implements Initia
 
     @Override
     public void gameOver() {
-
-        worldScores = scoreController.getTopFiveScores(ModeType.EASY);
-        personalScores = (scoreController.getTopFivePersonalScores(ModeType.EASY));
         Platform.runLater(this::setPersonalScore);
         Platform.runLater(this::setWorldScore);
         System.out.println("game over");
@@ -206,7 +200,7 @@ public class FXEasyController extends FXAbstractGameController implements Initia
 
     @Override
     public void setWorldScore() {
-        worldScores = scoreController.getTopFiveScores(ModeType.EASY);
+        ArrayList<String> worldScores = scoreController.getTopFiveScores(ModeType.EASY);
 
         w1.setText(worldScores.get(0));
         w2.setText(worldScores.get(1));
@@ -215,9 +209,10 @@ public class FXEasyController extends FXAbstractGameController implements Initia
         w5.setText(worldScores.get(4));
     }
 
+
     @Override
     public void setPersonalScore() {
-        personalScores = scoreController.getTopFivePersonalScores(ModeType.EASY);
+        ArrayList<String> personalScores = scoreController.getTopFivePersonalScores(ModeType.EASY);
 
         p1.setText(personalScores.get(0));
         p2.setText(personalScores.get(1));
