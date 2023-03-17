@@ -10,13 +10,11 @@ import java.util.concurrent.CompletableFuture;
 
 public abstract class FXAbstractGameController implements FXIGameController {
 
-    public ArrayList<BoxMaker> cubeList;
-    public IGameController gameController = new GameController(this);
-    public static final ArrayList<Group> activeList = new ArrayList<>();
-
+    protected ArrayList<BoxMaker> cubeList;
+    protected final IGameController gameController = new GameController(this);
+    private static final ArrayList<Group> activeList = new ArrayList<>();
 
     public FXAbstractGameController(){}
-
 
     @Override
     public void addToCubeList(BoxMaker cube) {
