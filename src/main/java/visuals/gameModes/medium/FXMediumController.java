@@ -143,7 +143,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
 
     @Override
     public void setWorldScore() {
-        ArrayList<String> worldScores = scoreController.getTopFiveScores(ModeType.HARD);
+        ArrayList<String> worldScores = scoreController.getTopFiveScores(ModeType.MEDIUM);
 
         w1.setText(worldScores.get(0));
         w2.setText(worldScores.get(1));
