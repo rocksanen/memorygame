@@ -317,6 +317,7 @@ public class Menu implements Initializable, IMenu {
         labelLoggedIn.setFont(outrun);
         labelLoggedIn.setStyle("-fx-background-color: rgba(0,0,0,0.50);-fx-background-radius: 5; -fx-padding: 1 6 1 6");
 
+        labelLoggedIn.setText(userController.isLoggedIn() ? "Logged in as " + userController.getUsername() : "Not logged in");
 
         buttonLogout.setFont(outrun);
         // make button logout purple with shadow, white text and hover effect
