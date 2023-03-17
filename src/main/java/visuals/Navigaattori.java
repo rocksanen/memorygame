@@ -10,22 +10,18 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.ModeType;
-import visuals.gameModes.FXIGameController;
 import visuals.gameModes.easy.FXEasyController;
-import visuals.menu.Menu;
-
+import visuals.gameModes.hard.FXHardController;
+import visuals.gameModes.medium.FXMediumController;
 import java.io.IOException;
 import java.util.Objects;
 
 public class Navigaattori extends Application {
 
-    //......................................FXML sijainnit.................................................
-
     private static Navigaattori instance;
     private final String MENU = "/visuals/menu/menu.fxml";
     private static Stage MAINSTAGE;
     public static PerspectiveCamera camera = new PerspectiveCamera();
-
 
     public static void main(String[] args) {
         launch(args);
@@ -56,14 +52,23 @@ public class Navigaattori extends Application {
                 FXEasyController fxEasyController = loader.getController();
                 fxEasyController.setController(new ScoreController());
             }
-            case MEDIUM -> pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/visuals/gameModes/medium/medium.fxml")));
-            case HARD -> pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/visuals/gameModes/hard/hard.fxml")));
+            case MEDIUM -> {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/visuals/gameModes/medium/medium.fxml"));
+                pane = loader.load();
+                FXMediumController mediumController = loader.getController();
+                mediumController.setController(new ScoreController());
+            }
+            case HARD -> {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/visuals/gameModes/hard/hard.fxml"));
+                pane = loader.load();
+                FXHardController fxHardController = loader.getController();
+                fxHardController.setController(new ScoreController());
+            }
             case IMPOSSIBLE -> pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/visuals/stats/Leaderboards.fxml")));
         }
 
         MAINSTAGE.getScene().setRoot(pane);
     }
-
 
     @Override public void start (Stage stage) throws Exception {
 
