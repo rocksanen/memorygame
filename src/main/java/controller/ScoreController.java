@@ -1,8 +1,6 @@
 package controller;
 
 import model.*;
-import visuals.gameModes.FXIGameController;
-import visuals.menu.IMenu;
 
 import java.util.ArrayList;
 
@@ -37,8 +35,8 @@ public class ScoreController implements IScoreController {
                 break;
             default:
         }
-
     }
+
 
     /**
      * returns the scores for the given difficulty formatted for gui
@@ -47,30 +45,18 @@ public class ScoreController implements IScoreController {
      * @return
      */
     @Override
-    public ArrayList<String> getScores(ModeType difficulty) {
+    public ArrayList<String> getTopFiveScores(ModeType difficulty) {
         WorldScores ws = WorldScores.getInstance();
-        ArrayList<String> scoreList = new ArrayList<>();
         switch (difficulty) {
             case EASY:
-                for (Score s : ws.getEasyScores().getScores()) {
-                    scoreList.add(formatScore(s));
-                }
-                break;
+                return formatScores(ws.getEasyScores().getScores());
             case MEDIUM:
-                for (Score s : ws.getMediumScores().getScores()) {
-                    scoreList.add(formatScore(s));
-                }
-                break;
+                return formatScores(ws.getMediumScores().getScores());
             case HARD:
-                for (Score s : ws.getHardScores().getScores()) {
-                    scoreList.add(formatScore(s));
-                }
-                break;
+                return formatScores(ws.getHardScores().getScores());
             default:
                 return null;
         }
-//        System.out.println(scoreList);
-        return scoreList;
     }
 
     @Override
@@ -116,6 +102,21 @@ public class ScoreController implements IScoreController {
         return format;
     }
 
+    @Override
+    public ArrayList<String> formatScores(ArrayList<Score> scores) {
+        ArrayList<String> scoreList = new ArrayList<>();
+        // make sure the list is exactly 5 long
+        for (int i = 0; i < 5; i++) {
+            if (i < scores.size()) {
+                scoreList.add(i + 1 + ". " + formatScore(scores.get(i)));
+            } else {
+                scoreList.add(" ");
+            }
+        }
+        System.out.println(scoreList);
+        return scoreList;
+    }
+
 
     /**
      * fetches the personal scores for the logged in user
@@ -143,32 +144,23 @@ public class ScoreController implements IScoreController {
      * @return the personal scores for the given difficulty formatted for gui
      */
     @Override
-    public ArrayList<String> getPersonalScores(ModeType difficulty) {
-        if (User.getInstance().isLoggedIn() == false) {
-            System.out.println("not logged in!");
-            return null;
-        }
+    public ArrayList<String> getTopFivePersonalScores(ModeType difficulty) {
         User u = User.getInstance();
-        ArrayList<String> scoreList = new ArrayList<>();
+        if (!u.isLoggedIn()) {
+            System.out.println("not logged in!");
+            // return empty array
+            return formatScores(new ArrayList<Score>());
+        }
         switch (difficulty) {
             case EASY:
-                for (Score s : u.getScores(EASY).getScores()) {
-                    scoreList.add(formatScore(s));
-                }
-                break;
+                return formatScores(u.getScores(EASY).getScores());
             case MEDIUM:
-                for (Score s : u.getScores(EASY).getScores()) {
-                    scoreList.add(formatScore(s));
-                }
+                return formatScores(u.getScores(MEDIUM).getScores());
             case HARD:
-                for (Score s : u.getScores(EASY).getScores()) {
-                    scoreList.add(formatScore(s));
-                }
+                return formatScores(u.getScores(HARD).getScores());
             default:
                 return null;
         }
-//        System.out.println(scoreList);
-        return scoreList;
     }
 
 

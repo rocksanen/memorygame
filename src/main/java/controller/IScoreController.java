@@ -10,7 +10,7 @@ public interface IScoreController {
 
     void fetchScores(ModeType difficulty);
 
-    ArrayList<String> getScores(ModeType difficulty);
+    ArrayList<String> getTopFiveScores(ModeType difficulty);
 
     ArrayList<Score> getScoresRaw(ModeType difficulty);
 
@@ -18,9 +18,11 @@ public interface IScoreController {
 
     String formatScoreVerbose(Score score);
 
+    ArrayList<String> formatScores(ArrayList<Score> scores);
+
     void fetchPersonalScores();
 
-    ArrayList<String> getPersonalScores(ModeType difficulty);
+    ArrayList<String> getTopFivePersonalScores(ModeType difficulty);
 
     ArrayList<Score> getUserScoresRaw(ModeType difficulty);
 
