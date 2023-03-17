@@ -101,7 +101,6 @@ public class Menu implements Initializable, IMenu {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        scoresOn(true);
         loadProperties();
 
         try {
@@ -111,13 +110,6 @@ public class Menu implements Initializable, IMenu {
         }
 
         introOn(playIntro);
-    }
-
-    private void scoresOn(Boolean on) {
-
-        if (on) {
-            fetchAllScores();
-        }
     }
 
     /**
@@ -181,45 +173,6 @@ public class Menu implements Initializable, IMenu {
         Platform.runLater(() -> zoomInEffects.gameZoomIn(1002,10,384,14,HARD));
     }
 
-    public void fetchAllScores() {
-        Task<Boolean> task = new Task<>() {
-            @Override
-            protected Boolean call() {
-                try {
-                    database.datasource.SqlJpaConn.getInstance();
-                    scoreController.fetchPersonalScores();
-                    scoreController.fetchScores(EASY);
-                    scoreController.fetchScores(MEDIUM);
-                    scoreController.fetchScores(HARD);
-                    return true;
-                } catch (Exception e) {
-                    return false;
-                }
-            }
-        };
-
-        // Add a listener to the task's value property to handle the result
-        task.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                // Do something if the task returns true
-                System.out.println("fetchallscores Task returned true");
-            } else {
-                // Do something if the task returns false
-                System.out.println("fetchallscores Task returned false");
-                // Show the error message.
-                System.out.println("Error connecting to database.");
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Virhe");
-                alert.setHeaderText("Virhe..");
-                alert.setContentText("Ei yhteyttä tietokantaan");
-                Platform.runLater(alert::showAndWait);
-
-            }
-        });
-        new Thread(task).start();
-    }
-
-
     public static void getWorldScore(ArrayList<String> worldscores) {
 
         worldList = new ArrayList<>();
@@ -262,40 +215,6 @@ public class Menu implements Initializable, IMenu {
         labelLoggedIn.setText("Logged in as " + userController.getUsername());
     }
 
-    @Override
-    public void fetchUserScores() {
-        Task<Boolean> task = new Task<>() {
-            @Override
-            protected Boolean call() {
-                try {
-                    database.datasource.SqlJpaConn.getInstance();
-                    scoreController.fetchPersonalScores();
-                    return true;
-                } catch (Exception e) {
-                    return false;
-                }
-            }
-        };
-        // Add a listener to the task's value property to handle the result
-        task.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue) {
-                // Do something if the task returns true
-                System.out.println("fetchallscores Task returned true");
-            } else {
-                // Do something if the task returns false
-                System.out.println("fetchallscores Task returned false");
-                // Show the error message.
-                System.out.println("Error connecting to database.");
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Virhe");
-                alert.setHeaderText("Virhe..");
-                alert.setContentText("Ei yhteyttä tietokantaan");
-                alert.showAndWait();
-
-            }
-        });
-        new Thread(task).start();
-    }
 
     @FXML
     public void loginPane() {
@@ -308,7 +227,6 @@ public class Menu implements Initializable, IMenu {
                 stats.setVisible(false);
                 return;
             }
-            fetchUserScores();
             paneLogin.setVisible(false);
             buttonLogout.setVisible(true);
             stats.setVisible(true);

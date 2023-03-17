@@ -37,8 +37,8 @@ public class ScoreController implements IScoreController {
                 break;
             default:
         }
-
     }
+
 
     /**
      * returns the scores for the given difficulty formatted for gui
