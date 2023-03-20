@@ -8,7 +8,18 @@ import javafx.util.Duration;
 
 public class BurningSun{
 
+    private static BurningSun instance;
+    private static Duration duration;
     private Timeline burningSunLine;
+
+    public static BurningSun getInstance() {
+
+        if(instance == null) {
+
+            instance = new BurningSun();
+        }
+        return instance;
+    }
 
     public void burningSunMove(ImageView burningsun) {
 
@@ -24,12 +35,26 @@ public class BurningSun{
                         new KeyValue(burningsun.layoutYProperty(), -59))
         );
 
-        burningSunLine.playFromStart();
+        if(duration == null) {
+
+            burningSunLine.playFromStart();
+        }else {
+
+            burningSunLine.playFrom(duration);
+        }
+
         burningSunLine.setOnFinished(actionEvent -> {
 
             burningsun.setLayoutX(-260);
             burningsun.setLayoutY(-59);
             burningSunLine.play();
         });
+    }
+
+
+    public void  savePosition() {
+
+        duration = burningSunLine.getCurrentTime();
+        burningSunLine.stop();
     }
 }
