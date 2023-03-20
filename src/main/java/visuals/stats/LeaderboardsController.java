@@ -304,6 +304,7 @@ public class LeaderboardsController {
             scoreController.fetchScores(ModeType.HARD);
             scoreController.fetchPersonalScores();
         });
+        thread.start();
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
