@@ -199,7 +199,8 @@ public class LeaderboardsController {
 
     /**
      * Updates the tableview with new scores
-     * @param mode difficulty mode
+     *
+     * @param mode     difficulty mode
      * @param userOnly if true, only shows user scores, else shows all scores
      */
     private void updateTable(ModeType mode, boolean userOnly) {
@@ -225,6 +226,7 @@ public class LeaderboardsController {
 
     /**
      * sets the current mode to easy and updates the tableview
+     *
      * @param event button click event
      */
     @FXML
@@ -235,6 +237,7 @@ public class LeaderboardsController {
 
     /**
      * sets the current mode to medium and updates the tableview
+     *
      * @param event button click event
      */
     @FXML
@@ -246,6 +249,7 @@ public class LeaderboardsController {
 
     /**
      * sets the current mode to hard and updates the tableview
+     *
      * @param event button click event
      */
     @FXML
@@ -257,6 +261,7 @@ public class LeaderboardsController {
 
     /**
      * toggles between showing user scores and global scores
+     *
      * @param event button click event
      */
     @FXML
@@ -270,6 +275,7 @@ public class LeaderboardsController {
 
     /**
      * returns to main menu
+     *
      * @param event button click event
      */
     @FXML
@@ -283,20 +289,21 @@ public class LeaderboardsController {
 
     /**
      * reloads scores from server
+     *
      * @param event button click event
      */
     @FXML
     public void setButtonRefresh(ActionEvent event) {
         buttonRefresh.setDisable(true);
         buttonRefresh.setText("Reloading...");
-        // fetch for all difficulties
-        scoreController.fetchScores(ModeType.EASY);
-        scoreController.fetchScores(ModeType.MEDIUM);
-        scoreController.fetchScores(ModeType.HARD);
-        scoreController.fetchPersonalScores();
 
-        // 5 secs later set disable false and text to reload scores
-
+        // new thread to fetch scores
+        Thread thread = new Thread(() -> {
+            scoreController.fetchScores(ModeType.EASY);
+            scoreController.fetchScores(ModeType.MEDIUM);
+            scoreController.fetchScores(ModeType.HARD);
+            scoreController.fetchPersonalScores();
+        });
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
@@ -309,3 +316,5 @@ public class LeaderboardsController {
         }, 5000);
     }
 }
+
+
