@@ -7,23 +7,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.AccessibleAttribute;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import model.ModeType;
 import model.Score;
 import visuals.Navigaattori;
 
 import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -61,7 +53,7 @@ public class LeaderboardsController {
 
     private UserController userController;
 
-    private boolean userOnly;
+    private boolean showUserOnly;
 
     private ModeType currentMode;
 
@@ -75,7 +67,7 @@ public class LeaderboardsController {
         userController = new UserController();
 
         currentMode = ModeType.EASY;
-        userOnly = false;
+        showUserOnly = false;
 
         if (!userController.isLoggedIn()) {
             buttonUserGlobal.setText("Not logged in");
@@ -92,26 +84,49 @@ public class LeaderboardsController {
         updateTable(ModeType.EASY, false);
     }
 
+
+    /**
+     * Initializes the fxml elements in view.
+     * calls initTable(), sets styles.
+     */
     private void initView() {
         Font.loadFont(Objects.requireNonNull(getClass().getClassLoader().getResource("fonts/VCR_OSD_MONO_1.001.ttf")).toExternalForm(), 14);
 
         initTable();
 
-        // set fonts
-        // get the font from resources folder
+        styleButton(buttonReturn);
+        styleButton(buttonEasy);
+        styleButton(buttonMedium);
+        styleButton(buttonHard);
+        styleButton(buttonUserGlobal);
+        styleButton(buttonRefresh);
 
-        // buttons set font and background should be dark purple with white font
-        buttonReturn.setStyle("-fx-font: 18px \"VCR OSD Mono\"; -fx-background-color: #4d004d; -fx-text-fill: white;");
-        buttonEasy.setStyle("-fx-font: 18px \"VCR OSD Mono\"; -fx-background-color: #4d004d; -fx-text-fill: white;");
-        buttonMedium.setStyle("-fx-font: 18px \"VCR OSD Mono\"; -fx-background-color: #4d004d; -fx-text-fill: white;");
-        buttonHard.setStyle("-fx-font: 18px \"VCR OSD Mono\"; -fx-background-color: #4d004d; -fx-text-fill: white;");
-        buttonUserGlobal.setStyle("-fx-font: 18px \"VCR OSD Mono\"; -fx-background-color: #4d004d; -fx-text-fill: white;");
-        buttonRefresh.setStyle("-fx-font: 18px \"VCR OSD Mono\"; -fx-background-color: #4d004d; -fx-text-fill: white;");
-
-
+        // label set font and background should be dark purple with white font
         labelTitle.setStyle("-fx-font: 48px \"VCR OSD Mono\"; -fx-text-fill: white;");
     }
 
+
+    /**
+     * set fonts
+     * get the font from resources folder
+     * buttons set font and background should be dark purple with white font
+     * also add hover light purple hover effect
+     *
+     * @param b Button to style
+     */
+    private void styleButton(Button b) {
+        // get hex for dark purple and light purple and save them to variables
+        String darkPurple = "#800080";
+        String lightPurple = "#cc00cc";
+        b.setFont(Font.font("VCR OSD Mono", 14));
+        b.setStyle("-fx-background-color: " + darkPurple + "; -fx-text-fill: white;");
+        b.setOnMouseEntered(e -> b.setStyle("-fx-background-color: " + lightPurple + " ; -fx-text-fill: white;"));
+        b.setOnMouseExited(e -> b.setStyle("-fx-background-color: " + darkPurple + "; -fx-text-fill: white;"));
+    }
+
+    /**
+     * initializes the tableview, adds columns, fills them and styles the whole thing
+     */
     private void initTable() {
         TableColumn<Score, String> nameCol = new TableColumn<>("Username");
         nameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
@@ -175,8 +190,6 @@ public class LeaderboardsController {
         // center text on columns
         scoreTable.getColumns().forEach(column -> column.setStyle("-fx-alignment: CENTER;"));
 
-        // hide the h-scrollbar
-        // i spent 4 hours on this 🙃🔫
         nameCol.setMinWidth(140);
         nameCol.setMaxWidth(140);
         scoreCol.setMinWidth(90);
@@ -198,6 +211,12 @@ public class LeaderboardsController {
     }
 
 
+    /**
+     * Updates the tableview with new scores
+     *
+     * @param mode     difficulty mode
+     * @param userOnly if true, only shows user scores, else shows all scores
+     */
     private void updateTable(ModeType mode, boolean userOnly) {
         ArrayList<Score> scoreList;
         if (userOnly) {
@@ -219,32 +238,60 @@ public class LeaderboardsController {
         scoreTable.setItems(observableScoreList);
     }
 
+    /**
+     * sets the current mode to easy and updates the tableview
+     *
+     * @param event button click event
+     */
     @FXML
     public void setButtonEasy(ActionEvent event) {
         currentMode = ModeType.EASY;
-        updateTable(ModeType.EASY, userOnly);
+        updateTable(ModeType.EASY, showUserOnly);
     }
 
+    /**
+     * sets the current mode to medium and updates the tableview
+     *
+     * @param event button click event
+     */
     @FXML
     public void setButtonMedium(ActionEvent event) {
         currentMode = ModeType.MEDIUM;
-        updateTable(ModeType.MEDIUM, userOnly);
+        updateTable(ModeType.MEDIUM, showUserOnly);
     }
 
+
+    /**
+     * sets the current mode to hard and updates the tableview
+     *
+     * @param event button click event
+     */
     @FXML
     public void setButtonHard(ActionEvent event) {
         currentMode = ModeType.HARD;
-        updateTable(ModeType.HARD, userOnly);
+        updateTable(ModeType.HARD, showUserOnly);
     }
 
+
+    /**
+     * toggles between showing user scores and global scores
+     *
+     * @param event button click event
+     */
     @FXML
     public void setButtonUserGlobal(ActionEvent event) {
 
-        userOnly = !userOnly;
-        buttonUserGlobal.setText(userOnly ? "Global Scores" : "User Scores");
-        updateTable(currentMode, userOnly);
+        showUserOnly = !showUserOnly;
+        buttonUserGlobal.setText(showUserOnly ? "Global Scores" : "User Scores");
+        updateTable(currentMode, showUserOnly);
     }
 
+
+    /**
+     * returns to main menu
+     *
+     * @param event button click event
+     */
     @FXML
     public void setButtonReturn(ActionEvent event) {
         try {
@@ -254,26 +301,35 @@ public class LeaderboardsController {
         }
     }
 
+    /**
+     * reloads scores from server
+     *
+     * @param event button click event
+     */
     @FXML
     public void setButtonRefresh(ActionEvent event) {
         buttonRefresh.setDisable(true);
         buttonRefresh.setText("Reloading...");
-        // fetch for all difficulties
-        scoreController.fetchScores(ModeType.EASY);
-        scoreController.fetchScores(ModeType.MEDIUM);
-        scoreController.fetchScores(ModeType.HARD);
-        scoreController.fetchPersonalScores();
 
-        // 5 secs later set disable false and text to reload scores
-
+        // new thread to fetch scores
+        Thread thread = new Thread(() -> {
+            scoreController.fetchScores(ModeType.EASY);
+            scoreController.fetchScores(ModeType.MEDIUM);
+            scoreController.fetchScores(ModeType.HARD);
+            scoreController.fetchPersonalScores();
+        });
+        thread.start();
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
                 Platform.runLater(() -> {
                     buttonRefresh.setDisable(false);
                     buttonRefresh.setText("Reload Scores");
+                    updateTable(currentMode, showUserOnly);
                 });
             }
         }, 5000);
     }
 }
+
+
