@@ -17,11 +17,20 @@
          <children>
             <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
                <children>
-                  <Label fx:id="labelTitle" alignment="CENTER" text="Leaderboards">
-                     <font>
-                        <Font size="48.0" />
-                     </font>
-                  </Label>
+                  <VBox>
+                     <children>
+                        <Label fx:id="labelTitle" alignment="CENTER" prefWidth="500.0" text="Leaderboards">
+                           <font>
+                              <Font size="48.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labelInfo" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefWidth="500.0" text="Global Easy Mode" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
                </children>
                <VBox.margin>
                   <Insets />
