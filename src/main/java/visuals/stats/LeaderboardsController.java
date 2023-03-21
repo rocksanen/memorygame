@@ -3,6 +3,8 @@ package visuals.stats;
 import controller.ScoreController;
 import controller.UserController;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -49,6 +51,8 @@ public class LeaderboardsController {
     @FXML
     public Button buttonRefresh;
 
+    @FXML
+    public Label labelInfo;
     private ScoreController scoreController;
 
     private UserController userController;
@@ -82,6 +86,7 @@ public class LeaderboardsController {
 
         initView();
         updateTable(ModeType.EASY, false);
+        updateLabelInfo();
     }
 
 
@@ -103,6 +108,7 @@ public class LeaderboardsController {
 
         // label set font and background should be dark purple with white font
         labelTitle.setStyle("-fx-font: 48px \"VCR OSD Mono\"; -fx-text-fill: white;");
+        labelInfo.setStyle("-fx-font: 24px \"VCR OSD Mono\"; -fx-text-fill: white;");
     }
 
 
@@ -247,6 +253,7 @@ public class LeaderboardsController {
     public void setButtonEasy(ActionEvent event) {
         currentMode = ModeType.EASY;
         updateTable(ModeType.EASY, showUserOnly);
+        updateLabelInfo();
     }
 
     /**
@@ -258,6 +265,7 @@ public class LeaderboardsController {
     public void setButtonMedium(ActionEvent event) {
         currentMode = ModeType.MEDIUM;
         updateTable(ModeType.MEDIUM, showUserOnly);
+        updateLabelInfo();
     }
 
 
@@ -270,6 +278,7 @@ public class LeaderboardsController {
     public void setButtonHard(ActionEvent event) {
         currentMode = ModeType.HARD;
         updateTable(ModeType.HARD, showUserOnly);
+        updateLabelInfo();
     }
 
 
@@ -282,8 +291,9 @@ public class LeaderboardsController {
     public void setButtonUserGlobal(ActionEvent event) {
 
         showUserOnly = !showUserOnly;
-        buttonUserGlobal.setText(showUserOnly ? "Global Scores" : "User Scores");
+        buttonUserGlobal.setText(showUserOnly ? "Global Scores" : "Personal Scores");
         updateTable(currentMode, showUserOnly);
+        updateLabelInfo();
     }
 
 
@@ -300,6 +310,23 @@ public class LeaderboardsController {
             e.printStackTrace();
         }
     }
+
+    /**
+     * updates the info label to reflect currently displayed scores
+     */
+    private void updateLabelInfo() {
+        String mode = currentMode.toString().toLowerCase();
+        //Capitalize first letter
+        mode = mode.substring(0, 1).toUpperCase() + mode.substring(1);
+
+        String username = userController.getUsername();
+        username = username.substring(0, 1).toUpperCase() + username.substring(1);
+
+        String text = showUserOnly ? username + "'s Scores - " : "Global Scores - ";
+        text += mode;
+        labelInfo.setText(text);
+    }
+
 
     /**
      * reloads scores from server
