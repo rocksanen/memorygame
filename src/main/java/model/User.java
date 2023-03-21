@@ -150,6 +150,14 @@ public class User {
     public boolean signup(String username, String password) {
         Locksmith l = new Locksmith();
 
+        // validate the username, it should contain no whitespace characters,
+        // be 30 chars long at max
+        // and be at least 3 chars long
+        if (username.contains(" ") || username.length() > 30 || username.length() < 3) {
+            System.out.println("Username is invalid!");
+            return false;
+        }
+
         // try to encrypt the password
         String hashedPassword = null;
         try {
