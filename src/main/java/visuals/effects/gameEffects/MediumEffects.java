@@ -26,8 +26,6 @@ public class MediumEffects extends AbstractGameEffects implements IGameEffects{
     private GridPane mediumGrid;
     private Pane scorePane;
 
-
-
     public void setImagesAndComponents(
             ImageView mediumbackground, ImageView midgrid, ImageView midTop,
             ImageView midL, ImageView midBot, ImageView midend, ImageView midneo,
