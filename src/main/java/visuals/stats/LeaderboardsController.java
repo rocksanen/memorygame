@@ -94,21 +94,35 @@ public class LeaderboardsController {
 
         initTable();
 
-        // set fonts
-        // get the font from resources folder
+        styleButton(buttonReturn);
+        styleButton(buttonEasy);
+        styleButton(buttonMedium);
+        styleButton(buttonHard);
+        styleButton(buttonUserGlobal);
+        styleButton(buttonRefresh);
 
-        // buttons set font and background should be dark purple with white font
-        buttonReturn.setStyle("-fx-font: 18px \"VCR OSD Mono\"; -fx-background-color: #4d004d; -fx-text-fill: white;");
-        buttonEasy.setStyle("-fx-font: 18px \"VCR OSD Mono\"; -fx-background-color: #4d004d; -fx-text-fill: white;");
-        buttonMedium.setStyle("-fx-font: 18px \"VCR OSD Mono\"; -fx-background-color: #4d004d; -fx-text-fill: white;");
-        buttonHard.setStyle("-fx-font: 18px \"VCR OSD Mono\"; -fx-background-color: #4d004d; -fx-text-fill: white;");
-        buttonUserGlobal.setStyle("-fx-font: 18px \"VCR OSD Mono\"; -fx-background-color: #4d004d; -fx-text-fill: white;");
-        buttonRefresh.setStyle("-fx-font: 18px \"VCR OSD Mono\"; -fx-background-color: #4d004d; -fx-text-fill: white;");
-
-
+        // label set font and background should be dark purple with white font
         labelTitle.setStyle("-fx-font: 48px \"VCR OSD Mono\"; -fx-text-fill: white;");
     }
 
+
+    /**
+     * set fonts
+     * get the font from resources folder
+     * buttons set font and background should be dark purple with white font
+     * also add hover light purple hover effect
+     *
+     * @param b Button to style
+     */
+    private void styleButton(Button b) {
+        // get hex for dark purple and light purple and save them to variables
+        String darkPurple = "#800080";
+        String lightPurple = "#cc00cc";
+        b.setFont(Font.font("VCR OSD Mono", 14));
+        b.setStyle("-fx-background-color: " + darkPurple + "; -fx-text-fill: white;");
+        b.setOnMouseEntered(e -> b.setStyle("-fx-background-color: " + lightPurple + " ; -fx-text-fill: white;"));
+        b.setOnMouseExited(e -> b.setStyle("-fx-background-color: " + darkPurple + "; -fx-text-fill: white;"));
+    }
 
     /**
      * initializes the tableview, adds columns, fills them and styles the whole thing
