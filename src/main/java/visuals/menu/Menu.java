@@ -5,20 +5,18 @@ import controller.IUserController;
 import controller.ScoreController;
 import controller.UserController;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.ModeType;
-import visuals.Effects;
 import visuals.Navigaattori;
 import visuals.audio.AudioMemory;
+import visuals.effects.introEffects.IntroEffects;
 import visuals.effects.menuEffects.BurningSun;
 import visuals.effects.menuEffects.IMenuLayoutEffects;
 import visuals.effects.menuEffects.MenuLayoutEffects;
@@ -144,11 +142,14 @@ public class Menu implements Initializable, IMenu {
     private boolean returnStatus;
     private boolean playIntro = true;
 
+    private IntroEffects introEffects;
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        loadProperties();
+        //loadProperties();
 
         try {
             initGoods();
@@ -156,14 +157,15 @@ public class Menu implements Initializable, IMenu {
             throw new RuntimeException(e);
         }
 
-        introOn(playIntro);
+        introOn(IntroOn.getInstance().getIntroOn());
     }
 
     /**
      * Loads the properties file and sets the playIntro boolean value.
      */
     private void loadProperties() {
-        // you need config.properties file in your resources directory. playIntro=[boolean] value is checked from there
+
+        // you need config.properties file in your resources' directory. playIntro=[boolean] value is checked from there
         try (InputStream input = Objects.requireNonNull(Menu.class.getClassLoader().getResource("config.properties")).openStream()) {
             Properties prop = new Properties();
             // load a properties file
@@ -171,9 +173,11 @@ public class Menu implements Initializable, IMenu {
             // get the property value and print it out
             System.out.println("playIntro value from properties: " + prop.getProperty("playIntro"));
             playIntro = Boolean.parseBoolean(prop.getProperty("playIntro"));
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+
     }
 
     public void initGoods() throws IOException {
@@ -367,43 +371,58 @@ public class Menu implements Initializable, IMenu {
 
     private void introOn(Boolean introStatus) {
 
+
+
         if (introStatus) {
 
-            Platform.runLater(() -> Effects.getInstance().intro(
-                    weDidIt, groupFour, logAndReg,
-                    sun, lightning, blacksun,
-                    easyFrame, mediumFrame, hardFrame,
-                    memomaze, labelLoggedIn, loading,
-                    kotoku, tigerden, treeoflife));
+                introEffects = new IntroEffects();
+                IntroOn.getInstance().setIntroOff();
+
+                Platform.runLater(() -> introEffects.intro(
+                        weDidIt, groupFour, logAndReg,
+                        sun, lightning, blacksun,
+                        easyFrame, mediumFrame, hardFrame,
+                        memomaze, labelLoggedIn, loading,
+                        kotoku, tigerden, treeoflife,pergament,burningsun,startBlack,
+                        gameModePane,japan,jungle,redtree,
+                        miniEasy,miniMedium,miniHard,dirt));
 
         } else {
-
-            logAndReg.setVisible(true);
-            logAndReg.setOpacity(1);
-            labelLoggedIn.setVisible(true);
-            menuAnkkuri.setVisible(true);
-            startBlack.setVisible(false);
-            gameModePane.setOpacity(1);
-            miniEasy.setOpacity(1);
-            miniMedium.setOpacity(1);
-            miniHard.setOpacity(1);
-            easyFrame.setOpacity(1);
-            mediumFrame.setOpacity(1);
-            hardFrame.setOpacity(1);
-            japan.setOpacity(0.6);
-            jungle.setOpacity(0.29);
-            redtree.setOpacity(0.75);
-            kotoku.setOpacity(1);
-            tigerden.setOpacity(1);
-            treeoflife.setOpacity(1);
-
-            Platform.runLater(() -> BurningSun.getInstance().burningSunMove(burningsun));
-            Platform.runLater(() -> AudioMemory.getInstance().playSong(MENU));
-            Platform.runLater(() -> menuLayoutEffects.setGlow(pergament));
-            Platform.runLater(() -> menuLayoutEffects.moveDirt(dirt));
-            Platform.runLater(() -> menuLayoutEffects.moveJungle(jungle));
-            Platform.runLater(() -> menuLayoutEffects.moveRedTree(redtree));
+            setMenuOn();
         }
+    }
+
+
+    private void setMenuOn() {
+
+        introEffects = null;
+        logAndReg.setVisible(true);
+        logAndReg.setOpacity(1);
+        labelLoggedIn.setVisible(true);
+        menuAnkkuri.setVisible(true);
+        startBlack.setVisible(false);
+        gameModePane.setOpacity(1);
+        miniEasy.setOpacity(1);
+        miniMedium.setOpacity(1);
+        miniHard.setOpacity(1);
+        easyFrame.setOpacity(1);
+        mediumFrame.setOpacity(1);
+        hardFrame.setOpacity(1);
+        japan.setOpacity(0.6);
+        jungle.setOpacity(0.29);
+        redtree.setOpacity(0.75);
+        kotoku.setOpacity(1);
+        tigerden.setOpacity(1);
+        treeoflife.setOpacity(1);
+        pergament.setOpacity(0.8); ///////////////////////////////////////// oikeasti 1 !!!!!!!!!!!!!!!!!!!1 ehkä
+
+        Platform.runLater(() -> BurningSun.getInstance().burningSunMove(burningsun));
+        Platform.runLater(() -> AudioMemory.getInstance().playSong(MENU));
+        Platform.runLater(() -> menuLayoutEffects.setGlow(pergament));
+        Platform.runLater(() -> menuLayoutEffects.moveDirt(dirt));
+        Platform.runLater(() -> menuLayoutEffects.moveJungle(jungle));
+        Platform.runLater(() -> menuLayoutEffects.moveRedTree(redtree));
+
     }
 
     @FXML
@@ -441,5 +460,10 @@ public class Menu implements Initializable, IMenu {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    public void exitIntro() {
+        setMenuOn();
     }
 }
