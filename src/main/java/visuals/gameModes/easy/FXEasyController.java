@@ -114,7 +114,7 @@ public class FXEasyController extends FXAbstractGameController implements Initia
         easyBot.setOpacity(0);
         easyL.setImage(ImageCache.getInstance().getGameBackGroundCache().get(9));
         easyL.setOpacity(0);
-        easy3Dgrid.setImage(ImageCache.getInstance().getGameBackGroundCache().get(10));
+        easy3Dgrid.setImage(ImageCache.getInstance().getGameBackGroundCache().get(24));
         easy3Dgrid.setOpacity(0);
         play.setImage(ImageCache.getInstance().getGameBackGroundCache().get(14));
         play.setOpacity(0);

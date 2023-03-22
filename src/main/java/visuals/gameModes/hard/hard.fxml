@@ -20,7 +20,7 @@
     <children>
         <ImageView id="hardSpread" fx:id="hardSpread" fitHeight="780.0" fitWidth="1400.0" opacity="0.0">
             <image>
-                <Image url="@../../images/hardback4.jpg" />
+                <Image url="@../../images/hardGame/enviroment/hardback4.jpg" />
             </image>
             <effect>
                 <GaussianBlur radius="10.59" />
@@ -28,30 +28,30 @@
         </ImageView>
         <ImageView id="hardBackground" fx:id="hardBackground" fitHeight="746.0" fitWidth="1250.0" layoutX="-2.8" layoutY="4.8">
             <image>
-                <Image url="@../../images/hardback4.jpg" />
+                <Image url="@../../images/hardGame/enviroment/hardback4.jpg" />
             </image>
         </ImageView>
 
 
       <ImageView id="hardL" fx:id="hardL" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" opacity="0.55">
          <image>
-            <Image url="@../../images/hardL.png" />
+            <Image url="@../../images/hardGame/enviroment/hardL.png" />
          </image>
       </ImageView>
       <ImageView id="hardR" fx:id="hardR" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" opacity="0.5">
          <image>
-            <Image url="@../../images/hardR.png" />
+            <Image url="@../../images/hardGame/enviroment/hardR.png" />
          </image>
       </ImageView>
       <ImageView id="hardneo" fx:id="hardneo" fitHeight="933.3" fitWidth="1599.0" layoutX="-174.2" layoutY="-92.0" mouseTransparent="true">
          <image>
-            <Image url="@../../images/hardneo.png" />
+            <Image url="@../../images/hardGame/enviroment/hardneo.png" />
          </image>
       </ImageView>
 
       <ImageView id="hardGridImage" fx:id="hardGridImage" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
          <image>
-            <Image url="@../../images/girdHard.png" />
+            <Image url="@../../images/hardGame/enviroment/girdHard.png" />
          </image>
          <effect>
             <GaussianBlur radius="1.76" />

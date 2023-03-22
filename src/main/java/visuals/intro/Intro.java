@@ -43,7 +43,7 @@ public class Intro implements Initializable {
     @FXML ImageView treeoflife;
     @FXML ImageView telkku;
     @FXML AnchorPane bottom;
-    final IntroEffects introEffects = new IntroEffects();
+    IntroEffects introEffects = new IntroEffects();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -61,6 +61,8 @@ public class Intro implements Initializable {
 
         try {
             Navigaattori.getInstance().changeScene(ModeType.MENU);
+            introEffects.stopIntro();
+            introEffects = null;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

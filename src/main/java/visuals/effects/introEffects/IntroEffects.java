@@ -26,6 +26,8 @@ public class IntroEffects{
     private final double jungleStart = 0.29; // 0.2
     private final double redtreeStart = 0.75; //0.35
 
+    private Timeline introLine;
+
     public void intro(
             Label first,ImageView groupFour, Pane logAndReg,ImageView sun,
             ImageView lightning, ImageView easyFrame,ImageView mediumFrame,
@@ -79,7 +81,7 @@ public class IntroEffects{
 
         EventHandler<ActionEvent> startAudio = arg0 -> AudioMemory.getInstance().playTheIntro();
 
-        Timeline timeline = new Timeline(
+        introLine = new Timeline(
                 new KeyFrame(Duration.ZERO,startAudio),
                 new KeyFrame(Duration.seconds(3.5),
                         new KeyValue(first.opacityProperty(), 0)),
@@ -195,10 +197,10 @@ public class IntroEffects{
                         new KeyValue(sepiaTone.levelProperty(), 0))
         );
 
-        timeline.play();
-        timeline.setOnFinished(actionEvent -> {
+        introLine.play();
+        introLine.setOnFinished(actionEvent -> {
 
-            timeline.stop();
+            introLine.stop();
             sun.setDisable(true);
             sun.setVisible(false);
             startBlack.setDisable(true);
@@ -216,5 +218,9 @@ public class IntroEffects{
                 throw new RuntimeException(e);
             }
         });
+    }
+
+    public void stopIntro() {
+        introLine.stop();
     }
 }

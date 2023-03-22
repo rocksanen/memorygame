@@ -21,7 +21,7 @@
     <children>
       <ImageView id="mediumSpread" fx:id="mediumSpread" fitHeight="780.0" fitWidth="1320.0" layoutX="-10.0" layoutY="-10.0" opacity="0.0">
          <image>
-            <Image url="@../../images/tigru.jpg" />
+            <Image url="@../../images/mediumGame/enviroment/tigru.jpg" />
          </image>
          <rotationAxis>
             <Point3D y="1.0" />
@@ -32,27 +32,27 @@
       </ImageView>
       <ImageView id="midR" fx:id="midR" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" opacity="0.0" visible="false">
          <image>
-            <Image url="@../../images/midR.png" />
+            <Image url="@../../images/mediumGame/enviroment/midR.png" />
          </image>
       </ImageView>
         <ImageView id="mediumBackground" fx:id="mediumBackground" fitHeight="752.0" fitWidth="1258.0" layoutX="-8.5" layoutY="2.0">
             <image>
-                <Image url="@../../images/tigru.jpg" />
+                <Image url="@../../images/mediumGame/enviroment/tigru.jpg" />
             </image>
         </ImageView>
       <ImageView id="midTop" fx:id="midTop" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
          <image>
-            <Image url="@../../images/midTop.png" />
+            <Image url="@../../images/mediumGame/enviroment/midTop.png" />
          </image>
       </ImageView>
       <ImageView id="midL" fx:id="midL" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
          <image>
-            <Image url="@../../images/midL.png" />
+            <Image url="@../../images/mediumGame/enviroment/midL.png" />
          </image>
       </ImageView>
       <ImageView id="midBot" fx:id="midBot" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
          <image>
-            <Image url="@../../images/midBot.png" />
+            <Image url="@../../images/mediumGame/enviroment/midBot.png" />
          </image>
          <effect>
             <ColorAdjust brightness="-0.11" />
@@ -68,7 +68,7 @@
       </ImageView>
       <ImageView id="midneo" fx:id="midneo" fitHeight="933.3" fitWidth="1599.0" layoutX="-174.2" layoutY="-92.0" mouseTransparent="true">
          <image>
-            <Image url="@../../images/medneo.png" />
+            <Image url="@../../images/mediumGame/enviroment/medneo.png" />
          </image>
          <effect>
             <SepiaTone />
@@ -76,22 +76,22 @@
       </ImageView>
       <ImageView id="midneo2" fx:id="midneo2" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
          <image>
-            <Image url="@../../images/midneo2.png" />
+            <Image url="@../../images/mediumGame/enviroment/midneo2.png" />
          </image>
       </ImageView>
       <ImageView id="midneo3" fx:id="midneo3" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
          <image>
-            <Image url="@../../images/midneo3.png" />
+            <Image url="@../../images/mediumGame/enviroment/midneo3.png" />
          </image>
       </ImageView>
       <ImageView id="midneo4" fx:id="midneo4" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
          <image>
-            <Image url="@../../images/midneo4.png" />
+            <Image url="@../../images/mediumGame/enviroment/midneo4.png" />
          </image>
       </ImageView>
       <ImageView id="midgrid" fx:id="midgrid" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
          <image>
-            <Image url="@../../images/gird.png" />
+            <Image url="@../../images/mediumGame/enviroment/mediumGrid.png" />
          </image>
          <effect>
             <SepiaTone>
