@@ -23,7 +23,6 @@ public class Start {
      */
     public static void main(String[] args) throws FileNotFoundException {
 
-        ImageCache.getInstance().addToIntroCache();
         ImageCache.getInstance().addToMenuCache();
         ImageCache.getInstance().addToEasyCache();
         ImageCache.getInstance().addToMediumCache();

@@ -20,12 +20,12 @@
     <children>
         <ImageView id="background" fx:id="background" fitHeight="750.0" fitWidth="1257.5" layoutX="-4.0">
             <image>
-                <Image url="@../../images/background.png" />
+                <Image url="@../../images/easyGame/enviroment/background.png" />
             </image>
         </ImageView>
       <ImageView id="easyL" fx:id="easyL" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
          <image>
-            <Image url="@../../images/easyL2.png" />
+            <Image url="@../../images/easyGame/enviroment/easyL2.png" />
          </image>
          <effect>
             <SepiaTone level="0.22" />
@@ -33,12 +33,12 @@
       </ImageView>
       <ImageView id="easyTop" fx:id="easyTop" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
          <image>
-            <Image url="@../../images/easyTop.png" />
+            <Image url="@../../images/easyGame/enviroment/easyTop.png" />
          </image>
       </ImageView>
       <ImageView id="easyBot" fx:id="easyBot" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
          <image>
-            <Image url="@../../images/midBot.png" />
+            <Image url="@../../images/easyGame/enviroment/easyBot.png" />
          </image>
          <effect>
             <ColorAdjust brightness="-0.13" />
@@ -46,12 +46,12 @@
       </ImageView>
       <ImageView id="easyneo" fx:id="easyneo" fitHeight="933.3" fitWidth="1599.0" layoutX="-174.2" layoutY="-92.0" mouseTransparent="true">
          <image>
-            <Image url="@../../images/easyneo.png" />
+            <Image url="@../../images/easyGame/enviroment/easyneo.png" />
          </image>
       </ImageView>
       <ImageView id="easy3Dgrid" fx:id="easy3Dgrid" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
          <image>
-            <Image url="@../../images/gird.png" />
+            <Image url="@../../images/easyGame/enviroment/easyGrid.png" />
          </image>
          <effect>
             <SepiaTone>

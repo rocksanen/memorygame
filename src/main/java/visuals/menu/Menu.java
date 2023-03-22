@@ -255,8 +255,8 @@ public class Menu implements Initializable, IMenu {
 
     private void setMenuImages() {
 
-        burningsun.setImage(ImageCache.getInstance().getMenuCache().get(24));
-        dirt.setImage(ImageCache.getInstance().getMenuCache().get(23));
+        burningsun.setImage(ImageCache.getInstance().getMenuCache().get(11));
+        dirt.setImage(ImageCache.getInstance().getMenuCache().get(10));
         pergament.setImage(ImageCache.getInstance().getMenuCache().get(0));
         miniEasy.setImage(ImageCache.getInstance().getMenuCache().get(1));
         miniMedium.setImage(ImageCache.getInstance().getMenuCache().get(2));
@@ -267,18 +267,18 @@ public class Menu implements Initializable, IMenu {
         japan.setImage(ImageCache.getInstance().getMenuCache().get(7));
         jungle.setImage(ImageCache.getInstance().getMenuCache().get(8));
         redtree.setImage(ImageCache.getInstance().getMenuCache().get(9));
-        easydes1.setImage(ImageCache.getInstance().getMenuCache().get(25));
-        easydes2.setImage(ImageCache.getInstance().getMenuCache().get(26));
-        easydes3.setImage(ImageCache.getInstance().getMenuCache().get(27));
-        kotoku.setImage(ImageCache.getInstance().getMenuCache().get(28));
-        tigerden.setImage(ImageCache.getInstance().getMenuCache().get(29));
-        treeoflife.setImage(ImageCache.getInstance().getMenuCache().get(30));
-        medes1.setImage(ImageCache.getInstance().getMenuCache().get(31));
-        medes2.setImage(ImageCache.getInstance().getMenuCache().get(32));
-        medes3.setImage(ImageCache.getInstance().getMenuCache().get(33));
-        hardes1.setImage(ImageCache.getInstance().getMenuCache().get(34));
-        hardes2.setImage(ImageCache.getInstance().getMenuCache().get(35));
-        hardes3.setImage(ImageCache.getInstance().getMenuCache().get(36));
+        easydes1.setImage(ImageCache.getInstance().getMenuCache().get(12));
+        easydes2.setImage(ImageCache.getInstance().getMenuCache().get(13));
+        easydes3.setImage(ImageCache.getInstance().getMenuCache().get(14));
+        kotoku.setImage(ImageCache.getInstance().getMenuCache().get(15));
+        tigerden.setImage(ImageCache.getInstance().getMenuCache().get(16));
+        treeoflife.setImage(ImageCache.getInstance().getMenuCache().get(17));
+        medes1.setImage(ImageCache.getInstance().getMenuCache().get(18));
+        medes2.setImage(ImageCache.getInstance().getMenuCache().get(19));
+        medes3.setImage(ImageCache.getInstance().getMenuCache().get(20));
+        hardes1.setImage(ImageCache.getInstance().getMenuCache().get(21));
+        hardes2.setImage(ImageCache.getInstance().getMenuCache().get(22));
+        hardes3.setImage(ImageCache.getInstance().getMenuCache().get(23));
     }
 
     @FXML
@@ -342,6 +342,7 @@ public class Menu implements Initializable, IMenu {
     @FXML
     public void setButtonLeaderboards() {
 
+        BurningSun.getInstance().savePosition();
         Platform.runLater(() -> AudioMemory.getInstance().stopSong(MENU));
         try {
             Navigaattori.getInstance().changeScene(LEADERBOARD);
