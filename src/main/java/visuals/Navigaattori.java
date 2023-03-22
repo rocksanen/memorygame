@@ -64,7 +64,7 @@ public class Navigaattori extends Application {
                 FXHardController fxHardController = loader.getController();
                 fxHardController.setController(new ScoreController());
             }
-            case IMPOSSIBLE -> pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/visuals/stats/Leaderboards.fxml")));
+            case LEADERBOARD -> pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/visuals/stats/Leaderboards.fxml")));
         }
 
         MAINSTAGE.getScene().setRoot(pane);
@@ -79,7 +79,7 @@ public class Navigaattori extends Application {
             System.exit(0);
         });
 
-        Parent root = FXMLLoader.load (Objects.requireNonNull(getClass().getResource(MENU)));
+        Parent root = FXMLLoader.load (Objects.requireNonNull(getClass().getResource("/visuals/intro/intro.fxml")));
         Scene scene = new Scene(root, 1250, 750);
         camera.setFieldOfView(25);
         scene.setCamera(camera);

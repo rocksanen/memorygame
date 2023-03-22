@@ -5,18 +5,15 @@ import controller.IUserController;
 import controller.ScoreController;
 import controller.UserController;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.ModeType;
-import visuals.Effects;
 import visuals.Navigaattori;
 import visuals.audio.AudioMemory;
 import visuals.effects.menuEffects.BurningSun;
@@ -27,11 +24,8 @@ import visuals.imageServers.ImageCache;
 import visuals.stats.ChartGUI;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Properties;
 import java.util.ResourceBundle;
 
 import static model.ModeType.*;
@@ -43,7 +37,6 @@ public class Menu implements Initializable, IMenu {
     private final ZoomInEffects zoomInEffects = new ZoomInEffects();
     private final IMenuLayoutEffects menuLayoutEffects = new MenuLayoutEffects();
 
-
     @FXML
     ImageView burningsun;
     @FXML
@@ -52,8 +45,6 @@ public class Menu implements Initializable, IMenu {
     Label labelLoggedIn;
     @FXML
     Button stats;
-    @FXML
-    ListView<String> personalScores;
     @FXML
     Button register;
     @FXML
@@ -65,19 +56,9 @@ public class Menu implements Initializable, IMenu {
     @FXML
     Pane gameModePane;
     @FXML
-    AnchorPane startBlack;
-    @FXML
     AnchorPane menuAnkkuri;
     @FXML
-    Label weDidIt;
-    @FXML
-    ImageView groupFour;
-    @FXML
     ImageView pergament;
-    @FXML
-    ImageView sun;
-    @FXML
-    ImageView lightning;
     @FXML
     ImageView blacksun;
     @FXML
@@ -103,11 +84,7 @@ public class Menu implements Initializable, IMenu {
     @FXML
     ImageView dirt;
     @FXML
-    ImageView memomaze;
-    @FXML
     Pane paneLogin;
-    @FXML
-    ImageView loading;
     @FXML
     ImageView easydes1;
     @FXML
@@ -134,52 +111,32 @@ public class Menu implements Initializable, IMenu {
     ImageView treeoflife;
     @FXML
     ImageView telkku;
-
     @FXML
     Button buttonLeaderboards;
-
-
     public static ArrayList<String> worldList;
     public static ArrayList<String> personalList;
     private boolean returnStatus;
-    private boolean playIntro = true;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        loadProperties();
+        initGoods();
 
-        try {
-            initGoods();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Platform.runLater(() -> BurningSun.getInstance().burningSunMove(burningsun));
 
-        introOn(playIntro);
+        if(IntroOn.getInstance().getIntroOn()) {IntroOn.getInstance().setIntroOff();
+        }else {Platform.runLater(() -> AudioMemory.getInstance().playSong(MENU));}
+
+        Platform.runLater(() -> menuLayoutEffects.setGlow(pergament));
+        Platform.runLater(() -> menuLayoutEffects.moveDirt(dirt));
+        Platform.runLater(() -> menuLayoutEffects.moveJungle(jungle));
+        Platform.runLater(() -> menuLayoutEffects.moveRedTree(redtree));
     }
 
-    /**
-     * Loads the properties file and sets the playIntro boolean value.
-     */
-    private void loadProperties() {
-        // you need config.properties file in your resources directory. playIntro=[boolean] value is checked from there
-        try (InputStream input = Objects.requireNonNull(Menu.class.getClassLoader().getResource("config.properties")).openStream()) {
-            Properties prop = new Properties();
-            // load a properties file
-            prop.load(input);
-            // get the property value and print it out
-            System.out.println("playIntro value from properties: " + prop.getProperty("playIntro"));
-            playIntro = Boolean.parseBoolean(prop.getProperty("playIntro"));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public void initGoods() throws IOException {
+    public void initGoods() {
 
         panesAndMisc();
-        setIntroImages();
         setMenuImages();
 
         zoomInEffects.setMiniImagesAndFrames(miniEasy, miniMedium, miniHard, easyFrame, mediumFrame, hardFrame);
@@ -190,7 +147,6 @@ public class Menu implements Initializable, IMenu {
     public boolean isReturnStatus() {
         return returnStatus;
     }
-
 
     @FXML
     public void easyStartScreenPlay() {
@@ -297,16 +253,6 @@ public class Menu implements Initializable, IMenu {
 
     }
 
-    private void setIntroImages() {
-
-        sun.setImage(ImageCache.getInstance().getIntroCache().get(0));
-        lightning.setImage(ImageCache.getInstance().getIntroCache().get(1));
-        blacksun.setImage(ImageCache.getInstance().getIntroCache().get(2));
-        memomaze.setImage(ImageCache.getInstance().getIntroCache().get(3));
-        loading.setImage(ImageCache.getInstance().getIntroCache().get(4));
-        groupFour.setImage(ImageCache.getInstance().getIntroCache().get(5));
-    }
-
     private void setMenuImages() {
 
         burningsun.setImage(ImageCache.getInstance().getMenuCache().get(24));
@@ -365,47 +311,6 @@ public class Menu implements Initializable, IMenu {
         menuLayoutEffects.displayInfoOff(hardes1, hardes2, hardes3);
     }
 
-    private void introOn(Boolean introStatus) {
-
-        if (introStatus) {
-
-            Platform.runLater(() -> Effects.getInstance().intro(
-                    weDidIt, groupFour, logAndReg,
-                    sun, lightning, blacksun,
-                    easyFrame, mediumFrame, hardFrame,
-                    memomaze, labelLoggedIn, loading,
-                    kotoku, tigerden, treeoflife));
-
-        } else {
-
-            logAndReg.setVisible(true);
-            logAndReg.setOpacity(1);
-            labelLoggedIn.setVisible(true);
-            menuAnkkuri.setVisible(true);
-            startBlack.setVisible(false);
-            gameModePane.setOpacity(1);
-            miniEasy.setOpacity(1);
-            miniMedium.setOpacity(1);
-            miniHard.setOpacity(1);
-            easyFrame.setOpacity(1);
-            mediumFrame.setOpacity(1);
-            hardFrame.setOpacity(1);
-            japan.setOpacity(0.6);
-            jungle.setOpacity(0.29);
-            redtree.setOpacity(0.75);
-            kotoku.setOpacity(1);
-            tigerden.setOpacity(1);
-            treeoflife.setOpacity(1);
-
-            Platform.runLater(() -> BurningSun.getInstance().burningSunMove(burningsun));
-            Platform.runLater(() -> AudioMemory.getInstance().playSong(MENU));
-            Platform.runLater(() -> menuLayoutEffects.setGlow(pergament));
-            Platform.runLater(() -> menuLayoutEffects.moveDirt(dirt));
-            Platform.runLater(() -> menuLayoutEffects.moveJungle(jungle));
-            Platform.runLater(() -> menuLayoutEffects.moveRedTree(redtree));
-        }
-    }
-
     @FXML
     public void setButtonLogout() {
         try {
@@ -436,8 +341,10 @@ public class Menu implements Initializable, IMenu {
 
     @FXML
     public void setButtonLeaderboards() {
+
+        Platform.runLater(() -> AudioMemory.getInstance().stopSong(MENU));
         try {
-            Navigaattori.getInstance().changeScene(ModeType.IMPOSSIBLE);
+            Navigaattori.getInstance().changeScene(LEADERBOARD);
         } catch (IOException e) {
             e.printStackTrace();
         }

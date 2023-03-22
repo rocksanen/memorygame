@@ -26,7 +26,7 @@ public class BurningSun{
         burningsun.setOpacity(0.3);
         burningSunLine = new Timeline(
                 new KeyFrame(Duration.ZERO,
-                        new KeyValue(burningsun.layoutXProperty(), -260),
+                        new KeyValue(burningsun.layoutXProperty(), -180),
                         new KeyValue(burningsun.layoutYProperty(), -59)),
                 new KeyFrame(Duration.minutes(1.5),
                         new KeyValue(burningsun.layoutYProperty(), -59 - 80)),

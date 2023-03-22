@@ -16,11 +16,14 @@ import javafx.scene.text.Font;
 import model.ModeType;
 import model.Score;
 import visuals.Navigaattori;
+import visuals.audio.AudioMemory;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+
+import static model.ModeType.LEADERBOARD;
 
 public class LeaderboardsController {
 
@@ -67,6 +70,9 @@ public class LeaderboardsController {
      */
     @FXML
     private void initialize() {
+
+        Platform.runLater(() -> AudioMemory.getInstance().playSong(LEADERBOARD));
+
         scoreController = new ScoreController();
         userController = new UserController();
 
@@ -304,6 +310,8 @@ public class LeaderboardsController {
      */
     @FXML
     public void setButtonReturn(ActionEvent event) {
+
+        Platform.runLater(() -> AudioMemory.getInstance().stopSong(LEADERBOARD));
         try {
             Navigaattori.getInstance().changeScene(ModeType.MENU);
         } catch (IOException e) {
