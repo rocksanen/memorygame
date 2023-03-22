@@ -14,7 +14,6 @@ import visuals.gameModes.easy.FXEasyController;
 import visuals.gameModes.hard.FXHardController;
 import visuals.gameModes.medium.FXMediumController;
 import visuals.internationalization.JavaFXInternationalization;
-
 import java.io.IOException;
 import java.util.Locale;
 import java.util.Objects;
@@ -72,6 +71,7 @@ public class Navigaattori extends Application {
                 FXHardController fxHardController = loader.getController();
                 fxHardController.setController(new ScoreController());
             }
+
             case LEADERBOARD -> pane = FXMLLoader
                     .load(Objects.requireNonNull(getClass().getResource("/visuals/stats/Leaderboards.fxml")));
 
@@ -79,6 +79,7 @@ public class Navigaattori extends Application {
                 ResourceBundle bundle = i18n.internationalizationLoaderProperties();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/visuals/internationalization/info.fxml"),
                         bundle);
+
                 pane = loader.load();
             }
         }
@@ -100,8 +101,10 @@ public class Navigaattori extends Application {
         loader.setLocation(getClass().getResource(MENU));
         loader.setResources(bundle);
         Parent root = loader.load();
-        // ORIGINAL ----> Parent root = FXMLLoader.load
-        // (Objects.requireNonNull(getClass().getResource(MENU)));
+
+        // ORIGINAL
+        //
+        // Parentroot=FXMLLoader.load(Objects.requireNonNull(getClass().getResource(MENU)));
 
         Scene scene = new Scene(root, 1250, 750);
         camera.setFieldOfView(25);
