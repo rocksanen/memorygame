@@ -17,30 +17,30 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
+import model.ModeType;
 import org.jetbrains.annotations.NotNull;
 import visuals.Effects;
+import visuals.Navigaattori;
 import visuals.audio.AudioMemory;
 import visuals.effects.gameEffects.BackGroundMover;
 import visuals.effects.menuEffects.BurningSun;
 import visuals.effects.menuEffects.MenuLayoutEffects;
 
-public class IntroEffects{
+import java.io.IOException;
 
+public class IntroEffects{
     private final double japanStart = 0.6; //0.26
     private final double jungleStart = 0.29; // 0.2
     private final double redtreeStart = 0.75; //0.35
-    private final Rotate rotateZ = new Rotate(0, Rotate.Z_AXIS);
-    private final Rotate jungleZ = new Rotate(0, Rotate.Z_AXIS);
+
     public void intro(
-            @NotNull Label first, @NotNull ImageView groupFour,
-            @NotNull Pane logAndReg, @NotNull ImageView sun,
-            @NotNull ImageView lightning, @NotNull ImageView blacksun,
-            @NotNull ImageView easyFrame, @NotNull ImageView mediumFrame, @NotNull ImageView hardFrame,
-            ImageView memomaze, Label textLoggedIn, ImageView loading,
-            ImageView kotoku, ImageView tigerden, ImageView treeoflife, ImageView pergament,
-            ImageView burningSun, AnchorPane startBlack,Pane gamePane,
-            ImageView japan, ImageView jungle, ImageView redtree,
-            ImageView miniEasy, ImageView miniMedium, ImageView miniHard, ImageView dirt) {
+            Label first,ImageView groupFour, Pane logAndReg,ImageView sun,
+            ImageView lightning, ImageView easyFrame,ImageView mediumFrame,
+            ImageView hardFrame, ImageView memomaze,ImageView loading,
+            ImageView kotoku, ImageView tigerden, ImageView treeoflife,
+            ImageView pergament, AnchorPane startBlack,Pane gamePane, ImageView japan,
+            ImageView jungle, ImageView redtree, ImageView miniEasy, ImageView miniMedium,
+            ImageView miniHard) {
 
 
         logAndReg.setOpacity(0);
@@ -66,20 +66,6 @@ public class IntroEffects{
         SepiaTone sunTone = new SepiaTone();
         sunTone.setLevel(0);
         Platform.runLater(() -> sun.setEffect(sunTone));
-
-        Timeline timelySun = new Timeline(
-                new KeyFrame(Duration.ZERO),
-                new KeyFrame(Duration.seconds(28.5))
-        );
-
-
-        timelySun.setOnFinished(actionEvent -> {
-
-            Platform.runLater(() -> BurningSun.getInstance().burningSunMove(burningSun));
-
-        });
-
-        timelySun.play();
 
 
         BoxBlur fourblur = new BoxBlur();
@@ -218,15 +204,10 @@ public class IntroEffects{
                         new KeyValue(sepiaTone.levelProperty(), 0))
         );
 
-
-
         timeline.play();
         timeline.setOnFinished(actionEvent -> {
 
             timeline.stop();
-            moveMenuBackground(pergament,dirt,redtree,jungle);
-            blacksun.setDisable(true);
-            blacksun.setVisible(false);
             sun.setDisable(true);
             sun.setVisible(false);
             startBlack.setDisable(true);
@@ -237,52 +218,12 @@ public class IntroEffects{
             first.setVisible(false);
             groupFour.setDisable(true);
             groupFour.setVisible(false);
-            textLoggedIn.setVisible(true);
+
+            try {
+                Navigaattori.getInstance().changeScene(ModeType.MENU);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
-    }
-
-    private void moveMenuBackground(ImageView pergament, ImageView dirt, ImageView redtree, ImageView jungle) {
-
-        MenuLayoutEffects menuLayoutEffects = new MenuLayoutEffects();
-
-        Platform.runLater(() -> menuLayoutEffects.setGlow(pergament));
-        Platform.runLater(() -> menuLayoutEffects.moveDirt(dirt));
-        Platform.runLater(() -> menuLayoutEffects.moveJungle(jungle));
-        Platform.runLater(() -> menuLayoutEffects.moveRedTree(redtree));
-
-        Timeline backMover = new Timeline(
-                new KeyFrame(Duration.ZERO),
-                new KeyFrame(Duration.seconds(0.5),
-                        new KeyValue(dirt.scaleXProperty(), dirt.getScaleX())),
-                new KeyFrame(Duration.seconds(15),
-                        new KeyValue(dirt.scaleXProperty(), dirt.getScaleX() + 0.4)));
-
-        redtree.getTransforms().add(rotateZ);
-        jungle.getTransforms().add(jungleZ);
-
-        Timeline redLine = new Timeline(
-                new KeyFrame(Duration.ZERO),
-                new KeyFrame(Duration.seconds(0.5),
-                        new KeyValue(rotateZ.angleProperty(), 0)),
-                new KeyFrame(Duration.seconds(15),
-                        new KeyValue(rotateZ.angleProperty(), 4)));
-
-        Timeline jungleLine = new Timeline(
-                new KeyFrame(Duration.ZERO,
-                        new KeyValue(jungleZ.angleProperty(), 0)),
-                new KeyFrame(Duration.seconds(20),
-                        new KeyValue(jungleZ.angleProperty(), -1.2)));
-
-        jungleLine.setAutoReverse(true);
-        jungleLine.setCycleCount(Timeline.INDEFINITE);
-        jungleLine.play();
-
-        redLine.setAutoReverse(true);
-        redLine.setCycleCount(Timeline.INDEFINITE);
-        redLine.play();
-        backMover.setAutoReverse(true);
-        backMover.setCycleCount(Timeline.INDEFINITE);
-        backMover.play();
-        System.out.println(backMover.getCycleCount() + " cycle määrä");
     }
 }

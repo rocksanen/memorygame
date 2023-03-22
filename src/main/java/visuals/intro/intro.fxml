@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.intro.Intro">
+<AnchorPane id="bottom" fx:id="bottom" onMouseClicked="#exitIntro" prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.intro.Intro">
     <children>
-        <AnchorPane id="menuAnkkuri" fx:id="menuAnkkuri" prefHeight="750.0" prefWidth="1250.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane id="menuAnkkuri" fx:id="menuAnkkuri" mouseTransparent="true" prefHeight="750.0" prefWidth="1250.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
       
                   <ImageView id="pergament" fx:id="pergament" fitHeight="754.0" fitWidth="1260.0" scaleX="1.2" scaleY="1.2" translateZ="200.0">
@@ -79,7 +79,7 @@
                         </Glow>
                      </effect>
                         </ImageView>
-                        <ImageView id="miniEasy" fx:id="miniEasy" fitHeight="118.0" fitWidth="198.0" layoutX="101.0" layoutY="259.0" onMouseClicked="#easyStartScreenPlay" onMouseEntered="#easyInfoOn" onMouseExited="#easyInfoOff" translateZ="-200.0">
+                        <ImageView id="miniEasy" fx:id="miniEasy" fitHeight="118.0" fitWidth="198.0" layoutX="101.0" layoutY="259.0" translateZ="-200.0">
                             <image>
                                 <Image url="@../images/background.png" />
                             </image>
@@ -107,7 +107,7 @@
                         </Glow>
                      </effect>
                         </ImageView>
-                        <ImageView id="miniMedium" fx:id="miniMedium" fitHeight="118.0" fitWidth="198.0" layoutX="363.0" layoutY="100.0" onMouseClicked="#mediumStartScreenPlay" onMouseEntered="#mediumInfoOn" onMouseExited="#mediumInfoOff" translateZ="68.0">
+                        <ImageView id="miniMedium" fx:id="miniMedium" fitHeight="118.0" fitWidth="198.0" layoutX="363.0" layoutY="100.0" translateZ="68.0">
                             <image>
                                 <Image url="@../images/tigru.jpg" />
                             </image>
@@ -135,7 +135,7 @@
                         </Glow>
                      </effect>
                         </ImageView>
-                        <ImageView id="miniHard" fx:id="miniHard" fitHeight="118.0" fitWidth="198.0" layoutX="630.0" layoutY="259.0" onMouseClicked="#hardStartScreenPlay" onMouseEntered="#hardInfoOn" onMouseExited="#hardInfoOff">
+                        <ImageView id="miniHard" fx:id="miniHard" fitHeight="118.0" fitWidth="198.0" layoutX="630.0" layoutY="259.0">
                             <image>
                                 <Image url="@../images/hardback4.jpg" />
                             </image>
@@ -155,19 +155,19 @@
                 </Pane>
             </children>
         </AnchorPane>
-      <ImageView id="telkku" fx:id="telkku" fitHeight="1218.0" fitWidth="1616.0" layoutX="-181.0" layoutY="-139.0">
+      <ImageView id="telkku" fx:id="telkku" fitHeight="1218.0" fitWidth="1616.0" layoutX="-181.0" layoutY="-139.0" mouseTransparent="true">
          <image>
             <Image url="@../images/tv.png" />
          </image>
       </ImageView>
-      <Pane id="logAndReg" fx:id="logAndReg" layoutX="44.0" layoutY="-4.0" prefHeight="348.0" prefWidth="235.0">
+      <Pane id="logAndReg" fx:id="logAndReg" layoutX="44.0" layoutY="-4.0" mouseTransparent="true" prefHeight="348.0" prefWidth="235.0">
          <children>
             <ImageView fitHeight="254.0" fitWidth="176.0" layoutX="30.0" layoutY="58.0" opacity="0.03">
                <image>
                   <Image url="@../images/logtest2.jpg" />
                </image>
             </ImageView>
-             <Button fx:id="stats" layoutX="40.0" layoutY="75.0" mnemonicParsing="false" onMouseClicked="#statsGame" prefHeight="20.0" prefWidth="102.0" text="Stats" textAlignment="CENTER" visible="false">
+             <Button fx:id="stats" layoutX="40.0" layoutY="75.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="102.0" text="Stats" textAlignment="CENTER" visible="false">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
@@ -191,11 +191,11 @@
                      </effect>
                   </ImageView>
                       <TextField fx:id="password" layoutX="52.0" layoutY="193.0" opacity="0.6" prefHeight="25.0" prefWidth="158.0" />
-                   <Button fx:id="register" layoutX="75.0" layoutY="269.0" mnemonicParsing="false" onMouseClicked="#registerPane" prefHeight="20.0" prefWidth="110.0" text="Register">
+                   <Button fx:id="register" layoutX="75.0" layoutY="269.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="110.0" text="Register">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
-                      <Button fx:id="login" layoutX="75.0" layoutY="228.0" mnemonicParsing="false" onMouseClicked="#loginPane" prefHeight="20.0" prefWidth="110.0" text="Login">
+                      <Button fx:id="login" layoutX="75.0" layoutY="228.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="110.0" text="Login">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
@@ -204,7 +204,7 @@
             </Pane>
          </children>
       </Pane>
-      <AnchorPane id="startBlack" fx:id="startBlack" onMouseClicked="#exitIntro" prefHeight="780.0" prefWidth="1250.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane id="startBlack" fx:id="startBlack" mouseTransparent="true" prefHeight="780.0" prefWidth="1250.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView id="lightning" fx:id="lightning" fitHeight="457.0" fitWidth="402.0" layoutX="16.0" layoutY="-79.0" opacity="0.0" rotate="-12.0">
                <image>
