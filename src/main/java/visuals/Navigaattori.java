@@ -13,8 +13,15 @@ import model.ModeType;
 import visuals.gameModes.easy.FXEasyController;
 import visuals.gameModes.hard.FXHardController;
 import visuals.gameModes.medium.FXMediumController;
+import visuals.internationalization.JavaFXInternationalization;
+
+
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.ResourceBundle;
+import java.util.function.Supplier;
+
 
 public class Navigaattori extends Application {
 
@@ -22,6 +29,10 @@ public class Navigaattori extends Application {
     private final String MENU = "/visuals/menu/menu.fxml";
     private static Stage MAINSTAGE;
     public static PerspectiveCamera camera = new PerspectiveCamera();
+
+    private final JavaFXInternationalization i18n = new JavaFXInternationalization();
+    private ResourceBundle bundle;
+
 
     public static void main(String[] args) {
         launch(args);
@@ -65,11 +76,15 @@ public class Navigaattori extends Application {
                 fxHardController.setController(new ScoreController());
             }
             case IMPOSSIBLE -> pane = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/visuals/stats/Leaderboards.fxml")));
+            case INFO -> {
+                ResourceBundle bundle = i18n.internationalizationLoaderProperties();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/visuals/internationalization/info.fxml"), bundle);
+                pane = loader.load();
+            }
         }
 
         MAINSTAGE.getScene().setRoot(pane);
     }
-
     @Override public void start (Stage stage) throws Exception {
 
         MAINSTAGE = new Stage ();
@@ -79,7 +94,12 @@ public class Navigaattori extends Application {
             System.exit(0);
         });
 
-        Parent root = FXMLLoader.load (Objects.requireNonNull(getClass().getResource(MENU)));
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(MENU));
+        loader.setResources(bundle);
+        Parent root = loader.load();
+        //ORIGINAL ----> Parent root = FXMLLoader.load (Objects.requireNonNull(getClass().getResource(MENU)));
+
         Scene scene = new Scene(root, 1250, 750);
         camera.setFieldOfView(25);
         scene.setCamera(camera);

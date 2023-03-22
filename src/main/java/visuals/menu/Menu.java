@@ -442,4 +442,15 @@ public class Menu implements Initializable, IMenu {
             e.printStackTrace();
         }
     }
+
+
+    @FXML
+    public void setInfoButton() {
+        try {
+            Navigaattori.getInstance().changeScene(ModeType.INFO);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
