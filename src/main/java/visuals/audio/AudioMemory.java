@@ -17,8 +17,7 @@ public class AudioMemory {
     private final MediaPlayer mediumPlayer;
     private final MediaPlayer hardPlayer;
     private final MediaPlayer menuRetoSong;
-
-    public static Boolean noIntro = false;
+    private final MediaPlayer leaderBoardPlayer;
 
     private AudioMemory() {
 
@@ -30,6 +29,8 @@ public class AudioMemory {
         Media hardMedia = new Media(new File(hardSong).toURI().toString());
         String menuRetro = "src/main/java/visuals/audio/audioFiles/menuRetro.mp3";
         Media menuMedia = new Media(new File(menuRetro).toURI().toString());
+        String leaderBoardSong = "src/main/java/visuals/audio/audioFiles/leaderboardmusic.mp3";
+        Media leaderBoardMedia = new Media(new File(leaderBoardSong).toURI().toString());
 
         easyPlayer = new MediaPlayer(easyMedia);
         easyPlayer.setCycleCount(10);
@@ -39,7 +40,8 @@ public class AudioMemory {
         hardPlayer.setCycleCount(10);
         menuRetoSong = new MediaPlayer(menuMedia);
         menuRetoSong.setCycleCount(10);
-
+        leaderBoardPlayer = new MediaPlayer(leaderBoardMedia);
+        leaderBoardPlayer.setCycleCount(10);
     }
 
     public static AudioMemory getInstance() {
@@ -56,6 +58,7 @@ public class AudioMemory {
             case EASY -> playTheSong(easyPlayer);
             case MEDIUM -> playTheSong(mediumPlayer);
             case HARD -> playTheSong(hardPlayer);
+            case LEADERBOARD -> playTheSong(leaderBoardPlayer);
         }
     }
 
@@ -66,16 +69,7 @@ public class AudioMemory {
             case EASY -> stopTheSong(easyPlayer);
             case MEDIUM -> stopTheSong(mediumPlayer);
             case HARD -> stopTheSong(hardPlayer);
-        }
-    }
-
-    public void pauseSong(ModeType type) {
-
-        switch (type) {
-            case MENU -> menuRetoSong.play();
-            case EASY -> easyPlayer.pause();
-            case MEDIUM -> mediumPlayer.pause();
-            case HARD -> hardPlayer.pause();
+            case LEADERBOARD -> stopTheSong(leaderBoardPlayer);
         }
     }
 
@@ -88,10 +82,8 @@ public class AudioMemory {
                 new KeyFrame(Duration.seconds(1), new KeyValue(mediaPlayer.volumeProperty(), 1))
         );
         fadeIn.play();
-
-
-
     }
+
     public void playTheIntro() {
 
         menuRetoSong.setVolume(0);
@@ -101,7 +93,6 @@ public class AudioMemory {
                 new KeyFrame(Duration.seconds(5), new KeyValue(menuRetoSong.volumeProperty(), 1))
         );
         fadeIn.play();
-
     }
 
     private void stopTheSong(MediaPlayer mediaPlayer) {
@@ -111,6 +102,5 @@ public class AudioMemory {
         );
         fadeOut.setOnFinished(event -> mediaPlayer.stop());
         fadeOut.play();
-
     }
 }

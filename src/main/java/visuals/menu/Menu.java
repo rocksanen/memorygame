@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 import model.ModeType;
 import visuals.Navigaattori;
 import visuals.audio.AudioMemory;
-import visuals.effects.introEffects.IntroEffects;
 import visuals.effects.menuEffects.BurningSun;
 import visuals.effects.menuEffects.IMenuLayoutEffects;
 import visuals.effects.menuEffects.MenuLayoutEffects;
@@ -25,11 +24,8 @@ import visuals.imageServers.ImageCache;
 import visuals.stats.ChartGUI;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Properties;
 import java.util.ResourceBundle;
 
 import static model.ModeType.*;
@@ -345,8 +341,10 @@ public class Menu implements Initializable, IMenu {
 
     @FXML
     public void setButtonLeaderboards() {
+
+        Platform.runLater(() -> AudioMemory.getInstance().stopSong(MENU));
         try {
-            Navigaattori.getInstance().changeScene(ModeType.IMPOSSIBLE);
+            Navigaattori.getInstance().changeScene(LEADERBOARD);
         } catch (IOException e) {
             e.printStackTrace();
         }

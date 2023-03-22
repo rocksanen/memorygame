@@ -11,20 +11,13 @@ import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.Reflection;
 import javafx.scene.effect.SepiaTone;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 import model.ModeType;
-import org.jetbrains.annotations.NotNull;
-import visuals.Effects;
 import visuals.Navigaattori;
 import visuals.audio.AudioMemory;
-import visuals.effects.gameEffects.BackGroundMover;
-import visuals.effects.menuEffects.BurningSun;
-import visuals.effects.menuEffects.MenuLayoutEffects;
 
 import java.io.IOException;
 
@@ -57,8 +50,6 @@ public class IntroEffects{
         tigerden.setOpacity(0);
         treeoflife.setOpacity(0);
 
-
-        AudioMemory.noIntro = true;
         SepiaTone sepiaTone = new SepiaTone();
         sepiaTone.setLevel(1);
         Platform.runLater(() -> pergament.setEffect(sepiaTone));
