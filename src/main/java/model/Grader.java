@@ -88,8 +88,7 @@ public class Grader {
 
 
     /**
-     * gives grade for points. max points ⭐⭐⭐⭐ at over 75% of max possible score.
-     * min grade ⭐ at 50% of max possible score.
+     * gives grades for points. returns maximum 4 stars. ⭐⭐⭐⭐
      * @param points   points
      * @param modeType difficulty
      * @return grade
