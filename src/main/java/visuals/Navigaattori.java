@@ -97,14 +97,17 @@ public class Navigaattori extends Application {
             System.exit(0);
         });
 
+        /*
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(MENU));
         loader.setResources(bundle);
+
         Parent root = loader.load();
 
-        // ORIGINAL
-        //
-        // Parentroot=FXMLLoader.load(Objects.requireNonNull(getClass().getResource(MENU)));
+         */
+
+
+        Parent root = FXMLLoader.load (Objects.requireNonNull(getClass().getResource("/visuals/intro/intro.fxml")));
 
         Scene scene = new Scene(root, 1250, 750);
         camera.setFieldOfView(25);
