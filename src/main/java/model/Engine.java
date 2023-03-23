@@ -80,16 +80,14 @@ public class Engine implements IEngine {
     private int totalScore = 0;
 
     /**
-     * The points given for the next correct guess.
-     */
-    private int nextScore = 1000;
-
-    /**
      * The number of incorrect tries. Resets when a correct guess is made.
      */
     int incorrectTries = 0;
 
     private long timerTime = 1000;
+
+    private long lastCorrectGuess;
+
 
     public long getTimerTime() {
         return timerTime;
@@ -113,6 +111,7 @@ public class Engine implements IEngine {
 
         // get current time
         this.startTime = System.currentTimeMillis();
+        lastCorrectGuess = startTime;
     }
 
     @Override
@@ -175,7 +174,7 @@ public class Engine implements IEngine {
     @Override
     public void addToComparing(int i) {
 
-        System.out.println("tänne meni");
+//        System.out.println("tänne meni");
         MemoryObject memoryObject = memoryObjectsList.get(i);
         controller.getActive(i);
         if (!rightPairList.contains(memoryObject.getTypeId())) {
@@ -260,23 +259,15 @@ public class Engine implements IEngine {
     public void updateScore(CompareResultType type) {
         switch (type) {
             case EQUAL -> {
-                totalScore += nextScore;
-                nextScore = 1000;
+                totalScore += Grader.calculatePoints(
+                        incorrectTries, lastCorrectGuess - System.currentTimeMillis());
                 incorrectTries = 0;
+                lastCorrectGuess = System.currentTimeMillis();
             }
             case NOTEQUAL -> {
                 incorrectTries++;
-                if (incorrectTries < 5) {
-                    nextScore -= 100 * incorrectTries;
-                }
-                if (nextScore < 100) {
-                    nextScore = 100;
-                }
             }
         }
-        System.out.println("Total score: " + totalScore);
-        System.out.println("Incorrect tries: " + incorrectTries);
-        System.out.println("Next score: " + nextScore);
     }
 
     /**
@@ -289,15 +280,6 @@ public class Engine implements IEngine {
         return totalScore;
     }
 
-    /**
-     * Getter for the next score.
-     *
-     * @return see {@link #nextScore}
-     */
-    @Override
-    public int getNextScore() {
-        return nextScore;
-    }
 
     @Override
     public void clearStorage() {

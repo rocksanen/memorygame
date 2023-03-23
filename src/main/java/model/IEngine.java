@@ -8,8 +8,6 @@ public interface IEngine {
 
     void setChosenObjectReady(MemoryObject object);
 
-    int getNextScore();
-
     void compareObjects(ArrayList<MemoryObject> objectList);
 
     void setMemoryObjects();
@@ -22,12 +20,12 @@ public interface IEngine {
 
     void setPersonalScore();
 
+    int getTotalScore();
+
     void clearStorage();
     void endGame();
     void setReturnStatus(boolean returnStatus);
     int getActiveId();
     long getTimerTime();
     void stopTimer();
-
-    int getTotalScore();
 }

@@ -193,14 +193,4 @@ public class ScoreController implements IScoreController {
     public int getTotalScore() {
         return engine.getTotalScore();
     }
-
-    /**
-     * returns the score for the next correct guess
-     *
-     * @return the score for the next correct guess
-     */
-    @Override
-    public int getNextScore() {
-        return engine.getNextScore();
-    }
 }
