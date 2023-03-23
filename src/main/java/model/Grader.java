@@ -3,7 +3,7 @@ package model;
 public class Grader {
 
     /**
-     *  The initial score before calculations
+     * The initial score before calculations
      */
     private static final int INITIAL_SCORE = 1000;
 
@@ -18,7 +18,7 @@ public class Grader {
     private static final int TRIES_INCREMENT = 100;
 
     /**
-     *  Smallest possible time used in calculations
+     * Smallest possible time used in calculations
      */
     private static final double MIN_SEC_CLAMP = 3;
 
@@ -42,10 +42,11 @@ public class Grader {
 
     /**
      * Calculates the score based on the number of tries and the time (s)
-     *  uses line equation y = mx + b
-     *  where y is the score multiplier, x is the time in seconds
-     *  m = (MIN_SCORE_MULT - MAX_SCORE_MULT) / (MAX_SEC_CLAMP - MIN_SEC_CLAMP)
-     * @param tries number of tries
+     * uses line equation y = mx + b
+     * where y is the score multiplier, x is the time in seconds
+     * m = (MIN_SCORE_MULT - MAX_SCORE_MULT) / (MAX_SEC_CLAMP - MIN_SEC_CLAMP)
+     *
+     * @param tries  number of tries
      * @param millis time in milliseconds since last correct guess
      * @return the score
      */
@@ -83,7 +84,34 @@ public class Grader {
         }
         System.out.println("Final score: " + finalScore);
         return (int) finalScore;
+    }
 
 
+    /**
+     * gives grades for points. returns maximum 4 stars. ⭐⭐⭐⭐
+     * @param points   points
+     * @param modeType difficulty
+     * @return grade
+     */
+    public static String scoreGrader(int points, ModeType modeType) {
+
+        int numberOfCubes = 1;
+        switch (modeType) {
+            case EASY -> numberOfCubes = 6;
+            case MEDIUM -> numberOfCubes = 12;
+            case HARD -> numberOfCubes = 20;
+        }
+
+        int maxPossibleScore = INITIAL_SCORE * (numberOfCubes / 2);
+
+        // numbers selected for vanity reasons
+        if (points <= maxPossibleScore * 0.4) {
+            return "⭐";
+        } else if (points <= maxPossibleScore * 0.6) {
+            return "⭐⭐";
+        } else if (points <= maxPossibleScore * 0.8) {
+            return "⭐⭐⭐";
+        }
+        return "⭐⭐⭐⭐";
     }
 }

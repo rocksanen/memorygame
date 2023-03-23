@@ -58,9 +58,9 @@ public class Score {
         this.time = lb.getTime();
         this.timestamp = lb.getTimestamp();
         this.difficulty = lb.getDifficulty();
-        this.grade = scoreGrader(time, difficulty);
         this.scoreid = lb.getScoreid();
         this.points = lb.getPoints();
+        this.grade = Grader.scoreGrader(points, difficulty);
     }
 
     /**
@@ -126,58 +126,6 @@ public class Score {
         return points;
     }
 
-    /**
-     * 3 difficulties, 4 grades each
-     * 💀
-     * can easily be changed later to anything, has no relevance to anything
-     *
-     * @param seconds  time in seconds
-     * @param modeType difficulty
-     * @return grade
-     */
-    private String scoreGrader(Double seconds, ModeType modeType) {
-
-        //temp
-        return ("⭐⭐⭐");
-
-//        switch (modeType.toString()) {
-//            case "easy" -> {
-//                if (seconds < 10) {
-//                    grade = "🎉";
-//                } else if (seconds >= 10 && seconds < 20) {
-//                    grade = "😲🤯";
-//                } else if (seconds >= 20 && seconds < 30) {
-//                    grade = "😲";
-//                } else if (seconds >= 30 && seconds < 40) {
-//                    grade = "💀";
-//                }
-//            }
-//            case "medium" -> {
-//                if (seconds < 10) {
-//                    grade = "Incredible!";
-//                } else if (seconds >= 10 && seconds < 20) {
-//                    grade = "Excellent";
-//                } else if (seconds >= 20 && seconds < 30) {
-//                    grade = "Well done";
-//                } else if (seconds >= 30 && seconds < 40) {
-//                    grade = "Try again";
-//                }
-//            }
-//            case "hard" -> {
-//                if (seconds < 10) {
-//                    grade = "John von Neumann reborn";
-//                } else if (seconds >= 10 && seconds < 20) {
-//                    grade = "Excellent";
-//                } else if (seconds >= 20 && seconds < 30) {
-//                    grade = "Well done";
-//                } else if (seconds >= 30 && seconds < 40) {
-//                    grade = "Maybe try an easier difficulty?";
-//                }
-//            }
-//            default -> grade = "Hämmästyttävä";
-//        }
-//        return grade;
-    }
 
     /**
      * toString method for Score
