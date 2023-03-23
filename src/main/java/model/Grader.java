@@ -70,11 +70,11 @@ public class Grader {
         // clamp y
         y = Math.max(Math.min(y, MAX_SCORE_MULT), MIN_SCORE_MULT);
 
-        System.out.println("Mid score: " + midScore);
-        System.out.println("Multiplier: " + y);
-        System.out.println("Seconds: " + x);
-        System.out.println("m: " + m);
-        System.out.println("b: " + b);
+//        System.out.println("Mid score: " + midScore);
+//        System.out.println("Multiplier: " + y);
+//        System.out.println("Seconds: " + x);
+//        System.out.println("m: " + m);
+//        System.out.println("b: " + b);
 
 
         double finalScore = midScore * y;
