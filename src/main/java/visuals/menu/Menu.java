@@ -366,12 +366,13 @@ public class Menu implements Initializable, IMenu {
 
     @FXML
     public void setInfoButton() {
+
+        BurningSun.getInstance().savePosition();
         try {
             Navigaattori.getInstance().changeScene(ModeType.INFO);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     @FXML
