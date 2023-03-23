@@ -28,5 +28,4 @@ public interface IScoreController {
 
     int getTotalScore();
 
-    int getNextScore();
 }
