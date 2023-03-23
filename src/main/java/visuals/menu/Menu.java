@@ -1,13 +1,12 @@
 package visuals.menu;
 
-import controller.IScoreController;
-import controller.IUserController;
-import controller.ScoreController;
-import controller.UserController;
+import controller.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -16,6 +15,7 @@ import javafx.stage.Stage;
 import model.ModeType;
 import visuals.Navigaattori;
 import visuals.audio.AudioMemory;
+import visuals.effects.commonHovers.Hovers;
 import visuals.effects.menuEffects.BurningSun;
 import visuals.effects.menuEffects.IMenuLayoutEffects;
 import visuals.effects.menuEffects.MenuLayoutEffects;
@@ -23,9 +23,9 @@ import visuals.effects.menuEffects.ZoomInEffects;
 import visuals.imageServers.ImageCache;
 import visuals.stats.ChartGUI;
 
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import static model.ModeType.*;
@@ -36,6 +36,7 @@ public class Menu implements Initializable, IMenu {
     private final IUserController userController = new UserController(this);
     private final ZoomInEffects zoomInEffects = new ZoomInEffects();
     private final IMenuLayoutEffects menuLayoutEffects = new MenuLayoutEffects();
+    private final Hovers hovers = new Hovers(menuLayoutEffects);
 
     @FXML
     ImageView burningsun;
@@ -59,8 +60,6 @@ public class Menu implements Initializable, IMenu {
     AnchorPane menuAnkkuri;
     @FXML
     ImageView pergament;
-    @FXML
-    ImageView blacksun;
     @FXML
     ImageView miniEasy;
     @FXML
@@ -113,8 +112,11 @@ public class Menu implements Initializable, IMenu {
     ImageView telkku;
     @FXML
     Button buttonLeaderboards;
-    public static ArrayList<String> worldList;
-    public static ArrayList<String> personalList;
+    @FXML ImageView loginButtonImage;
+    @FXML ImageView registerButtonImage;
+    @FXML Pane leaderPane;
+    @FXML Pane logOutPane;
+    @FXML ImageView info;
     private boolean returnStatus;
 
 
@@ -142,6 +144,7 @@ public class Menu implements Initializable, IMenu {
         zoomInEffects.setMiniImagesAndFrames(miniEasy, miniMedium, miniHard, easyFrame, mediumFrame, hardFrame);
         zoomInEffects.setEssenceImages(japan, jungle, redtree);
         zoomInEffects.setGeneralObjects(pergament);
+        menuLayoutEffects.infoBlink(info);
     }
 
     public boolean isReturnStatus() {
@@ -151,31 +154,31 @@ public class Menu implements Initializable, IMenu {
     @FXML
     public void easyStartScreenPlay() {
 
-        BurningSun.getInstance().savePosition();
-        worldList = scoreController.getTopFiveScores(EASY);
-        personalList = scoreController.getTopFivePersonalScores(EASY);
-        miniEasy.setMouseTransparent(true);
+        prepareToPlay();
         Platform.runLater(() -> zoomInEffects.gameZoomIn(803, 10, -145.5, 14.5, EASY));
     }
 
     @FXML
     public void mediumStartScreenPlay() {
 
-        BurningSun.getInstance().savePosition();
-        worldList = scoreController.getTopFiveScores(MEDIUM);
-        personalList = scoreController.getTopFivePersonalScores(MEDIUM);
-        miniMedium.setMouseTransparent(true);
+        prepareToPlay();
         Platform.runLater(() -> zoomInEffects.gameZoomIn(1071, 10, 117.2, -144.92, MEDIUM));
     }
 
     @FXML
     public void hardStartScreenPlay() {
 
-        BurningSun.getInstance().savePosition();
-        worldList = scoreController.getTopFiveScores(HARD);
-        personalList = scoreController.getTopFivePersonalScores(HARD);
-        miniHard.setMouseTransparent(true);
+        prepareToPlay();
         Platform.runLater(() -> zoomInEffects.gameZoomIn(1002, 10, 384, 14, HARD));
+    }
+
+    private void prepareToPlay() {
+
+        Platform.runLater(() -> miniEasy.setMouseTransparent(true));
+        Platform.runLater(() -> miniMedium.setMouseTransparent(true));
+        Platform.runLater(() -> miniHard.setMouseTransparent(true));
+        BurningSun.getInstance().savePosition();
+        menuLayoutEffects.stopTimelines();
     }
 
     @FXML
@@ -192,9 +195,9 @@ public class Menu implements Initializable, IMenu {
             System.out.println("Registration failed");
             return;
         }
-        paneLogin.setVisible(false);
-        buttonLogout.setVisible(true);
-        labelLoggedIn.setText("Logged in as " + userController.getUsername());
+        Platform.runLater(() -> paneLogin.setVisible(false));
+        Platform.runLater(() -> buttonLogout.setVisible(true));
+        Platform.runLater(() -> labelLoggedIn.setText("Logged in as " + userController.getUsername()));
     }
 
 
@@ -209,12 +212,11 @@ public class Menu implements Initializable, IMenu {
                 stats.setVisible(false);
                 return;
             }
-            paneLogin.setVisible(false);
-            buttonLogout.setVisible(true);
-            stats.setVisible(true);
+            Platform.runLater(() -> paneLogin.setVisible(false));
+            Platform.runLater(() -> leaderPane.setVisible(true));
+            Platform.runLater(() -> logOutPane.setVisible(true));
 
-            labelLoggedIn.setText("Logged in as " + userController.getUsername());
-
+            Platform.runLater(() -> labelLoggedIn.setText("Logged in as " + userController.getUsername()));
 
             Thread thread = new Thread(scoreController::fetchPersonalScores);
             thread.start();
@@ -235,15 +237,23 @@ public class Menu implements Initializable, IMenu {
 
         labelLoggedIn.setText(userController.isLoggedIn() ? "Logged in as " + userController.getUsername() : "Not logged in");
 
+        /*
         buttonLogout.setFont(outrun);
         // make button logout purple with shadow, white text and hover effect
         buttonLogout.setStyle(
                 "-fx-background-color: rgba(0,0,0,0.50); -fx-background-radius: 5; -fx-padding: 1 2 1 2; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
+
+         */
+
+        /*
         stats.setFont(outrun);
         stats.setStyle(
                 "-fx-background-color: rgba(0,0,0,0.50); -fx-background-radius: 5; -fx-padding: 1 2 1 2; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
 
 
+         */
+
+        /*
         login.setFont(outrun);
         login.setStyle(
                 "-fx-background-color: rgba(0,0,0,0.50); -fx-background-radius: 5; -fx-padding: 1 2 1 2; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
@@ -251,6 +261,8 @@ public class Menu implements Initializable, IMenu {
         register.setStyle(
                 "-fx-background-color: rgba(0,0,0,0.50); -fx-background-radius: 5; -fx-padding: 1 2 1 2; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
 
+
+         */
     }
 
     private void setMenuImages() {
@@ -319,9 +331,9 @@ public class Menu implements Initializable, IMenu {
             labelLoggedIn.setText("Not logged in");
             name.clear();
             password.clear();
-            buttonLogout.setVisible(false);
-            stats.setVisible(false);
-            paneLogin.setVisible(true);
+            Platform.runLater(() -> logOutPane.setVisible(false));
+            Platform.runLater(() -> leaderPane.setVisible(false));
+            Platform.runLater(() -> paneLogin.setVisible(true));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -360,5 +372,17 @@ public class Menu implements Initializable, IMenu {
             e.printStackTrace();
         }
 
+    }
+
+    @FXML
+    public void hoverOn(javafx.scene.input.MouseEvent event) {
+
+        hovers.commonHoverOn(event);
+    }
+
+    @FXML
+    public void hoverOff(javafx.scene.input.MouseEvent event) {
+
+        hovers.commonHoverOff(event);
     }
 }

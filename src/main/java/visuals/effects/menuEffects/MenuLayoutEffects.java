@@ -3,6 +3,7 @@ package visuals.effects.menuEffects;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.scene.Node;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
 import javafx.scene.transform.Rotate;
@@ -13,6 +14,11 @@ public class MenuLayoutEffects implements IMenuLayoutEffects{
 
     private final Rotate rotateZ = new Rotate(0, Rotate.Z_AXIS);
     private final Rotate jungleZ = new Rotate(0, Rotate.Z_AXIS);
+    private Timeline dirtMover;
+    private Timeline glowLine;
+    private Timeline redLine;
+    private Timeline jungleLine;
+    private Timeline infoLine;
 
     @Override
     public void displayInfoOn(ImageView a, ImageView b, ImageView c) {
@@ -57,7 +63,7 @@ public class MenuLayoutEffects implements IMenuLayoutEffects{
     @Override
     public void moveDirt(ImageView dirt) {
 
-        Timeline dirtMover = new Timeline(
+        dirtMover = new Timeline(
                 new KeyFrame(Duration.ZERO),
                 new KeyFrame(Duration.seconds(0.5),
                         new KeyValue(dirt.scaleXProperty(), dirt.getScaleX())),
@@ -74,7 +80,7 @@ public class MenuLayoutEffects implements IMenuLayoutEffects{
 
         jungle.getTransforms().add(jungleZ);
 
-        Timeline jungleLine = new Timeline(
+        jungleLine = new Timeline(
                 new KeyFrame(Duration.ZERO,
                         new KeyValue(jungleZ.angleProperty(), 0)),
                 new KeyFrame(Duration.seconds(20),
@@ -90,7 +96,7 @@ public class MenuLayoutEffects implements IMenuLayoutEffects{
 
         redtree.getTransforms().add(rotateZ);
 
-        Timeline redLine = new Timeline(
+        redLine = new Timeline(
                 new KeyFrame(Duration.ZERO),
                 new KeyFrame(Duration.seconds(0.5),
                         new KeyValue(rotateZ.angleProperty(), 0)),
@@ -100,7 +106,6 @@ public class MenuLayoutEffects implements IMenuLayoutEffects{
         redLine.setAutoReverse(true);
         redLine.setCycleCount(Timeline.INDEFINITE);
         redLine.play();
-
     }
 
     @Override
@@ -109,7 +114,7 @@ public class MenuLayoutEffects implements IMenuLayoutEffects{
         Glow glow = new Glow();
         imageView.setEffect(glow);
 
-        Timeline glowLine = new Timeline(
+        glowLine = new Timeline(
                 new KeyFrame(Duration.ZERO,
                         new KeyValue(glow.levelProperty(), 0)),
                 new KeyFrame(Duration.seconds(0.1),
@@ -133,5 +138,49 @@ public class MenuLayoutEffects implements IMenuLayoutEffects{
         glowLine.setAutoReverse(true);
         glowLine.setCycleCount(Timeline.INDEFINITE);
         glowLine.play();
+    }
+
+    @Override
+    public void stopTimelines() {
+        glowLine.stop();
+        dirtMover.stop();
+        jungleLine.stop();
+        redLine.stop();
+        infoLine.stop();
+    }
+
+    @Override
+    public void infoBlink(Node source) {
+
+        Glow glow = new Glow();
+        glow.setLevel(0);
+        source.setEffect(glow);
+
+        infoLine = new Timeline(
+                new KeyFrame(Duration.ZERO),
+                new KeyFrame(Duration.seconds(2),
+                        new KeyValue(glow.levelProperty(),0)),
+                new KeyFrame(Duration.seconds(3),
+                        new KeyValue(glow.levelProperty(),1)),
+                new KeyFrame(Duration.seconds(4),
+                        new KeyValue(glow.levelProperty(),0)),
+                new KeyFrame(Duration.seconds(5),
+                        new KeyValue(glow.levelProperty(),1)),
+                new KeyFrame(Duration.seconds(6),
+                        new KeyValue(glow.levelProperty(),0)),
+                new KeyFrame(Duration.seconds(7),
+                        new KeyValue(glow.levelProperty(),1)),
+                new KeyFrame(Duration.seconds(8),
+                        new KeyValue(glow.levelProperty(),0)),
+                new KeyFrame(Duration.seconds(11))
+        );
+
+        infoLine.setCycleCount(Timeline.INDEFINITE);
+        infoLine.playFromStart();
+    }
+
+    @Override
+    public void stopInfoBlink() {
+        infoLine.stop();
     }
 }
