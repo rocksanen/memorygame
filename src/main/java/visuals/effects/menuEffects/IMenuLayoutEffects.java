@@ -1,5 +1,6 @@
 package visuals.effects.menuEffects;
 
+import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import org.jetbrains.annotations.NotNull;
 
@@ -11,4 +12,7 @@ public interface IMenuLayoutEffects {
     void moveJungle(ImageView jungle);
     void moveRedTree(ImageView redtree);
     void setGlow(@NotNull ImageView imageView);
+    void stopTimelines();
+    void infoBlink(Node source);
+    void stopInfoBlink();
 }

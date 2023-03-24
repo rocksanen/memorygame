@@ -26,9 +26,8 @@ public class Navigaattori extends Application {
     private final String MENU = "/visuals/menu/menu.fxml";
     private static Stage MAINSTAGE;
     public static PerspectiveCamera camera = new PerspectiveCamera();
-
     private final JavaFXInternationalization i18n = new JavaFXInternationalization();
-    private ResourceBundle bundle;
+
 
     public static void main(String[] args) {
         launch(args);
@@ -96,15 +95,6 @@ public class Navigaattori extends Application {
             Platform.exit();
             System.exit(0);
         });
-
-        /*
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(MENU));
-        loader.setResources(bundle);
-
-        Parent root = loader.load();
-
-         */
 
 
         Parent root = FXMLLoader.load (Objects.requireNonNull(getClass().getResource("/visuals/intro/intro.fxml")));
