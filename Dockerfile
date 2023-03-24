@@ -1,14 +1,10 @@
-FROM jenkins/jenkins:jdk17-preview
+FROM jenkins/jenkins:jdk17
 
 USER root
 
 RUN apt-get update && \
-    apt-get install -y maven && \
-    rm -rf /var/lib/apt/lists/* \
-
-RUN jenkins-plugin-cli --plugins "maven-plugin htmlpublisher"
-
-
+    apt-get install -y maven
+RUN jenkins-plugin-cli --plugins "maven-plugin:3.9" htmlpublisher
 
 
 EXPOSE 8080
