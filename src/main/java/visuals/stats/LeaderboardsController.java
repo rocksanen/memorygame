@@ -3,8 +3,6 @@ package visuals.stats;
 import controller.ScoreController;
 import controller.UserController;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -167,26 +165,32 @@ public class LeaderboardsController {
 
         TableColumn<Score, String> gradeCol = new TableColumn<>("Grade");
         gradeCol.setCellValueFactory(new PropertyValueFactory<>("grade"));
+
+        // replace ⭐ characters with ⭐ images
         gradeCol.setCellFactory(column -> new TableCell<Score, String>() {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty || item == null) {
                     setText(null);
+                    setGraphic(null);
                 } else {
-                    int stars = item.length();
                     HBox hBox = new HBox();
-                    for (int i = 0; i < stars; i++) {
-                        ImageView imageView = new ImageView(new Image(Objects.requireNonNull(getClass().getClassLoader()
-                                .getResourceAsStream("images/smol_star.png"))));
-                        imageView.setFitHeight(20);
-                        imageView.setFitWidth(20);
-                        hBox.getChildren().add(imageView);
+                    for (int i = 0; i < item.length(); i++) {
+                        ImageView img = new ImageView(new Image(Objects.requireNonNull(getClass().getClassLoader().
+                                getResourceAsStream("images/small_star.png"))));
+                        img.setFitHeight(20);
+                        img.setFitWidth(20);
+                        hBox.getChildren().add(img);
                     }
+                    setText(null);
                     setGraphic(hBox);
                 }
             }
         });
+
+
+
 
 
 
