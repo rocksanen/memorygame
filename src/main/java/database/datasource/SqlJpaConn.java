@@ -46,32 +46,34 @@ public class SqlJpaConn {
     }
 
     private static Map<String, Object> configOverider() {
-        boolean propsFound = false;
+        Map<String, Object> configOverrides = new HashMap<String, Object>();
+
+
+        System.out.println("config.properties not found, trying to use env variables");
+        configOverrides.put("jakarta.persistence.jdbc.url", System.getenv("MEMORYMAZE_DB_URL"));
+        configOverrides.put("jakarta.persistence.jdbc.user", System.getenv("MEMORYMAZE_DB_USERNAME"));
+        configOverrides.put("jakarta.persistence.jdbc.password", System.getenv("MEMORYMAZE_DB_PASSWORD"));
+
+        // check if env values are null, if not return if yes continue
+        if (configOverrides.get("jakarta.persistence.jdbc.url") != null
+                && configOverrides.get("jakarta.persistence.jdbc.user") != null
+                && configOverrides.get("jakarta.persistence.jdbc.password") != null) {
+            return configOverrides;
+        }
+
+
         Properties props = new Properties();
         try (InputStream input = SqlJpaConn.class.getClassLoader().getResourceAsStream("config.properties")) {
             props.load(input);
-            propsFound = true;
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
-        Map<String, Object> configOverrides = new HashMap<String, Object>();
-
-        //put the properties into the map, if no file exists try to use env variables
         try {
             configOverrides.put("jakarta.persistence.jdbc.url", props.getProperty("jakarta.persistence.jdbc.url"));
             configOverrides.put("jakarta.persistence.jdbc.user", props.getProperty("jakarta.persistence.jdbc.user"));
             configOverrides.put("jakarta.persistence.jdbc.password", props.getProperty("jakarta.persistence.jdbc.password"));
         } catch (Exception e) {
             e.printStackTrace();
-        }
-//        System.out.println(configOverrides);
-
-        if (configOverrides.containsValue(null) || !propsFound) {
-            System.out.println("config.properties not found, trying to use env variables");
-            configOverrides.put("jakarta.persistence.jdbc.url", System.getenv("MEMORYMAZE_DB_URL"));
-            configOverrides.put("jakarta.persistence.jdbc.user", System.getenv("MEMORYMAZE_DB_USERNAME"));
-            configOverrides.put("jakarta.persistence.jdbc.password", System.getenv("MEMORYMAZE_DB_PASSWORD"));
         }
 
         return configOverrides;
