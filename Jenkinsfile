@@ -24,6 +24,18 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'mvn test'
+                sh 'mvn surefire-report:report'
+            }
+        }
+        stage('Publish Report') {
+            steps {
+                publishHTML([allowMissing: false,
+                    alwaysLinkToLastBuild: false,
+                    keepAll: true,
+                    reportDir: 'target/site/',
+                    reportFiles: 'surefire-report.html',
+                    reportName: 'Test Report',
+                    reportTitles: 'My Test Results'])
             }
         }
     }
