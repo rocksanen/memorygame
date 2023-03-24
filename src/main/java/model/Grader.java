@@ -54,7 +54,7 @@ public class Grader {
 
         double midScore = INITIAL_SCORE - tries * TRIES_INCREMENT;
 
-        // calculate a line 🤓
+        // calculate a line
         // y = mx + b
         // y = score multiplier
         // x = seconds
@@ -88,7 +88,7 @@ public class Grader {
 
 
     /**
-     * gives grades for points. returns maximum 4 stars. ⭐⭐⭐⭐
+     * gives grades for points. returns maximum 4 stars.
      * @param points   points
      * @param modeType difficulty
      * @return grade
@@ -106,12 +106,12 @@ public class Grader {
 
         // numbers selected for vanity reasons
         if (points <= maxPossibleScore * 0.4) {
-            return "⭐";
+            return "tah1";
         } else if (points <= maxPossibleScore * 0.6) {
-            return "⭐⭐";
+            return "tah2";
         } else if (points <= maxPossibleScore * 0.8) {
-            return "⭐⭐⭐";
+            return "tah5";
         }
-        return "⭐⭐⭐⭐";
+        return "tahti5";
     }
 }
