@@ -116,12 +116,12 @@ private void changeLanguage(Locale locale) {
 
     @FXML
     public void setButtonSwe() {
-        changeLanguage(new Locale("lat"));
+        changeLanguage(new Locale("swe"));
         anchorLbs.requestLayout();
     }
     @FXML
     public void setButtonLat() {
-        changeLanguage(new Locale("swe"));
+        changeLanguage(new Locale("lat"));
         anchorLbs.requestLayout();
     }
 
