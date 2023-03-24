@@ -11,7 +11,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import model.ModeType;
 import model.Score;
@@ -164,6 +167,28 @@ public class LeaderboardsController {
 
         TableColumn<Score, String> gradeCol = new TableColumn<>("Grade");
         gradeCol.setCellValueFactory(new PropertyValueFactory<>("grade"));
+        gradeCol.setCellFactory(column -> new TableCell<Score, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    int stars = item.length();
+                    HBox hBox = new HBox();
+                    for (int i = 0; i < stars; i++) {
+                        ImageView imageView = new ImageView(new Image(Objects.requireNonNull(getClass().getClassLoader()
+                                .getResourceAsStream("images/smol_star.png"))));
+                        imageView.setFitHeight(20);
+                        imageView.setFitWidth(20);
+                        hBox.getChildren().add(imageView);
+                    }
+                    setGraphic(hBox);
+                }
+            }
+        });
+
+
 
         TableColumn<Score, Date> dateCol = new TableColumn<>("Date");
         dateCol.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
