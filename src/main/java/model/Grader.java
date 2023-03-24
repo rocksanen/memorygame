@@ -77,7 +77,6 @@ public class Grader {
 //        System.out.println("m: " + m);
 //        System.out.println("b: " + b);
 
-
         double finalScore = midScore * y;
         if (finalScore < MINIMUM_SCORE) {
             finalScore = MINIMUM_SCORE;
