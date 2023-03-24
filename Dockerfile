@@ -6,7 +6,9 @@ RUN apt-get update && \
     apt-get install -y maven && \
     rm -rf /var/lib/apt/lists/* \
 
-RUN /usr/local/bin/install-plugins.sh htmlpublisher
+RUN jenkins-plugin-cli --plugins "maven-plugin htmlpublisher"
+
+
 
 
 EXPOSE 8080
