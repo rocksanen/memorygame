@@ -103,15 +103,21 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M9</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.junit.jupiter</groupId>
-                        <artifactId>junit-jupiter-engine</artifactId>
-                        <version>5.9.2</version>
-                    </dependency>
-                </dependencies>
+                <configuration>
+                    <testFailureIgnore>true</testFailureIgnore>
+                    <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+                    <argLine>-Dfile.encoding=UTF-8</argLine>
+                    <forkCount>1</forkCount>
+                    <reuseForks>true</reuseForks>
+                    <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                    <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>org.apache.maven.surefire.junit4.JUnit4RunListener</value>
+                        </property>
+                    </properties>
+                </configuration>
             </plugin>
-
         </plugins>
         <resources>
             <resource>

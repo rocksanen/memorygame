@@ -48,8 +48,6 @@ public class SqlJpaConn {
     private static Map<String, Object> configOverider() {
         Map<String, Object> configOverrides = new HashMap<String, Object>();
 
-
-        System.out.println("config.properties not found, trying to use env variables");
         configOverrides.put("jakarta.persistence.jdbc.url", System.getenv("MEMORYMAZE_DB_URL"));
         configOverrides.put("jakarta.persistence.jdbc.user", System.getenv("MEMORYMAZE_DB_USERNAME"));
         configOverrides.put("jakarta.persistence.jdbc.password", System.getenv("MEMORYMAZE_DB_PASSWORD"));
@@ -65,10 +63,7 @@ public class SqlJpaConn {
         Properties props = new Properties();
         try (InputStream input = SqlJpaConn.class.getClassLoader().getResourceAsStream("config.properties")) {
             props.load(input);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        try {
+
             configOverrides.put("jakarta.persistence.jdbc.url", props.getProperty("jakarta.persistence.jdbc.url"));
             configOverrides.put("jakarta.persistence.jdbc.user", props.getProperty("jakarta.persistence.jdbc.user"));
             configOverrides.put("jakarta.persistence.jdbc.password", props.getProperty("jakarta.persistence.jdbc.password"));
