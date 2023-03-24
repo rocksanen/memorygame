@@ -4,11 +4,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import model.ModeType;
 import visuals.Navigaattori;
+import visuals.effects.commonHovers.Hovers;
+import visuals.effects.menuEffects.IMenuLayoutEffects;
+import visuals.effects.menuEffects.MenuLayoutEffects;
 
+import javax.swing.text.html.ImageView;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Locale;
@@ -28,9 +33,13 @@ public class InternationalizationController {
     public Button fin;
 
     @FXML
-    public Label infoText, lableTitle, labelInfo,stepText ,stepOne, stepTwo, stepThree, stepFour, stepFive, stepSix, lastLine;
+    public Label titleInfo, welcomeText, labelInfo,stepText ,stepOne, stepTwo, stepThree, stepFour, stepFive, stepSix, lastLine;
 
     private ResourceBundle bundle;
+
+    private final IMenuLayoutEffects menuLayoutEffects = new MenuLayoutEffects();
+
+    private final Hovers hovers = new Hovers(menuLayoutEffects);
 
 
     @FXML
@@ -45,9 +54,11 @@ public class InternationalizationController {
         anchorLbs.setStyle("-fx-background-image: url('" + imageurl + "'); " +
                 "-fx-background-position: center center; " +
                 "-fx-background-repeat: stretch;");
-        for (Label label : Arrays.asList(infoText, lableTitle, labelInfo, stepText, stepOne, stepTwo, stepThree, stepFour, stepFive, stepSix, lastLine)) {
+        for (Label label : Arrays.asList(titleInfo, labelInfo, stepText, stepOne, stepTwo, stepThree, stepFour, stepFive, stepSix, lastLine)) {
             styleLabel(label);
         }
+        welcomeText.setStyle("-fx-font: 24px \"VCR OSD Mono\"; -fx-text-fill: white;");
+
     }
 
     private void styleLabel(Label l ){
@@ -69,9 +80,6 @@ public class InternationalizationController {
         b.setOnMouseExited(e -> b.setStyle("-fx-background-color: " + darkPurple + "; -fx-text-fill: white;"));
     }
 
-
-
-
     @FXML
     public void setButtonReturn(ActionEvent event) {
         try {
@@ -80,49 +88,11 @@ public class InternationalizationController {
             e.printStackTrace();
         }
     }
-/*
-    private void changeLanguage(Locale locale) {
-        ResourceBundle bundle = ResourceBundle.getBundle("Bundle", locale);
-        if (infoText != null) {
-            infoText.setText(bundle.getString("welcomeText"));
-        }
-        if (lableTitle != null) {
-            lableTitle.setText(bundle.getString("titleInfo"));
-        }
-        if(labelInfo != null){
-            labelInfo.setText(bundle.getString("stepText"));
-        }
-        if(stepOne != null){
-            stepOne.setText(bundle.getString("stepOne"));
-        }
-        if(stepTwo != null){
-            stepTwo.setText(bundle.getString("stepTwo"));
-        }
-        if(stepThree != null){
-            stepThree.setText(bundle.getString("stepThree"));
 
-        }
-
-        if(stepFour != null){
-            stepFour.setText(bundle.getString("stepFour"));
-        }
-
-        if(stepFive != null){
-            stepFive.setText(bundle.getString("stepFive"));
-        }
-
-        if(stepSix != null){
-            stepSix.setText(bundle.getString("stepSix"));
-        }
-        if(lastLine != null){
-            lastLine.setText(bundle.getString("lastLine"));
-        }
-
-    }*/
 private void changeLanguage(Locale locale) {
     ResourceBundle bundle = ResourceBundle.getBundle("Bundle", locale);
 
-    for (Label label : Arrays.asList(infoText, lableTitle, stepText, stepOne, stepTwo, stepThree, stepFour, stepFive, stepSix, lastLine)) {
+    for (Label label : Arrays.asList(titleInfo, welcomeText, stepText, stepOne, stepTwo, stepThree, stepFour, stepFive, stepSix, lastLine)) {
         if (label != null) {
             String key = label.getId();
             String text = bundle.getString(key);
@@ -131,16 +101,39 @@ private void changeLanguage(Locale locale) {
     }
 }
 
-
-
-
-    public void setButtonEn(ActionEvent event) {
+    @FXML
+    public void setButtonEn() {
         changeLanguage(new Locale("en"));
         anchorLbs.requestLayout();
     }
 
-    public void setButtonFin(ActionEvent event) {
+
+    @FXML
+    public void setButtonFin() {
         changeLanguage(new Locale("fi"));
         anchorLbs.requestLayout();
+    }
+
+    @FXML
+    public void setButtonSwe() {
+        changeLanguage(new Locale("lat"));
+        anchorLbs.requestLayout();
+    }
+    @FXML
+    public void setButtonLat() {
+        changeLanguage(new Locale("swe"));
+        anchorLbs.requestLayout();
+    }
+
+    @FXML
+    public void hoverOn(javafx.scene.input.MouseEvent event) {
+
+        hovers.commonHoverOn(event);
+    }
+
+    @FXML
+    public void hoverOff(javafx.scene.input.MouseEvent event) {
+
+        hovers.commonHoverOff(event);
     }
 }
