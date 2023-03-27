@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -14,12 +17,12 @@
          <children>
             <VBox prefHeight="750.0" prefWidth="1116.0">
                <children>
-                  <Label fx:id="labelTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="60.0" prefWidth="1113.0" text="%welcomeText">
+                  <Label fx:id="welcomeText" alignment="CENTER" contentDisplay="CENTER" prefHeight="60.0" prefWidth="1113.0" text="%welcomeText">
                      <font>
                         <Font size="48.0" />
                      </font>
                   </Label>
-                  <Label fx:id="labelInfo" alignment="CENTER" contentDisplay="CENTER" prefWidth="1161.0" text="%titleInfo">
+                  <Label fx:id="titleInfo" alignment="CENTER" contentDisplay="CENTER" prefWidth="1161.0" text="%titleInfo">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -76,10 +79,46 @@
                   </VBox>
                </children>
             </VBox>
-            <Button fx:id="buttonReturn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#setButtonReturn" prefHeight="43.0" prefWidth="124.0" text="Go Back" />
+            <Button fx:id="buttonReturn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#setButtonReturn" prefHeight="43.0" prefWidth="134.0" text="Go Back" />
          </children>
       </HBox>
-      <Button fx:id="en" mnemonicParsing="false" onAction="#setButtonEn" text="English" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0" />
-      <Button fx:id="fin" mnemonicParsing="false" onAction="#setButtonFin" text="Finnish" AnchorPane.leftAnchor="1190.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="55.0" />
+
+      <ImageView id="en" fx:id="en1" fitHeight="19.0" fitWidth="37.0" layoutX="1149.0" layoutY="68" onMouseClicked="#setButtonEn" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="75.0" onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
+         <image>
+            <Image url="@../images/flagIcons/united-states.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+
+
+      <ImageView id="fin" fx:id="fin1" fitHeight="19.0" fitWidth="37.0" layoutX="1149.0" layoutY="68" onMouseClicked="#setButtonFin" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="100.0" onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
+         <image>
+            <Image url="@../images/flagIcons/finland.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+
+      <ImageView id="swe" fx:id="swe1" fitHeight="19.0" fitWidth="37.0" layoutX="1120" layoutY="68" onMouseClicked="#setButtonSwe" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="125.0" onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
+         <image>
+            <Image url="@../images/flagIcons/sweden.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+
+            <ImageView id="lat" fx:id="lat1" fitHeight="35.0" fitWidth="37.0" layoutX="1120" layoutY="68" onMouseClicked="#setButtonLat" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="145.0" onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
+         <image>
+            <Image url="@../images/flagIcons/latvia-flag.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+
    </children>
 </AnchorPane>
