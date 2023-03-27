@@ -88,6 +88,7 @@ public class Grader {
 
     /**
      * gives grades for points. returns maximum 4 stars. ⭐⭐⭐⭐
+     *
      * @param points   points
      * @param modeType difficulty
      * @return grade
@@ -104,13 +105,14 @@ public class Grader {
         int maxPossibleScore = INITIAL_SCORE * (numberOfCubes / 2);
 
         // numbers selected for vanity reasons
-        if (points <= maxPossibleScore * 0.4) {
-            return "⭐";
-        } else if (points <= maxPossibleScore * 0.6) {
-            return "⭐⭐";
-        } else if (points <= maxPossibleScore * 0.8) {
+        if (points >= maxPossibleScore * 0.8) {
+            return "⭐⭐⭐⭐";
+        } else if (points >= maxPossibleScore * 0.75) {
             return "⭐⭐⭐";
+        } else if (points >= maxPossibleScore * 0.70) {
+            return "⭐⭐";
+        } else {
+            return "⭐";
         }
-        return "⭐⭐⭐⭐";
     }
 }
