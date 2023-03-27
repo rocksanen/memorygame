@@ -147,7 +147,6 @@ public class LeaderboardsController {
         TableColumn<Score, Integer> scoreCol = new TableColumn<>("Points");
         scoreCol.setCellValueFactory(new PropertyValueFactory<>("points"));
 
-
         TableColumn<Score, Double> timeCol = new TableColumn<>("Time (s)");
         timeCol.setCellValueFactory(new PropertyValueFactory<>("time"));
         timeCol.setCellFactory(column -> new TableCell<Score, Double>() {
@@ -161,7 +160,6 @@ public class LeaderboardsController {
                 }
             }
         });
-
 
         TableColumn<Score, String> gradeCol = new TableColumn<>("Grade");
         gradeCol.setCellValueFactory(new PropertyValueFactory<>("grade"));
@@ -189,11 +187,6 @@ public class LeaderboardsController {
             }
         });
 
-
-
-
-
-
         TableColumn<Score, Date> dateCol = new TableColumn<>("Date");
         dateCol.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
         dateCol.setCellFactory(column -> {
@@ -211,7 +204,6 @@ public class LeaderboardsController {
                 }
             };
         });
-
         // add mouse click events to nodes. prints score object to console
         scoreTable.setRowFactory(tv -> {
             TableRow<Score> row = new TableRow<>();
@@ -223,7 +215,6 @@ public class LeaderboardsController {
             });
             return row;
         });
-
 
         scoreTable.getColumns().clear();
         scoreTable.getColumns().addAll(nameCol, scoreCol, timeCol, gradeCol, dateCol);
@@ -246,9 +237,7 @@ public class LeaderboardsController {
         scoreTable.setMaxWidth(590);
 
         scoreTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-
         scoreTable.setStyle("-fx-font: 14px \"VCR OSD Mono\";");
-
     }
 
 
@@ -324,7 +313,6 @@ public class LeaderboardsController {
      */
     @FXML
     public void setButtonUserGlobal(ActionEvent event) {
-
         showUserOnly = !showUserOnly;
         buttonUserGlobal.setText(showUserOnly ? "Global Scores" : "Personal Scores");
         updateTable(currentMode, showUserOnly);
@@ -339,7 +327,6 @@ public class LeaderboardsController {
      */
     @FXML
     public void setButtonReturn(ActionEvent event) {
-
         Platform.runLater(() -> AudioMemory.getInstance().stopSong(LEADERBOARD));
         try {
             Navigaattori.getInstance().changeScene(ModeType.MENU);
