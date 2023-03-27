@@ -82,7 +82,8 @@ public class Grader {
             finalScore = MINIMUM_SCORE;
         }
         System.out.println("Final score: " + finalScore);
-        return (int) finalScore;
+        // round finalscore to int value
+        return (int) Math.round(finalScore);
     }
 
 
