@@ -194,12 +194,11 @@ public class Engine implements IEngine {
     }
 
     public void endGame() {
+        controller.gameOver();
         rightPairList.clear();
         System.out.println("Game ended!");
-        // Make IF NOT returned
         setPersonalScore();
         stopTimer();
-
     }
 
     public void stopTimer() {
@@ -246,15 +245,7 @@ public class Engine implements IEngine {
 
     }
 
-    /**
-     * Updates the total score and the next score. In case of equal, the total score
-     * is increased by the next score.
-     * In case of not equal, the next score is decreased by 100 * the number of
-     * incorrect tries.
-     * The next score is never less than 100.
-     *
-     * @param type the result of the comparison, either equal or not equal.
-     */
+
     // was private void, changed
     public void updateScore(CompareResultType type) {
         switch (type) {
@@ -299,7 +290,6 @@ public class Engine implements IEngine {
             clearStorage();
 
             if (rightPairList.size() == memoryObjectsList.size()) {
-                controller.gameOver();
                 endGame();
 
             }
@@ -311,6 +301,11 @@ public class Engine implements IEngine {
 
     public void runTimer() {
         t.schedule(task, 0, timerTime);
+    }
+
+    @Override
+    public ModeType getType() {
+        return type;
     }
 
     public String toString() {
