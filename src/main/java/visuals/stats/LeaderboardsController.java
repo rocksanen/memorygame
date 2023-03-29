@@ -57,6 +57,9 @@ public class LeaderboardsController {
 
     @FXML
     public Label labelInfo;
+
+    @FXML
+    public AnchorPane chartPane;
     private ScoreController scoreController;
 
     private UserController userController;
@@ -64,6 +67,8 @@ public class LeaderboardsController {
     private boolean showUserOnly;
 
     private ModeType currentMode;
+
+    ChartGUI chartGUI = new ChartGUI();
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -94,7 +99,11 @@ public class LeaderboardsController {
         initView();
         updateTable(ModeType.EASY, false);
         updateLabelInfo();
+       currentMode = ModeType.EASY;
+       chart(currentMode);
     }
+
+
 
 
     /**
@@ -117,6 +126,14 @@ public class LeaderboardsController {
         labelTitle.setStyle("-fx-font: 48px \"VCR OSD Mono\"; -fx-text-fill: white;");
         labelInfo.setStyle("-fx-font: 24px \"VCR OSD Mono\"; -fx-text-fill: white;");
     }
+
+
+    private void chart(ModeType difficulty) {
+
+        chartGUI.init();
+        chartPane.getChildren().add(chartGUI.stackedAreaChart());
+    }
+
 
 
     /**
@@ -278,6 +295,7 @@ public class LeaderboardsController {
         currentMode = ModeType.EASY;
         updateTable(ModeType.EASY, showUserOnly);
         updateLabelInfo();
+        chartGUI.updateChartData(currentMode);
     }
 
     /**
@@ -290,6 +308,7 @@ public class LeaderboardsController {
         currentMode = ModeType.MEDIUM;
         updateTable(ModeType.MEDIUM, showUserOnly);
         updateLabelInfo();
+        chartGUI.updateChartData(currentMode);
     }
 
 
@@ -303,6 +322,7 @@ public class LeaderboardsController {
         currentMode = ModeType.HARD;
         updateTable(ModeType.HARD, showUserOnly);
         updateLabelInfo();
+        chartGUI.updateChartData(currentMode);
     }
 
 

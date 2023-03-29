@@ -340,6 +340,7 @@ public class Menu implements Initializable, IMenu {
         }
     }
 
+    /*
     @FXML
     public void statsGame() {
         ChartGUI c = new ChartGUI();
@@ -349,7 +350,7 @@ public class Menu implements Initializable, IMenu {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    } */
 
     @FXML
     public void setButtonLeaderboards() {
