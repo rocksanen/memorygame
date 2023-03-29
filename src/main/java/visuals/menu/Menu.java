@@ -148,13 +148,13 @@ public class Menu implements Initializable, IMenu {
 
         panesAndMisc();
         setMenuImages();
+        initLogin();
 
         zoomInEffects.setMiniImagesAndFrames(miniEasy, miniMedium, miniHard, easyFrame, mediumFrame, hardFrame);
         zoomInEffects.setEssenceImages(japan, jungle, redtree);
         zoomInEffects.setGeneralObjects(pergament);
         menuLayoutEffects.infoBlink(info);
 
-        initLogin();
     }
 
     private void initLogin() {
