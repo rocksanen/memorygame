@@ -11,8 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorLbs" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.stats.LeaderboardsController">
+<AnchorPane fx:id="anchorLbs" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.stats.LeaderboardsController">
    <children>
+      <AnchorPane fx:id="chartPane" layoutX="544.0" layoutY="139.0" prefHeight="385.0" prefWidth="694.0" AnchorPane.leftAnchor="544.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="139.0" />
       <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
@@ -52,7 +53,7 @@
                   </TableView>
                   <VBox fx:id="vboxInfo" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS">
                      <children>
-                        <Pane fx:id="paneStats" prefHeight="400.0" prefWidth="200.0" />
+                        <Pane fx:id="paneStats" prefHeight="400.0" prefWidth="936.0" />
                         <HBox alignment="CENTER" prefHeight="60.0" spacing="20.0">
                            <children>
                             <Button fx:id="buttonEasy" maxHeight="1.7976931348623157E308" minWidth="100.0" mnemonicParsing="false" onAction="#setButtonEasy" text="Easy" />
