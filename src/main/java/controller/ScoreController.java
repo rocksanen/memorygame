@@ -8,9 +8,6 @@ import static model.ModeType.*;
 
 public class ScoreController implements IScoreController {
 
-    private IEngine engine;
-
-
     public ScoreController() {
 
     }
@@ -181,16 +178,5 @@ public class ScoreController implements IScoreController {
             default:
                 return null;
         }
-    }
-
-
-    /**
-     * returns the total score
-     *
-     * @return the total score
-     */
-    @Override
-    public int getTotalScore() {
-        return engine.getTotalScore();
     }
 }
