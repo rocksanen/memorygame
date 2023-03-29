@@ -158,6 +158,7 @@ public class Menu implements Initializable, IMenu {
     }
 
     private void initLogin() {
+
         Platform.runLater(() -> paneLogin.setVisible(!userController.isLoggedIn()));
         Platform.runLater(() -> leaderPane.setVisible(userController.isLoggedIn()));
         Platform.runLater(() -> logOutPane.setVisible(userController.isLoggedIn()));
@@ -165,6 +166,7 @@ public class Menu implements Initializable, IMenu {
         if (userController.isLoggedIn()) {
             Platform.runLater(() -> labelLoggedIn.setText("Logged in as " + userController.getUsername()));
         }
+        Platform.runLater(() -> logAndReg.setVisible(true));
     }
 
     public boolean isReturnStatus() {
