@@ -264,10 +264,10 @@
                   <Image url="@../images/logtest2.jpg" />
                </image>
             </ImageView>
-             <Button fx:id="stats" layoutX="40.0" layoutY="75.0" mnemonicParsing="false" mouseTransparent="true" onMouseClicked="#statsGame" prefHeight="20.0" prefWidth="102.0" text="Stats" textAlignment="CENTER" visible="false">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></Button>
+<!--             <Button fx:id="stats" layoutX="40.0" layoutY="75.0" mnemonicParsing="false" mouseTransparent="true" onMouseClicked="#statsGame" prefHeight="20.0" prefWidth="102.0" text="Stats" textAlignment="CENTER" visible="false">-->
+<!--               <cursor>-->
+<!--                  <Cursor fx:constant="HAND" />-->
+<!--               </cursor></Button>-->
             <Pane id="leaderPane" fx:id="leaderPane" layoutX="50.0" layoutY="70.0" onMouseClicked="#setButtonLeaderboards" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" prefHeight="41.0" prefWidth="132.0" visible="false">
                <children>
                   <ImageView id="leader" fitHeight="41.0" fitWidth="132.0">

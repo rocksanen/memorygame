@@ -112,11 +112,16 @@ public class Menu implements Initializable, IMenu {
     ImageView telkku;
     @FXML
     Button buttonLeaderboards;
-    @FXML ImageView loginButtonImage;
-    @FXML ImageView registerButtonImage;
-    @FXML Pane leaderPane;
-    @FXML Pane logOutPane;
-    @FXML ImageView info;
+    @FXML
+    ImageView loginButtonImage;
+    @FXML
+    ImageView registerButtonImage;
+    @FXML
+    Pane leaderPane;
+    @FXML
+    Pane logOutPane;
+    @FXML
+    ImageView info;
     private boolean returnStatus;
 
 
@@ -127,8 +132,11 @@ public class Menu implements Initializable, IMenu {
 
         Platform.runLater(() -> BurningSun.getInstance().burningSunMove(burningsun));
 
-        if(IntroOn.getInstance().getIntroOn()) {IntroOn.getInstance().setIntroOff();
-        }else {Platform.runLater(() -> AudioMemory.getInstance().playSong(MENU));}
+        if (IntroOn.getInstance().getIntroOn()) {
+            IntroOn.getInstance().setIntroOff();
+        } else {
+            Platform.runLater(() -> AudioMemory.getInstance().playSong(MENU));
+        }
 
         Platform.runLater(() -> menuLayoutEffects.setGlow(pergament));
         Platform.runLater(() -> menuLayoutEffects.moveDirt(dirt));
@@ -145,6 +153,18 @@ public class Menu implements Initializable, IMenu {
         zoomInEffects.setEssenceImages(japan, jungle, redtree);
         zoomInEffects.setGeneralObjects(pergament);
         menuLayoutEffects.infoBlink(info);
+
+        initLogin();
+    }
+
+    private void initLogin() {
+        Platform.runLater(() -> paneLogin.setVisible(!userController.isLoggedIn()));
+        Platform.runLater(() -> leaderPane.setVisible(userController.isLoggedIn()));
+        Platform.runLater(() -> logOutPane.setVisible(userController.isLoggedIn()));
+
+        if (userController.isLoggedIn()) {
+            Platform.runLater(() -> labelLoggedIn.setText("Logged in as " + userController.getUsername()));
+        }
     }
 
     public boolean isReturnStatus() {
@@ -340,16 +360,16 @@ public class Menu implements Initializable, IMenu {
         }
     }
 
-    @FXML
-    public void statsGame() {
-        ChartGUI c = new ChartGUI();
-
-        try {
-            c.start(new Stage());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    @FXML
+//    public void statsGame() {
+//        ChartGUI c = new ChartGUI();
+//
+//        try {
+//            c.start(new Stage());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     @FXML
     public void setButtonLeaderboards() {
