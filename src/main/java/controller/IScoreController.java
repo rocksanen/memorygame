@@ -25,7 +25,4 @@ public interface IScoreController {
     ArrayList<String> getTopFivePersonalScores(ModeType difficulty);
 
     ArrayList<Score> getUserScoresRaw(ModeType difficulty);
-
-    int getTotalScore();
-
 }

@@ -32,4 +32,9 @@ public interface IGameController {
     void getReturnSignal();
 
     void sendComparingSuccess();
+    int getCurrentScore();
+
+    ModeType getDifficulty();
+
+    String getGrade();
 }
