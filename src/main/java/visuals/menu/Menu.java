@@ -362,6 +362,7 @@ public class Menu implements Initializable, IMenu {
         }
     }
 
+
 //    @FXML
 //    public void statsGame() {
 //        ChartGUI c = new ChartGUI();
@@ -372,6 +373,7 @@ public class Menu implements Initializable, IMenu {
 //            e.printStackTrace();
 //        }
 //    }
+
 
     @FXML
     public void setButtonLeaderboards() {
