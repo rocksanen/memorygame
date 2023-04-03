@@ -1,5 +1,4 @@
 /*TABLE AND COLUMNS*/
-
 .table-view {
     -fx-text-fill: white;
     -fx-font-family: "Atari Classic";
@@ -25,12 +24,12 @@
 
 .table-row-cell:selected {
     -fx-background-color: rgba(71, 0, 82, 1);
+    /*-fx-background-color: transparent;*/
     -fx-padding: 0;
 }
 
 
 /*SCROLLING*/
-
 .table-view .scroll-bar:horizontal {
     -fx-background-color: transparent;
     -fx-opacity: 0;
@@ -63,6 +62,13 @@
     -fx-background-color: transparent;
 }
 
+.table-view .column-header-background .filler {
+    -fx-background-color: transparent;
+}
+
+.table-view .corner {
+    -fx-background-color: transparent;
+}
 
 /*COLUM HEADERS / TABLE TOP BAR*/
 .table-view .column-header-background {
