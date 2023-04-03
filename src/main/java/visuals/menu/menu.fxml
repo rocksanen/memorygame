@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.PasswordField?>
 <AnchorPane prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.menu.Menu">
     <children>
       <ImageView id="play" fx:id="play" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="290.0" mouseTransparent="true" opacity="0.0">
@@ -310,7 +311,7 @@
                         <Glow />
                      </effect>
                   </ImageView>
-                      <TextField fx:id="password" layoutX="52.0" layoutY="193.0" opacity="0.6" prefHeight="25.0" prefWidth="158.0" />
+                      <PasswordField fx:id="password" layoutX="52.0" layoutY="193.0" opacity="0.6" prefHeight="25.0" prefWidth="158.0" />
                   <Pane id="login" layoutX="64.0" layoutY="233.0" onMouseClicked="#loginPane" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" prefHeight="41.0" prefWidth="132.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
