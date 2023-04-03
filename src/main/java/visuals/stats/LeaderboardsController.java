@@ -61,6 +61,9 @@ public class LeaderboardsController {
 
     @FXML
     public Pane chartPane;
+    @FXML
+    public ImageView rugsweeper;
+
     private ScoreController scoreController;
 
     private UserController userController;
@@ -100,11 +103,12 @@ public class LeaderboardsController {
         initView();
         updateTable(ModeType.EASY, false);
         updateLabelInfo();
-       currentMode = ModeType.EASY;
-       chart(currentMode);
+        currentMode = ModeType.EASY;
+        chart(currentMode);
+
+        // hides a block above the invisible scrollbar
+        rugsweeper.setImage(new Image(Objects.requireNonNull(getClass().getClassLoader().getResource("images/trophy.png")).toExternalForm()));
     }
-
-
 
 
     /**
@@ -136,7 +140,6 @@ public class LeaderboardsController {
         chartGUI.stackedAreaChart().setMaxWidth(550);
         chartGUI.stackedAreaChart().setMaxHeight(430);
     }
-
 
 
     /**
@@ -249,45 +252,24 @@ public class LeaderboardsController {
 
         scoreTable.getColumns().clear();
         scoreTable.getColumns().addAll(nameCol, scoreCol, timeCol, gradeCol, dateCol);
-        // center text on columns
-        scoreTable.getColumns().forEach(column -> column.setStyle("-fx-alignment: CENTER;" + "-fx-background-color: #4E135A; -fx-text-fill: white;" + "-fx-font: 11px \"Atari Classic\";"));
-
-        // scoretable column headers to white
 
         nameCol.setMinWidth(140);
-        nameCol.setMaxWidth(140);
+        nameCol.setMaxWidth(nameCol.getMinWidth());
         scoreCol.setMinWidth(90);
-        scoreCol.setMaxWidth(90);
+        scoreCol.setMaxWidth(scoreCol.getMinWidth());
         timeCol.setMinWidth(110);
-        timeCol.setMaxWidth(110);
+        timeCol.setMaxWidth(timeCol.getMinWidth());
         gradeCol.setMinWidth(90);
-        gradeCol.setMaxWidth(90);
+        gradeCol.setMaxWidth(gradeCol.getMinWidth());
         dateCol.setMinWidth(200);
-        dateCol.setMaxWidth(200);
+        dateCol.setMaxWidth(dateCol.getMinWidth());
 
-
-        scoreTable.setMinWidth(650);
-        scoreTable.setMaxWidth(650);
+//        scoreTable.setMinWidth(15 + nameCol.getMinWidth() + scoreCol.getMinWidth() + timeCol.getMinWidth() +
+//                gradeCol.getMinWidth() + dateCol.getMinWidth());
+//        System.out.println(scoreTable.getMinWidth());
+//        scoreTable.setMaxWidth(scoreTable.getMinWidth());
 
         scoreTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-//        scoreTable.setStyle("-fx-font: 11px \"Atari Classic\";");
-        // set scoretable to dark blue color, white text
-        scoreTable.setStyle("-fx-background-color: #000000; -fx-text-fill: white;" + "-fx-font: 11px \"Atari Classic\";");
-        // score table remove scrollbar
-        scoreTable.widthProperty().addListener((obs, oldVal, newVal) -> {
-            Pane header = (Pane) scoreTable.lookup("TableHeaderRow");
-            if (scoreTable.getWidth() < scoreTable.getPrefWidth() || scoreTable.getWidth() - 20 < scoreTable.getPrefWidth()) {
-                header.setMinWidth(0);
-                header.setMaxWidth(0);
-                header.setPrefWidth(0);
-                header.setVisible(false);
-            } else {
-                header.setMinWidth(Region.USE_COMPUTED_SIZE);
-                header.setMaxWidth(Region.USE_PREF_SIZE);
-                header.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                header.setVisible(true);
-            }
-        });
     }
 
 

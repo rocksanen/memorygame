@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -19,12 +21,15 @@
                <children>
                   <VBox>
                      <children>
-                        <Label fx:id="labelTitle" alignment="CENTER" prefWidth="500.0" text="Leaderboards">
+                        <Label fx:id="labelTitle" alignment="CENTER" prefHeight="80.0" prefWidth="500.0" text="Leaderboards">
                            <font>
                               <Font size="48.0" />
                            </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
                         </Label>
-                        <Label fx:id="labelInfo" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefWidth="500.0" text="Global Easy Mode" VBox.vgrow="ALWAYS">
+                        <Label fx:id="labelInfo" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="500.0" text="Global Easy Mode" VBox.vgrow="ALWAYS">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -41,10 +46,10 @@
             </HBox>
             <HBox fx:id="hboxLbs" VBox.vgrow="ALWAYS">
                <children>
-                  <TableView fx:id="scoreTable" prefHeight="588.0" prefWidth="650.0" stylesheets="@leaderboards.css">
+                  <TableView fx:id="scoreTable" prefHeight="600.0" prefWidth="650.0" stylesheets="@leaderboards.css">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
+                      <TableColumn prefWidth="150.40002459287643" text="C1" />
+                      <TableColumn minWidth="0.0" prefWidth="261.6000061035156" text="C2" />
                     </columns>
                      <HBox.margin>
                         <Insets bottom="15.0" left="15.0" />
@@ -82,5 +87,10 @@
          </children>
       </VBox>
       <Button fx:id="buttonReturn" mnemonicParsing="false" onAction="#setButtonReturn" prefHeight="60.0" prefWidth="200.0" text="Go Back" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+      <ImageView fx:id="rugsweeper" fitHeight="50.0" fitWidth="50.0" AnchorPane.leftAnchor="630.0" AnchorPane.topAnchor="135.0">
+         <image>
+            <Image url="@../../../resources/images/trophy.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
