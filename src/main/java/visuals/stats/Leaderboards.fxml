@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorLbs" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.stats.LeaderboardsController">
+<AnchorPane fx:id="anchorLbs" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.stats.LeaderboardsController">
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -41,7 +41,7 @@
             </HBox>
             <HBox fx:id="hboxLbs" VBox.vgrow="ALWAYS">
                <children>
-                  <TableView fx:id="scoreTable">
+                  <TableView fx:id="scoreTable" prefHeight="588.0" prefWidth="650.0" stylesheets="@leaderboards.css">
                     <columns>
                       <TableColumn prefWidth="75.0" text="C1" />
                       <TableColumn prefWidth="75.0" text="C2" />
@@ -50,9 +50,12 @@
                         <Insets bottom="15.0" left="15.0" />
                      </HBox.margin>
                   </TableView>
-                  <VBox fx:id="vboxInfo" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS">
+                  <VBox fx:id="vboxInfo" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Pane fx:id="paneStats" prefHeight="400.0" prefWidth="200.0" />
+                        <Pane fx:id="chartPane" maxHeight="400.0" maxWidth="400.0" prefHeight="400.0" prefWidth="400.0">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="20.0" right="20.0" />
+                           </VBox.margin></Pane>
                         <HBox alignment="CENTER" prefHeight="60.0" spacing="20.0">
                            <children>
                             <Button fx:id="buttonEasy" maxHeight="1.7976931348623157E308" minWidth="100.0" mnemonicParsing="false" onAction="#setButtonEasy" text="Easy" />
@@ -65,11 +68,11 @@
                         </HBox>
                         <HBox alignment="CENTER" layoutX="10.0" layoutY="410.0" spacing="20.0">
                            <children>
-                              <Button fx:id="buttonUserGlobal" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#setButtonUserGlobal" prefHeight="50.0" prefWidth="200.0" text="User Scores" />
-                              <Button fx:id="buttonRefresh" layoutX="404.0" layoutY="10.0" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#setButtonRefresh" prefHeight="50.0" prefWidth="200.0" text="Reload Scores" />
+                              <Button fx:id="buttonUserGlobal" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#setButtonUserGlobal" prefHeight="50.0" prefWidth="230.0" text="User Scores" />
+                              <Button fx:id="buttonRefresh" layoutX="404.0" layoutY="10.0" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#setButtonRefresh" prefHeight="50.0" prefWidth="230.0" text="Reload Scores" />
                            </children>
                            <VBox.margin>
-                              <Insets top="30.0" />
+                              <Insets />
                            </VBox.margin>
                         </HBox>
                      </children>
@@ -79,6 +82,5 @@
          </children>
       </VBox>
       <Button fx:id="buttonReturn" mnemonicParsing="false" onAction="#setButtonReturn" prefHeight="60.0" prefWidth="200.0" text="Go Back" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
-      <AnchorPane fx:id="chartPane" layoutY="114.0" maxHeight="440.0" maxWidth="886.0" prefHeight="422.0" prefWidth="592.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="78.0" />
    </children>
 </AnchorPane>

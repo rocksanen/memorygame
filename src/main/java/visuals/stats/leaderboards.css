@@ -1,0 +1,8 @@
+.no-horizontal-scroll-bar .scroll-bar:horizontal {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
+
+.button {
+    -fx-background-color: blue;
+}
