@@ -3,9 +3,12 @@ package visuals.gameModes.hard;
 import controller.ScoreController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
@@ -18,35 +21,64 @@ import visuals.cubeFactories.ICubeFactory;
 import visuals.effects.gameEffects.HardEffects;
 import visuals.gameModes.FXAbstractGameController;
 import visuals.gameModes.FXIGameController;
+import visuals.gameModes.GameOverController;
 import visuals.imageServers.ImageCache;
 import visuals.menu.Menu;
+
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class FXHardController extends FXAbstractGameController implements Initializable, FXIGameController {
 
-    @FXML ImageView hardSpread;
-    @FXML ImageView hardBackground;
-    @FXML Pane scorePane;
-    @FXML GridPane hardGrid;
-    @FXML ImageView hardGridImage;
-    @FXML ImageView hardR;
-    @FXML ImageView hardL;
-    @FXML ImageView hardneo;
-    @FXML ImageView play;
-    @FXML ImageView returngame;
-    @FXML Label p1;
-    @FXML Label p2;
-    @FXML Label p3;
-    @FXML Label p4;
-    @FXML Label p5;
-    @FXML Label w1;
-    @FXML Label w2;
-    @FXML Label w3;
-    @FXML Label w4;
-    @FXML Label w5;
+    @FXML
+    ImageView hardSpread;
+    @FXML
+    ImageView hardBackground;
+    @FXML
+    Pane scorePane;
+    @FXML
+    GridPane hardGrid;
+    @FXML
+    ImageView hardGridImage;
+    @FXML
+    ImageView hardR;
+    @FXML
+    ImageView hardL;
+    @FXML
+    ImageView hardneo;
+    @FXML
+    ImageView play;
+    @FXML
+    ImageView returngame;
+    @FXML
+    Label p1;
+    @FXML
+    Label p2;
+    @FXML
+    Label p3;
+    @FXML
+    Label p4;
+    @FXML
+    Label p5;
+    @FXML
+    Label w1;
+    @FXML
+    Label w2;
+    @FXML
+    Label w3;
+    @FXML
+    Label w4;
+    @FXML
+    Label w5;
+    @FXML
+    AnchorPane gameRoot;
+    @FXML
+    AnchorPane sceneRoot;
+
+
     private ICubeFactory hardCubeFactory;
     private HardEffects hardEffects;
     private ScoreController scoreController;
@@ -63,9 +95,9 @@ public class FXHardController extends FXAbstractGameController implements Initia
         setImages();
         hardEffects = new HardEffects();
         hardEffects.setImagesAndComponents(
-                hardBackground,scorePane,hardGrid,
-                hardGridImage,hardR,hardL,
-                hardneo,play,returngame);
+                hardBackground, scorePane, hardGrid,
+                hardGridImage, hardR, hardL,
+                hardneo, play, returngame);
         Platform.runLater(() -> hardEffects.entrance());
         Platform.runLater(this::setWorldScore);
         Platform.runLater(this::setPersonalScore);
@@ -73,6 +105,7 @@ public class FXHardController extends FXAbstractGameController implements Initia
 
 
     }
+
     @Override
     public void setCamera() {
         super.setCamera();
@@ -146,6 +179,14 @@ public class FXHardController extends FXAbstractGameController implements Initia
 
     @Override
     public void newGame() {
+        // delete game over -view if it exists
+        System.out.println(sceneRoot.getChildren());
+        if (sceneRoot.getChildren().size() > 1) {
+            sceneRoot.getChildren().remove(1);
+        }
+        // remove effects from gameroot
+        gameRoot.setEffect(null);
+
         setStartGame();
     }
 
@@ -175,20 +216,39 @@ public class FXHardController extends FXAbstractGameController implements Initia
         Platform.runLater(this::setPersonalScore);
         Platform.runLater(this::setWorldScore);
         System.out.println("game over");
+
+        //load gameover.fxml and add it to sceneroot also pass this controller
+        try {
+            // set gameroot gaussian blur
+            GaussianBlur gaussianBlur = new GaussianBlur();
+            gaussianBlur.setRadius(10);
+            gameRoot.setEffect(gaussianBlur);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/visuals/gameModes/GameOver.fxml"));
+            AnchorPane gameOverView = loader.load();
+            GameOverController goc = loader.getController();
+            goc.Initialize(this, gameController);
+            sceneRoot.getChildren().add(gameOverView);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void setActiveID(int activeID) {
         super.setActiveID(activeID);
     }
+
     @Override
     public void compareFoundMatch() {
         super.compareFoundMatch();
     }
+
     @Override
     public void getTime(int i) {
         super.getTime(i);
     }
+
     @Override
     public void sendIdToEngine(int id) {
         super.sendIdToEngine(id);
