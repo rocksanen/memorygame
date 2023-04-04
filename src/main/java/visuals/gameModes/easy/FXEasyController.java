@@ -106,6 +106,18 @@ public class FXEasyController extends FXAbstractGameController implements Initia
         Platform.runLater(() -> easyEffects.entrance());
         Platform.runLater(this::setWorldScore);
         Platform.runLater(this::setPersonalScore);
+
+        p1.setStyle("-fx-font: 14 \"Atari Classic\";");
+        p2.setStyle("-fx-font: 14 \"Atari Classic\";");
+        p3.setStyle("-fx-font: 14 \"Atari Classic\";");
+        p4.setStyle("-fx-font: 14 \"Atari Classic\";");
+        p5.setStyle("-fx-font: 14 \"Atari Classic\";");
+        w1.setStyle("-fx-font: 14 \"Atari Classic\";");
+        w2.setStyle("-fx-font: 14 \"Atari Classic\";");
+        w3.setStyle("-fx-font: 14 \"Atari Classic\";");
+        w4.setStyle("-fx-font: 14 \"Atari Classic\";");
+        w5.setStyle("-fx-font: 14 \"Atari Classic\";");
+
         setStartGame();
     }
 
