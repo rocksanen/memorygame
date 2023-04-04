@@ -11,7 +11,8 @@
 
 .table-cell {
     -fx-alignment: center;
-    -fx-background-color: rgba(71, 0, 82, 0.7);
+    -fx-background-color: rgba(60, 0, 101, 0.7);
+    /*-fx-background-color: rgba(71, 0, 82, 0.7);*/
     -fx-border-color: transparent;
 }
 
@@ -72,7 +73,8 @@
 
 /*COLUM HEADERS / TABLE TOP BAR*/
 .table-view .column-header-background {
-    -fx-background-color: rgba(71, 0, 82, 1);
+    -fx-background-color: rgba(28, 0, 45, 0.7);
+    /*-fx-background-color: rgba(71, 0, 82, 1);*/
 }
 
 .table-view .column-header-background .label {
@@ -80,7 +82,8 @@
 }
 
 .table-view .column-header {
-    -fx-background-color: rgba(71, 0, 82, 1);
+    -fx-background-color: rgba(28, 0, 45, 0.7);
+    /*-fx-background-color: rgba(71, 0, 82, 1);*/
 }
 
 /** "no content in table" - message*/

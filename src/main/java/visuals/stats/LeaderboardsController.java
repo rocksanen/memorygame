@@ -4,12 +4,14 @@ import controller.ScoreController;
 import controller.UserController;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.skin.TableHeaderRow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -152,8 +154,8 @@ public class LeaderboardsController {
      */
     private void styleButton(Button b) {
         // get hex for dark purple and light purple and save them to variables
-        String darkPurple = "#800080";
-        String lightPurple = "#cc00cc";
+        String darkPurple = "#6d006d";
+        String lightPurple = "#930093";
         b.setFont(Font.font("Atari Classic", 14));
         b.setStyle("-fx-background-color: " + darkPurple + "; -fx-text-fill: white;");
         b.setOnMouseEntered(e -> b.setStyle("-fx-background-color: " + lightPurple + " ; -fx-text-fill: white;"));
@@ -263,13 +265,6 @@ public class LeaderboardsController {
         gradeCol.setMaxWidth(gradeCol.getMinWidth());
         dateCol.setMinWidth(200);
         dateCol.setMaxWidth(dateCol.getMinWidth());
-
-//        scoreTable.setMinWidth(15 + nameCol.getMinWidth() + scoreCol.getMinWidth() + timeCol.getMinWidth() +
-//                gradeCol.getMinWidth() + dateCol.getMinWidth());
-//        System.out.println(scoreTable.getMinWidth());
-//        scoreTable.setMaxWidth(scoreTable.getMinWidth());
-
-        scoreTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 
 
