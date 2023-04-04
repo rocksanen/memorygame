@@ -3,9 +3,12 @@ package visuals.gameModes.medium;
 import controller.ScoreController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import model.MemoryObject;
@@ -17,9 +20,11 @@ import visuals.cubeFactories.MediumCubeFactory;
 import visuals.effects.gameEffects.MediumEffects;
 import visuals.gameModes.FXAbstractGameController;
 import visuals.gameModes.FXIGameController;
+import visuals.gameModes.GameOverController;
 import visuals.imageServers.ImageCache;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -79,12 +84,16 @@ public class FXMediumController extends FXAbstractGameController implements Init
     GridPane mediumGrid;
     @FXML
     Pane scorePane;
+    @FXML
+    AnchorPane gameRoot;
+    @FXML
+    AnchorPane sceneRoot;
+
 
     private ICubeFactory mediumCubeFactory;
     private MediumEffects mediumEffects;
 
     private ScoreController scoreController;
-
 
 
     public void setController(ScoreController scoreController) {
@@ -186,6 +195,13 @@ public class FXMediumController extends FXAbstractGameController implements Init
 
     @Override
     public void newGame() {
+        // delete game over -view if it exists
+        System.out.println(sceneRoot.getChildren());
+        if (sceneRoot.getChildren().size() > 1) {
+            sceneRoot.getChildren().remove(1);
+        }
+        // remove effects from gameroot
+        gameRoot.setEffect(null);
 
         setStartGame();
     }
@@ -214,9 +230,26 @@ public class FXMediumController extends FXAbstractGameController implements Init
 
     @Override
     public void gameOver() {
+
         Platform.runLater(this::setPersonalScore);
         Platform.runLater(this::setWorldScore);
         System.out.println("game over");
+
+        //load gameover.fxml and add it to sceneroot also pass this controller
+        try {
+            // set gameroot gaussian blur
+            GaussianBlur gaussianBlur = new GaussianBlur();
+            gaussianBlur.setRadius(10);
+            gameRoot.setEffect(gaussianBlur);
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/visuals/gameModes/GameOver.fxml"));
+            AnchorPane gameOverView = loader.load();
+            GameOverController goc = loader.getController();
+            goc.Initialize(this, gameController);
+            sceneRoot.getChildren().add(gameOverView);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
