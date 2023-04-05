@@ -118,8 +118,6 @@ public class LeaderboardsController {
      * calls initTable(), sets styles.
      */
     private void initView() {
-        Font.loadFont(Objects.requireNonNull(getClass().getClassLoader().getResource("fonts/AtariClassic-gry3.ttf")).toExternalForm(), 14);
-
         initTable();
 
         styleButton(buttonReturn);
@@ -261,7 +259,7 @@ public class LeaderboardsController {
         scoreCol.setMaxWidth(scoreCol.getMinWidth());
         timeCol.setMinWidth(110);
         timeCol.setMaxWidth(timeCol.getMinWidth());
-        gradeCol.setMinWidth(90);
+        gradeCol.setMinWidth(70);
         gradeCol.setMaxWidth(gradeCol.getMinWidth());
         dateCol.setMinWidth(200);
         dateCol.setMaxWidth(dateCol.getMinWidth());

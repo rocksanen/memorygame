@@ -46,7 +46,7 @@
             </HBox>
             <HBox fx:id="hboxLbs" VBox.vgrow="ALWAYS">
                <children>
-                  <TableView fx:id="scoreTable" prefHeight="600.0" prefWidth="650.0" stylesheets="@leaderboards.css">
+                  <TableView fx:id="scoreTable" prefHeight="600.0" prefWidth="630.0" stylesheets="@leaderboards.css">
                     <columns>
                       <TableColumn prefWidth="150.40002459287643" text="C1" />
                       <TableColumn minWidth="0.0" prefWidth="261.6000061035156" text="C2" />
@@ -87,7 +87,7 @@
          </children>
       </VBox>
       <Button fx:id="buttonReturn" mnemonicParsing="false" onAction="#setButtonReturn" prefHeight="60.0" prefWidth="200.0" text="Go Back" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
-      <ImageView fx:id="rugsweeper" fitHeight="50.0" fitWidth="50.0" AnchorPane.leftAnchor="635.0" AnchorPane.topAnchor="135.0">
+      <ImageView fx:id="rugsweeper" fitHeight="50.0" fitWidth="50.0" AnchorPane.leftAnchor="615.0" AnchorPane.topAnchor="135.0">
          <image>
             <Image url="@../../../resources/images/trophy.png" />
          </image>
