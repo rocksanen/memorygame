@@ -62,10 +62,11 @@ public class GameOverController {
 
         for (int i = 0; i < stars.length(); i++) {
             ImageView imageStars = new ImageView(new Image(Objects.requireNonNull(getClass().getClassLoader().
-                    getResourceAsStream("images/star.png"))));
+                    getResourceAsStream("images/animated_star2.gif"))));
             imageStars.setFitHeight(60);
             imageStars.setFitWidth(60);
             hboxStarContainer.getChildren().add(imageStars);
+
 
             // Set the initial scale of the ImageView to be very small
             imageStars.setScaleX(0.01);
@@ -106,8 +107,6 @@ public class GameOverController {
     }
 
     private void initStyles() {
-        Font.loadFont(Objects.requireNonNull(getClass().getClassLoader().getResource("fonts/LEVIBRUSH.TTF")).toExternalForm(), 14);
-
         labelGameOver.setFont(Font.font("Atari Classic", 44));
         labelGameOver.setTextFill(javafx.scene.paint.Color.WHITE);
         labelScore.setFont(Font.font("Atari Classic", 30));
