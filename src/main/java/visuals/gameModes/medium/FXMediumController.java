@@ -207,14 +207,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
 
     @Override
     public void newGame() {
-        // delete game over -view if it exists
-        System.out.println(sceneRoot.getChildren());
-        if (sceneRoot.getChildren().size() > 1) {
-            sceneRoot.getChildren().remove(1);
-        }
-        // remove effects from gameroot
-        gameRoot.setEffect(null);
-
+        clearGameOverMenu(sceneRoot, gameRoot);
         setStartGame();
     }
 
@@ -247,21 +240,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
         Platform.runLater(this::setWorldScore);
         System.out.println("game over");
 
-        //load gameover.fxml and add it to sceneroot also pass this controller
-        try {
-            // set gameroot gaussian blur
-            GaussianBlur gaussianBlur = new GaussianBlur();
-            gaussianBlur.setRadius(10);
-            gameRoot.setEffect(gaussianBlur);
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/visuals/gameModes/GameOver.fxml"));
-            AnchorPane gameOverView = loader.load();
-            GameOverController goc = loader.getController();
-            goc.Initialize(this, gameController);
-            sceneRoot.getChildren().add(gameOverView);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        gameOverMenu(gameRoot, sceneRoot);
     }
 
     @Override
