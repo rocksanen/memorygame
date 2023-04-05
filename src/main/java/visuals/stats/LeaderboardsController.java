@@ -259,7 +259,7 @@ public class LeaderboardsController {
         scoreCol.setMaxWidth(scoreCol.getMinWidth());
         timeCol.setMinWidth(110);
         timeCol.setMaxWidth(timeCol.getMinWidth());
-        gradeCol.setMinWidth(90);
+        gradeCol.setMinWidth(70);
         gradeCol.setMaxWidth(gradeCol.getMinWidth());
         dateCol.setMinWidth(200);
         dateCol.setMaxWidth(dateCol.getMinWidth());

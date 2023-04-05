@@ -37,7 +37,7 @@
                               <Font size="24.0" />
                            </font>
                            <VBox.margin>
-                              <Insets bottom="10.0" top="30.0" />
+                              <Insets bottom="10.0" top="40.0" />
                            </VBox.margin>
                         </Label>
                         <Button fx:id="buttonRestart" alignment="CENTER" mnemonicParsing="false" onAction="#setButtonRestart" prefHeight="100.0" prefWidth="300.0" text="New Game">
