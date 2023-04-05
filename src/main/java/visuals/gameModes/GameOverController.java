@@ -62,9 +62,9 @@ public class GameOverController {
 
         for (int i = 0; i < stars.length(); i++) {
             ImageView imageStars = new ImageView(new Image(Objects.requireNonNull(getClass().getClassLoader().
-                    getResourceAsStream("images/animated_star2.gif"))));
-            imageStars.setFitHeight(60);
-            imageStars.setFitWidth(60);
+                    getResourceAsStream("images/rotating_star_medium.gif"))));
+            imageStars.setFitHeight(90);
+            imageStars.setFitWidth(90);
             hboxStarContainer.getChildren().add(imageStars);
 
 

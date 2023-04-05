@@ -14,7 +14,7 @@
          <children>
             <VBox alignment="CENTER" translateX="0.4">
                <children>
-                  <VBox fx:id="gameOverPane" alignment="CENTER" spacing="40.0">
+                  <VBox fx:id="gameOverPane" alignment="CENTER" spacing="20.0">
                      <children>
                         <Label fx:id="labelGameOver" alignment="CENTER" contentDisplay="CENTER" text="Game Over">
                            <font>
@@ -27,7 +27,7 @@
                               <Insets left="10.0" right="10.0" top="5.0" />
                            </padding>
                         </Label>
-                        <HBox fx:id="hboxStarContainer" alignment="CENTER" prefWidth="400.0" spacing="10.0">
+                        <HBox fx:id="hboxStarContainer" alignment="CENTER" prefHeight="100.0" prefWidth="400.0" spacing="10.0">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
@@ -36,6 +36,9 @@
                            <font>
                               <Font size="24.0" />
                            </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="30.0" />
+                           </VBox.margin>
                         </Label>
                         <Button fx:id="buttonRestart" alignment="CENTER" mnemonicParsing="false" onAction="#setButtonRestart" prefHeight="100.0" prefWidth="300.0" text="New Game">
                            <font>
