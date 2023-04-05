@@ -118,8 +118,6 @@ public class LeaderboardsController {
      * calls initTable(), sets styles.
      */
     private void initView() {
-        Font.loadFont(Objects.requireNonNull(getClass().getClassLoader().getResource("fonts/AtariClassic-gry3.ttf")).toExternalForm(), 14);
-
         initTable();
 
         styleButton(buttonReturn);
