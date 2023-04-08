@@ -2,9 +2,16 @@ package visuals.gameModes;
 
 import controller.GameController;
 import controller.IGameController;
+import javafx.animation.FadeTransition;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.effect.GaussianBlur;
+import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 import visuals.Navigaattori;
 import visuals.cubeFactories.BoxMaker;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 
@@ -14,7 +21,8 @@ public abstract class FXAbstractGameController implements FXIGameController {
     protected final IGameController gameController = new GameController(this);
     private static final ArrayList<Group> activeList = new ArrayList<>();
 
-    public FXAbstractGameController(){}
+    public FXAbstractGameController() {
+    }
 
     @Override
     public void addToCubeList(BoxMaker cube) {
@@ -116,5 +124,39 @@ public abstract class FXAbstractGameController implements FXIGameController {
         Navigaattori.camera.setTranslateZ(0);
         Navigaattori.camera.setTranslateY(0);
         Navigaattori.camera.setTranslateX(0);
+    }
+
+    public void clearGameOverMenu(AnchorPane sceneRoot, AnchorPane gameRoot) {
+        // delete game over -view if it exists
+        System.out.println(sceneRoot.getChildren());
+        if (sceneRoot.getChildren().size() > 1) {
+            sceneRoot.getChildren().remove(1);
+        }
+        // remove effects from gameroot
+        gameRoot.setEffect(null);
+    }
+
+    public void gameOverMenu(AnchorPane gameRoot, AnchorPane sceneRoot) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/visuals/gameModes/GameOver.fxml"));
+            AnchorPane gameOverView = loader.load();
+
+            GaussianBlur gaussianBlur = new GaussianBlur();
+            gaussianBlur.setRadius(10);
+            gameRoot.setEffect(gaussianBlur);
+
+            GameOverController goc = loader.getController();
+            goc.Initialize(this, gameController);
+            gameOverView.setOpacity(0.0);
+            sceneRoot.getChildren().add(gameOverView);
+
+            FadeTransition fadeTransition2 = new FadeTransition(Duration.seconds(1), gameOverView);
+            fadeTransition2.setFromValue(0.0);
+            fadeTransition2.setToValue(1.0);
+            fadeTransition2.play();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

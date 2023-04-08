@@ -133,7 +133,7 @@
                                     <Glow level="0.4" />
                                 </effect>
                             </ImageView>
-                            <Label fx:id="w1" layoutX="23.0" layoutY="48.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
+                            <Label fx:id="w1" layoutX="12.0" layoutY="48.0" prefHeight="26.0" prefWidth="158.0" textAlignment="CENTER" textFill="#ffb028">
                                 <font>
                                     <Font name="OCR A Extended" size="22.0" />
                                 </font>
@@ -144,7 +144,7 @@
                                     <Glow level="1.0" />
                                 </effect>
                             </Label>
-                            <Label fx:id="w2" layoutX="23.0" layoutY="83.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
+                            <Label fx:id="w2" layoutX="12.0" layoutY="83.0" prefHeight="26.0" prefWidth="158.0" textAlignment="CENTER" textFill="#ffb028">
                                 <font>
                                     <Font name="OCR A Extended" size="22.0" />
                                 </font>
@@ -155,7 +155,7 @@
                                     <Glow level="1.0" />
                                 </effect>
                             </Label>
-                            <Label fx:id="w3" layoutX="23.0" layoutY="118.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
+                            <Label fx:id="w3" layoutX="12.0" layoutY="118.0" prefHeight="26.0" prefWidth="158.0" textAlignment="CENTER" textFill="#ffb028">
                                 <font>
                                     <Font name="OCR A Extended" size="22.0" />
                                 </font>
@@ -166,7 +166,7 @@
                                     <Glow level="1.0" />
                                 </effect>
                             </Label>
-                            <Label fx:id="w4" layoutX="23.0" layoutY="153.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
+                            <Label fx:id="w4" layoutX="12.0" layoutY="153.0" prefHeight="26.0" prefWidth="158.0" textAlignment="CENTER" textFill="#ffb028">
                                 <font>
                                     <Font name="OCR A Extended" size="22.0" />
                                 </font>
@@ -177,7 +177,7 @@
                                     <Glow level="1.0" />
                                 </effect>
                             </Label>
-                            <Label fx:id="w5" layoutX="23.0" layoutY="188.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
+                            <Label fx:id="w5" layoutX="12.0" layoutY="188.0" prefHeight="26.0" prefWidth="158.0" textAlignment="CENTER" textFill="#ffb028">
                                 <font>
                                     <Font name="OCR A Extended" size="22.0" />
                                 </font>
@@ -212,7 +212,7 @@
                                     <Glow level="0.41" />
                                 </effect>
                             </ImageView>
-                            <Label fx:id="p1" layoutX="23.0" layoutY="48.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
+                            <Label fx:id="p1" layoutX="12.0" layoutY="48.0" prefHeight="26.0" prefWidth="158.0" textAlignment="CENTER" textFill="#ffb028">
                                 <font>
                                     <Font name="OCR A Extended" size="22.0" />
                                 </font>
@@ -223,7 +223,7 @@
                                     <Glow level="1.0" />
                                 </effect>
                             </Label>
-                            <Label fx:id="p2" layoutX="23.0" layoutY="83.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
+                            <Label fx:id="p2" layoutX="12.0" layoutY="83.0" prefHeight="26.0" prefWidth="158.0" textAlignment="CENTER" textFill="#ffb028">
                                 <font>
                                     <Font name="OCR A Extended" size="22.0" />
                                 </font>
@@ -234,7 +234,7 @@
                                     <Glow level="1.0" />
                                 </effect>
                             </Label>
-                            <Label fx:id="p3" layoutX="23.0" layoutY="118.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
+                            <Label fx:id="p3" layoutX="12.0" layoutY="118.0" prefHeight="26.0" prefWidth="158.0" textAlignment="CENTER" textFill="#ffb028">
                                 <font>
                                     <Font name="OCR A Extended" size="22.0" />
                                 </font>
@@ -245,7 +245,7 @@
                                     <Glow level="1.0" />
                                 </effect>
                             </Label>
-                            <Label fx:id="p4" layoutX="23.0" layoutY="153.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
+                            <Label fx:id="p4" layoutX="12.0" layoutY="153.0" prefHeight="26.0" prefWidth="158.0" textAlignment="CENTER" textFill="#ffb028">
                                 <font>
                                     <Font name="OCR A Extended" size="22.0" />
                                 </font>
@@ -256,7 +256,7 @@
                                     <Glow level="1.0" />
                                 </effect>
                             </Label>
-                            <Label fx:id="p5" layoutX="23.0" layoutY="188.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
+                            <Label fx:id="p5" layoutX="12.0" layoutY="188.0" prefHeight="26.0" prefWidth="158.0" textAlignment="CENTER" textFill="#ffb028">
                                 <font>
                                     <Font name="OCR A Extended" size="22.0" />
                                 </font>

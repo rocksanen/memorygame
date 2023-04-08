@@ -3,6 +3,7 @@ package controller;
 import model.ModeType;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public interface IChartController {
     void fetchScores(ModeType difficulty);
@@ -14,6 +15,8 @@ public interface IChartController {
     ArrayList<Number> getUserScores(ModeType difficulty);
 
     ArrayList<Number> getUserTime(ModeType difficulty);
+
+    ArrayList<Date> getUserTimestamp(ModeType difficulty);
 
     void logout();
 

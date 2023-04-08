@@ -17,297 +17,303 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.gameModes.medium.FXMediumController">
-    <children>
-      <ImageView id="mediumSpread" fx:id="mediumSpread" fitHeight="780.0" fitWidth="1320.0" layoutX="-10.0" layoutY="-10.0" opacity="0.0">
-         <image>
-            <Image url="@../../images/mediumGame/enviroment/tigru.jpg" />
-         </image>
-         <rotationAxis>
-            <Point3D y="1.0" />
-         </rotationAxis>
-         <effect>
-            <GaussianBlur />
-         </effect>
-      </ImageView>
-      <ImageView id="midR" fx:id="midR" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" opacity="0.0" visible="false">
-         <image>
-            <Image url="@../../images/mediumGame/enviroment/midR.png" />
-         </image>
-      </ImageView>
-        <ImageView id="mediumBackground" fx:id="mediumBackground" fitHeight="752.0" fitWidth="1258.0" layoutX="-8.5" layoutY="2.0">
-            <image>
-                <Image url="@../../images/mediumGame/enviroment/tigru.jpg" />
-            </image>
-        </ImageView>
-      <ImageView id="midTop" fx:id="midTop" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
-         <image>
-            <Image url="@../../images/mediumGame/enviroment/midTop.png" />
-         </image>
-      </ImageView>
-      <ImageView id="midL" fx:id="midL" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
-         <image>
-            <Image url="@../../images/mediumGame/enviroment/midL.png" />
-         </image>
-      </ImageView>
-      <ImageView id="midBot" fx:id="midBot" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
-         <image>
-            <Image url="@../../images/mediumGame/enviroment/midBot.png" />
-         </image>
-         <effect>
-            <ColorAdjust brightness="-0.11" />
-         </effect>
-      </ImageView>
-      <ImageView id="midend" fx:id="midend" fitHeight="75.0" fitWidth="123.0" layoutX="564.0" layoutY="338.0" mouseTransparent="true">
-         <image>
-            <Image url="@../../images/movingjungle.gif" />
-         </image>
-         <rotationAxis>
-            <Point3D y="1.0" />
-         </rotationAxis>
-      </ImageView>
-      <ImageView id="midneo" fx:id="midneo" fitHeight="933.3" fitWidth="1599.0" layoutX="-174.2" layoutY="-92.0" mouseTransparent="true">
-         <image>
-            <Image url="@../../images/mediumGame/enviroment/medneo.png" />
-         </image>
-         <effect>
-            <SepiaTone />
-         </effect>
-      </ImageView>
-      <ImageView id="midneo2" fx:id="midneo2" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
-         <image>
-            <Image url="@../../images/mediumGame/enviroment/midneo2.png" />
-         </image>
-      </ImageView>
-      <ImageView id="midneo3" fx:id="midneo3" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
-         <image>
-            <Image url="@../../images/mediumGame/enviroment/midneo3.png" />
-         </image>
-      </ImageView>
-      <ImageView id="midneo4" fx:id="midneo4" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
-         <image>
-            <Image url="@../../images/mediumGame/enviroment/midneo4.png" />
-         </image>
-      </ImageView>
-      <ImageView id="midgrid" fx:id="midgrid" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
-         <image>
-            <Image url="@../../images/mediumGame/enviroment/mediumGrid.png" />
-         </image>
-         <effect>
-            <SepiaTone>
-               <input>
-                  <ColorAdjust brightness="0.03" />
-               </input>
-            </SepiaTone>
-         </effect>
-      </ImageView>
-        <GridPane id="mediumGrid" fx:id="mediumGrid" alignment="CENTER" layoutX="325.0" layoutY="113.0" prefHeight="517.0" prefWidth="599.0">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            </rowConstraints>
-        </GridPane>
-      <ImageView id="play" fx:id="play" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="290.0" onMouseClicked="#newGame">
-         <image>
-            <Image url="@../../images/playretro.png" />
-         </image>
-         <effect>
-            <SepiaTone level="0.61" />
-         </effect>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </ImageView>
-      <ImageView id="returngame" fx:id="returngame" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="385.0" onMouseClicked="#returnMenu">
-         <image>
-            <Image url="@../../images/return.png" />
-         </image>
-         <effect>
-            <SepiaTone level="0.61" />
-         </effect>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </ImageView>
-      <Label id="labelLoggedIn" fx:id="labelLoggedIn" layoutX="1025.0" layoutY="65.0" prefHeight="18.0" style="-fx-background-color: 169,169,169,0.5; -fx-background-radius: 3;" text="Not Logged In" textFill="WHITE" visible="false">
-         <font>
-            <Font name="Papyrus" size="24.0" />
-         </font>
-         <padding>
-            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-         </padding>
-      </Label>
-      <Pane id="scorePane" fx:id="scorePane" layoutX="73.0" layoutY="82.0" prefHeight="585.0" prefWidth="232.0" AnchorPane.leftAnchor="73.0">
-         <children>
-            <Pane id="worldscores" layoutY="21.0" prefHeight="241.0" prefWidth="184.0" style="-fx-background-color: black;">
+<AnchorPane fx:id="sceneRoot" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.gameModes.medium.FXMediumController">
+   <children>
+      <AnchorPane fx:id="gameRoot" layoutX="174.1999969482422" layoutY="92.0" prefHeight="750.0" prefWidth="1250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <children>
+            <ImageView id="mediumSpread" fx:id="mediumSpread" fitHeight="780.0" fitWidth="1320.0" layoutX="-10.0" layoutY="-10.0" opacity="0.0">
+               <image>
+                  <Image url="@../../images/mediumGame/enviroment/tigru.jpg" />
+               </image>
+               <rotationAxis>
+                  <Point3D y="1.0" />
+               </rotationAxis>
+               <effect>
+                  <GaussianBlur />
+               </effect>
+            </ImageView>
+            <ImageView id="midR" fx:id="midR" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" opacity="0.0" visible="false">
+               <image>
+                  <Image url="@../../images/mediumGame/enviroment/midR.png" />
+               </image>
+            </ImageView>
+              <ImageView id="mediumBackground" fx:id="mediumBackground" fitHeight="752.0" fitWidth="1258.0" layoutX="-8.5" layoutY="2.0">
+                  <image>
+                      <Image url="@../../images/mediumGame/enviroment/tigru.jpg" />
+                  </image>
+              </ImageView>
+            <ImageView id="midTop" fx:id="midTop" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
+               <image>
+                  <Image url="@../../images/mediumGame/enviroment/midTop.png" />
+               </image>
+            </ImageView>
+            <ImageView id="midL" fx:id="midL" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
+               <image>
+                  <Image url="@../../images/mediumGame/enviroment/midL.png" />
+               </image>
+            </ImageView>
+            <ImageView id="midBot" fx:id="midBot" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
+               <image>
+                  <Image url="@../../images/mediumGame/enviroment/midBot.png" />
+               </image>
+               <effect>
+                  <ColorAdjust brightness="-0.11" />
+               </effect>
+            </ImageView>
+            <ImageView id="midend" fx:id="midend" fitHeight="75.0" fitWidth="123.0" layoutX="564.0" layoutY="338.0" mouseTransparent="true">
+               <image>
+                  <Image url="@../../images/movingjungle.gif" />
+               </image>
+               <rotationAxis>
+                  <Point3D y="1.0" />
+               </rotationAxis>
+            </ImageView>
+            <ImageView id="midneo" fx:id="midneo" fitHeight="933.3" fitWidth="1599.0" layoutX="-174.2" layoutY="-92.0" mouseTransparent="true">
+               <image>
+                  <Image url="@../../images/mediumGame/enviroment/medneo.png" />
+               </image>
+               <effect>
+                  <SepiaTone />
+               </effect>
+            </ImageView>
+            <ImageView id="midneo2" fx:id="midneo2" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
+               <image>
+                  <Image url="@../../images/mediumGame/enviroment/midneo2.png" />
+               </image>
+            </ImageView>
+            <ImageView id="midneo3" fx:id="midneo3" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
+               <image>
+                  <Image url="@../../images/mediumGame/enviroment/midneo3.png" />
+               </image>
+            </ImageView>
+            <ImageView id="midneo4" fx:id="midneo4" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
+               <image>
+                  <Image url="@../../images/mediumGame/enviroment/midneo4.png" />
+               </image>
+            </ImageView>
+            <ImageView id="midgrid" fx:id="midgrid" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
+               <image>
+                  <Image url="@../../images/mediumGame/enviroment/mediumGrid.png" />
+               </image>
+               <effect>
+                  <SepiaTone>
+                     <input>
+                        <ColorAdjust brightness="0.03" />
+                     </input>
+                  </SepiaTone>
+               </effect>
+            </ImageView>
+              <GridPane id="mediumGrid" fx:id="mediumGrid" alignment="CENTER" layoutX="325.0" layoutY="113.0" prefHeight="517.0" prefWidth="599.0">
+                  <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+              </GridPane>
+            <ImageView id="play" fx:id="play" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="290.0" onMouseClicked="#newGame">
+               <image>
+                  <Image url="@../../images/playretro.png" />
+               </image>
+               <effect>
+                  <SepiaTone level="0.61" />
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView id="returngame" fx:id="returngame" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="385.0" onMouseClicked="#returnMenu">
+               <image>
+                  <Image url="@../../images/return.png" />
+               </image>
+               <effect>
+                  <SepiaTone level="0.61" />
+               </effect>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <Label id="labelLoggedIn" fx:id="labelLoggedIn" layoutX="1025.0" layoutY="65.0" prefHeight="18.0" style="-fx-background-color: 169,169,169,0.5; -fx-background-radius: 3;" text="Not Logged In" textFill="WHITE" visible="false">
+               <font>
+                  <Font name="Papyrus" size="24.0" />
+               </font>
+               <padding>
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+               </padding>
+            </Label>
+            <Pane id="scorePane" fx:id="scorePane" layoutX="73.0" layoutY="82.0" prefHeight="585.0" prefWidth="232.0" AnchorPane.leftAnchor="73.0">
                <children>
-                  <ImageView id="worldback" fitHeight="261.0" fitWidth="200.0" layoutX="-9.0" layoutY="-10.0">
-                     <image>
-                        <Image url="@../../images/scorepohja2.png" />
-                     </image>
-                     <effect>
-                        <Glow level="0.5">
-                           <input>
-                              <SepiaTone level="0.5" />
-                           </input></Glow>
-                     </effect>
-                  </ImageView>
-                  <ImageView id="worldscores" fitHeight="35.0" fitWidth="170.0" layoutX="6.0" layoutY="10.0">
-                     <image>
-                        <Image url="@../../images/worldscores2.png" />
-                     </image>
-                     <effect>
-                        <Glow level="0.4" />
-                     </effect>
-                  </ImageView>
-                  <Label fx:id="w1" layoutX="23.0" layoutY="48.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
-                     <font>
-                        <Font name="OCR A Extended" size="22.0" />
-                     </font>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <effect>
-                        <Glow level="1.0" />
-                     </effect>
-                  </Label>
-                  <Label fx:id="w2" layoutX="23.0" layoutY="83.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
-                     <font>
-                        <Font name="OCR A Extended" size="22.0" />
-                     </font>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <effect>
-                        <Glow level="1.0" />
-                     </effect>
-                  </Label>
-                  <Label fx:id="w3" layoutX="23.0" layoutY="118.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
-                     <font>
-                        <Font name="OCR A Extended" size="22.0" />
-                     </font>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <effect>
-                        <Glow level="1.0" />
-                     </effect>
-                  </Label>
-                  <Label fx:id="w4" layoutX="23.0" layoutY="153.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
-                     <font>
-                        <Font name="OCR A Extended" size="22.0" />
-                     </font>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <effect>
-                        <Glow level="1.0" />
-                     </effect>
-                  </Label>
-                  <Label fx:id="w5" layoutX="23.0" layoutY="188.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
-                     <font>
-                        <Font name="OCR A Extended" size="22.0" />
-                     </font>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <effect>
-                        <Glow level="1.0" />
-                     </effect>
-                  </Label>
+                  <Pane id="worldscores" layoutY="21.0" prefHeight="241.0" prefWidth="184.0" style="-fx-background-color: black;">
+                     <children>
+                        <ImageView id="worldback" fitHeight="261.0" fitWidth="200.0" layoutX="-9.0" layoutY="-10.0">
+                           <image>
+                              <Image url="@../../images/scorepohja2.png" />
+                           </image>
+                           <effect>
+                              <Glow level="0.5">
+                                 <input>
+                                    <SepiaTone level="0.5" />
+                                 </input>
+                              </Glow>
+                           </effect>
+                        </ImageView>
+                        <ImageView id="worldscores" fitHeight="35.0" fitWidth="170.0" layoutX="6.0" layoutY="10.0">
+                           <image>
+                              <Image url="@../../images/worldscores2.png" />
+                           </image>
+                           <effect>
+                              <Glow level="0.4" />
+                           </effect>
+                        </ImageView>
+                        <Label fx:id="w1" layoutX="12.0" layoutY="48.0" prefHeight="26.0" prefWidth="158.0" textAlignment="CENTER" textFill="#ffb028">
+                           <font>
+                              <Font name="OCR A Extended" size="22.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                        <Label fx:id="w2" layoutX="12.0" layoutY="83.0" prefHeight="26.0" prefWidth="158.0" textAlignment="CENTER" textFill="#ffb028">
+                           <font>
+                              <Font name="OCR A Extended" size="22.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                        <Label fx:id="w3" layoutX="12.0" layoutY="118.0" prefHeight="26.0" prefWidth="158.0" textAlignment="CENTER" textFill="#ffb028">
+                           <font>
+                              <Font name="OCR A Extended" size="22.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                        <Label fx:id="w4" layoutX="12.0" layoutY="153.0" prefHeight="26.0" prefWidth="158.0" textAlignment="CENTER" textFill="#ffb028">
+                           <font>
+                              <Font name="OCR A Extended" size="22.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                        <Label fx:id="w5" layoutX="12.0" layoutY="188.0" prefHeight="26.0" prefWidth="158.0" textAlignment="CENTER" textFill="#ffb028">
+                           <font>
+                              <Font name="OCR A Extended" size="22.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane id="personalscoresPane" layoutY="320.0" prefHeight="241.0" prefWidth="184.0" style="-fx-background-color: black;">
+                     <children>
+                        <ImageView id="perback" fitHeight="261.0" fitWidth="200.0" layoutX="-9.0" layoutY="-10.0">
+                           <image>
+                              <Image url="@../../images/scorepohja2.png" />
+                           </image>
+                           <effect>
+                              <Glow level="0.5">
+                                 <input>
+                                    <SepiaTone level="0.6" />
+                                 </input>
+                              </Glow>
+                           </effect>
+                        </ImageView>
+                        <ImageView id="personalscores" fitHeight="35.0" fitWidth="170.0" layoutX="6.0" layoutY="10.0">
+                           <image>
+                              <Image url="@../../images/personalscore2.png" />
+                           </image>
+                           <effect>
+                              <Glow level="0.41" />
+                           </effect>
+                        </ImageView>
+                        <Label fx:id="p1" layoutX="12.0" layoutY="48.0" prefHeight="26.0" prefWidth="158.0" textAlignment="CENTER" textFill="#ffb028">
+                           <font>
+                              <Font name="OCR A Extended" size="22.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                        <Label fx:id="p2" layoutX="12.0" layoutY="83.0" prefHeight="26.0" prefWidth="158.0" textAlignment="CENTER" textFill="#ffb028">
+                           <font>
+                              <Font name="OCR A Extended" size="22.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                        <Label fx:id="p3" layoutX="12.0" layoutY="118.0" prefHeight="26.0" prefWidth="158.0" textAlignment="CENTER" textFill="#ffb028">
+                           <font>
+                              <Font name="OCR A Extended" size="22.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                        <Label fx:id="p4" layoutX="12.0" layoutY="153.0" prefHeight="26.0" prefWidth="158.0" textAlignment="CENTER" textFill="#ffb028">
+                           <font>
+                              <Font name="OCR A Extended" size="22.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                        <Label fx:id="p5" layoutX="12.0" layoutY="188.0" prefHeight="26.0" prefWidth="158.0" textAlignment="CENTER" textFill="#ffb028">
+                           <font>
+                              <Font name="OCR A Extended" size="22.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                     </children>
+                  </Pane>
                </children>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+               <rotationAxis>
+                  <Point3D y="1.0" />
+               </rotationAxis>
             </Pane>
-            <Pane id="personalscoresPane" layoutY="320.0" prefHeight="241.0" prefWidth="184.0" style="-fx-background-color: black;">
-               <children>
-                  <ImageView id="perback" fitHeight="261.0" fitWidth="200.0" layoutX="-9.0" layoutY="-10.0">
-                     <image>
-                        <Image url="@../../images/scorepohja2.png" />
-                     </image>
-                     <effect>
-                        <Glow level="0.5">
-                           <input>
-                              <SepiaTone level="0.6" />
-                           </input></Glow>
-                     </effect>
-                  </ImageView>
-                  <ImageView id="personalscores" fitHeight="35.0" fitWidth="170.0" layoutX="6.0" layoutY="10.0">
-                     <image>
-                        <Image url="@../../images/personalscore2.png" />
-                     </image>
-                     <effect>
-                        <Glow level="0.41" />
-                     </effect>
-                  </ImageView>
-                  <Label fx:id="p1" layoutX="23.0" layoutY="48.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
-                     <font>
-                        <Font name="OCR A Extended" size="22.0" />
-                     </font>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <effect>
-                        <Glow level="1.0" />
-                     </effect>
-                  </Label>
-                  <Label fx:id="p2" layoutX="23.0" layoutY="83.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
-                     <font>
-                        <Font name="OCR A Extended" size="22.0" />
-                     </font>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <effect>
-                        <Glow level="1.0" />
-                     </effect>
-                  </Label>
-                  <Label fx:id="p3" layoutX="23.0" layoutY="118.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
-                     <font>
-                        <Font name="OCR A Extended" size="22.0" />
-                     </font>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <effect>
-                        <Glow level="1.0" />
-                     </effect>
-                  </Label>
-                  <Label fx:id="p4" layoutX="23.0" layoutY="153.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
-                     <font>
-                        <Font name="OCR A Extended" size="22.0" />
-                     </font>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <effect>
-                        <Glow level="1.0" />
-                     </effect>
-                  </Label>
-                  <Label fx:id="p5" layoutX="23.0" layoutY="188.0" prefHeight="26.0" prefWidth="147.0" textAlignment="CENTER" textFill="#ffb028">
-                     <font>
-                        <Font name="OCR A Extended" size="22.0" />
-                     </font>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <effect>
-                        <Glow level="1.0" />
-                     </effect>
-                  </Label>
-               </children>
-            </Pane>
-         </children>
-         <padding>
-            <Insets left="10.0" />
-         </padding>
-         <rotationAxis>
-            <Point3D y="1.0" />
-         </rotationAxis>
-      </Pane>
-    </children>
-
+          </children>
+      
+      </AnchorPane>
+   </children>
 </AnchorPane>

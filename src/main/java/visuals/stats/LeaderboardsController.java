@@ -4,15 +4,18 @@ import controller.ScoreController;
 import controller.UserController;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.skin.TableHeaderRow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import model.ModeType;
 import model.Score;
@@ -59,7 +62,10 @@ public class LeaderboardsController {
     public Label labelInfo;
 
     @FXML
-    public AnchorPane chartPane;
+    public Pane chartPane;
+    @FXML
+    public ImageView rugsweeper;
+
     private ScoreController scoreController;
 
     private UserController userController;
@@ -99,11 +105,12 @@ public class LeaderboardsController {
         initView();
         updateTable(ModeType.EASY, false);
         updateLabelInfo();
-       currentMode = ModeType.EASY;
-       chart(currentMode);
+        currentMode = ModeType.EASY;
+        chart(currentMode);
+
+        // hides a block above the invisible scrollbar
+        rugsweeper.setImage(new Image(Objects.requireNonNull(getClass().getClassLoader().getResource("images/trophy.png")).toExternalForm()));
     }
-
-
 
 
     /**
@@ -111,8 +118,6 @@ public class LeaderboardsController {
      * calls initTable(), sets styles.
      */
     private void initView() {
-        Font.loadFont(Objects.requireNonNull(getClass().getClassLoader().getResource("fonts/VCR_OSD_MONO_1.001.ttf")).toExternalForm(), 14);
-
         initTable();
 
         styleButton(buttonReturn);
@@ -123,8 +128,8 @@ public class LeaderboardsController {
         styleButton(buttonRefresh);
 
         // label set font and background should be dark purple with white font
-        labelTitle.setStyle("-fx-font: 48px \"VCR OSD Mono\"; -fx-text-fill: white;");
-        labelInfo.setStyle("-fx-font: 24px \"VCR OSD Mono\"; -fx-text-fill: white;");
+        labelTitle.setStyle("-fx-font: 40px \"Atari Classic\"; -fx-text-fill: white;");
+        labelInfo.setStyle("-fx-font: 20px \"Atari Classic\"; -fx-text-fill: white;");
     }
 
 
@@ -132,8 +137,9 @@ public class LeaderboardsController {
 
         chartGUI.init();
         chartPane.getChildren().add(chartGUI.stackedAreaChart());
+        chartGUI.stackedAreaChart().setMaxWidth(550);
+        chartGUI.stackedAreaChart().setMaxHeight(430);
     }
-
 
 
     /**
@@ -146,9 +152,9 @@ public class LeaderboardsController {
      */
     private void styleButton(Button b) {
         // get hex for dark purple and light purple and save them to variables
-        String darkPurple = "#800080";
-        String lightPurple = "#cc00cc";
-        b.setFont(Font.font("VCR OSD Mono", 14));
+        String darkPurple = "#6d006d";
+        String lightPurple = "#930093";
+        b.setFont(Font.font("Atari Classic", 14));
         b.setStyle("-fx-background-color: " + darkPurple + "; -fx-text-fill: white;");
         b.setOnMouseEntered(e -> b.setStyle("-fx-background-color: " + lightPurple + " ; -fx-text-fill: white;"));
         b.setOnMouseExited(e -> b.setStyle("-fx-background-color: " + darkPurple + "; -fx-text-fill: white;"));
@@ -160,6 +166,17 @@ public class LeaderboardsController {
     private void initTable() {
         TableColumn<Score, String> nameCol = new TableColumn<>("Username");
         nameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
+        nameCol.setCellFactory(column -> new TableCell<>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.toUpperCase());
+                }
+            }
+        });
 
         TableColumn<Score, Integer> scoreCol = new TableColumn<>("Points");
         scoreCol.setCellValueFactory(new PropertyValueFactory<>("points"));
@@ -236,25 +253,16 @@ public class LeaderboardsController {
         scoreTable.getColumns().clear();
         scoreTable.getColumns().addAll(nameCol, scoreCol, timeCol, gradeCol, dateCol);
 
-        // center text on columns
-        scoreTable.getColumns().forEach(column -> column.setStyle("-fx-alignment: CENTER;"));
-
         nameCol.setMinWidth(140);
-        nameCol.setMaxWidth(140);
+        nameCol.setMaxWidth(nameCol.getMinWidth());
         scoreCol.setMinWidth(90);
-        scoreCol.setMaxWidth(90);
-        timeCol.setMinWidth(90);
-        timeCol.setMaxWidth(90);
-        gradeCol.setMinWidth(90);
-        gradeCol.setMaxWidth(90);
-        dateCol.setMinWidth(150);
-        dateCol.setMaxWidth(150);
-
-        scoreTable.setMinWidth(590);
-        scoreTable.setMaxWidth(590);
-
-        scoreTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        scoreTable.setStyle("-fx-font: 14px \"VCR OSD Mono\";");
+        scoreCol.setMaxWidth(scoreCol.getMinWidth());
+        timeCol.setMinWidth(110);
+        timeCol.setMaxWidth(timeCol.getMinWidth());
+        gradeCol.setMinWidth(70);
+        gradeCol.setMaxWidth(gradeCol.getMinWidth());
+        dateCol.setMinWidth(200);
+        dateCol.setMaxWidth(dateCol.getMinWidth());
     }
 
 

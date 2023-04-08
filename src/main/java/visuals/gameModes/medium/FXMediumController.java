@@ -3,9 +3,12 @@ package visuals.gameModes.medium;
 import controller.ScoreController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import model.MemoryObject;
@@ -17,9 +20,11 @@ import visuals.cubeFactories.MediumCubeFactory;
 import visuals.effects.gameEffects.MediumEffects;
 import visuals.gameModes.FXAbstractGameController;
 import visuals.gameModes.FXIGameController;
+import visuals.gameModes.GameOverController;
 import visuals.imageServers.ImageCache;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -79,12 +84,16 @@ public class FXMediumController extends FXAbstractGameController implements Init
     GridPane mediumGrid;
     @FXML
     Pane scorePane;
+    @FXML
+    AnchorPane gameRoot;
+    @FXML
+    AnchorPane sceneRoot;
+
 
     private ICubeFactory mediumCubeFactory;
     private MediumEffects mediumEffects;
 
     private ScoreController scoreController;
-
 
 
     public void setController(ScoreController scoreController) {
@@ -104,6 +113,18 @@ public class FXMediumController extends FXAbstractGameController implements Init
         Platform.runLater(() -> mediumEffects.entrance());
         Platform.runLater(this::setWorldScore);
         Platform.runLater(this::setPersonalScore);
+
+        p1.setStyle("-fx-font: 14 \"Atari Classic\";");
+        p2.setStyle("-fx-font: 14 \"Atari Classic\";");
+        p3.setStyle("-fx-font: 14 \"Atari Classic\";");
+        p4.setStyle("-fx-font: 14 \"Atari Classic\";");
+        p5.setStyle("-fx-font: 14 \"Atari Classic\";");
+        w1.setStyle("-fx-font: 14 \"Atari Classic\";");
+        w2.setStyle("-fx-font: 14 \"Atari Classic\";");
+        w3.setStyle("-fx-font: 14 \"Atari Classic\";");
+        w4.setStyle("-fx-font: 14 \"Atari Classic\";");
+        w5.setStyle("-fx-font: 14 \"Atari Classic\";");
+
         setStartGame();
     }
 
@@ -186,7 +207,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
 
     @Override
     public void newGame() {
-
+        clearGameOverMenu(sceneRoot, gameRoot);
         setStartGame();
     }
 
@@ -214,9 +235,12 @@ public class FXMediumController extends FXAbstractGameController implements Init
 
     @Override
     public void gameOver() {
+
         Platform.runLater(this::setPersonalScore);
         Platform.runLater(this::setWorldScore);
         System.out.println("game over");
+
+        gameOverMenu(gameRoot, sceneRoot);
     }
 
     @Override

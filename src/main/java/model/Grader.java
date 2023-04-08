@@ -107,10 +107,8 @@ public class Grader {
 
         // numbers selected for vanity reasons
         if (points >= maxPossibleScore * 0.8) {
-            return "⭐⭐⭐⭐";
-        } else if (points >= maxPossibleScore * 0.75) {
             return "⭐⭐⭐";
-        } else if (points >= maxPossibleScore * 0.70) {
+        } else if (points >= maxPossibleScore * 0.65) {
             return "⭐⭐";
         } else {
             return "⭐";
