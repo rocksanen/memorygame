@@ -4,6 +4,7 @@ import model.*;
 import visuals.stats.IChartGUI;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import static model.ModeType.*;
 
@@ -132,6 +133,7 @@ public class ChartController implements IChartController{
         }
         return timeList;
     }
+
 
     @Override
     public void logout() {
