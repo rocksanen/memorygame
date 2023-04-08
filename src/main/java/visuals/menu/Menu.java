@@ -122,7 +122,14 @@ public class Menu implements Initializable, IMenu {
     Pane logOutPane;
     @FXML
     ImageView info;
+
+    @FXML
+    Button audioSound;
+
+    private boolean isAudioPlaying = true;
     private boolean returnStatus;
+
+    private AudioMemory audioMemory = AudioMemory.getInstance();
 
 
     @Override
@@ -362,17 +369,6 @@ public class Menu implements Initializable, IMenu {
         }
     }
 
-//    @FXML
-//    public void statsGame() {
-//        ChartGUI c = new ChartGUI();
-//
-//        try {
-//            c.start(new Stage());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-
     @FXML
     public void setButtonLeaderboards() {
 
@@ -407,5 +403,38 @@ public class Menu implements Initializable, IMenu {
     public void hoverOff(javafx.scene.input.MouseEvent event) {
 
         hovers.commonHoverOff(event);
+    }
+/*
+    @FXML
+    public void setButtonAudio(){
+        System.out.println("audio button called!");
+        if (isAudioPlaying) {
+            audioMemory.stopSong(ModeType.MENU);
+            isAudioPlaying = false;
+            audioSound.setText("Audio: Off");
+        } else {
+            audioMemory.playTheIntro();
+            isAudioPlaying = true;
+            audioSound.setText("Audio: On");
+        }
+    }*/
+
+
+    @FXML
+    private void setButtonAudio() {
+        if (isAudioPlaying) {
+            // If audio is currently playing, pause the audio and update the button text
+            audioMemory.pauseSong(ModeType.MENU); // You can change the mode type to the appropriate one for your use case
+            audioMemory.pauseSong(ModeType.EASY);
+            audioMemory.pauseSong(MEDIUM);
+            audioMemory.pauseSong(HARD);
+            isAudioPlaying = false;
+            audioSound.setText("Paused");
+        } else {
+            // If audio is currently paused, resume the audio and update the button text
+            audioMemory.playTheIntro(); // You can change the play method to the appropriate one for your use case
+            isAudioPlaying = true;
+            audioSound.setText("Playing");
+        }
     }
 }

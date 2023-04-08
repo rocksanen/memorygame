@@ -7,9 +7,18 @@ import java.util.ArrayList;
 
 import static model.ModeType.*;
 
+/**
+ * The type Chart controller.
+ */
 public class ChartController implements IChartController{
     private final IChartGUI chartUi;
     private IEngine engine;
+
+    /**
+     * Instantiates a new Chart controller.
+     *
+     * @param chartUi the chart ui
+     */
     public ChartController(IChartGUI chartUi) {
         this.chartUi = chartUi;
     }

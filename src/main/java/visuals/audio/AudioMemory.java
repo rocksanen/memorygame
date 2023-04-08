@@ -18,6 +18,9 @@ public class AudioMemory {
     private final MediaPlayer hardPlayer;
     private final MediaPlayer menuRetoSong;
     private final MediaPlayer leaderBoardPlayer;
+    private boolean isAudioPlaying = false;
+
+
 
     private AudioMemory() {
 
@@ -52,6 +55,21 @@ public class AudioMemory {
     }
 
     public void playSong(ModeType type) {
+        if (ModeType.EASY == type && !isAudioPlaying) { // Check if the current mode type matches and audio is not already playing
+            switch (type) {
+                case MENU -> menuRetoSong.play();
+                case EASY -> easyPlayer.play();
+                case MEDIUM -> mediumPlayer.play();
+                case HARD -> hardPlayer.play();
+                case LEADERBOARD -> leaderBoardPlayer.play();
+            }
+            isAudioPlaying = false; // Set isAudioPlaying flag to true
+        }
+    }
+
+
+    /*
+    public void playSong(ModeType type) {
 
         switch (type) {
             case MENU -> playTheSong(menuRetoSong);
@@ -62,6 +80,9 @@ public class AudioMemory {
         }
     }
 
+
+     */
+
     public void stopSong(ModeType type) {
 
         switch (type) {
@@ -70,6 +91,16 @@ public class AudioMemory {
             case MEDIUM -> stopTheSong(mediumPlayer);
             case HARD -> stopTheSong(hardPlayer);
             case LEADERBOARD -> stopTheSong(leaderBoardPlayer);
+        }
+    }
+
+    public void pauseSong(ModeType type) {
+        switch (type) {
+            case MENU -> menuRetoSong.pause();
+            case EASY -> easyPlayer.pause();
+            case MEDIUM -> mediumPlayer.pause();
+            case HARD -> hardPlayer.pause();
+            case LEADERBOARD -> leaderBoardPlayer.pause();
         }
     }
 
@@ -96,11 +127,12 @@ public class AudioMemory {
     }
 
     private void stopTheSong(MediaPlayer mediaPlayer) {
-
         Timeline fadeOut = new Timeline(
                 new KeyFrame(Duration.seconds(1), new KeyValue(mediaPlayer.volumeProperty(), 0))
         );
         fadeOut.setOnFinished(event -> mediaPlayer.stop());
         fadeOut.play();
     }
+
+
 }
