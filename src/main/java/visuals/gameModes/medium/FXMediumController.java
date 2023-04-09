@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -79,6 +80,8 @@ public class FXMediumController extends FXAbstractGameController implements Init
     GridPane mediumGrid;
     @FXML
     Pane scorePane;
+    @FXML
+    ProgressBar medium_progressbar;
 
     private ICubeFactory mediumCubeFactory;
     private MediumEffects mediumEffects;
@@ -232,6 +235,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
     @Override
     public void getTime(int i) {
         super.getTime(i);
+        medium_progressbar.setProgress(i*0.01);
     }
 
     @Override

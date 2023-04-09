@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -47,6 +48,8 @@ public class FXHardController extends FXAbstractGameController implements Initia
     @FXML Label w3;
     @FXML Label w4;
     @FXML Label w5;
+    @FXML
+    ProgressBar hard_progressbar;
     private ICubeFactory hardCubeFactory;
     private HardEffects hardEffects;
     private ScoreController scoreController;
@@ -188,6 +191,7 @@ public class FXHardController extends FXAbstractGameController implements Initia
     @Override
     public void getTime(int i) {
         super.getTime(i);
+        hard_progressbar.setProgress(i*0.01);
     }
     @Override
     public void sendIdToEngine(int id) {
