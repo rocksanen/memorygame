@@ -4,6 +4,7 @@ import model.*;
 import visuals.stats.IChartGUI;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import static model.ModeType.*;
 
@@ -122,6 +123,12 @@ public class ChartController implements IChartController{
             timeList.add(s.getTime());
         }
         return timeList;
+    }
+
+    //Was not implemented in the master, program would not start (?)
+    @Override
+    public ArrayList<Date> getUserTimestamp(ModeType difficulty) {
+        return null;
     }
 
     @Override

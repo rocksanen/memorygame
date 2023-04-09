@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -84,6 +85,8 @@ public class FXMediumController extends FXAbstractGameController implements Init
     GridPane mediumGrid;
     @FXML
     Pane scorePane;
+    @FXML
+    ProgressBar medium_progressbar;
     @FXML
     AnchorPane gameRoot;
     @FXML
@@ -256,6 +259,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
     @Override
     public void getTime(int i) {
         super.getTime(i);
+        medium_progressbar.setProgress(i*0.01);
     }
 
     @Override

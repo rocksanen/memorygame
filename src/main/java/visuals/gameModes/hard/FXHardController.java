@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -77,6 +78,8 @@ public class FXHardController extends FXAbstractGameController implements Initia
     AnchorPane gameRoot;
     @FXML
     AnchorPane sceneRoot;
+    @FXML
+    ProgressBar hard_progressbar;
 
 
     private ICubeFactory hardCubeFactory;
@@ -238,6 +241,7 @@ public class FXHardController extends FXAbstractGameController implements Initia
     @Override
     public void getTime(int i) {
         super.getTime(i);
+        hard_progressbar.setProgress(i*0.01);
     }
 
     @Override

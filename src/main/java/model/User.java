@@ -141,7 +141,7 @@ public class User {
      * Searches username from db, creates it if it does not exist
      * and updates the instance variables
      * also hashes the password before saving it
-     * no salt since that's unhealthy 🧑‍⚕️
+     * no salt since that's unhealthy
      *
      * @param username see {@link #username}
      * @param password user password
