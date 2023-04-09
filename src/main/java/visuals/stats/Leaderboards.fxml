@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -19,12 +21,15 @@
                <children>
                   <VBox>
                      <children>
-                        <Label fx:id="labelTitle" alignment="CENTER" prefWidth="500.0" text="Leaderboards">
+                        <Label fx:id="labelTitle" alignment="CENTER" prefHeight="80.0" prefWidth="500.0" text="Leaderboards">
                            <font>
                               <Font size="48.0" />
                            </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
                         </Label>
-                        <Label fx:id="labelInfo" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefWidth="500.0" text="Global Easy Mode" VBox.vgrow="ALWAYS">
+                        <Label fx:id="labelInfo" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="500.0" text="Global Easy Mode" VBox.vgrow="ALWAYS">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -41,18 +46,21 @@
             </HBox>
             <HBox fx:id="hboxLbs" VBox.vgrow="ALWAYS">
                <children>
-                  <TableView fx:id="scoreTable">
+                  <TableView fx:id="scoreTable" prefHeight="600.0" prefWidth="630.0" stylesheets="@leaderboards.css">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
+                      <TableColumn prefWidth="150.40002459287643" text="C1" />
+                      <TableColumn minWidth="0.0" prefWidth="261.6000061035156" text="C2" />
                     </columns>
                      <HBox.margin>
                         <Insets bottom="15.0" left="15.0" />
                      </HBox.margin>
                   </TableView>
-                  <VBox fx:id="vboxInfo" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS">
+                  <VBox fx:id="vboxInfo" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Pane fx:id="paneStats" prefHeight="400.0" prefWidth="200.0" />
+                        <Pane fx:id="chartPane" maxHeight="400.0" maxWidth="400.0" prefHeight="400.0" prefWidth="400.0">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="20.0" right="20.0" />
+                           </VBox.margin></Pane>
                         <HBox alignment="CENTER" prefHeight="60.0" spacing="20.0">
                            <children>
                             <Button fx:id="buttonEasy" maxHeight="1.7976931348623157E308" minWidth="100.0" mnemonicParsing="false" onAction="#setButtonEasy" text="Easy" />
@@ -65,11 +73,11 @@
                         </HBox>
                         <HBox alignment="CENTER" layoutX="10.0" layoutY="410.0" spacing="20.0">
                            <children>
-                              <Button fx:id="buttonUserGlobal" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#setButtonUserGlobal" prefHeight="50.0" prefWidth="200.0" text="User Scores" />
-                              <Button fx:id="buttonRefresh" layoutX="404.0" layoutY="10.0" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#setButtonRefresh" prefHeight="50.0" prefWidth="200.0" text="Reload Scores" />
+                              <Button fx:id="buttonUserGlobal" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#setButtonUserGlobal" prefHeight="50.0" prefWidth="230.0" text="User Scores" />
+                              <Button fx:id="buttonRefresh" layoutX="404.0" layoutY="10.0" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#setButtonRefresh" prefHeight="50.0" prefWidth="230.0" text="Reload Scores" />
                            </children>
                            <VBox.margin>
-                              <Insets top="30.0" />
+                              <Insets />
                            </VBox.margin>
                         </HBox>
                      </children>
@@ -79,5 +87,10 @@
          </children>
       </VBox>
       <Button fx:id="buttonReturn" mnemonicParsing="false" onAction="#setButtonReturn" prefHeight="60.0" prefWidth="200.0" text="Go Back" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+      <ImageView fx:id="rugsweeper" fitHeight="50.0" fitWidth="50.0" AnchorPane.leftAnchor="615.0" AnchorPane.topAnchor="135.0">
+         <image>
+            <Image url="@../../../resources/images/trophy.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

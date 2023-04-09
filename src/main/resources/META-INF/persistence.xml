@@ -7,9 +7,9 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <properties>
             <property name="jakarta.persistence.lock.timeout" value="5001"/>
-            <property name="jakarta.persistence.jdbc.url" value=""/>
-            <property name="jakarta.persistence.jdbc.user" value=""/>
-            <property name="jakarta.persistence.jdbc.password" value=""/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:sqlserver://tietokanta.database.windows.net:1433;database=memorizer;user=memorizee@tietokanta;password={MietiMietiMieti3};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;"/>
+            <property name="jakarta.persistence.jdbc.user" value="memorizee"/>
+            <property name="jakarta.persistence.jdbc.password" value="MietiMietiMieti3"/>
             <property name="jakarta.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
             <property name="jakarta.persistence.schema-generation.database.action" value="none"/>
             <property name="hibernate.show_sql" value="true" />

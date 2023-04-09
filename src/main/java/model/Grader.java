@@ -54,7 +54,7 @@ public class Grader {
 
         double midScore = INITIAL_SCORE - tries * TRIES_INCREMENT;
 
-        // calculate a line
+        // calculate a line 🤓
         // y = mx + b
         // y = score multiplier
         // x = seconds
@@ -77,18 +77,19 @@ public class Grader {
 //        System.out.println("m: " + m);
 //        System.out.println("b: " + b);
 
-
         double finalScore = midScore * y;
         if (finalScore < MINIMUM_SCORE) {
             finalScore = MINIMUM_SCORE;
         }
         System.out.println("Final score: " + finalScore);
-        return (int) finalScore;
+        // round finalscore to int value
+        return (int) Math.round(finalScore);
     }
 
 
     /**
-     * gives grades for points. returns maximum 4 stars.
+     * gives grades for points. returns maximum 4 stars. ⭐⭐⭐⭐
+     *
      * @param points   points
      * @param modeType difficulty
      * @return grade
@@ -105,13 +106,12 @@ public class Grader {
         int maxPossibleScore = INITIAL_SCORE * (numberOfCubes / 2);
 
         // numbers selected for vanity reasons
-        if (points <= maxPossibleScore * 0.4) {
-            return "tah1";
-        } else if (points <= maxPossibleScore * 0.6) {
-            return "tah2";
-        } else if (points <= maxPossibleScore * 0.8) {
-            return "tah5";
+        if (points >= maxPossibleScore * 0.8) {
+            return "⭐⭐⭐";
+        } else if (points >= maxPossibleScore * 0.65) {
+            return "⭐⭐";
+        } else {
+            return "⭐";
         }
-        return "tahti5";
     }
 }

@@ -1,31 +1,24 @@
 package visuals.stats;
-
 import controller.ChartController;
 import controller.IChartController;
-import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Cursor;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.layout.*;
-import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
+import javafx.scene.text.Font;
 import model.ModeType;
-
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 /**
  * The type Chart gui.
  */
-public class ChartGUI extends Application implements IChartGUI {
+public class ChartGUI implements IChartGUI {
+
+    public AreaChart<Number, Number> stackedAreaChart() {
+
+        return stackedAreaChart;
+    }
 
     /**
      * The Stacked area chart.
@@ -34,186 +27,51 @@ public class ChartGUI extends Application implements IChartGUI {
 
     private final IChartController scoreController2 = new ChartController(this);
 
-    /**
-     * The entry point of application.
-     *
-     * @param args the input arguments
-     */
-    public static void main(String[] args) {launch(args);}
-    @Override
-    public void start(Stage stage) throws IOException {
+    private ModeType currentMode;
+    public void init() {
+        Font.loadFont(Objects.requireNonNull(getClass().getClassLoader().getResource("fonts/VCR_OSD_MONO_1.001.ttf")).toExternalForm(), 14);
 
+        currentMode = ModeType.EASY;
 
-        stackedAreaChart.getXAxis().setStyle("-fx-tick-label-fill: BLACK; -fx-font-family: Papyrus; -fx-font-size: 16px;");
-        stackedAreaChart.getYAxis().setStyle("-fx-tick-label-fill: BLACK; -fx-font-family: Papyrus; -fx-font-size: 16px;");
+        stackedAreaChart.getXAxis().setStyle("-fx-tick-label-fill: WHITE; -fx-font-size: 16px;-fx-font-family: 'VCR OSD Mono'");
+        stackedAreaChart.getYAxis().setStyle("-fx-tick-label-fill: WHITE; -fx-font-size: 16px;-fx-font-family: 'VCR OSD Mono'");
 
         // Create a StackedAreaChart object
-
         stackedAreaChart.setTitle("Your Progress");
-        stackedAreaChart.lookup(".chart-title").setStyle("-fx-font-family: Papyrus; -fx-font-size: 23px; -fx-font-weight: BOLD");
-
+        stackedAreaChart.lookup(".chart-title").setStyle("-fx-font-size: 23px; -fx-font-weight: BOLD; -fx-text-fill: white; -fx-font-family: 'VCR OSD Mono'");
+        stackedAreaChart.setLegendVisible(false);
         stackedAreaChart.getXAxis().setLabel("Time (s)");
         stackedAreaChart.getYAxis().setLabel("Points");
-        Region plotBackground = (Region) stackedAreaChart.lookup(".chart-plot-background");
-        plotBackground.setStyle("-fx-background-color: rgba(255, 255, 255, 0);");
-        stackedAreaChart.setVerticalGridLinesVisible(false);
-        stackedAreaChart.setHorizontalGridLinesVisible(false);
+        stackedAreaChart.getXAxis().lookup(".axis-label").setStyle("-fx-text-fill: white; -fx-font-size: 16px; -fx-font-family: 'VCR OSD Mono'");
+        stackedAreaChart.getYAxis().lookup(".axis-label").setStyle("-fx-text-fill: white; -fx-font-size: 16px; -fx-font-family: 'VCR OSD Mono'");
 
+        stackedAreaChart.setPrefSize(600, 500);
+       // Region plotBackground = (Region) stackedAreaChart.lookup(".chart-plot-background");
+     //   plotBackground.setStyle("-fx-background-color: WHITE");
+        stackedAreaChart.setVerticalGridLinesVisible(true);
+        stackedAreaChart.setHorizontalGridLinesVisible(true);
 
-        ArrayList<Number> easyScore = scoreController2.getUserScores(ModeType.EASY);
-        ArrayList<Number> easyTime = scoreController2.getUserTime(ModeType.EASY);
-
-        ArrayList<Number> mediumScore = scoreController2.getUserScores(ModeType.MEDIUM);
-        ArrayList<Number> mediumTime = scoreController2.getUserTime(ModeType.MEDIUM);
-
-        ArrayList<Number> hardScore = scoreController2.getUserScores(ModeType.HARD);
-        ArrayList<Number> hardTime = scoreController2.getUserTime(ModeType.HARD);
-
-
-        // Create a series for each difficulty level
-        XYChart.Series<Number, Number> easyScoreSeries = new XYChart.Series<>();
-        easyScoreSeries.setName("Easy");
-        if (easyScore == null || easyTime == null) {
-            throw new NullPointerException("easyScore or easyTime is null");
-        }
-        for (int i = 0; i < easyScore.size(); i++) {
-            easyScoreSeries.getData().add(new XYChart.Data<>(easyTime.get(i), easyScore.get(i)));
-        }
-
-        XYChart.Series<Number, Number> mediumScoreSeries = new XYChart.Series<>();
-        mediumScoreSeries.setName("Medium");
-        if (mediumScore == null || mediumTime == null) {
-            throw new NullPointerException("mediumScore or mediumTime is null");
-        }
-        for (int i = 0; i < mediumScore.size(); i++) {
-            mediumScoreSeries.getData().add(new XYChart.Data<>(mediumTime.get(i), mediumScore.get(i)));
-        }
-
-        XYChart.Series<Number, Number> hardScoreSeries = new XYChart.Series<>();
-        hardScoreSeries.setName("Hard");
-        if (hardScore == null || hardTime == null) {
-            throw new NullPointerException("hardScore or hardTime is null");
-        }
-        for (int i = 0; i < hardScore.size(); i++) {
-            hardScoreSeries.getData().add(new XYChart.Data<>(hardTime.get(i), hardScore.get(i)));
-        }
-
-        // Add the series to the stacked area chart
-        stackedAreaChart.getData().addAll(easyScoreSeries,mediumScoreSeries, hardScoreSeries);
-
-
-        // Create a button with a circle shape of the color which represents the Easy data
-        Button easyButton = new Button("Easy");
-        easyButton.setCursor(Cursor.HAND);
-        easyButton.setShape(new Circle(10));
-        easyButton.setStyle("-fx-background-color: #ff7135; -fx-min-width: 20px; -fx-min-height: 20px;");
-
-        Button mediumButton = new Button("Medium");
-        mediumButton.setCursor(Cursor.HAND);
-        mediumButton.setShape(new Circle(10));
-        mediumButton.setStyle("-fx-background-color: #ffb527; -fx-min-width: 20px; -fx-min-height: 20px;");
-
-        Button hardButton = new Button("Hard");
-        hardButton.setCursor(Cursor.HAND);
-        hardButton.setShape(new Circle(10));
-        hardButton.setStyle("-fx-background-color: #51c56b; -fx-min-width: 20px; -fx-min-height: 20px;");
-
-        easyButton.setOnMouseClicked(event -> {
-            Node node = easyScoreSeries.getNode();
-            if( node == null){
-                throw new NullPointerException("Null returned");
-            }
-            if (easyScoreSeries.getNode().isVisible()) {
-                easyScoreSeries.getNode().setVisible(false);
-                easyButton.setStyle("-fx-background-color: #cccccc; -fx-min-width: 20px; -fx-min-height: 20px;");
-            } else {
-                easyScoreSeries.getNode().setVisible(true);
-                easyButton.setStyle("-fx-background-color: #ff7135; -fx-min-width: 20px; -fx-min-height: 20px;");
-            }
-        });
-        mediumButton.setOnMouseClicked(event -> {
-            Node node = mediumScoreSeries.getNode();
-            if( node == null){
-                throw new NullPointerException("Null returned");
-            }
-            if (mediumScoreSeries.getNode().isVisible()) {
-                mediumScoreSeries.getNode().setVisible(false);
-                mediumButton.setStyle("-fx-background-color: #cccccc; -fx-min-width: 20px; -fx-min-height: 20px;");
-            } else {
-                mediumScoreSeries.getNode().setVisible(true);
-                mediumButton.setStyle("-fx-background-color: #ffb527; -fx-min-width: 20px; -fx-min-height: 20px;");
-            }
-        });
-
-        hardButton.setOnMouseClicked(event -> {
-            Node node = hardScoreSeries.getNode();
-            if( node == null){
-                throw new NullPointerException("Null returned");
-            }
-            if (hardScoreSeries.getNode().isVisible()) {
-                hardScoreSeries.getNode().setVisible(false);
-                hardButton.setStyle("-fx-background-color: #cccccc; -fx-min-width: 20px; -fx-min-height: 20px;");
-            } else {
-                hardScoreSeries.getNode().setVisible(true);
-                hardButton.setStyle("-fx-background-color: #51c56b; -fx-min-width: 20px; -fx-min-height: 20px;");
-            }
-        });
-
-        stackedAreaChart.setLegendVisible(false);
-        stackedAreaChart.setPadding(new Insets(10, 10, 30, 10));
-        stackedAreaChart.setPrefSize(750, 550);
-
-
-        //Empty Space for below the buttons that buttons should be a little up
-        Region spacer = new Region();
-        spacer.setPrefHeight(20);
-
-        // Create a VBox to hold the chart
-        VBox vBox = new VBox();
-        vBox.setAlignment(Pos.CENTER);
-
-
-        //Create a HBox to hold the button
-        HBox hBox = new HBox(5);
-        hBox.setAlignment(Pos.CENTER);
-        hBox.getChildren().addAll(easyButton, mediumButton, hardButton);
-
-        vBox.getChildren().addAll(stackedAreaChart,hBox);
-
-        VBox mainBox = new VBox();
-        mainBox.getChildren().addAll(vBox, hBox, spacer);
-
-        // Load the image file
-
-        Image backgroundImage = new Image("file:src/main/java/visuals/images/mountain.jpeg");
-
-        // Create a BackgroundImage object with the loaded image
-        BackgroundImage background = new BackgroundImage(
-                backgroundImage,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,
-                new BackgroundSize(
-                        BackgroundSize.DEFAULT.getWidth(),
-                        BackgroundSize.DEFAULT.getHeight(),
-                        true,
-                        true,
-                        true,
-                        true
-                ));
-
-
-
-        // Set the background of the StackPane to the BackgroundImage
-        Background bgCover = new Background(background);
-        mainBox.setBackground(bgCover);
-
-
-        // Display the scene
-        Scene scene = new Scene(mainBox);
-        stage.setScene(scene);
-        stage.show();
+        // Set the data based on the currentMode
+        updateChartData(currentMode);
 
     }
-}
 
+    public void updateChartData(ModeType mode) {
+        ArrayList<Number> score = scoreController2.getUserScores(mode);
+        ArrayList<Number> time = scoreController2.getUserTime(mode);
+
+        // Create a series for the selected difficulty level
+        XYChart.Series<Number, Number> scoreSeries = new XYChart.Series<>();
+        scoreSeries.setName(mode.toString());
+        if (score == null || time == null) {
+            throw new NullPointerException("score or time is null");
+        }
+        for (int i = 0; i < score.size(); i++) {
+            scoreSeries.getData().add(new XYChart.Data<>(time.get(i), score.get(i)));
+        }
+
+        // Clear the previous data and add the new data to the chart
+        stackedAreaChart.getData().clear();
+        stackedAreaChart.getData().add(scoreSeries);
+    }
+}

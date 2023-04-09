@@ -94,4 +94,19 @@ public class GameController implements IGameController {
     public void sendComparingSuccess() {
         fxiGameController.compareFoundMatch();
     }
+
+    @Override
+    public int getCurrentScore() {
+        return engine.getTotalScore();
+    }
+
+    @Override
+    public ModeType getDifficulty() {
+        return engine.getType();
+    }
+
+    @Override
+    public String getGrade() {
+        return Grader.scoreGrader(engine.getTotalScore(), engine.getType());
+    }
 }

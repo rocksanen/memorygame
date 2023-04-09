@@ -1,15 +1,21 @@
 package visuals.gameModes.easy;
 
 import controller.ScoreController;
-import controller.UserController;
+import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 import model.*;
 import visuals.cubeFactories.BoxMaker;
 import visuals.cubeFactories.EasyCubeFactory;
@@ -17,10 +23,11 @@ import visuals.cubeFactories.ICubeFactory;
 import visuals.effects.gameEffects.EasyEffects;
 import visuals.gameModes.FXAbstractGameController;
 import visuals.gameModes.FXIGameController;
+import visuals.gameModes.GameOverController;
 import visuals.imageServers.ImageCache;
-import visuals.menu.Menu;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -64,7 +71,6 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     Label w4;
     @FXML
     Label w5;
-
     @FXML
     ImageView easy3Dgrid;
     @FXML
@@ -72,6 +78,11 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     @FXML
     ImageView easyEnd;
 
+    @FXML
+    AnchorPane sceneRoot;
+
+    @FXML
+    AnchorPane gameRoot;
 
     private ICubeFactory easyCubeFactory;
     private EasyEffects easyEffects;
@@ -99,6 +110,18 @@ public class FXEasyController extends FXAbstractGameController implements Initia
         Platform.runLater(() -> easyEffects.entrance());
         Platform.runLater(this::setWorldScore);
         Platform.runLater(this::setPersonalScore);
+
+        p1.setStyle("-fx-font: 14 \"Atari Classic\";");
+        p2.setStyle("-fx-font: 14 \"Atari Classic\";");
+        p3.setStyle("-fx-font: 14 \"Atari Classic\";");
+        p4.setStyle("-fx-font: 14 \"Atari Classic\";");
+        p5.setStyle("-fx-font: 14 \"Atari Classic\";");
+        w1.setStyle("-fx-font: 14 \"Atari Classic\";");
+        w2.setStyle("-fx-font: 14 \"Atari Classic\";");
+        w3.setStyle("-fx-font: 14 \"Atari Classic\";");
+        w4.setStyle("-fx-font: 14 \"Atari Classic\";");
+        w5.setStyle("-fx-font: 14 \"Atari Classic\";");
+
         setStartGame();
     }
 
@@ -149,7 +172,7 @@ public class FXEasyController extends FXAbstractGameController implements Initia
 
     @FXML
     public void newGame() {
-
+        clearGameOverMenu(sceneRoot, gameRoot);
         setStartGame();
     }
 
@@ -179,6 +202,8 @@ public class FXEasyController extends FXAbstractGameController implements Initia
         Platform.runLater(this::setPersonalScore);
         Platform.runLater(this::setWorldScore);
         System.out.println("game over");
+
+        gameOverMenu(gameRoot, sceneRoot);
     }
 
     @Override
