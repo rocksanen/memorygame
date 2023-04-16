@@ -126,10 +126,15 @@ public class Menu implements Initializable, IMenu {
     @FXML
     Button audioSound;
 
-    private boolean isAudioPlaying = true;
+
     private boolean returnStatus;
 
+    //private ModeType currentMode = MENU;
+
     private AudioMemory audioMemory = AudioMemory.getInstance();
+
+    private boolean isAudioPlaying = false;
+
 
 
     @Override
@@ -145,10 +150,14 @@ public class Menu implements Initializable, IMenu {
             Platform.runLater(() -> AudioMemory.getInstance().playSong(MENU));
         }
 
+     //   isAudioPlaying = true;
+
         Platform.runLater(() -> menuLayoutEffects.setGlow(pergament));
         Platform.runLater(() -> menuLayoutEffects.moveDirt(dirt));
         Platform.runLater(() -> menuLayoutEffects.moveJungle(jungle));
         Platform.runLater(() -> menuLayoutEffects.moveRedTree(redtree));
+
+        updateMuteButtonText();
     }
 
     public void initGoods() {
@@ -266,32 +275,6 @@ public class Menu implements Initializable, IMenu {
 
         labelLoggedIn.setText(userController.isLoggedIn() ? "Logged in as " + userController.getUsername() : "Not logged in");
 
-        /*
-        buttonLogout.setFont(outrun);
-        // make button logout purple with shadow, white text and hover effect
-        buttonLogout.setStyle(
-                "-fx-background-color: rgba(0,0,0,0.50); -fx-background-radius: 5; -fx-padding: 1 2 1 2; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
-
-         */
-
-        /*
-        stats.setFont(outrun);
-        stats.setStyle(
-                "-fx-background-color: rgba(0,0,0,0.50); -fx-background-radius: 5; -fx-padding: 1 2 1 2; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
-
-
-         */
-
-        /*
-        login.setFont(outrun);
-        login.setStyle(
-                "-fx-background-color: rgba(0,0,0,0.50); -fx-background-radius: 5; -fx-padding: 1 2 1 2; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
-        register.setFont(outrun);
-        register.setStyle(
-                "-fx-background-color: rgba(0,0,0,0.50); -fx-background-radius: 5; -fx-padding: 1 2 1 2; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
-
-
-         */
     }
 
     private void setMenuImages() {
@@ -404,37 +387,26 @@ public class Menu implements Initializable, IMenu {
 
         hovers.commonHoverOff(event);
     }
-/*
-    @FXML
-    public void setButtonAudio(){
-        System.out.println("audio button called!");
-        if (isAudioPlaying) {
-            audioMemory.stopSong(ModeType.MENU);
-            isAudioPlaying = false;
-            audioSound.setText("Audio: Off");
-        } else {
-            audioMemory.playTheIntro();
-            isAudioPlaying = true;
-            audioSound.setText("Audio: On");
-        }
-    }*/
+
+
+    private void updateMuteButtonText() {
+        audioSound.setText(audioMemory.isMuted() ? "Unmute" : "Mute");
+    }
 
 
     @FXML
-    private void setButtonAudio() {
-        if (isAudioPlaying) {
-            // If audio is currently playing, pause the audio and update the button text
-            audioMemory.pauseSong(ModeType.MENU); // You can change the mode type to the appropriate one for your use case
-            audioMemory.pauseSong(ModeType.EASY);
-            audioMemory.pauseSong(MEDIUM);
-            audioMemory.pauseSong(HARD);
-            isAudioPlaying = false;
-            audioSound.setText("Paused");
+    public void setButtonAudio() {
+        System.out.println("SetButtonAudio is called!");
+        audioMemory.toggleMute();
+
+        audioSound.setText(audioMemory.isMuted() ? "Unmute" : "Mute");
+
+        if (!audioMemory.isMuted()) {
+            AudioMemory.getInstance().playSong(MENU);
         } else {
-            // If audio is currently paused, resume the audio and update the button text
-            audioMemory.playTheIntro(); // You can change the play method to the appropriate one for your use case
-            isAudioPlaying = true;
-            audioSound.setText("Playing");
+            AudioMemory.getInstance().stopSong(MENU);
         }
     }
+
+
 }

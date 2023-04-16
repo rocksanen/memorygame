@@ -18,7 +18,10 @@ public class AudioMemory {
     private final MediaPlayer hardPlayer;
     private final MediaPlayer menuRetoSong;
     private final MediaPlayer leaderBoardPlayer;
-    private boolean isAudioPlaying = false;
+
+    public boolean isMuted = false;
+
+    private ModeType currentMode;
 
 
 
@@ -45,6 +48,7 @@ public class AudioMemory {
         menuRetoSong.setCycleCount(10);
         leaderBoardPlayer = new MediaPlayer(leaderBoardMedia);
         leaderBoardPlayer.setCycleCount(10);
+        isMuted = false;
     }
 
     public static AudioMemory getInstance() {
@@ -54,22 +58,16 @@ public class AudioMemory {
         return instance;
     }
 
-    public void playSong(ModeType type) {
-        if (ModeType.EASY == type && !isAudioPlaying) { // Check if the current mode type matches and audio is not already playing
-            switch (type) {
-                case MENU -> menuRetoSong.play();
-                case EASY -> easyPlayer.play();
-                case MEDIUM -> mediumPlayer.play();
-                case HARD -> hardPlayer.play();
-                case LEADERBOARD -> leaderBoardPlayer.play();
-            }
-            isAudioPlaying = false; // Set isAudioPlaying flag to true
-        }
+
+
+
+public void playSong(ModeType type) {
+    if (isMuted) {
+        return;
     }
 
-
-    /*
-    public void playSong(ModeType type) {
+    if (currentMode != type) {
+        stopSong(currentMode);
 
         switch (type) {
             case MENU -> playTheSong(menuRetoSong);
@@ -78,12 +76,15 @@ public class AudioMemory {
             case HARD -> playTheSong(hardPlayer);
             case LEADERBOARD -> playTheSong(leaderBoardPlayer);
         }
+        currentMode = type;
     }
-
-
-     */
+}
 
     public void stopSong(ModeType type) {
+        if (type == null) {
+            System.out.println("ERROR: ModeType is null");
+            return;
+        }
 
         switch (type) {
             case MENU -> stopTheSong(menuRetoSong);
@@ -92,17 +93,37 @@ public class AudioMemory {
             case HARD -> stopTheSong(hardPlayer);
             case LEADERBOARD -> stopTheSong(leaderBoardPlayer);
         }
-    }
 
-    public void pauseSong(ModeType type) {
-        switch (type) {
-            case MENU -> menuRetoSong.pause();
-            case EASY -> easyPlayer.pause();
-            case MEDIUM -> mediumPlayer.pause();
-            case HARD -> hardPlayer.pause();
-            case LEADERBOARD -> leaderBoardPlayer.pause();
+        if (currentMode == type) {
+            currentMode = null;
         }
     }
+
+
+    public void toggleMute() {
+        isMuted = !isMuted;
+        if (isMuted) {
+            easyPlayer.setVolume(0);
+            mediumPlayer.setVolume(0);
+            hardPlayer.setVolume(0);
+            menuRetoSong.setVolume(0);
+            leaderBoardPlayer.setVolume(0);
+        } else {
+            easyPlayer.setVolume(1);
+            mediumPlayer.setVolume(1);
+            hardPlayer.setVolume(1);
+            menuRetoSong.setVolume(1);
+            leaderBoardPlayer.setVolume(1);
+        }
+
+    }
+
+
+    public boolean isMuted() {
+        return isMuted;
+    }
+
+
 
     private void playTheSong(MediaPlayer mediaPlayer) {
 
@@ -114,6 +135,8 @@ public class AudioMemory {
         );
         fadeIn.play();
     }
+
+
 
     public void playTheIntro() {
 
