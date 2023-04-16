@@ -135,6 +135,7 @@ public class ChartController implements IChartController{
     }
 
 
+
     @Override
     public void logout() {
         User user = User.getInstance();

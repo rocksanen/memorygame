@@ -4,9 +4,12 @@
 <?import javafx.geometry.Point3D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.effect.Glow?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
 <?import javafx.scene.effect.SepiaTone?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -91,7 +94,7 @@
                   <Image url="@../../images/mediumGame/enviroment/midneo4.png" />
                </image>
             </ImageView>
-            <ImageView id="midgrid" fx:id="midgrid" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
+            <ImageView id="midgrid" fx:id="midgrid" fitHeight="750.0" fitWidth="1250.0" layoutX="-19.0" layoutY="5.0" mouseTransparent="true">
                <image>
                   <Image url="@../../images/mediumGame/enviroment/mediumGrid.png" />
                </image>
@@ -312,8 +315,17 @@
                   <Point3D y="1.0" />
                </rotationAxis>
             </Pane>
+      <ProgressBar id="medium_progressbar" fx:id="medium_progressbar" layoutX="330.0" layoutY="56.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="50.0" prefWidth="600.0" progress="0.0" rotate="180.0">
+         <effect>
+            <Lighting bumpInput="$null">
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect>
+      </ProgressBar>
           </children>
-      
+
       </AnchorPane>
    </children>
 </AnchorPane>
