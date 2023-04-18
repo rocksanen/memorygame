@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.effect.Glow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -37,6 +38,9 @@ public class Menu implements Initializable, IMenu {
     private final ZoomInEffects zoomInEffects = new ZoomInEffects();
     private final IMenuLayoutEffects menuLayoutEffects = new MenuLayoutEffects();
     private final Hovers hovers = new Hovers(menuLayoutEffects);
+
+    private Image muteImage;
+    private Image unmuteImage;
 
     @FXML
     ImageView burningsun;
@@ -124,16 +128,20 @@ public class Menu implements Initializable, IMenu {
     ImageView info;
 
     @FXML
-    Button audioSound;
+    ImageView audioMute;
+
+    @FXML
+    ImageView audioUnMute;
+
+
+
+
 
 
     private boolean returnStatus;
 
-    //private ModeType currentMode = MENU;
 
-    private AudioMemory audioMemory = AudioMemory.getInstance();
-
-    private boolean isAudioPlaying = false;
+    private final AudioMemory audioMemory = AudioMemory.getInstance();
 
 
 
@@ -150,14 +158,28 @@ public class Menu implements Initializable, IMenu {
             Platform.runLater(() -> AudioMemory.getInstance().playSong(MENU));
         }
 
-     //   isAudioPlaying = true;
+
 
         Platform.runLater(() -> menuLayoutEffects.setGlow(pergament));
         Platform.runLater(() -> menuLayoutEffects.moveDirt(dirt));
         Platform.runLater(() -> menuLayoutEffects.moveJungle(jungle));
         Platform.runLater(() -> menuLayoutEffects.moveRedTree(redtree));
 
-        updateMuteButtonText();
+        initImages();
+
+    }
+
+    private void initImages() {
+        muteImage = new Image("visuals/images/menu/mute1.png");
+        unmuteImage = new Image("visuals/images/menu/audio.png");
+
+        if (audioMemory.isMuted()) {
+            audioMute.setImage(muteImage);
+            audioUnMute.setImage(null);
+        } else {
+            audioMute.setImage(null);
+            audioUnMute.setImage(unmuteImage);
+        }
     }
 
     public void initGoods() {
@@ -170,8 +192,11 @@ public class Menu implements Initializable, IMenu {
         zoomInEffects.setEssenceImages(japan, jungle, redtree);
         zoomInEffects.setGeneralObjects(pergament);
         menuLayoutEffects.infoBlink(info);
+        menuLayoutEffects.infoBlink(audioMute);
+        menuLayoutEffects.infoBlink(audioUnMute);
 
     }
+
 
     private void initLogin() {
 
@@ -352,6 +377,9 @@ public class Menu implements Initializable, IMenu {
         }
     }
 
+
+
+
     @FXML
     public void setButtonLeaderboards() {
 
@@ -389,24 +417,20 @@ public class Menu implements Initializable, IMenu {
     }
 
 
-    private void updateMuteButtonText() {
-        audioSound.setText(audioMemory.isMuted() ? "Unmute" : "Mute");
-    }
-
 
     @FXML
     public void setButtonAudio() {
-        System.out.println("SetButtonAudio is called!");
         audioMemory.toggleMute();
 
-        audioSound.setText(audioMemory.isMuted() ? "Unmute" : "Mute");
-
-        if (!audioMemory.isMuted()) {
-            AudioMemory.getInstance().playSong(MENU);
-        } else {
+        if (audioMemory.isMuted()) {
+            audioMute.setImage(muteImage);
+            audioUnMute.setImage(null);
             AudioMemory.getInstance().stopSong(MENU);
+        } else {
+            audioMute.setImage(null);
+            audioUnMute.setImage(unmuteImage);
+            AudioMemory.getInstance().playSong(MENU);
         }
     }
-
-
 }
+

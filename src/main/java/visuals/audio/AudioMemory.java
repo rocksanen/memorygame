@@ -67,8 +67,9 @@ public void playSong(ModeType type) {
     }
 
     if (currentMode != type) {
-        stopSong(currentMode);
-
+        if(currentMode != null){
+            stopSong(currentMode);
+        }
         switch (type) {
             case MENU -> playTheSong(menuRetoSong);
             case EASY -> playTheSong(easyPlayer);

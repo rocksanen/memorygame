@@ -356,7 +356,27 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <Button id="audioSound" fx:id="audioSound" mnemonicParsing="false" onAction="#setButtonAudio" text="Mute" />
+
+        <Pane>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <children>
+                <ImageView id="audioSound" fx:id="audioMute" onMouseClicked="#setButtonAudio" layoutX="1135.0" layoutY="127.0" fitHeight="40.0" fitWidth="45.0" onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </ImageView>
+                <ImageView id="audioSound" fx:id="audioUnMute" onMouseClicked="#setButtonAudio" layoutX="1135.0" layoutY="127.0" fitHeight="40.0" fitWidth="45.0" onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </ImageView>
+            </children>
+        </Pane>
+
+
+
     </children>
 
 </AnchorPane>
