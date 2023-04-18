@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -356,12 +355,12 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-        <ImageView id="audioSound" fx:id="audioMute" onMouseClicked="#setButtonAudio" layoutX="1135.0" layoutY="127.0" fitHeight="40.0" fitWidth="45.0" onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
+        <ImageView id="audioSound" fx:id="audioMute" fitHeight="40.0" fitWidth="45.0" layoutX="1135.0" layoutY="127.0" onMouseClicked="#setButtonAudio" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" pickOnBounds="true">
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>
         </ImageView>
-        <ImageView id="audioSound" fx:id="audioUnMute" onMouseClicked="#setButtonAudio" layoutX="1135.0" layoutY="127.0" fitHeight="40.0" fitWidth="45.0" onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
+        <ImageView id="audioSound" fx:id="audioUnMute" fitHeight="40.0" fitWidth="45.0" layoutX="1135.0" layoutY="127.0" onMouseClicked="#setButtonAudio" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" pickOnBounds="true">
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>
@@ -369,5 +368,4 @@
 
 
     </children>
-
 </AnchorPane>
