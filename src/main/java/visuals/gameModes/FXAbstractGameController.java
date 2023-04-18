@@ -132,6 +132,12 @@ public abstract class FXAbstractGameController implements FXIGameController {
         Navigaattori.camera.setTranslateX(0);
     }
 
+
+    /**
+     * Method for clearing the game over menu
+     * @param sceneRoot scene root
+     * @param gameRoot game root
+     */
     public void clearGameOverMenu(AnchorPane sceneRoot, AnchorPane gameRoot) {
         // delete game over -view if it exists
         System.out.println(sceneRoot.getChildren());
@@ -142,6 +148,12 @@ public abstract class FXAbstractGameController implements FXIGameController {
         gameRoot.setEffect(null);
     }
 
+
+    /**
+     * Method for initializing the game over menu
+     * @param gameRoot game root
+     * @param sceneRoot scene root
+     */
     public void gameOverMenu(AnchorPane gameRoot, AnchorPane sceneRoot) {
         try {
             ResourceBundle bundle = JavaFXInternationalization.internationalizationLoaderProperties();
@@ -169,6 +181,11 @@ public abstract class FXAbstractGameController implements FXIGameController {
         }
     }
 
+    /**
+     * Method for initializing the score headers based on the language
+     * @param personalScoreHeader personal score header
+     * @param worldScoreHeader world score header
+     */
     public void initScoreHeaders(ImageView personalScoreHeader, ImageView worldScoreHeader) {
         Locale locale = JavaFXInternationalization.getLocale();
         System.out.println("locale is : " + locale.getLanguage());
@@ -200,6 +217,12 @@ public abstract class FXAbstractGameController implements FXIGameController {
         }
     }
 
+    /**
+     * Assigns world scores to the labels
+     *
+     * @param modeType difficulty
+     * @param labels   labels to be used
+     */
     public void setWorldScore(ModeType modeType, List<Label> labels) {
         ScoreController scoreController = new ScoreController();
         ArrayList<String> worldScores = scoreController.getTopFiveScores(modeType);
@@ -210,6 +233,12 @@ public abstract class FXAbstractGameController implements FXIGameController {
     }
 
 
+    /**
+     * Assigns personal scores to the labels
+     *
+     * @param modeType difficulty
+     * @param labels   labels to be used
+     */
     public void setPersonalScore(ModeType modeType, List<Label> labels) {
         ScoreController scoreController = new ScoreController();
         ArrayList<String> personalScores = scoreController.getTopFivePersonalScores(modeType);
