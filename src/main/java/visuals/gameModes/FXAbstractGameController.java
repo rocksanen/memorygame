@@ -2,17 +2,23 @@ package visuals.gameModes;
 
 import controller.GameController;
 import controller.IGameController;
+import controller.ScoreController;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.control.Label;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import model.ModeType;
 import visuals.Navigaattori;
 import visuals.cubeFactories.BoxMaker;
+import visuals.internationalization.JavaFXInternationalization;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
 public abstract class FXAbstractGameController implements FXIGameController {
@@ -138,7 +144,10 @@ public abstract class FXAbstractGameController implements FXIGameController {
 
     public void gameOverMenu(AnchorPane gameRoot, AnchorPane sceneRoot) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/visuals/gameModes/GameOver.fxml"));
+            ResourceBundle bundle = JavaFXInternationalization.internationalizationLoaderProperties();
+
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/visuals/gameModes/GameOver.fxml"), bundle);
             AnchorPane gameOverView = loader.load();
 
             GaussianBlur gaussianBlur = new GaussianBlur();
@@ -157,6 +166,56 @@ public abstract class FXAbstractGameController implements FXIGameController {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void initScoreHeaders(ImageView personalScoreHeader, ImageView worldScoreHeader) {
+        Locale locale = JavaFXInternationalization.getLocale();
+        System.out.println("locale is : " + locale.getLanguage());
+
+        switch (locale.getLanguage()) {
+            case "fi" -> {
+                personalScoreHeader.setImage(
+                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                                "/images/headers/fi_personalscores.png"))));
+                worldScoreHeader.setImage(
+                        new Image("/images/headers/fi_worldscores.png"));
+            }
+            case "swe" -> {
+                personalScoreHeader.setImage(
+                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                                "/images/headers/swe_personalscores.png"))));
+                worldScoreHeader.setImage(
+                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                                "/images/headers/swe_worldscores.png"))));
+            }
+            case "lat" -> {
+                personalScoreHeader.setImage(
+                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                                "/images/headers/latvian_personalscores.png"))));
+                worldScoreHeader.setImage(
+                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                                "/images/headers/latvian_worldscores.png"))));
+            }
+        }
+    }
+
+    public void setWorldScore(ModeType modeType, List<Label> labels) {
+        ScoreController scoreController = new ScoreController();
+        ArrayList<String> worldScores = scoreController.getTopFiveScores(modeType);
+
+        for (Label l : labels) {
+            l.setText(worldScores.get(labels.indexOf(l)));
+        }
+    }
+
+
+    public void setPersonalScore(ModeType modeType, List<Label> labels) {
+        ScoreController scoreController = new ScoreController();
+        ArrayList<String> personalScores = scoreController.getTopFivePersonalScores(modeType);
+
+        for (Label l : labels) {
+            l.setText(personalScores.get(labels.indexOf(l)));
         }
     }
 }

@@ -16,7 +16,7 @@
                <children>
                   <VBox fx:id="gameOverPane" alignment="CENTER" spacing="20.0">
                      <children>
-                        <Label fx:id="labelGameOver" alignment="CENTER" contentDisplay="CENTER" text="Game Over">
+                        <Label fx:id="gameOver" alignment="CENTER" contentDisplay="CENTER" text="%gameOver">
                            <font>
                               <Font size="36.0" />
                            </font>
@@ -32,7 +32,7 @@
                               <Insets />
                            </VBox.margin>
                         </HBox>
-                        <Label fx:id="labelScore" text="Final Score: 9999">
+                        <Label fx:id="score" text="%score">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -40,12 +40,12 @@
                               <Insets bottom="10.0" top="40.0" />
                            </VBox.margin>
                         </Label>
-                        <Button fx:id="buttonRestart" alignment="CENTER" mnemonicParsing="false" onAction="#setButtonRestart" prefHeight="100.0" prefWidth="300.0" text="New Game">
+                        <Button fx:id="newGame" alignment="CENTER" mnemonicParsing="false" onAction="#setButtonRestart" prefHeight="100.0" prefWidth="300.0" text="%newGame">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Button>
-                        <Button fx:id="buttonMenu" alignment="CENTER" mnemonicParsing="false" onAction="#setButtonMenu" prefHeight="60.0" prefWidth="300.0" text="Main Menu">
+                        <Button fx:id="mainMenu" alignment="CENTER" mnemonicParsing="false" onAction="#setButtonMenu" prefHeight="60.0" prefWidth="300.0" text="%mainMenu">
                            <font>
                               <Font size="24.0" />
                            </font>
