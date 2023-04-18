@@ -131,10 +131,10 @@ public class ChartController implements IChartController{
         return null;
     }
 
-    @Override
-    public ArrayList<Date> getUserTimestamp(ModeType difficulty) {
-        return null;
-    }
+//    @Override
+//    public ArrayList<Date> getUserTimestamp(ModeType difficulty) {
+//        return null;
+//    }
 
     @Override
     public void logout() {
