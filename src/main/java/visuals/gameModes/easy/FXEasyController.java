@@ -1,20 +1,14 @@
 package visuals.gameModes.easy;
 
 import controller.ScoreController;
-import javafx.animation.FadeTransition;
-import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.util.Duration;
 import model.*;
 import visuals.cubeFactories.BoxMaker;
 import visuals.cubeFactories.EasyCubeFactory;
@@ -22,14 +16,16 @@ import visuals.cubeFactories.ICubeFactory;
 import visuals.effects.gameEffects.EasyEffects;
 import visuals.gameModes.FXAbstractGameController;
 import visuals.gameModes.FXIGameController;
-import visuals.gameModes.GameOverController;
 import visuals.imageServers.ImageCache;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Stream;
+
+import static model.ModeType.EASY;
 
 
 public class FXEasyController extends FXAbstractGameController implements Initializable, FXIGameController {
@@ -83,6 +79,13 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     @FXML
     AnchorPane gameRoot;
 
+    @FXML
+    ImageView personalScoreHeader;
+    @FXML
+    ImageView worldScoreHeader;
+
+    private List<Label> personalLabels;
+    private List<Label> worldLabels;
     private ICubeFactory easyCubeFactory;
     private EasyEffects easyEffects;
     private ScoreController scoreController;
@@ -107,19 +110,17 @@ public class FXEasyController extends FXAbstractGameController implements Initia
                 background, easyTop, easyBot, easyL, easy3Dgrid,
                 play, returngame, easyGridi, easyEnd, easyneo, scorePane);
         Platform.runLater(() -> easyEffects.entrance());
-        Platform.runLater(this::setWorldScore);
-        Platform.runLater(this::setPersonalScore);
 
-        p1.setStyle("-fx-font: 14 \"Atari Classic\";");
-        p2.setStyle("-fx-font: 14 \"Atari Classic\";");
-        p3.setStyle("-fx-font: 14 \"Atari Classic\";");
-        p4.setStyle("-fx-font: 14 \"Atari Classic\";");
-        p5.setStyle("-fx-font: 14 \"Atari Classic\";");
-        w1.setStyle("-fx-font: 14 \"Atari Classic\";");
-        w2.setStyle("-fx-font: 14 \"Atari Classic\";");
-        w3.setStyle("-fx-font: 14 \"Atari Classic\";");
-        w4.setStyle("-fx-font: 14 \"Atari Classic\";");
-        w5.setStyle("-fx-font: 14 \"Atari Classic\";");
+        initScoreHeaders(personalScoreHeader, worldScoreHeader);
+        this.personalLabels = List.of(p1, p2, p3, p4, p5);
+        this.worldLabels = List.of(w1, w2, w3, w4, w5);
+        setPersonalScore(EASY, personalLabels);
+        setWorldScore(EASY, worldLabels);
+        Stream.concat(personalLabels.stream(), worldLabels.stream())
+                .forEach(label -> {
+                    label.setStyle("-fx-font: 14 \"Atari Classic\";");
+                });
+
 
         setStartGame();
     }
@@ -159,7 +160,7 @@ public class FXEasyController extends FXAbstractGameController implements Initia
         cubeList = new ArrayList<>();
         easyGridi.getChildren().clear();
         easyCubeFactory = new EasyCubeFactory(this);
-        gameController.startGame(ModeType.EASY);
+        gameController.startGame(EASY);
     }
 
     // From gamecontroller
@@ -198,9 +199,8 @@ public class FXEasyController extends FXAbstractGameController implements Initia
 
     @Override
     public void gameOver() {
-        Platform.runLater(this::setPersonalScore);
-        Platform.runLater(this::setWorldScore);
-        System.out.println("game over");
+        setPersonalScore(EASY, personalLabels);
+        setWorldScore(EASY, worldLabels);
 
         gameOverMenu(gameRoot, sceneRoot);
     }
@@ -223,28 +223,5 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     @Override
     public void sendIdToEngine(int id) {
         super.sendIdToEngine(id);
-    }
-
-    @Override
-    public void setWorldScore() {
-        ArrayList<String> worldScores = scoreController.getTopFiveScores(ModeType.EASY);
-
-        w1.setText(worldScores.get(0));
-        w2.setText(worldScores.get(1));
-        w3.setText(worldScores.get(2));
-        w4.setText(worldScores.get(3));
-        w5.setText(worldScores.get(4));
-    }
-
-
-    @Override
-    public void setPersonalScore() {
-        ArrayList<String> personalScores = scoreController.getTopFivePersonalScores(ModeType.EASY);
-
-        p1.setText(personalScores.get(0));
-        p2.setText(personalScores.get(1));
-        p3.setText(personalScores.get(2));
-        p4.setText(personalScores.get(3));
-        p5.setText(personalScores.get(4));
     }
 }

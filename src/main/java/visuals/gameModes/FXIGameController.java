@@ -18,8 +18,6 @@ public interface FXIGameController {
     void getTime(int i);
     void setStartGame();
     void sendIdToEngine(int id);
-    void setWorldScore();
-    void setPersonalScore();
     void newGame();
     void returnMenu();
     void setCamera();
