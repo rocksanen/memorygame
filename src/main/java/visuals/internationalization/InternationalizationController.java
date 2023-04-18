@@ -89,21 +89,24 @@ public class InternationalizationController {
         }
     }
 
-private void changeLanguage(Locale locale) {
-    ResourceBundle bundle = ResourceBundle.getBundle("Bundle", locale);
+    private void changeLanguage(Locale locale) {
+        ResourceBundle bundle = ResourceBundle.getBundle("Bundle", locale);
 
-    for (Label label : Arrays.asList(titleInfo, welcomeText, stepText, stepOne, stepTwo, stepThree, stepFour, stepFive, stepSix, lastLine)) {
-        if (label != null) {
-            String key = label.getId();
-            String text = bundle.getString(key);
-            label.setText(text);
+        for (Label label : Arrays.asList(titleInfo, welcomeText, stepText, stepOne, stepTwo, stepThree, stepFour, stepFive, stepSix, lastLine)) {
+            if (label != null) {
+                String key = label.getId();
+                String text = bundle.getString(key);
+                label.setText(text);
+            }
         }
+        String text = bundle.getString("mainMenu");
+        buttonReturn.setText(text);
     }
-}
 
     @FXML
     public void setButtonEn() {
         changeLanguage(new Locale("en"));
+        JavaFXInternationalization.setLocale(new Locale("en"));
         anchorLbs.requestLayout();
     }
 
@@ -111,17 +114,21 @@ private void changeLanguage(Locale locale) {
     @FXML
     public void setButtonFin() {
         changeLanguage(new Locale("fi"));
+        JavaFXInternationalization.setLocale(new Locale("fi"));
         anchorLbs.requestLayout();
     }
 
     @FXML
     public void setButtonSwe() {
         changeLanguage(new Locale("swe"));
+        JavaFXInternationalization.setLocale(new Locale("swe"));
         anchorLbs.requestLayout();
     }
+
     @FXML
     public void setButtonLat() {
         changeLanguage(new Locale("lat"));
+        JavaFXInternationalization.setLocale(new Locale("lat"));
         anchorLbs.requestLayout();
     }
 

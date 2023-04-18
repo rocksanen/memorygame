@@ -136,6 +136,11 @@ public class ChartController implements IChartController{
 
 
 
+//    @Override
+//    public ArrayList<Date> getUserTimestamp(ModeType difficulty) {
+//        return null;
+//    }
+
     @Override
     public void logout() {
         User user = User.getInstance();
