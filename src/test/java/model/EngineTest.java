@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import visuals.gameModes.FXAbstractGameController;
+import visuals.gameModes.FXIGameController;
 import visuals.menu.IMenu;
 
 import java.util.ArrayList;
@@ -20,14 +22,13 @@ public class EngineTest {
     private IGameController controller;
 
 
-//    @BeforeEach
-//    void setUp() {
-//        controller = new GameController(ui);
-//        e = new Engine(ModeType.EASY, controller);
-//    }
+    @BeforeEach
+    void setUp() {
+
+        e = new Engine(ModeType.EASY, controller);
+    }
 
     @Test
-    @Disabled
     @DisplayName("Test adding memory objects to a list")
     void addMemoryObjectsToList() {
         e.addMemoryObjectsToList(8);
@@ -39,7 +40,6 @@ public class EngineTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("Test Shuffle")
     void suffleObjects() {
         e.addMemoryObjectsToList(8);
@@ -52,12 +52,12 @@ public class EngineTest {
     }
 
     @Test
-    @Disabled
+    @Disabled // can't run because of lack of gui shrug
     @DisplayName("Test addToComparing")
     void addToComparing() {
         e.addMemoryObjectsToList(8);
 //        e.addToComparing(0);
-        e.addToComparing(2);
+//        e.addToComparing(2);
         assertEquals(0, e.getComparingList().size());
         //Wrong pair
         assertEquals(2, e.storage.size());
@@ -73,7 +73,6 @@ public class EngineTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("Count wrong tries")
     void testMaxTries() {
         e.incorrectTries = 3;
@@ -84,7 +83,6 @@ public class EngineTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("Test update score on right guess")
     void updateCorrectScore() {
         e.updateScore(CompareResultType.EQUAL);
@@ -95,7 +93,6 @@ public class EngineTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("Test update score on wrong guess")
     void updateWrongScore() {
 
