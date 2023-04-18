@@ -121,7 +121,7 @@
                               </Glow>
                            </effect>
                         </ImageView>
-                        <ImageView id="worldscores" fx:id="wordScoreHeader" fitHeight="35.0" fitWidth="170.0" layoutX="6.0" layoutY="10.0">
+                        <ImageView id="worldscores" fx:id="worldScoreHeader" fitHeight="35.0" fitWidth="170.0" layoutX="6.0" layoutY="10.0">
                            <image>
                               <Image url="@../../images/worldscores2.png" />
                            </image>

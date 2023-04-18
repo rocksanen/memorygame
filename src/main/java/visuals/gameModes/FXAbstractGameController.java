@@ -198,7 +198,6 @@ public abstract class FXAbstractGameController implements FXIGameController {
                                 "/images/headers/latvian_worldscores.png"))));
             }
         }
-
     }
 
     public void setWorldScore(ModeType modeType, List<Label> labels) {
