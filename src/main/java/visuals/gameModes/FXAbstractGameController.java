@@ -5,14 +5,19 @@ import controller.IGameController;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.control.Label;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import visuals.Navigaattori;
 import visuals.cubeFactories.BoxMaker;
+import visuals.internationalization.JavaFXInternationalization;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
 
 public abstract class FXAbstractGameController implements FXIGameController {
@@ -138,7 +143,10 @@ public abstract class FXAbstractGameController implements FXIGameController {
 
     public void gameOverMenu(AnchorPane gameRoot, AnchorPane sceneRoot) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/visuals/gameModes/GameOver.fxml"));
+            ResourceBundle bundle = JavaFXInternationalization.internationalizationLoaderProperties();
+
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/visuals/gameModes/GameOver.fxml"), bundle);
             AnchorPane gameOverView = loader.load();
 
             GaussianBlur gaussianBlur = new GaussianBlur();
