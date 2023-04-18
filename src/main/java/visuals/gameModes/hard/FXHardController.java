@@ -5,6 +5,8 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -78,6 +80,8 @@ public class FXHardController extends FXAbstractGameController implements Initia
     ImageView personalScoreHeader;
     @FXML
     ImageView worldScoreHeader;
+    @FXML
+    ProgressBar hard_progressbar;
 
     private List<Label> personalLabels;
     private List<Label> worldLabels;
@@ -215,6 +219,7 @@ public class FXHardController extends FXAbstractGameController implements Initia
     @Override
     public void getTime(int i) {
         super.getTime(i);
+        hard_progressbar.setProgress(i*0.01);
     }
 
     @Override

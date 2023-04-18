@@ -5,6 +5,8 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.effect.GaussianBlur;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -215,10 +217,16 @@ public class FXEasyController extends FXAbstractGameController implements Initia
         super.compareFoundMatch();
     }
 
+    /*
     @Override
     public void getTime(int i) {
         super.getTime(i);
+        System.out.println(i);
+        Platform.runLater(()-> timer_easy.setText(Integer.toString(i)));
+        progressbar_easy.setProgress(i*0.01);
+
     }
+     */
 
     @Override
     public void sendIdToEngine(int id) {

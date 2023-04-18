@@ -125,6 +125,12 @@ public class ChartController implements IChartController{
         return timeList;
     }
 
+    //Was not implemented in the master, program would not start (?)
+    @Override
+    public ArrayList<Date> getUserTimestamp(ModeType difficulty) {
+        return null;
+    }
+
     @Override
     public ArrayList<Date> getUserTimestamp(ModeType difficulty) {
         return null;
