@@ -62,6 +62,7 @@ public class AudioMemory {
 
 
 public void playSong(ModeType type) {
+
     if (isMuted) {
         return;
     }

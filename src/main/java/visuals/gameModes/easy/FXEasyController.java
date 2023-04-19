@@ -102,9 +102,9 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        Platform.runLater(this::setCamera);
+        setCamera();
         setImages();
-        easyEffects = new EasyEffects();
+        easyEffects = new EasyEffects(this);
         easyEffects.setImagesAndComponents(background, easyTop, easyBot, easyL, easy3Dgrid, play, returngame, easyGridi, easyEnd, easyneo, scorePane);
         easyEffects.entrance();
 
@@ -122,9 +122,6 @@ public class FXEasyController extends FXAbstractGameController implements Initia
                 .forEach(label -> {
                     label.setStyle("-fx-font: 14 \"Atari Classic\";");
                 });
-
-
-        setStartGame();
     }
 
     @Override

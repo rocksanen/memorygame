@@ -8,6 +8,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import model.ModeType;
+import visuals.gameModes.FXIGameController;
 
 
 public class EasyEffects extends AbstractGameEffects implements IGameEffects{
@@ -23,6 +24,14 @@ public class EasyEffects extends AbstractGameEffects implements IGameEffects{
     private ImageView easy3Dgrid;
     private ImageView easyneo;
     private ImageView easyEnd;
+
+    private FXIGameController gameController;
+
+    public EasyEffects(FXIGameController gameController) {
+
+        this.gameController = gameController;
+
+    }
 
     public void setImagesAndComponents(
             ImageView background, ImageView easyTop, ImageView easyBot,
@@ -78,7 +87,11 @@ public class EasyEffects extends AbstractGameEffects implements IGameEffects{
         );
 
         timeline.playFromStart();
-        timeline.setOnFinished(actionEvent -> timeline.stop());
+        timeline.setOnFinished(actionEvent -> {
+
+            timeline.stop();
+            gameController.setStartGame();
+        });
     }
 
     @Override
