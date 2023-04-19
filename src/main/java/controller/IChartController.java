@@ -16,7 +16,7 @@ public interface IChartController {
 
     ArrayList<Number> getUserTime(ModeType difficulty);
 
-    ArrayList<Date> getUserTimestamp(ModeType difficulty);
+    //ArrayList<Date> getUserTimestamp(ModeType difficulty);
 
     void logout();
 

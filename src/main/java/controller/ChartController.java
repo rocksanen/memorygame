@@ -8,9 +8,18 @@ import java.util.Date;
 
 import static model.ModeType.*;
 
+/**
+ * The type Chart controller.
+ */
 public class ChartController implements IChartController{
     private final IChartGUI chartUi;
     private IEngine engine;
+
+    /**
+     * Instantiates a new Chart controller.
+     *
+     * @param chartUi the chart ui
+     */
     public ChartController(IChartGUI chartUi) {
         this.chartUi = chartUi;
     }
@@ -125,11 +134,7 @@ public class ChartController implements IChartController{
         return timeList;
     }
 
-    //Was not implemented in the master, program would not start (?)
-    @Override
-    public ArrayList<Date> getUserTimestamp(ModeType difficulty) {
-        return null;
-    }
+
 
 //    @Override
 //    public ArrayList<Date> getUserTimestamp(ModeType difficulty) {
