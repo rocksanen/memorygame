@@ -32,7 +32,6 @@ public class ChartGUI implements IChartGUI {
         Font.loadFont(Objects.requireNonNull(getClass().getClassLoader().getResource("fonts/VCR_OSD_MONO_1.001.ttf")).toExternalForm(), 14);
 
         currentMode = ModeType.EASY;
-
         stackedAreaChart.getXAxis().setStyle("-fx-tick-label-fill: WHITE; -fx-font-size: 16px;-fx-font-family: 'VCR OSD Mono'");
         stackedAreaChart.getYAxis().setStyle("-fx-tick-label-fill: WHITE; -fx-font-size: 16px;-fx-font-family: 'VCR OSD Mono'");
 
@@ -44,14 +43,10 @@ public class ChartGUI implements IChartGUI {
         stackedAreaChart.getYAxis().setLabel("Points");
         stackedAreaChart.getXAxis().lookup(".axis-label").setStyle("-fx-text-fill: white; -fx-font-size: 16px; -fx-font-family: 'VCR OSD Mono'");
         stackedAreaChart.getYAxis().lookup(".axis-label").setStyle("-fx-text-fill: white; -fx-font-size: 16px; -fx-font-family: 'VCR OSD Mono'");
-
         stackedAreaChart.setPrefSize(600, 500);
-       // Region plotBackground = (Region) stackedAreaChart.lookup(".chart-plot-background");
-     //   plotBackground.setStyle("-fx-background-color: WHITE");
         stackedAreaChart.setVerticalGridLinesVisible(true);
         stackedAreaChart.setHorizontalGridLinesVisible(true);
 
-        // Set the data based on the currentMode
         updateChartData(currentMode);
 
     }
@@ -60,7 +55,6 @@ public class ChartGUI implements IChartGUI {
         ArrayList<Number> score = scoreController2.getUserScores(mode);
         ArrayList<Number> time = scoreController2.getUserTime(mode);
 
-        // Create a series for the selected difficulty level
         XYChart.Series<Number, Number> scoreSeries = new XYChart.Series<>();
         scoreSeries.setName(mode.toString());
         if (score == null || time == null) {
@@ -69,8 +63,6 @@ public class ChartGUI implements IChartGUI {
         for (int i = 0; i < score.size(); i++) {
             scoreSeries.getData().add(new XYChart.Data<>(time.get(i), score.get(i)));
         }
-
-        // Clear the previous data and add the new data to the chart
         stackedAreaChart.getData().clear();
         stackedAreaChart.getData().add(scoreSeries);
     }

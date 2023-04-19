@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.effect.Glow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -37,6 +38,9 @@ public class Menu implements Initializable, IMenu {
     private final ZoomInEffects zoomInEffects = new ZoomInEffects();
     private final IMenuLayoutEffects menuLayoutEffects = new MenuLayoutEffects();
     private final Hovers hovers = new Hovers(menuLayoutEffects);
+
+    private Image muteImage;
+    private Image unmuteImage;
 
     @FXML
     ImageView burningsun;
@@ -122,7 +126,23 @@ public class Menu implements Initializable, IMenu {
     Pane logOutPane;
     @FXML
     ImageView info;
+
+    @FXML
+    ImageView audioMute;
+
+    @FXML
+    ImageView audioUnMute;
+
+
+
+
+
+
     private boolean returnStatus;
+
+
+    private final AudioMemory audioMemory = AudioMemory.getInstance();
+
 
 
     @Override
@@ -138,10 +158,28 @@ public class Menu implements Initializable, IMenu {
             Platform.runLater(() -> AudioMemory.getInstance().playSong(MENU));
         }
 
+
+
         Platform.runLater(() -> menuLayoutEffects.setGlow(pergament));
         Platform.runLater(() -> menuLayoutEffects.moveDirt(dirt));
         Platform.runLater(() -> menuLayoutEffects.moveJungle(jungle));
         Platform.runLater(() -> menuLayoutEffects.moveRedTree(redtree));
+
+        initImages();
+
+    }
+
+    private void initImages() {
+        muteImage = new Image("visuals/images/menu/mute1.png");
+        unmuteImage = new Image("visuals/images/menu/audio.png");
+
+        if (audioMemory.isMuted()) {
+            audioMute.setImage(muteImage);
+            audioUnMute.setImage(null);
+        } else {
+            audioMute.setImage(null);
+            audioUnMute.setImage(unmuteImage);
+        }
     }
 
     public void initGoods() {
@@ -154,8 +192,11 @@ public class Menu implements Initializable, IMenu {
         zoomInEffects.setEssenceImages(japan, jungle, redtree);
         zoomInEffects.setGeneralObjects(pergament);
         menuLayoutEffects.infoBlink(info);
+        menuLayoutEffects.infoBlink(audioMute);
+        menuLayoutEffects.infoBlink(audioUnMute);
 
     }
+
 
     private void initLogin() {
 
@@ -259,32 +300,6 @@ public class Menu implements Initializable, IMenu {
 
         labelLoggedIn.setText(userController.isLoggedIn() ? "Logged in as " + userController.getUsername() : "Not logged in");
 
-        /*
-        buttonLogout.setFont(outrun);
-        // make button logout purple with shadow, white text and hover effect
-        buttonLogout.setStyle(
-                "-fx-background-color: rgba(0,0,0,0.50); -fx-background-radius: 5; -fx-padding: 1 2 1 2; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
-
-         */
-
-        /*
-        stats.setFont(outrun);
-        stats.setStyle(
-                "-fx-background-color: rgba(0,0,0,0.50); -fx-background-radius: 5; -fx-padding: 1 2 1 2; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
-
-
-         */
-
-        /*
-        login.setFont(outrun);
-        login.setStyle(
-                "-fx-background-color: rgba(0,0,0,0.50); -fx-background-radius: 5; -fx-padding: 1 2 1 2; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
-        register.setFont(outrun);
-        register.setStyle(
-                "-fx-background-color: rgba(0,0,0,0.50); -fx-background-radius: 5; -fx-padding: 1 2 1 2; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
-
-
-         */
     }
 
     private void setMenuImages() {
@@ -363,16 +378,6 @@ public class Menu implements Initializable, IMenu {
     }
 
 
-//    @FXML
-//    public void statsGame() {
-//        ChartGUI c = new ChartGUI();
-//
-//        try {
-//            c.start(new Stage());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
 
 
     @FXML
@@ -410,4 +415,22 @@ public class Menu implements Initializable, IMenu {
 
         hovers.commonHoverOff(event);
     }
+
+
+
+    @FXML
+    public void setButtonAudio() {
+        audioMemory.toggleMute();
+
+        if (audioMemory.isMuted()) {
+            audioMute.setImage(muteImage);
+            audioUnMute.setImage(null);
+            AudioMemory.getInstance().stopSong(MENU);
+        } else {
+            audioMute.setImage(null);
+            audioUnMute.setImage(unmuteImage);
+            AudioMemory.getInstance().playSong(MENU);
+        }
+    }
 }
+
