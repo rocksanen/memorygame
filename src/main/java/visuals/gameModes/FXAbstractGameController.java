@@ -171,7 +171,7 @@ public abstract class FXAbstractGameController implements FXIGameController {
             gameOverView.setOpacity(0.0);
             sceneRoot.getChildren().add(gameOverView);
 
-            FadeTransition fadeTransition2 = new FadeTransition(Duration.seconds(1), gameOverView);
+            FadeTransition fadeTransition2 = new FadeTransition(Duration.seconds(2), gameOverView);
             fadeTransition2.setFromValue(0.0);
             fadeTransition2.setToValue(1.0);
             fadeTransition2.play();
