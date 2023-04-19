@@ -9,6 +9,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import model.ModeType;
+import visuals.gameModes.FXIGameController;
 
 public class HardEffects extends AbstractGameEffects implements IGameEffects{
 
@@ -23,6 +24,14 @@ public class HardEffects extends AbstractGameEffects implements IGameEffects{
     private ImageView hardneo;
     private ImageView play;
     private ImageView returngame;
+
+    private FXIGameController gameController;
+
+    public HardEffects(FXIGameController gameController) {
+
+        this.gameController= gameController;
+
+    }
     public void setImagesAndComponents(
 
             ImageView hardBackground,Pane scorePane,GridPane hardGrid,
@@ -67,7 +76,11 @@ public class HardEffects extends AbstractGameEffects implements IGameEffects{
         );
 
         timeline.playFromStart();
-        timeline.setOnFinished(actionEvent -> timeline.stop());
+        timeline.setOnFinished(actionEvent -> {
+
+            timeline.stop();
+            gameController.setStartGame();
+        });
 
     }
 

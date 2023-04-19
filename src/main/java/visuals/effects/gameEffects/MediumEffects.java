@@ -8,6 +8,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import model.ModeType;
+import visuals.gameModes.FXIGameController;
 
 public class MediumEffects extends AbstractGameEffects implements IGameEffects{
 
@@ -25,6 +26,14 @@ public class MediumEffects extends AbstractGameEffects implements IGameEffects{
     private ImageView returngame;
     private GridPane mediumGrid;
     private Pane scorePane;
+
+    private FXIGameController gameController;
+
+    public MediumEffects(FXIGameController gameController) {
+
+        this.gameController = gameController;
+
+    }
 
     public void setImagesAndComponents(
             ImageView mediumbackground, ImageView midgrid, ImageView midTop,
@@ -103,13 +112,16 @@ public class MediumEffects extends AbstractGameEffects implements IGameEffects{
                             new KeyValue(midneo4.opacityProperty(),1),
                             new KeyValue(midneo3.opacityProperty(),0)),
                     new KeyFrame(Duration.seconds(2.5),
-                            new KeyValue(midneo4.opacityProperty(),0)),
-                    new KeyFrame(Duration.seconds(3))
+                            new KeyValue(midneo4.opacityProperty(),0))
             );
 
             neoline.play();
-            neoline.setDelay(Duration.seconds(0.5));
-            neoline.setOnFinished(actionEvent1 -> neoline.stop());
+            neoline.setOnFinished(actionEvent1 -> {
+
+                neoline.stop();
+                gameController.setStartGame();
+
+            });
         });
     }
 
