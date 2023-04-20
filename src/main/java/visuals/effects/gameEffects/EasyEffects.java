@@ -25,7 +25,7 @@ public class EasyEffects extends AbstractGameEffects implements IGameEffects{
     private ImageView easyneo;
     private ImageView easyEnd;
 
-    private FXIGameController gameController;
+    private final FXIGameController gameController;
 
     public EasyEffects(FXIGameController gameController) {
 
