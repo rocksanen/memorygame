@@ -422,11 +422,11 @@ public class Menu implements Initializable, IMenu {
         if (audioMemory.isMuted()) {
             audioMute.setImage(muteImage);
             audioUnMute.setImage(null);
-            AudioMemory.getInstance().stopSong(MENU);
+            //AudioMemory.getInstance().stopSong(MENU);
         } else {
             audioMute.setImage(null);
             audioUnMute.setImage(unmuteImage);
-            AudioMemory.getInstance().playSong(MENU);
+            //AudioMemory.getInstance().playSong(MENU);
         }
     }
 }
