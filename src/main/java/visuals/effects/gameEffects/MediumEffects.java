@@ -92,6 +92,8 @@ public class MediumEffects extends AbstractGameEffects implements IGameEffects{
         timeline.setOnFinished(actionEvent -> {
 
             timeline.stop();
+            gameController.setStartGame();
+            /*
             Timeline neoline = new Timeline(
                     new KeyFrame(Duration.seconds(0.4),
                             new KeyValue(midneo.opacityProperty(),0)),
@@ -122,6 +124,8 @@ public class MediumEffects extends AbstractGameEffects implements IGameEffects{
                 gameController.setStartGame();
 
             });
+
+             */
         });
     }
 

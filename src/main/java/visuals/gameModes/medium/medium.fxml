@@ -8,8 +8,6 @@
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.effect.Glow?>
-<?import javafx.scene.effect.Light.Distant?>
-<?import javafx.scene.effect.Lighting?>
 <?import javafx.scene.effect.SepiaTone?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -22,7 +20,7 @@
 
 <AnchorPane fx:id="sceneRoot" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.gameModes.medium.FXMediumController">
    <children>
-      <AnchorPane fx:id="gameRoot" layoutX="174.1999969482422" layoutY="92.0" prefHeight="750.0" prefWidth="1250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="gameRoot" prefHeight="750.0" prefWidth="1250.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
           <children>
             <ImageView id="mediumSpread" fx:id="mediumSpread" fitHeight="780.0" fitWidth="1320.0" layoutX="-10.0" layoutY="-10.0" opacity="0.0">
                <image>
@@ -94,7 +92,7 @@
                   <Image url="@../../images/mediumGame/enviroment/midneo4.png" />
                </image>
             </ImageView>
-            <ImageView id="midgrid" fx:id="midgrid" fitHeight="750.0" fitWidth="1250.0" layoutX="-19.0" layoutY="5.0" mouseTransparent="true">
+            <ImageView id="midgrid" fx:id="midgrid" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
                <image>
                   <Image url="@../../images/mediumGame/enviroment/mediumGrid.png" />
                </image>
@@ -315,14 +313,14 @@
                   <Point3D y="1.0" />
                </rotationAxis>
             </Pane>
-      <ProgressBar id="medium_progressbar" fx:id="medium_progressbar" layoutX="330.0" layoutY="56.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="50.0" prefWidth="600.0" progress="0.0" rotate="180.0">
-         <effect>
-            <Lighting bumpInput="$null">
-               <light>
-                  <Light.Distant />
-               </light>
-            </Lighting>
-         </effect>
+      <ProgressBar id="medium_progressbar" fx:id="medium_progressbar" layoutX="325.0" layoutY="56.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.82" pickOnBounds="false" prefHeight="50.0" prefWidth="600.0" progress="0.0" rotate="180.0">
+               <effect>
+                  <SepiaTone>
+                     <input>
+                        <ColorAdjust brightness="-0.22" hue="0.13" />
+                     </input>
+                  </SepiaTone>
+               </effect>
       </ProgressBar>
           </children>
 
