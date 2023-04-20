@@ -23,7 +23,6 @@ public class Intro implements Initializable {
     @FXML ImageView pergament;
     @FXML ImageView sun;
     @FXML ImageView lightning;
-    @FXML ImageView blacksun;
     @FXML ImageView miniEasy;
     @FXML ImageView miniMedium;
     @FXML ImageView miniHard;
@@ -43,17 +42,20 @@ public class Intro implements Initializable {
     @FXML ImageView treeoflife;
     @FXML ImageView telkku;
     @FXML AnchorPane bottom;
+
+    @FXML ImageView info;
+    @FXML Pane leaderpane;
     IntroEffects introEffects = new IntroEffects();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        Platform.runLater(() -> introEffects.intro(
+        introEffects.intro(
                 weDidIt, groupFour, logAndReg,
                 sun, lightning, easyFrame, mediumFrame, hardFrame,
                 memomaze,loading,kotoku, tigerden, treeoflife,pergament,startBlack,
                 gameModePane,japan,jungle,redtree,
-                miniEasy,miniMedium,miniHard));
+                miniEasy,miniMedium,miniHard,leaderpane,info);
     }
 
     @FXML

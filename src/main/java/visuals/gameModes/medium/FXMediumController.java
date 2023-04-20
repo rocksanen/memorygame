@@ -155,7 +155,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
         returngame.setImage(ImageCache.getInstance().getGameBackGroundCache().get(15));
         returngame.setOpacity(0);
         midneo.setImage(ImageCache.getInstance().getGameBackGroundCache().get(18));
-        midneo.setOpacity(0);
+        midneo.setOpacity(1);
         midneo2.setImage(ImageCache.getInstance().getGameBackGroundCache().get(19));
         midneo2.setOpacity(0);
         midneo3.setImage(ImageCache.getInstance().getGameBackGroundCache().get(20));
