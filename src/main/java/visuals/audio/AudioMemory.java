@@ -18,6 +18,7 @@ public class AudioMemory {
     private final MediaPlayer hardPlayer;
     private final MediaPlayer menuRetoSong;
     private final MediaPlayer leaderBoardPlayer;
+    private MediaPlayer currentSong;
 
     public boolean isMuted = false;
 
@@ -63,14 +64,8 @@ public class AudioMemory {
 
 public void playSong(ModeType type) {
 
-    if (isMuted) {
-        return;
-    }
 
-    if (currentMode != type) {
-        if(currentMode != null){
-            stopSong(currentMode);
-        }
+
         switch (type) {
             case MENU -> playTheSong(menuRetoSong);
             case EASY -> playTheSong(easyPlayer);
@@ -78,17 +73,19 @@ public void playSong(ModeType type) {
             case HARD -> playTheSong(hardPlayer);
             case LEADERBOARD -> playTheSong(leaderBoardPlayer);
         }
-        currentMode = type;
-    }
+
 }
 
     public void stopSong(ModeType type) {
+
         if (type == null) {
+
             System.out.println("ERROR: ModeType is null");
             return;
         }
 
         switch (type) {
+
             case MENU -> stopTheSong(menuRetoSong);
             case EASY -> stopTheSong(easyPlayer);
             case MEDIUM -> stopTheSong(mediumPlayer);
@@ -103,21 +100,9 @@ public void playSong(ModeType type) {
 
 
     public void toggleMute() {
-        isMuted = !isMuted;
-        if (isMuted) {
-            easyPlayer.setVolume(0);
-            mediumPlayer.setVolume(0);
-            hardPlayer.setVolume(0);
-            menuRetoSong.setVolume(0);
-            leaderBoardPlayer.setVolume(0);
-        } else {
-            easyPlayer.setVolume(1);
-            mediumPlayer.setVolume(1);
-            hardPlayer.setVolume(1);
-            menuRetoSong.setVolume(1);
-            leaderBoardPlayer.setVolume(1);
-        }
 
+        isMuted = !isMuted;
+        currentSong.setVolume(isMuted ? 0 : 1);
     }
 
 
@@ -129,35 +114,46 @@ public void playSong(ModeType type) {
 
     private void playTheSong(MediaPlayer mediaPlayer) {
 
-        mediaPlayer.setVolume(0);
-        mediaPlayer.play();
+        currentSong = mediaPlayer;
+        currentSong.setVolume(0);
+        currentSong.play();
 
-        Timeline fadeIn = new Timeline(
-                new KeyFrame(Duration.seconds(1), new KeyValue(mediaPlayer.volumeProperty(), 1))
-        );
-        fadeIn.play();
+        if (isMuted) {
+
+            currentSong.play();
+
+        }else {
+
+            Timeline fadeIn = new Timeline(
+                    new KeyFrame(Duration.seconds(1), new KeyValue(currentSong.volumeProperty(), 1))
+            );
+
+            fadeIn.play();
+        }
     }
 
 
 
     public void playTheIntro() {
 
-        menuRetoSong.setVolume(0);
-        menuRetoSong.play();
+        currentSong = menuRetoSong;
+        currentSong.setVolume(0);
+        currentSong.play();
 
         Timeline fadeIn = new Timeline(
-                new KeyFrame(Duration.seconds(5), new KeyValue(menuRetoSong.volumeProperty(), 1))
+                new KeyFrame(Duration.seconds(5), new KeyValue(currentSong.volumeProperty(), 1))
         );
         fadeIn.play();
     }
 
     private void stopTheSong(MediaPlayer mediaPlayer) {
+
+
         Timeline fadeOut = new Timeline(
                 new KeyFrame(Duration.seconds(1), new KeyValue(mediaPlayer.volumeProperty(), 0))
         );
+
         fadeOut.setOnFinished(event -> mediaPlayer.stop());
         fadeOut.play();
     }
-
-
 }
