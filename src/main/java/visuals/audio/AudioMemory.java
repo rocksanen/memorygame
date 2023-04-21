@@ -9,6 +9,7 @@ import javafx.util.Duration;
 import model.ModeType;
 
 import java.io.File;
+import java.util.Objects;
 
 public class AudioMemory {
 
@@ -25,19 +26,18 @@ public class AudioMemory {
     private ModeType currentMode;
 
 
-
     private AudioMemory() {
 
-        String easySong = "src/main/java/visuals/audio/audioFiles/easymusic.mp3";
-        Media easyMedia = new Media(new File(easySong).toURI().toString());
-        String mediumSong = "src/main/java/visuals/audio/audioFiles/mediummusic.mp3";
-        Media mediumMedia = new Media(new File(mediumSong).toURI().toString());
-        String hardSong = "src/main/java/visuals/audio/audioFiles/hardmusic.mp3";
-        Media hardMedia = new Media(new File(hardSong).toURI().toString());
-        String menuRetro = "src/main/java/visuals/audio/audioFiles/menuRetro.mp3";
-        Media menuMedia = new Media(new File(menuRetro).toURI().toString());
-        String leaderBoardSong = "src/main/java/visuals/audio/audioFiles/leaderboardmusic.mp3";
-        Media leaderBoardMedia = new Media(new File(leaderBoardSong).toURI().toString());
+        String easySong = "/audioFiles/easymusic.mp3";
+        Media easyMedia = new Media(Objects.requireNonNull(getClass().getResource(easySong)).toString());
+        String mediumSong = "/audioFiles/mediummusic.mp3";
+        Media mediumMedia = new Media(Objects.requireNonNull(getClass().getResource(mediumSong)).toString());
+        String hardSong = "/audioFiles/hardmusic.mp3";
+        Media hardMedia = new Media(Objects.requireNonNull(getClass().getResource(hardSong)).toString());
+        String menuRetro = "/audioFiles/menuRetro.mp3";
+        Media menuMedia = new Media(Objects.requireNonNull(getClass().getResource(menuRetro)).toString());
+        String leaderBoardSong = "/audioFiles/leaderboardmusic.mp3";
+        Media leaderBoardMedia = new Media(Objects.requireNonNull(getClass().getResource(leaderBoardSong)).toString());
 
         easyPlayer = new MediaPlayer(easyMedia);
         easyPlayer.setCycleCount(10);
@@ -60,10 +60,7 @@ public class AudioMemory {
     }
 
 
-
-
-public void playSong(ModeType type) {
-
+    public void playSong(ModeType type) {
 
 
         switch (type) {
@@ -74,7 +71,7 @@ public void playSong(ModeType type) {
             case LEADERBOARD -> playTheSong(leaderBoardPlayer);
         }
 
-}
+    }
 
     public void stopSong(ModeType type) {
 
@@ -111,7 +108,6 @@ public void playSong(ModeType type) {
     }
 
 
-
     private void playTheSong(MediaPlayer mediaPlayer) {
 
         currentSong = mediaPlayer;
@@ -122,7 +118,7 @@ public void playSong(ModeType type) {
 
             currentSong.play();
 
-        }else {
+        } else {
 
             Timeline fadeIn = new Timeline(
                     new KeyFrame(Duration.seconds(1), new KeyValue(currentSong.volumeProperty(), 1))
@@ -131,7 +127,6 @@ public void playSong(ModeType type) {
             fadeIn.play();
         }
     }
-
 
 
     public void playTheIntro() {

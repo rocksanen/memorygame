@@ -26,7 +26,7 @@
           <children>
               <ImageView id="hardSpread" fx:id="hardSpread" fitHeight="780.0" fitWidth="1400.0" opacity="0.0">
                   <image>
-                      <Image url="@../../images/hardGame/enviroment/hardback4.jpg" />
+                      <Image url="@/pictures/images/hardGame/enviroment/hardback4.jpg" />
                   </image>
                   <effect>
                       <GaussianBlur radius="10.59" />
@@ -34,30 +34,30 @@
               </ImageView>
               <ImageView id="hardBackground" fx:id="hardBackground" fitHeight="746.0" fitWidth="1250.0" layoutX="-2.8" layoutY="4.8">
                   <image>
-                      <Image url="@../../images/hardGame/enviroment/hardback4.jpg" />
+                      <Image url="@/pictures/images/hardGame/enviroment/hardback4.jpg" />
                   </image>
               </ImageView>
 
 
             <ImageView id="hardL" fx:id="hardL" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" opacity="0.55">
                <image>
-                  <Image url="@../../images/hardGame/enviroment/hardL.png" />
+                  <Image url="@/pictures/images/hardGame/enviroment/hardL.png" />
                </image>
             </ImageView>
             <ImageView id="hardR" fx:id="hardR" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" opacity="0.5">
                <image>
-                  <Image url="@../../images/hardGame/enviroment/hardR.png" />
+                  <Image url="@/pictures/images/hardGame/enviroment/hardR.png" />
                </image>
             </ImageView>
             <ImageView id="hardneo" fx:id="hardneo" fitHeight="933.3" fitWidth="1599.0" layoutX="-174.2" layoutY="-92.0" mouseTransparent="true">
                <image>
-                  <Image url="@../../images/hardGame/enviroment/hardneo.png" />
+                  <Image url="@/pictures/images/hardGame/enviroment/hardneo.png" />
                </image>
             </ImageView>
 
             <ImageView id="hardGridImage" fx:id="hardGridImage" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
                <image>
-                  <Image url="@../../images/hardGame/enviroment/girdHard.png" />
+                  <Image url="@/pictures/images/hardGame/enviroment/girdHard.png" />
                </image>
                <effect>
                   <GaussianBlur radius="1.76" />
@@ -77,7 +77,7 @@
               </GridPane>
             <ImageView id="play" fx:id="play" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="290.0" onMouseClicked="#newGame">
                <image>
-                  <Image url="@../../images/playretro.png" />
+                  <Image url="@/pictures/images/playretro.png" />
                </image>
                <effect>
                   <SepiaTone level="0.61" />
@@ -88,7 +88,7 @@
             </ImageView>
             <ImageView id="returngame" fx:id="returngame" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="385.0" onMouseClicked="#returnMenu">
                <image>
-                  <Image url="@../../images/return.png" />
+                  <Image url="@/pictures/images/return.png" />
                </image>
                <effect>
                   <SepiaTone level="0.61" />
@@ -111,7 +111,7 @@
                      <children>
                         <ImageView id="worldback" fitHeight="261.0" fitWidth="200.0" layoutX="-9.0" layoutY="-10.0">
                            <image>
-                              <Image url="@../../images/scorepohja2.png" />
+                              <Image url="@/pictures/images/scorepohja2.png" />
                            </image>
                            <effect>
                               <Glow level="0.5">
@@ -123,7 +123,7 @@
                         </ImageView>
                         <ImageView id="worldscores" fx:id="worldScoreHeader" fitHeight="35.0" fitWidth="170.0" layoutX="6.0" layoutY="10.0">
                            <image>
-                              <Image url="@../../images/worldscores2.png" />
+                              <Image url="@/pictures/images/worldscores2.png" />
                            </image>
                            <effect>
                               <Glow level="0.4" />
@@ -190,7 +190,7 @@
                      <children>
                         <ImageView id="perback" fitHeight="261.0" fitWidth="200.0" layoutX="-9.0" layoutY="-10.0">
                            <image>
-                              <Image url="@../../images/scorepohja2.png" />
+                              <Image url="@/pictures/images/scorepohja2.png" />
                            </image>
                            <effect>
                               <Glow level="0.5">
@@ -202,7 +202,7 @@
                         </ImageView>
                         <ImageView id="personalscores" fx:id="personalScoreHeader" fitHeight="35.0" fitWidth="170.0" layoutX="6.0" layoutY="10.0">
                            <image>
-                              <Image url="@../../images/personalscore2.png" />
+                              <Image url="@/pictures/images/personalscore2.png" />
                            </image>
                            <effect>
                               <Glow level="0.41" />

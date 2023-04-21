@@ -6,3 +6,6 @@
 .DS_Store
 
 config.properties
+/bin/
+/.project
+/.classpath

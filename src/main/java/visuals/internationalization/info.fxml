@@ -85,7 +85,7 @@
 
       <ImageView id="en" fx:id="en1" fitHeight="19.0" fitWidth="37.0" layoutX="1149.0" layoutY="68" onMouseClicked="#setButtonEn" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="75.0" onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
          <image>
-            <Image url="@../images/flagIcons/united-states.png" />
+            <Image url="@/pictures/images/flagIcons/united-states.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -95,7 +95,7 @@
 
       <ImageView id="fin" fx:id="fin1" fitHeight="19.0" fitWidth="37.0" layoutX="1149.0" layoutY="68" onMouseClicked="#setButtonFin" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="100.0" onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
          <image>
-            <Image url="@../images/flagIcons/finland.png" />
+            <Image url="@/pictures/images/flagIcons/finland.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -104,7 +104,7 @@
 
       <ImageView id="swe" fx:id="swe1" fitHeight="19.0" fitWidth="37.0" layoutX="1120" layoutY="68" onMouseClicked="#setButtonSwe" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="125.0" onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
          <image>
-            <Image url="@../images/flagIcons/sweden.png" />
+            <Image url="@/pictures/images/flagIcons/sweden.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -113,7 +113,7 @@
 
             <ImageView id="lat" fx:id="lat1" fitHeight="35.0" fitWidth="37.0" layoutX="1120" layoutY="68" onMouseClicked="#setButtonLat" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="145.0" onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
          <image>
-            <Image url="@../images/flagIcons/latvia-flag.png" />
+            <Image url="@/pictures/images/flagIcons/latvia-flag.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />

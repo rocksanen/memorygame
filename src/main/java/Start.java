@@ -1,6 +1,7 @@
 
 
 import controller.ScoreController;
+import javafx.application.Preloader;
 import javafx.scene.text.Font;
 import model.ModeType;
 import visuals.Navigaattori;
