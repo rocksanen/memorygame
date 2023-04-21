@@ -111,13 +111,16 @@ public class FXMediumController extends FXAbstractGameController implements Init
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        Platform.runLater(this::setCamera);
+        setCamera();
         setImages();
-        mediumEffects = new MediumEffects();
+
+
+        mediumEffects = new MediumEffects(this);
         mediumEffects.setImagesAndComponents(
                 mediumBackground, midgrid, midTop, midL, midBot, midend,
                 midneo, midneo2, midneo3, midneo4, play, returngame, mediumGrid, scorePane);
         Platform.runLater(() -> mediumEffects.entrance());
+
 
         initScoreHeaders(personalScoreHeader, worldScoreHeader);
         this.personalLabels = List.of(p1, p2, p3, p4, p5);
@@ -128,8 +131,6 @@ public class FXMediumController extends FXAbstractGameController implements Init
                 .forEach(label -> {
                     label.setStyle("-fx-font: 14 \"Atari Classic\";");
                 });
-
-        setStartGame();
     }
 
     @Override
@@ -140,9 +141,8 @@ public class FXMediumController extends FXAbstractGameController implements Init
     @Override
     public void setImages() {
 
-        mediumBackground.setImage(ImageCache.getInstance().getGameBackGroundCache().get(1));
-        mediumSpread.setImage(ImageCache.getInstance().getGameBackGroundCache().get(1));
-        midTop.setImage(ImageCache.getInstance().getGameBackGroundCache().get(4));
+
+        midend.setOpacity(0);
         midTop.setOpacity(0);
         midL.setImage(ImageCache.getInstance().getGameBackGroundCache().get(5));
         midL.setOpacity(0);
@@ -155,7 +155,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
         returngame.setImage(ImageCache.getInstance().getGameBackGroundCache().get(15));
         returngame.setOpacity(0);
         midneo.setImage(ImageCache.getInstance().getGameBackGroundCache().get(18));
-        midneo.setOpacity(0);
+        midneo.setOpacity(1);
         midneo2.setImage(ImageCache.getInstance().getGameBackGroundCache().get(19));
         midneo2.setOpacity(0);
         midneo3.setImage(ImageCache.getInstance().getGameBackGroundCache().get(20));

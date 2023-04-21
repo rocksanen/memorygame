@@ -158,16 +158,11 @@ public abstract class FXAbstractGameController implements FXIGameController {
         try {
             ResourceBundle bundle = JavaFXInternationalization.internationalizationLoaderProperties();
 
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/visuals/gameModes/GameOver.fxml"), bundle);
             AnchorPane gameOverView = loader.load();
 
-            GaussianBlur gaussianBlur = new GaussianBlur();
-            gaussianBlur.setRadius(10);
-            gameRoot.setEffect(gaussianBlur);
-
             GameOverController goc = loader.getController();
-            goc.Initialize(this, gameController);
+            goc.Initialize(this, gameController, gameRoot);
             gameOverView.setOpacity(0.0);
             sceneRoot.getChildren().add(gameOverView);
 

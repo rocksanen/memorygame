@@ -98,9 +98,9 @@ public class FXHardController extends FXAbstractGameController implements Initia
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        Platform.runLater(this::setCamera);
+        setCamera();
         setImages();
-        hardEffects = new HardEffects();
+        hardEffects = new HardEffects(this);
         hardEffects.setImagesAndComponents(
                 hardBackground, scorePane, hardGrid,
                 hardGridImage, hardR, hardL,
@@ -116,9 +116,6 @@ public class FXHardController extends FXAbstractGameController implements Initia
                 .forEach(label -> {
                     label.setStyle("-fx-font: 14 \"Atari Classic\";");
                 });
-
-        setStartGame();
-
 
     }
 
