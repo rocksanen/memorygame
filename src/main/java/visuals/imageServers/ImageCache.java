@@ -1,9 +1,11 @@
 package visuals.imageServers;
 
 import javafx.scene.image.Image;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ImageCache {
 
@@ -16,11 +18,13 @@ public class ImageCache {
     private final ArrayList<Image> hardCompImages = new ArrayList<>();
     private final ArrayList<Image> gameBackGroundImages = new ArrayList<>();
     private final ArrayList<Image> menuImages = new ArrayList<>();
-    private ImageCache(){}
+
+    private ImageCache() {
+    }
 
     public static ImageCache getInstance() {
 
-        if(instance == null) {
+        if (instance == null) {
 
             instance = new ImageCache();
         }
@@ -31,12 +35,13 @@ public class ImageCache {
 
     public void addToEasyCache() throws FileNotFoundException {
 
-        Image nalle = new Image(new FileInputStream("src/main/java/visuals/Images/nalle.png")) ;
-        Image panda = new Image(new FileInputStream("src/main/java/visuals/Images/panda.png"));
-        Image pantteri = new Image(new FileInputStream("src/main/java/visuals/Images/pantteri.png"));
-        Image possu = new Image(new FileInputStream("src/main/java/visuals/Images/possu.png"));
-        Image pupu = new Image(new FileInputStream("src/main/java/visuals/Images/pupu.png"));
-        Image tiikeri = new Image(new FileInputStream("src/main/java/visuals/Images/tiikeri.png"));
+        Image nalle = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/nalle.png")));
+        Image panda = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/panda.png")));
+        Image pantteri = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/pantteri.png")));
+        Image possu = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/possu.png")));
+        Image pupu = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/pupu.png")));
+        Image tiikeri = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/tiikeri.png")));
+
 
         easyImageCache.add(nalle);
         easyImageCache.add(panda);
@@ -45,8 +50,8 @@ public class ImageCache {
         easyImageCache.add(pupu);
         easyImageCache.add(tiikeri);
 
-        Image easyBack = new Image(new FileInputStream("src/main/java/visuals/Images/easyGame/cubes/cubeBack.jpg"));
-        Image easyBehind = new Image(new FileInputStream("src/main/java/visuals/Images/easyGame/cubes/cubeBehind.png"));
+        Image easyBack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/easyGame/cubes/cubeBack.jpg")));
+        Image easyBehind = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/easyGame/cubes/cubeBehind.png")));
 
         easyCompImages.add(easyBack);
         easyCompImages.add(easyBehind);
@@ -55,12 +60,13 @@ public class ImageCache {
 
     public void addToMediumCache() throws FileNotFoundException {
 
-        Image goldDragon = new Image(new FileInputStream("src/main/java/visuals/Images/goldDragonHard.png")) ;
-        Image greenDragon = new Image(new FileInputStream("src/main/java/visuals/Images/greenDragonHard.png"));
-        Image lyhty = new Image(new FileInputStream("src/main/java/visuals/Images/lyhtyHard.png"));
-        Image boyGirl = new Image(new FileInputStream("src/main/java/visuals/Images/boyGirlHard.png"));
-        Image happyGirl = new Image(new FileInputStream("src/main/java/visuals/Images/happyGirlHard.png"));
-        Image bird = new Image(new FileInputStream("src/main/java/visuals/Images/birdHard.png"));
+        Image goldDragon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/goldDragonHard.png")));
+        Image greenDragon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/greenDragonHard.png")));
+        Image lyhty = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/lyhtyHard.png")));
+        Image boyGirl = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/boyGirlHard.png")));
+        Image happyGirl = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/happyGirlHard.png")));
+        Image bird = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/birdHard.png")));
+
 
         mediumImageCache.add(goldDragon);
         mediumImageCache.add(greenDragon);
@@ -68,10 +74,10 @@ public class ImageCache {
         mediumImageCache.add(boyGirl);
         mediumImageCache.add(bird);
         mediumImageCache.add(happyGirl);
-
-        Image mediumBack = new Image(new FileInputStream("src/main/java/visuals/images/uustigru5.jpg"));
-        Image mediumBehind = new Image(new FileInputStream("src/main/java/visuals/Images/mediumCubeBack.jpg"));
-
+        
+        Image mediumBack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/uustigru5.jpg")));
+        Image mediumBehind = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/mediumCubeBack.jpg")));
+        
         mediumCompImages.add(mediumBack);
         mediumCompImages.add(mediumBehind);
 
@@ -80,17 +86,17 @@ public class ImageCache {
 
     public void addToHardCache() throws FileNotFoundException {
 
-        Image goldDragon = new Image(new FileInputStream("src/main/java/visuals/Images/goldDragonHard.png")) ;
-        Image greenDragon = new Image(new FileInputStream("src/main/java/visuals/Images/greenDragonHard.png"));
-        Image skull = new Image(new FileInputStream("src/main/java/visuals/Images/skullHard.png"));
-        Image boyGirl = new Image(new FileInputStream("src/main/java/visuals/Images/boyGirlHard.png"));
-        Image happyGirl = new Image(new FileInputStream("src/main/java/visuals/Images/happyGirlHard.png"));
-        Image pupu = new Image(new FileInputStream("src/main/java/visuals/Images/pupu.png"));
-        Image tiikeri = new Image(new FileInputStream("src/main/java/visuals/Images/tiikeri.png"));
-        Image lohnari = new Image(new FileInputStream("src/main/java/visuals/Images/lohnari.jpg"));
+        Image goldDragon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/goldDragonHard.png")));
+        Image greenDragon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/greenDragonHard.png")));
+        Image skull = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/skullHard.png")));
+        Image boyGirl = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/boyGirlHard.png")));
+        Image happyGirl = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/happyGirlHard.png")));
+        Image pupu = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/pupu.png")));
+        Image tiikeri = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/tiikeri.png")));
+        Image lohnari = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/lohnari.jpg")));
 
-        Image login = new Image(new FileInputStream("src/main/java/visuals/Images/login.png"));
-        Image hardback3 = new Image(new FileInputStream("src/main/java/visuals/Images/hardback3.jpg"));
+        Image login = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/login.png")));
+        Image hardback3 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/hardback3.jpg")));
 
         hardImageCache.add(goldDragon);
         hardImageCache.add(greenDragon);
@@ -103,8 +109,8 @@ public class ImageCache {
         hardImageCache.add(login);
         hardImageCache.add(hardback3);
 
-        Image hardBack = new Image(new FileInputStream("src/main/java/visuals/Images/hardtree2.jpg"));
-        Image hardBehind = new Image(new FileInputStream("src/main/java/visuals/Images/hardBehind1.jpg"));
+        Image hardBack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/hardtree2.jpg")));
+        Image hardBehind = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/hardBehind1.jpg")));
 
         hardCompImages.add(hardBack);
         hardCompImages.add(hardBehind);
@@ -113,31 +119,31 @@ public class ImageCache {
 
     public void addToGameBackGroundCache() throws FileNotFoundException {
 
-        Image easyBack = new Image(new FileInputStream("src/main/java/visuals/images/easyGame/enviroment/background.png"));
-        Image mediumBack = new Image(new FileInputStream("src/main/java/visuals/images/mediumGame/enviroment/tigru.jpg"));
-        Image hardBack = new Image(new FileInputStream("src/main/java/visuals/images/hardGame/enviroment/hardback4.jpg"));
-        Image midR = new Image(new FileInputStream("src/main/java/visuals/images/mediumGame/enviroment/midR.png"));
-        Image midTop = new Image(new FileInputStream("src/main/java/visuals/images/mediumGame/enviroment/midTop.png"));
-        Image midL = new Image(new FileInputStream("src/main/java/visuals/images/mediumGame/enviroment/midL.png"));
-        Image midBot = new Image(new FileInputStream("src/main/java/visuals/images/mediumGame/enviroment/midBot.png"));
-        Image easyTop = new Image(new FileInputStream("src/main/java/visuals/images/easyGame/enviroment/easyTop.png"));
-        Image easyBot = new Image(new FileInputStream("src/main/java/visuals/images/easyGame/enviroment/easyBot.png"));
-        Image easyL = new Image(new FileInputStream("src/main/java/visuals/images/easyGame/enviroment/easyL2.png"));
-        Image midgrid = new Image(new FileInputStream("src/main/java/visuals/images/mediumGame/enviroment/mediumGrid.png"));
-        Image hardGrid = new Image(new FileInputStream("src/main/java/visuals/images/hardGame/enviroment/girdHard.png"));
-        Image hardR = new Image(new FileInputStream("src/main/java/visuals/images/hardGame/enviroment/hardR.png"));
-        Image hardL = new Image(new FileInputStream("src/main/java/visuals/images/hardGame/enviroment/hardL.png"));
-        Image play = new Image(new FileInputStream("src/main/java/visuals/images/playretro.png"));
-        Image returngame = new Image(new FileInputStream("src/main/java/visuals/images/return.png"));
-        Image movingjungle = new Image(new FileInputStream("src/main/java/visuals/images/midR.jpg"));   // wtf? :D
-        Image easyend = new Image(new FileInputStream("src/main/java/visuals/images/midR.jpg"));        // yep, nice placeholder confusion..
-        Image midneo = new Image(new FileInputStream("src/main/java/visuals/images/mediumGame/enviroment/medneo.png"));
-        Image midneo2 = new Image(new FileInputStream("src/main/java/visuals/images/mediumGame/enviroment/midneo2.png"));
-        Image midneo3 = new Image(new FileInputStream("src/main/java/visuals/images/mediumGame/enviroment/midneo3.png"));
-        Image midneo4 = new Image(new FileInputStream("src/main/java/visuals/images/mediumGame/enviroment/midneo4.png"));
-        Image easyneo = new Image(new FileInputStream("src/main/java/visuals/images/easyGame/enviroment/easyneo.png"));
-        Image hardneo = new Image(new FileInputStream("src/main/java/visuals/images/hardGame/enviroment/hardneo.png"));
-        Image easyGrid = new Image(new FileInputStream("src/main/java/visuals/images/easyGame/enviroment/easyGrid.png"));
+        Image easyBack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/easyGame/enviroment/background.png")));
+        Image mediumBack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/mediumGame/enviroment/tigru.jpg")));
+        Image hardBack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/hardGame/enviroment/hardback4.jpg")));
+        Image midR = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/mediumGame/enviroment/midR.png")));
+        Image midTop = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/mediumGame/enviroment/midTop.png")));
+        Image midL = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/mediumGame/enviroment/midL.png")));
+        Image midBot = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/mediumGame/enviroment/midBot.png")));
+        Image easyTop = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/easyGame/enviroment/easyTop.png")));
+        Image easyBot = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/easyGame/enviroment/easyBot.png")));
+        Image easyL = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/easyGame/enviroment/easyL2.png")));
+        Image midgrid = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/mediumGame/enviroment/mediumGrid.png")));
+        Image hardGrid = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/hardGame/enviroment/girdHard.png")));
+        Image hardR = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/hardGame/enviroment/hardR.png")));
+        Image hardL = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/hardGame/enviroment/hardL.png")));
+        Image play = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/playretro.png")));
+        Image returngame = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/return.png")));
+        Image movingjungle = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/midR.jpg")));   // wtf? :D
+        Image easyend = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/midR.jpg")));        // yep, nice placeholder confusion..
+        Image midneo = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/mediumGame/enviroment/medneo.png")));
+        Image midneo2 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/mediumGame/enviroment/midneo2.png")));
+        Image midneo3 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/mediumGame/enviroment/midneo3.png")));
+        Image midneo4 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/mediumGame/enviroment/midneo4.png")));
+        Image easyneo = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/easyGame/enviroment/easyneo.png")));
+        Image hardneo = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/hardGame/enviroment/hardneo.png")));
+        Image easyGrid = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/easyGame/enviroment/easyGrid.png")));
 
 
         gameBackGroundImages.add(easyBack);     // 0
@@ -170,30 +176,30 @@ public class ImageCache {
 
     public void addToMenuCache() throws FileNotFoundException {
 
-        Image pergament = new Image(new FileInputStream("src/main/java/visuals/images/menu/testaperga7.jpg"));
-        Image miniEasy = new Image(new FileInputStream("src/main/java/visuals/images/menu/background.png"));
-        Image miniMedium = new Image(new FileInputStream("src/main/java/visuals/images/menu/tigru.jpg"));
-        Image miniHard = new Image(new FileInputStream("src/main/java/visuals/images/menu/hardback4.jpg"));
-        Image easyFrame = new Image(new FileInputStream("src/main/java/visuals/images/menu/easyneo.png"));
-        Image mediumFrame = new Image(new FileInputStream("src/main/java/visuals/images/menu/medneo.png"));
-        Image hardFrame = new Image(new FileInputStream("src/main/java/visuals/images/menu/hardneo.png"));
-        Image japan = new Image(new FileInputStream("src/main/java/visuals/images/menu/cherry2.png"));
-        Image jungle = new Image(new FileInputStream("src/main/java/visuals/images/menu/jungle.png"));
-        Image redtree = new Image(new FileInputStream("src/main/java/visuals/images/menu/redtree.png"));
-        Image dirt = new Image(new FileInputStream("src/main/java/visuals/images/menu/dirt.png"));
-        Image burningsun = new Image(new FileInputStream("src/main/java/visuals/images/menu/burningsun.png"));
-        Image easydes1 = new Image(new FileInputStream("src/main/java/visuals/images/menu/easydes1.png"));
-        Image easydes2 = new Image(new FileInputStream("src/main/java/visuals/images/menu/easydes2.png"));
-        Image easydes3 = new Image(new FileInputStream("src/main/java/visuals/images/menu/easydes3.png"));
-        Image kotoku = new Image(new FileInputStream("src/main/java/visuals/images/menu/kotoku.png"));
-        Image tigerden = new Image(new FileInputStream("src/main/java/visuals/images/menu/tigerden2.png"));
-        Image treeoflife = new Image(new FileInputStream("src/main/java/visuals/images/menu/treeoflife2.png"));
-        Image medes1 = new Image(new FileInputStream("src/main/java/visuals/images/menu/medes1.png"));
-        Image medes2 = new Image(new FileInputStream("src/main/java/visuals/images/menu/medes2.png"));
-        Image medes3 = new Image(new FileInputStream("src/main/java/visuals/images/menu/medes3.png"));
-        Image hardes1 = new Image(new FileInputStream("src/main/java/visuals/images/menu/hardes1.png"));
-        Image hardes2 = new Image(new FileInputStream("src/main/java/visuals/images/menu/hardes2.png"));
-        Image hardes3 = new Image(new FileInputStream("src/main/java/visuals/images/menu/hardes3.png"));
+        Image pergament = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/menu/testaperga7.jpg")));
+        Image miniEasy = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/menu/background.png")));
+        Image miniMedium = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/menu/tigru.jpg")));
+        Image miniHard = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/menu/hardback4.jpg")));
+        Image easyFrame = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/menu/easyneo.png")));
+        Image mediumFrame = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/menu/medneo.png")));
+        Image hardFrame = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/menu/hardneo.png")));
+        Image japan = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/menu/cherry2.png")));
+        Image jungle = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/menu/jungle.png")));
+        Image redtree = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/menu/redtree.png")));
+        Image dirt = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/menu/dirt.png")));
+        Image burningsun = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/menu/burningsun.png")));
+        Image easydes1 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/menu/easydes1.png")));
+        Image easydes2 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/menu/easydes2.png")));
+        Image easydes3 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/menu/easydes3.png")));
+        Image kotoku = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/menu/kotoku.png")));
+        Image tigerden = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/menu/tigerden2.png")));
+        Image treeoflife = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/menu/treeoflife2.png")));
+        Image medes1 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/menu/medes1.png")));
+        Image medes2 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/menu/medes2.png")));
+        Image medes3 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/menu/medes3.png")));
+        Image hardes1 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/menu/hardes1.png")));
+        Image hardes2 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/menu/hardes2.png")));
+        Image hardes3 = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/menu/hardes3.png")));
 
 
         menuImages.add(pergament);          // 0

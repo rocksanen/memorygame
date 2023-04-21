@@ -22,12 +22,12 @@
         <children>
             <ImageView id="background" fx:id="background" fitHeight="750.0" fitWidth="1257.5" layoutX="-4.0">
                 <image>
-                    <Image url="@../../images/easyGame/enviroment/background.png" />
+                    <Image url="@/pictures/images/easyGame/enviroment/background.png" />
                 </image>
             </ImageView>
             <ImageView id="easyL" fx:id="easyL" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
                 <image>
-                    <Image url="@../../images/easyGame/enviroment/easyL2.png" />
+                    <Image url="@/pictures/images/easyGame/enviroment/easyL2.png" />
                 </image>
                 <effect>
                     <SepiaTone level="0.22" />
@@ -35,12 +35,12 @@
             </ImageView>
             <ImageView id="easyTop" fx:id="easyTop" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
                 <image>
-                    <Image url="@../../images/easyGame/enviroment/easyTop.png" />
+                    <Image url="@/pictures/images/easyGame/enviroment/easyTop.png" />
                 </image>
             </ImageView>
             <ImageView id="easyBot" fx:id="easyBot" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
                 <image>
-                    <Image url="@../../images/easyGame/enviroment/easyBot.png" />
+                    <Image url="@/pictures/images/easyGame/enviroment/easyBot.png" />
                 </image>
                 <effect>
                     <ColorAdjust brightness="-0.13" />
@@ -48,12 +48,12 @@
             </ImageView>
             <ImageView id="easyneo" fx:id="easyneo" fitHeight="933.3" fitWidth="1599.0" layoutX="-174.2" layoutY="-92.0" mouseTransparent="true">
                 <image>
-                    <Image url="@../../images/easyGame/enviroment/easyneo.png" />
+                    <Image url="@/pictures/images/easyGame/enviroment/easyneo.png" />
                 </image>
             </ImageView>
             <ImageView id="easy3Dgrid" fx:id="easy3Dgrid" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
                 <image>
-                    <Image url="@../../images/easyGame/enviroment/easyGrid.png" />
+                    <Image url="@/pictures/images/easyGame/enviroment/easyGrid.png" />
                 </image>
                 <effect>
                     <SepiaTone>
@@ -65,7 +65,7 @@
             </ImageView>
             <ImageView id="easyEnd" fx:id="easyEnd" fitHeight="75.0" fitWidth="123.0" layoutX="564.0" layoutY="337.0">
                 <image>
-                    <Image url="@../../images/dance.gif" />
+                    <Image url="@/pictures/images/dance.gif" />
                 </image>
             </ImageView>
             <GridPane id="easyGridi" fx:id="easyGridi" alignment="CENTER" layoutX="340.0" layoutY="100.0" prefHeight="550.0" prefWidth="580.0">
@@ -81,7 +81,7 @@
             </GridPane>
             <ImageView id="play" fx:id="play" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="290.0" onMouseClicked="#newGame">
                 <image>
-                    <Image url="@../../images/playretro.png" />
+                    <Image url="@/pictures/images/playretro.png" />
                 </image>
                 <effect>
                     <SepiaTone level="0.61" />
@@ -92,7 +92,7 @@
             </ImageView>
             <ImageView id="returngame" fx:id="returngame" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="385.0" onMouseClicked="#returnMenu">
                 <image>
-                    <Image url="@../../images/return.png" />
+                    <Image url="@/pictures/images/return.png" />
                 </image>
                 <effect>
                     <SepiaTone level="0.61" />
@@ -115,7 +115,7 @@
                         <children>
                             <ImageView id="worldback" fitHeight="261.0" fitWidth="200.0" layoutX="-9.0" layoutY="-10.0">
                                 <image>
-                                    <Image url="@../../images/scorepohja2.png" />
+                                    <Image url="@/pictures/images/scorepohja2.png" />
                                 </image>
                                 <effect>
                                     <Glow level="0.5">
@@ -127,7 +127,7 @@
                             </ImageView>
                             <ImageView id="worldscores" fx:id="worldScoreHeader" fitHeight="35.0" fitWidth="170.0" layoutX="6.0" layoutY="10.0">
                                 <image>
-                                    <Image url="@../../images/worldscores2.png" />
+                                    <Image url="@/pictures/images/worldscores2.png" />
                                 </image>
                                 <effect>
                                     <Glow level="0.4" />
@@ -194,7 +194,7 @@
                         <children>
                             <ImageView id="perback" fitHeight="261.0" fitWidth="200.0" layoutX="-9.0" layoutY="-10.0">
                                 <image>
-                                    <Image url="@../../images/scorepohja2.png" />
+                                    <Image url="@/pictures/images/scorepohja2.png" />
                                 </image>
                                 <effect>
                                     <Glow level="0.5">
@@ -206,7 +206,7 @@
                             </ImageView>
                             <ImageView id="personalscores" fx:id="personalScoreHeader" fitHeight="35.0" fitWidth="170.0" layoutX="6.0" layoutY="10.0">
                                 <image>
-                                    <Image url="@../../images/personalscore2.png" />
+                                    <Image url="@/pictures/images/personalscore2.png" />
                                 </image>
                                 <effect>
                                     <Glow level="0.41" />

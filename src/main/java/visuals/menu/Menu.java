@@ -4,15 +4,12 @@ import controller.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import model.ModeType;
 import visuals.Navigaattori;
 import visuals.audio.AudioMemory;
@@ -22,9 +19,7 @@ import visuals.effects.menuEffects.IMenuLayoutEffects;
 import visuals.effects.menuEffects.MenuLayoutEffects;
 import visuals.effects.menuEffects.ZoomInEffects;
 import visuals.imageServers.ImageCache;
-import visuals.stats.ChartGUI;
 
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -149,8 +144,8 @@ public class Menu implements Initializable, IMenu {
     }
 
     private void initImages() {
-        muteImage = new Image("visuals/images/menu/mute1.png");
-        unmuteImage = new Image("visuals/images/menu/audio.png");
+        muteImage = new Image("pictures/images/menu/mute1.png");
+        unmuteImage = new Image("pictures/images/menu/audio.png");
 
         if (audioMemory.isMuted()) {
             audioMute.setImage(muteImage);
