@@ -9,6 +9,7 @@ By Otto Oksanen, Eetu Soronen, Hasan Safdari & Samu Oksala
 * [Getting Started](#getting-started)
 * [About The Project](#about-the-project)
 * [Vision](#vision)
+* [Builds](#builds)
 * [Jenkins](#jenkins)
 
 
@@ -27,6 +28,9 @@ The project is a simple memory game designed for anyone who wants to improve the
 
 ## Vision
 Our vision was to create a fun memory game that's easily accessible. The game was made to improve the players mental capabilities.
+
+## Builds
+Jar builds are available in the releases section. Java 17 or higher is required to run the game.
 
 ## Jenkins
 To get tests running through Jenkins, first build and run the Docker image with the following command:
