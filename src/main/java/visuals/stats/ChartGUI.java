@@ -58,7 +58,7 @@ public class ChartGUI implements IChartGUI {
         XYChart.Series<Number, Number> scoreSeries = new XYChart.Series<>();
         scoreSeries.setName(mode.toString());
         if (score == null || time == null) {
-            throw new NullPointerException("score or time is null");
+            return;
         }
         for (int i = 0; i < score.size(); i++) {
             scoreSeries.getData().add(new XYChart.Data<>(time.get(i), score.get(i)));
