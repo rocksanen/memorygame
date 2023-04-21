@@ -42,7 +42,6 @@ public class Intro implements Initializable {
     @FXML ImageView treeoflife;
     @FXML ImageView telkku;
     @FXML AnchorPane bottom;
-
     @FXML ImageView info;
     @FXML Pane leaderpane;
     IntroEffects introEffects = new IntroEffects();
