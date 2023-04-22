@@ -30,14 +30,16 @@ public class ChartGUI implements IChartGUI {
     /**
      * The Stacked area chart.
      */
-    AreaChart<String, Number> stackedAreaChart = new AreaChart<>(new CategoryAxis(), new NumberAxis());
+    AreaChart<String, Number> stackedAreaChart;
     private final IChartController chartController = new ChartController(this);
+
+
 
     private ModeType currentMode;
     public void init() {
 
         Font.loadFont(Objects.requireNonNull(getClass().getClassLoader().getResource("fonts/VCR_OSD_MONO_1.001.ttf")).toExternalForm(), 14);
-
+        stackedAreaChart = new AreaChart<>(new CategoryAxis(), new NumberAxis());
         currentMode = ModeType.EASY;
         stackedAreaChart.getXAxis().setStyle("-fx-tick-label-fill: WHITE; -fx-font-size: 16px;-fx-font-family: 'VCR OSD Mono'");
         stackedAreaChart.getYAxis().setStyle("-fx-tick-label-fill: WHITE; -fx-font-size: 16px;-fx-font-family: 'VCR OSD Mono'");
@@ -56,6 +58,7 @@ public class ChartGUI implements IChartGUI {
         stackedAreaChart.setVerticalGridLinesVisible(false);
         stackedAreaChart.setHorizontalGridLinesVisible(false);
 
+
         updateWorldChartData(currentMode);
 
     }
@@ -66,9 +69,6 @@ public class ChartGUI implements IChartGUI {
 
         ArrayList<String> results = chartController.getWorldScores(mode);
         XYChart.Series<String, Number> scoreSeries = new XYChart.Series<>();
-        scoreSeries.getData().clear();
-        scoreSeries.setName(mode.toString());
-
 
         if (results == null) {
             throw new NullPointerException("score or date is null");
@@ -79,11 +79,11 @@ public class ChartGUI implements IChartGUI {
             int day = Integer.parseInt(parts[1].substring(8, 10));
             int month = Integer.parseInt(parts[1].substring(5, 7));
             String date = day + "/" + month;
-            scoreSeries.getData().add(new XYChart.Data<>(date,points));
+            scoreSeries.getData().add(new XYChart.Data<>(date, points));
             System.out.println(mode + ": " + " date: " + date + " points: " + points);
         }
-        System.out.println("");
-        System.out.println("");
+        System.out.println(" ");
+        System.out.println(" ");
 
         stackedAreaChart.getData().add(scoreSeries);
         results.clear();
