@@ -1,11 +1,18 @@
 package visuals.stats;
 import controller.ChartController;
 import controller.IChartController;
+import javafx.geometry.Insets;
 import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import model.ModeType;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -15,7 +22,7 @@ import java.util.Objects;
  */
 public class ChartGUI implements IChartGUI {
 
-    public AreaChart<Number, Number> stackedAreaChart() {
+    public AreaChart<String, Number> stackedAreaChart() {
 
         return stackedAreaChart;
     }
@@ -23,47 +30,84 @@ public class ChartGUI implements IChartGUI {
     /**
      * The Stacked area chart.
      */
-    AreaChart<Number, Number> stackedAreaChart = new AreaChart<>(new NumberAxis(), new NumberAxis());
-
-    private final IChartController scoreController2 = new ChartController(this);
+    AreaChart<String, Number> stackedAreaChart = new AreaChart<>(new CategoryAxis(), new NumberAxis());
+    private final IChartController chartController = new ChartController(this);
 
     private ModeType currentMode;
     public void init() {
+
         Font.loadFont(Objects.requireNonNull(getClass().getClassLoader().getResource("fonts/VCR_OSD_MONO_1.001.ttf")).toExternalForm(), 14);
 
         currentMode = ModeType.EASY;
         stackedAreaChart.getXAxis().setStyle("-fx-tick-label-fill: WHITE; -fx-font-size: 16px;-fx-font-family: 'VCR OSD Mono'");
         stackedAreaChart.getYAxis().setStyle("-fx-tick-label-fill: WHITE; -fx-font-size: 16px;-fx-font-family: 'VCR OSD Mono'");
-
+        stackedAreaChart.setStyle("-fx-background-color: transparent;");
+        stackedAreaChart.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
+        stackedAreaChart.lookup(".chart-plot-background").setStyle("-fx-background-color: rgba(0, 0, 0, 0.9);");
         // Create a StackedAreaChart object
-        stackedAreaChart.setTitle("Your Progress");
+        //stackedAreaChart.setTitle("Your Progress");
         stackedAreaChart.lookup(".chart-title").setStyle("-fx-font-size: 23px; -fx-font-weight: BOLD; -fx-text-fill: white; -fx-font-family: 'VCR OSD Mono'");
         stackedAreaChart.setLegendVisible(false);
-        stackedAreaChart.getXAxis().setLabel("Time (s)");
-        stackedAreaChart.getYAxis().setLabel("Points");
+        stackedAreaChart.getXAxis().setLabel("DATE");
+        stackedAreaChart.getYAxis().setLabel("POINTS");
         stackedAreaChart.getXAxis().lookup(".axis-label").setStyle("-fx-text-fill: white; -fx-font-size: 16px; -fx-font-family: 'VCR OSD Mono'");
         stackedAreaChart.getYAxis().lookup(".axis-label").setStyle("-fx-text-fill: white; -fx-font-size: 16px; -fx-font-family: 'VCR OSD Mono'");
         stackedAreaChart.setPrefSize(600, 500);
-        stackedAreaChart.setVerticalGridLinesVisible(true);
-        stackedAreaChart.setHorizontalGridLinesVisible(true);
+        stackedAreaChart.setVerticalGridLinesVisible(false);
+        stackedAreaChart.setHorizontalGridLinesVisible(false);
 
-        updateChartData(currentMode);
+        updateWorldChartData(currentMode);
 
     }
 
-    public void updateChartData(ModeType mode) {
-        ArrayList<Number> score = scoreController2.getUserScores(mode);
-        ArrayList<Number> time = scoreController2.getUserTime(mode);
+    public void updateWorldChartData(ModeType mode) {
 
-        XYChart.Series<Number, Number> scoreSeries = new XYChart.Series<>();
-        scoreSeries.setName(mode.toString());
-        if (score == null || time == null) {
-            throw new NullPointerException("score or time is null");
-        }
-        for (int i = 0; i < score.size(); i++) {
-            scoreSeries.getData().add(new XYChart.Data<>(time.get(i), score.get(i)));
-        }
         stackedAreaChart.getData().clear();
+
+        ArrayList<String> results = chartController.getWorldScores(mode);
+        XYChart.Series<String, Number> scoreSeries = new XYChart.Series<>();
+        scoreSeries.getData().clear();
+        scoreSeries.setName(mode.toString());
+
+
+        if (results == null) {
+            throw new NullPointerException("score or date is null");
+        }
+        for (String s : results) {
+            String[] parts = s.split(" ");
+            int points = Integer.parseInt(parts[0]);
+            int day = Integer.parseInt(parts[1].substring(8, 10));
+            int month = Integer.parseInt(parts[1].substring(5, 7));
+            String date = day + "/" + month;
+            scoreSeries.getData().add(new XYChart.Data<>(date,points));
+            System.out.println(mode + ": " + " date: " + date + " points: " + points);
+        }
+        System.out.println("");
+        System.out.println("");
+
+        stackedAreaChart.getData().add(scoreSeries);
+        results.clear();
+    }
+
+    public void updateUserChartData(ModeType mode) {
+
+        stackedAreaChart.getData().clear();
+        ArrayList<String> results = chartController.getUserScores(mode);
+        XYChart.Series<String, Number> scoreSeries = new XYChart.Series<>();
+        scoreSeries.setName(mode.toString());
+
+        for (String s : results) {
+            String[] parts = s.split(" ");
+            int points = Integer.parseInt(parts[0]);
+            int day = Integer.parseInt(parts[1].substring(8, 10));
+            int month = Integer.parseInt(parts[1].substring(5, 7));
+            String date = day + "/" + month;
+            scoreSeries.getData().add(new XYChart.Data<>(date,points));
+            System.out.println(mode + ": " + " date: " + date + " points: " + points);
+        }
+        System.out.println("");
+        System.out.println("");
+
         stackedAreaChart.getData().add(scoreSeries);
     }
 }
