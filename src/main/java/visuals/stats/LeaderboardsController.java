@@ -4,18 +4,14 @@ import controller.ScoreController;
 import controller.UserController;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.skin.TableHeaderRow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import model.ModeType;
 import model.Score;
@@ -303,7 +299,14 @@ public class LeaderboardsController {
         currentMode = ModeType.EASY;
         updateTable(ModeType.EASY, showUserOnly);
         updateLabelInfo();
-        chartGUI.updateChartData(currentMode);
+
+        if (!showUserOnly) {
+            chartGUI.updateWorldChartData(currentMode);
+        } else {
+            chartGUI.updateUserChartData(currentMode);
+        }
+
+
     }
 
     /**
@@ -316,7 +319,12 @@ public class LeaderboardsController {
         currentMode = ModeType.MEDIUM;
         updateTable(ModeType.MEDIUM, showUserOnly);
         updateLabelInfo();
-        chartGUI.updateChartData(currentMode);
+
+        if (!showUserOnly) {
+            chartGUI.updateWorldChartData(currentMode);
+        } else {
+            chartGUI.updateUserChartData(currentMode);
+        }
     }
 
 
@@ -330,7 +338,12 @@ public class LeaderboardsController {
         currentMode = ModeType.HARD;
         updateTable(ModeType.HARD, showUserOnly);
         updateLabelInfo();
-        chartGUI.updateChartData(currentMode);
+
+        if (!showUserOnly) {
+            chartGUI.updateWorldChartData(currentMode);
+        } else {
+            chartGUI.updateUserChartData(currentMode);
+        }
     }
 
 
@@ -345,6 +358,11 @@ public class LeaderboardsController {
         buttonUserGlobal.setText(showUserOnly ? "Global Scores" : "Personal Scores");
         updateTable(currentMode, showUserOnly);
         updateLabelInfo();
+        if (!showUserOnly) {
+            chartGUI.updateWorldChartData(currentMode);
+        } else {
+            chartGUI.updateUserChartData(currentMode);
+        }
     }
 
 
