@@ -7,7 +7,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.effect.Glow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -80,11 +83,15 @@ public class FXHardController extends FXAbstractGameController implements Initia
     AnchorPane sceneRoot;
     @FXML
     ProgressBar hard_progressbar;
+    @FXML
+    ToggleButton practice_button;
 
 
     private ICubeFactory hardCubeFactory;
     private HardEffects hardEffects;
     private ScoreController scoreController;
+
+    private boolean practice = false;
 
     public void setController(ScoreController scoreController) {
 
@@ -194,8 +201,11 @@ public class FXHardController extends FXAbstractGameController implements Initia
 
     @Override
     public void newGame() {
+
+        gameController.killTimer();
         clearGameOverMenu(sceneRoot, gameRoot);
         setStartGame();
+
     }
 
     @Override
@@ -221,15 +231,23 @@ public class FXHardController extends FXAbstractGameController implements Initia
     @Override
     public void gameOver() {
 
+        if (!practice) {
+            Platform.runLater(this::setPersonalScore);
+            Platform.runLater(this::setWorldScore);
+        }
+        /*
         Platform.runLater(this::setPersonalScore);
         Platform.runLater(this::setWorldScore);
         System.out.println("game over");
+
+         */
 
         gameOverMenu(gameRoot, sceneRoot);
     }
 
     @Override
     public void setActiveID(int activeID) {
+        //glowHint(8);
         super.setActiveID(activeID);
     }
 
@@ -237,11 +255,46 @@ public class FXHardController extends FXAbstractGameController implements Initia
     public void compareFoundMatch() {
         super.compareFoundMatch();
     }
+    @Override
+    public void glowHint(int idToGlow) {
+
+        if (practice) {
+            super.glowHint(idToGlow);
+        } else {
+            System.out.println("Practise mode is disabled.");
+        }
+
+    }
+
+    public void setPractice() {
+        if (!practice) {
+            practice = true;
+            System.out.println("Practice on!");
+        } else {
+            practice = false;
+            System.out.println("Practice off!");
+            newGame();
+        }
+    }
+
 
     @Override
     public void getTime(int i) {
-        super.getTime(i);
-        hard_progressbar.setProgress(i*0.01);
+        if (practice) {
+            super.getTime(i);
+            hard_progressbar.setProgress(1);
+            gameController.killTimer();
+
+            if (i == 0) {
+                gameOver();
+            }
+        } else {
+            super.getTime(i);
+            hard_progressbar.setProgress(i*0.01);
+        }
+
+
+
     }
 
     @Override

@@ -28,6 +28,7 @@ public interface IEngine {
     int getActiveId();
     long getTimerTime();
     void stopTimer();
+    int getHint();
 
     ModeType getType();
 }

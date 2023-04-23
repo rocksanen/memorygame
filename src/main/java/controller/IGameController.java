@@ -31,6 +31,8 @@ public interface IGameController {
 
     void getReturnSignal();
 
+    void showHint();
+
     void sendComparingSuccess();
     int getCurrentScore();
 

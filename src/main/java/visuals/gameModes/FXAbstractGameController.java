@@ -2,10 +2,17 @@ package visuals.gameModes;
 
 import controller.GameController;
 import controller.IGameController;
+import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.effect.BlendMode;
+import javafx.scene.effect.Bloom;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.effect.Glow;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import visuals.Navigaattori;
@@ -15,11 +22,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 
+import static javafx.scene.effect.BlendMode.SRC_ATOP;
+import static javafx.scene.effect.BlendMode.SRC_OVER;
+
 public abstract class FXAbstractGameController implements FXIGameController {
 
     protected ArrayList<BoxMaker> cubeList;
     protected final IGameController gameController = new GameController(this);
     private static final ArrayList<Group> activeList = new ArrayList<>();
+
 
     public FXAbstractGameController() {
     }
@@ -60,7 +71,19 @@ public abstract class FXAbstractGameController implements FXIGameController {
             }
         });
     }
+    @Override
+    public void glowHint(int idToGlow) {
 
+        CompletableFuture.runAsync(() -> {
+
+            FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), cubeList.get(idToGlow).getBox());
+            fadeTransition.setFromValue(0.7);
+            fadeTransition.setToValue(1.0);
+            fadeTransition.setCycleCount(3);
+
+            fadeTransition.play();
+    });
+}
     @Override
     public void clearStorage() {
         gameController.clearStorage();

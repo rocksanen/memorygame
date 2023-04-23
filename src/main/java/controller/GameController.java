@@ -89,6 +89,11 @@ public class GameController implements IGameController {
     public void getReturnSignal() {
     }
 
+    @Override
+    public void showHint() {
+        fxiGameController.glowHint(engine.getHint());
+    }
+
 
     @Override
     public void sendComparingSuccess() {
@@ -109,4 +114,5 @@ public class GameController implements IGameController {
     public String getGrade() {
         return Grader.scoreGrader(engine.getTotalScore(), engine.getType());
     }
+
 }

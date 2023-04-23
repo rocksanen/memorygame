@@ -2,10 +2,7 @@ package model;
 
 import controller.IGameController;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
 import static model.CompareResultType.EQUAL;
@@ -20,8 +17,13 @@ public class Engine implements IEngine {
      * The Storage.
      */
     ArrayList<Integer> storage = new ArrayList<>();
+
+    ArrayList<Integer> correctIds = new ArrayList<>();
+    ArrayList<Integer> correctIdsIds = new ArrayList<>();
     private final IGameController controller;
     private final ModeType type;
+
+    private boolean isTimerRunning = false;
 
     /**
      * Gets comparing list.
@@ -62,7 +64,7 @@ public class Engine implements IEngine {
 
     private int activeId;
 
-    private int test;
+    private int hint;
     /**
      * logged in user
      */
@@ -164,6 +166,12 @@ public class Engine implements IEngine {
     @Override
     public void suffleObjects() {
         Collections.shuffle(memoryObjectsList);
+
+        for (int i = 0; i < memoryObjectsList.size(); i++) {
+            correctIds.add(memoryObjectsList.get(i).getTypeId());
+            correctIdsIds.add(memoryObjectsList.get(i).getIdNumber());
+        }
+
     }
 
     @Override
@@ -202,8 +210,18 @@ public class Engine implements IEngine {
     }
 
     public void stopTimer() {
-        task.cancel();
-        t.cancel();
+
+
+        if (t != null) {
+
+            t.cancel();
+        }
+
+    }
+
+    @Override
+    public int getHint() {
+        return hint;
     }
 
     @Override
@@ -277,6 +295,9 @@ public class Engine implements IEngine {
         storage.clear();
     }
 
+
+    private int wrong_guesses = 0;
+    private int firstIncorrectGuessIndex = -1;
     @Override
     public void compareObjects(ArrayList<MemoryObject> objectList) {
 
@@ -294,6 +315,27 @@ public class Engine implements IEngine {
 
             }
         } else {
+            wrong_guesses++;
+
+            if (wrong_guesses == 2 && getType().equals(ModeType.HARD)) {
+                int idToMatch = objectList.get(0).getTypeId();
+                int idToMatch2 = objectList.get(0).getIdNumber();
+                System.out.println(idToMatch);
+                System.out.println(memoryObjectsList.size());
+                for (int i = 0; i < memoryObjectsList.size(); i++) {
+
+                    if (idToMatch == correctIds.get(i) && idToMatch2 != correctIdsIds.get(i)) {
+                        hint = i;
+                        controller.showHint();
+                        System.out.println("Position: " + i);
+                        wrong_guesses = 0;
+                        //break;
+                    }
+
+
+                }
+            }
+
             clearPair(objectList);
             updateScore(NOTEQUAL);
         }
@@ -302,6 +344,7 @@ public class Engine implements IEngine {
     public void runTimer() {
         t.schedule(task, 0, timerTime);
     }
+
 
     @Override
     public ModeType getType() {
