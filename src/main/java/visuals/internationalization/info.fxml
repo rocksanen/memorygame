@@ -85,8 +85,8 @@
       <Button fx:id="nextButton" onAction="#handleNextButton" text="→" AnchorPane.leftAnchor="1192.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="350.0" />
       <Button fx:id="previousButton" layoutX="1000" layoutY="68" onAction="#handlePreviousButton" text="←" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="1203.0" AnchorPane.topAnchor="350.0" />
 
-      <ImageView fx:id="stepImage" fitHeight="369.0" fitWidth="653.0" layoutX="225.0" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="372.0" AnchorPane.topAnchor="350.0">
+      <ImageView fx:id="stepImage" fitHeight="369.0" fitWidth="653.0" layoutX="225.0" AnchorPane.leftAnchor="290.0" AnchorPane.rightAnchor="372.0" AnchorPane.topAnchor="350.0">
       </ImageView>
-      <Rectangle fx:id="glowingBorder" layoutX="225.0" layoutY="350.0" width="653.0" height="369.0" fill="TRANSPARENT" stroke="WHITE" strokeWidth="5" />
+      <Rectangle fx:id="glowingBorder" layoutX="290.0" layoutY="350.0" width="653.0" height="369.0" fill="TRANSPARENT" stroke="WHITE" strokeWidth="3" />
    </children>
 </AnchorPane>
