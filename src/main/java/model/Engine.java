@@ -119,31 +119,34 @@ public class Engine implements IEngine {
 
         switch (this.type) {
             case EASY -> {
-                timerTime = 1000;
-                runTimer();
-                controller.getTime();
+
                 addMemoryObjectsToList(6);
                 suffleObjects();
                 controller.setGame(memoryObjectsList);
+                timerTime = 1000;
+                runTimer();
+                controller.getTime();
 
             }
             case MEDIUM -> {
-                timerTime = 800;
-                runTimer();
-                controller.getTime();
+
                 addMemoryObjectsToList(12);
                 suffleObjects();
                 controller.setGame(memoryObjectsList);
+                timerTime = 800;
+                runTimer();
+                controller.getTime();
 
             }
 
             case HARD -> {
-                timerTime = 600;
-                runTimer();
-                controller.getTime();
+
                 addMemoryObjectsToList(20);
                 suffleObjects();
                 controller.setGame(memoryObjectsList);
+                timerTime = 600;
+                runTimer();
+                controller.getTime();
             }
 
         }

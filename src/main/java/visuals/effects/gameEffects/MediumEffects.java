@@ -3,6 +3,7 @@ package visuals.effects.gameEffects;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -26,6 +27,7 @@ public class MediumEffects extends AbstractGameEffects implements IGameEffects{
     private ImageView returngame;
     private GridPane mediumGrid;
     private Pane scorePane;
+
 
     private FXIGameController gameController;
 
@@ -93,44 +95,13 @@ public class MediumEffects extends AbstractGameEffects implements IGameEffects{
 
             timeline.stop();
             gameController.setStartGame();
-            /*
-            Timeline neoline = new Timeline(
-                    new KeyFrame(Duration.seconds(0.4),
-                            new KeyValue(midneo.opacityProperty(),0)),
-                    new KeyFrame(Duration.seconds(0.5),
-                            new KeyValue(midneo.opacityProperty(),0.68)),
-                    new KeyFrame(Duration.seconds(0.9),
-                            new KeyValue(midneo2.opacityProperty(),0)),
-                    new KeyFrame(Duration.seconds(1),
-                            new KeyValue(midneo2.opacityProperty(),0.6)),
-                    new KeyFrame(Duration.seconds(1.4),
-                            new KeyValue(midneo3.opacityProperty(),0)),
-                    new KeyFrame(Duration.seconds(1.5),
-                            new KeyValue(midneo3.opacityProperty(),0.3),
-                            new KeyValue(midneo2.opacityProperty(),0)),
-                    new KeyFrame(Duration.seconds(1.9),
-                            new KeyValue(midneo4.opacityProperty(),0)),
-                    new KeyFrame(Duration.seconds(2),
-                            new KeyValue(midneo4.opacityProperty(),1),
-                            new KeyValue(midneo3.opacityProperty(),0)),
-                    new KeyFrame(Duration.seconds(2.5),
-                            new KeyValue(midneo4.opacityProperty(),0))
-            );
-
-            neoline.play();
-            neoline.setOnFinished(actionEvent1 -> {
-
-                neoline.stop();
-                gameController.setStartGame();
-
-            });
-
-             */
         });
     }
 
     @Override
     public void wallsOff() {
+
+
 
         Timeline timeline = new Timeline(
 

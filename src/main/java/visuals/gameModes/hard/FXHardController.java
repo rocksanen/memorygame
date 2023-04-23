@@ -160,6 +160,7 @@ public class FXHardController extends FXAbstractGameController implements Initia
         hardGrid.getChildren().clear();
         hardCubeFactory = new HardCubeFactory(this);
         gameController.startGame(HARD);
+        hard_progressbar.setVisible(true);
     }
 
     @Override
@@ -176,7 +177,9 @@ public class FXHardController extends FXAbstractGameController implements Initia
 
     @Override
     public void returnMenu() {
-        Platform.runLater(() -> hardEffects.wallsOff());
+
+        hardEffects.wallsOff();
+        hard_progressbar.setVisible(false);
     }
 
     @Override
