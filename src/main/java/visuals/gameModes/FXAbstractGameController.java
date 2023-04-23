@@ -7,7 +7,6 @@ import javafx.animation.FadeTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
-import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -158,7 +157,7 @@ public abstract class FXAbstractGameController implements FXIGameController {
         try {
             ResourceBundle bundle = JavaFXInternationalization.internationalizationLoaderProperties();
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/visuals/gameModes/GameOver.fxml"), bundle);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GameOver.fxml"), bundle);
             AnchorPane gameOverView = loader.load();
 
             GameOverController goc = loader.getController();
