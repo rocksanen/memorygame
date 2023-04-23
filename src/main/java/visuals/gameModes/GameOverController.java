@@ -1,57 +1,67 @@
 package visuals.gameModes;
 
 import controller.IGameController;
-import controller.IScoreController;
-import controller.ScoreController;
-import javafx.animation.FadeTransition;
-import javafx.animation.PauseTransition;
-import javafx.animation.ScaleTransition;
-import javafx.animation.SequentialTransition;
+import javafx.animation.*;
 import javafx.fxml.FXML;
-import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 import model.ModeType;
 import visuals.Navigaattori;
+import visuals.effects.gameEffects.EasyEffects;
+import visuals.internationalization.JavaFXInternationalization;
 
+import java.util.Arrays;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 public class GameOverController {
 
     private FXIGameController fxigameController;
+    private AnchorPane gameRoot;
+    private GaussianBlur gaussianBlur;
 
     @FXML
     AnchorPane gameOverRoot;
     @FXML
     HBox hboxStarContainer;
     @FXML
-    Button buttonRestart;
+    Button newGame;
     @FXML
-    Button buttonMenu;
+    Button mainMenu;
     @FXML
-    Label labelScore;
+    Label score;
     @FXML
-    Label labelGameOver;
+    Label gameOver;
     @FXML
     VBox gameOverPane;
 
 
-    public void Initialize(FXIGameController fxigameController, IGameController gameController) {
+
+    public void Initialize(FXIGameController fxigameController, IGameController gameController, AnchorPane gameRoot) {
+
+        changeLanguage(JavaFXInternationalization.getLocale());
+
         this.fxigameController = fxigameController;
+        this.gameRoot = gameRoot;
+
+        gaussianBlur = new GaussianBlur();
+        gaussianBlur.setRadius(10);
+        gameRoot.setEffect(gaussianBlur);
+
         initStyles();
 
         gameOverPane.setBackground(new Background(new BackgroundImage(new Image(Objects.requireNonNull(getClass().getClassLoader().
                 getResourceAsStream("images/gameover4.png"))), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
 
-        labelScore.setText("Score: " + gameController.getCurrentScore());
+        score.setText("Score: " + gameController.getCurrentScore());
 
         String stars = gameController.getGrade();
         animateStars(stars);
@@ -93,12 +103,20 @@ public class GameOverController {
 
     @FXML
     public void setButtonMenu() {
-        Navigaattori n = Navigaattori.getInstance();
-        try {
-            n.changeScene(ModeType.MENU);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.3), gameOverRoot);
+        fadeTransition.setFromValue(1);
+        fadeTransition.setToValue(0);
+        fadeTransition.play();
+
+        gaussianBlur.setRadius(0);
+        gameRoot.setEffect(gaussianBlur);
+
+        fadeTransition.setOnFinished(actionEvent -> {
+
+            fxigameController.returnMenu();
+
+        });
     }
 
     @FXML
@@ -107,13 +125,13 @@ public class GameOverController {
     }
 
     private void initStyles() {
-        labelGameOver.setFont(Font.font("Atari Classic", 44));
-        labelGameOver.setTextFill(javafx.scene.paint.Color.WHITE);
-        labelScore.setFont(Font.font("Atari Classic", 30));
-        labelScore.setTextFill(javafx.scene.paint.Color.WHITE);
+        gameOver.setFont(Font.font("Atari Classic", 44));
+        gameOver.setTextFill(javafx.scene.paint.Color.WHITE);
+        score.setFont(Font.font("Atari Classic", 30));
+        score.setTextFill(javafx.scene.paint.Color.WHITE);
 
-        styleButton(buttonRestart);
-        styleButton(buttonMenu);
+        styleButton(newGame);
+        styleButton(mainMenu);
     }
 
     private void styleButton(Button b) {
@@ -124,5 +142,25 @@ public class GameOverController {
         b.setStyle("-fx-background-color: " + darkPurple + "; -fx-text-fill: white;");
         b.setOnMouseEntered(e -> b.setStyle("-fx-background-color: " + lightPurple + " ; -fx-text-fill: white;"));
         b.setOnMouseExited(e -> b.setStyle("-fx-background-color: " + darkPurple + "; -fx-text-fill: white;"));
+    }
+
+    public void changeLanguage(Locale locale) {
+        ResourceBundle bundle = ResourceBundle.getBundle("Bundle", locale);
+
+        for (Button button : Arrays.asList(mainMenu, newGame)) {
+            if (button != null) {
+                String key = button.getId();
+                String text = bundle.getString(key);
+                button.setText(text);
+            }
+        }
+
+        for (Label label : Arrays.asList(score, gameOver)) {
+            if (label != null) {
+                String key = label.getId();
+                String text = bundle.getString(key);
+                label.setText(text);
+            }
+        }
     }
 }

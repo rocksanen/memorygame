@@ -6,7 +6,6 @@ public interface IMenu {
 
     //void getWorldScore(ArrayList<String> worldList);
     //void getPersonalScore(ArrayList<String> personalList);
-//    void fetchUserScores();
-    boolean isReturnStatus();
+    //void fetchUserScores();
 
 }

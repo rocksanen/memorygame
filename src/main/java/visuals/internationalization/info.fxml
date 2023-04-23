@@ -9,9 +9,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorLbs" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.internationalization.InternationalizationController">
+<AnchorPane fx:id="anchorLbs" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.internationalization.InternationalizationController">
    <children>
       <HBox layoutX="591.0" layoutY="40.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -29,50 +30,9 @@
                   </Label>
                   <VBox prefHeight="630.0" prefWidth="1099.0">
                      <children>
-                        <Label fx:id="stepText" alignment="TOP_LEFT" prefHeight="50.0" prefWidth="1139.0" text="%stepText" wrapText="true">
-                           <VBox.margin>
-                              <Insets left="5.0" top="10.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Label fx:id="stepOne" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="1116.0" text="%stepOne" wrapText="true">
-                           <padding>
-                              <Insets left="20.0" />
-                           </padding>
-                        </Label>
-                        <Label fx:id="stepTwo" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="1116.0" text="%stepTwo" wrapText="true">
-                           <padding>
-                              <Insets left="20.0" />
-                           </padding>
-                        </Label>
-                        <Label fx:id="stepThree" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="1116.0" text="%stepThree" wrapText="true">
-                           <padding>
-                              <Insets left="20.0" />
-                           </padding>
-                        </Label>
-                        <Label fx:id="stepFour" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="1084.0" text="%stepFour" wrapText="true">
-                           <padding>
-                              <Insets left="20.0" />
-                           </padding>
-                        </Label>
-                        <Label fx:id="stepFive" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="1099.0" text="%stepFive" wrapText="true">
-                           <padding>
-                              <Insets left="20.0" />
-                           </padding>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                        </Label>
-                        <Label fx:id="stepSix" alignment="TOP_LEFT" prefHeight="70.0" prefWidth="1099.0" text="%stepSix" wrapText="true">
-                           <padding>
-                              <Insets left="20.0" />
-                           </padding>
-                        </Label>
-                        <Label fx:id="lastLine" prefHeight="50.0" prefWidth="1084.0" text="%lastLine" wrapText="true">
-                           <VBox.margin>
-                              <Insets left="5.0" />
-                           </VBox.margin>
-                        </Label>
+                        <Label fx:id="stepText" alignment="TOP_LEFT" prefHeight="36.0" prefWidth="1049.0" text="%stepText" wrapText="true" />
                      </children>
+                     <Label fx:id="labelInfo" alignment="TOP_LEFT" prefHeight="173.0" prefWidth="1116.0" text="" wrapText="true" />
                      <VBox.margin>
                         <Insets top="55.0" />
                      </VBox.margin>
@@ -83,9 +43,9 @@
          </children>
       </HBox>
 
-      <ImageView id="en" fx:id="en1" fitHeight="19.0" fitWidth="37.0" layoutX="1149.0" layoutY="68" onMouseClicked="#setButtonEn" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="75.0" onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
+      <ImageView id="en" fx:id="en1" fitHeight="19.0" fitWidth="37.0" layoutX="1149.0" layoutY="68" onMouseClicked="#setButtonEn" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="75.0">
          <image>
-            <Image url="@../images/flagIcons/united-states.png" />
+            <Image url="@/pictures/images/flagIcons/united-states.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -93,32 +53,52 @@
       </ImageView>
 
 
-      <ImageView id="fin" fx:id="fin1" fitHeight="19.0" fitWidth="37.0" layoutX="1149.0" layoutY="68" onMouseClicked="#setButtonFin" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="100.0" onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
+      <ImageView id="fin" fx:id="fin1" fitHeight="19.0" fitWidth="37.0" layoutX="1149.0" layoutY="68" onMouseClicked="#setButtonFin" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="100.0">
          <image>
-            <Image url="@../images/flagIcons/finland.png" />
+            <Image url="@/pictures/images/flagIcons/finland.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
 
-      <ImageView id="swe" fx:id="swe1" fitHeight="19.0" fitWidth="37.0" layoutX="1120" layoutY="68" onMouseClicked="#setButtonSwe" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="125.0" onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
+      <ImageView id="swe" fx:id="swe1" fitHeight="19.0" fitWidth="37.0" layoutX="1120" layoutY="68" onMouseClicked="#setButtonSwe" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="125.0">
          <image>
-            <Image url="@../images/flagIcons/sweden.png" />
+            <Image url="@/pictures/images/flagIcons/sweden.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
 
-            <ImageView id="lat" fx:id="lat1" fitHeight="35.0" fitWidth="37.0" layoutX="1120" layoutY="68" onMouseClicked="#setButtonLat" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="145.0" onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
+      <ImageView id="lat" fx:id="lat1" fitHeight="35.0" fitWidth="37.0" layoutX="1120" layoutY="68" onMouseClicked="#setButtonLat" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="145.0">
          <image>
-            <Image url="@../images/flagIcons/latvia-flag.png" />
+            <Image url="@/pictures/images/flagIcons/latvia-flag.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView id="nextButton" fx:id="nextButton" layoutX="1192.0" layoutY="350.0" onMouseClicked="#handleNextButton" AnchorPane.leftAnchor="1185.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="350.0">
+         <image>
+            <Image url="@/pictures/images/leftArrow.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
 
+      <ImageView id="previousButton" fx:id="previousButton" layoutX="18.0" layoutY="68.0" onMouseClicked="#handlePreviousButton" rotate="180.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="350.0">
+         <image>
+            <Image url="@/pictures/images/rightArrow.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+
+      <ImageView fx:id="stepImage" fitHeight="369.0" fitWidth="653.0" layoutX="225.0" AnchorPane.leftAnchor="290.0" AnchorPane.rightAnchor="372.0" AnchorPane.topAnchor="350.0">
+      </ImageView>
+      <Rectangle fx:id="glowingBorder" fill="TRANSPARENT" height="369.0" layoutX="290.0" layoutY="350.0" stroke="WHITE" strokeWidth="3" width="653.0" />
    </children>
 </AnchorPane>

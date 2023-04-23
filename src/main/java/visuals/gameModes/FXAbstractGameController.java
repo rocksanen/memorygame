@@ -2,7 +2,7 @@ package visuals.gameModes;
 
 import controller.GameController;
 import controller.IGameController;
-import javafx.animation.Animation;
+import controller.ScoreController;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -13,24 +13,25 @@ import javafx.scene.effect.BlendMode;
 import javafx.scene.effect.Bloom;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.Glow;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import model.ModeType;
 import visuals.Navigaattori;
 import visuals.cubeFactories.BoxMaker;
+import visuals.internationalization.JavaFXInternationalization;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
-
-import static javafx.scene.effect.BlendMode.SRC_ATOP;
-import static javafx.scene.effect.BlendMode.SRC_OVER;
 
 public abstract class FXAbstractGameController implements FXIGameController {
 
     protected ArrayList<BoxMaker> cubeList;
     protected final IGameController gameController = new GameController(this);
     private static final ArrayList<Group> activeList = new ArrayList<>();
-
 
     public FXAbstractGameController() {
     }
@@ -149,6 +150,12 @@ public abstract class FXAbstractGameController implements FXIGameController {
         Navigaattori.camera.setTranslateX(0);
     }
 
+
+    /**
+     * Method for clearing the game over menu
+     * @param sceneRoot scene root
+     * @param gameRoot game root
+     */
     public void clearGameOverMenu(AnchorPane sceneRoot, AnchorPane gameRoot) {
         // delete game over -view if it exists
         System.out.println(sceneRoot.getChildren());
@@ -159,27 +166,98 @@ public abstract class FXAbstractGameController implements FXIGameController {
         gameRoot.setEffect(null);
     }
 
+
+    /**
+     * Method for initializing the game over menu
+     * @param gameRoot game root
+     * @param sceneRoot scene root
+     */
     public void gameOverMenu(AnchorPane gameRoot, AnchorPane sceneRoot) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/visuals/gameModes/GameOver.fxml"));
+            ResourceBundle bundle = JavaFXInternationalization.internationalizationLoaderProperties();
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GameOver.fxml"), bundle);
             AnchorPane gameOverView = loader.load();
 
-            GaussianBlur gaussianBlur = new GaussianBlur();
-            gaussianBlur.setRadius(10);
-            gameRoot.setEffect(gaussianBlur);
-
             GameOverController goc = loader.getController();
-            goc.Initialize(this, gameController);
+            goc.Initialize(this, gameController, gameRoot);
             gameOverView.setOpacity(0.0);
             sceneRoot.getChildren().add(gameOverView);
 
-            FadeTransition fadeTransition2 = new FadeTransition(Duration.seconds(1), gameOverView);
+            FadeTransition fadeTransition2 = new FadeTransition(Duration.seconds(2), gameOverView);
             fadeTransition2.setFromValue(0.0);
             fadeTransition2.setToValue(1.0);
             fadeTransition2.play();
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * Method for initializing the score headers based on the language
+     * @param personalScoreHeader personal score header
+     * @param worldScoreHeader world score header
+     */
+    public void initScoreHeaders(ImageView personalScoreHeader, ImageView worldScoreHeader) {
+        Locale locale = JavaFXInternationalization.getLocale();
+        System.out.println("locale is : " + locale.getLanguage());
+
+        switch (locale.getLanguage()) {
+            case "fi" -> {
+                personalScoreHeader.setImage(
+                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                                "/images/headers/fi_personalscores.png"))));
+                worldScoreHeader.setImage(
+                        new Image("/images/headers/fi_worldscores.png"));
+            }
+            case "swe" -> {
+                personalScoreHeader.setImage(
+                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                                "/images/headers/swe_personalscores.png"))));
+                worldScoreHeader.setImage(
+                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                                "/images/headers/swe_worldscores.png"))));
+            }
+            case "lat" -> {
+                personalScoreHeader.setImage(
+                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                                "/images/headers/latvian_personalscores.png"))));
+                worldScoreHeader.setImage(
+                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                                "/images/headers/latvian_worldscores.png"))));
+            }
+        }
+    }
+
+    /**
+     * Assigns world scores to the labels
+     *
+     * @param modeType difficulty
+     * @param labels   labels to be used
+     */
+    public void setWorldScore(ModeType modeType, List<Label> labels) {
+        ScoreController scoreController = new ScoreController();
+        ArrayList<String> worldScores = scoreController.getTopFiveScores(modeType);
+
+        for (Label l : labels) {
+            l.setText(worldScores.get(labels.indexOf(l)));
+        }
+    }
+
+
+    /**
+     * Assigns personal scores to the labels
+     *
+     * @param modeType difficulty
+     * @param labels   labels to be used
+     */
+    public void setPersonalScore(ModeType modeType, List<Label> labels) {
+        ScoreController scoreController = new ScoreController();
+        ArrayList<String> personalScores = scoreController.getTopFivePersonalScores(modeType);
+
+        for (Label l : labels) {
+            l.setText(personalScores.get(labels.indexOf(l)));
         }
     }
 }

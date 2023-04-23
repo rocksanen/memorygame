@@ -3,22 +3,21 @@ package controller;
 import model.ModeType;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public interface IChartController {
-    void fetchScores(ModeType difficulty);
+    //void fetchScores(ModeType difficulty);
 
-    int getTotalScore();
+    //int getTotalScore();
 
-    ArrayList<String> getScores(ModeType difficulty);
-    void fetchUserScores();
-    ArrayList<Number> getUserScores(ModeType difficulty);
+    ArrayList<String> getWorldScores(ModeType difficulty);
+    //void fetchUserScores();
+    ArrayList<String> getUserScores(ModeType difficulty);
 
     ArrayList<Number> getUserTime(ModeType difficulty);
 
-    ArrayList<Date> getUserTimestamp(ModeType difficulty);
+    //ArrayList<Date> getUserTimestamp(ModeType difficulty);
 
-    void logout();
+    //void logout();
 
     boolean isLoggedIn();
 }

@@ -1,6 +1,7 @@
 
 
 import controller.ScoreController;
+import javafx.application.Preloader;
 import javafx.scene.text.Font;
 import model.ModeType;
 import visuals.Navigaattori;
@@ -42,8 +43,6 @@ public class Start {
             sc.fetchScores(ModeType.HARD);
         });
         thread.start();
-
-
         Navigaattori.main(args);
     }
 }

@@ -3,37 +3,33 @@ package visuals.gameModes.hard;
 import controller.ScoreController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.effect.GaussianBlur;
-import javafx.scene.effect.Glow;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import model.MemoryObject;
-import model.ModeType;
 import visuals.cubeFactories.BoxMaker;
-import visuals.cubeFactories.EasyCubeFactory;
 import visuals.cubeFactories.HardCubeFactory;
 import visuals.cubeFactories.ICubeFactory;
 import visuals.effects.gameEffects.HardEffects;
 import visuals.gameModes.FXAbstractGameController;
 import visuals.gameModes.FXIGameController;
-import visuals.gameModes.GameOverController;
 import visuals.imageServers.ImageCache;
-import visuals.menu.Menu;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Stream;
+
+import static model.ModeType.HARD;
 
 public class FXHardController extends FXAbstractGameController implements Initializable, FXIGameController {
 
@@ -82,10 +78,16 @@ public class FXHardController extends FXAbstractGameController implements Initia
     @FXML
     AnchorPane sceneRoot;
     @FXML
+    ImageView personalScoreHeader;
+    @FXML
+    ImageView worldScoreHeader;
+    @FXML
     ProgressBar hard_progressbar;
     @FXML
     ToggleButton practice_button;
 
+    private List<Label> personalLabels;
+    private List<Label> worldLabels;
 
     private ICubeFactory hardCubeFactory;
     private HardEffects hardEffects;
@@ -101,30 +103,24 @@ public class FXHardController extends FXAbstractGameController implements Initia
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        Platform.runLater(this::setCamera);
+        setCamera();
         setImages();
-        hardEffects = new HardEffects();
+        hardEffects = new HardEffects(this);
         hardEffects.setImagesAndComponents(
                 hardBackground, scorePane, hardGrid,
                 hardGridImage, hardR, hardL,
                 hardneo, play, returngame);
         Platform.runLater(() -> hardEffects.entrance());
-        Platform.runLater(this::setWorldScore);
-        Platform.runLater(this::setPersonalScore);
 
-        p1.setStyle("-fx-font: 14 \"Atari Classic\";");
-        p2.setStyle("-fx-font: 14 \"Atari Classic\";");
-        p3.setStyle("-fx-font: 14 \"Atari Classic\";");
-        p4.setStyle("-fx-font: 14 \"Atari Classic\";");
-        p5.setStyle("-fx-font: 14 \"Atari Classic\";");
-        w1.setStyle("-fx-font: 14 \"Atari Classic\";");
-        w2.setStyle("-fx-font: 14 \"Atari Classic\";");
-        w3.setStyle("-fx-font: 14 \"Atari Classic\";");
-        w4.setStyle("-fx-font: 14 \"Atari Classic\";");
-        w5.setStyle("-fx-font: 14 \"Atari Classic\";");
-
-        setStartGame();
-
+        initScoreHeaders(personalScoreHeader, worldScoreHeader);
+        this.personalLabels = List.of(p1, p2, p3, p4, p5);
+        this.worldLabels = List.of(w1, w2, w3, w4, w5);
+        setPersonalScore(HARD, personalLabels);
+        setWorldScore(HARD, worldLabels);
+        Stream.concat(personalLabels.stream(), worldLabels.stream())
+                .forEach(label -> {
+                    label.setStyle("-fx-font: 14 \"Atari Classic\";");
+                });
 
     }
 
@@ -160,28 +156,6 @@ public class FXHardController extends FXAbstractGameController implements Initia
     }
 
     @Override
-    public void setWorldScore() {
-        ArrayList<String> worldScores = scoreController.getTopFiveScores(ModeType.HARD);
-
-        w1.setText(worldScores.get(0));
-        w2.setText(worldScores.get(1));
-        w3.setText(worldScores.get(2));
-        w4.setText(worldScores.get(3));
-        w5.setText(worldScores.get(4));
-    }
-
-    @Override
-    public void setPersonalScore() {
-        ArrayList<String> personalScores = scoreController.getTopFivePersonalScores(ModeType.HARD);
-
-        p1.setText(personalScores.get(0));
-        p2.setText(personalScores.get(1));
-        p3.setText(personalScores.get(2));
-        p4.setText(personalScores.get(3));
-        p5.setText(personalScores.get(4));
-    }
-
-    @Override
     public void setStartGame() {
 
         if (cubeList != null) {
@@ -190,7 +164,8 @@ public class FXHardController extends FXAbstractGameController implements Initia
         cubeList = new ArrayList<>();
         hardGrid.getChildren().clear();
         hardCubeFactory = new HardCubeFactory(this);
-        gameController.startGame(ModeType.HARD);
+        gameController.startGame(HARD);
+        hard_progressbar.setVisible(true);
     }
 
     @Override
@@ -210,7 +185,9 @@ public class FXHardController extends FXAbstractGameController implements Initia
 
     @Override
     public void returnMenu() {
-        Platform.runLater(() -> hardEffects.wallsOff());
+
+        hardEffects.wallsOff();
+        hard_progressbar.setVisible(false);
     }
 
     @Override
@@ -247,7 +224,6 @@ public class FXHardController extends FXAbstractGameController implements Initia
 
     @Override
     public void setActiveID(int activeID) {
-        //glowHint(8);
         super.setActiveID(activeID);
     }
 

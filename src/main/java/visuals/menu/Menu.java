@@ -4,14 +4,12 @@ import controller.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.effect.Glow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import model.ModeType;
 import visuals.Navigaattori;
 import visuals.audio.AudioMemory;
@@ -21,9 +19,7 @@ import visuals.effects.menuEffects.IMenuLayoutEffects;
 import visuals.effects.menuEffects.MenuLayoutEffects;
 import visuals.effects.menuEffects.ZoomInEffects;
 import visuals.imageServers.ImageCache;
-import visuals.stats.ChartGUI;
 
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -37,6 +33,8 @@ public class Menu implements Initializable, IMenu {
     private final ZoomInEffects zoomInEffects = new ZoomInEffects();
     private final IMenuLayoutEffects menuLayoutEffects = new MenuLayoutEffects();
     private final Hovers hovers = new Hovers(menuLayoutEffects);
+    private Image muteImage;
+    private Image unmuteImage;
 
     @FXML
     ImageView burningsun;
@@ -46,10 +44,6 @@ public class Menu implements Initializable, IMenu {
     Label labelLoggedIn;
     @FXML
     Button stats;
-    @FXML
-    Button register;
-    @FXML
-    Button login;
     @FXML
     TextField name;
     @FXML
@@ -111,8 +105,6 @@ public class Menu implements Initializable, IMenu {
     @FXML
     ImageView telkku;
     @FXML
-    Button buttonLeaderboards;
-    @FXML
     ImageView loginButtonImage;
     @FXML
     ImageView registerButtonImage;
@@ -122,8 +114,12 @@ public class Menu implements Initializable, IMenu {
     Pane logOutPane;
     @FXML
     ImageView info;
-    private boolean returnStatus;
+    @FXML
+    ImageView audioMute;
+    @FXML
+    ImageView audioUnMute;
 
+    private final AudioMemory audioMemory = AudioMemory.getInstance();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -138,29 +134,45 @@ public class Menu implements Initializable, IMenu {
             Platform.runLater(() -> AudioMemory.getInstance().playSong(MENU));
         }
 
+
         Platform.runLater(() -> menuLayoutEffects.setGlow(pergament));
         Platform.runLater(() -> menuLayoutEffects.moveDirt(dirt));
         Platform.runLater(() -> menuLayoutEffects.moveJungle(jungle));
         Platform.runLater(() -> menuLayoutEffects.moveRedTree(redtree));
+
+        initImages();
+    }
+
+    private void initImages() {
+        muteImage = new Image("pictures/images/menu/mute1.png");
+        unmuteImage = new Image("pictures/images/menu/audio.png");
+
+        if (audioMemory.isMuted()) {
+            audioMute.setImage(muteImage);
+            audioUnMute.setImage(null);
+        } else {
+            audioMute.setImage(null);
+            audioUnMute.setImage(unmuteImage);
+        }
     }
 
     public void initGoods() {
 
+        initLogin();
         panesAndMisc();
         setMenuImages();
-        initLogin();
 
         zoomInEffects.setMiniImagesAndFrames(miniEasy, miniMedium, miniHard, easyFrame, mediumFrame, hardFrame);
         zoomInEffects.setEssenceImages(japan, jungle, redtree);
         zoomInEffects.setGeneralObjects(pergament);
-        menuLayoutEffects.infoBlink(info);
-
+        Platform.runLater(() -> menuLayoutEffects.infoBlink(info));
+        Platform.runLater(() -> menuLayoutEffects.infoBlink(audioMute));
+        Platform.runLater(() -> menuLayoutEffects.infoBlink(audioUnMute));
     }
 
     private void initLogin() {
 
         Platform.runLater(() -> paneLogin.setVisible(!userController.isLoggedIn()));
-        Platform.runLater(() -> leaderPane.setVisible(userController.isLoggedIn()));
         Platform.runLater(() -> logOutPane.setVisible(userController.isLoggedIn()));
 
         if (userController.isLoggedIn()) {
@@ -168,11 +180,6 @@ public class Menu implements Initializable, IMenu {
         }
         Platform.runLater(() -> logAndReg.setVisible(true));
     }
-
-    public boolean isReturnStatus() {
-        return returnStatus;
-    }
-
     @FXML
     public void easyStartScreenPlay() {
 
@@ -235,7 +242,6 @@ public class Menu implements Initializable, IMenu {
                 return;
             }
             Platform.runLater(() -> paneLogin.setVisible(false));
-            Platform.runLater(() -> leaderPane.setVisible(true));
             Platform.runLater(() -> logOutPane.setVisible(true));
 
             Platform.runLater(() -> labelLoggedIn.setText("Logged in as " + userController.getUsername()));
@@ -259,32 +265,6 @@ public class Menu implements Initializable, IMenu {
 
         labelLoggedIn.setText(userController.isLoggedIn() ? "Logged in as " + userController.getUsername() : "Not logged in");
 
-        /*
-        buttonLogout.setFont(outrun);
-        // make button logout purple with shadow, white text and hover effect
-        buttonLogout.setStyle(
-                "-fx-background-color: rgba(0,0,0,0.50); -fx-background-radius: 5; -fx-padding: 1 2 1 2; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
-
-         */
-
-        /*
-        stats.setFont(outrun);
-        stats.setStyle(
-                "-fx-background-color: rgba(0,0,0,0.50); -fx-background-radius: 5; -fx-padding: 1 2 1 2; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
-
-
-         */
-
-        /*
-        login.setFont(outrun);
-        login.setStyle(
-                "-fx-background-color: rgba(0,0,0,0.50); -fx-background-radius: 5; -fx-padding: 1 2 1 2; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
-        register.setFont(outrun);
-        register.setStyle(
-                "-fx-background-color: rgba(0,0,0,0.50); -fx-background-radius: 5; -fx-padding: 1 2 1 2; -fx-text-fill: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);");
-
-
-         */
     }
 
     private void setMenuImages() {
@@ -319,27 +299,22 @@ public class Menu implements Initializable, IMenu {
     public void easyInfoOn() {
         menuLayoutEffects.displayInfoOn(easydes1, easydes2, easydes3);
     }
-
     @FXML
     public void easyInfoOff() {
         menuLayoutEffects.displayInfoOff(easydes1, easydes2, easydes3);
     }
-
     @FXML
     public void mediumInfoOn() {
         menuLayoutEffects.displayInfoOn(medes1, medes2, medes3);
     }
-
     @FXML
     public void mediumInfoOff() {
         menuLayoutEffects.displayInfoOff(medes1, medes2, medes3);
     }
-
     @FXML
     public void hardInfoOn() {
         menuLayoutEffects.displayInfoOn(hardes1, hardes2, hardes3);
     }
-
     @FXML
     public void hardInfoOff() {
         menuLayoutEffects.displayInfoOff(hardes1, hardes2, hardes3);
@@ -354,25 +329,12 @@ public class Menu implements Initializable, IMenu {
             name.clear();
             password.clear();
             Platform.runLater(() -> logOutPane.setVisible(false));
-            Platform.runLater(() -> leaderPane.setVisible(false));
             Platform.runLater(() -> paneLogin.setVisible(true));
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-
-//    @FXML
-//    public void statsGame() {
-//        ChartGUI c = new ChartGUI();
-//
-//        try {
-//            c.start(new Stage());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
 
 
     @FXML
@@ -386,7 +348,6 @@ public class Menu implements Initializable, IMenu {
             e.printStackTrace();
         }
     }
-
 
     @FXML
     public void setInfoButton() {
@@ -410,4 +371,20 @@ public class Menu implements Initializable, IMenu {
 
         hovers.commonHoverOff(event);
     }
+
+
+
+    @FXML
+    public void setButtonAudio() {
+        audioMemory.toggleMute();
+
+        if (audioMemory.isMuted()) {
+            audioMute.setImage(muteImage);
+            audioUnMute.setImage(null);
+        } else {
+            audioMute.setImage(null);
+            audioUnMute.setImage(unmuteImage);
+        }
+    }
 }
+

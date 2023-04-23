@@ -3,7 +3,6 @@ package visuals.gameModes.medium;
 import controller.ScoreController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -15,20 +14,19 @@ import javafx.scene.layout.Pane;
 import model.MemoryObject;
 import model.ModeType;
 import visuals.cubeFactories.BoxMaker;
-import visuals.cubeFactories.EasyCubeFactory;
 import visuals.cubeFactories.ICubeFactory;
 import visuals.cubeFactories.MediumCubeFactory;
 import visuals.effects.gameEffects.MediumEffects;
 import visuals.gameModes.FXAbstractGameController;
 import visuals.gameModes.FXIGameController;
-import visuals.gameModes.GameOverController;
 import visuals.imageServers.ImageCache;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Stream;
 
 public class FXMediumController extends FXAbstractGameController implements Initializable, FXIGameController {
 
@@ -91,7 +89,13 @@ public class FXMediumController extends FXAbstractGameController implements Init
     AnchorPane gameRoot;
     @FXML
     AnchorPane sceneRoot;
+    @FXML
+    ImageView personalScoreHeader;
+    @FXML
+    ImageView worldScoreHeader;
 
+    private List<Label> personalLabels;
+    private List<Label> worldLabels;
 
     private ICubeFactory mediumCubeFactory;
     private MediumEffects mediumEffects;
@@ -107,28 +111,27 @@ public class FXMediumController extends FXAbstractGameController implements Init
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        Platform.runLater(this::setCamera);
+        setCamera();
         setImages();
-        mediumEffects = new MediumEffects();
+
+
+        mediumEffects = new MediumEffects(this);
         mediumEffects.setImagesAndComponents(
                 mediumBackground, midgrid, midTop, midL, midBot, midend,
-                midneo, midneo2, midneo3, midneo4, play, returngame, mediumGrid, scorePane);
+                midneo, midneo2, midneo3, midneo4, play, returngame,
+                mediumGrid, scorePane);
         Platform.runLater(() -> mediumEffects.entrance());
-        Platform.runLater(this::setWorldScore);
-        Platform.runLater(this::setPersonalScore);
 
-        p1.setStyle("-fx-font: 14 \"Atari Classic\";");
-        p2.setStyle("-fx-font: 14 \"Atari Classic\";");
-        p3.setStyle("-fx-font: 14 \"Atari Classic\";");
-        p4.setStyle("-fx-font: 14 \"Atari Classic\";");
-        p5.setStyle("-fx-font: 14 \"Atari Classic\";");
-        w1.setStyle("-fx-font: 14 \"Atari Classic\";");
-        w2.setStyle("-fx-font: 14 \"Atari Classic\";");
-        w3.setStyle("-fx-font: 14 \"Atari Classic\";");
-        w4.setStyle("-fx-font: 14 \"Atari Classic\";");
-        w5.setStyle("-fx-font: 14 \"Atari Classic\";");
 
-        setStartGame();
+        initScoreHeaders(personalScoreHeader, worldScoreHeader);
+        this.personalLabels = List.of(p1, p2, p3, p4, p5);
+        this.worldLabels = List.of(w1, w2, w3, w4, w5);
+        setPersonalScore(ModeType.MEDIUM, personalLabels);
+        setWorldScore(ModeType.MEDIUM, worldLabels);
+        Stream.concat(personalLabels.stream(), worldLabels.stream())
+                .forEach(label -> {
+                    label.setStyle("-fx-font: 14 \"Atari Classic\";");
+                });
     }
 
     @Override
@@ -139,9 +142,8 @@ public class FXMediumController extends FXAbstractGameController implements Init
     @Override
     public void setImages() {
 
-        mediumBackground.setImage(ImageCache.getInstance().getGameBackGroundCache().get(1));
-        mediumSpread.setImage(ImageCache.getInstance().getGameBackGroundCache().get(1));
-        midTop.setImage(ImageCache.getInstance().getGameBackGroundCache().get(4));
+
+        midend.setOpacity(0);
         midTop.setOpacity(0);
         midL.setImage(ImageCache.getInstance().getGameBackGroundCache().get(5));
         midL.setOpacity(0);
@@ -154,7 +156,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
         returngame.setImage(ImageCache.getInstance().getGameBackGroundCache().get(15));
         returngame.setOpacity(0);
         midneo.setImage(ImageCache.getInstance().getGameBackGroundCache().get(18));
-        midneo.setOpacity(0);
+        midneo.setOpacity(1);
         midneo2.setImage(ImageCache.getInstance().getGameBackGroundCache().get(19));
         midneo2.setOpacity(0);
         midneo3.setImage(ImageCache.getInstance().getGameBackGroundCache().get(20));
@@ -163,29 +165,6 @@ public class FXMediumController extends FXAbstractGameController implements Init
         midneo4.setOpacity(0);
         mediumGrid.setHgap(25);
         mediumGrid.setVgap(20);
-    }
-
-    @Override
-    public void setWorldScore() {
-        ArrayList<String> worldScores = scoreController.getTopFiveScores(ModeType.MEDIUM);
-
-        w1.setText(worldScores.get(0));
-        w2.setText(worldScores.get(1));
-        w3.setText(worldScores.get(2));
-        w4.setText(worldScores.get(3));
-        w5.setText(worldScores.get(4));
-    }
-
-
-    @Override
-    public void setPersonalScore() {
-        ArrayList<String> personalScores = scoreController.getTopFivePersonalScores(ModeType.MEDIUM);
-
-        p1.setText(personalScores.get(0));
-        p2.setText(personalScores.get(1));
-        p3.setText(personalScores.get(2));
-        p4.setText(personalScores.get(3));
-        p5.setText(personalScores.get(4));
     }
 
     // To gamecontroller
@@ -199,6 +178,8 @@ public class FXMediumController extends FXAbstractGameController implements Init
         mediumGrid.getChildren().clear();
         mediumCubeFactory = new MediumCubeFactory(this);
         gameController.startGame(ModeType.MEDIUM);
+        medium_progressbar.setVisible(true);
+
 
     }
 
@@ -206,6 +187,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
     public void setCubesToGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
 
         mediumCubeFactory.createCubics(mediumGrid, memoryObjects);
+
     }
 
     @Override
@@ -217,6 +199,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
     @FXML
     public void returnMenu() {
 
+        medium_progressbar.setVisible(false);
         Platform.runLater(() -> mediumEffects.wallsOff());
     }
 
@@ -239,9 +222,8 @@ public class FXMediumController extends FXAbstractGameController implements Init
     @Override
     public void gameOver() {
 
-        Platform.runLater(this::setPersonalScore);
-        Platform.runLater(this::setWorldScore);
-        System.out.println("game over");
+        setPersonalScore(ModeType.MEDIUM, personalLabels);
+        setWorldScore(ModeType.MEDIUM, worldLabels);
 
         gameOverMenu(gameRoot, sceneRoot);
     }
