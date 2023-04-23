@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.ModeType;
@@ -14,6 +15,7 @@ import visuals.gameModes.easy.FXEasyController;
 import visuals.gameModes.hard.FXHardController;
 import visuals.gameModes.medium.FXMediumController;
 import visuals.internationalization.JavaFXInternationalization;
+
 import java.io.IOException;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -94,8 +96,11 @@ public class Navigaattori extends Application {
             System.exit(0);
         });
 
+        MAINSTAGE.setTitle("Memory Maze");
+        MAINSTAGE.getIcons().add(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                "/pictures/images/newCube.png"))));
 
-        Parent root = FXMLLoader.load (Objects.requireNonNull(getClass().getResource("/fxml/intro.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/fxml/intro.fxml")));
 
         Scene scene = new Scene(root, 1250, 750);
         camera.setFieldOfView(25);
