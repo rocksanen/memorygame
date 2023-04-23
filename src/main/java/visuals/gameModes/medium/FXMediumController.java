@@ -118,7 +118,8 @@ public class FXMediumController extends FXAbstractGameController implements Init
         mediumEffects = new MediumEffects(this);
         mediumEffects.setImagesAndComponents(
                 mediumBackground, midgrid, midTop, midL, midBot, midend,
-                midneo, midneo2, midneo3, midneo4, play, returngame, mediumGrid, scorePane);
+                midneo, midneo2, midneo3, midneo4, play, returngame,
+                mediumGrid, scorePane);
         Platform.runLater(() -> mediumEffects.entrance());
 
 
@@ -177,6 +178,8 @@ public class FXMediumController extends FXAbstractGameController implements Init
         mediumGrid.getChildren().clear();
         mediumCubeFactory = new MediumCubeFactory(this);
         gameController.startGame(ModeType.MEDIUM);
+        medium_progressbar.setVisible(true);
+
 
     }
 
@@ -184,6 +187,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
     public void setCubesToGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
 
         mediumCubeFactory.createCubics(mediumGrid, memoryObjects);
+
     }
 
     @Override
@@ -195,6 +199,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
     @FXML
     public void returnMenu() {
 
+        medium_progressbar.setVisible(false);
         Platform.runLater(() -> mediumEffects.wallsOff());
     }
 

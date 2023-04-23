@@ -5,6 +5,8 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.effect.BoxBlur?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.effect.Glow?>
@@ -313,13 +315,21 @@
                   <Point3D y="1.0" />
                </rotationAxis>
             </Pane>
-      <ProgressBar id="medium_progressbar" fx:id="medium_progressbar" layoutX="325.0" layoutY="56.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.82" pickOnBounds="false" prefHeight="50.0" prefWidth="600.0" progress="0.0" rotate="180.0">
+      <ProgressBar id="medium_progressbar" fx:id="medium_progressbar" layoutX="325.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.82" pickOnBounds="false" prefHeight="50.0" prefWidth="600.0" progress="1.0" rotate="180.0" visible="false">
                <effect>
-                  <SepiaTone>
+                  <Bloom threshold="0.0">
                      <input>
-                        <ColorAdjust brightness="-0.22" hue="0.13" />
+                        <BoxBlur>
+                           <input>
+                              <ColorAdjust contrast="-0.95" hue="-0.57" saturation="0.76">
+                                 <input>
+                                    <GaussianBlur radius="15.78" />
+                                 </input>
+                              </ColorAdjust>
+                           </input>
+                        </BoxBlur>
                      </input>
-                  </SepiaTone>
+                  </Bloom>
                </effect>
       </ProgressBar>
           </children>
