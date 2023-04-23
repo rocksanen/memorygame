@@ -1,21 +1,31 @@
 package visuals.internationalization;
 
+import javafx.animation.StrokeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import model.ModeType;
 import visuals.Navigaattori;
 import visuals.effects.commonHovers.Hovers;
 import visuals.effects.menuEffects.IMenuLayoutEffects;
 import visuals.effects.menuEffects.MenuLayoutEffects;
-
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import javafx.scene.image.ImageView;
+
+import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
+import javafx.scene.effect.InnerShadow;
+import javafx.scene.effect.DropShadow;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Locale;
@@ -23,6 +33,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.shape.Rectangle;
 
 public class InternationalizationController {
 
@@ -46,6 +57,9 @@ public class InternationalizationController {
 
     @FXML
     private ImageView stepImage;
+
+    @FXML
+    private Rectangle glowingBorder;
 
     private ResourceBundle bundle;
 
@@ -73,6 +87,9 @@ public class InternationalizationController {
         stepImages.add(loadImage("pictures/images/step5.png"));
         stepImages.add(loadImage("pictures/images/step6.png"));
 
+
+        createEffectsAndAnimation();
+
         updateInfo();
         updateNavigationButtons();
         Font.loadFont(Objects.requireNonNull(getClass().getClassLoader().getResource("fonts/VCR_OSD_MONO_1.001.ttf")).toExternalForm(), 14);
@@ -96,6 +113,14 @@ public class InternationalizationController {
             l.setStyle("-fx-text-fill: white;");
 
         }
+    }
+
+    private void createEffectsAndAnimation() {
+        // Create the Glow effect
+        StrokeTransition strokeTransition = new StrokeTransition(Duration.seconds(2), glowingBorder, Color.WHITE, Color.CYAN);
+        strokeTransition.setAutoReverse(true);
+        strokeTransition.setCycleCount(StrokeTransition.INDEFINITE);
+        strokeTransition.play();
     }
 
     private Image loadImage(String path) {

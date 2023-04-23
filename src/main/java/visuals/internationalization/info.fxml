@@ -10,7 +10,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.shape.Rectangle?>
 
+
+<?import javafx.scene.effect.InnerShadow?>
 <AnchorPane fx:id="anchorLbs" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.internationalization.InternationalizationController">
    <children>
       <HBox layoutX="591.0" layoutY="40.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -29,18 +32,9 @@
                   </Label>
                   <VBox prefHeight="630.0" prefWidth="1099.0">
                      <children>
-
-                        <Label fx:id="stepText" alignment="TOP_LEFT" prefHeight="282.0" prefWidth="1049.0" text="%stepText" wrapText="true">
-                           <VBox.margin>
-                              <Insets left="65.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Label fx:id="labelInfo" alignment="TOP_LEFT" prefHeight="50.0" prefWidth="1139.0" text="" wrapText="true">
-                           <VBox.margin>
-                              <Insets left="5.0" top="10.0" />
-                           </VBox.margin>
-                        </Label>
+                        <Label fx:id="stepText" alignment="TOP_LEFT" prefHeight="36.0" prefWidth="1049.0" text="%stepText" wrapText="true" />
                      </children>
+                     <Label fx:id="labelInfo" alignment="TOP_LEFT" prefHeight="173.0" prefWidth="1116.0" text="" wrapText="true" />
                      <VBox.margin>
                         <Insets top="55.0" />
                      </VBox.margin>
@@ -91,8 +85,8 @@
       <Button fx:id="nextButton" onAction="#handleNextButton" text="→" AnchorPane.leftAnchor="1192.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="350.0" />
       <Button fx:id="previousButton" layoutX="1000" layoutY="68" onAction="#handlePreviousButton" text="←" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="1203.0" AnchorPane.topAnchor="350.0" />
 
-      <ImageView fx:id="stepImage" fitHeight="369.0" fitWidth="730.0" layoutX="170.0" AnchorPane.leftAnchor="170.0" AnchorPane.rightAnchor="137.0" AnchorPane.topAnchor="350.0" />
-
-
+      <ImageView fx:id="stepImage" fitHeight="369.0" fitWidth="653.0" layoutX="225.0" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="372.0" AnchorPane.topAnchor="350.0">
+      </ImageView>
+      <Rectangle fx:id="glowingBorder" layoutX="225.0" layoutY="350.0" width="653.0" height="369.0" fill="TRANSPARENT" stroke="WHITE" strokeWidth="5" />
    </children>
 </AnchorPane>
