@@ -209,8 +209,8 @@ public class FXHardController extends FXAbstractGameController implements Initia
     public void gameOver() {
 
         if (!practice) {
-            Platform.runLater(this::setPersonalScore);
-            Platform.runLater(this::setWorldScore);
+            setPersonalScore(HARD, personalLabels);
+            setWorldScore(HARD, worldLabels);
         }
         /*
         Platform.runLater(this::setPersonalScore);
