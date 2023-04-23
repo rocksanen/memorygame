@@ -79,7 +79,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <ImageView id="nextButton" fx:id="nextButton" layoutX="1192.0" layoutY="350.0" onMouseClicked="#handleNextButton" AnchorPane.leftAnchor="1180.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="350.0">
+      <ImageView id="nextButton" fx:id="nextButton" layoutX="1192.0" layoutY="350.0" onMouseClicked="#handleNextButton" AnchorPane.leftAnchor="1185.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="350.0">
          <image>
             <Image url="@/pictures/images/leftArrow.png" />
          </image>
