@@ -15,17 +15,9 @@ import visuals.Navigaattori;
 import visuals.effects.commonHovers.Hovers;
 import visuals.effects.menuEffects.IMenuLayoutEffects;
 import visuals.effects.menuEffects.MenuLayoutEffects;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.util.Duration;
 import javafx.scene.image.ImageView;
-
-import java.awt.*;
 import java.io.IOException;
-import java.io.InputStream;
-import javafx.scene.effect.InnerShadow;
-import javafx.scene.effect.DropShadow;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Locale;
@@ -34,6 +26,7 @@ import java.util.ResourceBundle;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.shape.Rectangle;
+
 
 public class InternationalizationController {
 
@@ -51,15 +44,16 @@ public class InternationalizationController {
     public Label titleInfo, welcomeText, labelInfo,stepText;
 
     @FXML
-    private Button previousButton;
+    private ImageView previousButton;
     @FXML
-    private Button nextButton;
+    private ImageView nextButton;
 
     @FXML
     private ImageView stepImage;
 
     @FXML
     private Rectangle glowingBorder;
+
 
     private ResourceBundle bundle;
 
@@ -264,6 +258,7 @@ public class InternationalizationController {
             updateNavigationButtons();
         }
 
+
     }
 
     @FXML
@@ -273,6 +268,7 @@ public class InternationalizationController {
             updateInfo();
             updateNavigationButtons();
         }
+
 
     }
 }

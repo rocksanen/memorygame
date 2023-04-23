@@ -9,11 +9,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-
-<?import javafx.scene.effect.InnerShadow?>
 <AnchorPane fx:id="anchorLbs" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.internationalization.InternationalizationController">
    <children>
       <HBox layoutX="591.0" layoutY="40.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -81,12 +79,26 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
+      <ImageView id="nextButton" fx:id="nextButton" layoutX="1192.0" layoutY="350.0" onMouseClicked="#handleNextButton" AnchorPane.leftAnchor="1180.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="350.0">
+         <image>
+            <Image url="@/pictures/images/leftArrow.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
 
-      <Button fx:id="nextButton" onAction="#handleNextButton" text="→" AnchorPane.leftAnchor="1192.0" AnchorPane.rightAnchor="28.0" AnchorPane.topAnchor="350.0" />
-      <Button fx:id="previousButton" layoutX="1000" layoutY="68" onAction="#handlePreviousButton" text="←" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="1203.0" AnchorPane.topAnchor="350.0" />
+      <ImageView id="previousButton" fx:id="previousButton" layoutX="18.0" layoutY="68.0" onMouseClicked="#handlePreviousButton" rotate="180.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="350.0">
+         <image>
+            <Image url="@/pictures/images/rightArrow.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
 
       <ImageView fx:id="stepImage" fitHeight="369.0" fitWidth="653.0" layoutX="225.0" AnchorPane.leftAnchor="290.0" AnchorPane.rightAnchor="372.0" AnchorPane.topAnchor="350.0">
       </ImageView>
-      <Rectangle fx:id="glowingBorder" layoutX="290.0" layoutY="350.0" width="653.0" height="369.0" fill="TRANSPARENT" stroke="WHITE" strokeWidth="3" />
+      <Rectangle fx:id="glowingBorder" fill="TRANSPARENT" height="369.0" layoutX="290.0" layoutY="350.0" stroke="WHITE" strokeWidth="3" width="653.0" />
    </children>
 </AnchorPane>
