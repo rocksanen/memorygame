@@ -5,6 +5,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.effect.BoxBlur?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.GaussianBlur?>
@@ -285,6 +286,7 @@
                   </BoxBlur>
                </effect>
       </ProgressBar>
+            <ToggleButton id="practice_button" fx:id="practice_button" layoutX="1038.0" layoutY="223.0" mnemonicParsing="false" onAction="#setPractice" text="Practice Mode" />
     </children>
       </AnchorPane>
    </children>

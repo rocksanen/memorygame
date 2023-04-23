@@ -22,4 +22,6 @@ public interface FXIGameController {
     void returnMenu();
     void setCamera();
     void setImages();
+    void glowHint(int idToGlow);
+
 }

@@ -240,8 +240,14 @@ public class FXMediumController extends FXAbstractGameController implements Init
 
     @Override
     public void getTime(int i) {
+
         super.getTime(i);
         medium_progressbar.setProgress(i*0.01);
+
+        if (i == 0) {
+            gameOver();
+        }
+
     }
 
     @Override
