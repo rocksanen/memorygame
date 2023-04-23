@@ -43,8 +43,6 @@ public class Start {
             sc.fetchScores(ModeType.HARD);
         });
         thread.start();
-
-
         Navigaattori.main(args);
     }
 }
