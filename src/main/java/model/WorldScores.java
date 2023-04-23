@@ -72,4 +72,5 @@ public class WorldScores {
     public Scoreboard getHardScores() {
         return hardScores;
     }
+
 }
