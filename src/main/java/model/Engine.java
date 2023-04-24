@@ -135,7 +135,7 @@ public class Engine implements IEngine {
                 addMemoryObjectsToList(12);
                 suffleObjects();
                 controller.setGame(memoryObjectsList);
-                timerTime = 800;
+                timerTime = 600;
                 runTimer();
                 controller.getTime();
 
