@@ -128,7 +128,7 @@ public class Menu implements Initializable, IMenu {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         initGoods();
-
+        // jep
         Platform.runLater(() -> BurningSun.getInstance().burningSunMove(burningsun));
 
         if (IntroOn.getInstance().getIntroOn()) {
