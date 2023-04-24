@@ -16,9 +16,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 17
@@ -27,18 +25,16 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+    - name: Generate Surefire report
       env:
         MEMORYMAZE_DB_URL: ${{ vars.MEMORYMAZE_DB_URL }}
         MEMORYMAZE_DB_USERNAME: ${{ vars.MEMORYMAZE_DB_USERNAME }}
         MEMORYMAZE_DB_PASSWORD: ${{ vars.MEMORYMAZE_DB_PASSWORD }}
       run: |
-        echo "MEMORYMAZE_DB_URL is $MEMORYMAZE_DB_URL"
-        echo "MEMORYMAZE_DB_USERNAME is $MEMORYMAZE_DB_USERNAME"
-        echo "MEMORYMAZE_DB_PASSWORD is $MEMORYMAZE_DB_PASSWORD"
-#    - name: Build with Maven
-#      run: mvn -B package --file pom.xml
-    - name: Generate Surefire report
-      run: mvn surefire-report:report
+        echo "MEMORYMAZE_DB_URL=$MEMORYMAZE_DB_URL"
+        echo "MEMORYMAZE_DB_USERNAME=$MEMORYMAZE_DB_USERNAME"
+        echo "MEMORYMAZE_DB_PASSWORD=$MEMORYMAZE_DB_PASSWORD"
+        mvn surefire-report:report
     - name: Upload Surefire report
       uses: actions/upload-artifact@v2
       with:
