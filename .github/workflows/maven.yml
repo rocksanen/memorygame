@@ -27,6 +27,14 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+      env:
+        MEMORYMAZE_DB_URL: ${{ vars.MEMORYMAZE_DB_URL }}
+        MEMORYMAZE_DB_USERNAME: ${{ vars.MEMORYMAZE_DB_USERNAME }}
+        MEMORYMAZE_DB_PASSWORD: ${{ vars.MEMORYMAZE_DB_PASSWORD }}
+      run: |
+        echo "MEMORYMAZE_DB_URL is $MEMORYMAZE_DB_URL"
+        echo "MEMORYMAZE_DB_USERNAME is $MEMORYMAZE_DB_USERNAME"
+        echo "MEMORYMAZE_DB_PASSWORD is $MEMORYMAZE_DB_PASSWORD"
 #    - name: Build with Maven
 #      run: mvn -B package --file pom.xml
     - name: Generate Surefire report
