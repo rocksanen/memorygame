@@ -56,7 +56,7 @@ public class Scoreboard {
      * @param points     points
      * @param difficulty difficulty
      */
-    public void addScore(Double time, int points, ModeType difficulty) {
+    public void addScore(Double time, int points, ModeType difficulty, boolean saveToRemote) {
         User u = User.getInstance();
         Account a = u.getAccount();
         if (a == null) {
@@ -74,7 +74,11 @@ public class Scoreboard {
                 return s2.getPoints() - s1.getPoints();
             }
         }); // 🤖
-        leaderboarddao.saveScore(lb);
+
+        if (saveToRemote) {
+            // save score to database
+            leaderboarddao.saveScore(lb);
+        }
     }
 
     /**
@@ -122,7 +126,7 @@ public class Scoreboard {
     /**
      * Fetch personal scores of select difficulty, sorted by time
      *
-     * @param userid    id of the user
+     * @param userid     id of the user
      * @param difficulty difficulty level of the scores
      */
     public void fetchUserScores(Long userid, ModeType difficulty) {

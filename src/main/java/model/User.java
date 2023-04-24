@@ -141,7 +141,7 @@ public class User {
      * Searches username from db, creates it if it does not exist
      * and updates the instance variables
      * also hashes the password before saving it
-     * no salt since that's unhealthy 🧑‍⚕️
+     * no salt since that's unhealthy
      *
      * @param username see {@link #username}
      * @param password user password
@@ -149,6 +149,14 @@ public class User {
      */
     public boolean signup(String username, String password) {
         Locksmith l = new Locksmith();
+
+        // validate the username, it should contain no whitespace characters,
+        // be 30 chars long at max
+        // and be at least 3 chars long
+        if (username.contains(" ") || username.length() > 30 || username.length() < 3) {
+            System.out.println("Username is invalid!");
+            return false;
+        }
 
         // try to encrypt the password
         String hashedPassword = null;
@@ -253,8 +261,8 @@ public class User {
     /**
      * Adds a score to the personal scores
      *
-     * @param time       - see {@link Scoreboard#addScore(Double, int, ModeType)}
-     * @param difficulty - see {@link Scoreboard#addScore(Double, int, ModeType)}
+     * @param time       - see {@link Scoreboard#addScore(Double, int, ModeType, boolean)}
+     * @param difficulty - see {@link Scoreboard#addScore(Double, int, ModeType, boolean)}
      */
     public void addScore(Double time, int points, ModeType difficulty) {
         WorldScores ws = WorldScores.getInstance();
@@ -262,16 +270,16 @@ public class User {
 
         switch (difficulty) {
             case EASY -> {
-                easyScores.addScore(time, points, difficulty);
-                ws.getEasyScores().addScore(time, points, difficulty);
+                easyScores.addScore(time, points, difficulty, true);
+                ws.getEasyScores().addScore(time, points, difficulty, false);
             }
             case MEDIUM -> {
-                mediumScores.addScore(time, points, difficulty);
-                ws.getMediumScores().addScore(time, points, difficulty);
+                mediumScores.addScore(time, points, difficulty, true);
+                ws.getMediumScores().addScore(time, points, difficulty, false);
             }
             case HARD -> {
-                hardScores.addScore(time, points, difficulty);
-                ws.getHardScores().addScore(time, points, difficulty);
+                hardScores.addScore(time, points, difficulty, true);
+                ws.getHardScores().addScore(time, points, difficulty, false);
             }
             default -> {
             }

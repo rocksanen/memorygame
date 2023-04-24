@@ -16,7 +16,7 @@ import javafx.scene.shape.Box;
 import javafx.scene.shape.CullFace;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
-import visuals.menu.Gui;
+import visuals.gameModes.FXIGameController;
 
 public class BoxMaker {
     private Box backFace, topFace, rightFace, leftFace, frontFace, bottomFace;
@@ -25,7 +25,7 @@ public class BoxMaker {
     private final double width;
     private final double height;
     private final int id;
-    private final Gui gui;
+    private final FXIGameController gui;
     private final DoubleProperty rotateValueUp = new SimpleDoubleProperty(0);
     private final ObjectProperty<Point3D> rotationAxisUp = new SimpleObjectProperty<>(Rotate.X_AXIS);
     private final DoubleProperty rotateValueDown = new SimpleDoubleProperty(90);
@@ -33,7 +33,7 @@ public class BoxMaker {
 
     private Boolean isActive = false;
 
-    public BoxMaker(double width, double height, Image findImage, Image backImage, Image behindImage, Gui gui, int id){
+    public BoxMaker(double width, double height, Image findImage, Image backImage, Image behindImage, FXIGameController gui, int id){
 
         this.id = id;
         this.gui = gui;
@@ -43,23 +43,12 @@ public class BoxMaker {
         createFaces();
         createGroup();
         gui.addToCubeList(this);
+
+
+       // System.out.println("id: " + this.id + " gui " + this.gui + " width " + this.width + " findImage " + findImage.getWidth());
     }
-
-    public Integer getCubeId() {
-
-        return this.id;
-    }
-
-    public void setActive() {
-
-        isActive = !isActive;
-
-    }
-
-    public Boolean getActiveState() {
-
-        return isActive;
-    }
+    public void setActive() {isActive = !isActive;}
+    public Boolean getActiveState() {return isActive;}
     private void createMaterials(Image findImage, Image backImage, Image behindImage){
 
         material1 = new PhongMaterial();
@@ -130,6 +119,7 @@ public class BoxMaker {
 
 
     private void createGroup() {
+
         boxGroup = new Group();
         boxGroup.getChildren().addAll(backFace,bottomFace,topFace,frontFace,rightFace,leftFace);
         boxGroup.setOnMouseClicked(mouseEvent -> rotateBox());

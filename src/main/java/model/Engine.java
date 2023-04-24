@@ -2,10 +2,7 @@ package model;
 
 import controller.IGameController;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
 import static model.CompareResultType.EQUAL;
@@ -20,8 +17,13 @@ public class Engine implements IEngine {
      * The Storage.
      */
     ArrayList<Integer> storage = new ArrayList<>();
+
+    ArrayList<Integer> correctIds = new ArrayList<>();
+    ArrayList<Integer> correctIdsIds = new ArrayList<>();
     private final IGameController controller;
     private final ModeType type;
+
+    private boolean isTimerRunning = false;
 
     /**
      * Gets comparing list.
@@ -62,7 +64,7 @@ public class Engine implements IEngine {
 
     private int activeId;
 
-    private int test;
+    private int hint;
     /**
      * logged in user
      */
@@ -80,16 +82,14 @@ public class Engine implements IEngine {
     private int totalScore = 0;
 
     /**
-     * The points given for the next correct guess.
-     */
-    private int nextScore = 1000;
-
-    /**
      * The number of incorrect tries. Resets when a correct guess is made.
      */
     int incorrectTries = 0;
 
     private long timerTime = 1000;
+
+    private long lastCorrectGuess;
+
 
     public long getTimerTime() {
         return timerTime;
@@ -113,6 +113,7 @@ public class Engine implements IEngine {
 
         // get current time
         this.startTime = System.currentTimeMillis();
+        lastCorrectGuess = startTime;
     }
 
     @Override
@@ -120,31 +121,34 @@ public class Engine implements IEngine {
 
         switch (this.type) {
             case EASY -> {
+
+                addMemoryObjectsToList(6);
+                suffleObjects();
+                controller.setGame(memoryObjectsList);
                 timerTime = 1000;
                 runTimer();
                 controller.getTime();
-                addMemoryObjectsToList(6);
-                suffleObjects();
-                controller.setEasyGame(memoryObjectsList);
 
             }
             case MEDIUM -> {
+
+                addMemoryObjectsToList(12);
+                suffleObjects();
+                controller.setGame(memoryObjectsList);
                 timerTime = 800;
                 runTimer();
                 controller.getTime();
-                addMemoryObjectsToList(12);
-                suffleObjects();
-                controller.setMediumGame(memoryObjectsList);
 
             }
 
             case HARD -> {
+
+                addMemoryObjectsToList(20);
+                suffleObjects();
+                controller.setGame(memoryObjectsList);
                 timerTime = 600;
                 runTimer();
                 controller.getTime();
-                addMemoryObjectsToList(20);
-                suffleObjects();
-                controller.setHardGame(memoryObjectsList);
             }
 
         }
@@ -165,6 +169,12 @@ public class Engine implements IEngine {
     @Override
     public void suffleObjects() {
         Collections.shuffle(memoryObjectsList);
+
+        for (int i = 0; i < memoryObjectsList.size(); i++) {
+            correctIds.add(memoryObjectsList.get(i).getTypeId());
+            correctIdsIds.add(memoryObjectsList.get(i).getIdNumber());
+        }
+
     }
 
     @Override
@@ -175,6 +185,7 @@ public class Engine implements IEngine {
     @Override
     public void addToComparing(int i) {
 
+//        System.out.println("tänne meni");
         MemoryObject memoryObject = memoryObjectsList.get(i);
         controller.getActive(i);
         if (!rightPairList.contains(memoryObject.getTypeId())) {
@@ -194,17 +205,26 @@ public class Engine implements IEngine {
     }
 
     public void endGame() {
+        controller.gameOver();
         rightPairList.clear();
         System.out.println("Game ended!");
-        // Make IF NOT returned
         setPersonalScore();
         stopTimer();
-
     }
 
     public void stopTimer() {
-        task.cancel();
-        t.cancel();
+
+
+        if (t != null) {
+
+            t.cancel();
+        }
+
+    }
+
+    @Override
+    public int getHint() {
+        return hint;
     }
 
     @Override
@@ -238,39 +258,28 @@ public class Engine implements IEngine {
         double finalTime = (System.currentTimeMillis() - startTime) / 1000.0;
         // time (seconds), totalScore and difficulty
         System.out.println("Time: " + finalTime + "s, Score: " + totalScore + ", Difficulty: " + type);
-        user.addScore(finalTime, totalScore, type);
+
+        // user.addScore(finalTime, totalScore, type);
+        CompletableFuture.runAsync(() -> {
+            user.addScore(finalTime, totalScore, type);
+        });
+
     }
 
-    /**
-     * Updates the total score and the next score. In case of equal, the total score
-     * is increased by the next score.
-     * In case of not equal, the next score is decreased by 100 * the number of
-     * incorrect tries.
-     * The next score is never less than 100.
-     *
-     * @param type the result of the comparison, either equal or not equal.
-     */
+
     // was private void, changed
     public void updateScore(CompareResultType type) {
         switch (type) {
             case EQUAL -> {
-                totalScore += nextScore;
-                nextScore = 1000;
+                totalScore += Grader.calculatePoints(
+                        incorrectTries, lastCorrectGuess - System.currentTimeMillis());
                 incorrectTries = 0;
+                lastCorrectGuess = System.currentTimeMillis();
             }
             case NOTEQUAL -> {
                 incorrectTries++;
-                if (incorrectTries < 5) {
-                    nextScore -= 100 * incorrectTries;
-                }
-                if (nextScore < 100) {
-                    nextScore = 100;
-                }
             }
         }
-        System.out.println("Total score: " + totalScore);
-        System.out.println("Incorrect tries: " + incorrectTries);
-        System.out.println("Next score: " + nextScore);
     }
 
     /**
@@ -283,21 +292,15 @@ public class Engine implements IEngine {
         return totalScore;
     }
 
-    /**
-     * Getter for the next score.
-     *
-     * @return see {@link #nextScore}
-     */
-    @Override
-    public int getNextScore() {
-        return nextScore;
-    }
 
     @Override
     public void clearStorage() {
         storage.clear();
     }
 
+
+    private int wrong_guesses = 0;
+    private int firstIncorrectGuessIndex = -1;
     @Override
     public void compareObjects(ArrayList<MemoryObject> objectList) {
 
@@ -311,11 +314,31 @@ public class Engine implements IEngine {
             clearStorage();
 
             if (rightPairList.size() == memoryObjectsList.size()) {
-                controller.gameOver();
                 endGame();
 
             }
         } else {
+            wrong_guesses++;
+
+            if (wrong_guesses == 2 && getType().equals(ModeType.HARD)) {
+                int idToMatch = objectList.get(0).getTypeId();
+                int idToMatch2 = objectList.get(0).getIdNumber();
+                System.out.println(idToMatch);
+                System.out.println(memoryObjectsList.size());
+                for (int i = 0; i < memoryObjectsList.size(); i++) {
+
+                    if (idToMatch == correctIds.get(i) && idToMatch2 != correctIdsIds.get(i)) {
+                        hint = i;
+                        controller.showHint();
+                        System.out.println("Position: " + i);
+                        wrong_guesses = 0;
+                        //break;
+                    }
+
+
+                }
+            }
+
             clearPair(objectList);
             updateScore(NOTEQUAL);
         }
@@ -324,6 +347,13 @@ public class Engine implements IEngine {
     public void runTimer() {
         t.schedule(task, 0, timerTime);
     }
+
+
+    @Override
+    public ModeType getType() {
+        return type;
+    }
+
     public String toString() {
         return "Pelin tyyppi: " + this.type.toString() + ", Palikoiden määrä: " + memoryObjectsList.size();
     }

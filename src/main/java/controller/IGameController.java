@@ -2,15 +2,12 @@ package controller;
 
 
 import model.MemoryObject;
+import model.ModeType;
 
 import java.util.ArrayList;
 
 public interface IGameController {
-    void startEasyGame();
-
-    void startMediumGame();
-
-    void startHardGame();
+    void startGame(ModeType type);
 
     void sendIdToEngine(int id);
 
@@ -22,11 +19,7 @@ public interface IGameController {
 
     void clearPair(ArrayList<Integer> storage);
 
-    void setEasyGame(ArrayList<MemoryObject> memoryObjects);
-
-    void setMediumGame(ArrayList<MemoryObject> memoryObjects);
-
-    void setHardGame(ArrayList<MemoryObject> memoryObjects);
+    void setGame(ArrayList<MemoryObject> memoryObjects);
 
     void gameOver();
 
@@ -38,5 +31,12 @@ public interface IGameController {
 
     void getReturnSignal();
 
+    void showHint();
+
     void sendComparingSuccess();
+    int getCurrentScore();
+
+    ModeType getDifficulty();
+
+    String getGrade();
 }
