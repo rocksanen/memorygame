@@ -125,6 +125,7 @@ public class Menu implements Initializable, IMenu {
     ImageView registerButtonImage;
     @FXML ImageView passwordButtonImage;
     @FXML ImageView usernameButtonimage;
+    @FXML ImageView logoutButton;
 
     private final AudioMemory audioMemory = AudioMemory.getInstance();
 

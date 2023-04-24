@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorLbs" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.internationalization.InternationalizationController">
+<AnchorPane fx:id="anchorLbs" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.internationalization.InternationalizationController">
    <children>
       <HBox layoutX="591.0" layoutY="40.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -23,18 +23,24 @@
                         <Font size="48.0" />
                      </font>
                   </Label>
-                  <Label fx:id="titleInfo" alignment="CENTER" contentDisplay="CENTER" prefWidth="1161.0" text="%titleInfo">
+                  <Label fx:id="titleInfo" alignment="BASELINE_LEFT" contentDisplay="CENTER" prefWidth="1161.0" text="%titleInfo">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="36.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets left="45.0" top="15.0" />
+                     </VBox.margin>
                   </Label>
                   <VBox prefHeight="630.0" prefWidth="1099.0">
                      <children>
                         <Label fx:id="stepText" alignment="TOP_LEFT" prefHeight="36.0" prefWidth="1049.0" text="%stepText" wrapText="true" />
                      </children>
-                     <Label fx:id="labelInfo" alignment="TOP_LEFT" prefHeight="173.0" prefWidth="1116.0" text="" wrapText="true" />
+                     <Label fx:id="labelInfo" alignment="TOP_LEFT" prefHeight="173.0" prefWidth="1116.0" text="" wrapText="true">
+                        <VBox.margin>
+                           <Insets />
+                        </VBox.margin></Label>
                      <VBox.margin>
-                        <Insets top="55.0" />
+                        <Insets left="45.0" top="15.0" />
                      </VBox.margin>
                   </VBox>
                </children>
