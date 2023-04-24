@@ -104,10 +104,7 @@ public class Menu implements Initializable, IMenu {
     ImageView treeoflife;
     @FXML
     ImageView telkku;
-    @FXML
-    ImageView loginButtonImage;
-    @FXML
-    ImageView registerButtonImage;
+
     @FXML
     Pane leaderPane;
     @FXML
@@ -118,6 +115,12 @@ public class Menu implements Initializable, IMenu {
     ImageView audioMute;
     @FXML
     ImageView audioUnMute;
+    @FXML
+    ImageView loginButtonImage;
+    @FXML
+    ImageView registerButtonImage;
+    @FXML ImageView passwordButtonImage;
+    @FXML ImageView usernameButtonimage;
 
     private final AudioMemory audioMemory = AudioMemory.getInstance();
 
