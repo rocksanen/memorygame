@@ -16,6 +16,13 @@ public class GameController implements IGameController {
         this.fxiGameController = fxiGameController;
     }
 
+    /**
+     * for unit tests only
+     */
+    private GameController() {
+        this.fxiGameController = null;
+    }
+
     @Override
     public void startGame(ModeType type) {
         this.engine = new Engine(type, this);
