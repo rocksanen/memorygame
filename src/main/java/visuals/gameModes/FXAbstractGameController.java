@@ -4,8 +4,15 @@ import controller.GameController;
 import controller.IGameController;
 import controller.ScoreController;
 import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.effect.BlendMode;
+import javafx.scene.effect.Bloom;
+import javafx.scene.effect.GaussianBlur;
+import javafx.scene.effect.Glow;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -65,7 +72,19 @@ public abstract class FXAbstractGameController implements FXIGameController {
             }
         });
     }
+    @Override
+    public void glowHint(int idToGlow) {
 
+        CompletableFuture.runAsync(() -> {
+
+            FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5), cubeList.get(idToGlow).getBox());
+            fadeTransition.setFromValue(0.7);
+            fadeTransition.setToValue(1.0);
+            fadeTransition.setCycleCount(3);
+
+            fadeTransition.play();
+    });
+}
     @Override
     public void clearStorage() {
         gameController.clearStorage();
