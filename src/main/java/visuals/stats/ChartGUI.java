@@ -12,9 +12,11 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import model.ModeType;
+import visuals.internationalization.JavaFXInternationalization;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 
 /**
@@ -33,7 +35,7 @@ public class ChartGUI implements IChartGUI {
     AreaChart<String, Number> stackedAreaChart;
     private final IChartController chartController = new ChartController(this);
 
-
+    ResourceBundle r = ResourceBundle.getBundle("Bundle", JavaFXInternationalization.getLocale());
 
     private ModeType currentMode;
     public void init() {
@@ -50,8 +52,10 @@ public class ChartGUI implements IChartGUI {
         //stackedAreaChart.setTitle("Your Progress");
         stackedAreaChart.lookup(".chart-title").setStyle("-fx-font-size: 23px; -fx-font-weight: BOLD; -fx-text-fill: white; -fx-font-family: 'VCR OSD Mono'");
         stackedAreaChart.setLegendVisible(false);
-        stackedAreaChart.getXAxis().setLabel("DATE");
-        stackedAreaChart.getYAxis().setLabel("POINTS");
+        //stackedAreaChart.getXAxis().setLabel("DATE");
+        //stackedAreaChart.getYAxis().setLabel("POINTS");
+        stackedAreaChart.getXAxis().setLabel(r.getString("leaderboardsDate"));
+        stackedAreaChart.getYAxis().setLabel(r.getString("leaderBoardsPoints"));
         stackedAreaChart.getXAxis().lookup(".axis-label").setStyle("-fx-text-fill: white; -fx-font-size: 16px; -fx-font-family: 'VCR OSD Mono'");
         stackedAreaChart.getYAxis().lookup(".axis-label").setStyle("-fx-text-fill: white; -fx-font-size: 16px; -fx-font-family: 'VCR OSD Mono'");
         stackedAreaChart.setPrefSize(600, 500);
