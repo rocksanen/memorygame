@@ -142,7 +142,7 @@ public class Menu implements Initializable, IMenu {
             Platform.runLater(() -> AudioMemory.getInstance().playSong(MENU));
         }
 
-        initLoginPanel(usernameButtonimage, passwordButtonImage,loginButtonImage,registerButtonImage);
+        initLoginPanel(usernameButtonimage, passwordButtonImage,loginButtonImage,registerButtonImage, logoutButton);
 
 
         Platform.runLater(() -> menuLayoutEffects.setGlow(pergament));
@@ -191,7 +191,7 @@ public class Menu implements Initializable, IMenu {
         Platform.runLater(() -> logAndReg.setVisible(true));
     }
 
-    public void initLoginPanel(ImageView userName, ImageView password, ImageView LoginButton, ImageView RegisterButton) {
+    public void initLoginPanel(ImageView userName, ImageView password, ImageView LoginButton, ImageView RegisterButton, ImageView logoutButton) {
         Locale locale = JavaFXInternationalization.getLocale();
         System.out.println("locale is : " + locale.getLanguage());
 
@@ -216,6 +216,10 @@ public class Menu implements Initializable, IMenu {
 
                 RegisterButton.setFitWidth(userName.getFitWidth() - 28);
                 RegisterButton.setLayoutX(LoginButton.getLayoutX() + 2);
+
+                logoutButton.setImage(
+                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                                "/images/menuImages/Logout_FI.png"))));
             }
             case "swe" -> {
                 userName.setImage(
@@ -235,6 +239,10 @@ public class Menu implements Initializable, IMenu {
                 RegisterButton.setFitWidth(userName.getFitWidth() - 28);
                 RegisterButton.setLayoutX(LoginButton.getLayoutX() + 3);
 
+                logoutButton.setImage(
+                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                                "/images/menuImages/Logout_SWE.png"))));
+
 
             }
             case "lat" ->{
@@ -250,10 +258,15 @@ public class Menu implements Initializable, IMenu {
                                 "/images/menuImages/Login_LAT.png"))));
                 LoginButton.setFitWidth(userName.getFitWidth() - 25);
                 LoginButton.setLayoutX(LoginButton.getLayoutX() + 3);
+
                 RegisterButton.setImage(
                         new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
                                 "/images/menuImages/Register_LAT.png"))));
                 RegisterButton.setFitWidth(userName.getFitWidth() - 25);
+
+                logoutButton.setImage(
+                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                                "/images/menuImages/Logout_LAT.png"))));
 
 
             }
