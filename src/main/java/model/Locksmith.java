@@ -15,7 +15,7 @@ public class Locksmith {
   /**
    * Hashes a password using SHA-256 and Base64-encoding
    * @param password The password to hash
-   * @return
+   * @return The hashed password
    */
   // This method takes a password and returns a hashed version of the password
   public static String hashPassword(String password) {
@@ -37,7 +37,7 @@ public class Locksmith {
    * Checks whether a password matches a hashed password
    * @param password The password to check
    * @param hashedPassword The hashed password to check against
-   * @return
+   * @return true if the password matches the hashed password, false otherwise
    */
   // This method takes a password and a hashed password, and checks whether the password matches the hashed password
   public static boolean checkPassword(String password, String hashedPassword) {

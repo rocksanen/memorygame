@@ -8,8 +8,10 @@ import static model.ModeType.*;
 
 public class ScoreController implements IScoreController {
 
+    /**
+     * Constructor for ScoreController<
+     */
     public ScoreController() {
-
     }
 
     /**
@@ -21,16 +23,11 @@ public class ScoreController implements IScoreController {
     public void fetchScores(ModeType difficulty) {
         WorldScores ws = WorldScores.getInstance();
         switch (difficulty) {
-            case EASY:
-                ws.getEasyScores().fetchWorldScores(EASY);
-                break;
-            case MEDIUM:
-                ws.getMediumScores().fetchWorldScores(MEDIUM);
-                break;
-            case HARD:
-                ws.getHardScores().fetchWorldScores(HARD);
-                break;
-            default:
+            case EASY -> ws.getEasyScores().fetchWorldScores(EASY);
+            case MEDIUM -> ws.getMediumScores().fetchWorldScores(MEDIUM);
+            case HARD -> ws.getHardScores().fetchWorldScores(HARD);
+            default -> {
+            }
         }
     }
 
@@ -44,31 +41,29 @@ public class ScoreController implements IScoreController {
     @Override
     public ArrayList<String> getTopFiveScores(ModeType difficulty) {
         WorldScores ws = WorldScores.getInstance();
-        switch (difficulty) {
-            case EASY:
-                return formatScores(ws.getEasyScores().getScores());
-            case MEDIUM:
-                return formatScores(ws.getMediumScores().getScores());
-            case HARD:
-                return formatScores(ws.getHardScores().getScores());
-            default:
-                return null;
-        }
+        return switch (difficulty) {
+            case EASY -> formatScores(ws.getEasyScores().getScores());
+            case MEDIUM -> formatScores(ws.getMediumScores().getScores());
+            case HARD -> formatScores(ws.getHardScores().getScores());
+            default -> null;
+        };
     }
 
+    /**
+     * get raw Score-objects. use with temperance
+     *
+     * @param difficulty the difficulty to get scores for
+     * @return the scores
+     */
     @Override
     public ArrayList<Score> getScoresRaw(ModeType difficulty) {
         WorldScores ws = WorldScores.getInstance();
-        switch (difficulty) {
-            case EASY:
-                return ws.getEasyScores().getScores();
-            case MEDIUM:
-                return ws.getMediumScores().getScores();
-            case HARD:
-                return ws.getHardScores().getScores();
-            default:
-                return null;
-        }
+        return switch (difficulty) {
+            case EASY -> ws.getEasyScores().getScores();
+            case MEDIUM -> ws.getMediumScores().getScores();
+            case HARD -> ws.getHardScores().getScores();
+            default -> null;
+        };
     }
 
     /**
@@ -79,10 +74,7 @@ public class ScoreController implements IScoreController {
      */
     @Override
     public String formatScore(Score score) {
-        // change formatting as you wish
-        String format = String.format("%-3.3s %4d", score.getUsername(), score.getPoints()).toUpperCase();
-//        System.out.println(format);
-        return format;
+        return String.format("%-3.3s %4d", score.getUsername(), score.getPoints()).toUpperCase();
     }
 
     /**
@@ -93,10 +85,7 @@ public class ScoreController implements IScoreController {
      */
     @Override
     public String formatScoreVerbose(Score score) {
-        // change formatting as you wish
-        String format = String.format("%-10.10s %4d", score.getUsername(), score.getPoints()).toUpperCase();
-//        System.out.println(format);
-        return format;
+        return String.format("%-10.10s %4d", score.getUsername(), score.getPoints()).toUpperCase();
     }
 
     @Override

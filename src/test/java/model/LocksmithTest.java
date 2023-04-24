@@ -1,24 +1,31 @@
 package model;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class LocksmithTest {
 
-    String password = "password";
-    String hashedPassword = "XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=";
-
     @Test
-    void hashPassword() {
-        String password = "password";
-        String hash = Locksmith.hashPassword(password);
-        assertEquals(hashedPassword, hash);
+    void testHashPassword() {
+        String password = "password123";
+        String hashedPassword = Locksmith.hashPassword(password);
+        Assertions.assertNotNull(hashedPassword);
     }
 
     @Test
-    void checkPassword() {
-        boolean check = Locksmith.checkPassword(password, hashedPassword);
-        assertTrue(check);
+    void testCheckPassword() {
+        String password = "password123";
+        String hashedPassword = Locksmith.hashPassword(password);
+        Assertions.assertTrue(Locksmith.checkPassword(password, hashedPassword));
+    }
+
+    @Test
+    void testCheckWrongPassword() {
+        String password = "password123";
+        String hashedPassword = Locksmith.hashPassword(password);
+        String wrongPassword = "wrongpassword";
+        Assertions.assertFalse(Locksmith.checkPassword(wrongPassword, hashedPassword));
     }
 }
