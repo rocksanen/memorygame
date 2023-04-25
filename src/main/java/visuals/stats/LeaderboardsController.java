@@ -17,6 +17,7 @@ import model.ModeType;
 import model.Score;
 import visuals.Navigaattori;
 import visuals.audio.AudioMemory;
+import visuals.internationalization.JavaFXInternationalization;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -72,6 +73,8 @@ public class LeaderboardsController {
 
     ChartGUI chartGUI = new ChartGUI();
 
+    ResourceBundle r = ResourceBundle.getBundle("Bundle", JavaFXInternationalization.getLocale());
+
     /**
      * Initializes the controller class. This method is automatically called
      * after the fxml file has been loaded.
@@ -81,6 +84,8 @@ public class LeaderboardsController {
 
         Platform.runLater(() -> AudioMemory.getInstance().playSong(LEADERBOARD));
 
+        changeLanguage(JavaFXInternationalization.getLocale());
+
         scoreController = new ScoreController();
         userController = new UserController();
 
@@ -88,7 +93,8 @@ public class LeaderboardsController {
         showUserOnly = false;
 
         if (!userController.isLoggedIn()) {
-            buttonUserGlobal.setText("Not logged in");
+            //buttonUserGlobal.setText("Not logged in");
+            buttonUserGlobal.setText(r.getString("notLoggedIn"));
             buttonUserGlobal.setDisable(true);
         }
 
@@ -160,7 +166,12 @@ public class LeaderboardsController {
      * initializes the tableview, adds columns, fills them and styles the whole thing
      */
     private void initTable() {
-        TableColumn<Score, String> nameCol = new TableColumn<>("Username");
+
+
+
+
+        //TableColumn<Score, String> nameCol = new TableColumn<>("Username");
+        TableColumn<Score, String> nameCol = new TableColumn<>(r.getString("leaderboardsUsername"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
         nameCol.setCellFactory(column -> new TableCell<>() {
             @Override
@@ -174,10 +185,12 @@ public class LeaderboardsController {
             }
         });
 
-        TableColumn<Score, Integer> scoreCol = new TableColumn<>("Points");
+        //TableColumn<Score, Integer> scoreCol = new TableColumn<>("Points");
+        TableColumn<Score, Integer> scoreCol = new TableColumn<>(r.getString("leaderBoardsPoints"));
         scoreCol.setCellValueFactory(new PropertyValueFactory<>("points"));
 
-        TableColumn<Score, Double> timeCol = new TableColumn<>("Time (s)");
+        //TableColumn<Score, Double> timeCol = new TableColumn<>("Time (s)");
+        TableColumn<Score, Double> timeCol = new TableColumn<>(r.getString("leaderboardsTime"));
         timeCol.setCellValueFactory(new PropertyValueFactory<>("time"));
         timeCol.setCellFactory(column -> new TableCell<Score, Double>() {
             @Override
@@ -191,7 +204,8 @@ public class LeaderboardsController {
             }
         });
 
-        TableColumn<Score, String> gradeCol = new TableColumn<>("Grade");
+        //TableColumn<Score, String> gradeCol = new TableColumn<>("Grade");
+        TableColumn<Score, String> gradeCol = new TableColumn<>(r.getString("leaderboardsGrade"));
         gradeCol.setCellValueFactory(new PropertyValueFactory<>("grade"));
 
         // replace ⭐ characters with ⭐ images
@@ -217,7 +231,8 @@ public class LeaderboardsController {
             }
         });
 
-        TableColumn<Score, Date> dateCol = new TableColumn<>("Date");
+        //TableColumn<Score, Date> dateCol = new TableColumn<>("Date");
+        TableColumn<Score, Date> dateCol = new TableColumn<>(r.getString("leaderboardsDate"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
         dateCol.setCellFactory(column -> {
             return new TableCell<>() {
@@ -248,6 +263,7 @@ public class LeaderboardsController {
 
         scoreTable.getColumns().clear();
         scoreTable.getColumns().addAll(nameCol, scoreCol, timeCol, gradeCol, dateCol);
+
 
         nameCol.setMinWidth(140);
         nameCol.setMaxWidth(nameCol.getMinWidth());
@@ -355,7 +371,8 @@ public class LeaderboardsController {
     @FXML
     public void setButtonUserGlobal(ActionEvent event) {
         showUserOnly = !showUserOnly;
-        buttonUserGlobal.setText(showUserOnly ? "Global Scores" : "Personal Scores");
+        //buttonUserGlobal.setText(showUserOnly ? "Global Scores" : "Personal Scores");
+        buttonUserGlobal.setText(showUserOnly ? r.getString("globalScores"): r.getString("personalScores"));
         updateTable(currentMode, showUserOnly);
         updateLabelInfo();
         if (!showUserOnly) {
@@ -386,13 +403,21 @@ public class LeaderboardsController {
      */
     private void updateLabelInfo() {
         String mode = currentMode.toString().toLowerCase();
+        if (mode.contains("easy")) {
+            mode = r.getString("leaderboardsEasy");
+        } else if (mode.contains("medium")) {
+            mode = r.getString("leaderboardsMed");
+        } else if (mode.contains("hard")) {
+            mode = r.getString("leaderboardsHard");
+        }
         //Capitalize first letter
         mode = mode.substring(0, 1).toUpperCase() + mode.substring(1);
 
         String username = userController.getUsername();
         username = username.substring(0, 1).toUpperCase() + username.substring(1);
 
-        String text = showUserOnly ? username + "'s Scores - " : "Global Scores - ";
+        //String text = showUserOnly ? username + "'s Scores - " : "Global Scores - ";
+        String text = showUserOnly ? username + r.getString("someoneScores") + " - " : r.getString("globalScores") + " - ";
         text += mode;
         labelInfo.setText(text);
     }
@@ -426,6 +451,28 @@ public class LeaderboardsController {
                 });
             }
         }, 5000);
+    }
+
+    public void changeLanguage(Locale locale) {
+        ResourceBundle bundle = ResourceBundle.getBundle("Bundle", locale);
+
+        for (Button button : Arrays.asList(buttonReturn, buttonEasy, buttonMedium, buttonHard, buttonUserGlobal, buttonRefresh)) {
+            if (button != null) {
+                String key = button.getId();
+                String text = bundle.getString(key);
+                button.setText(text);
+            }
+        }
+
+        for (Label label : Arrays.asList(labelTitle)) {
+            if (label != null) {
+                String key = label.getId();
+                String text = bundle.getString(key);
+                label.setText(text);
+            }
+        }
+
+
     }
 }
 

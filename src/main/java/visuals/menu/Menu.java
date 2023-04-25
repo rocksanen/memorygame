@@ -104,10 +104,7 @@ public class Menu implements Initializable, IMenu {
     ImageView treeoflife;
     @FXML
     ImageView telkku;
-    @FXML
-    ImageView loginButtonImage;
-    @FXML
-    ImageView registerButtonImage;
+
     @FXML
     Pane leaderPane;
     @FXML
@@ -118,6 +115,12 @@ public class Menu implements Initializable, IMenu {
     ImageView audioMute;
     @FXML
     ImageView audioUnMute;
+    @FXML
+    ImageView loginButtonImage;
+    @FXML
+    ImageView registerButtonImage;
+    @FXML ImageView passwordButtonImage;
+    @FXML ImageView usernameButtonimage;
 
     private final AudioMemory audioMemory = AudioMemory.getInstance();
 
@@ -125,7 +128,7 @@ public class Menu implements Initializable, IMenu {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         initGoods();
-
+        // jep
         Platform.runLater(() -> BurningSun.getInstance().burningSunMove(burningsun));
 
         if (IntroOn.getInstance().getIntroOn()) {

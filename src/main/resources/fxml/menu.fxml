@@ -278,7 +278,7 @@
             </Pane>
             <Pane id="paneLogin" fx:id="paneLogin" layoutX="-13.0" layoutY="-19.0" prefHeight="370.0" prefWidth="247.0">
                <children>
-                  <ImageView id="userImage" fitHeight="40.0" fitWidth="147.0" layoutX="57.0" layoutY="77.0">
+                  <ImageView id="userImage" fx:id="usernameButtonimage" fitHeight="40.0" fitWidth="147.0" layoutX="57.0" layoutY="77.0">
                      <image>
                         <Image url="@../pictures/images/username2.png" />
                      </image>
@@ -287,7 +287,7 @@
                      </effect>
                   </ImageView>
                       <TextField fx:id="name" layoutX="52.0" layoutY="120.0" opacity="0.6" prefHeight="25.0" prefWidth="158.0" />
-                  <ImageView id="paswordImage" fitHeight="40.0" fitWidth="147.0" layoutX="57.0" layoutY="150.0">
+                  <ImageView id="paswordImage" fx:id="passwordButtonImage" fitHeight="40.0" fitWidth="147.0" layoutX="57.0" layoutY="150.0">
                      <image>
                         <Image url="@../pictures/images/password2.png" />
                      </image>
@@ -301,13 +301,18 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                      <children>
-                        <ImageView fx:id="loginButtonImage" fitHeight="41.0" fitWidth="115.0" mouseTransparent="true">
+                        <ImageView fitHeight="41.0" fitWidth="135.0" layoutX="-9.0" mouseTransparent="true">
                            <image>
-                              <Image url="@../pictures/images/menu/neonlogin.png" />
+                              <Image url="@../pictures/images/menu/neonbutton.png" />
                            </image>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
+                        </ImageView>
+                        <ImageView fx:id="loginButtonImage" fitHeight="36.0" fitWidth="128.0" layoutX="-5.0" layoutY="4.0" mouseTransparent="true">
+                           <image>
+                              <Image url="@../pictures/images/menu/login.png" />
+                           </image>
                         </ImageView>
                      </children>
                   </Pane>
@@ -316,13 +321,18 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                      <children>
-                        <ImageView fx:id="registerButtonImage" fitHeight="41.0" fitWidth="115.0" mouseTransparent="true">
+                        <ImageView fitHeight="41.0" fitWidth="135.0" layoutX="-9.0" mouseTransparent="true">
                            <image>
-                              <Image url="@../pictures/images/menu/neonregister.png" />
+                              <Image url="@../pictures/images/menu/neonbutton.png" />
                            </image>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
+                        </ImageView>
+                        <ImageView fx:id="registerButtonImage" fitHeight="36.0" fitWidth="124.0" layoutX="-2.0" layoutY="4.0" mouseTransparent="true">
+                           <image>
+                              <Image url="@../pictures/images/menu/register.png" />
+                           </image>
                         </ImageView>
                      </children>
                   </Pane>
