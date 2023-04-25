@@ -1,5 +1,8 @@
 package controller;
 
+/**
+ * Handles communication between Model's User-class and the GUI
+ */
 public interface IUserController {
 
     /**

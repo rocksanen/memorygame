@@ -5,6 +5,9 @@ import model.Score;
 
 import java.util.ArrayList;
 
+/**
+ * ScoreController handles communication between the Scoreboards and the GUI
+ */
 public interface IScoreController {
     /**
      * fetches scores form db, and stores them in the correct scoreboard

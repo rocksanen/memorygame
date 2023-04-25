@@ -121,14 +121,11 @@ public class Engine implements IEngine {
 
         switch (this.type) {
             case EASY -> {
-
                 addMemoryObjectsToList(6);
                 suffleObjects();
                 controller.setGame(memoryObjectsList);
                 timerTime = 1000;
                 runTimer();
-                controller.getTime();
-
             }
             case MEDIUM -> {
 
@@ -137,8 +134,6 @@ public class Engine implements IEngine {
                 controller.setGame(memoryObjectsList);
                 timerTime = 600;
                 runTimer();
-                controller.getTime();
-
             }
 
             case HARD -> {
@@ -148,7 +143,6 @@ public class Engine implements IEngine {
                 controller.setGame(memoryObjectsList);
                 timerTime = 600;
                 runTimer();
-                controller.getTime();
             }
 
         }

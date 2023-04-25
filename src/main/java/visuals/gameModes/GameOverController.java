@@ -43,7 +43,12 @@ public class GameOverController {
     VBox gameOverPane;
 
 
-
+    /**
+     * initialize method serves as a constructor for the class
+     * @param fxigameController FXIGameController this view's controller
+     * @param gameController IGameController the game controller
+     * @param gameRoot AnchorPane the root of the game. is blurred when this pane is shown
+     */
     public void Initialize(FXIGameController fxigameController, IGameController gameController, AnchorPane gameRoot) {
 
         changeLanguage(JavaFXInternationalization.getLocale());
@@ -67,6 +72,10 @@ public class GameOverController {
         animateStars(stars);
     }
 
+    /**
+     * pretty complicated method that does a simple thing. based on the grade, makes 1 to 3 spinning stars pop up.
+     * @param stars number of stars (grade)
+     */
     private void animateStars(String stars) {
         SequentialTransition sequentialTransition = new SequentialTransition();
 
@@ -83,7 +92,7 @@ public class GameOverController {
             imageStars.setScaleY(0.01);
 
             // Create a ScaleTransition that starts with a small scale and grows to the final size
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.7), imageStars);
+            ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(1), imageStars);
             scaleTransition.setFromX(0.01);
             scaleTransition.setFromY(0.01);
             scaleTransition.setToX(1.0);
@@ -101,6 +110,9 @@ public class GameOverController {
     }
 
 
+    /**
+     * return to menu, with fades and blurs as with all other return to menu methods
+     */
     @FXML
     public void setButtonMenu() {
 
@@ -119,11 +131,17 @@ public class GameOverController {
         });
     }
 
+    /**
+     * Start a mew game.
+     */
     @FXML
     public void setButtonRestart() {
         fxigameController.newGame();
     }
 
+    /**
+     * Initialize styles, first does the fonts, then calls styleButton for the buttons
+     */
     private void initStyles() {
         gameOver.setFont(Font.font("Atari Classic", 44));
         gameOver.setTextFill(javafx.scene.paint.Color.WHITE);
@@ -134,6 +152,10 @@ public class GameOverController {
         styleButton(mainMenu);
     }
 
+    /**
+     * Style a button.
+     * @param b Button to be styled
+     */
     private void styleButton(Button b) {
         // get hex for dark purple and light purple and save them to variables
         String darkPurple = "#6d006d";
@@ -144,6 +166,10 @@ public class GameOverController {
         b.setOnMouseExited(e -> b.setStyle("-fx-background-color: " + darkPurple + "; -fx-text-fill: white;"));
     }
 
+    /**
+     * Change the language of the game. Based on language selected elsewhere
+     * @param locale Locale to be changed to
+     */
     public void changeLanguage(Locale locale) {
         ResourceBundle bundle = ResourceBundle.getBundle("Bundle", locale);
 

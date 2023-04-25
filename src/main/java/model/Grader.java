@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * Helper class for calculating the score and grading a game. Should be used statically
+ */
 public class Grader {
 
     /**
