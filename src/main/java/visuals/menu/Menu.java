@@ -33,7 +33,7 @@ import static model.ModeType.*;
 public class Menu implements Initializable, IMenu {
 
     private final IScoreController scoreController = new ScoreController();
-    private final IUserController userController = new UserController(this);
+    private final IUserController userController = new UserController();
     private final ZoomInEffects zoomInEffects = new ZoomInEffects();
     private final IMenuLayoutEffects menuLayoutEffects = new MenuLayoutEffects();
     private final Hovers hovers = new Hovers(menuLayoutEffects);

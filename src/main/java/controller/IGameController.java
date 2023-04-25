@@ -13,7 +13,6 @@ public interface IGameController {
 
     void clearStorage();
 
-    void sendReturnSignal();
 
     void killTimer();
 
@@ -25,11 +24,8 @@ public interface IGameController {
 
     void getActive(int id);
 
-    void getTime();
-
     void setTimer(int i);
 
-    void getReturnSignal();
 
     void showHint();
 

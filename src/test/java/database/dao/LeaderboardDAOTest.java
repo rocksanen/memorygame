@@ -3,6 +3,7 @@ package database.dao;
 import database.entity.Account;
 import database.entity.Leaderboard;
 import model.ModeType;
+import model.Score;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ class LeaderboardDAOTest {
 
     //Test case for saving a score to the database
     @Test
-    void saveScore() {
+    void saveAndDeleteScore() {
         // Create a test account
         AccountDAO  accountDAO = new AccountDAO();
         Account account = accountDAO.getAccountByName("test1");
@@ -47,6 +48,12 @@ class LeaderboardDAOTest {
         // Check that the leaderboard entry was saved successfully
         assertTrue(saved);
 
+        // get the saved score
+        Leaderboard savedScore = leaderboardDAO.getAccountScores(account.getAccountid()).get(0);
+        // delete the score
+        boolean deleted = leaderboardDAO.deleteScore(savedScore.getScoreid());
+        // check that the score was deleted
+        assertTrue(deleted);
     }
 
     @Test
@@ -76,14 +83,6 @@ class LeaderboardDAOTest {
         ArrayList<Leaderboard> scores = dao.readWorldScores(ModeType.EASY);
         assertTrue(scores instanceof ArrayList<Leaderboard>);
         assertTrue(scores.get(0) instanceof Leaderboard);
-    }
-
-    @Test
-    @Disabled
-    void deleteScore() {
-        Long scoreId = 11L;
-        boolean result = leaderboardDAO.deleteScore(scoreId);
-        Assertions.assertTrue(result);
     }
 
     @Test

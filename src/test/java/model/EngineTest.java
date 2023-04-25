@@ -8,8 +8,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import visuals.gameModes.FXAbstractGameController;
 import visuals.gameModes.FXIGameController;
+import visuals.gameModes.easy.FXEasyController;
 import visuals.menu.IMenu;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 
@@ -24,8 +28,7 @@ public class EngineTest {
 
     @BeforeEach
     void setUp() {
-
-        e = new Engine(ModeType.EASY, controller);
+        this.e = new Engine(ModeType.EASY, controller);
     }
 
     @Test
@@ -51,26 +54,26 @@ public class EngineTest {
         assertNotEquals(test, test2);
     }
 
-    @Test
-    @Disabled // can't run because of lack of gui shrug
-    @DisplayName("Test addToComparing")
-    void addToComparing() {
-        e.addMemoryObjectsToList(8);
+    // too interlinked with view to test
+//    @Test
+//    @DisplayName("Test addToComparing")
+//    void addToComparing() {
+//        e.addMemoryObjectsToList(8);
 //        e.addToComparing(0);
 //        e.addToComparing(2);
-        assertEquals(0, e.getComparingList().size());
-        //Wrong pair
-        assertEquals(2, e.storage.size());
-
-        e.addToComparing(1);
-        //After pair
-        assertEquals(1, e.getComparingList().size());
-
-        e.addToComparing(0);
-
-        //Right pair
-        assertEquals(0, e.storage.size());
-    }
+//        assertEquals(0, e.getComparingList().size());
+//        //Wrong pair
+//        assertEquals(2, e.storage.size());
+//
+//        e.addToComparing(1);
+//        //After pair
+//        assertEquals(1, e.getComparingList().size());
+//
+//        e.addToComparing(0);
+//
+//        //Right pair
+//        assertEquals(0, e.storage.size());
+//    }
 
     @Test
     @DisplayName("Count wrong tries")

@@ -3,16 +3,16 @@ package controller;
 import model.User;
 import visuals.menu.IMenu;
 
+/**
+ * The controller for the user class in model
+ */
+// this could easily be static, as most of these controllers, but that's a lot of refactoring for little benefit
 public class UserController implements IUserController {
 
-
-    private final IMenu ui;
-
-    public UserController(IMenu ui) {
-        this.ui = ui;
-    }
-
-    public UserController() { ui = null; }
+    /**
+     * constructor
+     */
+    public UserController() { }
 
     /**
      * returns the score for the next wrong guess

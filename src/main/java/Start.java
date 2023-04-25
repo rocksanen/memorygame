@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
 import java.util.Objects;
 
 /**
- * Käynnistää simulaattorin 🚇
+ * Launcher class for the application
  *
  * @author Eetu Soronen
  * @version 1
@@ -19,10 +19,7 @@ import java.util.Objects;
 public class Start {
 
     /**
-     * public static void main string args
-     * kutsuu Visuals.MainApp.main(args) ja käynnistää simulaattorin
-     *
-     * @param args
+     * main method, loads the images, fonts, and scores. lastly starts the application.
      */
     public static void main(String[] args) throws FileNotFoundException {
 
