@@ -9,7 +9,7 @@ import static model.ModeType.*;
 public class ScoreController implements IScoreController {
 
     /**
-     * Constructor for ScoreController<
+     * Constructor for ScoreController
      */
     public ScoreController() {
     }

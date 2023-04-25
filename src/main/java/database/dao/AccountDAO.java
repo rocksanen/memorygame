@@ -60,7 +60,7 @@ public class AccountDAO implements IAccountDAO {
     }
 
     /**
-     * finds an account by name & password
+     * finds an account by name and password
      *
      * @param username account name
      * @param password account password
