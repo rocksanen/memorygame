@@ -220,6 +220,8 @@ public class Menu implements Initializable, IMenu {
                 logoutButton.setImage(
                         new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
                                 "/images/menuImages/Logout_FI.png"))));
+
+
             }
             case "swe" -> {
                 userName.setImage(

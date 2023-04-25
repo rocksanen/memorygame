@@ -274,9 +274,9 @@
                            <Cursor fx:constant="HAND" />
                        </cursor>
                    </ImageView>
-                  <ImageView fx:id="logoutButton" id="logOut" fitHeight="41.0" fitWidth="115.0">
+                  <ImageView fx:id="logoutButton" id="logOut" layoutY="2.0" fitHeight="41.0" fitWidth="115.0">
                      <image>
-                        <Image url="@../pictures/images/menu/neonLogoutbutton.png" />
+                        <Image url="@../pictures/images/menu/Logout_EN.png" />
                      </image>
                   </ImageView>
                </children>
