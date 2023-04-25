@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import model.ModeType;
+import org.apache.maven.plugin.logging.Log;
 import visuals.Navigaattori;
 import visuals.audio.AudioMemory;
 import visuals.effects.commonHovers.Hovers;
@@ -21,9 +22,12 @@ import visuals.effects.menuEffects.IMenuLayoutEffects;
 import visuals.effects.menuEffects.MenuLayoutEffects;
 import visuals.effects.menuEffects.ZoomInEffects;
 import visuals.imageServers.ImageCache;
+import visuals.internationalization.JavaFXInternationalization;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static model.ModeType.*;
@@ -31,7 +35,7 @@ import static model.ModeType.*;
 public class Menu implements Initializable, IMenu {
 
     private final IScoreController scoreController = new ScoreController();
-    private final IUserController userController = new UserController(this);
+    private final IUserController userController = new UserController();
     private final ZoomInEffects zoomInEffects = new ZoomInEffects();
     private final IMenuLayoutEffects menuLayoutEffects = new MenuLayoutEffects();
     private final Hovers hovers = new Hovers(menuLayoutEffects);
@@ -123,6 +127,7 @@ public class Menu implements Initializable, IMenu {
     ImageView registerButtonImage;
     @FXML ImageView passwordButtonImage;
     @FXML ImageView usernameButtonimage;
+    @FXML ImageView logoutButton;
 
     private final AudioMemory audioMemory = AudioMemory.getInstance();
 
@@ -138,6 +143,8 @@ public class Menu implements Initializable, IMenu {
         } else {
             Platform.runLater(() -> AudioMemory.getInstance().playSong(MENU));
         }
+
+        initLoginPanel(usernameButtonimage, passwordButtonImage,loginButtonImage,registerButtonImage, logoutButton);
 
 
         Platform.runLater(() -> menuLayoutEffects.setGlow(pergament));
@@ -184,6 +191,92 @@ public class Menu implements Initializable, IMenu {
             Platform.runLater(() -> labelLoggedIn.setText("Logged in as " + userController.getUsername()));
         }
         Platform.runLater(() -> logAndReg.setVisible(true));
+    }
+
+    public void initLoginPanel(ImageView userName, ImageView password, ImageView LoginButton, ImageView RegisterButton, ImageView logoutButton) {
+        Locale locale = JavaFXInternationalization.getLocale();
+        System.out.println("locale is : " + locale.getLanguage());
+
+
+        switch (locale.getLanguage()){
+            case "fi" -> {
+                userName.setImage(
+                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                                "/images/menuImages/Username_FI.png"))));
+                password.setImage(
+                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                                "/images/menuImages/Password_FI.png"))));
+                LoginButton.setImage(
+                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                                "/images/menuImages/Login_FI.png"))));
+
+                LoginButton.setFitWidth(userName.getFitWidth() - 25);
+                LoginButton.setLayoutX(LoginButton.getLayoutX() + 3);
+                RegisterButton.setImage(
+                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                                "/images/menuImages/Register_FI.png"))));
+
+                RegisterButton.setFitWidth(userName.getFitWidth() - 28);
+                RegisterButton.setLayoutX(LoginButton.getLayoutX() + 2);
+
+                logoutButton.setImage(
+                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                                "/images/menuImages/Logout_FI.png"))));
+
+
+            }
+            case "swe" -> {
+                userName.setImage(
+                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                                "/images/menuImages/Username_SWE.png"))));
+                password.setImage(
+                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                                "/images/menuImages/Password_SWE.png"))));
+                LoginButton.setImage(
+                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                                "/images/menuImages/Login_SWE.png"))));
+                LoginButton.setFitWidth(userName.getFitWidth() - 28);
+                LoginButton.setLayoutX(LoginButton.getLayoutX() + 3);
+                RegisterButton.setImage(
+                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                                "/images/menuImages/Register_SWE.png"))));
+                RegisterButton.setFitWidth(userName.getFitWidth() - 28);
+                RegisterButton.setLayoutX(LoginButton.getLayoutX() + 3);
+
+                logoutButton.setImage(
+                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                                "/images/menuImages/Logout_SWE.png"))));
+
+
+            }
+            case "lat" ->{
+                userName.setImage(
+                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                                "/images/menuImages/Username_LAT.png"))));
+
+                password.setImage(
+                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                                "/images/menuImages/Password_LAT.png"))));
+                LoginButton.setImage(
+                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                                "/images/menuImages/Login_LAT.png"))));
+                LoginButton.setFitWidth(userName.getFitWidth() - 25);
+                LoginButton.setLayoutX(LoginButton.getLayoutX() + 3);
+
+                RegisterButton.setImage(
+                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                                "/images/menuImages/Register_LAT.png"))));
+                RegisterButton.setFitWidth(userName.getFitWidth() - 25);
+
+                logoutButton.setImage(
+                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                                "/images/menuImages/Logout_LAT.png"))));
+
+
+            }
+        }
+
+
     }
     @FXML
     public void easyStartScreenPlay() {

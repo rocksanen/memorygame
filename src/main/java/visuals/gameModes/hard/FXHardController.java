@@ -1,6 +1,7 @@
 package visuals.gameModes.hard;
 
 import controller.ScoreController;
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
+import javafx.util.Duration;
 import model.MemoryObject;
 import visuals.cubeFactories.BoxMaker;
 import visuals.cubeFactories.HardCubeFactory;
@@ -253,20 +255,31 @@ public class FXHardController extends FXAbstractGameController implements Initia
         }
     }
 
-
+    private boolean quicktest = false;
     @Override
     public void getTime(int i) {
         if (practice) {
             super.getTime(i);
-            hard_progressbar.setProgress(1);
+            FadeTransition ft = new FadeTransition(Duration.millis(3000), hard_progressbar);
+            ft.setFromValue(1.0);
+            ft.setToValue(0.0);
+            ft.play();
             gameController.killTimer();
+            quicktest = true;
+        } else {
 
+            if (quicktest) {
+                FadeTransition ft = new FadeTransition(Duration.millis(1), hard_progressbar);
+                ft.setToValue(1);
+                ft.play();
+                quicktest = false;
+            }
+
+            super.getTime(i);
+            hard_progressbar.setProgress(i*0.01);
             if (i == 0) {
                 gameOver();
             }
-        } else {
-            super.getTime(i);
-            hard_progressbar.setProgress(i*0.01);
         }
 
 

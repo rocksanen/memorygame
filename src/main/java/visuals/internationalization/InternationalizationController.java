@@ -238,8 +238,8 @@ public class InternationalizationController {
     }
 
     private void updateNavigationButtons() {
-        previousButton.setDisable(currentStep <= 0);
-        nextButton.setDisable(currentStep >= getTotalSteps() - 1);
+        previousButton.setVisible(currentStep > 0);
+        nextButton.setVisible(currentStep < getTotalSteps() - 1);
     }
 
 

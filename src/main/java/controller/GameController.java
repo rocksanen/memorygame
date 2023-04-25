@@ -7,21 +7,43 @@ import visuals.gameModes.FXIGameController;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+/**
+ * GameController handles communication between the Engine and the GUI
+ */
 public class GameController implements IGameController {
 
+    /**
+     * the GUI controller
+     */
     private final FXIGameController fxiGameController;
+
+    /**
+     * the game engine
+     */
     private IEngine engine;
 
+    /**
+     * Constructor for GameController
+     * @param fxiGameController the GUI controller
+     */
     public GameController(FXIGameController fxiGameController) {
         this.fxiGameController = fxiGameController;
     }
 
+    /**
+     * starts the game
+     * @param type the difficulty of the game
+     */
     @Override
     public void startGame(ModeType type) {
         this.engine = new Engine(type, this);
         this.engine.setMemoryObjects();
     }
 
+    /**
+     * sends the id of the clicked cube to the engine
+     * @param id the id of the clicked cube
+     */
     @Override
     public void sendIdToEngine(int id) {
         engine.addToComparing(id);
@@ -30,11 +52,6 @@ public class GameController implements IGameController {
     @Override
     public void clearStorage() {
         engine.clearStorage();
-    }
-
-    @Override
-    public void sendReturnSignal() {
-        engine.endGame();
     }
 
     @Override
@@ -59,6 +76,9 @@ public class GameController implements IGameController {
         });
     }
 
+    /**
+     * sends the game over signal to the GUI
+     */
     @Override
     public void gameOver() {
         Platform.runLater(() -> {
@@ -75,18 +95,10 @@ public class GameController implements IGameController {
         fxiGameController.setActiveID(id);
     }
 
-    @Override
-    public void getTime() {
-
-    }
 
     @Override
     public void setTimer(int i) {
         fxiGameController.getTime(i);
-    }
-
-    @Override
-    public void getReturnSignal() {
     }
 
     @Override
@@ -105,11 +117,19 @@ public class GameController implements IGameController {
         return engine.getTotalScore();
     }
 
+    /**
+     * returns the difficulty of the game
+     * @return the difficulty of the game
+     */
     @Override
     public ModeType getDifficulty() {
         return engine.getType();
     }
 
+    /**
+     * returns the grade of the game
+     * @return the grade of the game
+     */
     @Override
     public String getGrade() {
         return Grader.scoreGrader(engine.getTotalScore(), engine.getType());
