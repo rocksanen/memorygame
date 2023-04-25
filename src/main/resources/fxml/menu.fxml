@@ -266,6 +266,14 @@
             </ImageView>
             <Pane id="logOutPane" fx:id="logOutPane" layoutX="60.0" layoutY="71.0" onMouseClicked="#setButtonLogout" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" prefHeight="41.0" prefWidth="115.0" visible="false">
                <children>
+                   <ImageView fitHeight="41.0" fitWidth="135.0" layoutX="-9.0" mouseTransparent="true">
+                       <image>
+                           <Image url="@../pictures/images/menu/neonbutton.png" />
+                       </image>
+                       <cursor>
+                           <Cursor fx:constant="HAND" />
+                       </cursor>
+                   </ImageView>
                   <ImageView fx:id="logoutButton" id="logOut" fitHeight="41.0" fitWidth="115.0">
                      <image>
                         <Image url="@../pictures/images/menu/neonLogoutbutton.png" />
