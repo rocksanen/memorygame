@@ -6,6 +6,7 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.effect.SepiaTone?>
 <?import javafx.scene.image.Image?>
@@ -233,7 +234,7 @@
             <Image url="@../pictures/images/tv.png" />
          </image>
       </ImageView>
-      <Label id="labelLoggedIn" fx:id="labelLoggedIn" layoutX="1025.0" layoutY="65.0" prefHeight="18.0" style="-fx-background-color: 169,169,169,0.5; -fx-background-radius: 3;" text="Not Logged In" textFill="WHITE" visible="false">
+      <Label id="labelLoggedIn" fx:id="labelLoggedIn" disable="true" layoutX="1025.0" layoutY="65.0" prefHeight="18.0" style="-fx-background-color: 169,169,169,0.5; -fx-background-radius: 3;" text="Not Logged In" textFill="WHITE" visible="false">
          <font>
             <Font name="Papyrus" size="24.0" />
          </font>
@@ -248,7 +249,7 @@
                   <Image url="@../pictures/images/logtest2.jpg" />
                </image>
             </ImageView>
-            <Pane id="logOutPane" fx:id="logOutPane" layoutX="60.0" layoutY="71.0" onMouseClicked="#setButtonLogout" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" prefHeight="41.0" prefWidth="115.0" visible="false">
+            <Pane id="logOutPane" fx:id="logOutPane" layoutX="60.0" layoutY="59.0" onMouseClicked="#setButtonLogout" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" prefHeight="41.0" prefWidth="115.0" visible="false">
                <children>
                    <ImageView fitHeight="41.0" fitWidth="135.0" layoutX="-9.0" mouseTransparent="true">
                        <image>
@@ -263,6 +264,44 @@
                         <Image url="@../pictures/images/menu/Logout_EN.png" />
                      </image>
                   </ImageView>
+                  <ImageView fitHeight="140.0" fitWidth="134.0" layoutX="-8.0" layoutY="89.0">
+                     <image>
+                        <Image url="@../pictures/images/menu/playerImage.jpg" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="CROSSHAIR" />
+                     </cursor>
+                     <effect>
+                        <SepiaTone />
+                     </effect>
+                  </ImageView>
+                  <Pane layoutX="-8.0" layoutY="55.0" opacity="0.75" prefHeight="33.0" prefWidth="135.0" style="-fx-background-color: black;">
+                     <effect>
+                        <GaussianBlur radius="54.16" />
+                     </effect>
+                     <cursor>
+                        <Cursor fx:constant="CROSSHAIR" />
+                     </cursor>
+                  </Pane>
+                  <ImageView fitHeight="181.0" fitWidth="171.0" layoutX="-26.0" layoutY="70.0">
+                     <image>
+                        <Image url="@../pictures/images/menu/hardneo.png" />
+                     </image>
+                     <effect>
+                        <ColorAdjust hue="0.22" />
+                     </effect>
+                     <cursor>
+                        <Cursor fx:constant="CROSSHAIR" />
+                     </cursor>
+                  </ImageView>
+                  <Label fx:id="userName" alignment="CENTER" layoutX="-7.0" layoutY="62.0" prefHeight="17.0" prefWidth="132.0" text="POTTO POKSANEN" textFill="WHITE">
+                     <font>
+                        <Font name="Maiandra GD" size="13.0" />
+                     </font>
+                     <effect>
+                        <Glow level="0.7" />
+                     </effect>
+                  </Label>
                </children>
                <cursor>
                   <Cursor fx:constant="HAND" />

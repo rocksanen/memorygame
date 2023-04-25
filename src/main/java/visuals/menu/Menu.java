@@ -128,6 +128,7 @@ public class Menu implements Initializable, IMenu {
     @FXML ImageView passwordButtonImage;
     @FXML ImageView usernameButtonimage;
     @FXML ImageView logoutButton;
+    @FXML Label userName;
 
     private final AudioMemory audioMemory = AudioMemory.getInstance();
 
@@ -341,8 +342,9 @@ public class Menu implements Initializable, IMenu {
             }
             Platform.runLater(() -> paneLogin.setVisible(false));
             Platform.runLater(() -> logOutPane.setVisible(true));
-
-            Platform.runLater(() -> labelLoggedIn.setText("Logged in as " + userController.getUsername()));
+            userName.setFont(Font.font("Atari Classic", 14));
+            Platform.runLater(() -> userName.setText(user.toUpperCase()));
+            //Platform.runLater(() -> labelLoggedIn.setText("Logged in as " + userController.getUsername()));
 
             Thread thread = new Thread(scoreController::fetchPersonalScores);
             thread.start();
