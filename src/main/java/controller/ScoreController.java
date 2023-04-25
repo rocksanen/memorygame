@@ -6,6 +6,9 @@ import java.util.ArrayList;
 
 import static model.ModeType.*;
 
+/**
+ * ScoreController handles communication between the Scoreboards and the GUI
+ */
 public class ScoreController implements IScoreController {
 
     /**
