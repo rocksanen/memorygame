@@ -7,6 +7,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
@@ -235,6 +237,13 @@ public class Menu implements Initializable, IMenu {
 
     @FXML
     public void loginPane() {
+
+        loginActions();
+    }
+
+    private void loginActions() {
+
+
         String user = name.getText();
         String userPassword = password.getText();
         try {
@@ -255,6 +264,14 @@ public class Menu implements Initializable, IMenu {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+    }
+
+    @FXML
+    private void handleEnterKeyPressed(KeyEvent event) {
+
+        loginActions();
     }
 
     private void panesAndMisc() {
