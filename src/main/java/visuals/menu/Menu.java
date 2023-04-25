@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -118,10 +119,6 @@ public class Menu implements Initializable, IMenu {
     @FXML
     ImageView info;
     @FXML
-    ImageView audioMute;
-    @FXML
-    ImageView audioUnMute;
-    @FXML
     ImageView loginButtonImage;
     @FXML
     ImageView registerButtonImage;
@@ -129,14 +126,20 @@ public class Menu implements Initializable, IMenu {
     @FXML ImageView usernameButtonimage;
     @FXML ImageView logoutButton;
     @FXML Label userName;
+    @FXML
+    ImageView audioMute;
+    @FXML
+    ImageView audioUnMute;
+    @FXML Pane audioPane;
+    @FXML Pane userPane;
 
     private final AudioMemory audioMemory = AudioMemory.getInstance();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
         initGoods();
-        // jep
         Platform.runLater(() -> BurningSun.getInstance().burningSunMove(burningsun));
 
         if (IntroOn.getInstance().getIntroOn()) {
@@ -153,20 +156,7 @@ public class Menu implements Initializable, IMenu {
         Platform.runLater(() -> menuLayoutEffects.moveJungle(jungle));
         Platform.runLater(() -> menuLayoutEffects.moveRedTree(redtree));
 
-        initImages();
-    }
 
-    private void initImages() {
-        muteImage = new Image("pictures/images/menu/mute1.png");
-        unmuteImage = new Image("pictures/images/menu/audio.png");
-
-        if (audioMemory.isMuted()) {
-            audioMute.setImage(muteImage);
-            audioUnMute.setImage(null);
-        } else {
-            audioMute.setImage(null);
-            audioUnMute.setImage(unmuteImage);
-        }
     }
 
     public void initGoods() {
@@ -179,19 +169,19 @@ public class Menu implements Initializable, IMenu {
         zoomInEffects.setEssenceImages(japan, jungle, redtree);
         zoomInEffects.setGeneralObjects(pergament);
         Platform.runLater(() -> menuLayoutEffects.infoBlink(info));
-        Platform.runLater(() -> menuLayoutEffects.infoBlink(audioMute));
-        Platform.runLater(() -> menuLayoutEffects.infoBlink(audioUnMute));
     }
 
     private void initLogin() {
 
+        Platform.runLater(() -> logAndReg.setVisible(true));
         Platform.runLater(() -> paneLogin.setVisible(!userController.isLoggedIn()));
         Platform.runLater(() -> logOutPane.setVisible(userController.isLoggedIn()));
+        Platform.runLater(() ->  userPane.setVisible(userController.isLoggedIn()));
 
         if (userController.isLoggedIn()) {
             Platform.runLater(() -> labelLoggedIn.setText("Logged in as " + userController.getUsername()));
         }
-        Platform.runLater(() -> logAndReg.setVisible(true));
+
     }
 
     public void initLoginPanel(ImageView userName, ImageView password, ImageView LoginButton, ImageView RegisterButton, ImageView logoutButton) {
@@ -344,6 +334,7 @@ public class Menu implements Initializable, IMenu {
             Platform.runLater(() -> logOutPane.setVisible(true));
             userName.setFont(Font.font("Atari Classic", 14));
             Platform.runLater(() -> userName.setText(user.toUpperCase()));
+            Platform.runLater(() -> userPane.setVisible(true));
             //Platform.runLater(() -> labelLoggedIn.setText("Logged in as " + userController.getUsername()));
 
             Thread thread = new Thread(scoreController::fetchPersonalScores);
@@ -447,6 +438,7 @@ public class Menu implements Initializable, IMenu {
             password.clear();
             Platform.runLater(() -> logOutPane.setVisible(false));
             Platform.runLater(() -> paneLogin.setVisible(true));
+            Platform.runLater(() -> userPane.setVisible(false));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -493,15 +485,10 @@ public class Menu implements Initializable, IMenu {
 
     @FXML
     public void setButtonAudio() {
-        audioMemory.toggleMute();
 
-        if (audioMemory.isMuted()) {
-            audioMute.setImage(muteImage);
-            audioUnMute.setImage(null);
-        } else {
-            audioMute.setImage(null);
-            audioUnMute.setImage(unmuteImage);
-        }
+        audioMemory.toggleMute();
+        audioMute.setVisible(!audioMemory.isMuted());
+        audioUnMute.setVisible(audioMemory.isMuted());
     }
 }
 

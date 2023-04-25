@@ -36,11 +36,6 @@
                   <Image url="@../pictures/images/memomaze.png" />
                </image>
             </ImageView>
-            <ImageView id="loading" fx:id="loading" fitHeight="67.0" fitWidth="200.0" layoutX="510.0" layoutY="370.0" opacity="0.0">
-               <image>
-                  <Image url="@../pictures/images/loading.png" />
-               </image>
-            </ImageView>
             <ImageView id="dirt" fx:id="dirt" fitHeight="762.0" fitWidth="1270.0" opacity="0.61" translateZ="-500.0">
                <image>
                   <Image url="@../pictures/images/menu/dirt.png" />
@@ -244,12 +239,60 @@
       </Label>
       <Pane id="logAndReg" fx:id="logAndReg" layoutX="34.0" layoutY="10.0" prefHeight="330.0" prefWidth="245.0">
          <children>
-            <ImageView fitHeight="254.0" fitWidth="176.0" layoutX="30.0" layoutY="58.0" opacity="0.03">
+            <ImageView fitHeight="254.0" fitWidth="176.0" layoutX="30.0" layoutY="58.0" mouseTransparent="true" opacity="0.03">
                <image>
                   <Image url="@../pictures/images/logtest2.jpg" />
                </image>
             </ImageView>
-            <Pane id="logOutPane" fx:id="logOutPane" layoutX="60.0" layoutY="59.0" onMouseClicked="#setButtonLogout" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" prefHeight="41.0" prefWidth="115.0" visible="false">
+            <Pane id="userPane" fx:id="userPane" layoutX="35.0" layoutY="113.0" mouseTransparent="true" prefHeight="186.0" prefWidth="161.0" visible="false">
+               <children>
+                  <Pane layoutX="18.5" layoutY="-10.0" mouseTransparent="true" opacity="0.75" prefHeight="33.0" prefWidth="135.0" style="-fx-background-color: black;">
+                     <effect>
+                        <GaussianBlur radius="54.16" />
+                     </effect>
+                     <cursor>
+                        <Cursor fx:constant="NONE" />
+                     </cursor>
+                  </Pane>
+                  <Label fx:id="userName" alignment="CENTER" layoutX="18.0" layoutY="3.0" mouseTransparent="true" prefHeight="17.0" prefWidth="132.0" text="POTTO POKSANEN" textFill="WHITE">
+                     <font>
+                        <Font name="Maiandra GD" size="13.0" />
+                     </font>
+                     <effect>
+                        <Glow level="0.7" />
+                     </effect>
+                     <cursor>
+                        <Cursor fx:constant="NONE" />
+                     </cursor>
+                  </Label>
+                  <ImageView fitHeight="140.0" fitWidth="134.0" layoutX="19.0" layoutY="27.0" mouseTransparent="true">
+                     <image>
+                        <Image url="@../pictures/images/menu/playerImage.jpg" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="NONE" />
+                     </cursor>
+                     <effect>
+                        <SepiaTone />
+                     </effect>
+                  </ImageView>
+                  <ImageView fitHeight="177.0" fitWidth="171.0" layoutY="10.0" mouseTransparent="true">
+                     <image>
+                        <Image url="@../pictures/images/menu/hardneo.png" />
+                     </image>
+                     <effect>
+                        <ColorAdjust hue="0.22" />
+                     </effect>
+                     <cursor>
+                        <Cursor fx:constant="NONE" />
+                     </cursor>
+                  </ImageView>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="CROSSHAIR" />
+               </cursor>
+            </Pane>
+            <Pane id="logOutPane" fx:id="logOutPane" layoutX="60.0" layoutY="59.0" onMouseClicked="#setButtonLogout" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" prefHeight="41.0" prefWidth="124.0" visible="false">
                <children>
                    <ImageView fitHeight="41.0" fitWidth="135.0" layoutX="-9.0" mouseTransparent="true">
                        <image>
@@ -264,44 +307,6 @@
                         <Image url="@../pictures/images/menu/Logout_EN.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="140.0" fitWidth="134.0" layoutX="-8.0" layoutY="89.0">
-                     <image>
-                        <Image url="@../pictures/images/menu/playerImage.jpg" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="CROSSHAIR" />
-                     </cursor>
-                     <effect>
-                        <SepiaTone />
-                     </effect>
-                  </ImageView>
-                  <Pane layoutX="-8.0" layoutY="55.0" opacity="0.75" prefHeight="33.0" prefWidth="135.0" style="-fx-background-color: black;">
-                     <effect>
-                        <GaussianBlur radius="54.16" />
-                     </effect>
-                     <cursor>
-                        <Cursor fx:constant="CROSSHAIR" />
-                     </cursor>
-                  </Pane>
-                  <ImageView fitHeight="181.0" fitWidth="171.0" layoutX="-26.0" layoutY="70.0">
-                     <image>
-                        <Image url="@../pictures/images/menu/hardneo.png" />
-                     </image>
-                     <effect>
-                        <ColorAdjust hue="0.22" />
-                     </effect>
-                     <cursor>
-                        <Cursor fx:constant="CROSSHAIR" />
-                     </cursor>
-                  </ImageView>
-                  <Label fx:id="userName" alignment="CENTER" layoutX="-7.0" layoutY="62.0" prefHeight="17.0" prefWidth="132.0" text="POTTO POKSANEN" textFill="WHITE">
-                     <font>
-                        <Font name="Maiandra GD" size="13.0" />
-                     </font>
-                     <effect>
-                        <Glow level="0.7" />
-                     </effect>
-                  </Label>
                </children>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -384,7 +389,7 @@
 <!--               <cursor>-->
 <!--                  <Cursor fx:constant="HAND" />-->
 <!--               </cursor></Button>-->
-      <Pane id="leaderPane" fx:id="leaderPane" layoutX="1080.0" layoutY="70.5" onMouseClicked="#setButtonLeaderboards" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" prefHeight="40.0" prefWidth="44.0">
+      <Pane id="leaderPane" fx:id="leaderPane" layoutX="1085.0" layoutY="70.7" onMouseClicked="#setButtonLeaderboards" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" prefHeight="40.0" prefWidth="44.0">
          <children>
             <ImageView id="leader" fitHeight="47.0" fitWidth="44.0" layoutY="-5.0" opacity="0.84">
                <image>
@@ -396,22 +401,32 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Pane>
-        <ImageView id="audioSound" fx:id="audioMute" fitHeight="40.0" fitWidth="45.0" layoutX="1130.0" layoutY="642.0" onMouseClicked="#setButtonAudio" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" pickOnBounds="true">
-            <cursor>
-                <Cursor fx:constant="HAND" />
-            </cursor>
-         <image>
-            <Image url="@../pictures/images/menu/audio.png" />
-         </image>
-        </ImageView>
-        <ImageView id="audioSound" fx:id="audioUnMute" fitHeight="40.0" fitWidth="45.0" layoutX="1130.0" layoutY="642.0" onMouseClicked="#setButtonAudio" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" pickOnBounds="true">
-            <cursor>
-                <Cursor fx:constant="HAND" />
-            </cursor>
-         <image>
-            <Image url="@../pictures/images/menu/mute1.png" />
-         </image>
-        </ImageView>
+      <Pane id="audioPane" fx:id="audioPane" layoutX="1022.0" layoutY="59.0" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" prefHeight="63.0" prefWidth="62.0">
+         <children>
+              <ImageView fx:id="audioMute" fitHeight="59.0" fitWidth="58.0" layoutX="-2.0" layoutY="-1.0" onMouseClicked="#setButtonAudio" pickOnBounds="true">
+                  <cursor>
+                      <Cursor fx:constant="HAND" />
+                  </cursor>
+               <image>
+                  <Image url="@../pictures/images/menu/audio.png" />
+               </image>
+               <effect>
+                  <ColorAdjust brightness="0.22" hue="0.17" />
+               </effect>
+              </ImageView>
+              <ImageView fx:id="audioUnMute" fitHeight="64.0" fitWidth="58.0" layoutX="2.0" layoutY="-2.5" onMouseClicked="#setButtonAudio" pickOnBounds="true" visible="false">
+                  <cursor>
+                      <Cursor fx:constant="HAND" />
+                  </cursor>
+               <image>
+                  <Image url="@../pictures/images/menu/mute1.png" />
+               </image>
+               <effect>
+                  <ColorAdjust brightness="0.22" hue="0.17" />
+               </effect>
+              </ImageView>
+         </children>
+      </Pane>
 
 
     </children>
