@@ -327,13 +327,6 @@ public class Menu implements Initializable, IMenu {
         Platform.runLater(() -> labelLoggedIn.setText("Logged in as " + userController.getUsername()));
     }
 
-
-    @FXML
-    public void loginPane() {
-
-        loginActions();
-    }
-
     private void loginActions() {
 
 
@@ -357,14 +350,23 @@ public class Menu implements Initializable, IMenu {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
+
+
+    @FXML
+    public void loginPane() {
+
+        loginActions();
+    }
+
+
 
     @FXML
     private void handleEnterKeyPressed(KeyEvent event) {
 
-        loginActions();
+        if (event.getCode() == KeyCode.ENTER) {
+            loginActions();
+        }
     }
 
     private void panesAndMisc() {

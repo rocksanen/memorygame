@@ -16,22 +16,6 @@
 
 <AnchorPane prefHeight="750.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.menu.Menu">
     <children>
-      <ImageView id="play" fx:id="play" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="290.0" mouseTransparent="true" opacity="0.0">
-         <image>
-            <Image url="@../pictures/images/playretro.png" />
-         </image>
-         <effect>
-            <SepiaTone level="0.61" />
-         </effect>
-      </ImageView>
-      <ImageView id="returngame" fx:id="returngame" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="385.0" mouseTransparent="true" opacity="0.0">
-         <image>
-            <Image url="@../pictures/images/return.png" />
-         </image>
-         <effect>
-            <SepiaTone level="0.61" />
-         </effect>
-      </ImageView>
         <AnchorPane id="menuAnkkuri" fx:id="menuAnkkuri" prefHeight="750.0" prefWidth="1250.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
       
@@ -274,7 +258,7 @@
                            <Cursor fx:constant="HAND" />
                        </cursor>
                    </ImageView>
-                  <ImageView fx:id="logoutButton" id="logOut" layoutY="2.0" fitHeight="41.0" fitWidth="115.0">
+                  <ImageView id="logOut" fx:id="logoutButton" fitHeight="41.0" fitWidth="120.0" layoutY="2.0">
                      <image>
                         <Image url="@../pictures/images/menu/Logout_EN.png" />
                      </image>
