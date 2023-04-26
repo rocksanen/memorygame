@@ -254,7 +254,7 @@
                         <Cursor fx:constant="NONE" />
                      </cursor>
                   </Pane>
-                  <Label fx:id="userName" alignment="CENTER" layoutX="18.0" layoutY="3.0" mouseTransparent="true" prefHeight="17.0" prefWidth="132.0" text="POTTO POKSANEN" textFill="WHITE">
+                  <Label fx:id="userName" alignment="CENTER" layoutX="18.0" layoutY="3.0" mouseTransparent="true" prefHeight="17.0" prefWidth="132.0" textFill="WHITE">
                      <font>
                         <Font name="Maiandra GD" size="13.0" />
                      </font>
@@ -430,4 +430,7 @@
 
 
     </children>
+   <cursor>
+      <Cursor fx:constant="DEFAULT" />
+   </cursor>
 </AnchorPane>

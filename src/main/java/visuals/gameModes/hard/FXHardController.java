@@ -84,9 +84,9 @@ public class FXHardController extends FXAbstractGameController implements Initia
     @FXML
     ImageView worldScoreHeader;
     @FXML
-    ProgressBar hard_progressbar;
-    @FXML
     ToggleButton practice_button;
+    @FXML ImageView timeBar;
+    @FXML Pane timerPane;
 
     private List<Label> personalLabels;
     private List<Label> worldLabels;
@@ -134,6 +134,7 @@ public class FXHardController extends FXAbstractGameController implements Initia
     @Override
     public void setImages() {
 
+        timerPane.setVisible(false);
         hardBackground.setImage(ImageCache.getInstance().getGameBackGroundCache().get(2));
         hardSpread.setImage(ImageCache.getInstance().getGameBackGroundCache().get(2));
         hardGridImage.setImage(ImageCache.getInstance().getGameBackGroundCache().get(11));
@@ -167,7 +168,10 @@ public class FXHardController extends FXAbstractGameController implements Initia
         hardGrid.getChildren().clear();
         hardCubeFactory = new HardCubeFactory(this);
         gameController.startGame(HARD);
-        hard_progressbar.setVisible(true);
+        if(practice) {
+            gameController.killTimer();
+        }
+        Platform.runLater(() -> timerPane.setVisible(true));
     }
 
     @Override
@@ -181,15 +185,15 @@ public class FXHardController extends FXAbstractGameController implements Initia
 
         gameController.killTimer();
         clearGameOverMenu(sceneRoot, gameRoot);
+        Platform.runLater(() -> timeBar.setFitWidth(592));
         setStartGame();
-
     }
 
     @Override
     public void returnMenu() {
 
+        Platform.runLater(() -> timerPane.setVisible(false));
         hardEffects.wallsOff();
-        hard_progressbar.setVisible(false);
     }
 
     @Override
@@ -214,13 +218,6 @@ public class FXHardController extends FXAbstractGameController implements Initia
             setPersonalScore(HARD, personalLabels);
             setWorldScore(HARD, worldLabels);
         }
-        /*
-        Platform.runLater(this::setPersonalScore);
-        Platform.runLater(this::setWorldScore);
-        System.out.println("game over");
-
-         */
-
         gameOverMenu(gameRoot, sceneRoot);
     }
 
@@ -245,45 +242,43 @@ public class FXHardController extends FXAbstractGameController implements Initia
     }
 
     public void setPractice() {
+
         if (!practice) {
+            gameController.killTimer();
             practice = true;
             System.out.println("Practice on!");
+            hideTimeBar();
         } else {
             practice = false;
             System.out.println("Practice off!");
             newGame();
+            revealTimeBar();
         }
     }
 
-    private boolean quicktest = false;
+    private void hideTimeBar() {
+
+        FadeTransition ft = new FadeTransition(Duration.millis(1000), timerPane);
+        ft.setFromValue(1.0);
+        ft.setToValue(0.0);
+        ft.play();
+    }
+
+    private void revealTimeBar() {
+
+        FadeTransition ft = new FadeTransition(Duration.millis(1000), timerPane);
+        ft.setFromValue(0.0);
+        ft.setToValue(1.0);
+        ft.play();
+    }
+
     @Override
     public void getTime(int i) {
-        if (practice) {
-            super.getTime(i);
-            FadeTransition ft = new FadeTransition(Duration.millis(3000), hard_progressbar);
-            ft.setFromValue(1.0);
-            ft.setToValue(0.0);
-            ft.play();
-            gameController.killTimer();
-            quicktest = true;
-        } else {
 
-            if (quicktest) {
-                FadeTransition ft = new FadeTransition(Duration.millis(1), hard_progressbar);
-                ft.setToValue(1);
-                ft.play();
-                quicktest = false;
-            }
-
+        if(!practice) {
             super.getTime(i);
-            hard_progressbar.setProgress(i*0.01);
-            if (i == 0) {
-                gameOver();
-            }
+            Platform.runLater(() -> timeBar.setFitWidth(timeBar.getFitWidth() - 0.058));
         }
-
-
-
     }
 
     @Override

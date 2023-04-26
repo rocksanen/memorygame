@@ -4,8 +4,8 @@
 <?import javafx.geometry.Point3D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.effect.BoxBlur?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.GaussianBlur?>
@@ -273,20 +273,40 @@
             <Point3D y="1.0" />
          </rotationAxis>
       </Pane>
-      <ProgressBar id="hard_progressbar" fx:id="hard_progressbar" layoutX="779.0" layoutY="365.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="400.0" progress="1.0" rotate="-90.0">
-               <effect>
-                  <BoxBlur>
-                     <input>
-                        <ColorAdjust contrast="-0.95" hue="-0.4" saturation="0.76">
-                           <input>
-                              <GaussianBlur radius="15.2" />
-                           </input>
-                        </ColorAdjust>
-                     </input>
-                  </BoxBlur>
-               </effect>
-      </ProgressBar>
             <ToggleButton id="practice_button" fx:id="practice_button" layoutX="1038.0" layoutY="223.0" mnemonicParsing="false" onAction="#setPractice" text="Practice Mode" />
+            <Pane fx:id="timerPane" layoutX="675.0" layoutY="367.0" prefHeight="50.0" prefWidth="600.0" rotate="-90.0">
+               <children>
+                  <Pane layoutX="9.0" layoutY="8.0" prefHeight="42.0" prefWidth="599.0" style="-fx-background-color: black;" />
+                  <ImageView id="timeBar" fx:id="timeBar" fitHeight="30.0" fitWidth="592.0" layoutX="13.0" layoutY="15.0">
+                     <image>
+                        <Image url="@../pictures/images/mediumGame/enviroment/vihreepatukka.jpg" />
+                     </image>
+                     <effect>
+                        <Bloom threshold="1.0">
+                           <input>
+                              <BoxBlur>
+                                 <input>
+                                    <GaussianBlur radius="25.03">
+                                       <input>
+                                          <ColorAdjust contrast="1.0" hue="-0.68" saturation="1.0" />
+                                       </input>
+                                    </GaussianBlur>
+                                 </input>
+                              </BoxBlur>
+                           </input>
+                        </Bloom>
+                     </effect>
+                  </ImageView>
+                  <ImageView fitHeight="54.0" fitWidth="762.0" layoutX="-72.0" layoutY="2.0">
+                     <image>
+                        <Image url="@../pictures/images/mediumGame/enviroment/medneo.png" />
+                     </image>
+                     <effect>
+                        <ColorAdjust hue="0.95" />
+                     </effect>
+                  </ImageView>
+               </children>
+            </Pane>
     </children>
       </AnchorPane>
    </children>

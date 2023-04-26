@@ -84,8 +84,6 @@ public class FXMediumController extends FXAbstractGameController implements Init
     @FXML
     Pane scorePane;
     @FXML
-    ProgressBar medium_progressbar;
-    @FXML
     AnchorPane gameRoot;
     @FXML
     AnchorPane sceneRoot;
@@ -93,6 +91,8 @@ public class FXMediumController extends FXAbstractGameController implements Init
     ImageView personalScoreHeader;
     @FXML
     ImageView worldScoreHeader;
+    @FXML ImageView timeBar;
+    @FXML Pane timerPane;
 
     private List<Label> personalLabels;
     private List<Label> worldLabels;
@@ -143,6 +143,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
     public void setImages() {
 
 
+        timerPane.setVisible(false);
         midend.setOpacity(0);
         midTop.setOpacity(0);
         midL.setImage(ImageCache.getInstance().getGameBackGroundCache().get(5));
@@ -178,9 +179,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
         mediumGrid.getChildren().clear();
         mediumCubeFactory = new MediumCubeFactory(this);
         gameController.startGame(ModeType.MEDIUM);
-        medium_progressbar.setVisible(true);
-
-
+        Platform.runLater(() -> timerPane.setVisible(true));
     }
 
     @Override
@@ -192,14 +191,16 @@ public class FXMediumController extends FXAbstractGameController implements Init
 
     @Override
     public void newGame() {
+        gameController.killTimer();
         clearGameOverMenu(sceneRoot, gameRoot);
+        Platform.runLater(() -> timeBar.setFitWidth(592) );
         setStartGame();
     }
 
     @FXML
     public void returnMenu() {
 
-        medium_progressbar.setVisible(false);
+        Platform.runLater(() -> timerPane.setVisible(false));
         Platform.runLater(() -> mediumEffects.wallsOff());
     }
 
@@ -224,7 +225,6 @@ public class FXMediumController extends FXAbstractGameController implements Init
 
         setPersonalScore(ModeType.MEDIUM, personalLabels);
         setWorldScore(ModeType.MEDIUM, worldLabels);
-
         gameOverMenu(gameRoot, sceneRoot);
     }
 
@@ -242,12 +242,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
     public void getTime(int i) {
 
         super.getTime(i);
-        medium_progressbar.setProgress(i*0.01);
-
-        if (i == 0) {
-            gameOver();
-        }
-
+        Platform.runLater(() -> timeBar.setFitWidth(timeBar.getFitWidth() - 0.058));
     }
 
     @Override

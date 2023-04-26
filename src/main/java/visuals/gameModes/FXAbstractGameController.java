@@ -33,6 +33,8 @@ public abstract class FXAbstractGameController implements FXIGameController {
     protected final IGameController gameController = new GameController(this);
     private static final ArrayList<Group> activeList = new ArrayList<>();
 
+
+
     public FXAbstractGameController() {
     }
 
@@ -164,6 +166,7 @@ public abstract class FXAbstractGameController implements FXIGameController {
         }
         // remove effects from gameroot
         gameRoot.setEffect(null);
+
     }
 
 
@@ -174,6 +177,9 @@ public abstract class FXAbstractGameController implements FXIGameController {
      */
     public void gameOverMenu(AnchorPane gameRoot, AnchorPane sceneRoot) {
         try {
+
+            gameController.killTimer();
+
             ResourceBundle bundle = JavaFXInternationalization.internationalizationLoaderProperties();
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GameOver.fxml"), bundle);

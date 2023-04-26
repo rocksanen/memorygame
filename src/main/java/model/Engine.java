@@ -124,15 +124,15 @@ public class Engine implements IEngine {
                 addMemoryObjectsToList(6);
                 suffleObjects();
                 controller.setGame(memoryObjectsList);
-                timerTime = 1000;
-                runTimer();
+                //timerTime = 100;
+                //runTimer();
             }
             case MEDIUM -> {
 
                 addMemoryObjectsToList(12);
                 suffleObjects();
                 controller.setGame(memoryObjectsList);
-                timerTime = 600;
+                timerTime = 6;
                 runTimer();
             }
 
@@ -141,10 +141,9 @@ public class Engine implements IEngine {
                 addMemoryObjectsToList(20);
                 suffleObjects();
                 controller.setGame(memoryObjectsList);
-                timerTime = 600;
+                timerTime = 6;
                 runTimer();
             }
-
         }
     }
 
@@ -179,7 +178,6 @@ public class Engine implements IEngine {
     @Override
     public void addToComparing(int i) {
 
-//        System.out.println("tänne meni");
         MemoryObject memoryObject = memoryObjectsList.get(i);
         controller.getActive(i);
         if (!rightPairList.contains(memoryObject.getTypeId())) {
@@ -199,21 +197,18 @@ public class Engine implements IEngine {
     }
 
     public void endGame() {
+
         controller.gameOver();
         rightPairList.clear();
-        System.out.println("Game ended!");
         setPersonalScore();
         stopTimer();
     }
 
     public void stopTimer() {
 
-
         if (t != null) {
-
             t.cancel();
         }
-
     }
 
     @Override
