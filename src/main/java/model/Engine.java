@@ -264,6 +264,7 @@ public class Engine implements IEngine {
                         incorrectTries, lastCorrectGuess - System.currentTimeMillis());
                 incorrectTries = 0;
                 lastCorrectGuess = System.currentTimeMillis();
+                updateDynamicScore(totalScore);
             }
             case NOTEQUAL -> {
                 incorrectTries++;
@@ -287,9 +288,8 @@ public class Engine implements IEngine {
         storage.clear();
     }
 
-
     private int wrong_guesses = 0;
-    private int firstIncorrectGuessIndex = -1;
+
     @Override
     public void compareObjects(ArrayList<MemoryObject> objectList) {
 
@@ -312,8 +312,8 @@ public class Engine implements IEngine {
             if (wrong_guesses == 2 && getType().equals(ModeType.HARD)) {
                 int idToMatch = objectList.get(0).getTypeId();
                 int idToMatch2 = objectList.get(0).getIdNumber();
-                System.out.println(idToMatch);
-                System.out.println(memoryObjectsList.size());
+
+
                 for (int i = 0; i < memoryObjectsList.size(); i++) {
 
                     if (idToMatch == correctIds.get(i) && idToMatch2 != correctIdsIds.get(i)) {
@@ -341,6 +341,12 @@ public class Engine implements IEngine {
     @Override
     public ModeType getType() {
         return type;
+    }
+
+    @Override
+    public void updateDynamicScore(int score) {
+
+        controller.updateDynamicScore(score);
     }
 
     public String toString() {

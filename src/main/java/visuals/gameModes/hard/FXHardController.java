@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -24,11 +25,14 @@ import visuals.gameModes.FXAbstractGameController;
 import visuals.gameModes.FXIGameController;
 import visuals.imageServers.ImageCache;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
 import static model.ModeType.HARD;
@@ -83,10 +87,9 @@ public class FXHardController extends FXAbstractGameController implements Initia
     ImageView personalScoreHeader;
     @FXML
     ImageView worldScoreHeader;
-    @FXML
-    ToggleButton practice_button;
     @FXML ImageView timeBar;
     @FXML Pane timerPane;
+    @FXML ImageView practiseButton;
 
     private List<Label> personalLabels;
     private List<Label> worldLabels;
@@ -111,7 +114,7 @@ public class FXHardController extends FXAbstractGameController implements Initia
         hardEffects.setImagesAndComponents(
                 hardBackground, scorePane, hardGrid,
                 hardGridImage, hardR, hardL,
-                hardneo, play, returngame);
+                hardneo, play, returngame, practiseButton);
         Platform.runLater(() -> hardEffects.entrance());
 
         initScoreHeaders(personalScoreHeader, worldScoreHeader);
@@ -149,6 +152,7 @@ public class FXHardController extends FXAbstractGameController implements Initia
         play.setOpacity(0);
         returngame.setImage(ImageCache.getInstance().getGameBackGroundCache().get(15));
         returngame.setOpacity(0);
+        practiseButton.setOpacity(0);
         hardGrid.setVgap(120);
         hardGrid.setHgap(58);
 
@@ -171,7 +175,18 @@ public class FXHardController extends FXAbstractGameController implements Initia
         if(practice) {
             gameController.killTimer();
         }
-        Platform.runLater(() -> timerPane.setVisible(true));
+
+        CompletableFuture.runAsync(() -> {
+
+            try {
+                Thread.sleep(1000);
+                timerPane.setVisible(true);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+        });
+
     }
 
     @Override
@@ -235,22 +250,21 @@ public class FXHardController extends FXAbstractGameController implements Initia
 
         if (practice) {
             super.glowHint(idToGlow);
-        } else {
-            System.out.println("Practise mode is disabled.");
         }
-
     }
 
     public void setPractice() {
 
         if (!practice) {
             gameController.killTimer();
+            practiseButton.setImage( new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                    "/pictures/images/hardGame/crazyButton.png"))));
             practice = true;
-            System.out.println("Practice on!");
             hideTimeBar();
         } else {
             practice = false;
-            System.out.println("Practice off!");
+            practiseButton.setImage( new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
+                    "/pictures/images/hardGame/happyButton.png"))));
             newGame();
             revealTimeBar();
         }

@@ -3,12 +3,14 @@ package visuals.gameModes;
 import controller.GameController;
 import controller.IGameController;
 import controller.ScoreController;
-import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.application.Platform;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.effect.Bloom;
 import javafx.scene.effect.GaussianBlur;
@@ -17,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 import model.ModeType;
 import visuals.Navigaattori;
@@ -33,10 +36,11 @@ public abstract class FXAbstractGameController implements FXIGameController {
     protected final IGameController gameController = new GameController(this);
     private static final ArrayList<Group> activeList = new ArrayList<>();
 
+    @FXML public Label dynamicScore;
+    @FXML public Label dynamicHeader;
 
 
-    public FXAbstractGameController() {
-    }
+    public FXAbstractGameController() {}
 
     @Override
     public void addToCubeList(BoxMaker cube) {
@@ -265,5 +269,37 @@ public abstract class FXAbstractGameController implements FXIGameController {
         for (Label l : labels) {
             l.setText(personalScores.get(labels.indexOf(l)));
         }
+    }
+
+
+    public void hoverOn(javafx.scene.input.MouseEvent event) {
+
+        Glow glow = new Glow();
+        glow.setLevel(0.5);
+        Node source = (Node)event.getSource();
+        source.setEffect(glow);
+    }
+
+
+    public void hoverOff(javafx.scene.input.MouseEvent event) {
+
+        Node source = (Node)event.getSource();
+        source.setEffect(null);
+    }
+
+    public void updateDynamicScore(int score) {
+
+        IntegerProperty base = new SimpleIntegerProperty(Integer.parseInt(dynamicScore.getText()));
+        dynamicScore.textProperty().bind(base.asString("%04d"));
+
+        int fromValue = base.get();
+        Duration duration = Duration.millis((score - fromValue) * 1.5);
+
+        KeyValue keyValue = new KeyValue(base, score, Interpolator.LINEAR);
+        KeyFrame keyFrame = new KeyFrame(duration, keyValue);
+        Timeline timeline = new Timeline(keyFrame);
+
+        timeline.play();
+
     }
 }

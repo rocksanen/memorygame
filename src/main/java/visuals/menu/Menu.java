@@ -377,6 +377,9 @@ public class Menu implements Initializable, IMenu {
 
     private void panesAndMisc() {
 
+        audioMute.setVisible(!audioMemory.isMuted());
+        audioUnMute.setVisible(audioMemory.isMuted());
+
         if(userController.isLoggedIn()) {
             updateUserPane();
         }

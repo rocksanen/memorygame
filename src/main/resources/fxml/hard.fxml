@@ -4,7 +4,6 @@
 <?import javafx.geometry.Point3D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.effect.BoxBlur?>
 <?import javafx.scene.effect.ColorAdjust?>
@@ -64,7 +63,7 @@
                </effect>
             </ImageView>
 
-              <GridPane id="hardGrid" fx:id="hardGrid" alignment="CENTER" layoutX="338.0" layoutY="115.0" maxHeight="620.0" maxWidth="580.0" prefHeight="620.0" prefWidth="580.0">
+              <GridPane id="hardGrid" fx:id="hardGrid" alignment="CENTER" layoutX="320.0" layoutY="115.0" maxHeight="620.0" maxWidth="580.0" prefHeight="620.0" prefWidth="580.0">
                   <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -75,24 +74,26 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   </rowConstraints>
               </GridPane>
-            <ImageView id="play" fx:id="play" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="290.0" onMouseClicked="#newGame">
+            <ImageView id="practiseButton" fx:id="practiseButton" fitHeight="75.0" fitWidth="102.0" layoutX="1067.0" layoutY="245.0" onMouseClicked="#setPractice" onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
                <image>
-                  <Image url="@../pictures/images/playretro.png" />
+                  <Image url="@../pictures/images/hardGame/happyButton.png" />
                </image>
-               <effect>
-                  <SepiaTone level="0.61" />
-               </effect>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView id="returngame" fx:id="returngame" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="385.0" onMouseClicked="#returnMenu">
+            <ImageView id="play" fx:id="play" fitHeight="75.0" fitWidth="102.0" layoutX="1067.0" layoutY="340.0" onMouseClicked="#newGame" onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
+               <image>
+                  <Image url="@../pictures/images/playretro.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView id="returngame" fx:id="returngame" fitHeight="75.0" fitWidth="102.0" layoutX="1067.0" layoutY="435.0" onMouseClicked="#returnMenu" onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
                <image>
                   <Image url="@../pictures/images/return.png" />
                </image>
-               <effect>
-                  <SepiaTone level="0.61" />
-               </effect>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -273,8 +274,7 @@
             <Point3D y="1.0" />
          </rotationAxis>
       </Pane>
-            <ToggleButton id="practice_button" fx:id="practice_button" layoutX="1038.0" layoutY="223.0" mnemonicParsing="false" onAction="#setPractice" text="Practice Mode" />
-            <Pane fx:id="timerPane" layoutX="675.0" layoutY="367.0" prefHeight="50.0" prefWidth="600.0" rotate="-90.0">
+            <Pane fx:id="timerPane" layoutX="677.0" layoutY="367.0" prefHeight="50.0" prefWidth="600.0" rotate="-90.0">
                <children>
                   <Pane layoutX="9.0" layoutY="8.0" prefHeight="42.0" prefWidth="599.0" style="-fx-background-color: black;" />
                   <ImageView id="timeBar" fx:id="timeBar" fitHeight="30.0" fitWidth="592.0" layoutX="13.0" layoutY="15.0">

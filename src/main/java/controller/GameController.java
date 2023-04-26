@@ -135,4 +135,10 @@ public class GameController implements IGameController {
         return Grader.scoreGrader(engine.getTotalScore(), engine.getType());
     }
 
+    @Override
+    public void updateDynamicScore(int score) {
+
+        Platform.runLater(() -> fxiGameController.updateDynamicScore(score));
+    }
+
 }

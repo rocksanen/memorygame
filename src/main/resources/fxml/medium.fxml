@@ -78,21 +78,6 @@
                   <SepiaTone />
                </effect>
             </ImageView>
-            <ImageView id="midneo2" fx:id="midneo2" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
-               <image>
-                  <Image url="@../pictures/images/mediumGame/enviroment/midneo2.png" />
-               </image>
-            </ImageView>
-            <ImageView id="midneo3" fx:id="midneo3" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
-               <image>
-                  <Image url="@../pictures/images/mediumGame/enviroment/midneo3.png" />
-               </image>
-            </ImageView>
-            <ImageView id="midneo4" fx:id="midneo4" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
-               <image>
-                  <Image url="@../pictures/images/mediumGame/enviroment/midneo4.png" />
-               </image>
-            </ImageView>
             <ImageView id="midgrid" fx:id="midgrid" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true">
                <image>
                   <Image url="@../pictures/images/mediumGame/enviroment/mediumGrid.png" />
@@ -116,24 +101,18 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   </rowConstraints>
               </GridPane>
-            <ImageView id="play" fx:id="play" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="290.0" onMouseClicked="#newGame">
+            <ImageView id="play" fx:id="play" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="290.0" onMouseClicked="#newGame" onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
                <image>
                   <Image url="@../pictures/images/playretro.png" />
                </image>
-               <effect>
-                  <SepiaTone level="0.61" />
-               </effect>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView id="returngame" fx:id="returngame" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="385.0" onMouseClicked="#returnMenu">
+            <ImageView id="returngame" fx:id="returngame" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="385.0" onMouseClicked="#returnMenu" onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
                <image>
                   <Image url="@../pictures/images/return.png" />
                </image>
-               <effect>
-                  <SepiaTone level="0.61" />
-               </effect>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -345,6 +324,20 @@
                         <ColorAdjust hue="0.95" />
                      </effect>
                   </ImageView>
+               </children>
+            </Pane>
+            <Pane id="dynamicScorePane" fx:id="dynamicScorePane" layoutX="954.0" layoutY="36.0" prefHeight="50.0" prefWidth="283.0">
+               <children>
+                  <Pane layoutX="-15.0" mouseTransparent="true" opacity="0.9" prefHeight="54.0" prefWidth="283.0" style="-fx-background-color: black;">
+                     <effect>
+                        <GaussianBlur radius="54.16" />
+                     </effect>
+                     <cursor>
+                        <Cursor fx:constant="NONE" />
+                     </cursor>
+                  </Pane>
+                  <Label fx:id="dynamicHeader" layoutY="2.0" prefHeight="44.0" prefWidth="130.0" textFill="WHITE" />
+                  <Label fx:id="dynamicScore" layoutX="144.0" layoutY="2.0" prefHeight="44.0" prefWidth="130.0" textFill="WHITE" />
                </children>
             </Pane>
           </children>
