@@ -182,7 +182,7 @@ public abstract class FXAbstractGameController implements FXIGameController {
             GameOverController goc = loader.getController();
             goc.Initialize(this, gameController, gameRoot);
             gameOverView.setOpacity(0.0);
-            sceneRoot.getChildren().add(gameOverView);
+            Platform.runLater(() -> sceneRoot.getChildren().add(gameOverView));
 
             FadeTransition fadeTransition2 = new FadeTransition(Duration.seconds(2), gameOverView);
             fadeTransition2.setFromValue(0.0);
