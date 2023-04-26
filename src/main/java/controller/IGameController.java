@@ -35,4 +35,6 @@ public interface IGameController {
     ModeType getDifficulty();
 
     String getGrade();
+
+    void updateDynamicScore(int score);
 }

@@ -133,6 +133,9 @@ public class Menu implements Initializable, IMenu {
     @FXML Pane audioPane;
     @FXML Pane userPane;
 
+    private static String user;
+
+
     private final AudioMemory audioMemory = AudioMemory.getInstance();
 
     @Override
@@ -302,7 +305,8 @@ public class Menu implements Initializable, IMenu {
     @FXML
     public void registerPane() {
 
-        String user = name.getText();
+        user = name.getText();
+        userName.setText(user);
         String userPassword = password.getText();
 
         if (userController.isLoggedIn()) {
@@ -321,8 +325,10 @@ public class Menu implements Initializable, IMenu {
     private void loginActions() {
 
 
-        String user = name.getText();
+        user = name.getText();
+        userName.setText(user.toUpperCase());
         String userPassword = password.getText();
+
         try {
             userController.login(user, userPassword);
             if (!userController.isLoggedIn()) {
@@ -345,6 +351,13 @@ public class Menu implements Initializable, IMenu {
         }
     }
 
+    private void updateUserPane() {
+
+        userName.setFont(Font.font("Atari Classic", 14));
+        Platform.runLater(() -> userName.setText(user.toUpperCase()));
+        Platform.runLater(() -> userPane.setVisible(true));
+    }
+
 
     @FXML
     public void loginPane() {
@@ -364,6 +377,12 @@ public class Menu implements Initializable, IMenu {
 
     private void panesAndMisc() {
 
+        audioMute.setVisible(!audioMemory.isMuted());
+        audioUnMute.setVisible(audioMemory.isMuted());
+
+        if(userController.isLoggedIn()) {
+            updateUserPane();
+        }
         URL url = Menu.class.getClassLoader().getResource("fonts/outrun_future.otf");
         // get the font from the resources, set size and add it to the label
         assert url != null;

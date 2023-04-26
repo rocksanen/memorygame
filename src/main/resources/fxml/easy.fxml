@@ -79,24 +79,18 @@
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 </rowConstraints>
             </GridPane>
-            <ImageView id="play" fx:id="play" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="290.0" onMouseClicked="#newGame">
+            <ImageView id="play" fx:id="play" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="290.0" onMouseClicked="#newGame" onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
                 <image>
                     <Image url="@../pictures/images/playretro.png" />
                 </image>
-                <effect>
-                    <SepiaTone level="0.61" />
-                </effect>
                 <cursor>
                     <Cursor fx:constant="HAND" />
                 </cursor>
             </ImageView>
-            <ImageView id="returngame" fx:id="returngame" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="385.0" onMouseClicked="#returnMenu">
+            <ImageView id="returngame" fx:id="returngame" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="385.0" onMouseClicked="#returnMenu" onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
                 <image>
                     <Image url="@../pictures/images/return.png" />
                 </image>
-                <effect>
-                    <SepiaTone level="0.61" />
-                </effect>
                 <cursor>
                     <Cursor fx:constant="HAND" />
                 </cursor>
