@@ -11,6 +11,9 @@ import model.ModeType;
 import java.io.File;
 import java.util.Objects;
 
+/**
+ *  AudioMemory is a singleton class that handles playing and loading audio files for the game
+ */
 public class AudioMemory {
 
     private static AudioMemory instance;
@@ -21,11 +24,17 @@ public class AudioMemory {
     private final MediaPlayer leaderBoardPlayer;
     private MediaPlayer currentSong;
 
+    /**
+     * boolean toggle for playing audio
+     */
     public boolean isMuted = false;
 
     private ModeType currentMode;
 
 
+    /**
+     * private constructor, loads the audio files and sets them to loop
+     */
     private AudioMemory() {
 
         String easySong = "/audioFiles/easymusic.mp3";
@@ -52,6 +61,10 @@ public class AudioMemory {
         isMuted = false;
     }
 
+    /**
+     * returns the instance of the AudioMemory
+     * @return the instance of the AudioMemory
+     */
     public static AudioMemory getInstance() {
         if (instance == null) {
             instance = new AudioMemory();
@@ -60,6 +73,10 @@ public class AudioMemory {
     }
 
 
+    /**
+     * plays the song for given modetype
+     * @param type the modetype (such as easy, medium, leaderboards..)
+     */
     public void playSong(ModeType type) {
 
 
@@ -73,6 +90,10 @@ public class AudioMemory {
 
     }
 
+    /**
+     * Stops playing the song for given modetype
+     * @param type the modetype (such as easy, medium, leaderboards..)
+     */
     public void stopSong(ModeType type) {
 
         if (type == null) {
@@ -95,19 +116,29 @@ public class AudioMemory {
         }
     }
 
-
+    /**
+     * Mutes audio
+     */
     public void toggleMute() {
 
         isMuted = !isMuted;
         currentSong.setVolume(isMuted ? 0 : 1);
     }
 
+    /**
+     * boolean check for if audio is muted
+     * @return true if audio is muted, false otherwise
+     */
 
     public boolean isMuted() {
         return isMuted;
     }
 
 
+    /**
+     * plays the song given as parameter
+     * @param mediaPlayer the song to be played
+     */
     private void playTheSong(MediaPlayer mediaPlayer) {
 
         currentSong = mediaPlayer;
@@ -128,7 +159,9 @@ public class AudioMemory {
         }
     }
 
-
+    /**
+     * plays the intro song, starts muted and fades in
+     */
     public void playTheIntro() {
 
         currentSong = menuRetoSong;
@@ -141,6 +174,10 @@ public class AudioMemory {
         fadeIn.play();
     }
 
+    /**
+     * stops the song given as parameter
+     * @param mediaPlayer the song to be stopped
+     */
     private void stopTheSong(MediaPlayer mediaPlayer) {
 
 

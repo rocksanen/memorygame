@@ -45,19 +45,27 @@ public class GameOverController {
 
     /**
      * initialize method serves as a constructor for the class
+     *
      * @param fxigameController FXIGameController this view's controller
-     * @param gameController IGameController the game controller
-     * @param gameRoot AnchorPane the root of the game. is blurred when this pane is shown
+     * @param gameController    IGameController the game controller
+     * @param gameRoot          AnchorPane the root of the game. is blurred when this pane is shown
      */
-    public void Initialize(FXIGameController fxigameController, IGameController gameController, AnchorPane gameRoot) {
+    public void Initialize(FXIGameController fxigameController, IGameController gameController, AnchorPane gameRoot, boolean victory) {
+
+        if (!victory) {
+            gameOver.setText("%outOfTime");
+        }
 
         changeLanguage(JavaFXInternationalization.getLocale());
+        ResourceBundle r = ResourceBundle.getBundle("Bundle", JavaFXInternationalization.getLocale());
+        gameOver.setText(victory ? r.getString("victory") : r.getString("outOfTime"));
 
         this.fxigameController = fxigameController;
         this.gameRoot = gameRoot;
 
         gaussianBlur = new GaussianBlur();
         gaussianBlur.setRadius(10);
+
         gameRoot.setEffect(gaussianBlur);
 
         initStyles();
@@ -74,6 +82,7 @@ public class GameOverController {
 
     /**
      * pretty complicated method that does a simple thing. based on the grade, makes 1 to 3 spinning stars pop up.
+     *
      * @param stars number of stars (grade)
      */
     private void animateStars(String stars) {
@@ -154,6 +163,7 @@ public class GameOverController {
 
     /**
      * Style a button.
+     *
      * @param b Button to be styled
      */
     private void styleButton(Button b) {
@@ -168,6 +178,7 @@ public class GameOverController {
 
     /**
      * Change the language of the game. Based on language selected elsewhere
+     *
      * @param locale Locale to be changed to
      */
     public void changeLanguage(Locale locale) {

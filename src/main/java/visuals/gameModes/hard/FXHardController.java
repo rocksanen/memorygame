@@ -244,13 +244,13 @@ public class FXHardController extends FXAbstractGameController implements Initia
     }
 
     @Override
-    public void gameOver() {
+    public void gameOver(boolean victory) {
 
         if (!practice) {
             setPersonalScore(HARD, personalLabels);
             setWorldScore(HARD, worldLabels);
         }
-        gameOverMenu(gameRoot, sceneRoot);
+        gameOverMenu(gameRoot, sceneRoot, victory);
     }
 
     @Override
