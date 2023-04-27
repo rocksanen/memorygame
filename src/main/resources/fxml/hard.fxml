@@ -35,6 +35,9 @@
                   <image>
                       <Image url="@../pictures/images/hardGame/enviroment/hardback4.jpg" />
                   </image>
+               <effect>
+                  <Bloom threshold="0.67" />
+               </effect>
               </ImageView>
 
 
