@@ -96,6 +96,7 @@ public class FXHardController extends FXAbstractGameController implements Initia
     @FXML Pane timerPane;
     @FXML ImageView practiseButton;
     @FXML Pane dynamicScorePane;
+    @FXML AnchorPane wallOfeetu;
 
     private List<Label> personalLabels;
     private List<Label> worldLabels;
@@ -177,6 +178,7 @@ public class FXHardController extends FXAbstractGameController implements Initia
     @Override
     public void setStartGame() {
 
+        wallOfeetu.setMouseTransparent(false);
         if (cubeList != null) {
             cubeList.clear();
         }
@@ -194,9 +196,10 @@ public class FXHardController extends FXAbstractGameController implements Initia
         CompletableFuture.runAsync(() -> {
 
             try {
-                Thread.sleep(600);
+                Thread.sleep(2000);
                 Platform.runLater(() -> dynamicScorePane.setVisible(true));
                 timerPane.setVisible(true);
+                wallOfeetu.setMouseTransparent(true);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -223,6 +226,7 @@ public class FXHardController extends FXAbstractGameController implements Initia
     @Override
     public void returnMenu() {
 
+        wallOfeetu.setMouseTransparent(false);
         Platform.runLater(() -> dynamicScorePane.setVisible(false));
         Platform.runLater(() -> timerPane.setVisible(false));
         hardEffects.wallsOff();

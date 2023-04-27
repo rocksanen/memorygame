@@ -168,8 +168,6 @@ public class LeaderboardsController {
     private void initTable() {
 
 
-
-
         //TableColumn<Score, String> nameCol = new TableColumn<>("Username");
         TableColumn<Score, String> nameCol = new TableColumn<>(r.getString("leaderboardsUsername"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("username"));

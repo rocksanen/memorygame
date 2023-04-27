@@ -121,11 +121,10 @@ public class Engine implements IEngine {
 
         switch (this.type) {
             case EASY -> {
+
                 addMemoryObjectsToList(6);
                 suffleObjects();
                 controller.setGame(memoryObjectsList);
-                //timerTime = 100;
-                //runTimer();
             }
             case MEDIUM -> {
 

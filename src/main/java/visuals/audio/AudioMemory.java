@@ -169,7 +169,7 @@ public class AudioMemory {
         currentSong.play();
 
         Timeline fadeIn = new Timeline(
-                new KeyFrame(Duration.seconds(5), new KeyValue(currentSong.volumeProperty(), 1))
+                new KeyFrame(Duration.seconds(3), new KeyValue(currentSong.volumeProperty(), 1))
         );
         fadeIn.play();
     }

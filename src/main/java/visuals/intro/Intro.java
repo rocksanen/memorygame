@@ -1,6 +1,5 @@
 package visuals.intro;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -44,17 +43,37 @@ public class Intro implements Initializable {
     @FXML AnchorPane bottom;
     @FXML ImageView info;
     @FXML Pane leaderpane;
-    IntroEffects introEffects = new IntroEffects();
+    @FXML Pane audioPane;
+    private IntroEffects introEffects = new IntroEffects();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        bottom.setMouseTransparent(true);
+        startBlack.setVisible(true);
+        logAndReg.setOpacity(0);
+        easyFrame.setOpacity(0);
+        mediumFrame.setOpacity(0);
+        hardFrame.setOpacity(0);
+        japan.setOpacity(0);
+        jungle.setOpacity(0);
+        redtree.setOpacity(0);
+        miniEasy.setOpacity(0);
+        miniMedium.setOpacity(0);
+        miniHard.setOpacity(0);
+        kotoku.setOpacity(0);
+        tigerden.setOpacity(0);
+        treeoflife.setOpacity(0);
+        leaderpane.setOpacity(0);
+        info.setOpacity(0);
+        audioPane.setOpacity(0);
 
         introEffects.intro(
                 weDidIt, groupFour, logAndReg,
                 sun, lightning, easyFrame, mediumFrame, hardFrame,
                 memomaze,loading,kotoku, tigerden, treeoflife,pergament,startBlack,
                 gameModePane,japan,jungle,redtree,
-                miniEasy,miniMedium,miniHard,leaderpane,info);
+                miniEasy,miniMedium,miniHard,leaderpane,info,bottom,audioPane);
     }
 
     @FXML

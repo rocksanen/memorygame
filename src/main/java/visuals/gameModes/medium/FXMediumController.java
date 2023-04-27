@@ -92,6 +92,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
     @FXML ImageView timeBar;
     @FXML Pane timerPane;
     @FXML Pane dynamicScorePane;
+    @FXML AnchorPane wallOfeetu;
 
 
 
@@ -172,6 +173,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
     @Override
     public void setStartGame() {
 
+        wallOfeetu.setMouseTransparent(false);
         if (cubeList != null) {
             cubeList.clear();
         }
@@ -184,10 +186,12 @@ public class FXMediumController extends FXAbstractGameController implements Init
         CompletableFuture.runAsync(() -> {
 
             try {
-                Thread.sleep(600);
+                Thread.sleep(1900);
                 Platform.runLater(() -> timerPane.setVisible(true));
                 Platform.runLater(() -> dynamicScorePane.setVisible(true));
+                wallOfeetu.setMouseTransparent(true);
             } catch (InterruptedException e) {
+                newGame();
                 throw new RuntimeException(e);
             }
         });
@@ -211,6 +215,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
     @FXML
     public void returnMenu() {
 
+        wallOfeetu.setMouseTransparent(false);
         Platform.runLater(() -> timerPane.setVisible(false));
         Platform.runLater(() -> dynamicScorePane.setVisible(false));
         Platform.runLater(() -> mediumEffects.wallsOff());
