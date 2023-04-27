@@ -35,6 +35,9 @@
                   <image>
                       <Image url="@../pictures/images/hardGame/enviroment/hardback4.jpg" />
                   </image>
+               <effect>
+                  <Bloom threshold="0.67" />
+               </effect>
               </ImageView>
 
 
@@ -274,10 +277,10 @@
             <Point3D y="1.0" />
          </rotationAxis>
       </Pane>
-            <Pane fx:id="timerPane" layoutX="677.0" layoutY="367.0" prefHeight="50.0" prefWidth="600.0" rotate="-90.0">
+            <Pane fx:id="timerPane" layoutX="677.0" layoutY="333.0" prefHeight="50.0" prefWidth="600.0" rotate="-90.0">
                <children>
-                  <Pane layoutX="9.0" layoutY="8.0" prefHeight="42.0" prefWidth="599.0" style="-fx-background-color: black;" />
-                  <ImageView id="timeBar" fx:id="timeBar" fitHeight="30.0" fitWidth="592.0" layoutX="13.0" layoutY="15.0">
+                  <Pane layoutX="9.0" layoutY="8.0" prefHeight="42.0" prefWidth="532.0" style="-fx-background-color: black;" />
+                  <ImageView id="timeBar" fx:id="timeBar" fitHeight="30.0" fitWidth="524.0" layoutX="13.0" layoutY="15.0">
                      <image>
                         <Image url="@../pictures/images/mediumGame/enviroment/vihreepatukka.jpg" />
                      </image>
@@ -297,7 +300,7 @@
                         </Bloom>
                      </effect>
                   </ImageView>
-                  <ImageView fitHeight="54.0" fitWidth="762.0" layoutX="-72.0" layoutY="2.0">
+                  <ImageView fitHeight="54.0" fitWidth="685.0" layoutX="-72.0" layoutY="2.0">
                      <image>
                         <Image url="@../pictures/images/mediumGame/enviroment/medneo.png" />
                      </image>
@@ -307,9 +310,9 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane id="dynamicScorePane" fx:id="dynamicScorePane" layoutX="958.0" layoutY="20.0" prefHeight="50.0" prefWidth="283.0">
+            <Pane id="dynamicScorePane" fx:id="dynamicScorePane" layoutX="980.0" layoutY="17.0" prefHeight="50.0" prefWidth="283.0">
                <children>
-                  <Pane layoutX="-15.0" layoutY="-3.0" mouseTransparent="true" opacity="0.9" prefHeight="54.0" prefWidth="283.0" style="-fx-background-color: black;">
+                  <Pane layoutX="-15.0" layoutY="-4.0" mouseTransparent="true" opacity="0.9" prefHeight="54.0" prefWidth="283.0" style="-fx-background-color: black;">
                      <effect>
                         <GaussianBlur radius="54.16" />
                      </effect>

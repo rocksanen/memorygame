@@ -2,12 +2,16 @@ package visuals.gameModes.hard;
 
 import controller.ScoreController;
 import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.effect.Bloom;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -212,7 +216,7 @@ public class FXHardController extends FXAbstractGameController implements Initia
 
         gameController.killTimer();
         clearGameOverMenu(sceneRoot, gameRoot);
-        Platform.runLater(() -> timeBar.setFitWidth(592));
+        Platform.runLater(() -> timeBar.setFitWidth(524));
         setStartGame();
     }
 
@@ -274,10 +278,12 @@ public class FXHardController extends FXAbstractGameController implements Initia
                     "/pictures/images/hardGame/crazyButton.png"))));
             practice = true;
             hideTimeBar();
+            hardEffects.practiseColorsOn();
         } else {
             practice = false;
             practiseButton.setImage( new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
                     "/pictures/images/hardGame/happyButton.png"))));
+            hardEffects.practiseColorsOff();
             newGame();
             revealTimeBar();
         }
@@ -304,7 +310,7 @@ public class FXHardController extends FXAbstractGameController implements Initia
 
         if(!practice) {
             super.getTime(i);
-            Platform.runLater(() -> timeBar.setFitWidth(timeBar.getFitWidth() - 0.058));
+            Platform.runLater(() -> timeBar.setFitWidth(timeBar.getFitWidth() - 0.052));
         }
     }
 
