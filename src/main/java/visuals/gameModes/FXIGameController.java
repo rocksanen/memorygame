@@ -12,7 +12,9 @@ public interface FXIGameController {
     void clearPair(ArrayList<Integer> storage);
     void clearStorage();
     void setCubesToGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException;
-    void gameOver(); // kesken
+
+    void gameOver(boolean victory);
+
     void setActiveID(int activeID);
     void compareFoundMatch();
     void getTime(int i);

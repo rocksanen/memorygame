@@ -198,7 +198,7 @@ public class Engine implements IEngine {
 
     public void endGame() {
 
-        controller.gameOver();
+        controller.gameOver(true);
         rightPairList.clear();
         setPersonalScore();
         stopTimer();

@@ -27,6 +27,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Timer;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
@@ -232,11 +233,12 @@ public class FXMediumController extends FXAbstractGameController implements Init
 
 
     @Override
-    public void gameOver() {
+    public void gameOver(boolean victory) {
+
 
         setPersonalScore(ModeType.MEDIUM, personalLabels);
         setWorldScore(ModeType.MEDIUM, worldLabels);
-        gameOverMenu(gameRoot, sceneRoot);
+        gameOverMenu(gameRoot, sceneRoot, victory);
     }
 
     @Override

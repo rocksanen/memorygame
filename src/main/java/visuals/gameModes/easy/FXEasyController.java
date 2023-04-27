@@ -5,8 +5,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.effect.GaussianBlur;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -220,11 +218,11 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     }
 
     @Override
-    public void gameOver() {
+    public void gameOver(boolean victory) {
         setPersonalScore(EASY, personalLabels);
         setWorldScore(EASY, worldLabels);
 
-        gameOverMenu(gameRoot, sceneRoot);
+        gameOverMenu(gameRoot, sceneRoot, victory);
     }
 
     @Override

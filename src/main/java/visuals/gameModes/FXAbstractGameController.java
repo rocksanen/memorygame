@@ -9,6 +9,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.print.PageLayout;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.effect.BlendMode;
@@ -36,11 +37,14 @@ public abstract class FXAbstractGameController implements FXIGameController {
     protected final IGameController gameController = new GameController(this);
     private static final ArrayList<Group> activeList = new ArrayList<>();
 
-    @FXML public Label dynamicScore;
-    @FXML public Label dynamicHeader;
+    @FXML
+    public Label dynamicScore;
+    @FXML
+    public Label dynamicHeader;
 
 
-    public FXAbstractGameController() {}
+    public FXAbstractGameController() {
+    }
 
     @Override
     public void addToCubeList(BoxMaker cube) {
@@ -78,6 +82,7 @@ public abstract class FXAbstractGameController implements FXIGameController {
             }
         });
     }
+
     @Override
     public void glowHint(int idToGlow) {
 
@@ -89,8 +94,8 @@ public abstract class FXAbstractGameController implements FXIGameController {
             fadeTransition.setCycleCount(3);
 
             fadeTransition.play();
-    });
-}
+        });
+    }
     @Override
     public void clearStorage() {
         gameController.clearStorage();
@@ -159,8 +164,9 @@ public abstract class FXAbstractGameController implements FXIGameController {
 
     /**
      * Method for clearing the game over menu
+     *
      * @param sceneRoot scene root
-     * @param gameRoot game root
+     * @param gameRoot  game root
      */
     public void clearGameOverMenu(AnchorPane sceneRoot, AnchorPane gameRoot) {
         // delete game over -view if it exists
@@ -176,28 +182,34 @@ public abstract class FXAbstractGameController implements FXIGameController {
 
     /**
      * Method for initializing the game over menu
-     * @param gameRoot game root
+     *
+     * @param gameRoot  game root
      * @param sceneRoot scene root
      */
-    public void gameOverMenu(AnchorPane gameRoot, AnchorPane sceneRoot) {
+    public void gameOverMenu(AnchorPane gameRoot, AnchorPane sceneRoot, boolean victory)  {
         try {
-
             gameController.killTimer();
-
             ResourceBundle bundle = JavaFXInternationalization.internationalizationLoaderProperties();
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GameOver.fxml"), bundle);
             AnchorPane gameOverView = loader.load();
-
             GameOverController goc = loader.getController();
-            goc.Initialize(this, gameController, gameRoot);
             gameOverView.setOpacity(0.0);
-            Platform.runLater(() -> sceneRoot.getChildren().add(gameOverView));
 
-            FadeTransition fadeTransition2 = new FadeTransition(Duration.seconds(2), gameOverView);
-            fadeTransition2.setFromValue(0.0);
-            fadeTransition2.setToValue(1.0);
-            fadeTransition2.play();
+            // if game is ended by a timeout, don't wait for animations to end
+            double transitionTime = victory ? 0.6 : 0;
+            PauseTransition pauseTransition = new PauseTransition(Duration.seconds(transitionTime));
+            pauseTransition.setOnFinished(event -> {
+                goc.Initialize(this, gameController, gameRoot, victory);
+                Platform.runLater(() -> sceneRoot.getChildren().add(gameOverView));
+
+                FadeTransition fadeTransition2 = new FadeTransition(Duration.seconds(2), gameOverView);
+                fadeTransition2.setFromValue(0.0);
+                fadeTransition2.setToValue(1.0);
+                fadeTransition2.play();
+            });
+            pauseTransition.play();
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -206,8 +218,9 @@ public abstract class FXAbstractGameController implements FXIGameController {
 
     /**
      * Method for initializing the score headers based on the language
+     *
      * @param personalScoreHeader personal score header
-     * @param worldScoreHeader world score header
+     * @param worldScoreHeader    world score header
      */
     public void initScoreHeaders(ImageView personalScoreHeader, ImageView worldScoreHeader) {
         Locale locale = JavaFXInternationalization.getLocale();
@@ -276,14 +289,14 @@ public abstract class FXAbstractGameController implements FXIGameController {
 
         Glow glow = new Glow();
         glow.setLevel(0.5);
-        Node source = (Node)event.getSource();
+        Node source = (Node) event.getSource();
         source.setEffect(glow);
     }
 
 
     public void hoverOff(javafx.scene.input.MouseEvent event) {
 
-        Node source = (Node)event.getSource();
+        Node source = (Node) event.getSource();
         source.setEffect(null);
     }
 

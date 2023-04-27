@@ -20,7 +20,7 @@ public class Timer1 extends TimerTask {
         controller.setTimer(i);
         if (i <= 0) {
             cancel();
-            controller.gameOver();
+            controller.gameOver(false);
         }
     }
 }
