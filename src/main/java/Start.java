@@ -13,8 +13,6 @@ import java.util.Objects;
 /**
  * Launcher class for the application
  *
- * @author Eetu Soronen
- * @version 1
  */
 public class Start {
 

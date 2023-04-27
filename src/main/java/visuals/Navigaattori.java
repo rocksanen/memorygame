@@ -20,19 +20,52 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * Navigator is the starting point for the javaFX application, and handles scenechanges.
+ * Implemented as a singleton.
+ */
 public class Navigaattori extends Application {
 
+    /**
+     * Singleton instance
+     */
     private static Navigaattori instance;
+
+    /**
+     * Path to main menu fxml file
+     */
     private final String MENU = "/fxml/menu.fxml";
+
+    /**
+     * Main stage
+     */
     private static Stage MAINSTAGE;
+
+    /**
+     * Camera handles the animated transitions between scenes
+     */
     public static PerspectiveCamera camera = new PerspectiveCamera();
+
+    /**
+     * Internationalization class instance
+     */
     private final JavaFXInternationalization i18n = new JavaFXInternationalization();
 
 
+    /**
+     * Main method that launches the application
+     *
+     * @param args command line arguments (we use none)
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * Returns instance of the singleton
+     *
+     * @return instance of the singleton
+     */
     public static Navigaattori getInstance() {
 
         if (instance == null) {
@@ -44,6 +77,12 @@ public class Navigaattori extends Application {
     // .....................................Ruudun
     // vaihto...................................................
 
+    /**
+     * Changes the scene to the given mode
+     *
+     * @param type mode to change to
+     * @throws IOException if the fxml file is not found
+     */
     public void changeScene(ModeType type) throws IOException {
 
         Parent pane = new Pane();
@@ -86,6 +125,10 @@ public class Navigaattori extends Application {
         MAINSTAGE.getScene().setRoot(pane);
     }
 
+    /**
+     * This is what gets called by main method. Starts the application itself, initializes the window and
+     * plays the intro, which transitions to main menu.
+     */
     @Override
     public void start(Stage stage) throws Exception {
 
