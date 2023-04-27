@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 import model.MemoryObject;
 import visuals.cubeFactories.BoxMaker;
@@ -90,6 +91,7 @@ public class FXHardController extends FXAbstractGameController implements Initia
     @FXML ImageView timeBar;
     @FXML Pane timerPane;
     @FXML ImageView practiseButton;
+    @FXML Pane dynamicScorePane;
 
     private List<Label> personalLabels;
     private List<Label> worldLabels;
@@ -127,6 +129,11 @@ public class FXHardController extends FXAbstractGameController implements Initia
                     label.setStyle("-fx-font: 14 \"Atari Classic\";");
                 });
 
+        dynamicHeader.setFont(Font.font("Atari Classic", 26));
+        dynamicHeader.setText("SCORE");
+        dynamicScore.setFont(Font.font("Atari Classic", 26));
+        dynamicScore.setText("0000");
+
     }
 
     @Override
@@ -137,6 +144,7 @@ public class FXHardController extends FXAbstractGameController implements Initia
     @Override
     public void setImages() {
 
+        dynamicScorePane.setVisible(false);
         timerPane.setVisible(false);
         hardBackground.setImage(ImageCache.getInstance().getGameBackGroundCache().get(2));
         hardSpread.setImage(ImageCache.getInstance().getGameBackGroundCache().get(2));
@@ -168,6 +176,9 @@ public class FXHardController extends FXAbstractGameController implements Initia
         if (cubeList != null) {
             cubeList.clear();
         }
+
+        dynamicScore.textProperty().unbind();
+        dynamicScore.setText("0000");
         cubeList = new ArrayList<>();
         hardGrid.getChildren().clear();
         hardCubeFactory = new HardCubeFactory(this);
@@ -179,7 +190,8 @@ public class FXHardController extends FXAbstractGameController implements Initia
         CompletableFuture.runAsync(() -> {
 
             try {
-                Thread.sleep(1000);
+                Thread.sleep(600);
+                Platform.runLater(() -> dynamicScorePane.setVisible(true));
                 timerPane.setVisible(true);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
@@ -207,6 +219,7 @@ public class FXHardController extends FXAbstractGameController implements Initia
     @Override
     public void returnMenu() {
 
+        Platform.runLater(() -> dynamicScorePane.setVisible(false));
         Platform.runLater(() -> timerPane.setVisible(false));
         hardEffects.wallsOff();
     }
@@ -298,5 +311,11 @@ public class FXHardController extends FXAbstractGameController implements Initia
     @Override
     public void sendIdToEngine(int id) {
         super.sendIdToEngine(id);
+    }
+
+    @Override
+    public void updateDynamicScore(int score) {
+
+        super.updateDynamicScore(score);
     }
 }

@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import model.*;
 import visuals.cubeFactories.BoxMaker;
 import visuals.cubeFactories.EasyCubeFactory;
@@ -25,6 +26,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
 import static model.ModeType.EASY;
@@ -85,6 +87,7 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     ImageView personalScoreHeader;
     @FXML
     ImageView worldScoreHeader;
+    @FXML Pane dynamicScorePane;
 
     private List<Label> personalLabels;
     private List<Label> worldLabels;
@@ -122,6 +125,11 @@ public class FXEasyController extends FXAbstractGameController implements Initia
                 .forEach(label -> {
                     label.setStyle("-fx-font: 14 \"Atari Classic\";");
                 });
+
+        dynamicHeader.setFont(Font.font("Atari Classic", 26));
+        dynamicHeader.setText("SCORE");
+        dynamicScore.setFont(Font.font("Atari Classic", 26));
+        dynamicScore.setText("0000");
     }
 
     @Override
@@ -132,6 +140,7 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     @Override
     public void setImages() {
 
+        dynamicScorePane.setVisible(false);
         background.setImage(ImageCache.getInstance().getGameBackGroundCache().get(0));
         easyTop.setImage(ImageCache.getInstance().getGameBackGroundCache().get(7));
         easyTop.setOpacity(0);
@@ -156,10 +165,23 @@ public class FXEasyController extends FXAbstractGameController implements Initia
         if (cubeList != null) {
             cubeList.clear();
         }
+
+        dynamicScore.textProperty().unbind();
+        dynamicScore.setText("0000");
         cubeList = new ArrayList<>();
         easyGridi.getChildren().clear();
         easyCubeFactory = new EasyCubeFactory(this);
         gameController.startGame(EASY);
+
+        CompletableFuture.runAsync(() -> {
+
+            try {
+                Thread.sleep(600);
+                Platform.runLater(() -> dynamicScorePane.setVisible(true));
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     // From gamecontroller
@@ -178,6 +200,7 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     @FXML
     public void returnMenu() {
 
+        Platform.runLater(() -> dynamicScorePane.setVisible(false));
         Platform.runLater(() -> easyEffects.wallsOff());
     }
 
@@ -214,19 +237,15 @@ public class FXEasyController extends FXAbstractGameController implements Initia
         super.compareFoundMatch();
     }
 
-    /*
-    @Override
-    public void getTime(int i) {
-        super.getTime(i);
-        System.out.println(i);
-        Platform.runLater(()-> timer_easy.setText(Integer.toString(i)));
-        progressbar_easy.setProgress(i*0.01);
-
-    }
-     */
 
     @Override
     public void sendIdToEngine(int id) {
         super.sendIdToEngine(id);
+    }
+
+    @Override
+    public void updateDynamicScore(int score) {
+
+        super.updateDynamicScore(score);
     }
 }

@@ -307,6 +307,20 @@
                   </ImageView>
                </children>
             </Pane>
+            <Pane id="dynamicScorePane" fx:id="dynamicScorePane" layoutX="958.0" layoutY="20.0" prefHeight="50.0" prefWidth="283.0">
+               <children>
+                  <Pane layoutX="-15.0" layoutY="-3.0" mouseTransparent="true" opacity="0.9" prefHeight="54.0" prefWidth="283.0" style="-fx-background-color: black;">
+                     <effect>
+                        <GaussianBlur radius="54.16" />
+                     </effect>
+                     <cursor>
+                        <Cursor fx:constant="NONE" />
+                     </cursor>
+                  </Pane>
+                  <Label fx:id="dynamicHeader" layoutY="2.0" prefHeight="44.0" prefWidth="130.0" textFill="WHITE" />
+                  <Label fx:id="dynamicScore" layoutX="144.0" layoutY="2.0" prefHeight="44.0" prefWidth="130.0" textFill="WHITE" />
+               </children>
+            </Pane>
     </children>
       </AnchorPane>
    </children>
