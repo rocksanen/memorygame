@@ -20,9 +20,6 @@ public class MediumEffects extends AbstractGameEffects implements IGameEffects{
     private ImageView midBot;
     private ImageView midend;
     private ImageView midneo;
-    private ImageView midneo2;
-    private ImageView midneo3;
-    private ImageView midneo4;
     private ImageView play;
     private ImageView returngame;
     private GridPane mediumGrid;
@@ -40,8 +37,7 @@ public class MediumEffects extends AbstractGameEffects implements IGameEffects{
     public void setImagesAndComponents(
             ImageView mediumbackground, ImageView midgrid, ImageView midTop,
             ImageView midL, ImageView midBot, ImageView midend, ImageView midneo,
-            ImageView midneo2, ImageView midneo3, ImageView midneo4, ImageView play,
-            ImageView returngame, GridPane mediumGrid, Pane scorePane) {
+            ImageView play, ImageView returngame, GridPane mediumGrid, Pane scorePane) {
 
         this.mediumbackground = mediumbackground;
         this.midgrid = midgrid;
@@ -50,9 +46,6 @@ public class MediumEffects extends AbstractGameEffects implements IGameEffects{
         this.midBot = midBot;
         this.midend = midend;
         this.midneo = midneo;
-        this.midneo2 = midneo2;
-        this.midneo3 = midneo3;
-        this.midneo4 = midneo4;
         this.play = play;
         this.returngame = returngame;
         this.mediumGrid = mediumGrid;

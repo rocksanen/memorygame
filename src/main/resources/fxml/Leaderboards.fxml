@@ -70,6 +70,9 @@
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
+                           <padding>
+                              <Insets left="45.0" />
+                           </padding>
                         </HBox>
                         <HBox alignment="CENTER" layoutX="10.0" layoutY="410.0" spacing="20.0">
                            <children>
@@ -79,6 +82,9 @@
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
+                           <padding>
+                              <Insets left="45.0" />
+                           </padding>
                         </HBox>
                      </children>
                   </VBox>

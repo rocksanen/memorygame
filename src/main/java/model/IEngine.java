@@ -31,4 +31,6 @@ public interface IEngine {
     int getHint();
 
     ModeType getType();
+
+    void updateDynamicScore(int score);
 }

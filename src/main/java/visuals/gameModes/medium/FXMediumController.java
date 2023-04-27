@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import model.MemoryObject;
 import model.ModeType;
 import visuals.cubeFactories.BoxMaker;
@@ -26,6 +27,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
 public class FXMediumController extends FXAbstractGameController implements Initializable, FXIGameController {
@@ -49,12 +51,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
     ImageView midend;
     @FXML
     ImageView midneo;
-    @FXML
-    ImageView midneo2;
-    @FXML
-    ImageView midneo3;
-    @FXML
-    ImageView midneo4;
+
     @FXML
     ImageView play;
     @FXML
@@ -84,8 +81,6 @@ public class FXMediumController extends FXAbstractGameController implements Init
     @FXML
     Pane scorePane;
     @FXML
-    ProgressBar medium_progressbar;
-    @FXML
     AnchorPane gameRoot;
     @FXML
     AnchorPane sceneRoot;
@@ -93,6 +88,11 @@ public class FXMediumController extends FXAbstractGameController implements Init
     ImageView personalScoreHeader;
     @FXML
     ImageView worldScoreHeader;
+    @FXML ImageView timeBar;
+    @FXML Pane timerPane;
+    @FXML Pane dynamicScorePane;
+
+
 
     private List<Label> personalLabels;
     private List<Label> worldLabels;
@@ -118,8 +118,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
         mediumEffects = new MediumEffects(this);
         mediumEffects.setImagesAndComponents(
                 mediumBackground, midgrid, midTop, midL, midBot, midend,
-                midneo, midneo2, midneo3, midneo4, play, returngame,
-                mediumGrid, scorePane);
+                midneo,play, returngame, mediumGrid, scorePane);
         Platform.runLater(() -> mediumEffects.entrance());
 
 
@@ -132,6 +131,11 @@ public class FXMediumController extends FXAbstractGameController implements Init
                 .forEach(label -> {
                     label.setStyle("-fx-font: 14 \"Atari Classic\";");
                 });
+
+        dynamicHeader.setFont(Font.font("Atari Classic", 26));
+        dynamicHeader.setText("SCORE");
+        dynamicScore.setFont(Font.font("Atari Classic", 26));
+        dynamicScore.setText("0000");
     }
 
     @Override
@@ -143,6 +147,8 @@ public class FXMediumController extends FXAbstractGameController implements Init
     public void setImages() {
 
 
+        dynamicScorePane.setVisible(false);
+        timerPane.setVisible(false);
         midend.setOpacity(0);
         midTop.setOpacity(0);
         midL.setImage(ImageCache.getInstance().getGameBackGroundCache().get(5));
@@ -157,12 +163,6 @@ public class FXMediumController extends FXAbstractGameController implements Init
         returngame.setOpacity(0);
         midneo.setImage(ImageCache.getInstance().getGameBackGroundCache().get(18));
         midneo.setOpacity(1);
-        midneo2.setImage(ImageCache.getInstance().getGameBackGroundCache().get(19));
-        midneo2.setOpacity(0);
-        midneo3.setImage(ImageCache.getInstance().getGameBackGroundCache().get(20));
-        midneo3.setOpacity(0);
-        midneo4.setImage(ImageCache.getInstance().getGameBackGroundCache().get(21));
-        midneo4.setOpacity(0);
         mediumGrid.setHgap(25);
         mediumGrid.setVgap(20);
     }
@@ -174,13 +174,22 @@ public class FXMediumController extends FXAbstractGameController implements Init
         if (cubeList != null) {
             cubeList.clear();
         }
+        dynamicScore.textProperty().unbind();
+        dynamicScore.setText("0000");
         cubeList = new ArrayList<>();
         mediumGrid.getChildren().clear();
         mediumCubeFactory = new MediumCubeFactory(this);
         gameController.startGame(ModeType.MEDIUM);
-        medium_progressbar.setVisible(true);
+        CompletableFuture.runAsync(() -> {
 
-
+            try {
+                Thread.sleep(600);
+                Platform.runLater(() -> timerPane.setVisible(true));
+                Platform.runLater(() -> dynamicScorePane.setVisible(true));
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     @Override
@@ -192,14 +201,17 @@ public class FXMediumController extends FXAbstractGameController implements Init
 
     @Override
     public void newGame() {
+        gameController.killTimer();
         clearGameOverMenu(sceneRoot, gameRoot);
+        Platform.runLater(() -> timeBar.setFitWidth(592) );
         setStartGame();
     }
 
     @FXML
     public void returnMenu() {
 
-        medium_progressbar.setVisible(false);
+        Platform.runLater(() -> timerPane.setVisible(false));
+        Platform.runLater(() -> dynamicScorePane.setVisible(false));
         Platform.runLater(() -> mediumEffects.wallsOff());
     }
 
@@ -224,7 +236,6 @@ public class FXMediumController extends FXAbstractGameController implements Init
 
         setPersonalScore(ModeType.MEDIUM, personalLabels);
         setWorldScore(ModeType.MEDIUM, worldLabels);
-
         gameOverMenu(gameRoot, sceneRoot);
     }
 
@@ -242,16 +253,17 @@ public class FXMediumController extends FXAbstractGameController implements Init
     public void getTime(int i) {
 
         super.getTime(i);
-        medium_progressbar.setProgress(i*0.01);
-
-        if (i == 0) {
-            gameOver();
-        }
-
+        Platform.runLater(() -> timeBar.setFitWidth(timeBar.getFitWidth() - 0.058));
     }
 
     @Override
     public void sendIdToEngine(int id) {
         super.sendIdToEngine(id);
+    }
+
+    @Override
+    public void updateDynamicScore(int score) {
+
+        super.updateDynamicScore(score);
     }
 }

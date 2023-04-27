@@ -5,8 +5,11 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
@@ -116,24 +119,30 @@ public class Menu implements Initializable, IMenu {
     @FXML
     ImageView info;
     @FXML
-    ImageView audioMute;
-    @FXML
-    ImageView audioUnMute;
-    @FXML
     ImageView loginButtonImage;
     @FXML
     ImageView registerButtonImage;
     @FXML ImageView passwordButtonImage;
     @FXML ImageView usernameButtonimage;
     @FXML ImageView logoutButton;
+    @FXML Label userName;
+    @FXML
+    ImageView audioMute;
+    @FXML
+    ImageView audioUnMute;
+    @FXML Pane audioPane;
+    @FXML Pane userPane;
+
+    private static String user;
+
 
     private final AudioMemory audioMemory = AudioMemory.getInstance();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
         initGoods();
-        // jep
         Platform.runLater(() -> BurningSun.getInstance().burningSunMove(burningsun));
 
         if (IntroOn.getInstance().getIntroOn()) {
@@ -150,20 +159,7 @@ public class Menu implements Initializable, IMenu {
         Platform.runLater(() -> menuLayoutEffects.moveJungle(jungle));
         Platform.runLater(() -> menuLayoutEffects.moveRedTree(redtree));
 
-        initImages();
-    }
 
-    private void initImages() {
-        muteImage = new Image("pictures/images/menu/mute1.png");
-        unmuteImage = new Image("pictures/images/menu/audio.png");
-
-        if (audioMemory.isMuted()) {
-            audioMute.setImage(muteImage);
-            audioUnMute.setImage(null);
-        } else {
-            audioMute.setImage(null);
-            audioUnMute.setImage(unmuteImage);
-        }
     }
 
     public void initGoods() {
@@ -176,19 +172,19 @@ public class Menu implements Initializable, IMenu {
         zoomInEffects.setEssenceImages(japan, jungle, redtree);
         zoomInEffects.setGeneralObjects(pergament);
         Platform.runLater(() -> menuLayoutEffects.infoBlink(info));
-        Platform.runLater(() -> menuLayoutEffects.infoBlink(audioMute));
-        Platform.runLater(() -> menuLayoutEffects.infoBlink(audioUnMute));
     }
 
     private void initLogin() {
 
+        Platform.runLater(() -> logAndReg.setVisible(true));
         Platform.runLater(() -> paneLogin.setVisible(!userController.isLoggedIn()));
         Platform.runLater(() -> logOutPane.setVisible(userController.isLoggedIn()));
+        Platform.runLater(() ->  userPane.setVisible(userController.isLoggedIn()));
 
         if (userController.isLoggedIn()) {
             Platform.runLater(() -> labelLoggedIn.setText("Logged in as " + userController.getUsername()));
         }
-        Platform.runLater(() -> logAndReg.setVisible(true));
+
     }
 
     public void initLoginPanel(ImageView userName, ImageView password, ImageView LoginButton, ImageView RegisterButton, ImageView logoutButton) {
@@ -309,7 +305,8 @@ public class Menu implements Initializable, IMenu {
     @FXML
     public void registerPane() {
 
-        String user = name.getText();
+        user = name.getText();
+        userName.setText(user);
         String userPassword = password.getText();
 
         if (userController.isLoggedIn()) {
@@ -325,11 +322,13 @@ public class Menu implements Initializable, IMenu {
         Platform.runLater(() -> labelLoggedIn.setText("Logged in as " + userController.getUsername()));
     }
 
+    private void loginActions() {
 
-    @FXML
-    public void loginPane() {
-        String user = name.getText();
+
+        user = name.getText();
+        userName.setText(user.toUpperCase());
         String userPassword = password.getText();
+
         try {
             userController.login(user, userPassword);
             if (!userController.isLoggedIn()) {
@@ -339,8 +338,10 @@ public class Menu implements Initializable, IMenu {
             }
             Platform.runLater(() -> paneLogin.setVisible(false));
             Platform.runLater(() -> logOutPane.setVisible(true));
-
-            Platform.runLater(() -> labelLoggedIn.setText("Logged in as " + userController.getUsername()));
+            userName.setFont(Font.font("Atari Classic", 14));
+            Platform.runLater(() -> userName.setText(user.toUpperCase()));
+            Platform.runLater(() -> userPane.setVisible(true));
+            //Platform.runLater(() -> labelLoggedIn.setText("Logged in as " + userController.getUsername()));
 
             Thread thread = new Thread(scoreController::fetchPersonalScores);
             thread.start();
@@ -350,8 +351,38 @@ public class Menu implements Initializable, IMenu {
         }
     }
 
+    private void updateUserPane() {
+
+        userName.setFont(Font.font("Atari Classic", 14));
+        Platform.runLater(() -> userName.setText(user.toUpperCase()));
+        Platform.runLater(() -> userPane.setVisible(true));
+    }
+
+
+    @FXML
+    public void loginPane() {
+
+        loginActions();
+    }
+
+
+
+    @FXML
+    private void handleEnterKeyPressed(KeyEvent event) {
+
+        if (event.getCode() == KeyCode.ENTER) {
+            loginActions();
+        }
+    }
+
     private void panesAndMisc() {
 
+        audioMute.setVisible(!audioMemory.isMuted());
+        audioUnMute.setVisible(audioMemory.isMuted());
+
+        if(userController.isLoggedIn()) {
+            updateUserPane();
+        }
         URL url = Menu.class.getClassLoader().getResource("fonts/outrun_future.otf");
         // get the font from the resources, set size and add it to the label
         assert url != null;
@@ -426,6 +457,7 @@ public class Menu implements Initializable, IMenu {
             password.clear();
             Platform.runLater(() -> logOutPane.setVisible(false));
             Platform.runLater(() -> paneLogin.setVisible(true));
+            Platform.runLater(() -> userPane.setVisible(false));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -472,15 +504,10 @@ public class Menu implements Initializable, IMenu {
 
     @FXML
     public void setButtonAudio() {
-        audioMemory.toggleMute();
 
-        if (audioMemory.isMuted()) {
-            audioMute.setImage(muteImage);
-            audioUnMute.setImage(null);
-        } else {
-            audioMute.setImage(null);
-            audioUnMute.setImage(unmuteImage);
-        }
+        audioMemory.toggleMute();
+        audioMute.setVisible(!audioMemory.isMuted());
+        audioUnMute.setVisible(audioMemory.isMuted());
     }
 }
 

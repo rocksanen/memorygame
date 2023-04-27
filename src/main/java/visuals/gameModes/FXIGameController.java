@@ -23,5 +23,6 @@ public interface FXIGameController {
     void setCamera();
     void setImages();
     void glowHint(int idToGlow);
+    void updateDynamicScore(int score);
 
 }
