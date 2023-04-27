@@ -212,7 +212,7 @@ public class FXHardController extends FXAbstractGameController implements Initia
 
         gameController.killTimer();
         clearGameOverMenu(sceneRoot, gameRoot);
-        Platform.runLater(() -> timeBar.setFitWidth(592));
+        Platform.runLater(() -> timeBar.setFitWidth(524));
         setStartGame();
     }
 
@@ -304,7 +304,7 @@ public class FXHardController extends FXAbstractGameController implements Initia
 
         if(!practice) {
             super.getTime(i);
-            Platform.runLater(() -> timeBar.setFitWidth(timeBar.getFitWidth() - 0.058));
+            Platform.runLater(() -> timeBar.setFitWidth(timeBar.getFitWidth() - 0.052));
         }
     }
 
