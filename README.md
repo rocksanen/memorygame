@@ -11,7 +11,7 @@ By Otto Oksanen, Eetu Soronen, Hasan Safdari & Samu Oksala
 * [Vision](#vision)
 * [Builds](#builds)
 * [Jenkins](#jenkins)
-
+* [GitHub Actions](#github-actions)
 
 ## Instructions
 To get started, build the game in Intellij with Java version 17 or higher.
@@ -52,3 +52,7 @@ Note the surefire reports have no styling by default. This is due to Jenkins sec
 ```
 System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
 ```
+
+## Github Actions
+
+Runs every time a pull request is made. You can download the surefire reports from the Actions tab on GitHub. Runs the same unit tests as Jenkins.
