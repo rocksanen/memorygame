@@ -48,7 +48,10 @@
                   </VBox>
                </children>
             </VBox>
-            <Button fx:id="buttonReturn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#setButtonReturn" prefHeight="43.0" prefWidth="134.0" text="Go Back" />
+            <Button fx:id="buttonReturn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#setButtonReturn" prefHeight="43.0" prefWidth="134.0" text="Go Back">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
          </children>
       </HBox>
 

@@ -57,6 +57,8 @@ public abstract class FXAbstractGameController implements FXIGameController {
         int firstIndex = storage.get(0);
         int secondIndex = storage.get(1);
 
+
+
         cubeList.get(firstIndex).resetImage();
         cubeList.get(secondIndex).resetImage();
         clearStorage();
@@ -65,7 +67,7 @@ public abstract class FXAbstractGameController implements FXIGameController {
 
             try {
 
-                Thread.sleep(700);
+                Thread.sleep(800);
                 cubeList.get(firstIndex).setActive();
                 cubeList.get(secondIndex).setActive();
                 cubeList.get(firstIndex).getBox().setMouseTransparent(false);

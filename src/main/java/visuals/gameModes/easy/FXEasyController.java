@@ -87,6 +87,8 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     ImageView worldScoreHeader;
     @FXML Pane dynamicScorePane;
 
+    @FXML AnchorPane wallOfeetu;
+
     private List<Label> personalLabels;
     private List<Label> worldLabels;
     private ICubeFactory easyCubeFactory;
@@ -160,6 +162,8 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     @Override
     public void setStartGame() {
 
+        wallOfeetu.setMouseTransparent(false);
+
         if (cubeList != null) {
             cubeList.clear();
         }
@@ -174,8 +178,9 @@ public class FXEasyController extends FXAbstractGameController implements Initia
         CompletableFuture.runAsync(() -> {
 
             try {
-                Thread.sleep(600);
+                Thread.sleep(1500);
                 Platform.runLater(() -> dynamicScorePane.setVisible(true));
+                wallOfeetu.setMouseTransparent(true);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -198,6 +203,7 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     @FXML
     public void returnMenu() {
 
+        wallOfeetu.setMouseTransparent(false);
         Platform.runLater(() -> dynamicScorePane.setVisible(false));
         Platform.runLater(() -> easyEffects.wallsOff());
     }
@@ -221,7 +227,6 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     public void gameOver(boolean victory) {
         setPersonalScore(EASY, personalLabels);
         setWorldScore(EASY, worldLabels);
-
         gameOverMenu(gameRoot, sceneRoot, victory);
     }
 
