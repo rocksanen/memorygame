@@ -197,7 +197,7 @@ public abstract class FXAbstractGameController implements FXIGameController {
             gameOverView.setOpacity(0.0);
 
             // if game is ended by a timeout, don't wait for animations to end
-            double transitionTime = victory ? 0.5 : 0;
+            double transitionTime = victory ? 0.6 : 0;
             PauseTransition pauseTransition = new PauseTransition(Duration.seconds(transitionTime));
             pauseTransition.setOnFinished(event -> {
                 goc.Initialize(this, gameController, gameRoot, victory);
