@@ -23,12 +23,12 @@
                           <Image url="@../pictures/images/menu/testaperga7.jpg" />
                       </image>
                   </ImageView>
-            <ImageView id="memomaze" fx:id="memomaze" fitHeight="190.0" fitWidth="700.0" layoutX="270.0" layoutY="70.0" opacity="0.0">
+            <ImageView id="memomaze" fx:id="memomaze" fitHeight="190.0" fitWidth="700.0" layoutX="270.0" layoutY="60.0" opacity="0.0">
                <image>
                   <Image url="@../pictures/images/memomaze.png" />
                </image>
             </ImageView>
-            <ImageView id="loading" fx:id="loading" fitHeight="67.0" fitWidth="200.0" layoutX="510.0" layoutY="370.0" opacity="0.0">
+            <ImageView id="loading" fx:id="loading" fitHeight="67.0" fitWidth="200.0" layoutX="525.0" layoutY="350.0" opacity="0.0">
                <image>
                   <Image url="@../pictures/images/loading.png" />
                </image>
@@ -186,13 +186,18 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                      <children>
-                        <ImageView fitHeight="41.0" fitWidth="115.0" mouseTransparent="true">
+                        <ImageView fitHeight="41.0" fitWidth="135.0" layoutX="-9.0" mouseTransparent="true">
                            <image>
-                              <Image url="@../pictures/images/menu/neonlogin.png" />
+                              <Image url="@../pictures/images/menu/neonbutton.png" />
                            </image>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
+                        </ImageView>
+                        <ImageView fitHeight="36.0" fitWidth="128.0" layoutX="-5.0" layoutY="4.0" mouseTransparent="true">
+                           <image>
+                              <Image url="@../pictures/images/menu/login.png" />
+                           </image>
                         </ImageView>
                      </children>
                   </Pane>
@@ -201,13 +206,18 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                      <children>
-                        <ImageView fitHeight="41.0" fitWidth="115.0" mouseTransparent="true">
+                        <ImageView fitHeight="41.0" fitWidth="135.0" layoutX="-9.0" mouseTransparent="true">
                            <image>
-                              <Image url="@../pictures/images/menu/neonregister.png" />
+                              <Image url="@../pictures/images/menu/neonbutton.png" />
                            </image>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
+                        </ImageView>
+                        <ImageView fitHeight="36.0" fitWidth="124.0" layoutX="-2.0" layoutY="4.0" mouseTransparent="true">
+                           <image>
+                              <Image url="@../pictures/images/menu/register.png" />
+                           </image>
                         </ImageView>
                      </children>
                   </Pane>
@@ -216,12 +226,12 @@
             </Pane>
          </children>
       </Pane>
-      <ImageView id="info" fx:id="info" fitHeight="56.0" fitWidth="76.0" layoutX="1120.0" layoutY="59.0">
+      <ImageView id="info" fx:id="info" fitHeight="56.0" fitWidth="76.0" layoutX="1120.0" layoutY="59.0" mouseTransparent="true">
          <image>
             <Image url="@../pictures/images/intro/info.png" />
          </image>
       </ImageView>
-      <Pane id="leaderPane" fx:id="leaderpane" layoutX="1080.0" layoutY="70.5" prefHeight="40.0" prefWidth="44.0">
+      <Pane id="leaderPane" fx:id="leaderpane" layoutX="1085.0" layoutY="70.7" mouseTransparent="true" prefHeight="40.0" prefWidth="44.0">
          <children>
             <ImageView id="leader" fitHeight="47.0" fitWidth="44.0" layoutY="-5.0" opacity="0.84">
                <image>
@@ -232,6 +242,21 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+      </Pane>
+      <Pane id="audioPane" fx:id="audioPane" layoutX="1022.0" layoutY="59.0" prefHeight="63.0" prefWidth="62.0">
+         <children>
+            <ImageView fitHeight="59.0" fitWidth="58.0" layoutX="-2.0" layoutY="-1.0" pickOnBounds="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <image>
+                  <Image url="@../pictures/images/menu/audio.png" />
+               </image>
+               <effect>
+                  <ColorAdjust brightness="0.22" hue="0.17" />
+               </effect>
+            </ImageView>
+         </children>
       </Pane>
       <AnchorPane id="startBlack" fx:id="startBlack" mouseTransparent="true" prefHeight="780.0" prefWidth="1250.0" style="-fx-background-color: black;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>

@@ -35,36 +35,18 @@ public class IntroEffects{
             ImageView kotoku, ImageView tigerden, ImageView treeoflife,
             ImageView pergament, AnchorPane startBlack,Pane gamePane, ImageView japan,
             ImageView jungle, ImageView redtree, ImageView miniEasy, ImageView miniMedium,
-            ImageView miniHard, Pane leaderpane, ImageView info) {
+            ImageView miniHard, Pane leaderpane, ImageView info, AnchorPane bottom, Pane audioPane) {
 
 
-        startBlack.setVisible(true);
-        logAndReg.setOpacity(0);
-        easyFrame.setOpacity(0);
-        mediumFrame.setOpacity(0);
-        hardFrame.setOpacity(0);
-        japan.setOpacity(0);
-        jungle.setOpacity(0);
-        redtree.setOpacity(0);
-        miniEasy.setOpacity(0);
-        miniMedium.setOpacity(0);
-        miniHard.setOpacity(0);
-        kotoku.setOpacity(0);
-        tigerden.setOpacity(0);
-        treeoflife.setOpacity(0);
-        leaderpane.setOpacity(0);
-        info.setOpacity(0);
-
-        SepiaTone sepiaTone = new SepiaTone();
+        final SepiaTone sepiaTone = new SepiaTone();
         sepiaTone.setLevel(1);
-        Platform.runLater(() -> pergament.setEffect(sepiaTone));
+        pergament.setEffect(sepiaTone);
 
-        SepiaTone sunTone = new SepiaTone();
+        final SepiaTone sunTone = new SepiaTone();
         sunTone.setLevel(0);
-        Platform.runLater(() -> sun.setEffect(sunTone));
+        sun.setEffect(sunTone);
 
-
-        BoxBlur fourblur = new BoxBlur();
+        final BoxBlur fourblur = new BoxBlur();
         fourblur.setIterations(1);
         fourblur.setHeight(0);
         fourblur.setWidth(0);
@@ -86,6 +68,8 @@ public class IntroEffects{
 
         introLine = new Timeline(
                 new KeyFrame(Duration.ZERO,startAudio),
+                new KeyFrame(Duration.seconds(3),
+                        new KeyValue(bottom.mouseTransparentProperty(),false)),
                 new KeyFrame(Duration.seconds(4),
                         new KeyValue(first.opacityProperty(), 0)),
                 new KeyFrame(Duration.seconds(6.3),
@@ -196,18 +180,22 @@ public class IntroEffects{
                         new KeyValue(logAndReg.opacityProperty(), 0),
                         new KeyValue(sepiaTone.levelProperty(), 1),
                         new KeyValue(leaderpane.opacityProperty(),0),
-                        new KeyValue(info.opacityProperty(),0)),
+                        new KeyValue(info.opacityProperty(),0),
+                        new KeyValue(audioPane.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(41.4),
                         new KeyValue(logAndReg.opacityProperty(), 1),
                         new KeyValue(leaderpane.opacityProperty(),1),
                         new KeyValue(info.opacityProperty(),1),
-                        new KeyValue(sepiaTone.levelProperty(), 0))
+                        new KeyValue(audioPane.opacityProperty(),1),
+                        new KeyValue(sepiaTone.levelProperty(), 0)),
+                new KeyFrame(Duration.seconds(42))
         );
 
         introLine.play();
         introLine.setOnFinished(actionEvent -> {
 
             introLine.stop();
+            introLine = null;
 
             try {
                 Navigaattori.getInstance().changeScene(ModeType.MENU);

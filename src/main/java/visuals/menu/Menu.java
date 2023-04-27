@@ -1,12 +1,15 @@
 package visuals.menu;
 
-import controller.*;
+import controller.IScoreController;
+import controller.IUserController;
+import controller.ScoreController;
+import controller.UserController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import javafx.scene.effect.ColorAdjust;
-import javafx.scene.image.Image;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -14,7 +17,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import model.ModeType;
-import org.apache.maven.plugin.logging.Log;
 import visuals.Navigaattori;
 import visuals.audio.AudioMemory;
 import visuals.effects.commonHovers.Hovers;
@@ -23,13 +25,11 @@ import visuals.effects.menuEffects.IMenuLayoutEffects;
 import visuals.effects.menuEffects.MenuLayoutEffects;
 import visuals.effects.menuEffects.ZoomInEffects;
 import visuals.imageServers.ImageCache;
-import visuals.internationalization.JavaFXInternationalization;
-
+import visuals.internationalization.ImageTranslator;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Locale;
-import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.concurrent.CompletableFuture;
 
 import static model.ModeType.*;
 
@@ -40,8 +40,8 @@ public class Menu implements Initializable, IMenu {
     private final ZoomInEffects zoomInEffects = new ZoomInEffects();
     private final IMenuLayoutEffects menuLayoutEffects = new MenuLayoutEffects();
     private final Hovers hovers = new Hovers(menuLayoutEffects);
-    private Image muteImage;
-    private Image unmuteImage;
+    private final AudioMemory audioMemory = AudioMemory.getInstance();
+    private final ImageTranslator imageTranslator = new ImageTranslator();
 
     @FXML
     ImageView burningsun;
@@ -111,7 +111,6 @@ public class Menu implements Initializable, IMenu {
     ImageView treeoflife;
     @FXML
     ImageView telkku;
-
     @FXML
     Pane leaderPane;
     @FXML
@@ -132,37 +131,31 @@ public class Menu implements Initializable, IMenu {
     ImageView audioUnMute;
     @FXML Pane audioPane;
     @FXML Pane userPane;
+    @FXML AnchorPane wallOfeetu;
 
     private static String user;
 
 
-    private final AudioMemory audioMemory = AudioMemory.getInstance();
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        wallOfeetu.setMouseTransparent(false);
 
         initGoods();
         Platform.runLater(() -> BurningSun.getInstance().burningSunMove(burningsun));
 
-        if (IntroOn.getInstance().getIntroOn()) {
-            IntroOn.getInstance().setIntroOff();
-        } else {
-            Platform.runLater(() -> AudioMemory.getInstance().playSong(MENU));
-        }
-
+        introSongCheck();
         initLoginPanel(usernameButtonimage, passwordButtonImage,loginButtonImage,registerButtonImage, logoutButton);
-
 
         Platform.runLater(() -> menuLayoutEffects.setGlow(pergament));
         Platform.runLater(() -> menuLayoutEffects.moveDirt(dirt));
         Platform.runLater(() -> menuLayoutEffects.moveJungle(jungle));
         Platform.runLater(() -> menuLayoutEffects.moveRedTree(redtree));
 
-
+        setWallOfeetuOff();
     }
 
-    public void initGoods() {
+    private void initGoods() {
 
         initLogin();
         panesAndMisc();
@@ -184,93 +177,13 @@ public class Menu implements Initializable, IMenu {
         if (userController.isLoggedIn()) {
             Platform.runLater(() -> labelLoggedIn.setText("Logged in as " + userController.getUsername()));
         }
-
     }
 
-    public void initLoginPanel(ImageView userName, ImageView password, ImageView LoginButton, ImageView RegisterButton, ImageView logoutButton) {
-        Locale locale = JavaFXInternationalization.getLocale();
-        System.out.println("locale is : " + locale.getLanguage());
-
-
-        switch (locale.getLanguage()){
-            case "fi" -> {
-                userName.setImage(
-                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-                                "/images/menuImages/Username_FI.png"))));
-                password.setImage(
-                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-                                "/images/menuImages/Password_FI.png"))));
-                LoginButton.setImage(
-                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-                                "/images/menuImages/Login_FI.png"))));
-
-                LoginButton.setFitWidth(userName.getFitWidth() - 25);
-                LoginButton.setLayoutX(LoginButton.getLayoutX() + 3);
-                RegisterButton.setImage(
-                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-                                "/images/menuImages/Register_FI.png"))));
-
-                RegisterButton.setFitWidth(userName.getFitWidth() - 28);
-                RegisterButton.setLayoutX(LoginButton.getLayoutX() + 2);
-
-                logoutButton.setImage(
-                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-                                "/images/menuImages/Logout_FI.png"))));
-
-
-            }
-            case "swe" -> {
-                userName.setImage(
-                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-                                "/images/menuImages/Username_SWE.png"))));
-                password.setImage(
-                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-                                "/images/menuImages/Password_SWE.png"))));
-                LoginButton.setImage(
-                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-                                "/images/menuImages/Login_SWE.png"))));
-                LoginButton.setFitWidth(userName.getFitWidth() - 28);
-                LoginButton.setLayoutX(LoginButton.getLayoutX() + 3);
-                RegisterButton.setImage(
-                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-                                "/images/menuImages/Register_SWE.png"))));
-                RegisterButton.setFitWidth(userName.getFitWidth() - 28);
-                RegisterButton.setLayoutX(LoginButton.getLayoutX() + 3);
-
-                logoutButton.setImage(
-                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-                                "/images/menuImages/Logout_SWE.png"))));
-
-
-            }
-            case "lat" ->{
-                userName.setImage(
-                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-                                "/images/menuImages/Username_LAT.png"))));
-
-                password.setImage(
-                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-                                "/images/menuImages/Password_LAT.png"))));
-                LoginButton.setImage(
-                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-                                "/images/menuImages/Login_LAT.png"))));
-                LoginButton.setFitWidth(userName.getFitWidth() - 25);
-                LoginButton.setLayoutX(LoginButton.getLayoutX() + 3);
-
-                RegisterButton.setImage(
-                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-                                "/images/menuImages/Register_LAT.png"))));
-                RegisterButton.setFitWidth(userName.getFitWidth() - 25);
-
-                logoutButton.setImage(
-                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-                                "/images/menuImages/Logout_LAT.png"))));
-
-
-            }
-        }
-
-
+    private void initLoginPanel(
+            ImageView userName, ImageView password, ImageView LoginButton,
+            ImageView RegisterButton, ImageView logoutButton)
+    {
+        imageTranslator.menuLoginTranslator(userName,password,LoginButton,RegisterButton,logoutButton);
     }
     @FXML
     public void easyStartScreenPlay() {
@@ -295,9 +208,7 @@ public class Menu implements Initializable, IMenu {
 
     private void prepareToPlay() {
 
-        Platform.runLater(() -> miniEasy.setMouseTransparent(true));
-        Platform.runLater(() -> miniMedium.setMouseTransparent(true));
-        Platform.runLater(() -> miniHard.setMouseTransparent(true));
+        Platform.runLater(() -> wallOfeetu.setMouseTransparent(false));
         BurningSun.getInstance().savePosition();
         menuLayoutEffects.stopTimelines();
     }
@@ -324,7 +235,6 @@ public class Menu implements Initializable, IMenu {
 
     private void loginActions() {
 
-
         user = name.getText();
         userName.setText(user.toUpperCase());
         String userPassword = password.getText();
@@ -341,7 +251,6 @@ public class Menu implements Initializable, IMenu {
             userName.setFont(Font.font("Atari Classic", 14));
             Platform.runLater(() -> userName.setText(user.toUpperCase()));
             Platform.runLater(() -> userPane.setVisible(true));
-            //Platform.runLater(() -> labelLoggedIn.setText("Logged in as " + userController.getUsername()));
 
             Thread thread = new Thread(scoreController::fetchPersonalScores);
             thread.start();
@@ -358,14 +267,11 @@ public class Menu implements Initializable, IMenu {
         Platform.runLater(() -> userPane.setVisible(true));
     }
 
-
     @FXML
     public void loginPane() {
 
         loginActions();
     }
-
-
 
     @FXML
     private void handleEnterKeyPressed(KeyEvent event) {
@@ -383,15 +289,6 @@ public class Menu implements Initializable, IMenu {
         if(userController.isLoggedIn()) {
             updateUserPane();
         }
-        URL url = Menu.class.getClassLoader().getResource("fonts/outrun_future.otf");
-        // get the font from the resources, set size and add it to the label
-        assert url != null;
-        Font outrun = Font.loadFont(url.toExternalForm(), 13);
-        labelLoggedIn.setFont(outrun);
-        labelLoggedIn.setStyle("-fx-background-color: rgba(0,0,0,0.50);-fx-background-radius: 5; -fx-padding: 1 6 1 6");
-
-        labelLoggedIn.setText(userController.isLoggedIn() ? "Logged in as " + userController.getUsername() : "Not logged in");
-
     }
 
     private void setMenuImages() {
@@ -423,32 +320,20 @@ public class Menu implements Initializable, IMenu {
     }
 
     @FXML
-    public void easyInfoOn() {
-        menuLayoutEffects.displayInfoOn(easydes1, easydes2, easydes3);
-    }
+    public void easyInfoOn() {menuLayoutEffects.displayInfoOn(easydes1, easydes2, easydes3);}
     @FXML
-    public void easyInfoOff() {
-        menuLayoutEffects.displayInfoOff(easydes1, easydes2, easydes3);
-    }
+    public void easyInfoOff() {menuLayoutEffects.displayInfoOff(easydes1, easydes2, easydes3);}
     @FXML
-    public void mediumInfoOn() {
-        menuLayoutEffects.displayInfoOn(medes1, medes2, medes3);
-    }
+    public void mediumInfoOn() {menuLayoutEffects.displayInfoOn(medes1, medes2, medes3);}
     @FXML
-    public void mediumInfoOff() {
-        menuLayoutEffects.displayInfoOff(medes1, medes2, medes3);
-    }
+    public void mediumInfoOff() {menuLayoutEffects.displayInfoOff(medes1, medes2, medes3);}
     @FXML
-    public void hardInfoOn() {
-        menuLayoutEffects.displayInfoOn(hardes1, hardes2, hardes3);
-    }
+    public void hardInfoOn() {menuLayoutEffects.displayInfoOn(hardes1, hardes2, hardes3);}
     @FXML
-    public void hardInfoOff() {
-        menuLayoutEffects.displayInfoOff(hardes1, hardes2, hardes3);
-    }
-
+    public void hardInfoOff() {menuLayoutEffects.displayInfoOff(hardes1, hardes2, hardes3);}
     @FXML
     public void setButtonLogout() {
+
         try {
 
             userController.logout();
@@ -463,7 +348,6 @@ public class Menu implements Initializable, IMenu {
             e.printStackTrace();
         }
     }
-
 
     @FXML
     public void setButtonLeaderboards() {
@@ -489,18 +373,10 @@ public class Menu implements Initializable, IMenu {
     }
 
     @FXML
-    public void hoverOn(javafx.scene.input.MouseEvent event) {
-
-        hovers.commonHoverOn(event);
-    }
+    public void hoverOn(javafx.scene.input.MouseEvent event) {hovers.commonHoverOn(event);}
 
     @FXML
-    public void hoverOff(javafx.scene.input.MouseEvent event) {
-
-        hovers.commonHoverOff(event);
-    }
-
-
+    public void hoverOff(javafx.scene.input.MouseEvent event) {hovers.commonHoverOff(event);}
 
     @FXML
     public void setButtonAudio() {
@@ -508,6 +384,28 @@ public class Menu implements Initializable, IMenu {
         audioMemory.toggleMute();
         audioMute.setVisible(!audioMemory.isMuted());
         audioUnMute.setVisible(audioMemory.isMuted());
+    }
+
+    private void introSongCheck() {
+
+        if (IntroOn.getInstance().getIntroOn()) {
+            IntroOn.getInstance().setIntroOff();
+        } else {
+            Platform.runLater(() -> AudioMemory.getInstance().playSong(MENU));
+        }
+    }
+
+    private void setWallOfeetuOff() {
+
+        CompletableFuture.runAsync(() -> {
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            wallOfeetu.setMouseTransparent(true);
+        });
     }
 }
 

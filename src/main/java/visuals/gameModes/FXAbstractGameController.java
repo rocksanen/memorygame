@@ -25,6 +25,7 @@ import javafx.util.Duration;
 import model.ModeType;
 import visuals.Navigaattori;
 import visuals.cubeFactories.BoxMaker;
+import visuals.internationalization.ImageTranslator;
 import visuals.internationalization.JavaFXInternationalization;
 
 import java.io.IOException;
@@ -36,6 +37,7 @@ public abstract class FXAbstractGameController implements FXIGameController {
     protected ArrayList<BoxMaker> cubeList;
     protected final IGameController gameController = new GameController(this);
     private static final ArrayList<Group> activeList = new ArrayList<>();
+    private final ImageTranslator imageTranslator = new ImageTranslator();
 
     @FXML
     public Label dynamicScore;
@@ -57,8 +59,6 @@ public abstract class FXAbstractGameController implements FXIGameController {
         int firstIndex = storage.get(0);
         int secondIndex = storage.get(1);
 
-
-
         cubeList.get(firstIndex).resetImage();
         cubeList.get(secondIndex).resetImage();
         clearStorage();
@@ -70,8 +70,6 @@ public abstract class FXAbstractGameController implements FXIGameController {
                 Thread.sleep(800);
                 cubeList.get(firstIndex).setActive();
                 cubeList.get(secondIndex).setActive();
-                cubeList.get(firstIndex).getBox().setMouseTransparent(false);
-                cubeList.get(secondIndex).getBox().setMouseTransparent(false);
 
                 for (BoxMaker cube : cubeList) {
 
@@ -131,7 +129,7 @@ public abstract class FXAbstractGameController implements FXIGameController {
 
         CompletableFuture.runAsync(() -> {
             try {
-                Thread.sleep(500);
+                Thread.sleep(800);
                 for (BoxMaker cube : cubeList) {
                     if (!cube.getActiveState()) {
                         cube.getBox().setMouseTransparent(false);
@@ -212,7 +210,6 @@ public abstract class FXAbstractGameController implements FXIGameController {
             });
             pauseTransition.play();
 
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -225,34 +222,8 @@ public abstract class FXAbstractGameController implements FXIGameController {
      * @param worldScoreHeader    world score header
      */
     public void initScoreHeaders(ImageView personalScoreHeader, ImageView worldScoreHeader) {
-        Locale locale = JavaFXInternationalization.getLocale();
-        System.out.println("locale is : " + locale.getLanguage());
 
-        switch (locale.getLanguage()) {
-            case "fi" -> {
-                personalScoreHeader.setImage(
-                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-                                "/images/headers/fi_personalscores.png"))));
-                worldScoreHeader.setImage(
-                        new Image("/images/headers/fi_worldscores.png"));
-            }
-            case "swe" -> {
-                personalScoreHeader.setImage(
-                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-                                "/images/headers/swe_personalscores.png"))));
-                worldScoreHeader.setImage(
-                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-                                "/images/headers/swe_worldscores.png"))));
-            }
-            case "lat" -> {
-                personalScoreHeader.setImage(
-                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-                                "/images/headers/latvian_personalscores.png"))));
-                worldScoreHeader.setImage(
-                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-                                "/images/headers/latvian_worldscores.png"))));
-            }
-        }
+        imageTranslator.inGameTranslator(personalScoreHeader,worldScoreHeader);
     }
 
     /**
@@ -269,7 +240,6 @@ public abstract class FXAbstractGameController implements FXIGameController {
             l.setText(worldScores.get(labels.indexOf(l)));
         }
     }
-
 
     /**
      * Assigns personal scores to the labels

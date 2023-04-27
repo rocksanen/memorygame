@@ -23,11 +23,13 @@ public class BurningSun{
 
     public void burningSunMove(ImageView burningsun) {
 
-        burningsun.setOpacity(0.3);
         burningSunLine = new Timeline(
                 new KeyFrame(Duration.ZERO,
-                        new KeyValue(burningsun.layoutXProperty(), -200),
-                        new KeyValue(burningsun.layoutYProperty(), -59)),
+                        new KeyValue(burningsun.layoutXProperty(), -180),
+                        new KeyValue(burningsun.layoutYProperty(), -59),
+                        new KeyValue(burningsun.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(3),
+                        new KeyValue(burningsun.opacityProperty(),0.3)),
                 new KeyFrame(Duration.minutes(1.5),
                         new KeyValue(burningsun.layoutYProperty(), -59 - 80)),
                 new KeyFrame(Duration.minutes(3),
