@@ -24,6 +24,7 @@ public class GameController implements IGameController {
 
     /**
      * Constructor for GameController
+     *
      * @param fxiGameController the GUI controller
      */
     public GameController(FXIGameController fxiGameController) {
@@ -32,6 +33,7 @@ public class GameController implements IGameController {
 
     /**
      * starts the game
+     *
      * @param type the difficulty of the game
      */
     @Override
@@ -42,6 +44,7 @@ public class GameController implements IGameController {
 
     /**
      * sends the id of the clicked cube to the engine
+     *
      * @param id the id of the clicked cube
      */
     @Override
@@ -78,12 +81,14 @@ public class GameController implements IGameController {
 
     /**
      * sends the game over signal to the GUI
+     *
+     * @param victory true if the player won, false if the player lost (timed out)
      */
     @Override
-    public void gameOver() {
+    public void gameOver(boolean victory) {
         Platform.runLater(() -> {
             try {
-                fxiGameController.gameOver();
+                fxiGameController.gameOver(victory);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -119,6 +124,7 @@ public class GameController implements IGameController {
 
     /**
      * returns the difficulty of the game
+     *
      * @return the difficulty of the game
      */
     @Override
@@ -128,6 +134,7 @@ public class GameController implements IGameController {
 
     /**
      * returns the grade of the game
+     *
      * @return the grade of the game
      */
     @Override
