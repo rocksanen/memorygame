@@ -90,7 +90,7 @@
                   </SepiaTone>
                </effect>
             </ImageView>
-              <GridPane id="mediumGrid" fx:id="mediumGrid" alignment="CENTER" layoutX="325.0" layoutY="113.0" prefHeight="517.0" prefWidth="599.0">
+              <GridPane id="mediumGrid" fx:id="mediumGrid" alignment="CENTER" layoutX="325.0" layoutY="117.0" prefHeight="517.0" prefWidth="599.0">
                   <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -326,9 +326,9 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane id="dynamicScorePane" fx:id="dynamicScorePane" layoutX="954.0" layoutY="36.0" prefHeight="50.0" prefWidth="283.0">
+            <Pane id="dynamicScorePane" fx:id="dynamicScorePane" layoutX="961.0" layoutY="36.0" prefHeight="50.0" prefWidth="283.0">
                <children>
-                  <Pane layoutX="-15.0" layoutY="-3.0" mouseTransparent="true" opacity="0.9" prefHeight="54.0" prefWidth="283.0" style="-fx-background-color: black;">
+                  <Pane layoutX="-15.0" layoutY="-4.0" mouseTransparent="true" opacity="0.9" prefHeight="54.0" prefWidth="283.0" style="-fx-background-color: black;">
                      <effect>
                         <GaussianBlur radius="54.16" />
                      </effect>

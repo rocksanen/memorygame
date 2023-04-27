@@ -4,6 +4,9 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.scene.effect.Bloom;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.Effect;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -124,5 +127,55 @@ public class HardEffects extends AbstractGameEffects implements IGameEffects{
             timeline.stop();
             super.changeToMenu(ModeType.HARD);
         });
+    }
+
+    public void practiseColorsOn() {
+
+        Bloom bloom = new Bloom();
+        bloom.setThreshold(0.72);
+
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setHue(0);
+
+        colorAdjust.setInput(bloom);
+
+        hardBackground.setEffect(colorAdjust);
+
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(colorAdjust.hueProperty(),0)),
+                new KeyFrame(Duration.seconds(1),
+                        new KeyValue(colorAdjust.hueProperty(),0.37))
+        );
+
+        timeline.play();
+
+    }
+
+    public void practiseColorsOff() {
+
+        Bloom bloom = new Bloom();
+        bloom.setThreshold(0.67);
+
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setHue(0.37);
+
+        colorAdjust.setInput(bloom);
+
+        hardBackground.setEffect(colorAdjust);
+
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(colorAdjust.hueProperty(),0.37)),
+                new KeyFrame(Duration.seconds(1),
+                        new KeyValue(colorAdjust.hueProperty(),0))
+        );
+
+        timeline.play();
+
+
+
     }
 }
