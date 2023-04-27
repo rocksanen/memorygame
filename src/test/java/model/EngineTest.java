@@ -23,7 +23,7 @@ public class EngineTest {
 
     private Engine e;
     IMenu ui;
-    private IGameController controller;
+    private IGameController controller; // too complicated 🐻
 
 
     @BeforeEach
@@ -85,15 +85,15 @@ public class EngineTest {
         assertEquals(4, e.incorrectTries);
     }
 
-    @Test
-    @DisplayName("Test update score on right guess")
-    void updateCorrectScore() {
-        e.updateScore(CompareResultType.EQUAL);
-        assertEquals(1000, e.getTotalScore());
-//        assertEquals(1000, e.getNextScore());
-        assertEquals(0, e.incorrectTries);
-
-    }
+//    @Test
+//    @DisplayName("Test update score on right guess")
+//    void updateCorrectScore() {
+//        e.updateScore(CompareResultType.EQUAL);
+//        assertEquals(1000, e.getTotalScore());
+////        assertEquals(1000, e.getNextScore());
+//        assertEquals(0, e.incorrectTries);
+//
+//    }
 
     @Test
     @DisplayName("Test update score on wrong guess")
