@@ -5,6 +5,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.effect.SepiaTone?>
 <?import javafx.scene.image.Image?>
@@ -271,6 +272,20 @@
                     <Point3D y="1.0" />
                 </rotationAxis>
             </Pane>
+         <Pane id="dynamicScorePane" fx:id="dynamicScorePane" layoutX="954.0" layoutY="26.0" prefHeight="50.0" prefWidth="283.0">
+            <children>
+               <Pane layoutX="-15.0" layoutY="-3.0" mouseTransparent="true" opacity="0.9" prefHeight="54.0" prefWidth="283.0" style="-fx-background-color: black;">
+                  <effect>
+                     <GaussianBlur radius="54.16" />
+                  </effect>
+                  <cursor>
+                     <Cursor fx:constant="NONE" />
+                  </cursor>
+               </Pane>
+               <Label fx:id="dynamicHeader" layoutY="2.0" prefHeight="44.0" prefWidth="130.0" textFill="WHITE" />
+               <Label fx:id="dynamicScore" layoutX="144.0" layoutY="2.0" prefHeight="44.0" prefWidth="130.0" textFill="WHITE" />
+            </children>
+         </Pane>
         </children>
     </AnchorPane>
 </AnchorPane>
