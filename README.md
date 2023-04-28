@@ -12,7 +12,6 @@ By Otto Oksanen, Eetu Soronen, Hasan Safdari & Samu Oksala
 * [Builds](#builds)
 * [Jenkins](#jenkins)
 * [GitHub Actions](#github-actions)
-* [Building](#building)
 
 
 ## Instructions
@@ -29,7 +28,8 @@ The project is a simple memory game designed for anyone who wants to improve the
 Our vision was to create a fun memory game that's easily accessible. The game was made to improve the players mental capabilities.
 
 ## Builds
-Jar builds are available in the releases section. Java 17 or higher is required to run the game.
+Windows builds and Jar files are available  in the releases section. To build the app yourself, first generate a JAR file with Maven, then run the "build.ps1" file to generate a .msi installer. MacOS and Linux have to run the JAR File (Java 17+ required).
+
 
 ## Jenkins
 To get tests running through Jenkins, first build and run the Docker image with the following command:
@@ -55,6 +55,3 @@ System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
 ## Github Actions
 
 Runs every time a pull request is made. You can download the surefire reports from the Actions tab on GitHub. Runs the same unit tests as Jenkins.
-
-## Building
-Windows builds and Jar files are available  in the releases section. To build the app yourself, first generate a JAR file with Maven, then run the "build.ps1" file to generate a .msi installer. MacOS and Linux have to run the JAR File (Java 17+ required).
