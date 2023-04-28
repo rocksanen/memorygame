@@ -12,15 +12,14 @@ By Otto Oksanen, Eetu Soronen, Hasan Safdari & Samu Oksala
 * [Builds](#builds)
 * [Jenkins](#jenkins)
 * [GitHub Actions](#github-actions)
+* [Building](#building)
+
 
 ## Instructions
 To get started, build the game in Intellij with Java version 17 or higher.
 
 ## Getting Started
 After building the game, you can select one of three difficulties and get started immediately. Database server not included in the repo.
-
-### FOR TEACHER ONLY
-Insert the META-INF folder that was included in the "Tehtävä: 08 - Sovelluksen dokumentaatio: README.md, käyttöohje" return box (Samu Oksala submission) inside the projects resources folder.
 
 ## About The Project
 This project was made for ohjelmistotuotantoprojekti 1 course at Metropolia UAS.
@@ -56,3 +55,6 @@ System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
 ## Github Actions
 
 Runs every time a pull request is made. You can download the surefire reports from the Actions tab on GitHub. Runs the same unit tests as Jenkins.
+
+## Building
+Windows builds and Jar files are available  in the releases section. To build the app yourself, first generate a JAR file with Maven, then run the "build.ps1" file to generate a .msi installer. MacOS and Linux have to run the JAR File (Java 17+ required).
