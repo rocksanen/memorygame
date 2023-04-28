@@ -145,7 +145,8 @@ public class Menu implements Initializable, IMenu {
         Platform.runLater(() -> BurningSun.getInstance().burningSunMove(burningsun));
 
         introSongCheck();
-        initLoginPanel(usernameButtonimage, passwordButtonImage,loginButtonImage,registerButtonImage, logoutButton);
+        initLoginPanel();
+        initGameModeDescriptions();
 
         Platform.runLater(() -> menuLayoutEffects.setGlow(pergament));
         Platform.runLater(() -> menuLayoutEffects.moveDirt(dirt));
@@ -173,17 +174,17 @@ public class Menu implements Initializable, IMenu {
         Platform.runLater(() -> paneLogin.setVisible(!userController.isLoggedIn()));
         Platform.runLater(() -> logOutPane.setVisible(userController.isLoggedIn()));
         Platform.runLater(() ->  userPane.setVisible(userController.isLoggedIn()));
-
-        if (userController.isLoggedIn()) {
-            Platform.runLater(() -> labelLoggedIn.setText("Logged in as " + userController.getUsername()));
-        }
     }
 
-    private void initLoginPanel(
-            ImageView userName, ImageView password, ImageView LoginButton,
-            ImageView RegisterButton, ImageView logoutButton)
+    private void initLoginPanel()
+
     {
-        imageTranslator.menuLoginTranslator(userName,password,LoginButton,RegisterButton,logoutButton);
+        imageTranslator.menuLoginTranslator(usernameButtonimage,passwordButtonImage,loginButtonImage,registerButtonImage,logoutButton);
+    }
+
+    private void initGameModeDescriptions() {
+
+        imageTranslator.gameModeInfoTranslator(easydes1,easydes2,easydes3,medes1,medes2,medes3,hardes1,hardes2,hardes3);
     }
     @FXML
     public void easyStartScreenPlay() {
