@@ -3,8 +3,10 @@ package visuals.gameModes;
 import controller.IGameController;
 import javafx.animation.*;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -41,6 +43,11 @@ public class GameOverController {
     Label gameOver;
     @FXML
     VBox gameOverPane;
+    @FXML ImageView neonBorder;
+    @FXML ImageView newgameNeo;
+    @FXML ImageView returnNeo;
+
+    private Boolean victory;
 
 
     /**
@@ -51,6 +58,8 @@ public class GameOverController {
      * @param gameRoot          AnchorPane the root of the game. is blurred when this pane is shown
      */
     public void Initialize(FXIGameController fxigameController, IGameController gameController, AnchorPane gameRoot, boolean victory) {
+
+        this.victory = victory;
 
         if (!victory) {
             gameOver.setText("%outOfTime");
@@ -70,14 +79,44 @@ public class GameOverController {
 
         initStyles();
 
+        /*
         gameOverPane.setBackground(new Background(new BackgroundImage(new Image(Objects.requireNonNull(getClass().getClassLoader().
                 getResourceAsStream("images/gameover4.png"))), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+
+         */
 
         score.setText("Score: " + gameController.getCurrentScore());
 
         String stars = gameController.getGrade();
         animateStars(stars);
+        neonBorderHue();
+    }
+
+    private void neonBorderHue() {
+
+
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setHue(0);
+        colorAdjust.setSaturation(-0.2);
+        neonBorder.setEffect(colorAdjust);
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(colorAdjust.hueProperty(),0)),
+                new KeyFrame(Duration.seconds(1),
+                        new KeyValue(colorAdjust.hueProperty(),-0.5)),
+                new KeyFrame(Duration.seconds(2),
+                        new KeyValue(colorAdjust.hueProperty(),0)),
+                new KeyFrame(Duration.seconds(3),
+                        new KeyValue(colorAdjust.hueProperty(),0.5))
+        );
+
+
+        timeline.setAutoReverse(true);
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+
     }
 
     /**
@@ -152,7 +191,19 @@ public class GameOverController {
      * Initialize styles, first does the fonts, then calls styleButton for the buttons
      */
     private void initStyles() {
-        gameOver.setFont(Font.font("Atari Classic", 44));
+
+        if(!victory) {
+
+            gameOver.setFont(Font.font("Atari Classic", 30));
+            newgameNeo.setLayoutY(newgameNeo.getLayoutY() - 6.5);
+            returnNeo.setLayoutY(returnNeo.getLayoutY() - 6.5);
+
+
+        }else {
+
+            gameOver.setFont(Font.font("Atari Classic", 44));
+        }
+
         gameOver.setTextFill(javafx.scene.paint.Color.WHITE);
         score.setFont(Font.font("Atari Classic", 30));
         score.setTextFill(javafx.scene.paint.Color.WHITE);
