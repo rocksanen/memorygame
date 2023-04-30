@@ -111,9 +111,9 @@ public class InternationalizationController {
     private void blackOff() {
 
         Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(1),
+                new KeyFrame(Duration.seconds(0),
                         new KeyValue(infoBlack.opacityProperty(),1)),
-                new KeyFrame(Duration.seconds(2),
+                new KeyFrame(Duration.seconds(0.5),
                         new KeyValue(infoBlack.opacityProperty(),0))
         );
 
@@ -195,7 +195,7 @@ public class InternationalizationController {
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO,
                         new KeyValue(infoBlack.opacityProperty(),0)),
-                new KeyFrame(Duration.seconds(1),
+                new KeyFrame(Duration.seconds(0.5),
                         new KeyValue(infoBlack.opacityProperty(),1))
         );
 

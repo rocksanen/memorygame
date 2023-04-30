@@ -91,7 +91,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <ImageView id="nextButton" fx:id="nextButton" layoutX="1192.0" layoutY="350.0" onMouseClicked="#handleNextButton" AnchorPane.leftAnchor="1035.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="460">
+      <ImageView id="nextButton" fx:id="nextButton" layoutX="1192.0" layoutY="350.0" onMouseClicked="#handleNextButton" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" AnchorPane.leftAnchor="1035.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="460">
          <image>
             <Image url="@/pictures/images/leftArrow.png" />
          </image>
@@ -100,7 +100,7 @@
          </cursor>
       </ImageView>
 
-      <ImageView id="previousButton" fx:id="previousButton" layoutX="18.0" layoutY="68.0" onMouseClicked="#handlePreviousButton" rotate="180.0" AnchorPane.leftAnchor="125" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="460">
+      <ImageView id="previousButton" fx:id="previousButton" layoutX="18.0" layoutY="68.0" onMouseClicked="#handlePreviousButton" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" rotate="180.0" AnchorPane.leftAnchor="125" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="460">
          <image>
             <Image url="@/pictures/images/rightArrow.png" />
          </image>

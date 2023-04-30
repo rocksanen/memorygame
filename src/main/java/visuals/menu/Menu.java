@@ -170,9 +170,9 @@ public class Menu implements Initializable, IMenu {
     private void menuBlackOff() {
 
         Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(1),
+                new KeyFrame(Duration.seconds(0),
                         new KeyValue(menuBlack.opacityProperty(),1)),
-                new KeyFrame(Duration.seconds(1.5),
+                new KeyFrame(Duration.seconds(0.5),
                         new KeyValue(menuBlack.opacityProperty(),0))
         );
 
@@ -385,9 +385,9 @@ public class Menu implements Initializable, IMenu {
         leaderPane.setMouseTransparent(true);
 
         Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(1),
+                new KeyFrame(Duration.seconds(0),
                         new KeyValue(menuBlack.opacityProperty(),0)),
-                new KeyFrame(Duration.seconds(1.5),
+                new KeyFrame(Duration.seconds(0.5),
                         new KeyValue(menuBlack.opacityProperty(),1))
         );
 
@@ -415,9 +415,9 @@ public class Menu implements Initializable, IMenu {
         info.setMouseTransparent(true);
 
         Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(1),
+                new KeyFrame(Duration.seconds(0),
                         new KeyValue(menuBlack.opacityProperty(),0)),
-                new KeyFrame(Duration.seconds(1.5),
+                new KeyFrame(Duration.seconds(0.5),
                         new KeyValue(menuBlack.opacityProperty(),1))
         );
 

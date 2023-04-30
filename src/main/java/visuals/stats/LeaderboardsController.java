@@ -418,7 +418,7 @@ public class LeaderboardsController {
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO,
                         new KeyValue(leaderBlack.opacityProperty(),0)),
-                new KeyFrame(Duration.seconds(1),
+                new KeyFrame(Duration.seconds(0.5),
                         new KeyValue(leaderBlack.opacityProperty(),1))
         );
 
