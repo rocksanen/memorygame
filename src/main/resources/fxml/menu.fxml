@@ -419,6 +419,7 @@
          </children>
       </Pane>
       <AnchorPane id="wallOfeetu" fx:id="wallOfeetu" prefHeight="1079.4" prefWidth="1435.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane id="menuBlack" fx:id="menuBlack" mouseTransparent="true" opacity="0.0" prefHeight="1079.4" prefWidth="1435.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 
 
     </children>

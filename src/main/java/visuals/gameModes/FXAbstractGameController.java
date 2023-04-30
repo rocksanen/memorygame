@@ -260,7 +260,7 @@ public abstract class FXAbstractGameController implements FXIGameController {
     public void hoverOn(javafx.scene.input.MouseEvent event) {
 
         Glow glow = new Glow();
-        glow.setLevel(0.5);
+        glow.setLevel(0.3);
         Node source = (Node) event.getSource();
         source.setEffect(glow);
     }

@@ -2,6 +2,9 @@ package visuals.stats;
 
 import controller.ScoreController;
 import controller.UserController;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 import model.ModeType;
 import model.Score;
 import visuals.Navigaattori;
@@ -62,6 +66,7 @@ public class LeaderboardsController {
     public Pane chartPane;
     @FXML
     public ImageView rugsweeper;
+    @FXML AnchorPane leaderBlack;
 
     private ScoreController scoreController;
 
@@ -81,6 +86,8 @@ public class LeaderboardsController {
      */
     @FXML
     private void initialize() {
+
+        blackOff();
 
         Platform.runLater(() -> AudioMemory.getInstance().playSong(LEADERBOARD));
 
@@ -112,7 +119,24 @@ public class LeaderboardsController {
 
         // hides a block above the invisible scrollbar
         rugsweeper.setImage(new Image(Objects.requireNonNull(getClass().getClassLoader().getResource("images/trophy.png")).toExternalForm()));
+        blackOff();
     }
+
+
+
+    private void blackOff() {
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(1),
+                        new KeyValue(leaderBlack.opacityProperty(),1)),
+                new KeyFrame(Duration.seconds(1.5),
+                        new KeyValue(leaderBlack.opacityProperty(),0))
+        );
+
+        timeline.play();
+
+    }
+
 
 
     /**
@@ -388,12 +412,32 @@ public class LeaderboardsController {
      */
     @FXML
     public void setButtonReturn(ActionEvent event) {
-        Platform.runLater(() -> AudioMemory.getInstance().stopSong(LEADERBOARD));
-        try {
-            Navigaattori.getInstance().changeScene(ModeType.MENU);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        buttonReturn.setMouseTransparent(true);
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(leaderBlack.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(1),
+                        new KeyValue(leaderBlack.opacityProperty(),1))
+        );
+
+        timeline.play();
+
+        timeline.setOnFinished(actionEvent -> {
+
+            Platform.runLater(() -> AudioMemory.getInstance().stopSong(LEADERBOARD));
+            try {
+                Navigaattori.getInstance().changeScene(ModeType.MENU);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });
+
+
+
+
     }
 
     /**

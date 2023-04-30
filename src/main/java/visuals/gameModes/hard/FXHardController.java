@@ -1,10 +1,7 @@
 package visuals.gameModes.hard;
 
 import controller.ScoreController;
-import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,6 +17,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
+import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 import model.MemoryObject;
 import visuals.cubeFactories.BoxMaker;
@@ -97,6 +95,8 @@ public class FXHardController extends FXAbstractGameController implements Initia
     @FXML ImageView practiseButton;
     @FXML Pane dynamicScorePane;
     @FXML AnchorPane wallOfeetu;
+    @FXML ImageView practiseTree;
+    @FXML Pane practisePane;
 
     private List<Label> personalLabels;
     private List<Label> worldLabels;
@@ -121,7 +121,7 @@ public class FXHardController extends FXAbstractGameController implements Initia
         hardEffects.setImagesAndComponents(
                 hardBackground, scorePane, hardGrid,
                 hardGridImage, hardR, hardL,
-                hardneo, play, returngame, practiseButton);
+                hardneo, play, returngame, practiseButton,practiseTree);
         Platform.runLater(() -> hardEffects.entrance());
 
         initScoreHeaders(personalScoreHeader, worldScoreHeader);
@@ -166,6 +166,7 @@ public class FXHardController extends FXAbstractGameController implements Initia
         returngame.setImage(ImageCache.getInstance().getGameBackGroundCache().get(15));
         returngame.setOpacity(0);
         practiseButton.setOpacity(0);
+        practiseTree.setOpacity(0);
         hardGrid.setVgap(120);
         hardGrid.setHgap(58);
 
@@ -278,15 +279,11 @@ public class FXHardController extends FXAbstractGameController implements Initia
 
         if (!practice) {
             gameController.killTimer();
-            practiseButton.setImage( new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-                    "/pictures/images/hardGame/crazyButton.png"))));
             practice = true;
             hideTimeBar();
             hardEffects.practiseColorsOn();
         } else {
             practice = false;
-            practiseButton.setImage( new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-                    "/pictures/images/hardGame/happyButton.png"))));
             hardEffects.practiseColorsOff();
             newGame();
             revealTimeBar();

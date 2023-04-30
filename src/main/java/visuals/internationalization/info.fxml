@@ -112,5 +112,6 @@
       <ImageView fx:id="stepImage" fitHeight="369.0" fitWidth="653.0" layoutX="225.0" AnchorPane.leftAnchor="290.0" AnchorPane.rightAnchor="372.0" AnchorPane.topAnchor="310.0">
       </ImageView>
       <Rectangle fx:id="glowingBorder" fill="TRANSPARENT" height="369.0" layoutX="290.0" layoutY="310.0" stroke="WHITE" strokeWidth="3" width="653.0" />
+      <AnchorPane id="infoBlack" fx:id="infoBlack" mouseTransparent="true" prefHeight="750.0" prefWidth="1250.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>
