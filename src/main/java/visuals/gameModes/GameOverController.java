@@ -105,11 +105,11 @@ public class GameOverController {
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO,
                         new KeyValue(colorAdjust.hueProperty(),0)),
-                new KeyFrame(Duration.seconds(1),
-                        new KeyValue(colorAdjust.hueProperty(),-0.5)),
                 new KeyFrame(Duration.seconds(2),
+                        new KeyValue(colorAdjust.hueProperty(),-0.5)),
+                new KeyFrame(Duration.seconds(4),
                         new KeyValue(colorAdjust.hueProperty(),0)),
-                new KeyFrame(Duration.seconds(3),
+                new KeyFrame(Duration.seconds(6),
                         new KeyValue(colorAdjust.hueProperty(),0.5))
         );
 

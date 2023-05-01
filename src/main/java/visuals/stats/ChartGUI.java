@@ -40,6 +40,7 @@ public class ChartGUI implements IChartGUI {
     private ModeType currentMode;
     public void init() {
 
+        System.out.println("tsarttiguiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
         Font.loadFont(Objects.requireNonNull(getClass().getClassLoader().getResource("fonts/VCR_OSD_MONO_1.001.ttf")).toExternalForm(), 14);
         stackedAreaChart = new AreaChart<>(new CategoryAxis(), new NumberAxis());
         currentMode = ModeType.EASY;

@@ -60,6 +60,7 @@ public class ScoreController implements IScoreController {
      */
     @Override
     public ArrayList<Score> getScoresRaw(ModeType difficulty) {
+
         WorldScores ws = WorldScores.getInstance();
         return switch (difficulty) {
             case EASY -> ws.getEasyScores().getScores();
