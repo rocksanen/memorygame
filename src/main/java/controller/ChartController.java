@@ -117,6 +117,7 @@ public class ChartController implements IChartController{
     }
 
 
+
     @Override
     public boolean isLoggedIn() {
         User user = User.getInstance();
