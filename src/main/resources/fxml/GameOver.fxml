@@ -80,7 +80,7 @@
             <Image url="@../pictures/images/scorepohja2.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="newgameNeo" fitHeight="115.5" fitWidth="333.0" layoutX="459.2" layoutY="397.0" opacity="0.79">
+      <ImageView fx:id="newgameNeo" fitHeight="115.5" fitWidth="333.0" layoutX="459.2" layoutY="397.0" opacity="0.78" visible="false">
          <image>
             <Image url="@../pictures/images/scorepohja2.png" />
          </image>
@@ -88,7 +88,7 @@
             <GaussianBlur radius="3.52" />
          </effect>
       </ImageView>
-      <ImageView fx:id="returnNeo" fitHeight="71.0" fitWidth="333.0" layoutX="460.0" layoutY="520.0" opacity="0.79">
+      <ImageView fx:id="returnNeo" fitHeight="71.0" fitWidth="333.0" layoutX="460.0" layoutY="520.0" opacity="0.79" visible="false">
          <image>
             <Image url="@../pictures/images/scorepohja2.png" />
          </image>

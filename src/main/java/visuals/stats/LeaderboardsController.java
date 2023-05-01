@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -78,6 +79,8 @@ public class LeaderboardsController {
 
     ChartGUI chartGUI = new ChartGUI();
 
+    private Boolean isChartOnline = true;
+
     ResourceBundle r = ResourceBundle.getBundle("Bundle", JavaFXInternationalization.getLocale());
 
     /**
@@ -115,7 +118,7 @@ public class LeaderboardsController {
         updateTable(ModeType.EASY, false);
         updateLabelInfo();
         currentMode = ModeType.EASY;
-        chart(currentMode);
+        chart();
 
         // hides a block above the invisible scrollbar
         rugsweeper.setImage(new Image(Objects.requireNonNull(getClass().getClassLoader().getResource("images/trophy.png")).toExternalForm()));
@@ -158,12 +161,18 @@ public class LeaderboardsController {
     }
 
 
-    private void chart(ModeType difficulty) {
+    private void chart() {
 
-        chartGUI.init();
-        chartPane.getChildren().add(chartGUI.stackedAreaChart());
-        chartGUI.stackedAreaChart().setMaxWidth(550);
-        chartGUI.stackedAreaChart().setMaxHeight(430);
+        try {
+            chartGUI.init();
+            chartPane.getChildren().add(chartGUI.stackedAreaChart());
+            chartGUI.stackedAreaChart().setMaxWidth(550);
+            chartGUI.stackedAreaChart().setMaxHeight(430);
+
+        }catch (Exception e) {
+            chartPane.setOpacity(0);
+            isChartOnline = false;
+        }
     }
 
 
@@ -306,8 +315,10 @@ public class LeaderboardsController {
      * @param userOnly if true, only shows user scores, else shows all scores
      */
     private void updateTable(ModeType mode, boolean userOnly) {
+
         ArrayList<Score> scoreList;
         if (userOnly) {
+
             scoreList = scoreController.getUserScoresRaw(mode);
             if (scoreList == null || scoreList.isEmpty()) {
                 scoreController.fetchScores(mode);
@@ -348,18 +359,21 @@ public class LeaderboardsController {
     @FXML
     public void setButtonEasy(ActionEvent event) {
 
-        chartReCreation();
+
         currentMode = ModeType.EASY;
         updateTable(ModeType.EASY, showUserOnly);
         updateLabelInfo();
 
-        if (!showUserOnly) {
-            chartGUI.updateWorldChartData(currentMode);
-        } else {
-            chartGUI.updateUserChartData(currentMode);
+        if(isChartOnline) {
+
+            chartReCreation();
+            if (!showUserOnly) {
+                chartGUI.updateWorldChartData(currentMode);
+            } else {
+                chartGUI.updateUserChartData(currentMode);
+            }
+
         }
-
-
     }
 
     /**
@@ -370,15 +384,19 @@ public class LeaderboardsController {
     @FXML
     public void setButtonMedium(ActionEvent event) {
 
-        chartReCreation();
+
         currentMode = ModeType.MEDIUM;
         updateTable(ModeType.MEDIUM, showUserOnly);
         updateLabelInfo();
 
-        if (!showUserOnly) {
-            chartGUI.updateWorldChartData(currentMode);
-        } else {
-            chartGUI.updateUserChartData(currentMode);
+        if(isChartOnline) {
+
+            chartReCreation();
+            if (!showUserOnly) {
+                chartGUI.updateWorldChartData(currentMode);
+            } else {
+                chartGUI.updateUserChartData(currentMode);
+            }
         }
     }
 
@@ -391,15 +409,18 @@ public class LeaderboardsController {
     @FXML
     public void setButtonHard(ActionEvent event) {
 
-        chartReCreation();
         currentMode = ModeType.HARD;
         updateTable(ModeType.HARD, showUserOnly);
         updateLabelInfo();
 
-        if (!showUserOnly) {
-            chartGUI.updateWorldChartData(currentMode);
-        } else {
-            chartGUI.updateUserChartData(currentMode);
+        if(isChartOnline) {
+
+            chartReCreation();
+            if (!showUserOnly) {
+                chartGUI.updateWorldChartData(currentMode);
+            } else {
+                chartGUI.updateUserChartData(currentMode);
+            }
         }
     }
 
@@ -412,16 +433,21 @@ public class LeaderboardsController {
     @FXML
     public void setButtonUserGlobal(ActionEvent event) {
 
-        chartReCreation();
         showUserOnly = !showUserOnly;
         //buttonUserGlobal.setText(showUserOnly ? "Global Scores" : "Personal Scores");
         buttonUserGlobal.setText(showUserOnly ? r.getString("globalScores"): r.getString("personalScores"));
         updateTable(currentMode, showUserOnly);
         updateLabelInfo();
-        if (!showUserOnly) {
-            chartGUI.updateWorldChartData(currentMode);
-        } else {
-            chartGUI.updateUserChartData(currentMode);
+
+        if(isChartOnline) {
+
+            chartReCreation();
+            if (!showUserOnly) {
+                chartGUI.updateWorldChartData(currentMode);
+            } else {
+                chartGUI.updateUserChartData(currentMode);
+            }
+
         }
     }
 
