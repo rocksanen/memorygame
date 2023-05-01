@@ -134,7 +134,6 @@ public class LeaderboardsController {
         );
 
         timeline.play();
-
     }
 
 

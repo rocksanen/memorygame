@@ -18,6 +18,17 @@ import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 import visuals.gameModes.FXIGameController;
 
+
+/**
+
+ The BoxMaker class represents a 3D box made up of six faces. Each face is a
+
+ rectangular 3D object that has a PhongMaterial with an image applied to it.
+
+ This class creates the box and sets the PhongMaterial for each face.
+
+ It also provides methods to toggle the isActive field and get the active state of the box.
+ */
 public class BoxMaker {
     private Box backFace, topFace, rightFace, leftFace, frontFace, bottomFace;
     private PhongMaterial material1,material2,material3,material4,material5,material6;
@@ -33,6 +44,21 @@ public class BoxMaker {
 
     private Boolean isActive = false;
 
+    /**
+     * Creates a new instance of BoxMaker. The 3D box will have a width and height
+     * that are passed as parameters. The findImage, backImage, and behindImage
+     * parameters are image files that will be used to set the PhongMaterial of
+     * each face. The gui parameter is an instance of the FXIGameController class.
+     * The id parameter is an int that identifies the box.
+     *
+     * @param width The width of the box.
+     * @param height The height of the box.
+     * @param findImage An image file for the face that is on top of the box.
+     * @param backImage An image file for the back and side faces of the box.
+     * @param behindImage An image file for the face that is on the bottom of the box.
+     * @param gui An instance of the FXIGameController class.
+     * @param id An int that identifies the box.
+     */
     public BoxMaker(double width, double height, Image findImage, Image backImage, Image behindImage, FXIGameController gui, int id){
 
         this.id = id;
@@ -43,12 +69,27 @@ public class BoxMaker {
         createFaces();
         createGroup();
         gui.addToCubeList(this);
-
-
-       // System.out.println("id: " + this.id + " gui " + this.gui + " width " + this.width + " findImage " + findImage.getWidth());
     }
+
+    /**
+     * Toggles the state of the isActive field.
+     */
     public void setActive() {isActive = !isActive;}
+
+    /**
+     * Returns the value of the isActive field.
+     *
+     * @return true if the isActive field is true, false otherwise.
+     */
     public Boolean getActiveState() {return isActive;}
+
+    /**
+     * Creates the PhongMaterial for each face.
+     *
+     * @param findImage An image file for the face that is on top of the box.
+     * @param backImage An image file for the back and side faces of the box.
+     * @param behindImage An image file for the face that is on the bottom of the box.
+     */
     private void createMaterials(Image findImage, Image backImage, Image behindImage){
 
         material1 = new PhongMaterial();
@@ -64,6 +105,11 @@ public class BoxMaker {
         material6 = new PhongMaterial();
         material6.setDiffuseMap(behindImage);
     }
+
+    /**
+
+     Creates the six faces of the box.
+     */
     private void createFaces() {
 
         rightFace = new Box(width, height, 0);

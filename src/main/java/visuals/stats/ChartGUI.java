@@ -84,11 +84,7 @@ public class ChartGUI implements IChartGUI {
             int month = Integer.parseInt(parts[1].substring(5, 7));
             String date = day + "/" + month;
             scoreSeries.getData().add(new XYChart.Data<>(date, points));
-            System.out.println(mode + ": " + " date: " + date + " points: " + points);
         }
-
-        System.out.println(" ");
-        System.out.println(" ");
 
         stackedAreaChart.getData().add(scoreSeries);
         results.clear();
@@ -110,10 +106,7 @@ public class ChartGUI implements IChartGUI {
             int month = Integer.parseInt(parts[1].substring(5, 7));
             String date = day + "/" + month;
             scoreSeries.getData().add(new XYChart.Data<>(date,points));
-            System.out.println(mode + ": " + " date: " + date + " points: " + points);
         }
-        System.out.println("");
-        System.out.println("");
 
         stackedAreaChart.getData().add(scoreSeries);
     }

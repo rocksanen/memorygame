@@ -30,6 +30,10 @@ import java.util.stream.Stream;
 import static model.ModeType.EASY;
 
 
+/**
+ * A controller class that manages the gameplay for the easy level in a memory match game.
+ * Extends {@link FXAbstractGameController} and implements {@link Initializable} and {@link FXIGameController}.
+ */
 public class FXEasyController extends FXAbstractGameController implements Initializable, FXIGameController {
 
     @FXML
@@ -95,13 +99,23 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     private EasyEffects easyEffects;
     private ScoreController scoreController;
 
-
+    /**
+     * Sets the score controller for the game.
+     *
+     * @param scoreController the score controller to set
+     */
     public void setController(ScoreController scoreController) {
 
         this.scoreController = scoreController;
     }
 
 
+    /**
+     * Initializes the controller with the specified URL and resource bundle.
+     *
+     * @param url the URL of the FXML file
+     * @param resourceBundle the resource bundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -115,12 +129,14 @@ public class FXEasyController extends FXAbstractGameController implements Initia
                 background, easyTop, easyBot, easyL, easy3Dgrid,
                 play, returngame, easyGridi, easyEnd, easyneo, scorePane);
         Platform.runLater(() -> easyEffects.entrance());
-
+        
         initScoreHeaders(personalScoreHeader, worldScoreHeader);
         this.personalLabels = List.of(p1, p2, p3, p4, p5);
         this.worldLabels = List.of(w1, w2, w3, w4, w5);
+
         setPersonalScore(EASY, personalLabels);
         setWorldScore(EASY, worldLabels);
+
         Stream.concat(personalLabels.stream(), worldLabels.stream())
                 .forEach(label -> {
                     label.setStyle("-fx-font: 14 \"Atari Classic\";");

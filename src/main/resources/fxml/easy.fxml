@@ -21,7 +21,7 @@
     <AnchorPane fx:id="gameRoot" prefHeight="750.0" prefWidth="1250.0">
 
         <children>
-            <ImageView id="background" fx:id="background" fitHeight="750.0" fitWidth="1257.5" layoutX="-4.0">
+            <ImageView id="background" fx:id="background" fitHeight="750.0" fitWidth="1257.5" layoutX="-4.0" mouseTransparent="true">
                 <image>
                     <Image url="@../pictures/images/easyGame/enviroment/background.png" />
                 </image>
@@ -64,7 +64,7 @@
                     </SepiaTone>
                 </effect>
             </ImageView>
-            <ImageView id="easyEnd" fx:id="easyEnd" fitHeight="75.0" fitWidth="123.0" layoutX="564.0" layoutY="337.0">
+            <ImageView id="easyEnd" fx:id="easyEnd" fitHeight="75.0" fitWidth="123.0" layoutX="564.0" layoutY="337.0" mouseTransparent="true">
                 <image>
                     <Image url="@../pictures/images/dance.gif" />
                 </image>
@@ -104,7 +104,7 @@
                     <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                 </padding>
             </Label>
-            <Pane id="score" fx:id="scorePane" layoutX="73.0" layoutY="82.0" prefHeight="585.0" prefWidth="232.0" AnchorPane.leftAnchor="73.0">
+            <Pane id="score" fx:id="scorePane" layoutX="73.0" layoutY="82.0" mouseTransparent="true" prefHeight="585.0" prefWidth="232.0" AnchorPane.leftAnchor="73.0">
                 <children>
                     <Pane id="worldscores" layoutY="21.0" prefHeight="241.0" prefWidth="184.0" style="-fx-background-color: black;">
                         <children>
@@ -272,7 +272,7 @@
                     <Point3D y="1.0" />
                 </rotationAxis>
             </Pane>
-         <Pane id="dynamicScorePane" fx:id="dynamicScorePane" layoutX="954.0" layoutY="22.0" prefHeight="50.0" prefWidth="283.0">
+         <Pane id="dynamicScorePane" fx:id="dynamicScorePane" layoutX="954.0" layoutY="22.0" mouseTransparent="true" prefHeight="50.0" prefWidth="283.0">
             <children>
                <Pane layoutX="-15.0" layoutY="-4.0" mouseTransparent="true" opacity="0.9" prefHeight="54.0" prefWidth="283.0" style="-fx-background-color: black;">
                   <effect>

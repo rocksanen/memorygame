@@ -366,7 +366,6 @@ public class Menu implements Initializable, IMenu {
         try {
 
             userController.logout();
-            labelLoggedIn.setText("Not logged in");
             name.clear();
             password.clear();
             Platform.runLater(() -> logOutPane.setVisible(false));

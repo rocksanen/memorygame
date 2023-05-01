@@ -218,7 +218,6 @@ public class Engine implements IEngine {
     @Override
     public void clearPair(ArrayList<MemoryObject> memoryList) {
 
-        synchronized (this) {
 
             CompletableFuture.runAsync(() -> {
                 try {
@@ -230,7 +229,6 @@ public class Engine implements IEngine {
                     e.printStackTrace();
                 }
             });
-        }
     }
 
     /**

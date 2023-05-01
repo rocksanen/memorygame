@@ -1,8 +1,11 @@
 package controller;
 
+import javafx.application.Platform;
 import model.*;
+import visuals.Navigaattori;
 import visuals.stats.IChartGUI;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -42,6 +45,12 @@ public class ChartController implements IChartController{
             try {
                 return f.parse(o1.split(" ")[1]).compareTo(f.parse(o2.split(" ")[1]));
             } catch (ParseException e) {
+
+                try {
+                    Navigaattori.getInstance().changeScene(MENU);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
                 throw new IllegalArgumentException(e);
             }
         });
@@ -106,13 +115,6 @@ public class ChartController implements IChartController{
         }
         return timeList;
     }
-
-
-
-//    @Override
-//    public ArrayList<Date> getUserTimestamp(ModeType difficulty) {
-//        return null;
-//    }
 
 
     @Override

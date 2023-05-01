@@ -120,6 +120,6 @@
             <Image url="@../images/trophy.png" />
          </image>
       </ImageView>
-      <AnchorPane id="leaderBlack" fx:id="leaderBlack" mouseTransparent="true" prefHeight="750.0" prefWidth="1250.0" style="-fx-background-color: black;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane id="leaderBlack" fx:id="leaderBlack" mouseTransparent="true" prefHeight="750.0" prefWidth="1250.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>
