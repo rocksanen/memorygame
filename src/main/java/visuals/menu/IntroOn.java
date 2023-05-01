@@ -1,18 +1,27 @@
 package visuals.menu;
 
-public record IntroOn(boolean on) {
+public class IntroOn {
 
-    private static final IntroOn instance = new IntroOn(true);
+    private static IntroOn instance;
+    private boolean on = true;
 
     public static IntroOn getInstance() {
+
+        if(instance == null) {
+
+            instance = new IntroOn();
+        }
+
         return instance;
     }
 
     public boolean getIntroOn() {
+
         return on;
     }
 
     public void setIntroOff() {
-        new IntroOn(false);
+        on = false;
     }
+
 }

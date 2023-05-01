@@ -2,6 +2,9 @@ package visuals.stats;
 
 import controller.ScoreController;
 import controller.UserController;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 import model.ModeType;
 import model.Score;
 import visuals.Navigaattori;
@@ -62,6 +66,7 @@ public class LeaderboardsController {
     public Pane chartPane;
     @FXML
     public ImageView rugsweeper;
+    @FXML AnchorPane leaderBlack;
 
     private ScoreController scoreController;
 
@@ -81,6 +86,8 @@ public class LeaderboardsController {
      */
     @FXML
     private void initialize() {
+
+        blackOff();
 
         Platform.runLater(() -> AudioMemory.getInstance().playSong(LEADERBOARD));
 
@@ -112,7 +119,23 @@ public class LeaderboardsController {
 
         // hides a block above the invisible scrollbar
         rugsweeper.setImage(new Image(Objects.requireNonNull(getClass().getClassLoader().getResource("images/trophy.png")).toExternalForm()));
+        blackOff();
     }
+
+
+
+    private void blackOff() {
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(1),
+                        new KeyValue(leaderBlack.opacityProperty(),1)),
+                new KeyFrame(Duration.seconds(2),
+                        new KeyValue(leaderBlack.opacityProperty(),0))
+        );
+
+        timeline.play();
+    }
+
 
 
     /**
@@ -303,6 +326,20 @@ public class LeaderboardsController {
         scoreTable.setItems(observableScoreList);
     }
 
+    private void chartReCreation() {
+
+
+        chartGUI = null;
+        chartGUI = new ChartGUI();
+        chartPane.getChildren().clear();
+        chartGUI.init();
+        chartPane.getChildren().add(chartGUI.stackedAreaChart());
+        chartGUI.stackedAreaChart().setMaxWidth(550);
+        chartGUI.stackedAreaChart().setMaxHeight(430);
+
+
+    }
+
     /**
      * sets the current mode to easy and updates the tableview
      *
@@ -310,6 +347,8 @@ public class LeaderboardsController {
      */
     @FXML
     public void setButtonEasy(ActionEvent event) {
+
+        chartReCreation();
         currentMode = ModeType.EASY;
         updateTable(ModeType.EASY, showUserOnly);
         updateLabelInfo();
@@ -330,6 +369,8 @@ public class LeaderboardsController {
      */
     @FXML
     public void setButtonMedium(ActionEvent event) {
+
+        chartReCreation();
         currentMode = ModeType.MEDIUM;
         updateTable(ModeType.MEDIUM, showUserOnly);
         updateLabelInfo();
@@ -349,6 +390,8 @@ public class LeaderboardsController {
      */
     @FXML
     public void setButtonHard(ActionEvent event) {
+
+        chartReCreation();
         currentMode = ModeType.HARD;
         updateTable(ModeType.HARD, showUserOnly);
         updateLabelInfo();
@@ -368,6 +411,8 @@ public class LeaderboardsController {
      */
     @FXML
     public void setButtonUserGlobal(ActionEvent event) {
+
+        chartReCreation();
         showUserOnly = !showUserOnly;
         //buttonUserGlobal.setText(showUserOnly ? "Global Scores" : "Personal Scores");
         buttonUserGlobal.setText(showUserOnly ? r.getString("globalScores"): r.getString("personalScores"));
@@ -388,12 +433,32 @@ public class LeaderboardsController {
      */
     @FXML
     public void setButtonReturn(ActionEvent event) {
-        Platform.runLater(() -> AudioMemory.getInstance().stopSong(LEADERBOARD));
-        try {
-            Navigaattori.getInstance().changeScene(ModeType.MENU);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        buttonReturn.setMouseTransparent(true);
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(leaderBlack.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(1),
+                        new KeyValue(leaderBlack.opacityProperty(),1.5))
+        );
+
+        timeline.play();
+
+        timeline.setOnFinished(actionEvent -> {
+
+            Platform.runLater(() -> AudioMemory.getInstance().stopSong(LEADERBOARD));
+            try {
+                Navigaattori.getInstance().changeScene(ModeType.MENU);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });
+
+
+
+
     }
 
     /**

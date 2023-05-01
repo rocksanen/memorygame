@@ -7,8 +7,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import model.ModeType;
-
-import java.io.File;
 import java.util.Objects;
 
 /**
@@ -22,6 +20,7 @@ public class AudioMemory {
     private final MediaPlayer hardPlayer;
     private final MediaPlayer menuRetoSong;
     private final MediaPlayer leaderBoardPlayer;
+    private final MediaPlayer infoPlayer;
     private MediaPlayer currentSong;
 
     /**
@@ -47,6 +46,8 @@ public class AudioMemory {
         Media menuMedia = new Media(Objects.requireNonNull(getClass().getResource(menuRetro)).toString());
         String leaderBoardSong = "/audioFiles/leaderboardmusic.mp3";
         Media leaderBoardMedia = new Media(Objects.requireNonNull(getClass().getResource(leaderBoardSong)).toString());
+        String infoSong = "/audioFiles/infomusic.mp3";
+        Media infoMedia = new Media(Objects.requireNonNull(getClass().getResource(infoSong)).toString());
 
         easyPlayer = new MediaPlayer(easyMedia);
         easyPlayer.setCycleCount(10);
@@ -58,6 +59,8 @@ public class AudioMemory {
         menuRetoSong.setCycleCount(10);
         leaderBoardPlayer = new MediaPlayer(leaderBoardMedia);
         leaderBoardPlayer.setCycleCount(10);
+        infoPlayer = new MediaPlayer(infoMedia);
+        infoPlayer.setCycleCount(10);
         isMuted = false;
     }
 
@@ -86,6 +89,7 @@ public class AudioMemory {
             case MEDIUM -> playTheSong(mediumPlayer);
             case HARD -> playTheSong(hardPlayer);
             case LEADERBOARD -> playTheSong(leaderBoardPlayer);
+            case INFO -> playTheSong(infoPlayer);
         }
 
     }
@@ -109,6 +113,7 @@ public class AudioMemory {
             case MEDIUM -> stopTheSong(mediumPlayer);
             case HARD -> stopTheSong(hardPlayer);
             case LEADERBOARD -> stopTheSong(leaderBoardPlayer);
+            case INFO -> stopTheSong(infoPlayer);
         }
 
         if (currentMode == type) {

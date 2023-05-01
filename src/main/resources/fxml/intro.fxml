@@ -181,7 +181,7 @@
                      </effect>
                   </ImageView>
                       <TextField layoutX="52.0" layoutY="193.0" opacity="0.6" prefHeight="25.0" prefWidth="158.0" />
-                  <Pane id="login" layoutX="73.0" layoutY="233.0" prefHeight="41.0" prefWidth="115.0">
+                  <Pane id="login" layoutX="71.5" layoutY="233.0" prefHeight="41.0" prefWidth="115.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -201,7 +201,7 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Pane id="register" layoutX="73.0" layoutY="288.0" prefHeight="41.0" prefWidth="115.0">
+                  <Pane id="register" layoutX="71.5" layoutY="288.0" prefHeight="41.0" prefWidth="115.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

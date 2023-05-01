@@ -4,6 +4,9 @@ import controller.IScoreController;
 import controller.IUserController;
 import controller.ScoreController;
 import controller.UserController;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,6 +19,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 import model.ModeType;
 import visuals.Navigaattori;
 import visuals.audio.AudioMemory;
@@ -132,6 +136,9 @@ public class Menu implements Initializable, IMenu {
     @FXML Pane audioPane;
     @FXML Pane userPane;
     @FXML AnchorPane wallOfeetu;
+    @FXML AnchorPane menuBlack;
+
+    private static boolean returnFromGame = true;
 
     private static String user;
 
@@ -153,7 +160,25 @@ public class Menu implements Initializable, IMenu {
         Platform.runLater(() -> menuLayoutEffects.moveJungle(jungle));
         Platform.runLater(() -> menuLayoutEffects.moveRedTree(redtree));
 
+        if(!returnFromGame) {
+           menuBlack.setOpacity(1);
+           menuBlackOff();
+        }
         setWallOfeetuOff();
+    }
+
+    private void menuBlackOff() {
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(0),
+                        new KeyValue(menuBlack.opacityProperty(),1)),
+                new KeyFrame(Duration.seconds(0.5),
+                        new KeyValue(menuBlack.opacityProperty(),0))
+        );
+
+        timeline.play();
+
+
     }
 
     private void initGoods() {
@@ -189,6 +214,7 @@ public class Menu implements Initializable, IMenu {
     @FXML
     public void easyStartScreenPlay() {
 
+        returnFromGame = true;
         prepareToPlay();
         Platform.runLater(() -> zoomInEffects.gameZoomIn(803, 10, -145.5, 14.5, EASY));
     }
@@ -196,6 +222,7 @@ public class Menu implements Initializable, IMenu {
     @FXML
     public void mediumStartScreenPlay() {
 
+        returnFromGame = true;
         prepareToPlay();
         Platform.runLater(() -> zoomInEffects.gameZoomIn(1071, 10, 117.2, -144.92, MEDIUM));
     }
@@ -203,6 +230,7 @@ public class Menu implements Initializable, IMenu {
     @FXML
     public void hardStartScreenPlay() {
 
+        returnFromGame = true;
         prepareToPlay();
         Platform.runLater(() -> zoomInEffects.gameZoomIn(1002, 10, 384, 14, HARD));
     }
@@ -338,7 +366,6 @@ public class Menu implements Initializable, IMenu {
         try {
 
             userController.logout();
-            labelLoggedIn.setText("Not logged in");
             name.clear();
             password.clear();
             Platform.runLater(() -> logOutPane.setVisible(false));
@@ -354,23 +381,61 @@ public class Menu implements Initializable, IMenu {
     public void setButtonLeaderboards() {
 
         BurningSun.getInstance().savePosition();
-        Platform.runLater(() -> AudioMemory.getInstance().stopSong(MENU));
-        try {
-            Navigaattori.getInstance().changeScene(LEADERBOARD);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        leaderPane.setMouseTransparent(true);
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(0),
+                        new KeyValue(menuBlack.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(0.5),
+                        new KeyValue(menuBlack.opacityProperty(),1))
+        );
+
+        timeline.play();
+
+        timeline.setOnFinished(actionEvent -> {
+
+            returnFromGame = false;
+            Platform.runLater(() -> AudioMemory.getInstance().stopSong(MENU));
+            try {
+                Navigaattori.getInstance().changeScene(LEADERBOARD);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        });
+
     }
 
     @FXML
     public void setInfoButton() {
 
         BurningSun.getInstance().savePosition();
-        try {
-            Navigaattori.getInstance().changeScene(ModeType.INFO);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        info.setMouseTransparent(true);
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(0),
+                        new KeyValue(menuBlack.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(0.5),
+                        new KeyValue(menuBlack.opacityProperty(),1))
+        );
+
+        timeline.play();
+
+        timeline.setOnFinished(actionEvent -> {
+
+            returnFromGame = false;
+
+            Platform.runLater(() -> AudioMemory.getInstance().stopSong(MENU));
+            try {
+                Navigaattori.getInstance().changeScene(ModeType.INFO);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });
+
+
     }
 
     @FXML
