@@ -150,10 +150,6 @@ public class HardEffects extends AbstractGameEffects implements IGameEffects{
         treeButtonColors.setHue(-1.0);
         treeButtonColors.setSaturation(1);
 
-        ColorAdjust neoColor = new ColorAdjust();
-        neoColor.setHue(0);
-
-        hardneo.setEffect(neoColor);
         practiseTree.setEffect(treeButtonColors);
         hardBackground.setEffect(colorAdjust);
 
@@ -161,12 +157,10 @@ public class HardEffects extends AbstractGameEffects implements IGameEffects{
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO,
                         new KeyValue(colorAdjust.hueProperty(),0),
-                        new KeyValue(treeButtonColors.hueProperty(),treeButtonColors.getHue()),
-                        new KeyValue(neoColor.hueProperty(),0)),
+                        new KeyValue(treeButtonColors.hueProperty(),treeButtonColors.getHue())),
                 new KeyFrame(Duration.seconds(1),
                         new KeyValue(colorAdjust.hueProperty(),0.37),
-                        new KeyValue(treeButtonColors.hueProperty(),0),
-                        new KeyValue(neoColor.hueProperty(),-0.58))
+                        new KeyValue(treeButtonColors.hueProperty(),0))
         );
 
         timeline.play();
@@ -188,10 +182,6 @@ public class HardEffects extends AbstractGameEffects implements IGameEffects{
         treeButtonColors.setHue(0);
         treeButtonColors.setSaturation(1);
 
-        ColorAdjust neoColor = new ColorAdjust();
-        neoColor.setHue(-0.58);
-
-        hardneo.setEffect(neoColor);
         practiseTree.setEffect(treeButtonColors);
         hardBackground.setEffect(colorAdjust);
 
@@ -199,12 +189,10 @@ public class HardEffects extends AbstractGameEffects implements IGameEffects{
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO,
                         new KeyValue(colorAdjust.hueProperty(),0.37),
-                        new KeyValue(treeButtonColors.hueProperty(),treeButtonColors.getHue()),
-                        new KeyValue(neoColor.hueProperty(),neoColor.getHue())),
+                        new KeyValue(treeButtonColors.hueProperty(),treeButtonColors.getHue())),
                 new KeyFrame(Duration.seconds(1),
                         new KeyValue(colorAdjust.hueProperty(),0),
-                        new KeyValue(treeButtonColors.hueProperty(),-1.0),
-                        new KeyValue(neoColor.hueProperty(),0))
+                        new KeyValue(treeButtonColors.hueProperty(),-1.0))
         );
 
         timeline.play();

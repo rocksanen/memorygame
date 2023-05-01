@@ -129,7 +129,7 @@ public class LeaderboardsController {
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(1),
                         new KeyValue(leaderBlack.opacityProperty(),1)),
-                new KeyFrame(Duration.seconds(1.5),
+                new KeyFrame(Duration.seconds(2),
                         new KeyValue(leaderBlack.opacityProperty(),0))
         );
 
@@ -327,6 +327,20 @@ public class LeaderboardsController {
         scoreTable.setItems(observableScoreList);
     }
 
+    private void chartReCreation() {
+
+
+        chartGUI = null;
+        chartGUI = new ChartGUI();
+        chartPane.getChildren().clear();
+        chartGUI.init();
+        chartPane.getChildren().add(chartGUI.stackedAreaChart());
+        chartGUI.stackedAreaChart().setMaxWidth(550);
+        chartGUI.stackedAreaChart().setMaxHeight(430);
+
+
+    }
+
     /**
      * sets the current mode to easy and updates the tableview
      *
@@ -334,6 +348,8 @@ public class LeaderboardsController {
      */
     @FXML
     public void setButtonEasy(ActionEvent event) {
+
+        chartReCreation();
         currentMode = ModeType.EASY;
         updateTable(ModeType.EASY, showUserOnly);
         updateLabelInfo();
@@ -354,6 +370,8 @@ public class LeaderboardsController {
      */
     @FXML
     public void setButtonMedium(ActionEvent event) {
+
+        chartReCreation();
         currentMode = ModeType.MEDIUM;
         updateTable(ModeType.MEDIUM, showUserOnly);
         updateLabelInfo();
@@ -373,6 +391,8 @@ public class LeaderboardsController {
      */
     @FXML
     public void setButtonHard(ActionEvent event) {
+
+        chartReCreation();
         currentMode = ModeType.HARD;
         updateTable(ModeType.HARD, showUserOnly);
         updateLabelInfo();
@@ -392,6 +412,8 @@ public class LeaderboardsController {
      */
     @FXML
     public void setButtonUserGlobal(ActionEvent event) {
+
+        chartReCreation();
         showUserOnly = !showUserOnly;
         //buttonUserGlobal.setText(showUserOnly ? "Global Scores" : "Personal Scores");
         buttonUserGlobal.setText(showUserOnly ? r.getString("globalScores"): r.getString("personalScores"));
@@ -418,8 +440,8 @@ public class LeaderboardsController {
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO,
                         new KeyValue(leaderBlack.opacityProperty(),0)),
-                new KeyFrame(Duration.seconds(0.5),
-                        new KeyValue(leaderBlack.opacityProperty(),1))
+                new KeyFrame(Duration.seconds(1),
+                        new KeyValue(leaderBlack.opacityProperty(),1.5))
         );
 
         timeline.play();

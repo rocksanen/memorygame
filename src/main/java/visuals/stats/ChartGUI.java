@@ -70,7 +70,7 @@ public class ChartGUI implements IChartGUI {
     public void updateWorldChartData(ModeType mode) {
 
         stackedAreaChart.getData().clear();
-
+        stackedAreaChart.getData().clear();
         ArrayList<String> results = chartController.getWorldScores(mode);
         XYChart.Series<String, Number> scoreSeries = new XYChart.Series<>();
 
@@ -86,11 +86,14 @@ public class ChartGUI implements IChartGUI {
             scoreSeries.getData().add(new XYChart.Data<>(date, points));
             System.out.println(mode + ": " + " date: " + date + " points: " + points);
         }
+
         System.out.println(" ");
         System.out.println(" ");
 
         stackedAreaChart.getData().add(scoreSeries);
         results.clear();
+
+
     }
 
     public void updateUserChartData(ModeType mode) {

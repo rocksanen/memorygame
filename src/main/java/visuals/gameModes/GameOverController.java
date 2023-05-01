@@ -99,6 +99,7 @@ public class GameOverController {
         ColorAdjust colorAdjust = new ColorAdjust();
         colorAdjust.setHue(0);
         colorAdjust.setSaturation(-0.2);
+        colorAdjust.setContrast(0.1);
         neonBorder.setEffect(colorAdjust);
 
         Timeline timeline = new Timeline(
