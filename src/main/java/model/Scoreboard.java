@@ -66,16 +66,16 @@ public class Scoreboard {
             return;
         }
         Leaderboard lb = new Leaderboard(a, time, points, difficulty, new Date());
-//        scores.add(new Score(lb));
-//
-//        // sort scores by points (desc) and then time (asc)
-//        scores.sort((s1, s2) -> {
-//            if (s1.getPoints() == s2.getPoints()) {
-//                return s1.getTime().compareTo(s2.getTime());
-//            } else {
-//                return s2.getPoints() - s1.getPoints();
-//            }
-//        }); // 🤖
+        scores.add(new Score(lb));
+
+        // sort scores by points (desc) and then time (asc)
+        scores.sort((s1, s2) -> {
+            if (s1.getPoints() == s2.getPoints()) {
+                return s1.getTime().compareTo(s2.getTime());
+            } else {
+                return s2.getPoints() - s1.getPoints();
+            }
+        }); // 🤖
 
         if (saveToRemote) {
             // save score to database
