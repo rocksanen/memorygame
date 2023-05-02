@@ -3,7 +3,6 @@ package visuals.gameModes;
 import controller.IGameController;
 import javafx.animation.*;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
@@ -13,9 +12,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
-import model.ModeType;
-import visuals.Navigaattori;
-import visuals.effects.gameEffects.EasyEffects;
 import visuals.internationalization.JavaFXInternationalization;
 
 import java.util.Arrays;
@@ -175,11 +171,7 @@ public class GameOverController {
         gaussianBlur.setRadius(0);
         gameRoot.setEffect(gaussianBlur);
 
-        fadeTransition.setOnFinished(actionEvent -> {
-
-            fxigameController.returnMenu();
-
-        });
+        fadeTransition.setOnFinished(actionEvent -> fxigameController.returnMenu());
     }
 
     /**

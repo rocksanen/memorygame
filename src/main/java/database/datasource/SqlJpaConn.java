@@ -2,7 +2,6 @@ package database.datasource;
 
 import jakarta.persistence.*;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -60,7 +59,7 @@ public class SqlJpaConn {
     }
 
     private static Map<String, Object> configOverider() {
-        Map<String, Object> configOverrides = new HashMap<String, Object>();
+        Map<String, Object> configOverrides = new HashMap<>();
 
         configOverrides.put("jakarta.persistence.jdbc.url", System.getenv("MEMORYMAZE_DB_URL"));
         configOverrides.put("jakarta.persistence.jdbc.user", System.getenv("MEMORYMAZE_DB_USERNAME"));

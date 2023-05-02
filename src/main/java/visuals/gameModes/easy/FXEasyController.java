@@ -1,6 +1,5 @@
 package visuals.gameModes.easy;
 
-import controller.ScoreController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -97,17 +96,6 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     private List<Label> worldLabels;
     private ICubeFactory easyCubeFactory;
     private EasyEffects easyEffects;
-    private ScoreController scoreController;
-
-    /**
-     * Sets the score controller for the game.
-     *
-     * @param scoreController the score controller to set
-     */
-    public void setController(ScoreController scoreController) {
-
-        this.scoreController = scoreController;
-    }
 
 
     /**
@@ -138,19 +126,12 @@ public class FXEasyController extends FXAbstractGameController implements Initia
         setWorldScore(EASY, worldLabels);
 
         Stream.concat(personalLabels.stream(), worldLabels.stream())
-                .forEach(label -> {
-                    label.setStyle("-fx-font: 14 \"Atari Classic\";");
-                });
+                .forEach(label -> label.setStyle("-fx-font: 14 \"Atari Classic\";"));
 
         dynamicHeader.setFont(Font.font("Atari Classic", 26));
         dynamicHeader.setText("SCORE");
         dynamicScore.setFont(Font.font("Atari Classic", 26));
         dynamicScore.setText("0000");
-    }
-
-    @Override
-    public void setCamera() {
-        super.setCamera();
     }
 
     @Override
@@ -205,7 +186,7 @@ public class FXEasyController extends FXAbstractGameController implements Initia
 
     // From gamecontroller
     @Override
-    public void setCubesToGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
+    public void setCubesToGame(ArrayList<MemoryObject> memoryObjects) {
 
         easyCubeFactory.createCubics(easyGridi, memoryObjects);
     }

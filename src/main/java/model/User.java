@@ -100,7 +100,7 @@ public class User {
         }
 
         // try to encrypt the password
-        String hashedPassword = null;
+        String hashedPassword;
         try {
             hashedPassword = Locksmith.hashPassword(password);
         } catch (Exception e) {
@@ -154,7 +154,7 @@ public class User {
         }
 
         // try to encrypt the password
-        String hashedPassword = null;
+        String hashedPassword;
         try {
             hashedPassword = Locksmith.hashPassword(password);
         } catch (Exception e) {
@@ -197,16 +197,13 @@ public class User {
 
     /**
      * Logs out the user and resets the instance variables
-     *
-     * @return true
      */
-    public boolean logout() {
+    public void logout() {
         this.username = "tony the tiger";
         this.userId = null;
         this.easyScores = null;
         this.mediumScores = null;
         this.hardScores = null;
-        return true;
     }
 
     /**
@@ -300,7 +297,8 @@ public class User {
         try {
             boolean deleted = accountdao.deleteAccount(instance.userId);
             if (deleted) {
-                return logout();
+                logout();
+                return true;
             }
 
         } catch (Exception e) {

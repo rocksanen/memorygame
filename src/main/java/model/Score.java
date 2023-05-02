@@ -2,7 +2,6 @@ package model;
 
 import database.entity.Leaderboard;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -41,7 +40,7 @@ public class Score {
     /**
      * Grade of the score
      */
-    private String grade;
+    private final String grade;
 
     /**
      * Points of the score

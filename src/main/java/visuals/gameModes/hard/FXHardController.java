@@ -6,18 +6,12 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.effect.Bloom;
-import javafx.scene.effect.GaussianBlur;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
-import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 import model.MemoryObject;
 import visuals.cubeFactories.BoxMaker;
@@ -28,12 +22,10 @@ import visuals.gameModes.FXAbstractGameController;
 import visuals.gameModes.FXIGameController;
 import visuals.imageServers.ImageCache;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
@@ -103,13 +95,11 @@ public class FXHardController extends FXAbstractGameController implements Initia
 
     private ICubeFactory hardCubeFactory;
     private HardEffects hardEffects;
-    private ScoreController scoreController;
 
     private boolean practice = false;
 
     public void setController(ScoreController scoreController) {
 
-        this.scoreController = scoreController;
     }
 
     @Override
@@ -130,9 +120,7 @@ public class FXHardController extends FXAbstractGameController implements Initia
         setPersonalScore(HARD, personalLabels);
         setWorldScore(HARD, worldLabels);
         Stream.concat(personalLabels.stream(), worldLabels.stream())
-                .forEach(label -> {
-                    label.setStyle("-fx-font: 14 \"Atari Classic\";");
-                });
+                .forEach(label -> label.setStyle("-fx-font: 14 \"Atari Classic\";"));
 
         dynamicHeader.setFont(Font.font("Atari Classic", 26));
         dynamicHeader.setText("SCORE");
@@ -210,7 +198,7 @@ public class FXHardController extends FXAbstractGameController implements Initia
     }
 
     @Override
-    public void setCubesToGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
+    public void setCubesToGame(ArrayList<MemoryObject> memoryObjects) {
 
         hardCubeFactory.createCubics(hardGrid, memoryObjects);
     }

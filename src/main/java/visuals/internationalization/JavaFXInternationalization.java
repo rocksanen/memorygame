@@ -8,8 +8,7 @@ public class JavaFXInternationalization {
 
     public static ResourceBundle internationalizationLoaderProperties() {
 
-        ResourceBundle bundle = ResourceBundle.getBundle("Bundle", locale);
-        return bundle;
+        return ResourceBundle.getBundle("Bundle", locale);
     }
 
     public static void setLocale(Locale newLocale){

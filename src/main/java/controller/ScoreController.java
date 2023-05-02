@@ -39,7 +39,7 @@ public class ScoreController implements IScoreController {
      * returns the scores for the given difficulty formatted for gui
      *
      * @param difficulty the difficulty to get scores for
-     * @return
+     * @return the scores
      */
     @Override
     public ArrayList<String> getTopFiveScores(ModeType difficulty) {
@@ -127,7 +127,6 @@ public class ScoreController implements IScoreController {
         User.getInstance().fetchScores(MEDIUM);
         User.getInstance().fetchScores(HARD);
 
-        return;
     }
 
     /**
@@ -141,7 +140,7 @@ public class ScoreController implements IScoreController {
         User u = User.getInstance();
         if (!u.isLoggedIn()) {
             // return empty array
-            return formatScores(new ArrayList<Score>());
+            return formatScores(new ArrayList<>());
         }
         return switch (difficulty) {
             case EASY -> formatScores(u.getScores(EASY).getScores());

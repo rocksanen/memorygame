@@ -1,7 +1,6 @@
 
 
 import controller.ScoreController;
-import javafx.application.Preloader;
 import javafx.scene.text.Font;
 import model.ModeType;
 import visuals.Navigaattori;
@@ -19,7 +18,7 @@ public class Start {
     /**
      * main method, loads the images, fonts, and scores. lastly starts the application.
      */
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
 
         ImageCache.getInstance().addToMenuCache();
         ImageCache.getInstance().addToEasyCache();

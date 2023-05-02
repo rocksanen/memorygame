@@ -1,19 +1,11 @@
 package model;
 
-import controller.GameController;
 import controller.IGameController;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import visuals.gameModes.FXAbstractGameController;
-import visuals.gameModes.FXIGameController;
-import visuals.gameModes.easy.FXEasyController;
 import visuals.menu.IMenu;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 
@@ -22,13 +14,11 @@ import static org.junit.jupiter.api.Assertions.*;
 public class EngineTest {
 
     private Engine e;
-    IMenu ui;
-    private IGameController controller; // too complicated 🐻
 
 
     @BeforeEach
     void setUp() {
-        this.e = new Engine(ModeType.EASY, controller);
+        this.e = new Engine(ModeType.EASY, null);
     }
 
     @Test

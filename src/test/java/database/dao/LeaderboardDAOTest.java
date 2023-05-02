@@ -3,7 +3,6 @@ package database.dao;
 import database.entity.Account;
 import database.entity.Leaderboard;
 import model.ModeType;
-import model.Score;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
@@ -16,13 +15,13 @@ class LeaderboardDAOTest {
     private static LeaderboardDAO leaderboardDAO;
 
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp() {
         leaderboardDAO = new LeaderboardDAO();
 
     }
 
     @AfterEach
-    void tearDown() throws Exception {
+    void tearDown() {
         leaderboardDAO = null;
     }
 
@@ -60,7 +59,7 @@ class LeaderboardDAOTest {
     void getAccountScores() {
         LeaderboardDAO dao = new LeaderboardDAO();
         ArrayList<Leaderboard> scores = dao.getAccountScores(1L);
-        assertTrue(scores instanceof ArrayList);
+        assertTrue(scores != null);
 
     }
 
@@ -81,8 +80,8 @@ class LeaderboardDAOTest {
     void readWorldScores() {
         LeaderboardDAO dao = new LeaderboardDAO();
         ArrayList<Leaderboard> scores = dao.readWorldScores(ModeType.EASY);
-        assertTrue(scores instanceof ArrayList<Leaderboard>);
-        assertTrue(scores.get(0) instanceof Leaderboard);
+        assertNotNull(scores);
+        assertNotNull(scores.get(0));
     }
 
     @Test

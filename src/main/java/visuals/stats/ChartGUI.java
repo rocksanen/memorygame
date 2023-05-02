@@ -36,15 +36,13 @@ public class ChartGUI implements IChartGUI {
     AreaChart<String, Number> stackedAreaChart;
     private final IChartController chartController = new ChartController(this);
 
-    ResourceBundle r = ResourceBundle.getBundle("Bundle", JavaFXInternationalization.getLocale());
-
-    private ModeType currentMode;
+    final ResourceBundle r = ResourceBundle.getBundle("Bundle", JavaFXInternationalization.getLocale());
 
     public void init() {
 
         Font.loadFont(Objects.requireNonNull(getClass().getClassLoader().getResource("fonts/VCR_OSD_MONO_1.001.ttf")).toExternalForm(), 14);
         stackedAreaChart = new AreaChart<>(new CategoryAxis(), new NumberAxis());
-        currentMode = ModeType.EASY;
+        ModeType currentMode = ModeType.EASY;
         stackedAreaChart.getXAxis().setStyle("-fx-tick-label-fill: WHITE; -fx-font-size: 16px;-fx-font-family: 'VCR OSD Mono'");
         stackedAreaChart.getYAxis().setStyle("-fx-tick-label-fill: WHITE; -fx-font-size: 16px;-fx-font-family: 'VCR OSD Mono'");
         stackedAreaChart.setStyle("-fx-background-color: transparent;");

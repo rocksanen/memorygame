@@ -9,7 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -160,27 +159,13 @@ public class InternationalizationController {
     private void updateInfo() {
         stepText.setText(bundle.getString("stepText"));
         switch (currentStep) {
-            case 0:
-                labelInfo.setText(bundle.getString("stepOne"));
-                break;
-            case 1:
-                labelInfo.setText(bundle.getString("stepTwo"));
-                break;
-            case 2:
-                labelInfo.setText(bundle.getString("stepThree"));
-                break;
-            case 3:
-                labelInfo.setText(bundle.getString("stepFour"));
-                break;
-            case 4:
-                labelInfo.setText(bundle.getString("stepFive"));
-                break;
-            case 5:
-                labelInfo.setText(bundle.getString("stepSix"));
-                break;
-            default:
-                labelInfo.setText("");
-                break;
+            case 0 -> labelInfo.setText(bundle.getString("stepOne"));
+            case 1 -> labelInfo.setText(bundle.getString("stepTwo"));
+            case 2 -> labelInfo.setText(bundle.getString("stepThree"));
+            case 3 -> labelInfo.setText(bundle.getString("stepFour"));
+            case 4 -> labelInfo.setText(bundle.getString("stepFive"));
+            case 5 -> labelInfo.setText(bundle.getString("stepSix"));
+            default -> labelInfo.setText("");
         }
 
         stepImage.setImage(stepImages.get(currentStep));

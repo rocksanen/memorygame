@@ -3,10 +3,8 @@ package visuals.effects.gameEffects;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.fxml.FXML;
 import javafx.scene.effect.Bloom;
 import javafx.scene.effect.ColorAdjust;
-import javafx.scene.effect.Effect;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -30,7 +28,7 @@ public class HardEffects extends AbstractGameEffects implements IGameEffects{
     private ImageView practiceButton;
     private ImageView practiseTree;
 
-    private FXIGameController gameController;
+    private final FXIGameController gameController;
 
     public HardEffects(FXIGameController gameController) {
 

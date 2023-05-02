@@ -1,7 +1,6 @@
 package controller;
 
 import model.User;
-import visuals.menu.IMenu;
 
 /**
  * The controller for the user class in model

@@ -26,7 +26,7 @@ public class AudioMemory {
     /**
      * boolean toggle for playing audio
      */
-    public boolean isMuted = false;
+    public boolean isMuted;
 
     private ModeType currentMode;
 

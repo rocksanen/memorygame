@@ -5,8 +5,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -27,7 +25,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Timer;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
@@ -102,12 +99,9 @@ public class FXMediumController extends FXAbstractGameController implements Init
     private ICubeFactory mediumCubeFactory;
     private MediumEffects mediumEffects;
 
-    private ScoreController scoreController;
-
 
     public void setController(ScoreController scoreController) {
 
-        this.scoreController = scoreController;
     }
 
     @Override
@@ -130,9 +124,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
         setPersonalScore(ModeType.MEDIUM, personalLabels);
         setWorldScore(ModeType.MEDIUM, worldLabels);
         Stream.concat(personalLabels.stream(), worldLabels.stream())
-                .forEach(label -> {
-                    label.setStyle("-fx-font: 14 \"Atari Classic\";");
-                });
+                .forEach(label -> label.setStyle("-fx-font: 14 \"Atari Classic\";"));
 
         dynamicHeader.setFont(Font.font("Atari Classic", 26));
         dynamicHeader.setText("SCORE");
@@ -198,7 +190,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
     }
 
     @Override
-    public void setCubesToGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
+    public void setCubesToGame(ArrayList<MemoryObject> memoryObjects) {
 
         mediumCubeFactory.createCubics(mediumGrid, memoryObjects);
 

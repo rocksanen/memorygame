@@ -2,7 +2,6 @@ package visuals.imageServers;
 
 import javafx.scene.image.Image;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -48,9 +47,8 @@ public class ImageCache {
     /**
      * Loads images used in the easy game mode to memory.
      *
-     * @throws FileNotFoundException if the file is not found
      */
-    public void addToEasyCache() throws FileNotFoundException {
+    public void addToEasyCache() {
 
         Image nalle = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/nalle.png")));
         Image panda = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/panda.png")));
@@ -78,9 +76,8 @@ public class ImageCache {
     /**
      * Loads images used in the medium game mode to memory.
      *
-     * @throws FileNotFoundException if the file is not found
      */
-    public void addToMediumCache() throws FileNotFoundException {
+    public void addToMediumCache() {
 
         Image goldDragon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/goldDragonHard.png")));
         Image greenDragon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/greenDragonHard.png")));
@@ -109,9 +106,8 @@ public class ImageCache {
     /**
      * Loads images used in the hard game mode to memory.
      *
-     * @throws FileNotFoundException if the file is not found
      */
-    public void addToHardCache() throws FileNotFoundException {
+    public void addToHardCache() {
 
         Image goldDragon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/goldDragonHard.png")));
         Image greenDragon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/greenDragonHard.png")));
@@ -147,9 +143,8 @@ public class ImageCache {
     /**
      * Loads images used in the background of every game mode
      *
-     * @throws FileNotFoundException if the file is not found
      */
-    public void addToGameBackGroundCache() throws FileNotFoundException {
+    public void addToGameBackGroundCache() {
 
         Image easyBack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/easyGame/enviroment/background.png")));
         Image mediumBack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/mediumGame/enviroment/tigru.jpg")));
@@ -209,9 +204,8 @@ public class ImageCache {
     /**
      * Loads images for the main menu
      *
-     * @throws FileNotFoundException if the image is not found
      */
-    public void addToMenuCache() throws FileNotFoundException {
+    public void addToMenuCache() {
 
         Image pergament = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/menu/testaperga7.jpg")));
         Image miniEasy = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/menu/background.png")));

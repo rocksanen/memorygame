@@ -1,11 +1,9 @@
 package database.dao;
 
 import database.datasource.SqlJpaConn;
-import database.entity.Account;
 import database.entity.Leaderboard;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
-import model.Locksmith;
 import model.ModeType;
 
 import java.util.ArrayList;
@@ -134,12 +132,11 @@ public class LeaderboardDAO implements ILeaderboardDAO {
      * deletes all scores of select account
      *
      * @param accountid account id
-     * @return true if successful
      */
     @Override
-    public boolean deleteAllScores(Long accountid) {
+    public void deleteAllScores(Long accountid) {
         if (SqlJpaConn.getInstance() == null) {
-            return false;
+            return;
         }
 
         EntityManager em = SqlJpaConn.getInstance();
@@ -149,10 +146,8 @@ public class LeaderboardDAO implements ILeaderboardDAO {
             query.setParameter("accountid", accountid);
             query.executeUpdate();
             em.getTransaction().commit();
-            return true;
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
 
         }
     }

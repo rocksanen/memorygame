@@ -2,11 +2,9 @@ package model;
 
 import database.dao.ILeaderboardDAO;
 import database.dao.LeaderboardDAO;
-import database.datasource.SqlJpaConn;
 import database.entity.Account;
 import database.entity.Leaderboard;
 
-import java.sql.SQLData;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

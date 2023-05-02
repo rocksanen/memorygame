@@ -16,38 +16,18 @@ public class Engine implements IEngine {
     /**
      * The Storage.
      */
-    ArrayList<Integer> storage = new ArrayList<>();
+    final ArrayList<Integer> storage = new ArrayList<>();
 
-    ArrayList<Integer> correctIds = new ArrayList<>();
-    ArrayList<Integer> correctIdsIds = new ArrayList<>();
+    final ArrayList<Integer> correctIds = new ArrayList<>();
+    final ArrayList<Integer> correctIdsIds = new ArrayList<>();
     private final IGameController controller;
     private final ModeType type;
 
-    private boolean isTimerRunning = false;
-
-    /**
-     * Gets comparing list.
-     *
-     * @return the comparing list
-     */
-
-    public boolean isReturnStatus() {
-        return returnStatus;
-    }
-
     public void setReturnStatus(boolean returnStatus) {
-        this.returnStatus = returnStatus;
-    }
-
-    private boolean returnStatus;
-
-    public ArrayList<MemoryObject> getComparingList() {
-        return comparingList;
     }
 
     private final ArrayList<MemoryObject> comparingList = new ArrayList<>();
-    private ArrayList<Integer> rightPairList = new ArrayList<Integer>();
-    private CompareResultType type2;
+    private final ArrayList<Integer> rightPairList = new ArrayList<>();
 
     /**
      * Gets memory objects list.
@@ -62,13 +42,11 @@ public class Engine implements IEngine {
 
     // private int foundPairs = 0;
 
-    private int activeId;
-
     private int hint;
     /**
      * logged in user
      */
-    private User user = User.getInstance();
+    private final User user = User.getInstance();
 
     /**
      * The time when the game started / engine created (in milliseconds).
@@ -95,8 +73,8 @@ public class Engine implements IEngine {
         return timerTime;
     }
 
-    Timer t;
-    TimerTask task;
+    final Timer t;
+    final TimerTask task;
 
     /**
      * Instantiates a new Engine.
@@ -162,9 +140,9 @@ public class Engine implements IEngine {
     public void suffleObjects() {
         Collections.shuffle(memoryObjectsList);
 
-        for (int i = 0; i < memoryObjectsList.size(); i++) {
-            correctIds.add(memoryObjectsList.get(i).getTypeId());
-            correctIdsIds.add(memoryObjectsList.get(i).getIdNumber());
+        for (MemoryObject memoryObject : memoryObjectsList) {
+            correctIds.add(memoryObject.getTypeId());
+            correctIdsIds.add(memoryObject.getIdNumber());
         }
 
     }
@@ -189,10 +167,6 @@ public class Engine implements IEngine {
             comparingList.clear();
         }
 
-    }
-
-    public int getActiveId() {
-        return activeId;
     }
 
     public void endGame() {
@@ -243,9 +217,7 @@ public class Engine implements IEngine {
         // get current time and detract the start time
         double finalTime = (System.currentTimeMillis() - startTime) / 1000.0;
         // user.addScore(finalTime, totalScore, type);
-        CompletableFuture.runAsync(() -> {
-            user.addScore(finalTime, totalScore, type);
-        });
+        CompletableFuture.runAsync(() -> user.addScore(finalTime, totalScore, type));
 
     }
 
@@ -260,9 +232,7 @@ public class Engine implements IEngine {
                 lastCorrectGuess = System.currentTimeMillis();
                 updateDynamicScore(totalScore);
             }
-            case NOTEQUAL -> {
-                incorrectTries++;
-            }
+            case NOTEQUAL -> incorrectTries++;
         }
     }
 
