@@ -165,6 +165,8 @@ public class GameOverController {
     @FXML
     public void setButtonMenu() {
 
+
+        mainMenu.setMouseTransparent(true);
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.3), gameOverRoot);
         fadeTransition.setFromValue(1);
         fadeTransition.setToValue(0);
@@ -185,6 +187,7 @@ public class GameOverController {
      */
     @FXML
     public void setButtonRestart() {
+        newGame.setMouseTransparent(true);
         fxigameController.newGame();
     }
 
