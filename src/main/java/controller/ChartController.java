@@ -66,8 +66,10 @@ public class ChartController implements IChartController{
 
 
         for(Score s : rawScores) {
-
-            scoreList.add(s.getPoints() + " " + s.getTimestamp());
+            if (s.getTimestamp() == null) {
+                continue;
+            }
+             scoreList.add(s.getPoints() + " " + s.getTimestamp().toString());
         }
 
         return dateSort(scoreList);
@@ -86,7 +88,9 @@ public class ChartController implements IChartController{
         ArrayList<String> scoreList = new ArrayList<>();
 
         for(Score s : rawScores) {
-
+            if (s.getTimestamp() == null) {
+                continue;
+            }
             scoreList.add(s.getPoints() + " " + s.getTimestamp());
         }
 

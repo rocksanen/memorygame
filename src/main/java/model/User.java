@@ -3,6 +3,7 @@ package model;
 import database.dao.AccountDAO;
 import database.dao.IAccountDAO;
 import database.entity.Account;
+
 import static model.ModeType.*;
 
 
@@ -249,14 +250,23 @@ public class User {
      * see Scoreboard#fetchUserScores(Long, ModeType)
      */
     public void fetchScores(ModeType difficulty) {
+        WorldScores ws = WorldScores.getInstance();
 
         switch (difficulty) {
-            case EASY -> easyScores.fetchUserScores(userId, EASY);
+            case EASY -> {
+                easyScores.fetchUserScores(userId, EASY);
+                ws.getEasyScores().fetchWorldScores(EASY);
+            }
 
-            case MEDIUM -> mediumScores.fetchUserScores(userId, MEDIUM);
+            case MEDIUM -> {
+                mediumScores.fetchUserScores(userId, MEDIUM);
+                ws.getMediumScores().fetchWorldScores(MEDIUM);
+            }
 
-            case HARD -> hardScores.fetchUserScores(userId, HARD);
-
+            case HARD -> {
+                hardScores.fetchUserScores(userId, HARD);
+                ws.getHardScores().fetchWorldScores(HARD);
+            }
         }
     }
 
@@ -275,14 +285,17 @@ public class User {
             case EASY -> {
                 easyScores.addScore(time, points, difficulty, true);
                 ws.getEasyScores().addScore(time, points, difficulty, false);
+                fetchScores(EASY);
             }
             case MEDIUM -> {
                 mediumScores.addScore(time, points, difficulty, true);
                 ws.getMediumScores().addScore(time, points, difficulty, false);
+                fetchScores(MEDIUM);
             }
             case HARD -> {
                 hardScores.addScore(time, points, difficulty, true);
                 ws.getHardScores().addScore(time, points, difficulty, false);
+                fetchScores(HARD);
             }
             default -> {
             }
