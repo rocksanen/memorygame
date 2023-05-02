@@ -3,7 +3,6 @@ package visuals.effects.gameEffects;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -13,7 +12,6 @@ import visuals.gameModes.FXIGameController;
 
 public class MediumEffects extends AbstractGameEffects implements IGameEffects{
 
-    private ImageView mediumbackground;
     private ImageView midgrid;
     private ImageView midTop;
     private ImageView midL;
@@ -26,7 +24,7 @@ public class MediumEffects extends AbstractGameEffects implements IGameEffects{
     private Pane scorePane;
 
 
-    private FXIGameController gameController;
+    private final FXIGameController gameController;
 
     public MediumEffects(FXIGameController gameController) {
 
@@ -39,7 +37,6 @@ public class MediumEffects extends AbstractGameEffects implements IGameEffects{
             ImageView midL, ImageView midBot, ImageView midend, ImageView midneo,
             ImageView play, ImageView returngame, GridPane mediumGrid, Pane scorePane) {
 
-        this.mediumbackground = mediumbackground;
         this.midgrid = midgrid;
         this.midTop = midTop;
         this.midL = midL;

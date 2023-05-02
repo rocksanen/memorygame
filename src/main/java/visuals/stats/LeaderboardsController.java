@@ -10,7 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -81,7 +80,7 @@ public class LeaderboardsController {
 
     private Boolean isChartOnline = true;
 
-    ResourceBundle r = ResourceBundle.getBundle("Bundle", JavaFXInternationalization.getLocale());
+    final ResourceBundle r = ResourceBundle.getBundle("Bundle", JavaFXInternationalization.getLocale());
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -171,7 +170,7 @@ public class LeaderboardsController {
 
         }catch (Exception e) {
             chartPane.setOpacity(0);
-            System.out.println(e);
+            e.printStackTrace();
             isChartOnline = false;
         }
     }
@@ -223,7 +222,7 @@ public class LeaderboardsController {
         //TableColumn<Score, Double> timeCol = new TableColumn<>("Time (s)");
         TableColumn<Score, Double> timeCol = new TableColumn<>(r.getString("leaderboardsTime"));
         timeCol.setCellValueFactory(new PropertyValueFactory<>("time"));
-        timeCol.setCellFactory(column -> new TableCell<Score, Double>() {
+        timeCol.setCellFactory(column -> new TableCell<>() {
             @Override
             protected void updateItem(Double item, boolean empty) {
                 super.updateItem(item, empty);
@@ -240,7 +239,7 @@ public class LeaderboardsController {
         gradeCol.setCellValueFactory(new PropertyValueFactory<>("grade"));
 
         // replace ⭐ characters with ⭐ images
-        gradeCol.setCellFactory(column -> new TableCell<Score, String>() {
+        gradeCol.setCellFactory(column -> new TableCell<>() {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
@@ -265,20 +264,18 @@ public class LeaderboardsController {
         //TableColumn<Score, Date> dateCol = new TableColumn<>("Date");
         TableColumn<Score, Date> dateCol = new TableColumn<>(r.getString("leaderboardsDate"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
-        dateCol.setCellFactory(column -> {
-            return new TableCell<>() {
-                @Override
-                protected void updateItem(Date date, boolean empty) {
-                    super.updateItem(date, empty);
-                    if (empty || date == null) {
-                        setText(null);
-                    } else {
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-                        LocalDateTime ldt = date.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDateTime();
-                        setText(ldt.format(formatter));
-                    }
+        dateCol.setCellFactory(column -> new TableCell<>() {
+            @Override
+            protected void updateItem(Date date, boolean empty) {
+                super.updateItem(date, empty);
+                if (empty || date == null) {
+                    setText(null);
+                } else {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+                    LocalDateTime ldt = date.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDateTime();
+                    setText(ldt.format(formatter));
                 }
-            };
+            }
         });
         // add mouse click events to nodes. prints score object to console
         scoreTable.setRowFactory(tv -> {
@@ -286,7 +283,6 @@ public class LeaderboardsController {
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 1 && (!row.isEmpty())) {
                     Score rowData = row.getItem();
-                    System.out.println(rowData);
                 }
             });
             return row;
@@ -554,7 +550,7 @@ public class LeaderboardsController {
             }
         }
 
-        for (Label label : Arrays.asList(labelTitle)) {
+        for (Label label : Collections.singletonList(labelTitle)) {
             if (label != null) {
                 String key = label.getId();
                 String text = bundle.getString(key);

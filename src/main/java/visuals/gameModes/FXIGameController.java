@@ -11,7 +11,7 @@ public interface FXIGameController {
     void addToCubeList(BoxMaker cube);
     void clearPair(ArrayList<Integer> storage);
     void clearStorage();
-    void setCubesToGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException;
+    void setCubesToGame(ArrayList<MemoryObject> memoryObjects);
 
     void gameOver(boolean victory);
 

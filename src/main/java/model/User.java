@@ -11,9 +11,6 @@ import static model.ModeType.*;
  * Singleton class for the User
  * Contains methods for retrieving and setting user data,
  * as well as personal scoreboards of the user.
- *
- * @author Eetu Soronen
- * @version 1
  */
 public class User {
 
@@ -101,30 +98,26 @@ public class User {
         if (username == null) {
             return false;
         }
-        Locksmith l = new Locksmith();
 
         // try to encrypt the password
-        String hashedPassword = null;
+        String hashedPassword;
         try {
-            hashedPassword = l.hashPassword(password);
-            System.out.println("Encrypted password: " + hashedPassword);
+            hashedPassword = Locksmith.hashPassword(password);
         } catch (Exception e) {
-            System.out.println("Error encrypting password: " + e);
+            e.printStackTrace();
             return false;
         }
 
         // try to decrypt the password
         try {
-            boolean allgood = l.checkPassword(password, hashedPassword);
-            System.out.println("Decrypted password: " + allgood);
+            Locksmith.checkPassword(password, hashedPassword);
         } catch (Exception e) {
-            System.out.println("Error decrypting password: " + e);
+            e.printStackTrace();
             return false;
         }
 
         try {
             Account account = accountdao.getAccountByNameAndPassword(username, hashedPassword);
-//            System.out.println("sTRINGIFYING ACCOUNT: " + account.toString() + "");
             if (account.getAccountid() != null) {
                 this.account = account;
                 this.userId = account.getAccountid();
@@ -135,7 +128,7 @@ public class User {
                 return true;
             }
         } catch (Exception e) {
-            System.out.println("Username not found!" + e);
+            e.printStackTrace();
         }
         return false;
     }
@@ -152,39 +145,34 @@ public class User {
      * @return true or false depending on success of the signup
      */
     public boolean signup(String username, String password) {
-        Locksmith l = new Locksmith();
 
         // validate the username, it should contain no whitespace characters,
         // be 30 chars long at max
         // and be at least 3 chars long
         if (username.contains(" ") || username.length() > 30 || username.length() < 3) {
-            System.out.println("Username is invalid!");
             return false;
         }
 
         // try to encrypt the password
-        String hashedPassword = null;
+        String hashedPassword;
         try {
-            hashedPassword = l.hashPassword(password);
-            System.out.println("Encrypted password: " + hashedPassword);
+            hashedPassword = Locksmith.hashPassword(password);
         } catch (Exception e) {
-            System.out.println("Error encrypting password: " + e);
+            e.printStackTrace();
             return false;
         }
 
         // try to decrypt the password
         try {
-            boolean allgood = l.checkPassword(password, hashedPassword);
-            System.out.println("Decrypted password: " + allgood);
+            boolean allgood = Locksmith.checkPassword(password, hashedPassword);
         } catch (Exception e) {
-            System.out.println("Error decrypting password: " + e);
+            e.printStackTrace();
             return false;
         }
 
 
         Account a = accountdao.getAccountByName(username);
         if (a != null) {
-            System.out.println("Username already exists!");
             return false;
         }
         accountdao.saveAccount(new Account(username, hashedPassword));
@@ -209,16 +197,13 @@ public class User {
 
     /**
      * Logs out the user and resets the instance variables
-     *
-     * @return true
      */
-    public boolean logout() {
+    public void logout() {
         this.username = "tony the tiger";
         this.userId = null;
         this.easyScores = null;
         this.mediumScores = null;
         this.hardScores = null;
-        return true;
     }
 
     /**
@@ -312,11 +297,12 @@ public class User {
         try {
             boolean deleted = accountdao.deleteAccount(instance.userId);
             if (deleted) {
-                return logout();
+                logout();
+                return true;
             }
 
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return false;
     }
@@ -346,6 +332,14 @@ public class User {
      */
     @Override
     public String toString() {
-        return "Het";
+        return "User{" +
+                "username='" + username + '\'' +
+                ", userId=" + userId +
+                ", easyScores=" + easyScores +
+                ", mediumScores=" + mediumScores +
+                ", hardScores=" + hardScores +
+                ", accountdao=" + accountdao +
+                ", account=" + account +
+                '}';
     }
 }

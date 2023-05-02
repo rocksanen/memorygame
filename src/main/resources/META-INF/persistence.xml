@@ -12,7 +12,7 @@
             <property name="jakarta.persistence.jdbc.password" value=""/>
             <property name="jakarta.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
             <property name="jakarta.persistence.schema-generation.database.action" value="none"/>
-            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.show_sql" value="false" />
             <property name="dialect" value ="org.hibernate.dialect.MySQLDialect" />
         </properties>
     </persistence-unit>

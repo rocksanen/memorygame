@@ -9,18 +9,12 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.print.PageLayout;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.effect.BlendMode;
-import javafx.scene.effect.Bloom;
-import javafx.scene.effect.GaussianBlur;
 import javafx.scene.effect.Glow;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Font;
 import javafx.util.Duration;
 import model.ModeType;
 import visuals.Navigaattori;
@@ -143,8 +137,6 @@ public abstract class FXAbstractGameController implements FXIGameController {
 
     @Override
     public void getTime(int i) {
-
-        //System.out.println(i);
     }
 
     @Override
@@ -170,7 +162,6 @@ public abstract class FXAbstractGameController implements FXIGameController {
      */
     public void clearGameOverMenu(AnchorPane sceneRoot, AnchorPane gameRoot) {
         // delete game over -view if it exists
-        System.out.println(sceneRoot.getChildren());
         if (sceneRoot.getChildren().size() > 1) {
             sceneRoot.getChildren().remove(1);
         }

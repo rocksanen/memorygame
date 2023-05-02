@@ -3,7 +3,6 @@ package database.dao;
 import database.entity.Account;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -16,12 +15,12 @@ class AccountDAOTest {
     private AccountDAO accountDAO;
 
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp() {
         accountDAO = new AccountDAO();
     }
 
     @AfterEach
-    void tearDown() throws Exception{
+    void tearDown() {
         accountDAO = null;
     }
 

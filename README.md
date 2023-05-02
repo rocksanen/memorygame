@@ -6,7 +6,6 @@
 ### Game where you flip cards to find pairs. Made with JavaFX.
 By Otto Oksanen, Eetu Soronen, Hasan Safdari & Samu Oksala
 ## Table of Contents
-* [Instructions](#instructions)
 * [Getting Started](#getting-started)
 * [About The Project](#about-the-project)
 * [Vision](#vision)
@@ -15,14 +14,14 @@ By Otto Oksanen, Eetu Soronen, Hasan Safdari & Samu Oksala
 * [GitHub Actions](#github-actions)
 
 
-## Instructions
-To get started, build the game in Intellij with Java version 17 or higher.
 
 ## Getting Started
-After building the game, you can select one of three difficulties and get started immediately. Database server not included in the repo.
+Compiled Windows builds and Jars for other platforms are available in Releases section.  
+To build or run the game yourself, use Maven (preferably in IntelliJ).  
+Note that if you want to build the game yourself, this repo does not contain the database server credentials. They are provided elsewhere.  
 
 ## About The Project
-This project was made for ohjelmistotuotantoprojekti 1 & 2 courses at Metropolia UAS.
+This project was made for Ohjelmistotuotantoprojekti 1 & 2 courses at Metropolia UAS.
 The project is a simple memory game designed for anyone who wants to improve their memory.
 
 ## Vision

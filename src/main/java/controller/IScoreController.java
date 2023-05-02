@@ -20,7 +20,7 @@ public interface IScoreController {
      * returns the scores for the given difficulty formatted for gui
      *
      * @param difficulty the difficulty to get scores for
-     * @return
+     * @return top five scores in array
      */
     ArrayList<String> getTopFiveScores(ModeType difficulty);
 

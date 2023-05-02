@@ -2,7 +2,6 @@ package model;
 
 import database.entity.Leaderboard;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -10,8 +9,6 @@ import java.util.Date;
  * Score-object contains all the information about a single score
  * it also grades the score based on the time and difficulty
  *
- * @author Eetu Soronen
- * @version 1
  */
 public class Score {
 
@@ -43,7 +40,7 @@ public class Score {
     /**
      * Grade of the score
      */
-    private String grade;
+    private final String grade;
 
     /**
      * Points of the score
@@ -107,7 +104,6 @@ public class Score {
      * @return - see {@link Score#timestamp}
      */
     public Date getTimestamp() {
-        System.out.println(timestamp);
         if (timestamp.toString().length() > 26) {
             return null;
         }

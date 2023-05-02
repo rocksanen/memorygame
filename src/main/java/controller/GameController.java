@@ -71,11 +71,7 @@ public class GameController implements IGameController {
     public void setGame(ArrayList<MemoryObject> memoryObjects) {
 
         Platform.runLater(() -> {
-            try {
-                fxiGameController.setCubesToGame(memoryObjects);
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            }
+            fxiGameController.setCubesToGame(memoryObjects);
         });
     }
 

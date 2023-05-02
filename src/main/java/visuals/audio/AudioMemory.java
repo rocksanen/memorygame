@@ -26,7 +26,7 @@ public class AudioMemory {
     /**
      * boolean toggle for playing audio
      */
-    public boolean isMuted = false;
+    public boolean isMuted;
 
     private ModeType currentMode;
 
@@ -101,8 +101,7 @@ public class AudioMemory {
     public void stopSong(ModeType type) {
 
         if (type == null) {
-
-            System.out.println("ERROR: ModeType is null");
+            //ERROR: ModeType is null
             return;
         }
 

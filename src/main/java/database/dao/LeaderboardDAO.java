@@ -1,11 +1,9 @@
 package database.dao;
 
 import database.datasource.SqlJpaConn;
-import database.entity.Account;
 import database.entity.Leaderboard;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
-import model.Locksmith;
 import model.ModeType;
 
 import java.util.ArrayList;
@@ -34,14 +32,13 @@ public class LeaderboardDAO implements ILeaderboardDAO {
         }
 
         EntityManager em = SqlJpaConn.getInstance();
-        System.out.println("saveScores " + lb);
         try {
             em.getTransaction().begin();
             em.persist(lb);
             em.getTransaction().commit();
             return true;
         } catch (Exception e) {
-            System.out.println("error saving a score to db.." + e);
+            e.printStackTrace();
             em.getTransaction().rollback();
             return false;
         }
@@ -61,7 +58,6 @@ public class LeaderboardDAO implements ILeaderboardDAO {
             return null;
         }
 
-        System.out.println("getAccountScores " + accountid);
         EntityManager em = SqlJpaConn.getInstance();
         // why is accountid typed twice? ¯\_(ツ)_/¯
         Query query = em.createQuery("SELECT l FROM Leaderboard l WHERE l.accountid.accountid = :accountid ORDER BY points desc, time asc limit 100");
@@ -82,7 +78,6 @@ public class LeaderboardDAO implements ILeaderboardDAO {
             return null;
         }
 
-        System.out.println("getAccountScores " + accountid);
         EntityManager em = SqlJpaConn.getInstance();
         // why is accountid typed twice? ¯\_(ツ)_/¯
         Query query = em.createQuery("SELECT l FROM Leaderboard l WHERE l.accountid.accountid = :accountid AND l.difficulty = :difficulty ORDER BY points desc, time asc limit 100");
@@ -98,7 +93,6 @@ public class LeaderboardDAO implements ILeaderboardDAO {
      */
     @Override
     public ArrayList<Leaderboard> readWorldScores(ModeType difficulty) {
-        System.out.println("readWorldScores");
         if (SqlJpaConn.getInstance() == null) {
             return null;
         }
@@ -122,7 +116,6 @@ public class LeaderboardDAO implements ILeaderboardDAO {
             return false;
         }
 
-        System.out.println("deleteScore " + scoreid);
         EntityManager em = SqlJpaConn.getInstance();
         em.getTransaction().begin();
         Leaderboard score = em.find(Leaderboard.class, scoreid);
@@ -139,15 +132,13 @@ public class LeaderboardDAO implements ILeaderboardDAO {
      * deletes all scores of select account
      *
      * @param accountid account id
-     * @return true if successful
      */
     @Override
-    public boolean deleteAllScores(Long accountid) {
+    public void deleteAllScores(Long accountid) {
         if (SqlJpaConn.getInstance() == null) {
-            return false;
+            return;
         }
 
-        System.out.println("deleteAllScores " + accountid);
         EntityManager em = SqlJpaConn.getInstance();
         try {
             em.getTransaction().begin();
@@ -155,10 +146,8 @@ public class LeaderboardDAO implements ILeaderboardDAO {
             query.setParameter("accountid", accountid);
             query.executeUpdate();
             em.getTransaction().commit();
-            return true;
         } catch (Exception e) {
-            System.out.println("error deleting all scores from db.." + e);
-            return false;
+            e.printStackTrace();
 
         }
     }

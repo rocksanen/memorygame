@@ -3,7 +3,6 @@ package visuals.effects.introEffects;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
@@ -19,9 +18,6 @@ import visuals.audio.AudioMemory;
 import java.io.IOException;
 
 public class IntroEffects{
-    private final double japanStart = 0.6; //0.26
-    private final double jungleStart = 0.29; // 0.2
-    private final double redtreeStart = 0.75; //0.35
 
     private Timeline introLine;
 
@@ -63,6 +59,12 @@ public class IntroEffects{
 
         EventHandler<ActionEvent> startAudio = arg0 -> AudioMemory.getInstance().playTheIntro();
 
+        //0.26
+        double japanStart = 0.6;
+        // 0.2
+        double jungleStart = 0.29;
+        //0.35
+        double redtreeStart = 0.75;
         introLine = new Timeline(
                 new KeyFrame(Duration.ZERO,startAudio),
                 new KeyFrame(Duration.seconds(3),
@@ -151,7 +153,7 @@ public class IntroEffects{
                 new KeyFrame(Duration.seconds(40.9),
                         new KeyValue(miniEasy.opacityProperty(),1),                 // Easy on!!!
                         new KeyValue(easyFrame.opacityProperty(),1),
-                        new KeyValue(japan.opacityProperty(),japanStart),
+                        new KeyValue(japan.opacityProperty(), japanStart),
                         new KeyValue(kotoku.opacityProperty(),1)),
                 new KeyFrame(Duration.seconds(40.9),
                         new KeyValue(miniMedium.opacityProperty(),0),               ////Medium start!!
@@ -161,7 +163,7 @@ public class IntroEffects{
                 new KeyFrame(Duration.seconds(41.1),
                         new KeyValue(miniMedium.opacityProperty(),1),
                         new KeyValue(mediumFrame.opacityProperty(),1),
-                        new KeyValue(jungle.opacityProperty(),jungleStart),
+                        new KeyValue(jungle.opacityProperty(), jungleStart),
                         new KeyValue(tigerden.opacityProperty(),1)),       //////Medium on  0.426
                 new KeyFrame(Duration.seconds(41.1),
                         new KeyValue(miniHard.opacityProperty(), 0),             ////Hard start!!!

@@ -1,6 +1,5 @@
 package controller;
 
-import javafx.application.Platform;
 import model.*;
 import visuals.Navigaattori;
 import visuals.stats.IChartGUI;
@@ -17,7 +16,6 @@ import static model.ModeType.*;
  * The type Chart controller.
  */
 public class ChartController implements IChartController{
-    private final IChartGUI chartUi;
     private IEngine engine;
 
     /**
@@ -26,7 +24,6 @@ public class ChartController implements IChartController{
      * @param chartUi the chart ui
      */
     public ChartController(IChartGUI chartUi) {
-        this.chartUi = chartUi;
     }
 
 
@@ -79,7 +76,6 @@ public class ChartController implements IChartController{
     @Override
     public ArrayList<String> getUserScores(ModeType difficulty) {
         if (!this.isLoggedIn()) {
-            System.out.println("not logged in!");
             return null;
         }
 
@@ -100,7 +96,6 @@ public class ChartController implements IChartController{
     @Override
     public ArrayList<Number> getUserTime(ModeType difficulty) {
         if (!this.isLoggedIn()) {
-            System.out.println("not logged in!");
             return null;
         }
         switch (difficulty) {

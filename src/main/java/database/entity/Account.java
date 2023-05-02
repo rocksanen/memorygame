@@ -52,8 +52,6 @@ public class Account {
         this.password = password;
     }
 
-    ;
-
 
     /**
      * Getter for accountid

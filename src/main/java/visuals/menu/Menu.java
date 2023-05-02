@@ -250,11 +250,9 @@ public class Menu implements Initializable, IMenu {
         String userPassword = password.getText();
 
         if (userController.isLoggedIn()) {
-            System.out.println("Already logged in");
             return;
         }
         if (!userController.register(user, userPassword)) {
-            System.out.println("Registration failed");
             return;
         }
         Platform.runLater(() -> paneLogin.setVisible(false));
@@ -271,7 +269,6 @@ public class Menu implements Initializable, IMenu {
         try {
             userController.login(user, userPassword);
             if (!userController.isLoggedIn()) {
-                System.out.println("Login failed");
                 stats.setVisible(false);
                 return;
             }

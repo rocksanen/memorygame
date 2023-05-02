@@ -16,5 +16,5 @@ public interface ILeaderboardDAO {
 
     boolean deleteScore(Long scoreid);
 
-    boolean deleteAllScores(Long accountid);
+    void deleteAllScores(Long accountid);
 }

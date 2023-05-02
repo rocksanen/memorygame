@@ -32,7 +32,6 @@ public class AccountDAO implements IAccountDAO {
 
         // check if account by that name exists
         if (getAccountByName(account.getUsername()) != null) {
-            System.out.println("account already exists");
             return false;
         }
         account.setUsername(account.getUsername().toLowerCase());
@@ -40,7 +39,6 @@ public class AccountDAO implements IAccountDAO {
         em.getTransaction().begin();
         em.persist(account);
 
-        System.out.println("saveAccount " + account);
         try {
             em.getTransaction().commit();
             return true;
@@ -61,7 +59,6 @@ public class AccountDAO implements IAccountDAO {
         if (SqlJpaConn.getInstance() == null) {
             return null;
         }
-        System.out.println("getAccount " + id);
         EntityManager em = SqlJpaConn.getInstance();
         return em.find(Account.class, id);
     }
@@ -79,7 +76,6 @@ public class AccountDAO implements IAccountDAO {
             return null;
         }
         username = username.toLowerCase();
-        System.out.println("getAccountByName " + username);
         Account a;
         EntityManager em = SqlJpaConn.getInstance();
         try {
@@ -87,10 +83,9 @@ public class AccountDAO implements IAccountDAO {
             query.setParameter("username", username);
             query.setParameter("password", password);
             a = (Account) query.getSingleResult();
-            System.out.println(a.toString());
             return a;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return null;
     }
@@ -107,17 +102,15 @@ public class AccountDAO implements IAccountDAO {
             return null;
         }
         username = username.toLowerCase();
-        System.out.println("getAccountByName " + username);
         Account a;
         EntityManager em = SqlJpaConn.getInstance();
         try {
             Query query = em.createQuery("SELECT a FROM Account a WHERE a.username = :username");
             query.setParameter("username", username);
             a = (Account) query.getSingleResult();
-            System.out.println(a.toString());
             return a;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return null;
     }
@@ -132,7 +125,6 @@ public class AccountDAO implements IAccountDAO {
         if (SqlJpaConn.getInstance() == null) {
             return null;
         }
-        System.out.println("getAllAccounts");
         EntityManager em = SqlJpaConn.getInstance();
         String jpqlQuery = "SELECT s FROM Account s";
         Query q = em.createQuery(jpqlQuery);
@@ -150,7 +142,6 @@ public class AccountDAO implements IAccountDAO {
         if (SqlJpaConn.getInstance() == null) {
             return false;
         }
-        System.out.println("deleteAccount " + id);
         EntityManager em = SqlJpaConn.getInstance();
         Account acc = em.find(Account.class, id);
         if (id != null) {
@@ -162,7 +153,7 @@ public class AccountDAO implements IAccountDAO {
                 em.getTransaction().commit();
                 return true;
             } catch (Exception e) {
-                System.out.println(e);
+                e.printStackTrace();
                 em.getTransaction().rollback();
                 return false;
             }
@@ -181,15 +172,17 @@ public class AccountDAO implements IAccountDAO {
     // this was used to convert old passwords, has no use for anyone anymore
     @Override
     public void passwordHasher() {
-        Locksmith locksmith = new Locksmith();
         EntityManager em = SqlJpaConn.getInstance();
+        if (em == null) {
+            return;
+        }
         em.getTransaction().begin();
         ArrayList<Account> accounts = getAllAccounts();
         for (Account a : accounts) {
             if (a.getPassword().length() < 40) {
                 System.out.println("hashing " + a.getUsername());
                 System.out.println("old password: " + a.getPassword());
-                a.setPassword(locksmith.hashPassword(a.getPassword()));
+                a.setPassword(Locksmith.hashPassword(a.getPassword()));
                 System.out.println("new password: " + a.getPassword());
             }
             System.out.println("--------------------");
