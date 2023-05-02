@@ -4,6 +4,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -80,20 +81,26 @@
             <Image url="@../pictures/images/scorepohja2.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="newgameNeo" fitHeight="115.5" fitWidth="333.0" layoutX="459.2" layoutY="397.0" opacity="0.78" visible="false">
+      <ImageView fx:id="newgameNeo" fitHeight="115.5" fitWidth="333.0" layoutX="459.2" layoutY="397.0" opacity="0.78">
          <image>
             <Image url="@../pictures/images/scorepohja2.png" />
          </image>
          <effect>
-            <GaussianBlur radius="3.52" />
+            <GaussianBlur radius="3.52">
+               <input>
+                  <ColorAdjust contrast="-0.32" />
+               </input></GaussianBlur>
          </effect>
       </ImageView>
-      <ImageView fx:id="returnNeo" fitHeight="71.0" fitWidth="333.0" layoutX="460.0" layoutY="520.0" opacity="0.79" visible="false">
+      <ImageView fx:id="returnNeo" fitHeight="71.0" fitWidth="333.0" layoutX="460.0" layoutY="520.0" opacity="0.79">
          <image>
             <Image url="@../pictures/images/scorepohja2.png" />
          </image>
          <effect>
-            <GaussianBlur radius="3.52" />
+            <GaussianBlur radius="3.52">
+               <input>
+                  <ColorAdjust contrast="-0.32" />
+               </input></GaussianBlur>
          </effect>
       </ImageView>
    </children>
