@@ -97,6 +97,9 @@ public class User {
      * @return true or false depending on success of the login
      */
     public boolean login(String username, String password) {
+        if (username == null) {
+            return false;
+        }
         Locksmith l = new Locksmith();
 
         // try to encrypt the password

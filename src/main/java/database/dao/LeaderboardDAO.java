@@ -27,6 +27,10 @@ public class LeaderboardDAO implements ILeaderboardDAO {
      */
     @Override
     public boolean saveScore(Leaderboard lb) {
+        if (SqlJpaConn.getInstance() == null) {
+            return false;
+        }
+
         EntityManager em = SqlJpaConn.getInstance();
         System.out.println("saveScores " + lb);
         try {
@@ -51,6 +55,10 @@ public class LeaderboardDAO implements ILeaderboardDAO {
      */
     @Override
     public ArrayList<Leaderboard> getAccountScores(Long accountid) {
+        if (SqlJpaConn.getInstance() == null) {
+            return null;
+        }
+
         System.out.println("getAccountScores " + accountid);
         EntityManager em = SqlJpaConn.getInstance();
         // why is accountid typed twice? ¯\_(ツ)_/¯
@@ -68,6 +76,10 @@ public class LeaderboardDAO implements ILeaderboardDAO {
      */
     @Override
     public ArrayList<Leaderboard> getAccountScoresByDifficulty(Long accountid, ModeType difficulty) {
+        if (SqlJpaConn.getInstance() == null) {
+            return null;
+        }
+
         System.out.println("getAccountScores " + accountid);
         EntityManager em = SqlJpaConn.getInstance();
         // why is accountid typed twice? ¯\_(ツ)_/¯
@@ -85,6 +97,10 @@ public class LeaderboardDAO implements ILeaderboardDAO {
     @Override
     public ArrayList<Leaderboard> readWorldScores(ModeType difficulty) {
         System.out.println("readWorldScores");
+        if (SqlJpaConn.getInstance() == null) {
+            return null;
+        }
+
         EntityManager em = SqlJpaConn.getInstance();
         // why is accountid typed twice? ¯\_(ツ)_/¯
         Query query = em.createQuery("SELECT l FROM Leaderboard l WHERE l.difficulty = :difficulty ORDER BY points desc, time asc limit 100");
@@ -100,6 +116,10 @@ public class LeaderboardDAO implements ILeaderboardDAO {
      */
     @Override
     public boolean deleteScore(Long scoreid) {
+        if (SqlJpaConn.getInstance() == null) {
+            return false;
+        }
+
         System.out.println("deleteScore " + scoreid);
         EntityManager em = SqlJpaConn.getInstance();
         em.getTransaction().begin();
@@ -121,6 +141,10 @@ public class LeaderboardDAO implements ILeaderboardDAO {
      */
     @Override
     public boolean deleteAllScores(Long accountid) {
+        if (SqlJpaConn.getInstance() == null) {
+            return false;
+        }
+
         System.out.println("deleteAllScores " + accountid);
         EntityManager em = SqlJpaConn.getInstance();
         try {
