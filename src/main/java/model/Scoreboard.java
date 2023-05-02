@@ -2,9 +2,11 @@ package model;
 
 import database.dao.ILeaderboardDAO;
 import database.dao.LeaderboardDAO;
+import database.datasource.SqlJpaConn;
 import database.entity.Account;
 import database.entity.Leaderboard;
 
+import java.sql.SQLData;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -63,7 +65,7 @@ public class Scoreboard {
             System.out.println("cant save score if not logged in!");
             return;
         }
-        Leaderboard lb = new Leaderboard(a, time, points, difficulty, new Date());
+        Leaderboard lb = new Leaderboard(a, time, points, difficulty, new java.sql.Date(new Date().getTime()));
         scores.add(new Score(lb));
 
         // sort scores by points (desc) and then time (asc)
@@ -113,8 +115,14 @@ public class Scoreboard {
      * @param difficulty difficulty of the scores
      */
     public void fetchWorldScores(ModeType difficulty) {
+
         this.scores.clear();
+
         List<Leaderboard> leaderboards = leaderboarddao.readWorldScores(difficulty);
+        if (leaderboards == null) {
+            return;
+        }
+
         for (Leaderboard lb : leaderboards) {
             this.scores.add(new Score(lb));
         }
@@ -132,6 +140,9 @@ public class Scoreboard {
     public void fetchUserScores(Long userid, ModeType difficulty) {
         this.scores.clear();
         List<Leaderboard> leaderboards = leaderboarddao.getAccountScoresByDifficulty(userid, difficulty);
+        if (leaderboards == null) {
+            return;
+        }
         for (Leaderboard lb : leaderboards) {
             this.scores.add(new Score(lb));
         }

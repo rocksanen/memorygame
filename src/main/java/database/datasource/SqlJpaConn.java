@@ -27,6 +27,8 @@ public class SqlJpaConn {
      */
     private static EntityManager em = null;
 
+    public static boolean failedToConnect;
+
 
     /**
      * Singleton constructor, which creates the entitymanager if it doesn't exist
@@ -35,14 +37,24 @@ public class SqlJpaConn {
      * @return returns the EntityManager
      */
     public static EntityManager getInstance() {
-
-        if (em == null) {
-            if (emf == null) {
-                emf = Persistence.createEntityManagerFactory("DevPU", configOverider());
-            }
-            em = emf.createEntityManager();
+        if (failedToConnect == true) {
+            System.out.println("Failed to connect to db, not trying again. return null");
+            return null;
         }
-        return em;
+        try {
+            if (em == null) {
+                if (emf == null) {
+                    emf = Persistence.createEntityManagerFactory("DevPU", configOverider());
+                }
+                em = emf.createEntityManager();
+            }
+            return em;
+
+        } catch (Exception e) {
+            System.out.println("Error making a db connection " + em);
+            failedToConnect = true;
+            return null;
+        }
     }
 
     private static Map<String, Object> configOverider() {

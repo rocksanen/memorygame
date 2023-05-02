@@ -26,6 +26,10 @@ public class AccountDAO implements IAccountDAO {
      */
     @Override
     public boolean saveAccount(Account account) {
+        if (SqlJpaConn.getInstance() == null) {
+            return false;
+        }
+
         // check if account by that name exists
         if (getAccountByName(account.getUsername()) != null) {
             System.out.println("account already exists");
@@ -54,6 +58,9 @@ public class AccountDAO implements IAccountDAO {
      */
     @Override
     public Account getAccount(Long id) {
+        if (SqlJpaConn.getInstance() == null) {
+            return null;
+        }
         System.out.println("getAccount " + id);
         EntityManager em = SqlJpaConn.getInstance();
         return em.find(Account.class, id);
@@ -68,6 +75,9 @@ public class AccountDAO implements IAccountDAO {
      */
     @Override
     public Account getAccountByNameAndPassword(String username, String password) {
+        if (SqlJpaConn.getInstance() == null) {
+            return null;
+        }
         username = username.toLowerCase();
         System.out.println("getAccountByName " + username);
         Account a;
@@ -93,6 +103,9 @@ public class AccountDAO implements IAccountDAO {
      */
     @Override
     public Account getAccountByName(String username) {
+        if (SqlJpaConn.getInstance() == null) {
+            return null;
+        }
         username = username.toLowerCase();
         System.out.println("getAccountByName " + username);
         Account a;
@@ -116,6 +129,9 @@ public class AccountDAO implements IAccountDAO {
      */
     @Override
     public ArrayList<Account> getAllAccounts() {
+        if (SqlJpaConn.getInstance() == null) {
+            return null;
+        }
         System.out.println("getAllAccounts");
         EntityManager em = SqlJpaConn.getInstance();
         String jpqlQuery = "SELECT s FROM Account s";
@@ -131,6 +147,9 @@ public class AccountDAO implements IAccountDAO {
      */
     @Override
     public boolean deleteAccount(Long id) {
+        if (SqlJpaConn.getInstance() == null) {
+            return false;
+        }
         System.out.println("deleteAccount " + id);
         EntityManager em = SqlJpaConn.getInstance();
         Account acc = em.find(Account.class, id);
@@ -159,6 +178,7 @@ public class AccountDAO implements IAccountDAO {
      * and hashes the password if it is
      * hashes seem to be 45 chars long so this should work ¯\_(ツ)_/¯
      */
+    // this was used to convert old passwords, has no use for anyone anymore
     @Override
     public void passwordHasher() {
         Locksmith locksmith = new Locksmith();

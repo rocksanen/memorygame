@@ -171,6 +171,7 @@ public class LeaderboardsController {
 
         }catch (Exception e) {
             chartPane.setOpacity(0);
+            System.out.println(e);
             isChartOnline = false;
         }
     }

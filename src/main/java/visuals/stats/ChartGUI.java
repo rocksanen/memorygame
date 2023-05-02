@@ -1,4 +1,5 @@
 package visuals.stats;
+
 import controller.ChartController;
 import controller.IChartController;
 import javafx.geometry.Insets;
@@ -38,6 +39,7 @@ public class ChartGUI implements IChartGUI {
     ResourceBundle r = ResourceBundle.getBundle("Bundle", JavaFXInternationalization.getLocale());
 
     private ModeType currentMode;
+
     public void init() {
 
         System.out.println("tsarttiguiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
@@ -76,7 +78,8 @@ public class ChartGUI implements IChartGUI {
         XYChart.Series<String, Number> scoreSeries = new XYChart.Series<>();
 
         if (results == null) {
-            throw new NullPointerException("score or date is null");
+            System.out.println("score or date is null");
+            return;
         }
         for (String s : results) {
             String[] parts = s.split(" ");
@@ -100,13 +103,18 @@ public class ChartGUI implements IChartGUI {
         XYChart.Series<String, Number> scoreSeries = new XYChart.Series<>();
         scoreSeries.setName(mode.toString());
 
+        if (results == null) {
+            System.out.println("score or date is null");
+            return;
+        }
+
         for (String s : results) {
             String[] parts = s.split(" ");
             int points = Integer.parseInt(parts[0]);
             int day = Integer.parseInt(parts[1].substring(8, 10));
             int month = Integer.parseInt(parts[1].substring(5, 7));
             String date = day + "/" + month;
-            scoreSeries.getData().add(new XYChart.Data<>(date,points));
+            scoreSeries.getData().add(new XYChart.Data<>(date, points));
         }
 
         stackedAreaChart.getData().add(scoreSeries);
