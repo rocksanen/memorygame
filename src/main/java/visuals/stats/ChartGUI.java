@@ -42,7 +42,6 @@ public class ChartGUI implements IChartGUI {
 
     public void init() {
 
-        System.out.println("tsarttiguiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
         Font.loadFont(Objects.requireNonNull(getClass().getClassLoader().getResource("fonts/VCR_OSD_MONO_1.001.ttf")).toExternalForm(), 14);
         stackedAreaChart = new AreaChart<>(new CategoryAxis(), new NumberAxis());
         currentMode = ModeType.EASY;
@@ -78,7 +77,6 @@ public class ChartGUI implements IChartGUI {
         XYChart.Series<String, Number> scoreSeries = new XYChart.Series<>();
 
         if (results == null) {
-            System.out.println("score or date is null");
             return;
         }
         for (String s : results) {
@@ -104,7 +102,6 @@ public class ChartGUI implements IChartGUI {
         scoreSeries.setName(mode.toString());
 
         if (results == null) {
-            System.out.println("score or date is null");
             return;
         }
 

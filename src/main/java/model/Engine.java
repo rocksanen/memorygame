@@ -242,9 +242,6 @@ public class Engine implements IEngine {
         }
         // get current time and detract the start time
         double finalTime = (System.currentTimeMillis() - startTime) / 1000.0;
-        // time (seconds), totalScore and difficulty
-        System.out.println("Time: " + finalTime + "s, Score: " + totalScore + ", Difficulty: " + type);
-
         // user.addScore(finalTime, totalScore, type);
         CompletableFuture.runAsync(() -> {
             user.addScore(finalTime, totalScore, type);
@@ -316,7 +313,6 @@ public class Engine implements IEngine {
                     if (idToMatch == correctIds.get(i) && idToMatch2 != correctIdsIds.get(i)) {
                         hint = i;
                         controller.showHint();
-                        System.out.println("Position: " + i);
                         wrong_guesses = 0;
                         //break;
                     }

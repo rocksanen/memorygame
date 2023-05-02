@@ -10,8 +10,6 @@ import java.util.Date;
  * Score-object contains all the information about a single score
  * it also grades the score based on the time and difficulty
  *
- * @author Eetu Soronen
- * @version 1
  */
 public class Score {
 
@@ -107,7 +105,6 @@ public class Score {
      * @return - see {@link Score#timestamp}
      */
     public Date getTimestamp() {
-        System.out.println(timestamp);
         if (timestamp.toString().length() > 26) {
             return null;
         }

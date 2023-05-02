@@ -171,7 +171,7 @@ public class LeaderboardsController {
 
         }catch (Exception e) {
             chartPane.setOpacity(0);
-            System.out.println(e);
+            e.printStackTrace();
             isChartOnline = false;
         }
     }
@@ -286,7 +286,6 @@ public class LeaderboardsController {
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 1 && (!row.isEmpty())) {
                     Score rowData = row.getItem();
-                    System.out.println(rowData);
                 }
             });
             return row;

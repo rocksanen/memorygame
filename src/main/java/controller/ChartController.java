@@ -79,7 +79,6 @@ public class ChartController implements IChartController{
     @Override
     public ArrayList<String> getUserScores(ModeType difficulty) {
         if (!this.isLoggedIn()) {
-            System.out.println("not logged in!");
             return null;
         }
 
@@ -100,7 +99,6 @@ public class ChartController implements IChartController{
     @Override
     public ArrayList<Number> getUserTime(ModeType difficulty) {
         if (!this.isLoggedIn()) {
-            System.out.println("not logged in!");
             return null;
         }
         switch (difficulty) {

@@ -27,6 +27,9 @@ public class SqlJpaConn {
      */
     private static EntityManager em = null;
 
+    /**
+     * if sql connection fails, this is set to true and no more attempts are made.
+     */
     public static boolean failedToConnect;
 
 
@@ -37,8 +40,7 @@ public class SqlJpaConn {
      * @return returns the EntityManager
      */
     public static EntityManager getInstance() {
-        if (failedToConnect == true) {
-            System.out.println("Failed to connect to db, not trying again. return null");
+        if (failedToConnect) {
             return null;
         }
         try {
@@ -51,8 +53,8 @@ public class SqlJpaConn {
             return em;
 
         } catch (Exception e) {
-            System.out.println("Error making a db connection " + em);
             failedToConnect = true;
+            e.printStackTrace();
             return null;
         }
     }

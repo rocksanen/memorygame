@@ -92,6 +92,11 @@ public class ScoreController implements IScoreController {
         return String.format("%-10.10s %4d", score.getUsername(), score.getPoints()).toUpperCase();
     }
 
+    /**
+     * Scores formatted for in game view. Ex: '2. EET 3000'
+     * @param scores the scores to format
+     * @return the formatted scores
+     */
     @Override
     public ArrayList<String> formatScores(ArrayList<Score> scores) {
         ArrayList<String> scoreList = new ArrayList<>();
@@ -103,7 +108,6 @@ public class ScoreController implements IScoreController {
                 scoreList.add(" ");
             }
         }
-        System.out.println(scoreList);
         return scoreList;
     }
 
@@ -115,8 +119,7 @@ public class ScoreController implements IScoreController {
     @Override
     public void fetchPersonalScores() {
         User.getInstance().isLoggedIn();
-        if (User.getInstance().isLoggedIn() == false) {
-            System.out.println("not logged in!");
+        if (!User.getInstance().isLoggedIn()) {
             return;
         }
 
@@ -137,39 +140,29 @@ public class ScoreController implements IScoreController {
     public ArrayList<String> getTopFivePersonalScores(ModeType difficulty) {
         User u = User.getInstance();
         if (!u.isLoggedIn()) {
-            System.out.println("not logged in!");
             // return empty array
             return formatScores(new ArrayList<Score>());
         }
-        switch (difficulty) {
-            case EASY:
-                return formatScores(u.getScores(EASY).getScores());
-            case MEDIUM:
-                return formatScores(u.getScores(MEDIUM).getScores());
-            case HARD:
-                return formatScores(u.getScores(HARD).getScores());
-            default:
-                return null;
-        }
+        return switch (difficulty) {
+            case EASY -> formatScores(u.getScores(EASY).getScores());
+            case MEDIUM -> formatScores(u.getScores(MEDIUM).getScores());
+            case HARD -> formatScores(u.getScores(HARD).getScores());
+            default -> null;
+        };
     }
 
 
     @Override
     public ArrayList<Score> getUserScoresRaw(ModeType difficulty) {
         User u = User.getInstance();
-        if (u.isLoggedIn() == false) {
-            System.out.println("not logged in!");
+        if (!u.isLoggedIn()) {
             return null;
         }
-        switch (difficulty) {
-            case EASY:
-                return u.getScores(EASY).getScores();
-            case MEDIUM:
-                return u.getScores(MEDIUM).getScores();
-            case HARD:
-                return u.getScores(HARD).getScores();
-            default:
-                return null;
-        }
+        return switch (difficulty) {
+            case EASY -> u.getScores(EASY).getScores();
+            case MEDIUM -> u.getScores(MEDIUM).getScores();
+            case HARD -> u.getScores(HARD).getScores();
+            default -> null;
+        };
     }
 }

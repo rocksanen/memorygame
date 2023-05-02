@@ -20,8 +20,6 @@ public class ImageTranslator {
             ImageView RegisterButton, ImageView logoutButton)
     {
 
-        System.out.println("locale is : " + locale.getLanguage());
-
 
         switch (locale.getLanguage()){
             case "fi" -> {
