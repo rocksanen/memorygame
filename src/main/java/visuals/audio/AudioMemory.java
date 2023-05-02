@@ -101,8 +101,7 @@ public class AudioMemory {
     public void stopSong(ModeType type) {
 
         if (type == null) {
-
-            System.out.println("ERROR: ModeType is null");
+            //ERROR: ModeType is null
             return;
         }
 
