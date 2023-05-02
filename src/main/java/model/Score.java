@@ -2,12 +2,14 @@ package model;
 
 import database.entity.Leaderboard;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
  * Score class for the game
  * Score-object contains all the information about a single score
  * it also grades the score based on the time and difficulty
+ *
  * @author Eetu Soronen
  * @version 1
  */
@@ -105,6 +107,10 @@ public class Score {
      * @return - see {@link Score#timestamp}
      */
     public Date getTimestamp() {
+        System.out.println(timestamp);
+        if (timestamp.toString().length() > 26) {
+            return null;
+        }
         return timestamp;
     }
 
@@ -129,6 +135,7 @@ public class Score {
 
     /**
      * toString method for Score
+     *
      * @return - see {@link Score#username}, {@link Score#scoreid}, {@link Score#time}, {@link Score#difficulty}, {@link Score#timestamp}, {@link Score#grade}
      */
     @Override
