@@ -204,6 +204,7 @@ public class User {
         this.easyScores = null;
         this.mediumScores = null;
         this.hardScores = null;
+        this.account = null;
     }
 
     /**
