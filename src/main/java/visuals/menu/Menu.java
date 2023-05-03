@@ -51,10 +51,7 @@ public class Menu implements Initializable, IMenu {
     ImageView burningsun;
     @FXML
     Button buttonLogout;
-    @FXML
-    Label labelLoggedIn;
-    @FXML
-    Button stats;
+
     @FXML
     TextField name;
     @FXML
@@ -256,8 +253,10 @@ public class Menu implements Initializable, IMenu {
             return;
         }
         Platform.runLater(() -> paneLogin.setVisible(false));
-        Platform.runLater(() -> buttonLogout.setVisible(true));
-        Platform.runLater(() -> labelLoggedIn.setText("Logged in as " + userController.getUsername()));
+        Platform.runLater(() -> logOutPane.setVisible(true));
+        userName.setFont(Font.font("Atari Classic", 14));
+        Platform.runLater(() -> userName.setText(user.toUpperCase()));
+        Platform.runLater(() -> userPane.setVisible(true));
     }
 
     private void loginActions() {
@@ -268,10 +267,6 @@ public class Menu implements Initializable, IMenu {
 
         try {
             userController.login(user, userPassword);
-            if (!userController.isLoggedIn()) {
-                stats.setVisible(false);
-                return;
-            }
             Platform.runLater(() -> paneLogin.setVisible(false));
             Platform.runLater(() -> logOutPane.setVisible(true));
             userName.setFont(Font.font("Atari Classic", 14));
