@@ -4,6 +4,7 @@
 <?import javafx.geometry.Point3D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.BoxBlur?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.effect.Glow?>
@@ -286,7 +287,40 @@
                <Label fx:id="dynamicScore" layoutX="144.0" layoutY="2.0" prefHeight="44.0" prefWidth="130.0" textFill="WHITE" />
             </children>
          </Pane>
+         <Pane id="numberPane" fx:id="numberPane" layoutX="556.0" layoutY="269.0" mouseTransparent="true" opacity="0.0" prefHeight="182.0" prefWidth="138.0" style="-fx-background-color: black;">
+            <effect>
+               <GaussianBlur radius="63.0">
+                  <input>
+                     <BoxBlur height="66.96" width="93.18" />
+                  </input>
+               </GaussianBlur>
+            </effect>
+         </Pane>
          <AnchorPane id="wallOfeetu" fx:id="wallOfeetu" prefHeight="841.6" prefWidth="1425.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         <ImageView fx:id="three" fitHeight="439.0" fitWidth="367.0" layoutX="445.0" layoutY="145.0" mouseTransparent="true" opacity="0.0">
+            <image>
+               <Image url="@../pictures/images/three.png" />
+            </image>
+            <effect>
+               <ColorAdjust contrast="1.0" hue="-0.28" />
+            </effect>
+         </ImageView>
+         <ImageView fx:id="two" fitHeight="439.0" fitWidth="367.0" layoutX="445.0" layoutY="145.0" mouseTransparent="true" opacity="0.0">
+            <image>
+               <Image url="@../pictures/images/two.png" />
+            </image>
+            <effect>
+               <ColorAdjust contrast="1.0" hue="-0.28" />
+            </effect>
+         </ImageView>
+         <ImageView fx:id="one" fitHeight="439.0" fitWidth="367.0" layoutX="445.0" layoutY="145.0" mouseTransparent="true" opacity="0.0">
+            <image>
+               <Image url="@../pictures/images/one.png" />
+            </image>
+            <effect>
+               <ColorAdjust contrast="1.0" hue="-0.28" />
+            </effect>
+         </ImageView>
         </children>
     </AnchorPane>
 </AnchorPane>

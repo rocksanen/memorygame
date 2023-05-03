@@ -1,6 +1,7 @@
 package visuals.gameModes;
 
 import model.MemoryObject;
+import model.ModeType;
 import visuals.cubeFactories.BoxMaker;
 
 import java.io.FileNotFoundException;
@@ -26,5 +27,6 @@ public interface FXIGameController {
     void setImages();
     void glowHint(int idToGlow);
     void updateDynamicScore(int score);
+    void countDown(ModeType mode);
 
 }

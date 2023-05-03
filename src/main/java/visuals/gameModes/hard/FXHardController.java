@@ -14,6 +14,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 import model.MemoryObject;
+import model.ModeType;
 import visuals.cubeFactories.BoxMaker;
 import visuals.cubeFactories.HardCubeFactory;
 import visuals.cubeFactories.ICubeFactory;
@@ -83,7 +84,6 @@ public class FXHardController extends FXAbstractGameController implements Initia
     @FXML
     ImageView worldScoreHeader;
     @FXML ImageView timeBar;
-    @FXML Pane timerPane;
     @FXML ImageView practiseButton;
     @FXML Pane dynamicScorePane;
     @FXML AnchorPane wallOfeetu;
@@ -181,20 +181,7 @@ public class FXHardController extends FXAbstractGameController implements Initia
         if(practice) {
             gameController.killTimer();
         }
-
-        CompletableFuture.runAsync(() -> {
-
-            try {
-                Thread.sleep(2000);
-                Platform.runLater(() -> dynamicScorePane.setVisible(true));
-                timerPane.setVisible(true);
-                wallOfeetu.setMouseTransparent(true);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-
-        });
-
+        countDown(HARD);
     }
 
     @Override
@@ -312,5 +299,11 @@ public class FXHardController extends FXAbstractGameController implements Initia
     public void updateDynamicScore(int score) {
 
         super.updateDynamicScore(score);
+    }
+
+    @Override
+    public void countDown(ModeType mode) {
+
+        super.countDown(mode);
     }
 }

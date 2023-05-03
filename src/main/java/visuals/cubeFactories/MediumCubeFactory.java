@@ -63,8 +63,8 @@ public class MediumCubeFactory implements ICubeFactory {
 
                 group.setOnMouseEntered(mouseEvent -> {
 
-                    group.setScaleX(1.05);
-                    group.setScaleY(1.05);
+                    group.setScaleX(1.03);
+                    group.setScaleY(1.03);
                 });
 
                 group.setOnMouseExited(mouseEvent -> {

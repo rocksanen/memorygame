@@ -1,6 +1,9 @@
 package model;
 
 import controller.IGameController;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -110,7 +113,6 @@ public class Engine implements IEngine {
                 suffleObjects();
                 controller.setGame(memoryObjectsList);
                 timerTime = 6;
-                runTimer();
             }
 
             case HARD -> {
@@ -119,9 +121,14 @@ public class Engine implements IEngine {
                 suffleObjects();
                 controller.setGame(memoryObjectsList);
                 timerTime = 6;
-                runTimer();
             }
         }
+    }
+
+    @Override
+    public void startTime() {
+
+        runTimer();
     }
 
     @Override
@@ -189,21 +196,7 @@ public class Engine implements IEngine {
         return hint;
     }
 
-    @Override
-    public void clearPair(ArrayList<MemoryObject> memoryList) {
 
-
-            CompletableFuture.runAsync(() -> {
-                try {
-
-                    Thread.sleep(1000);
-                    controller.clearPair(storage);
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            });
-    }
 
     /**
      * Called by a method that ends the game. Saves the score to the leaderboard.
@@ -254,6 +247,24 @@ public class Engine implements IEngine {
 
     private int wrong_guesses = 0;
 
+
+    @Override
+    public void clearPair(ArrayList<MemoryObject> memoryList) {
+
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO),
+                new KeyFrame(Duration.millis(750))
+        );
+
+        timeline.play();
+        timeline.setOnFinished(actionEvent -> {
+
+            controller.clearPair(storage);
+
+        });
+    }
+
     @Override
     public void compareObjects(ArrayList<MemoryObject> objectList) {
 
@@ -286,8 +297,6 @@ public class Engine implements IEngine {
                         wrong_guesses = 0;
                         //break;
                     }
-
-
                 }
             }
 

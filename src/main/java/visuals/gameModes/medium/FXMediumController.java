@@ -1,6 +1,9 @@
 package visuals.gameModes.medium;
 
 import controller.ScoreController;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 import model.MemoryObject;
 import model.ModeType;
 import visuals.cubeFactories.BoxMaker;
@@ -87,7 +91,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
     @FXML
     ImageView worldScoreHeader;
     @FXML ImageView timeBar;
-    @FXML Pane timerPane;
+
     @FXML Pane dynamicScorePane;
     @FXML AnchorPane wallOfeetu;
 
@@ -175,18 +179,8 @@ public class FXMediumController extends FXAbstractGameController implements Init
         mediumGrid.getChildren().clear();
         mediumCubeFactory = new MediumCubeFactory(this);
         gameController.startGame(ModeType.MEDIUM);
-        CompletableFuture.runAsync(() -> {
+        countDown(ModeType.MEDIUM);
 
-            try {
-                Thread.sleep(1900);
-                Platform.runLater(() -> timerPane.setVisible(true));
-                Platform.runLater(() -> dynamicScorePane.setVisible(true));
-                wallOfeetu.setMouseTransparent(true);
-            } catch (InterruptedException e) {
-                newGame();
-                throw new RuntimeException(e);
-            }
-        });
     }
 
     @Override
@@ -264,5 +258,11 @@ public class FXMediumController extends FXAbstractGameController implements Init
     public void updateDynamicScore(int score) {
 
         super.updateDynamicScore(score);
+    }
+
+    @Override
+    public void countDown(ModeType mode) {
+
+        super.countDown(mode);
     }
 }
