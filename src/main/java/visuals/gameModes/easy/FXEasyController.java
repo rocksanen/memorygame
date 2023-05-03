@@ -18,12 +18,10 @@ import visuals.gameModes.FXAbstractGameController;
 import visuals.gameModes.FXIGameController;
 import visuals.imageServers.ImageCache;
 
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
 import static model.ModeType.EASY;
@@ -77,20 +75,14 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     ImageView easyneo;
     @FXML
     ImageView easyEnd;
-
     @FXML
     AnchorPane sceneRoot;
-
     @FXML
     AnchorPane gameRoot;
-
     @FXML
     ImageView personalScoreHeader;
     @FXML
     ImageView worldScoreHeader;
-    @FXML Pane dynamicScorePane;
-
-    @FXML AnchorPane wallOfeetu;
 
     private List<Label> personalLabels;
     private List<Label> worldLabels;
@@ -110,13 +102,8 @@ public class FXEasyController extends FXAbstractGameController implements Initia
         setCamera();
         setImages();
         easyEffects = new EasyEffects(this);
-        easyEffects.setImagesAndComponents(background, easyTop, easyBot, easyL, easy3Dgrid, play, returngame, easyGridi, easyEnd, easyneo, scorePane);
+        easyEffects.setImagesAndComponents(easyTop, easyBot, easyL, easy3Dgrid, play, returngame, easyGridi, easyEnd, easyneo, scorePane);
         easyEffects.entrance();
-
-        easyEffects.setImagesAndComponents(
-                background, easyTop, easyBot, easyL, easy3Dgrid,
-                play, returngame, easyGridi, easyEnd, easyneo, scorePane);
-        Platform.runLater(() -> easyEffects.entrance());
         
         initScoreHeaders(personalScoreHeader, worldScoreHeader);
         this.personalLabels = List.of(p1, p2, p3, p4, p5);
@@ -171,17 +158,7 @@ public class FXEasyController extends FXAbstractGameController implements Initia
         easyGridi.getChildren().clear();
         easyCubeFactory = new EasyCubeFactory(this);
         gameController.startGame(EASY);
-
-        CompletableFuture.runAsync(() -> {
-
-            try {
-                Thread.sleep(1500);
-                Platform.runLater(() -> dynamicScorePane.setVisible(true));
-                wallOfeetu.setMouseTransparent(true);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        countDown(EASY);
     }
 
     // From gamecontroller
@@ -247,5 +224,11 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     public void updateDynamicScore(int score) {
 
         super.updateDynamicScore(score);
+    }
+
+    @Override
+    public void countDown(ModeType mode) {
+
+        super.countDown(mode);
     }
 }

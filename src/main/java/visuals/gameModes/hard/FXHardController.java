@@ -1,7 +1,6 @@
 package visuals.gameModes.hard;
 
-import controller.ScoreController;
-import javafx.animation.*;
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,6 +13,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 import model.MemoryObject;
+import model.ModeType;
 import visuals.cubeFactories.BoxMaker;
 import visuals.cubeFactories.HardCubeFactory;
 import visuals.cubeFactories.ICubeFactory;
@@ -22,12 +22,10 @@ import visuals.gameModes.FXAbstractGameController;
 import visuals.gameModes.FXIGameController;
 import visuals.imageServers.ImageCache;
 
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
 import static model.ModeType.HARD;
@@ -83,7 +81,6 @@ public class FXHardController extends FXAbstractGameController implements Initia
     @FXML
     ImageView worldScoreHeader;
     @FXML ImageView timeBar;
-    @FXML Pane timerPane;
     @FXML ImageView practiseButton;
     @FXML Pane dynamicScorePane;
     @FXML AnchorPane wallOfeetu;
@@ -96,11 +93,6 @@ public class FXHardController extends FXAbstractGameController implements Initia
     private ICubeFactory hardCubeFactory;
     private HardEffects hardEffects;
 
-    private boolean practice = false;
-
-    public void setController(ScoreController scoreController) {
-
-    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -181,20 +173,7 @@ public class FXHardController extends FXAbstractGameController implements Initia
         if(practice) {
             gameController.killTimer();
         }
-
-        CompletableFuture.runAsync(() -> {
-
-            try {
-                Thread.sleep(2000);
-                Platform.runLater(() -> dynamicScorePane.setVisible(true));
-                timerPane.setVisible(true);
-                wallOfeetu.setMouseTransparent(true);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-
-        });
-
+        countDown(HARD);
     }
 
     @Override
@@ -312,5 +291,11 @@ public class FXHardController extends FXAbstractGameController implements Initia
     public void updateDynamicScore(int score) {
 
         super.updateDynamicScore(score);
+    }
+
+    @Override
+    public void countDown(ModeType mode) {
+
+        super.countDown(mode);
     }
 }

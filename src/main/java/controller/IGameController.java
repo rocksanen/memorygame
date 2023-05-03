@@ -37,4 +37,6 @@ public interface IGameController {
     String getGrade();
 
     void updateDynamicScore(int score);
+
+    void startTime();
 }

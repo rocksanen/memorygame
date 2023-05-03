@@ -15,6 +15,7 @@ import javafx.scene.effect.Glow;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import model.ModeType;
 import visuals.Navigaattori;
@@ -33,10 +34,23 @@ public abstract class FXAbstractGameController implements FXIGameController {
     private static final ArrayList<Group> activeList = new ArrayList<>();
     private final ImageTranslator imageTranslator = new ImageTranslator();
 
+
+
     @FXML
     public Label dynamicScore;
     @FXML
     public Label dynamicHeader;
+
+    @FXML public ImageView three;
+    @FXML public ImageView two;
+    @FXML public ImageView one;
+    @FXML public Pane numberPane;
+    @FXML public AnchorPane wallOfeetu;
+    @FXML public Pane dynamicScorePane;
+    @FXML public Pane timerPane;
+    @FXML public ImageView play;
+    public boolean practice = false;
+
 
 
     public FXAbstractGameController() {
@@ -44,6 +58,7 @@ public abstract class FXAbstractGameController implements FXIGameController {
 
     @Override
     public void addToCubeList(BoxMaker cube) {
+
         cubeList.add(cube);
     }
 
@@ -56,23 +71,22 @@ public abstract class FXAbstractGameController implements FXIGameController {
         cubeList.get(firstIndex).resetImage();
         cubeList.get(secondIndex).resetImage();
         clearStorage();
+        cubeList.get(firstIndex).setActive();
+        cubeList.get(secondIndex).setActive();
 
-        CompletableFuture.runAsync(() -> {
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO),
+                new KeyFrame(Duration.millis(850))
+        );
 
-            try {
+        timeline.play();
+        timeline.setOnFinished(actionEvent -> {
 
-                Thread.sleep(800);
-                cubeList.get(firstIndex).setActive();
-                cubeList.get(secondIndex).setActive();
+            for (BoxMaker cube : cubeList) {
 
-                for (BoxMaker cube : cubeList) {
-
-                    if (!cube.getActiveState()) {
-                        cube.getBox().setMouseTransparent(false);
-                    }
+                if (!cube.getActiveState()) {
+                    cube.getBox().setMouseTransparent(false);
                 }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
         });
     }
@@ -121,18 +135,22 @@ public abstract class FXAbstractGameController implements FXIGameController {
     @Override
     public void compareFoundMatch() {
 
-        CompletableFuture.runAsync(() -> {
-            try {
-                Thread.sleep(800);
-                for (BoxMaker cube : cubeList) {
-                    if (!cube.getActiveState()) {
-                        cube.getBox().setMouseTransparent(false);
-                    }
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO),
+                new KeyFrame(Duration.millis(800))
+        );
+
+        timeline.play();
+        timeline.setOnFinished(actionEvent -> {
+
+            for (BoxMaker cube : cubeList) {
+                if (!cube.getActiveState()) {
+                    cube.getBox().setMouseTransparent(false);
                 }
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
             }
         });
+
     }
 
     @Override
@@ -200,7 +218,6 @@ public abstract class FXAbstractGameController implements FXIGameController {
                 fadeTransition2.play();
             });
             pauseTransition.play();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -278,4 +295,60 @@ public abstract class FXAbstractGameController implements FXIGameController {
         timeline.play();
 
     }
+
+    public void countDown(ModeType mode) {
+
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(1),
+                        new KeyValue(three.opacityProperty(),0),
+                        new KeyValue(three.scaleXProperty(),1),
+                        new KeyValue(three.scaleYProperty(),1),
+                        new KeyValue(numberPane.opacityProperty(),1)),
+                new KeyFrame(Duration.seconds(1.6),
+                        new KeyValue(three.opacityProperty(),1),
+                        new KeyValue(two.opacityProperty(),0),
+                        new KeyValue(two.scaleXProperty(),1),
+                        new KeyValue(two.scaleYProperty(),1)),
+                new KeyFrame(Duration.seconds(2),
+                        new KeyValue(three.opacityProperty(),0),
+                        new KeyValue(three.scaleXProperty(),1.2),
+                        new KeyValue(three.scaleYProperty(),1.2)),
+                new KeyFrame(Duration.seconds(2.2),
+                        new KeyValue(two.opacityProperty(),1),
+                        new KeyValue(one.opacityProperty(),0),
+                        new KeyValue(one.scaleXProperty(),1),
+                        new KeyValue(one.scaleYProperty(),1)),
+                new KeyFrame(Duration.seconds(2.6),
+                        new KeyValue(two.opacityProperty(),0),
+                        new KeyValue(two.scaleXProperty(),1.2),
+                        new KeyValue(two.scaleYProperty(),1.2)),
+                new KeyFrame(Duration.seconds(2.8),
+                        new KeyValue(one.opacityProperty(),1)),
+                new KeyFrame(Duration.seconds(3.2),
+                        new KeyValue(numberPane.opacityProperty(),1)),
+                new KeyFrame(Duration.seconds(3.4),
+                        new KeyValue(dynamicScorePane.visibleProperty(),true),
+                        new KeyValue(wallOfeetu.mouseTransparentProperty(),true),
+                        new KeyValue(one.opacityProperty(),0),
+                        new KeyValue(one.scaleXProperty(),1.2),
+                        new KeyValue(one.scaleYProperty(),1.2),
+                        new KeyValue(numberPane.opacityProperty(),0))
+        );
+
+        timeline.play();
+        timeline.setOnFinished(actionEvent -> {
+
+            if(!mode.equals(ModeType.EASY) ) {
+                timerPane.setVisible(true);
+
+                if(!practice) {
+
+                    gameController.startTime();
+
+                }
+            }
+        });
+    }
+
 }

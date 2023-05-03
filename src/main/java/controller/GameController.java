@@ -144,4 +144,10 @@ public class GameController implements IGameController {
         Platform.runLater(() -> fxiGameController.updateDynamicScore(score));
     }
 
+    @Override
+    public void startTime() {
+
+        engine.startTime();
+    }
+
 }

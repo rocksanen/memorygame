@@ -30,11 +30,6 @@
                   <Image url="@../pictures/images/menu/burningsun.png" />
                </image>
             </ImageView>
-            <ImageView id="memomaze" fx:id="memomaze" fitHeight="207.0" fitWidth="700.0" layoutX="270.0" layoutY="80.0" opacity="0.0">
-               <image>
-                  <Image url="@../pictures/images/memomaze.png" />
-               </image>
-            </ImageView>
             <ImageView id="dirt" fx:id="dirt" fitHeight="762.0" fitWidth="1270.0" opacity="0.61" translateZ="-500.0">
                <image>
                   <Image url="@../pictures/images/menu/dirt.png" />

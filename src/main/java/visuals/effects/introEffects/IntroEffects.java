@@ -5,6 +5,7 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.effect.*;
 import javafx.scene.image.ImageView;
@@ -68,7 +69,8 @@ public class IntroEffects{
         introLine = new Timeline(
                 new KeyFrame(Duration.ZERO,startAudio),
                 new KeyFrame(Duration.seconds(3),
-                        new KeyValue(bottom.mouseTransparentProperty(),false)),
+                        new KeyValue(bottom.mouseTransparentProperty(),false),
+                        new KeyValue(bottom.cursorProperty(), Cursor.HAND)),
                 new KeyFrame(Duration.seconds(4),
                         new KeyValue(first.opacityProperty(), 0)),
                 new KeyFrame(Duration.seconds(6.3),

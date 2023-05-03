@@ -17,20 +17,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class EasyCubeFactory implements ICubeFactory {
-    private final FXEasyController gui;
+    private final FXEasyController easyController;
     private static ArrayList<Image> imageUrlList = new ArrayList<>();
     private final Image backImage;
     private final Image behindImage;
 
-    public EasyCubeFactory(FXIGameController gui){
+    public EasyCubeFactory(FXIGameController easyController){
 
-        this.gui = (FXEasyController) gui;
+        this.easyController = (FXEasyController) easyController;
         this.backImage = ImageCache.getInstance().getEasyComp().get(0);
         this.behindImage = ImageCache.getInstance().getEasyComp().get(1);
 
         if(imageUrlList.isEmpty()) {imageUrlList = ImageCache.getInstance().getEasyCache();}
         Collections.shuffle(imageUrlList);
-
     }
 
     /**
@@ -44,6 +43,7 @@ public class EasyCubeFactory implements ICubeFactory {
     @Override
     public void createCubics(GridPane gridPane, ArrayList<MemoryObject> memoryObjects){
 
+
         for(int i = 0; i < memoryObjects.size(); i++) {
             Group group = new Group();
             group.setOpacity(0);
@@ -55,13 +55,13 @@ public class EasyCubeFactory implements ICubeFactory {
                                 imageUrlList.get(imageIndex),
                                 backImage,
                                 behindImage,
-                                gui,i).getBox());
+                                easyController,i).getBox());
                 group.setCursor(Cursor.HAND);
 
                 group.setOnMouseEntered(mouseEvent -> {
 
-                    group.setScaleX(1.05);
-                    group.setScaleY(1.05);
+                    group.setScaleX(1.02);
+                    group.setScaleY(1.02);
                 });
 
                 group.setOnMouseExited(mouseEvent -> {

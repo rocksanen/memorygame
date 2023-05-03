@@ -30,4 +30,6 @@ public interface IEngine {
     ModeType getType();
 
     void updateDynamicScore(int score);
+
+    void startTime();
 }

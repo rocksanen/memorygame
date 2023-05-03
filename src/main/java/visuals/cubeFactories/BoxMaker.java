@@ -36,11 +36,29 @@ public class BoxMaker {
     private final double width;
     private final double height;
     private final int id;
-    private final FXIGameController gui;
+    private final FXIGameController gameController;
     private final DoubleProperty rotateValueUp = new SimpleDoubleProperty(0);
     private final ObjectProperty<Point3D> rotationAxisUp = new SimpleObjectProperty<>(Rotate.X_AXIS);
     private final DoubleProperty rotateValueDown = new SimpleDoubleProperty(90);
     private final ObjectProperty<Point3D> rotationAxisDown = new SimpleObjectProperty<>(Rotate.X_AXIS);
+
+    private final Timeline timelineUp = new Timeline(
+            new KeyFrame(Duration.ZERO,
+                    new KeyValue(rotateValueUp, 0),
+                    new KeyValue(rotationAxisUp, Rotate.X_AXIS)
+            ),
+            new KeyFrame(Duration.seconds(0.6),
+                    new KeyValue(rotateValueUp, 90))
+    );
+
+    private final Timeline timelineDown = new Timeline(
+            new KeyFrame(Duration.ZERO,
+                    new KeyValue(rotateValueDown,90),
+                    new KeyValue(rotationAxisDown,Rotate.X_AXIS)
+            ),
+            new KeyFrame(Duration.seconds(0.6),
+                    new KeyValue(rotateValueDown,0))
+    );
 
     private Boolean isActive = false;
 
@@ -56,19 +74,19 @@ public class BoxMaker {
      * @param findImage An image file for the face that is on top of the box.
      * @param backImage An image file for the back and side faces of the box.
      * @param behindImage An image file for the face that is on the bottom of the box.
-     * @param gui An instance of the FXIGameController class.
+     * @param gameController An instance of the FXIGameController class.
      * @param id An int that identifies the box.
      */
-    public BoxMaker(double width, double height, Image findImage, Image backImage, Image behindImage, FXIGameController gui, int id){
+    public BoxMaker(double width, double height, Image findImage, Image backImage, Image behindImage, FXIGameController gameController, int id){
 
         this.id = id;
-        this.gui = gui;
+        this.gameController = gameController;
         this.width = width;
         this.height = height;
         createMaterials(findImage,backImage,behindImage);
         createFaces();
         createGroup();
-        gui.addToCubeList(this);
+        gameController.addToCubeList(this);
     }
 
     /**
@@ -112,23 +130,6 @@ public class BoxMaker {
      */
     private void createFaces() {
 
-        rightFace = new Box(width, height, 0);
-        rightFace.setMaterial(material4);
-        rightFace.setTranslateX(width/2);
-        rightFace.setTranslateZ(width/2);
-        rightFace.setRotationAxis(Rotate.Y_AXIS);
-        rightFace.setRotate(90);
-        rightFace.setCullFace(CullFace.BACK);
-
-        leftFace = new Box(width, height, 0);
-        leftFace.setMaterial(material5);
-        leftFace.setTranslateX(width/-2);
-        leftFace.setTranslateZ(width/2);
-        leftFace.setRotationAxis(Rotate.Y_AXIS);
-        leftFace.setRotate(90);
-        leftFace.setCullFace(CullFace.BACK);
-
-
         backFace = new Box(width, height, 0);
         backFace.setMaterial(material1);
         backFace.setTranslateZ(width);
@@ -141,7 +142,6 @@ public class BoxMaker {
         frontFace.setTranslateY(0);
         frontFace.setRotationAxis(Rotate.Z_AXIS);
         frontFace.setCullFace(CullFace.BACK);
-
 
         topFace = new Box(width, height, 0);
         topFace.setMaterial(material3);
@@ -167,35 +167,22 @@ public class BoxMaker {
     private void createGroup() {
 
         boxGroup = new Group();
-        boxGroup.getChildren().addAll(backFace,bottomFace,topFace,frontFace,rightFace,leftFace);
+        boxGroup.getChildren().addAll(backFace,bottomFace,topFace,frontFace);
         boxGroup.setOnMouseClicked(mouseEvent -> rotateBox());
+
     }
     private void rotateBox() {
 
-        Platform.runLater(() -> rotateUp(boxGroup));
         sendId();
+        Platform.runLater(() -> rotateUp(boxGroup));
+
     }
-    private void sendId() {gui.sendIdToEngine(this.id);}
+    private void sendId() {
+        gameController.sendIdToEngine(this.id);}
     public void resetImage() {Platform.runLater(() -> rotateDown(boxGroup));}
     public Group getBox() {return boxGroup;}
 
-    private final Timeline timelineUp = new Timeline(
-            new KeyFrame(Duration.ZERO,
-                    new KeyValue(rotateValueUp, 0),
-                    new KeyValue(rotationAxisUp, Rotate.X_AXIS)
-            ),
-            new KeyFrame(Duration.seconds(0.6),
-                    new KeyValue(rotateValueUp, 90))
-    );
 
-    private final Timeline timelineDown = new Timeline(
-            new KeyFrame(Duration.ZERO,
-                    new KeyValue(rotateValueDown,90),
-                    new KeyValue(rotationAxisDown,Rotate.X_AXIS)
-            ),
-            new KeyFrame(Duration.seconds(0.6),
-                    new KeyValue(rotateValueDown,0))
-    );
 
     public void rotateUp(Group group) {
         group.rotateProperty().bind(rotateValueUp);

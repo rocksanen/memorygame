@@ -1,6 +1,5 @@
 package visuals.gameModes.medium;
 
-import controller.ScoreController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,12 +19,10 @@ import visuals.gameModes.FXAbstractGameController;
 import visuals.gameModes.FXIGameController;
 import visuals.imageServers.ImageCache;
 
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
 public class FXMediumController extends FXAbstractGameController implements Initializable, FXIGameController {
@@ -50,8 +47,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
     @FXML
     ImageView midneo;
 
-    @FXML
-    ImageView play;
+
     @FXML
     ImageView returngame;
     @FXML
@@ -87,7 +83,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
     @FXML
     ImageView worldScoreHeader;
     @FXML ImageView timeBar;
-    @FXML Pane timerPane;
+
     @FXML Pane dynamicScorePane;
     @FXML AnchorPane wallOfeetu;
 
@@ -100,10 +96,6 @@ public class FXMediumController extends FXAbstractGameController implements Init
     private MediumEffects mediumEffects;
 
 
-    public void setController(ScoreController scoreController) {
-
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -113,7 +105,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
 
         mediumEffects = new MediumEffects(this);
         mediumEffects.setImagesAndComponents(
-                mediumBackground, midgrid, midTop, midL, midBot, midend,
+                midgrid, midTop, midL, midBot, midend,
                 midneo,play, returngame, mediumGrid, scorePane);
         Platform.runLater(() -> mediumEffects.entrance());
 
@@ -175,18 +167,8 @@ public class FXMediumController extends FXAbstractGameController implements Init
         mediumGrid.getChildren().clear();
         mediumCubeFactory = new MediumCubeFactory(this);
         gameController.startGame(ModeType.MEDIUM);
-        CompletableFuture.runAsync(() -> {
+        countDown(ModeType.MEDIUM);
 
-            try {
-                Thread.sleep(1900);
-                Platform.runLater(() -> timerPane.setVisible(true));
-                Platform.runLater(() -> dynamicScorePane.setVisible(true));
-                wallOfeetu.setMouseTransparent(true);
-            } catch (InterruptedException e) {
-                newGame();
-                throw new RuntimeException(e);
-            }
-        });
     }
 
     @Override
@@ -264,5 +246,11 @@ public class FXMediumController extends FXAbstractGameController implements Init
     public void updateDynamicScore(int score) {
 
         super.updateDynamicScore(score);
+    }
+
+    @Override
+    public void countDown(ModeType mode) {
+
+        super.countDown(mode);
     }
 }
