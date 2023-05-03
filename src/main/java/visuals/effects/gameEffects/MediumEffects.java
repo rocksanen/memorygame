@@ -33,7 +33,7 @@ public class MediumEffects extends AbstractGameEffects implements IGameEffects{
     }
 
     public void setImagesAndComponents(
-            ImageView mediumbackground, ImageView midgrid, ImageView midTop,
+            ImageView midgrid, ImageView midTop,
             ImageView midL, ImageView midBot, ImageView midend, ImageView midneo,
             ImageView play, ImageView returngame, GridPane mediumGrid, Pane scorePane) {
 

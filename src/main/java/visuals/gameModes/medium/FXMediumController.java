@@ -1,9 +1,5 @@
 package visuals.gameModes.medium;
 
-import controller.ScoreController;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,7 +9,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
-import javafx.util.Duration;
 import model.MemoryObject;
 import model.ModeType;
 import visuals.cubeFactories.BoxMaker;
@@ -24,12 +19,10 @@ import visuals.gameModes.FXAbstractGameController;
 import visuals.gameModes.FXIGameController;
 import visuals.imageServers.ImageCache;
 
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.concurrent.CompletableFuture;
 import java.util.stream.Stream;
 
 public class FXMediumController extends FXAbstractGameController implements Initializable, FXIGameController {
@@ -54,8 +47,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
     @FXML
     ImageView midneo;
 
-    @FXML
-    ImageView play;
+
     @FXML
     ImageView returngame;
     @FXML
@@ -104,10 +96,6 @@ public class FXMediumController extends FXAbstractGameController implements Init
     private MediumEffects mediumEffects;
 
 
-    public void setController(ScoreController scoreController) {
-
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -117,7 +105,7 @@ public class FXMediumController extends FXAbstractGameController implements Init
 
         mediumEffects = new MediumEffects(this);
         mediumEffects.setImagesAndComponents(
-                mediumBackground, midgrid, midTop, midL, midBot, midend,
+                midgrid, midTop, midL, midBot, midend,
                 midneo,play, returngame, mediumGrid, scorePane);
         Platform.runLater(() -> mediumEffects.entrance());
 

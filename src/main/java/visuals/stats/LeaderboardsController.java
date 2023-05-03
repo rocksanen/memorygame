@@ -8,7 +8,6 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -314,6 +313,7 @@ public class LeaderboardsController {
     private void updateTable(ModeType mode, boolean userOnly) {
 
         ArrayList<Score> scoreList;
+
         if (userOnly) {
 
             scoreList = scoreController.getUserScoresRaw(mode);
@@ -351,10 +351,9 @@ public class LeaderboardsController {
     /**
      * sets the current mode to easy and updates the tableview
      *
-     * @param event button click event
      */
     @FXML
-    public void setButtonEasy(ActionEvent event) {
+    public void setButtonEasy() {
 
 
         currentMode = ModeType.EASY;
@@ -376,10 +375,9 @@ public class LeaderboardsController {
     /**
      * sets the current mode to medium and updates the tableview
      *
-     * @param event button click event
      */
     @FXML
-    public void setButtonMedium(ActionEvent event) {
+    public void setButtonMedium() {
 
 
         currentMode = ModeType.MEDIUM;
@@ -401,10 +399,9 @@ public class LeaderboardsController {
     /**
      * sets the current mode to hard and updates the tableview
      *
-     * @param event button click event
      */
     @FXML
-    public void setButtonHard(ActionEvent event) {
+    public void setButtonHard() {
 
         currentMode = ModeType.HARD;
         updateTable(ModeType.HARD, showUserOnly);
@@ -425,10 +422,9 @@ public class LeaderboardsController {
     /**
      * toggles between showing user scores and global scores
      *
-     * @param event button click event
      */
     @FXML
-    public void setButtonUserGlobal(ActionEvent event) {
+    public void setButtonUserGlobal() {
 
         showUserOnly = !showUserOnly;
         //buttonUserGlobal.setText(showUserOnly ? "Global Scores" : "Personal Scores");
@@ -452,10 +448,9 @@ public class LeaderboardsController {
     /**
      * returns to main menu
      *
-     * @param event button click event
      */
     @FXML
-    public void setButtonReturn(ActionEvent event) {
+    public void setButtonReturn() {
 
         buttonReturn.setMouseTransparent(true);
 
@@ -512,10 +507,9 @@ public class LeaderboardsController {
     /**
      * reloads scores from server
      *
-     * @param event button click event
      */
     @FXML
-    public void setButtonRefresh(ActionEvent event) {
+    public void setButtonRefresh() {
         buttonRefresh.setDisable(true);
         buttonRefresh.setText("Reloading...");
 

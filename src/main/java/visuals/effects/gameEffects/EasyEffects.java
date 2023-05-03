@@ -33,7 +33,7 @@ public class EasyEffects extends AbstractGameEffects implements IGameEffects{
     }
 
     public void setImagesAndComponents(
-            ImageView background, ImageView easyTop, ImageView easyBot,
+            ImageView easyTop, ImageView easyBot,
             ImageView easyL, ImageView easy3Dgrid, ImageView play,
             ImageView returngame, GridPane easyGridi, ImageView easyEnd,
             ImageView easyneo, Pane scorePane) {

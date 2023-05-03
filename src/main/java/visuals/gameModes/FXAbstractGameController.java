@@ -48,6 +48,8 @@ public abstract class FXAbstractGameController implements FXIGameController {
     @FXML public AnchorPane wallOfeetu;
     @FXML public Pane dynamicScorePane;
     @FXML public Pane timerPane;
+    @FXML public ImageView play;
+    public boolean practice = false;
 
 
 
@@ -133,18 +135,22 @@ public abstract class FXAbstractGameController implements FXIGameController {
     @Override
     public void compareFoundMatch() {
 
-        CompletableFuture.runAsync(() -> {
-            try {
-                Thread.sleep(800);
-                for (BoxMaker cube : cubeList) {
-                    if (!cube.getActiveState()) {
-                        cube.getBox().setMouseTransparent(false);
-                    }
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO),
+                new KeyFrame(Duration.millis(800))
+        );
+
+        timeline.play();
+        timeline.setOnFinished(actionEvent -> {
+
+            for (BoxMaker cube : cubeList) {
+                if (!cube.getActiveState()) {
+                    cube.getBox().setMouseTransparent(false);
                 }
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
             }
         });
+
     }
 
     @Override
@@ -212,7 +218,6 @@ public abstract class FXAbstractGameController implements FXIGameController {
                 fadeTransition2.play();
             });
             pauseTransition.play();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -336,8 +341,14 @@ public abstract class FXAbstractGameController implements FXIGameController {
 
             if(!mode.equals(ModeType.EASY) ) {
                 timerPane.setVisible(true);
-                gameController.startTime();
+
+                if(!practice) {
+
+                    gameController.startTime();
+
+                }
             }
         });
     }
+
 }
