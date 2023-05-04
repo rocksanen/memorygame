@@ -97,11 +97,18 @@ public class GameController implements IGameController {
     }
 
 
+    /**
+     * Gets the timer time to update it
+     * @param i - time
+     */
     @Override
     public void setTimer(int i) {
         fxiGameController.getTime(i);
     }
 
+    /**
+     * Visualizes the hint from engine
+     */
     @Override
     public void showHint() {
         fxiGameController.glowHint(engine.getHint());

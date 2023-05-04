@@ -94,6 +94,12 @@ public class FXHardController extends FXAbstractGameController implements Initia
     private HardEffects hardEffects;
 
 
+    /**
+     * Initializes the controller with the specified URL and resource bundle.
+     *
+     * @param url the URL of the FXML file
+     * @param resourceBundle the resource bundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
