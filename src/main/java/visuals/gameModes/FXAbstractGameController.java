@@ -91,6 +91,10 @@ public abstract class FXAbstractGameController implements FXIGameController {
         });
     }
 
+    /**
+     * Visualizes the hint during practice mode
+     * @param idToGlow - cube to visualize
+     */
     @Override
     public void glowHint(int idToGlow) {
 
