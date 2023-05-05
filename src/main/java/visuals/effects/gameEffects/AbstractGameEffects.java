@@ -7,7 +7,24 @@ import visuals.effects.menuEffects.ZoomOutEffects;
 
 import java.io.IOException;
 
+/**
+
+ The AbstractGameEffects class is an abstract class that implements the IGameEffects interface.
+
+ It provides a default implementation of the changeToMenu method, which changes the scene to the menu screen using the Navigaattori singleton.
+
+ The method also calls the gameZoomOut method of a ZoomOutEffects object depending on the ModeType argument.
+ */
 abstract class AbstractGameEffects implements IGameEffects {
+
+    /**
+
+     The changeToMenu method changes the scene to the menu screen using the Navigaattori singleton.
+
+     It also calls the gameZoomOut method of a ZoomOutEffects object depending on the ModeType argument.
+
+     @param type The ModeType of the game to zoom out from.
+     */
     @Override
     public void changeToMenu(ModeType type) {
 

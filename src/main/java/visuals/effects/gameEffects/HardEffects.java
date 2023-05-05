@@ -12,6 +12,12 @@ import javafx.util.Duration;
 import model.ModeType;
 import visuals.gameModes.FXIGameController;
 
+/**
+
+ The HardEffects class extends the AbstractGameEffects class and implements the IGameEffects interface.
+
+ This class defines the entrance, wallsOff, practiceColorsOn, and practiceColorsOff methods to create game effects.
+ */
 public class HardEffects extends AbstractGameEffects implements IGameEffects{
 
 
@@ -30,11 +36,32 @@ public class HardEffects extends AbstractGameEffects implements IGameEffects{
 
     private final FXIGameController gameController;
 
+    /**
+
+     Constructs a HardEffects object with the specified game controller.
+     @param gameController The game controller object for the Hard mode.
+     */
     public HardEffects(FXIGameController gameController) {
 
         this.gameController= gameController;
 
     }
+
+    /**
+
+     Sets the images and components for the Hard mode.
+     @param hardBackground The background image for the Hard mode.
+     @param scorePane The score pane for the Hard mode.
+     @param hardGrid The grid for the Hard mode.
+     @param hardGridImage The grid image for the Hard mode.
+     @param hardR The right arrow image for the Hard mode.
+     @param hardL The left arrow image for the Hard mode.
+     @param hardneo The main character image for the Hard mode.
+     @param play The play button image for the Hard mode.
+     @param returngame The return to game button image for the Hard mode.
+     @param practiseButton The practice button image for the Hard mode.
+     @param practiseTree The practice tree image for the Hard mode.
+     */
     public void setImagesAndComponents(
 
             ImageView hardBackground,Pane scorePane,GridPane hardGrid,
@@ -54,6 +81,11 @@ public class HardEffects extends AbstractGameEffects implements IGameEffects{
         this.practiseTree = practiseTree;
 
     }
+
+    /**
+
+     Animates the entrance of the Hard mode.
+     */
     @Override
     public void entrance() {
 
