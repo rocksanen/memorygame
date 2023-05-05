@@ -2,25 +2,39 @@ package visuals.internationalization;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 import java.util.Locale;
 import java.util.Objects;
 
-public class ImageTranslator {
 
+/**
+ The ImageTranslator class is responsible for translating images to the appropriate language based on the user's locale.
+ It provides methods to change the images for various components such as menu login, in-game header, and game mode information.
+ */
+public class ImageTranslator {
     private final Locale locale;
 
+    /**
+     Constructor for ImageTranslator class.
+     Initializes the locale with the value from the JavaFXInternationalization class.
+     */
     public ImageTranslator() {
 
         locale = JavaFXInternationalization.getLocale();
     }
-
+    /**
+     Changes the images for menu login components such as username, password, login button, register button, and logout button based on the user's locale.
+     @param userName The ImageView for username.
+     @param password The ImageView for password.
+     @param LoginButton The ImageView for login button.
+     @param RegisterButton The ImageView for register button.
+     @param logoutButton The ImageView for logout button.
+     */
     public void menuLoginTranslator(
             ImageView userName, ImageView password, ImageView LoginButton,
             ImageView RegisterButton, ImageView logoutButton)
     {
 
-
+        // switch case based on the language of the locale
         switch (locale.getLanguage()){
             case "fi" -> {
                 userName.setImage(
@@ -100,8 +114,13 @@ public class ImageTranslator {
         }
     }
 
+    /**
+     * Changes the images for in-game header components such as personal scores and world scores based on the user's locale.
+     * @param personalScoreHeader
+     * @param worldScoreHeader
+     */
     public void inGameTranslator(ImageView personalScoreHeader,ImageView worldScoreHeader) {
-
+        // switch case based on the language of the locale
         switch (locale.getLanguage()) {
             case "fi" -> {
                 personalScoreHeader.setImage(
@@ -129,6 +148,19 @@ public class ImageTranslator {
         }
     }
 
+    /**
+
+     Translates the game mode information to the corresponding language based on the locale set in the application.
+     @param easydes1 An ImageView object representing the image for the description of the easy mode level 1.
+     @param easydes2 An ImageView object representing the image for the description of the easy mode level 2.
+     @param easydes3 An ImageView object representing the image for the description of the easy mode level 3.
+     @param medes1 An ImageView object representing the image for the description of the medium mode level 1.
+     @param medes2 An ImageView object representing the image for the description of the medium mode level 2.
+     @param medes3 An ImageView object representing the image for the description of the medium mode level 3.
+     @param hardes1 An ImageView object representing the image for the description of the hard mode level 1.
+     @param hardes2 An ImageView object representing the image for the description of the hard mode level 2.
+     @param hardes3 An ImageView object representing the image for the description of the hard mode level 3.
+     */
     public void gameModeInfoTranslator(
             ImageView easydes1,ImageView easydes2,ImageView easydes3,
             ImageView medes1,ImageView medes2,ImageView medes3,
@@ -136,7 +168,10 @@ public class ImageTranslator {
             )
     {
 
+        // switch case based on the language of the locale
         switch (locale.getLanguage()) {
+
+            // case Finnish
             case "fi" -> {
 
                 easydes1.setImage(new Image("/images/menuImages/Easygame_FI.png"));
@@ -156,6 +191,7 @@ public class ImageTranslator {
                 hardes3.setImage(new Image("/images/menuImages/Timelimit_hard_FI.png"));
 
             }
+            // case swedish
             case "swe" -> {
 
                 easydes1.setImage(new Image("/images/menuImages/Easygame_SWE.png"));
@@ -170,6 +206,7 @@ public class ImageTranslator {
                 hardes2.setImage(new Image("/images/menuImages/20_cubes_SWE.png"));
                 hardes3.setImage(new Image("/images/menuImages/Timelimit_hard_SWE.png"));
             }
+            // case latvian
             case "lat" -> {
 
                 easydes1.setImage(new Image("/images/menuImages/Easygame_LAT.png"));
