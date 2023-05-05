@@ -1,3 +1,5 @@
+[![Maven Test](https://github.com/rocksanen/memorygame/actions/workflows/maven.yml/badge.svg)](https://github.com/rocksanen/memorygame/actions/workflows/maven.yml)
+
 # Memory Game
 
 ![image](https://user-images.githubusercontent.com/99963437/235620188-9a2f67ae-5807-4d31-85b8-53fd5eb198ce.png)
@@ -6,14 +8,18 @@
 ### Game where you flip cards to find pairs. Made with JavaFX.
 By Otto Oksanen, Eetu Soronen, Hasan Safdari & Samu Oksala
 ## Table of Contents
+* [Pages](#pages)
 * [Getting Started](#getting-started)
 * [About The Project](#about-the-project)
 * [Vision](#vision)
 * [Builds](#builds)
 * [Jenkins](#jenkins)
 * [GitHub Actions](#github-actions)
+* [Javadoc](#javadoc)
 
 
+## Pages
+[GitHub Pages for readme and javadoc are available here](https://rockanen.github.io/memorygame/).
 
 ## Getting Started
 Compiled Windows builds and Jars for other platforms are available in Releases section.  
