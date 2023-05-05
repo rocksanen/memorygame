@@ -11,6 +11,14 @@ import visuals.Navigaattori;
 import visuals.audio.AudioMemory;
 import java.io.IOException;
 
+/**
+
+ The class ZoomInEffects implements the interface IZoomInEffects and is responsible
+
+ for zooming in the camera, fading in the images and playing background music
+
+ for the game screen.
+ */
 public class ZoomInEffects implements IZoomInEffects {
 
     private double zOffset;
@@ -29,6 +37,13 @@ public class ZoomInEffects implements IZoomInEffects {
     private ImageView hardFrame;
     private ImageView pergament;
 
+    /**
+
+     Sets the essence images for the menu screen.
+     @param japan An ImageView object for the Japanese essence image.
+     @param jungle An ImageView object for the jungle essence image.
+     @param redtree An ImageView object for the red tree essence image.
+     */
     @Override
     public void setEssenceImages(ImageView japan, ImageView jungle, ImageView redtree) {
 
@@ -37,6 +52,16 @@ public class ZoomInEffects implements IZoomInEffects {
         this.redtree = redtree;
     }
 
+    /**
+
+     Sets the images and frames for the difficulty levels.
+     @param miniEasy An ImageView object for the easy level image.
+     @param miniMedium An ImageView object for the medium level image.
+     @param miniHard An ImageView object for the hard level image.
+     @param easyFrame An ImageView object for the easy level frame image.
+     @param mediumFrame An ImageView object for the medium level frame image.
+     @param hardFrame An ImageView object for the hard level frame image.
+     */
     @Override
     public void setMiniImagesAndFrames(
             ImageView miniEasy, ImageView miniMedium, ImageView miniHard,
@@ -50,9 +75,24 @@ public class ZoomInEffects implements IZoomInEffects {
         this.hardFrame = hardFrame;
     }
 
+    /**
+
+     Sets the general objects for the menu screen.
+     @param pergament An ImageView object for the parchment background image.
+     */
     @Override
     public void setGeneralObjects(ImageView pergament) {this.pergament = pergament;}
 
+    /**
+
+     Initiates the game screen zoom in effect and fades in the level images
+     and their frames based on the selected difficulty level.
+     @param zOffset A double value for the z-axis offset.
+     @param fovOffset A double value for the field of view offset.
+     @param xOffset A double value for the x-axis offset.
+     @param yOffset A double value for the y-axis offset.
+     @param type A ModeType object representing the selected difficulty level.
+     */
     @Override
     public void gameZoomIn(
             double zOffset, double fovOffset,
@@ -94,6 +134,16 @@ public class ZoomInEffects implements IZoomInEffects {
         opacitiesIn(easyFinish, mediumFinish, hardFinish, easyFrameFinish, mediumFrameFinish, hardFrameFinish);
     }
 
+    /**
+
+     This method overrides the cameraZoomIn() method and zooms in the camera.
+
+     It creates a timeline with KeyFrames to change camera properties over time.
+
+     Once the animation is finished, it stops the timeline, stops the current song,
+
+     plays a new song, and calls the cameraZoomInEndings() method.
+     */
     @Override
     public void cameraZoomIn() {
 
@@ -130,6 +180,12 @@ public class ZoomInEffects implements IZoomInEffects {
         });
     }
 
+    /**
+
+     This method overrides the cameraZoomInEndings() method.
+     It changes the current scene by calling the changeScene() method in Navigaattori.
+     If an error occurs while changing the scene, it throws a RuntimeException.
+     */
     @Override
     public void cameraZoomInEndings() {
 
@@ -140,6 +196,26 @@ public class ZoomInEffects implements IZoomInEffects {
         }
     }
 
+    /**
+
+     This method overrides the opacitiesIn() method.
+
+     It creates a timeline with KeyFrames to change opacity values of different elements over time.
+
+     Once the animation is finished, it stops the timeline.
+
+     @param easyFinish The opacity value to set for miniEasy element at the end of the animation.
+
+     @param mediumFinish The opacity value to set for miniMedium element at the end of the animation.
+
+     @param hardFinish The opacity value to set for miniHard element at the end of the animation.
+
+     @param easeFrameFinish The opacity value to set for easyFrame element at the end of the animation.
+
+     @param mediumFrameFinish The opacity value to set for mediumFrame element at the end of the animation.
+
+     @param hardFrameFinish The opacity value to set for hardFrame element at the end of the animation.
+     */
     @Override
     public void opacitiesIn(
             double easyFinish, double mediumFinish, double hardFinish,

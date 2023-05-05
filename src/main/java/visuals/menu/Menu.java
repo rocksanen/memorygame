@@ -10,7 +10,6 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -30,6 +29,7 @@ import visuals.effects.menuEffects.MenuLayoutEffects;
 import visuals.effects.menuEffects.ZoomInEffects;
 import visuals.imageServers.ImageCache;
 import visuals.internationalization.ImageTranslator;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -37,6 +37,14 @@ import java.util.concurrent.CompletableFuture;
 
 import static model.ModeType.*;
 
+/**
+
+ The Menu class is the controller for the menu of the game.
+ It contains methods for initializing the menu and its components,
+ handling events and user input, and interacting with the controllers
+ for the user and scores.
+ It implements the Initializable and IMenu interfaces.
+ */
 public class Menu implements Initializable, IMenu {
 
     private final IScoreController scoreController = new ScoreController();
@@ -49,8 +57,6 @@ public class Menu implements Initializable, IMenu {
 
     @FXML
     ImageView burningsun;
-    @FXML
-    Button buttonLogout;
 
     @FXML
     TextField name;
@@ -140,6 +146,20 @@ public class Menu implements Initializable, IMenu {
     private static String user;
 
 
+    /**
+
+     This method initializes the main menu by calling several other methods that set up various parts of the menu.
+
+     Additionally, the wallOfeetu is set to be clickable, the BurningSun is moved to its position, the introSongCheck is performed,
+
+     and the menuBlackOff method is called. Lastly, the setWallOfeetuOff method is called.
+
+     @param url The location of the fxml file for the main menu.
+
+     @param resourceBundle The ResourceBundle that was used to load the fxml file.
+
+     @return void
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -164,6 +184,12 @@ public class Menu implements Initializable, IMenu {
         setWallOfeetuOff();
     }
 
+    /**
+
+     This method fades out the menuBlack pane. The fade out is achieved using a Timeline object.
+
+     @return void
+     */
     private void menuBlackOff() {
 
         Timeline timeline = new Timeline(
@@ -178,6 +204,12 @@ public class Menu implements Initializable, IMenu {
 
     }
 
+    /**
+
+     This method calls several other methods that set up various parts of the menu. It is called by the initialize method.
+
+     @return void
+     */
     private void initGoods() {
 
         initLogin();
@@ -190,6 +222,14 @@ public class Menu implements Initializable, IMenu {
         Platform.runLater(() -> menuLayoutEffects.infoBlink(info));
     }
 
+    /**
+
+     This method initializes the login panel by setting the visibility of several panes and calling a method to translate images.
+
+     It is called by the initialize method.
+
+     @return void
+     */
     private void initLogin() {
 
         Platform.runLater(() -> logAndReg.setVisible(true));
@@ -198,16 +238,34 @@ public class Menu implements Initializable, IMenu {
         Platform.runLater(() ->  userPane.setVisible(userController.isLoggedIn()));
     }
 
+    /**
+
+     This method translates images on the login panel. It is called by the initialize method.
+     @return void
+     */
     private void initLoginPanel()
 
     {
         imageTranslator.menuLoginTranslator(usernameButtonimage,passwordButtonImage,loginButtonImage,registerButtonImage,logoutButton);
     }
 
+    /**
+
+     This method translates text for game mode descriptions. It is called by the initialize method.
+
+     @return void
+     */
     private void initGameModeDescriptions() {
 
         imageTranslator.gameModeInfoTranslator(easydes1,easydes2,easydes3,medes1,medes2,medes3,hardes1,hardes2,hardes3);
     }
+
+    /**
+
+     The JavaFX method responsible for handling the user input when starting
+
+     an easy level game.
+     */
     @FXML
     public void easyStartScreenPlay() {
 
@@ -216,6 +274,12 @@ public class Menu implements Initializable, IMenu {
         Platform.runLater(() -> zoomInEffects.gameZoomIn(803, 10, -145.5, 14.5, EASY));
     }
 
+    /**
+
+     The JavaFX method responsible for handling the user input when starting
+
+     a medium level game.
+     */
     @FXML
     public void mediumStartScreenPlay() {
 
@@ -224,6 +288,12 @@ public class Menu implements Initializable, IMenu {
         Platform.runLater(() -> zoomInEffects.gameZoomIn(1071, 10, 117.2, -144.92, MEDIUM));
     }
 
+    /**
+
+     The JavaFX method responsible for handling the user input when starting
+
+     a hard level game.
+     */
     @FXML
     public void hardStartScreenPlay() {
 
@@ -232,6 +302,14 @@ public class Menu implements Initializable, IMenu {
         Platform.runLater(() -> zoomInEffects.gameZoomIn(1002, 10, 384, 14, HARD));
     }
 
+    /**
+
+     The method responsible for preparing the UI elements for the game start.
+
+     It makes the wall of feetu game element visible and stops any timelines
+
+     currently running.
+     */
     private void prepareToPlay() {
 
         Platform.runLater(() -> wallOfeetu.setMouseTransparent(false));
@@ -239,6 +317,12 @@ public class Menu implements Initializable, IMenu {
         menuLayoutEffects.stopTimelines();
     }
 
+    /**
+
+     The JavaFX method responsible for handling the user input when registering
+
+     a new user.
+     */
     @FXML
     public void registerPane() {
 
@@ -259,6 +343,14 @@ public class Menu implements Initializable, IMenu {
         Platform.runLater(() -> userPane.setVisible(true));
     }
 
+    /**
+
+     The method responsible for handling the user login actions.
+
+     It performs user authentication, sets the necessary UI elements visible,
+
+     and starts a thread to fetch the user's personal scores.
+     */
     private void loginActions() {
 
         user = name.getText();
@@ -281,6 +373,11 @@ public class Menu implements Initializable, IMenu {
         }
     }
 
+    /**
+
+     Updates the user pane by setting the font of the user name to "Atari Classic",
+     setting the user name to uppercase and showing the user pane.
+     */
     private void updateUserPane() {
 
         userName.setFont(Font.font("Atari Classic", 14));
@@ -288,12 +385,22 @@ public class Menu implements Initializable, IMenu {
         Platform.runLater(() -> userPane.setVisible(true));
     }
 
+    /**
+
+     Handles the login pane button action by calling the loginActions() method.
+     */
     @FXML
     public void loginPane() {
 
         loginActions();
     }
 
+    /**
+
+     Handles the Enter key pressed event by checking if the Enter key was pressed,
+     and if so, calling the loginActions() method.
+     @param event The KeyEvent object representing the key pressed event.
+     */
     @FXML
     private void handleEnterKeyPressed(KeyEvent event) {
 
@@ -302,6 +409,11 @@ public class Menu implements Initializable, IMenu {
         }
     }
 
+    /**
+
+     Sets the visibility of audioMute and audioUnMute based on the audio memory.
+     Updates the user pane if the user is logged in.
+     */
     private void panesAndMisc() {
 
         audioMute.setVisible(!audioMemory.isMuted());
@@ -312,6 +424,11 @@ public class Menu implements Initializable, IMenu {
         }
     }
 
+    /**
+
+     Sets the images for the menu items.
+     Uses the image cache to retrieve the menu images based on their index in the cache.
+     */
     private void setMenuImages() {
 
         burningsun.setImage(ImageCache.getInstance().getMenuCache().get(11));
@@ -340,18 +457,60 @@ public class Menu implements Initializable, IMenu {
         hardes3.setImage(ImageCache.getInstance().getMenuCache().get(23));
     }
 
+    /**
+
+     Displays the information for the easy level when the mouse is hovered over it.
+     Calls displayInfoOn() from the menuLayoutEffects.
+     */
     @FXML
     public void easyInfoOn() {menuLayoutEffects.displayInfoOn(easydes1, easydes2, easydes3);}
+
+    /**
+
+     Hides the information about the easy level game when the user stops hovering over the image.
+     Calls the displayInfoOff method from the menuLayoutEffects object to hide the information.
+     */
     @FXML
     public void easyInfoOff() {menuLayoutEffects.displayInfoOff(easydes1, easydes2, easydes3);}
+
+    /**
+
+     Displays information about the medium level game when the user hovers over the image.
+     Calls the displayInfoOn method from the menuLayoutEffects object to show the information.
+     */
     @FXML
     public void mediumInfoOn() {menuLayoutEffects.displayInfoOn(medes1, medes2, medes3);}
+
+    /**
+
+     Hides the information about the medium level game when the user stops hovering over the image.
+     Calls the displayInfoOff method from the menuLayoutEffects object to hide the information.
+     */
     @FXML
     public void mediumInfoOff() {menuLayoutEffects.displayInfoOff(medes1, medes2, medes3);}
+
+    /**
+
+     Displays information about the hard level game when the user hovers over the image.
+     Calls the displayInfoOn method from the menuLayoutEffects object to show the information.
+     */
     @FXML
     public void hardInfoOn() {menuLayoutEffects.displayInfoOn(hardes1, hardes2, hardes3);}
+
+    /**
+
+     Hides the information about the hard level game when the user stops hovering over the image.
+     Calls the displayInfoOff method from the menuLayoutEffects object to hide the information.
+     */
     @FXML
     public void hardInfoOff() {menuLayoutEffects.displayInfoOff(hardes1, hardes2, hardes3);}
+
+    /**
+
+     Logs out the current user and clears the name and password fields. Hides the user pane and shows the login pane.
+
+     @throws Exception if an error occurs during the logout process
+     */
     @FXML
     public void setButtonLogout() {
 
@@ -369,6 +528,10 @@ public class Menu implements Initializable, IMenu {
         }
     }
 
+    /**
+
+     Sets up and displays the leaderboards page when the leaderboards button is clicked.
+     */
     @FXML
     public void setButtonLeaderboards() {
 
@@ -399,6 +562,10 @@ public class Menu implements Initializable, IMenu {
 
     }
 
+    /**
+
+     Sets up and displays the info page when the info button is clicked.
+     */
     @FXML
     public void setInfoButton() {
 
@@ -430,12 +597,26 @@ public class Menu implements Initializable, IMenu {
 
     }
 
+    /**
+
+     This method is called when the mouse hovers over a button, and it calls the commonHoverOn() method in the Hovers class.
+     @param event The mouse event that triggered the method call.
+     */
     @FXML
     public void hoverOn(javafx.scene.input.MouseEvent event) {hovers.commonHoverOn(event);}
 
+    /**
+
+     This method is called when the mouse hovers off a button, and it calls the commonHoverOff() method in the Hovers class.
+     @param event The mouse event that triggered the method call.
+     */
     @FXML
     public void hoverOff(javafx.scene.input.MouseEvent event) {hovers.commonHoverOff(event);}
 
+    /**
+
+     This method is called when the "audio" button is clicked. It toggles the mute state of the game's audio.
+     */
     @FXML
     public void setButtonAudio() {
 
@@ -444,6 +625,10 @@ public class Menu implements Initializable, IMenu {
         audioUnMute.setVisible(audioMemory.isMuted());
     }
 
+    /**
+
+     This method checks if the intro song is on, and sets it to off. If the intro song is off, it plays the game's menu music.
+     */
     private void introSongCheck() {
 
         if (IntroOn.getInstance().getIntroOn()) {
@@ -453,6 +638,10 @@ public class Menu implements Initializable, IMenu {
         }
     }
 
+    /**
+
+     This method sets the mouse transparent property of the "wallOfeetu" node to true after a delay of 1 second.
+     */
     private void setWallOfeetuOff() {
 
         CompletableFuture.runAsync(() -> {

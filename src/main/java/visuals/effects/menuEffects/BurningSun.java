@@ -6,12 +6,39 @@ import javafx.animation.Timeline;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
+
+/**
+
+ The BurningSun class represents a singleton object that manages the movement of a given ImageView
+
+ of a sun across the screen with a pre-defined path and time duration.
+ */
 public class BurningSun{
 
+    /**
+
+     The single instance of the BurningSun class.
+     */
     private static BurningSun instance;
+    /**
+
+     The duration of the current animation timeline.
+     */
     private static Duration duration;
+    /**
+
+     The timeline object that animates the movement of the burning sun image.
+     */
     private Timeline burningSunLine;
 
+    /**
+
+     Returns the single instance of the BurningSun class.
+
+     If the instance is null, it creates a new instance of BurningSun.
+
+     @return the instance of the BurningSun class
+     */
     public static BurningSun getInstance() {
 
         if(instance == null) {
@@ -21,6 +48,14 @@ public class BurningSun{
         return instance;
     }
 
+    /**
+
+     Animates the movement of a given ImageView of a burning sun
+
+     across the screen with a pre-defined path and time duration.
+
+     @param burningsun the ImageView of the burning sun to animate
+     */
     public void burningSunMove(ImageView burningsun) {
 
         burningSunLine = new Timeline(
@@ -54,6 +89,10 @@ public class BurningSun{
     }
 
 
+    /**
+
+     Saves the current position of the animation timeline and stops the animation.
+     */
     public void  savePosition() {
 
         duration = burningSunLine.getCurrentTime();

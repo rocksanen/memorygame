@@ -18,10 +18,45 @@ import visuals.audio.AudioMemory;
 
 import java.io.IOException;
 
+/**
+
+ The IntroEffects class contains the visual effects and timeline
+ for the game's intro screen.
+ */
 public class IntroEffects{
 
     private Timeline introLine;
 
+    /**
+     * Displays visual effects and plays music for the intro screen.
+     *
+     * @param first the game's title label
+     * @param groupFour the game's image view
+     * @param logAndReg the login and registration pane
+     * @param sun the sun image view
+     * @param lightning the lightning image view
+     * @param easyFrame the easy frame image view
+     * @param mediumFrame the medium frame image view
+     * @param hardFrame the hard frame image view
+     * @param memomaze the game's icon image view
+     * @param loading the loading image view
+     * @param kotoku the kotoku image view
+     * @param tigerden the tiger den image view
+     * @param treeoflife the tree of life image view
+     * @param pergament the pergament image view
+     * @param startBlack the black starting pane
+     * @param gamePane the game pane
+     * @param japan the japan image view
+     * @param jungle the jungle image view
+     * @param redtree the red tree image view
+     * @param miniEasy the easy mode mini image view
+     * @param miniMedium the medium mode mini image view
+     * @param miniHard the hard mode mini image view
+     * @param leaderpane the leaderboard pane
+     * @param info the info image view
+     * @param bottom the bottom pane
+     * @param audioPane the audio pane
+     */
     public void intro(
             Label first,ImageView groupFour, Pane logAndReg,ImageView sun,
             ImageView lightning, ImageView easyFrame,ImageView mediumFrame,

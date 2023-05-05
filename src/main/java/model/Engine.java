@@ -159,11 +159,6 @@ public class Engine implements IEngine {
 
     }
 
-    @Override
-    public void setChosenObjectReady(MemoryObject object) {
-        object.setActive();
-    }
-
     /**
      * A function to compare the objects once two different objects are selected
      * @param i - the position of a memory object
