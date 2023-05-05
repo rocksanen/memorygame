@@ -4,8 +4,7 @@
 <?import javafx.geometry.Point3D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.effect.BoxBlur?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.effect.GaussianBlur?>
@@ -23,20 +22,23 @@
 <AnchorPane fx:id="sceneRoot" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="visuals.gameModes.hard.FXHardController">
    <children>
       <AnchorPane fx:id="gameRoot" layoutX="174.1999969482422" layoutY="92.0" prefHeight="750.0" prefWidth="1250.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-          <children>
-              <ImageView id="hardSpread" fx:id="hardSpread" fitHeight="780.0" fitWidth="1400.0" opacity="0.0">
-                  <image>
-                      <Image url="@../pictures/images/hardGame/enviroment/hardback4.jpg" />
-                  </image>
-                  <effect>
-                      <GaussianBlur radius="10.59" />
-                  </effect>
-              </ImageView>
-              <ImageView id="hardBackground" fx:id="hardBackground" fitHeight="746.0" fitWidth="1250.0" layoutX="-2.8" layoutY="4.8">
-                  <image>
-                      <Image url="@../pictures/images/hardGame/enviroment/hardback4.jpg" />
-                  </image>
-              </ImageView>
+         <children>
+            <ImageView id="hardSpread" fx:id="hardSpread" fitHeight="780.0" fitWidth="1400.0">
+               <image>
+                  <Image url="@../pictures/images/hardGame/enviroment/hardback4.jpg" />
+               </image>
+               <effect>
+                  <GaussianBlur radius="10.59" />
+               </effect>
+            </ImageView>
+            <ImageView id="hardBackground" fx:id="hardBackground" fitHeight="746.0" fitWidth="1250.0" layoutX="-2.8" layoutY="4.8">
+               <image>
+                  <Image url="@../pictures/images/hardGame/enviroment/hardback4.jpg" />
+               </image>
+               <effect>
+                  <Bloom threshold="0.77" />
+               </effect>
+            </ImageView>
 
 
             <ImageView id="hardL" fx:id="hardL" fitHeight="750.0" fitWidth="1250.0" mouseTransparent="true" opacity="0.55">
@@ -64,35 +66,63 @@
                </effect>
             </ImageView>
 
-              <GridPane id="hardGrid" fx:id="hardGrid" alignment="CENTER" layoutX="338.0" layoutY="115.0" maxHeight="620.0" maxWidth="580.0" prefHeight="620.0" prefWidth="580.0">
-                  <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  </columnConstraints>
-                  <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  </rowConstraints>
-              </GridPane>
-            <ImageView id="play" fx:id="play" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="290.0" onMouseClicked="#newGame">
+            <GridPane id="hardGrid" fx:id="hardGrid" alignment="CENTER" layoutX="320.0" layoutY="115.0" maxHeight="620.0" maxWidth="580.0" prefHeight="620.0" prefWidth="580.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+            </GridPane>
+            <Pane fx:id="practisePane" layoutX="1067.0" layoutY="245.0" onMouseClicked="#setPractice" onMouseEntered="#hoverOn" onMouseExited="#hoverOff" prefHeight="75.0" prefWidth="102.0">
+               <children>
+                  <ImageView id="practiseButton" fx:id="practiseButton" fitHeight="75.0" fitWidth="102.0" mouseTransparent="true">
+                     <image>
+                        <Image url="@../pictures/images/hardGame/enviroment/finalPractiseButton.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <effect>
+                        <SepiaTone level="0.34">
+                           <input>
+                              <Glow>
+                                 <input>
+                                    <ColorAdjust hue="0.06" />
+                                 </input>
+                              </Glow>
+                           </input>
+                        </SepiaTone>
+                     </effect>
+                  </ImageView>
+               </children>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Pane>
+            <ImageView id="practiseTree" fx:id="practiseTree" fitHeight="67.0" fitWidth="90.0" layoutX="1074.0" layoutY="252.0" mouseTransparent="true">
+               <image>
+                  <Image url="@../pictures/images/hardGame/enviroment/redpaint.png" />
+               </image>
+               <effect>
+                  <ColorAdjust brightness="0.15" hue="-1.0" saturation="1.0" />
+               </effect>
+            </ImageView>
+            <ImageView id="play" fx:id="play" fitHeight="75.0" fitWidth="102.0" layoutX="1067.0" layoutY="340.0" onMouseClicked="#newGame" onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
                <image>
                   <Image url="@../pictures/images/playretro.png" />
                </image>
-               <effect>
-                  <SepiaTone level="0.61" />
-               </effect>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <ImageView id="returngame" fx:id="returngame" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="385.0" onMouseClicked="#returnMenu">
+            <ImageView id="returngame" fx:id="returngame" fitHeight="75.0" fitWidth="102.0" layoutX="1067.0" layoutY="435.0" onMouseClicked="#returnMenu" onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
                <image>
                   <Image url="@../pictures/images/return.png" />
                </image>
-               <effect>
-                  <SepiaTone level="0.61" />
-               </effect>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -253,41 +283,108 @@
                            </effect>
                         </Label>
                         <Label fx:id="p5" layoutX="12.0" layoutY="188.0" prefHeight="26.0" prefWidth="158.0" textAlignment="CENTER" textFill="#ffb028">
-                     <font>
-                        <Font name="OCR A Extended" size="22.0" />
-                     </font>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
+                           <font>
+                              <Font name="OCR A Extended" size="22.0" />
+                           </font>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <effect>
+                              <Glow level="1.0" />
+                           </effect>
+                        </Label>
+                     </children>
+                  </Pane>
+               </children>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+               <rotationAxis>
+                  <Point3D y="1.0" />
+               </rotationAxis>
+            </Pane>
+            <Pane fx:id="timerPane" layoutX="677.0" layoutY="333.0" prefHeight="50.0" prefWidth="600.0" rotate="-90.0">
+               <children>
+                  <Pane layoutX="9.0" layoutY="8.0" prefHeight="42.0" prefWidth="532.0" style="-fx-background-color: black;" />
+                  <ImageView id="timeBar" fx:id="timeBar" fitHeight="30.0" fitWidth="524.0" layoutX="13.0" layoutY="15.0">
+                     <image>
+                        <Image url="@../pictures/images/mediumGame/enviroment/vihreepatukka.jpg" />
+                     </image>
                      <effect>
-                        <Glow level="1.0" />
+                        <Bloom threshold="1.0">
+                           <input>
+                              <BoxBlur>
+                                 <input>
+                                    <GaussianBlur radius="25.03">
+                                       <input>
+                                          <ColorAdjust contrast="1.0" hue="-0.68" saturation="1.0" />
+                                       </input>
+                                    </GaussianBlur>
+                                 </input>
+                              </BoxBlur>
+                           </input>
+                        </Bloom>
                      </effect>
-                  </Label>
+                  </ImageView>
+                  <ImageView fitHeight="54.0" fitWidth="685.0" layoutX="-72.0" layoutY="2.0">
+                     <image>
+                        <Image url="@../pictures/images/mediumGame/enviroment/medneo.png" />
+                     </image>
+                     <effect>
+                        <ColorAdjust hue="0.95" />
+                     </effect>
+                  </ImageView>
                </children>
             </Pane>
-         </children>
-         <padding>
-            <Insets left="10.0" />
-         </padding>
-         <rotationAxis>
-            <Point3D y="1.0" />
-         </rotationAxis>
-      </Pane>
-      <ProgressBar id="hard_progressbar" fx:id="hard_progressbar" layoutX="779.0" layoutY="365.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="400.0" progress="1.0" rotate="-90.0">
+            <Pane id="dynamicScorePane" fx:id="dynamicScorePane" layoutX="980.0" layoutY="17.0" prefHeight="50.0" prefWidth="283.0">
+               <children>
+                  <Pane layoutX="-15.0" layoutY="-4.0" mouseTransparent="true" opacity="0.9" prefHeight="54.0" prefWidth="283.0" style="-fx-background-color: black;">
+                     <effect>
+                        <GaussianBlur radius="54.16" />
+                     </effect>
+                     <cursor>
+                        <Cursor fx:constant="NONE" />
+                     </cursor>
+                  </Pane>
+                  <Label fx:id="dynamicHeader" layoutY="2.0" prefHeight="44.0" prefWidth="130.0" textFill="WHITE" />
+                  <Label fx:id="dynamicScore" layoutX="144.0" layoutY="2.0" prefHeight="44.0" prefWidth="130.0" textFill="WHITE" />
+               </children>
+            </Pane>
+            <Pane id="numberPane" fx:id="numberPane" layoutX="556.0" layoutY="269.0" mouseTransparent="true" opacity="0.0" prefHeight="182.0" prefWidth="138.0" style="-fx-background-color: black;">
                <effect>
-                  <BoxBlur>
+                  <GaussianBlur radius="63.0">
                      <input>
-                        <ColorAdjust contrast="-0.95" hue="-0.4" saturation="0.76">
-                           <input>
-                              <GaussianBlur radius="15.2" />
-                           </input>
-                        </ColorAdjust>
+                        <BoxBlur height="66.96" width="93.18" />
                      </input>
-                  </BoxBlur>
+                  </GaussianBlur>
                </effect>
-      </ProgressBar>
-            <ToggleButton id="practice_button" fx:id="practice_button" layoutX="1038.0" layoutY="223.0" mnemonicParsing="false" onAction="#setPractice" text="Practice Mode" />
-    </children>
+            </Pane>
+            <AnchorPane id="wallOfeetu" fx:id="wallOfeetu" prefHeight="841.6" prefWidth="1425.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <ImageView fx:id="three" fitHeight="439.0" fitWidth="367.0" layoutX="445.0" layoutY="145.0" mouseTransparent="true" opacity="0.0">
+               <image>
+                  <Image url="@../pictures/images/three.png" />
+               </image>
+               <effect>
+                  <ColorAdjust contrast="1.0" />
+               </effect>
+            </ImageView>
+            <ImageView fx:id="two" fitHeight="439.0" fitWidth="367.0" layoutX="445.0" layoutY="145.0" mouseTransparent="true" opacity="0.0">
+               <image>
+                  <Image url="@../pictures/images/two.png" />
+               </image>
+               <effect>
+                  <ColorAdjust contrast="1.0" />
+               </effect>
+            </ImageView>
+            <ImageView fx:id="one" fitHeight="439.0" fitWidth="367.0" layoutX="445.0" layoutY="145.0" mouseTransparent="true" opacity="0.0">
+               <image>
+                  <Image url="@../pictures/images/one.png" />
+               </image>
+               <effect>
+                  <ColorAdjust contrast="1.0" />
+               </effect>
+            </ImageView>
+         </children>
       </AnchorPane>
    </children>
 </AnchorPane>

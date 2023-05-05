@@ -35,6 +35,14 @@ public class MediumCubeFactory implements ICubeFactory {
         Collections.shuffle(imageUrlList);
     }
 
+    /**
+     * Creates the cubes for the medium game mode and adds them to the given grid pane.
+     * Adds event handlers for mouse enter and exit to scale the cubes on hover.
+     * Adds a fade-in animation for each cube.
+     *
+     * @param gridPane the grid pane to add the cubes to
+     * @param memoryObjects the list of memory objects to create cubes for
+     */
     @Override
     public void createCubics(GridPane gridPane,ArrayList<MemoryObject> memoryObjects){
 
@@ -55,8 +63,8 @@ public class MediumCubeFactory implements ICubeFactory {
 
                 group.setOnMouseEntered(mouseEvent -> {
 
-                    group.setScaleX(1.05);
-                    group.setScaleY(1.05);
+                    group.setScaleX(1.03);
+                    group.setScaleY(1.03);
                 });
 
                 group.setOnMouseExited(mouseEvent -> {

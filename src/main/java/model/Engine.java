@@ -1,6 +1,9 @@
 package model;
 
 import controller.IGameController;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -9,45 +12,22 @@ import static model.CompareResultType.EQUAL;
 import static model.CompareResultType.NOTEQUAL;
 
 /**
- * The type Engine.
+ * The {@code Engine} class represents the game engine that manages the memory game logic.
  */
 public class Engine implements IEngine {
 
     /**
      * The Storage.
      */
-    ArrayList<Integer> storage = new ArrayList<>();
+    final ArrayList<Integer> storage = new ArrayList<>();
 
-    ArrayList<Integer> correctIds = new ArrayList<>();
-    ArrayList<Integer> correctIdsIds = new ArrayList<>();
+    final ArrayList<Integer> correctIds = new ArrayList<>();
+    final ArrayList<Integer> correctIdsIds = new ArrayList<>();
     private final IGameController controller;
     private final ModeType type;
 
-    private boolean isTimerRunning = false;
-
-    /**
-     * Gets comparing list.
-     *
-     * @return the comparing list
-     */
-
-    public boolean isReturnStatus() {
-        return returnStatus;
-    }
-
-    public void setReturnStatus(boolean returnStatus) {
-        this.returnStatus = returnStatus;
-    }
-
-    private boolean returnStatus;
-
-    public ArrayList<MemoryObject> getComparingList() {
-        return comparingList;
-    }
-
     private final ArrayList<MemoryObject> comparingList = new ArrayList<>();
-    private ArrayList<Integer> rightPairList = new ArrayList<Integer>();
-    private CompareResultType type2;
+    private final ArrayList<Integer> rightPairList = new ArrayList<>();
 
     /**
      * Gets memory objects list.
@@ -60,15 +40,12 @@ public class Engine implements IEngine {
 
     private ArrayList<MemoryObject> memoryObjectsList;
 
-    // private int foundPairs = 0;
-
-    private int activeId;
 
     private int hint;
     /**
      * logged in user
      */
-    private User user = User.getInstance();
+    private final User user = User.getInstance();
 
     /**
      * The time when the game started / engine created (in milliseconds).
@@ -90,13 +67,8 @@ public class Engine implements IEngine {
 
     private long lastCorrectGuess;
 
-
-    public long getTimerTime() {
-        return timerTime;
-    }
-
-    Timer t;
-    TimerTask task;
+    final Timer t;
+    final TimerTask task;
 
     /**
      * Instantiates a new Engine.
@@ -116,24 +88,26 @@ public class Engine implements IEngine {
         lastCorrectGuess = startTime;
     }
 
+    /**
+     * A method to set the memory objects in the engine for each game mode. Objects are set to a list, then shuffled and then a game is started
+     * A timer time is given for the medium and hard modes
+     */
     @Override
     public void setMemoryObjects() {
 
         switch (this.type) {
             case EASY -> {
+
                 addMemoryObjectsToList(6);
                 suffleObjects();
                 controller.setGame(memoryObjectsList);
-                timerTime = 1000;
-                runTimer();
             }
             case MEDIUM -> {
 
                 addMemoryObjectsToList(12);
                 suffleObjects();
                 controller.setGame(memoryObjectsList);
-                timerTime = 600;
-                runTimer();
+                timerTime = 6;
             }
 
             case HARD -> {
@@ -141,13 +115,24 @@ public class Engine implements IEngine {
                 addMemoryObjectsToList(20);
                 suffleObjects();
                 controller.setGame(memoryObjectsList);
-                timerTime = 600;
-                runTimer();
+                timerTime = 6;
             }
-
         }
     }
 
+    /**
+     * Starts the timer
+     */
+    @Override
+    public void startTime() {
+
+        runTimer();
+    }
+
+    /**
+     * Adds memory objects to a list
+     * @param amount - The amount of memory objects to be added
+     */
     @Override
     public void addMemoryObjectsToList(Integer amount) {
 
@@ -160,13 +145,16 @@ public class Engine implements IEngine {
         }
     }
 
+    /**
+     * Shuffles the objects to randomize the game
+     */
     @Override
     public void suffleObjects() {
         Collections.shuffle(memoryObjectsList);
 
-        for (int i = 0; i < memoryObjectsList.size(); i++) {
-            correctIds.add(memoryObjectsList.get(i).getTypeId());
-            correctIdsIds.add(memoryObjectsList.get(i).getIdNumber());
+        for (MemoryObject memoryObject : memoryObjectsList) {
+            correctIds.add(memoryObject.getTypeId());
+            correctIdsIds.add(memoryObject.getIdNumber());
         }
 
     }
@@ -176,10 +164,13 @@ public class Engine implements IEngine {
         object.setActive();
     }
 
+    /**
+     * A function to compare the objects once two different objects are selected
+     * @param i - the position of a memory object
+     */
     @Override
     public void addToComparing(int i) {
 
-//        System.out.println("tänne meni");
         MemoryObject memoryObject = memoryObjectsList.get(i);
         controller.getActive(i);
         if (!rightPairList.contains(memoryObject.getTypeId())) {
@@ -194,50 +185,37 @@ public class Engine implements IEngine {
 
     }
 
-    public int getActiveId() {
-        return activeId;
-    }
-
+    /**
+     * Method to end the game
+     */
     public void endGame() {
-        controller.gameOver();
+
+        controller.gameOver(true);
         rightPairList.clear();
-        System.out.println("Game ended!");
         setPersonalScore();
         stopTimer();
     }
 
+    /**
+     * Method to stop the timer
+     */
     public void stopTimer() {
 
-
         if (t != null) {
-
             t.cancel();
         }
-
     }
 
+    /**
+     * Method for the practice mode, to get a hint from the engine to the UI
+     * @return returns the correct position of the hint
+     */
     @Override
     public int getHint() {
         return hint;
     }
 
-    @Override
-    public void clearPair(ArrayList<MemoryObject> memoryList) {
 
-        synchronized (this) {
-
-            CompletableFuture.runAsync(() -> {
-                try {
-
-                    Thread.sleep(1000);
-                    controller.clearPair(storage);
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            });
-        }
-    }
 
     /**
      * Called by a method that ends the game. Saves the score to the leaderboard.
@@ -250,18 +228,12 @@ public class Engine implements IEngine {
         }
         // get current time and detract the start time
         double finalTime = (System.currentTimeMillis() - startTime) / 1000.0;
-        // time (seconds), totalScore and difficulty
-        System.out.println("Time: " + finalTime + "s, Score: " + totalScore + ", Difficulty: " + type);
-
         // user.addScore(finalTime, totalScore, type);
-        CompletableFuture.runAsync(() -> {
-            user.addScore(finalTime, totalScore, type);
-        });
+        CompletableFuture.runAsync(() -> user.addScore(finalTime, totalScore, type));
 
     }
 
 
-    // was private void, changed
     public void updateScore(CompareResultType type) {
         switch (type) {
             case EQUAL -> {
@@ -269,10 +241,9 @@ public class Engine implements IEngine {
                         incorrectTries, lastCorrectGuess - System.currentTimeMillis());
                 incorrectTries = 0;
                 lastCorrectGuess = System.currentTimeMillis();
+                updateDynamicScore(totalScore);
             }
-            case NOTEQUAL -> {
-                incorrectTries++;
-            }
+            case NOTEQUAL -> incorrectTries++;
         }
     }
 
@@ -287,14 +258,39 @@ public class Engine implements IEngine {
     }
 
 
+    /**
+     * Clears the storage of memory objects
+     */
     @Override
     public void clearStorage() {
         storage.clear();
     }
 
-
     private int wrong_guesses = 0;
-    private int firstIncorrectGuessIndex = -1;
+
+
+    @Override
+    public void clearPair(ArrayList<MemoryObject> memoryList) {
+
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO),
+                new KeyFrame(Duration.millis(750))
+        );
+
+        timeline.play();
+        timeline.setOnFinished(actionEvent -> {
+
+            controller.clearPair(storage);
+
+        });
+    }
+
+    /**
+     * Compares the memory objects once they are selected and added to the list
+     * Checks if the two different objects are a pair or no
+     * @param objectList
+     */
     @Override
     public void compareObjects(ArrayList<MemoryObject> objectList) {
 
@@ -317,19 +313,16 @@ public class Engine implements IEngine {
             if (wrong_guesses == 2 && getType().equals(ModeType.HARD)) {
                 int idToMatch = objectList.get(0).getTypeId();
                 int idToMatch2 = objectList.get(0).getIdNumber();
-                System.out.println(idToMatch);
-                System.out.println(memoryObjectsList.size());
+
+
                 for (int i = 0; i < memoryObjectsList.size(); i++) {
 
                     if (idToMatch == correctIds.get(i) && idToMatch2 != correctIdsIds.get(i)) {
                         hint = i;
                         controller.showHint();
-                        System.out.println("Position: " + i);
                         wrong_guesses = 0;
                         //break;
                     }
-
-
                 }
             }
 
@@ -338,6 +331,9 @@ public class Engine implements IEngine {
         }
     }
 
+    /**
+     * Method to schedule & start the timer
+     */
     public void runTimer() {
         t.schedule(task, 0, timerTime);
     }
@@ -346,6 +342,12 @@ public class Engine implements IEngine {
     @Override
     public ModeType getType() {
         return type;
+    }
+
+    @Override
+    public void updateDynamicScore(int score) {
+
+        controller.updateDynamicScore(score);
     }
 
     public String toString() {

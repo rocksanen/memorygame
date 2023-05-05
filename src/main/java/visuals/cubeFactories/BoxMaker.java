@@ -18,6 +18,17 @@ import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 import visuals.gameModes.FXIGameController;
 
+
+/**
+
+ The BoxMaker class represents a 3D box made up of six faces. Each face is a
+
+ rectangular 3D object that has a PhongMaterial with an image applied to it.
+
+ This class creates the box and sets the PhongMaterial for each face.
+
+ It also provides methods to toggle the isActive field and get the active state of the box.
+ */
 public class BoxMaker {
     private Box backFace, topFace, rightFace, leftFace, frontFace, bottomFace;
     private PhongMaterial material1,material2,material3,material4,material5,material6;
@@ -25,30 +36,78 @@ public class BoxMaker {
     private final double width;
     private final double height;
     private final int id;
-    private final FXIGameController gui;
+    private final FXIGameController gameController;
     private final DoubleProperty rotateValueUp = new SimpleDoubleProperty(0);
     private final ObjectProperty<Point3D> rotationAxisUp = new SimpleObjectProperty<>(Rotate.X_AXIS);
     private final DoubleProperty rotateValueDown = new SimpleDoubleProperty(90);
     private final ObjectProperty<Point3D> rotationAxisDown = new SimpleObjectProperty<>(Rotate.X_AXIS);
 
+    private final Timeline timelineUp = new Timeline(
+            new KeyFrame(Duration.ZERO,
+                    new KeyValue(rotateValueUp, 0),
+                    new KeyValue(rotationAxisUp, Rotate.X_AXIS)
+            ),
+            new KeyFrame(Duration.seconds(0.6),
+                    new KeyValue(rotateValueUp, 90))
+    );
+
+    private final Timeline timelineDown = new Timeline(
+            new KeyFrame(Duration.ZERO,
+                    new KeyValue(rotateValueDown,90),
+                    new KeyValue(rotationAxisDown,Rotate.X_AXIS)
+            ),
+            new KeyFrame(Duration.seconds(0.6),
+                    new KeyValue(rotateValueDown,0))
+    );
+
     private Boolean isActive = false;
 
-    public BoxMaker(double width, double height, Image findImage, Image backImage, Image behindImage, FXIGameController gui, int id){
+    /**
+     * Creates a new instance of BoxMaker. The 3D box will have a width and height
+     * that are passed as parameters. The findImage, backImage, and behindImage
+     * parameters are image files that will be used to set the PhongMaterial of
+     * each face. The gui parameter is an instance of the FXIGameController class.
+     * The id parameter is an int that identifies the box.
+     *
+     * @param width The width of the box.
+     * @param height The height of the box.
+     * @param findImage An image file for the face that is on top of the box.
+     * @param backImage An image file for the back and side faces of the box.
+     * @param behindImage An image file for the face that is on the bottom of the box.
+     * @param gameController An instance of the FXIGameController class.
+     * @param id An int that identifies the box.
+     */
+    public BoxMaker(double width, double height, Image findImage, Image backImage, Image behindImage, FXIGameController gameController, int id){
 
         this.id = id;
-        this.gui = gui;
+        this.gameController = gameController;
         this.width = width;
         this.height = height;
         createMaterials(findImage,backImage,behindImage);
         createFaces();
         createGroup();
-        gui.addToCubeList(this);
-
-
-       // System.out.println("id: " + this.id + " gui " + this.gui + " width " + this.width + " findImage " + findImage.getWidth());
+        gameController.addToCubeList(this);
     }
+
+    /**
+     * Toggles the state of the isActive field.
+     */
     public void setActive() {isActive = !isActive;}
+
+    /**
+     * Returns the value of the isActive field.
+     *
+     * @return true if the isActive field is true, false otherwise.
+     */
     public Boolean getActiveState() {return isActive;}
+
+    /**
+     * Creates the PhongMaterial for each face.
+     *
+     * @param findImage An image file for the face that is on top of the box.
+     * @param backImage An image file for the back and side faces of the box.
+     * @param behindImage An image file for the face that is on the bottom of the box.
+     */
     private void createMaterials(Image findImage, Image backImage, Image behindImage){
 
         material1 = new PhongMaterial();
@@ -64,24 +123,12 @@ public class BoxMaker {
         material6 = new PhongMaterial();
         material6.setDiffuseMap(behindImage);
     }
+
+    /**
+
+     Creates the six faces of the box.
+     */
     private void createFaces() {
-
-        rightFace = new Box(width, height, 0);
-        rightFace.setMaterial(material4);
-        rightFace.setTranslateX(width/2);
-        rightFace.setTranslateZ(width/2);
-        rightFace.setRotationAxis(Rotate.Y_AXIS);
-        rightFace.setRotate(90);
-        rightFace.setCullFace(CullFace.BACK);
-
-        leftFace = new Box(width, height, 0);
-        leftFace.setMaterial(material5);
-        leftFace.setTranslateX(width/-2);
-        leftFace.setTranslateZ(width/2);
-        leftFace.setRotationAxis(Rotate.Y_AXIS);
-        leftFace.setRotate(90);
-        leftFace.setCullFace(CullFace.BACK);
-
 
         backFace = new Box(width, height, 0);
         backFace.setMaterial(material1);
@@ -95,7 +142,6 @@ public class BoxMaker {
         frontFace.setTranslateY(0);
         frontFace.setRotationAxis(Rotate.Z_AXIS);
         frontFace.setCullFace(CullFace.BACK);
-
 
         topFace = new Box(width, height, 0);
         topFace.setMaterial(material3);
@@ -121,35 +167,22 @@ public class BoxMaker {
     private void createGroup() {
 
         boxGroup = new Group();
-        boxGroup.getChildren().addAll(backFace,bottomFace,topFace,frontFace,rightFace,leftFace);
+        boxGroup.getChildren().addAll(backFace,bottomFace,topFace,frontFace);
         boxGroup.setOnMouseClicked(mouseEvent -> rotateBox());
+
     }
     private void rotateBox() {
 
-        Platform.runLater(() -> rotateUp(boxGroup));
         sendId();
+        Platform.runLater(() -> rotateUp(boxGroup));
+
     }
-    private void sendId() {gui.sendIdToEngine(this.id);}
+    private void sendId() {
+        gameController.sendIdToEngine(this.id);}
     public void resetImage() {Platform.runLater(() -> rotateDown(boxGroup));}
     public Group getBox() {return boxGroup;}
 
-    private final Timeline timelineUp = new Timeline(
-            new KeyFrame(Duration.ZERO,
-                    new KeyValue(rotateValueUp, 0),
-                    new KeyValue(rotationAxisUp, Rotate.X_AXIS)
-            ),
-            new KeyFrame(Duration.seconds(0.6),
-                    new KeyValue(rotateValueUp, 90))
-    );
 
-    private final Timeline timelineDown = new Timeline(
-            new KeyFrame(Duration.ZERO,
-                    new KeyValue(rotateValueDown,90),
-                    new KeyValue(rotationAxisDown,Rotate.X_AXIS)
-            ),
-            new KeyFrame(Duration.seconds(0.6),
-                    new KeyValue(rotateValueDown,0))
-    );
 
     public void rotateUp(Group group) {
         group.rotateProperty().bind(rotateValueUp);

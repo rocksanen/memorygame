@@ -1,4 +1,5 @@
 package visuals.stats;
+
 import controller.ChartController;
 import controller.IChartController;
 import javafx.geometry.Insets;
@@ -35,14 +36,13 @@ public class ChartGUI implements IChartGUI {
     AreaChart<String, Number> stackedAreaChart;
     private final IChartController chartController = new ChartController(this);
 
-    ResourceBundle r = ResourceBundle.getBundle("Bundle", JavaFXInternationalization.getLocale());
+    final ResourceBundle r = ResourceBundle.getBundle("Bundle", JavaFXInternationalization.getLocale());
 
-    private ModeType currentMode;
     public void init() {
 
         Font.loadFont(Objects.requireNonNull(getClass().getClassLoader().getResource("fonts/VCR_OSD_MONO_1.001.ttf")).toExternalForm(), 14);
         stackedAreaChart = new AreaChart<>(new CategoryAxis(), new NumberAxis());
-        currentMode = ModeType.EASY;
+        ModeType currentMode = ModeType.EASY;
         stackedAreaChart.getXAxis().setStyle("-fx-tick-label-fill: WHITE; -fx-font-size: 16px;-fx-font-family: 'VCR OSD Mono'");
         stackedAreaChart.getYAxis().setStyle("-fx-tick-label-fill: WHITE; -fx-font-size: 16px;-fx-font-family: 'VCR OSD Mono'");
         stackedAreaChart.setStyle("-fx-background-color: transparent;");
@@ -70,12 +70,12 @@ public class ChartGUI implements IChartGUI {
     public void updateWorldChartData(ModeType mode) {
 
         stackedAreaChart.getData().clear();
-
+        stackedAreaChart.getData().clear();
         ArrayList<String> results = chartController.getWorldScores(mode);
         XYChart.Series<String, Number> scoreSeries = new XYChart.Series<>();
 
         if (results == null) {
-            throw new NullPointerException("score or date is null");
+            return;
         }
         for (String s : results) {
             String[] parts = s.split(" ");
@@ -84,13 +84,12 @@ public class ChartGUI implements IChartGUI {
             int month = Integer.parseInt(parts[1].substring(5, 7));
             String date = day + "/" + month;
             scoreSeries.getData().add(new XYChart.Data<>(date, points));
-            System.out.println(mode + ": " + " date: " + date + " points: " + points);
         }
-        System.out.println(" ");
-        System.out.println(" ");
 
         stackedAreaChart.getData().add(scoreSeries);
         results.clear();
+
+
     }
 
     public void updateUserChartData(ModeType mode) {
@@ -100,17 +99,18 @@ public class ChartGUI implements IChartGUI {
         XYChart.Series<String, Number> scoreSeries = new XYChart.Series<>();
         scoreSeries.setName(mode.toString());
 
+        if (results == null) {
+            return;
+        }
+
         for (String s : results) {
             String[] parts = s.split(" ");
             int points = Integer.parseInt(parts[0]);
             int day = Integer.parseInt(parts[1].substring(8, 10));
             int month = Integer.parseInt(parts[1].substring(5, 7));
             String date = day + "/" + month;
-            scoreSeries.getData().add(new XYChart.Data<>(date,points));
-            System.out.println(mode + ": " + " date: " + date + " points: " + points);
+            scoreSeries.getData().add(new XYChart.Data<>(date, points));
         }
-        System.out.println("");
-        System.out.println("");
 
         stackedAreaChart.getData().add(scoreSeries);
     }

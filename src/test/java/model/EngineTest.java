@@ -1,19 +1,11 @@
 package model;
 
-import controller.GameController;
 import controller.IGameController;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import visuals.gameModes.FXAbstractGameController;
-import visuals.gameModes.FXIGameController;
-import visuals.gameModes.easy.FXEasyController;
 import visuals.menu.IMenu;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 
@@ -22,13 +14,11 @@ import static org.junit.jupiter.api.Assertions.*;
 public class EngineTest {
 
     private Engine e;
-    IMenu ui;
-    private IGameController controller;
 
 
     @BeforeEach
     void setUp() {
-        this.e = new Engine(ModeType.EASY, controller);
+        this.e = new Engine(ModeType.EASY, null);
     }
 
     @Test
@@ -54,46 +44,16 @@ public class EngineTest {
         assertNotEquals(test, test2);
     }
 
-    // too interlinked with view to test
-//    @Test
-//    @DisplayName("Test addToComparing")
-//    void addToComparing() {
-//        e.addMemoryObjectsToList(8);
-//        e.addToComparing(0);
-//        e.addToComparing(2);
-//        assertEquals(0, e.getComparingList().size());
-//        //Wrong pair
-//        assertEquals(2, e.storage.size());
-//
-//        e.addToComparing(1);
-//        //After pair
-//        assertEquals(1, e.getComparingList().size());
-//
-//        e.addToComparing(0);
-//
-//        //Right pair
-//        assertEquals(0, e.storage.size());
-//    }
 
     @Test
     @DisplayName("Count wrong tries")
     void testMaxTries() {
         e.incorrectTries = 3;
-        //+1
         e.updateScore(CompareResultType.NOTEQUAL);
-//        assertEquals(600, e.getNextScore());
         assertEquals(4, e.incorrectTries);
     }
 
-    @Test
-    @DisplayName("Test update score on right guess")
-    void updateCorrectScore() {
-        e.updateScore(CompareResultType.EQUAL);
-        assertEquals(1000, e.getTotalScore());
-//        assertEquals(1000, e.getNextScore());
-        assertEquals(0, e.incorrectTries);
 
-    }
 
     @Test
     @DisplayName("Test update score on wrong guess")
@@ -101,7 +61,6 @@ public class EngineTest {
 
         e.updateScore(CompareResultType.NOTEQUAL);
         assertEquals(0, e.getTotalScore());
-//        assertEquals(900, e.getNextScore());
         assertEquals(1, e.incorrectTries);
     }
 

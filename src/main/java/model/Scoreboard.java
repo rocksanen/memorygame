@@ -15,8 +15,6 @@ import java.util.List;
  * Contains list of Score-objects and methods for adding and retrieving scores
  * Also contains methods for retrieving scores from the database
  *
- * @author Eetu Soronen
- * @version 1
  */
 public class Scoreboard {
 
@@ -60,7 +58,6 @@ public class Scoreboard {
         User u = User.getInstance();
         Account a = u.getAccount();
         if (a == null) {
-            System.out.println("cant save score if not logged in!");
             return;
         }
         Leaderboard lb = new Leaderboard(a, time, points, difficulty, new Date());
@@ -87,7 +84,6 @@ public class Scoreboard {
      * @return list of scores
      */
     public ArrayList<Score> getScores() {
-//        System.out.println("getScores: " + scores);
         return scores;
     }
 
@@ -113,14 +109,17 @@ public class Scoreboard {
      * @param difficulty difficulty of the scores
      */
     public void fetchWorldScores(ModeType difficulty) {
+
         this.scores.clear();
+
         List<Leaderboard> leaderboards = leaderboarddao.readWorldScores(difficulty);
+        if (leaderboards == null) {
+            return;
+        }
+
         for (Leaderboard lb : leaderboards) {
             this.scores.add(new Score(lb));
         }
-//        System.out.println("fetchWorldScores: " + scores);
-//        System.out.println("get iside fetch");
-//        this.getScores();
     }
 
     /**
@@ -132,12 +131,12 @@ public class Scoreboard {
     public void fetchUserScores(Long userid, ModeType difficulty) {
         this.scores.clear();
         List<Leaderboard> leaderboards = leaderboarddao.getAccountScoresByDifficulty(userid, difficulty);
+        if (leaderboards == null) {
+            return;
+        }
         for (Leaderboard lb : leaderboards) {
             this.scores.add(new Score(lb));
         }
-//        System.out.println("fetchWorldScores: " + scores);
-//        System.out.println("get iside fetch");
-//        this.getScores();
     }
 
     /**

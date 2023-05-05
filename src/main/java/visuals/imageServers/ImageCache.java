@@ -2,11 +2,14 @@ package visuals.imageServers;
 
 import javafx.scene.image.Image;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Stores images for further use in ArrayLists.
+ * Implemented as a singleton.
+ */
 public class ImageCache {
 
     private static ImageCache instance;
@@ -19,9 +22,17 @@ public class ImageCache {
     private final ArrayList<Image> gameBackGroundImages = new ArrayList<>();
     private final ArrayList<Image> menuImages = new ArrayList<>();
 
+    /**
+     * Constructor. Does nothing.
+     */
     private ImageCache() {
     }
 
+    /**
+     * Returns the instance of the class.
+     *
+     * @return instance of the class
+     */
     public static ImageCache getInstance() {
 
         if (instance == null) {
@@ -33,7 +44,11 @@ public class ImageCache {
 
     }
 
-    public void addToEasyCache() throws FileNotFoundException {
+    /**
+     * Loads images used in the easy game mode to memory.
+     *
+     */
+    public void addToEasyCache() {
 
         Image nalle = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/nalle.png")));
         Image panda = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/panda.png")));
@@ -58,7 +73,11 @@ public class ImageCache {
 
     }
 
-    public void addToMediumCache() throws FileNotFoundException {
+    /**
+     * Loads images used in the medium game mode to memory.
+     *
+     */
+    public void addToMediumCache() {
 
         Image goldDragon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/goldDragonHard.png")));
         Image greenDragon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/greenDragonHard.png")));
@@ -74,17 +93,21 @@ public class ImageCache {
         mediumImageCache.add(boyGirl);
         mediumImageCache.add(bird);
         mediumImageCache.add(happyGirl);
-        
+
         Image mediumBack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/uustigru5.jpg")));
         Image mediumBehind = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/mediumCubeBack.jpg")));
-        
+
         mediumCompImages.add(mediumBack);
         mediumCompImages.add(mediumBehind);
 
 
     }
 
-    public void addToHardCache() throws FileNotFoundException {
+    /**
+     * Loads images used in the hard game mode to memory.
+     *
+     */
+    public void addToHardCache() {
 
         Image goldDragon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/goldDragonHard.png")));
         Image greenDragon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/greenDragonHard.png")));
@@ -117,7 +140,11 @@ public class ImageCache {
 
     }
 
-    public void addToGameBackGroundCache() throws FileNotFoundException {
+    /**
+     * Loads images used in the background of every game mode
+     *
+     */
+    public void addToGameBackGroundCache() {
 
         Image easyBack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/easyGame/enviroment/background.png")));
         Image mediumBack = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/mediumGame/enviroment/tigru.jpg")));
@@ -174,7 +201,11 @@ public class ImageCache {
 
     }
 
-    public void addToMenuCache() throws FileNotFoundException {
+    /**
+     * Loads images for the main menu
+     *
+     */
+    public void addToMenuCache() {
 
         Image pergament = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/menu/testaperga7.jpg")));
         Image miniEasy = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/pictures/images/menu/background.png")));
@@ -229,23 +260,43 @@ public class ImageCache {
 
     }
 
+    /**
+     * returns images for the main menu
+     *
+     * @return arraylist of images
+     */
     public ArrayList<Image> getMenuCache() {
 
         return menuImages;
     }
 
+    /**
+     * returns background images for gamemodes
+     *
+     * @return arraylist of images
+     */
     public ArrayList<Image> getGameBackGroundCache() {
 
         return gameBackGroundImages;
 
     }
 
+    /**
+     * returns images for the easy game mode
+     *
+     * @return arraylist of images
+     */
     public ArrayList<Image> getEasyCache() {
 
         return easyImageCache;
 
     }
 
+    /**
+     * returns images for the medium game mode
+     *
+     * @return arraylist of images
+     */
     public ArrayList<Image> getMediumCache() {
 
 
@@ -253,6 +304,11 @@ public class ImageCache {
 
     }
 
+    /**
+     * returns images for the hard game mode
+     *
+     * @return arraylist of images
+     */
     public ArrayList<Image> getHardCache() {
 
 
@@ -260,12 +316,22 @@ public class ImageCache {
 
     }
 
+    /**
+     * Background images specfic to easuy mode
+     *
+     * @return arraylist of images
+     */
     public ArrayList<Image> getEasyComp() {
 
         return easyCompImages;
 
     }
 
+    /**
+     * Background images specfic to medium mode
+     *
+     * @return arraylist of images
+     */
     public ArrayList<Image> getMediumComp() {
 
 
@@ -273,6 +339,11 @@ public class ImageCache {
 
     }
 
+    /**
+     * Background images specfic to hard mode
+     *
+     * @return arraylist of images
+     */
     public ArrayList<Image> getHardComp() {
 
 

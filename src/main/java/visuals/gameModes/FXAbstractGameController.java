@@ -3,24 +3,24 @@ package visuals.gameModes;
 import controller.GameController;
 import controller.IGameController;
 import controller.ScoreController;
-import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.application.Platform;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
-import javafx.scene.effect.BlendMode;
-import javafx.scene.effect.Bloom;
-import javafx.scene.effect.GaussianBlur;
+import javafx.scene.Node;
 import javafx.scene.effect.Glow;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import model.ModeType;
 import visuals.Navigaattori;
 import visuals.cubeFactories.BoxMaker;
+import visuals.internationalization.ImageTranslator;
 import visuals.internationalization.JavaFXInternationalization;
 
 import java.io.IOException;
@@ -32,12 +32,33 @@ public abstract class FXAbstractGameController implements FXIGameController {
     protected ArrayList<BoxMaker> cubeList;
     protected final IGameController gameController = new GameController(this);
     private static final ArrayList<Group> activeList = new ArrayList<>();
+    private final ImageTranslator imageTranslator = new ImageTranslator();
+
+
+
+    @FXML
+    public Label dynamicScore;
+    @FXML
+    public Label dynamicHeader;
+
+    @FXML public ImageView three;
+    @FXML public ImageView two;
+    @FXML public ImageView one;
+    @FXML public Pane numberPane;
+    @FXML public AnchorPane wallOfeetu;
+    @FXML public Pane dynamicScorePane;
+    @FXML public Pane timerPane;
+    @FXML public ImageView play;
+    public boolean practice = false;
+
+
 
     public FXAbstractGameController() {
     }
 
     @Override
     public void addToCubeList(BoxMaker cube) {
+
         cubeList.add(cube);
     }
 
@@ -50,28 +71,30 @@ public abstract class FXAbstractGameController implements FXIGameController {
         cubeList.get(firstIndex).resetImage();
         cubeList.get(secondIndex).resetImage();
         clearStorage();
+        cubeList.get(firstIndex).setActive();
+        cubeList.get(secondIndex).setActive();
 
-        CompletableFuture.runAsync(() -> {
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO),
+                new KeyFrame(Duration.millis(850))
+        );
 
-            try {
+        timeline.play();
+        timeline.setOnFinished(actionEvent -> {
 
-                Thread.sleep(700);
-                cubeList.get(firstIndex).setActive();
-                cubeList.get(secondIndex).setActive();
-                cubeList.get(firstIndex).getBox().setMouseTransparent(false);
-                cubeList.get(secondIndex).getBox().setMouseTransparent(false);
+            for (BoxMaker cube : cubeList) {
 
-                for (BoxMaker cube : cubeList) {
-
-                    if (!cube.getActiveState()) {
-                        cube.getBox().setMouseTransparent(false);
-                    }
+                if (!cube.getActiveState()) {
+                    cube.getBox().setMouseTransparent(false);
                 }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
         });
     }
+
+    /**
+     * Visualizes the hint during practice mode
+     * @param idToGlow - cube to visualize
+     */
     @Override
     public void glowHint(int idToGlow) {
 
@@ -83,8 +106,8 @@ public abstract class FXAbstractGameController implements FXIGameController {
             fadeTransition.setCycleCount(3);
 
             fadeTransition.play();
-    });
-}
+        });
+    }
     @Override
     public void clearStorage() {
         gameController.clearStorage();
@@ -116,24 +139,26 @@ public abstract class FXAbstractGameController implements FXIGameController {
     @Override
     public void compareFoundMatch() {
 
-        CompletableFuture.runAsync(() -> {
-            try {
-                Thread.sleep(500);
-                for (BoxMaker cube : cubeList) {
-                    if (!cube.getActiveState()) {
-                        cube.getBox().setMouseTransparent(false);
-                    }
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO),
+                new KeyFrame(Duration.millis(800))
+        );
+
+        timeline.play();
+        timeline.setOnFinished(actionEvent -> {
+
+            for (BoxMaker cube : cubeList) {
+                if (!cube.getActiveState()) {
+                    cube.getBox().setMouseTransparent(false);
                 }
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
             }
         });
+
     }
 
     @Override
     public void getTime(int i) {
-
-        //System.out.println(i);
     }
 
     @Override
@@ -153,42 +178,50 @@ public abstract class FXAbstractGameController implements FXIGameController {
 
     /**
      * Method for clearing the game over menu
+     *
      * @param sceneRoot scene root
-     * @param gameRoot game root
+     * @param gameRoot  game root
      */
     public void clearGameOverMenu(AnchorPane sceneRoot, AnchorPane gameRoot) {
         // delete game over -view if it exists
-        System.out.println(sceneRoot.getChildren());
         if (sceneRoot.getChildren().size() > 1) {
             sceneRoot.getChildren().remove(1);
         }
         // remove effects from gameroot
         gameRoot.setEffect(null);
+
     }
 
 
     /**
      * Method for initializing the game over menu
-     * @param gameRoot game root
+     *
+     * @param gameRoot  game root
      * @param sceneRoot scene root
      */
-    public void gameOverMenu(AnchorPane gameRoot, AnchorPane sceneRoot) {
+    public void gameOverMenu(AnchorPane gameRoot, AnchorPane sceneRoot, boolean victory)  {
         try {
+            gameController.killTimer();
             ResourceBundle bundle = JavaFXInternationalization.internationalizationLoaderProperties();
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/GameOver.fxml"), bundle);
             AnchorPane gameOverView = loader.load();
-
             GameOverController goc = loader.getController();
-            goc.Initialize(this, gameController, gameRoot);
             gameOverView.setOpacity(0.0);
-            sceneRoot.getChildren().add(gameOverView);
 
-            FadeTransition fadeTransition2 = new FadeTransition(Duration.seconds(2), gameOverView);
-            fadeTransition2.setFromValue(0.0);
-            fadeTransition2.setToValue(1.0);
-            fadeTransition2.play();
+            // if game is ended by a timeout, don't wait for animations to end
+            double transitionTime = victory ? 0.6 : 0;
+            PauseTransition pauseTransition = new PauseTransition(Duration.seconds(transitionTime));
+            pauseTransition.setOnFinished(event -> {
+                goc.Initialize(this, gameController, gameRoot, victory);
+                Platform.runLater(() -> sceneRoot.getChildren().add(gameOverView));
 
+                FadeTransition fadeTransition2 = new FadeTransition(Duration.seconds(2), gameOverView);
+                fadeTransition2.setFromValue(0.0);
+                fadeTransition2.setToValue(1.0);
+                fadeTransition2.play();
+            });
+            pauseTransition.play();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -196,38 +229,13 @@ public abstract class FXAbstractGameController implements FXIGameController {
 
     /**
      * Method for initializing the score headers based on the language
+     *
      * @param personalScoreHeader personal score header
-     * @param worldScoreHeader world score header
+     * @param worldScoreHeader    world score header
      */
     public void initScoreHeaders(ImageView personalScoreHeader, ImageView worldScoreHeader) {
-        Locale locale = JavaFXInternationalization.getLocale();
-        System.out.println("locale is : " + locale.getLanguage());
 
-        switch (locale.getLanguage()) {
-            case "fi" -> {
-                personalScoreHeader.setImage(
-                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-                                "/images/headers/fi_personalscores.png"))));
-                worldScoreHeader.setImage(
-                        new Image("/images/headers/fi_worldscores.png"));
-            }
-            case "swe" -> {
-                personalScoreHeader.setImage(
-                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-                                "/images/headers/swe_personalscores.png"))));
-                worldScoreHeader.setImage(
-                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-                                "/images/headers/swe_worldscores.png"))));
-            }
-            case "lat" -> {
-                personalScoreHeader.setImage(
-                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-                                "/images/headers/latvian_personalscores.png"))));
-                worldScoreHeader.setImage(
-                        new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(
-                                "/images/headers/latvian_worldscores.png"))));
-            }
-        }
+        imageTranslator.inGameTranslator(personalScoreHeader,worldScoreHeader);
     }
 
     /**
@@ -245,7 +253,6 @@ public abstract class FXAbstractGameController implements FXIGameController {
         }
     }
 
-
     /**
      * Assigns personal scores to the labels
      *
@@ -260,4 +267,92 @@ public abstract class FXAbstractGameController implements FXIGameController {
             l.setText(personalScores.get(labels.indexOf(l)));
         }
     }
+
+
+    public void hoverOn(javafx.scene.input.MouseEvent event) {
+
+        Glow glow = new Glow();
+        glow.setLevel(0.3);
+        Node source = (Node) event.getSource();
+        source.setEffect(glow);
+    }
+
+
+    public void hoverOff(javafx.scene.input.MouseEvent event) {
+
+        Node source = (Node) event.getSource();
+        source.setEffect(null);
+    }
+
+    public void updateDynamicScore(int score) {
+
+        IntegerProperty base = new SimpleIntegerProperty(Integer.parseInt(dynamicScore.getText()));
+        dynamicScore.textProperty().bind(base.asString("%04d"));
+
+        int fromValue = base.get();
+        Duration duration = Duration.millis((score - fromValue) * 1.5);
+
+        KeyValue keyValue = new KeyValue(base, score, Interpolator.LINEAR);
+        KeyFrame keyFrame = new KeyFrame(duration, keyValue);
+        Timeline timeline = new Timeline(keyFrame);
+
+        timeline.play();
+
+    }
+
+    public void countDown(ModeType mode) {
+
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(1),
+                        new KeyValue(three.opacityProperty(),0),
+                        new KeyValue(three.scaleXProperty(),1),
+                        new KeyValue(three.scaleYProperty(),1),
+                        new KeyValue(numberPane.opacityProperty(),1)),
+                new KeyFrame(Duration.seconds(1.6),
+                        new KeyValue(three.opacityProperty(),1),
+                        new KeyValue(two.opacityProperty(),0),
+                        new KeyValue(two.scaleXProperty(),1),
+                        new KeyValue(two.scaleYProperty(),1)),
+                new KeyFrame(Duration.seconds(2),
+                        new KeyValue(three.opacityProperty(),0),
+                        new KeyValue(three.scaleXProperty(),1.2),
+                        new KeyValue(three.scaleYProperty(),1.2)),
+                new KeyFrame(Duration.seconds(2.2),
+                        new KeyValue(two.opacityProperty(),1),
+                        new KeyValue(one.opacityProperty(),0),
+                        new KeyValue(one.scaleXProperty(),1),
+                        new KeyValue(one.scaleYProperty(),1)),
+                new KeyFrame(Duration.seconds(2.6),
+                        new KeyValue(two.opacityProperty(),0),
+                        new KeyValue(two.scaleXProperty(),1.2),
+                        new KeyValue(two.scaleYProperty(),1.2)),
+                new KeyFrame(Duration.seconds(2.8),
+                        new KeyValue(one.opacityProperty(),1)),
+                new KeyFrame(Duration.seconds(3.2),
+                        new KeyValue(numberPane.opacityProperty(),1)),
+                new KeyFrame(Duration.seconds(3.4),
+                        new KeyValue(dynamicScorePane.visibleProperty(),true),
+                        new KeyValue(wallOfeetu.mouseTransparentProperty(),true),
+                        new KeyValue(one.opacityProperty(),0),
+                        new KeyValue(one.scaleXProperty(),1.2),
+                        new KeyValue(one.scaleYProperty(),1.2),
+                        new KeyValue(numberPane.opacityProperty(),0))
+        );
+
+        timeline.play();
+        timeline.setOnFinished(actionEvent -> {
+
+            if(!mode.equals(ModeType.EASY) ) {
+                timerPane.setVisible(true);
+
+                if(!practice) {
+
+                    gameController.startTime();
+
+                }
+            }
+        });
+    }
+
 }

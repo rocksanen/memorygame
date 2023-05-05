@@ -20,7 +20,7 @@ public interface IGameController {
 
     void setGame(ArrayList<MemoryObject> memoryObjects);
 
-    void gameOver();
+    void gameOver(boolean victory);
 
     void getActive(int id);
 
@@ -35,4 +35,8 @@ public interface IGameController {
     ModeType getDifficulty();
 
     String getGrade();
+
+    void updateDynamicScore(int score);
+
+    void startTime();
 }

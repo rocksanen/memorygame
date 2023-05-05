@@ -1,21 +1,19 @@
 package visuals.gameModes.hard;
 
-import controller.ScoreController;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 import model.MemoryObject;
+import model.ModeType;
 import visuals.cubeFactories.BoxMaker;
 import visuals.cubeFactories.HardCubeFactory;
 import visuals.cubeFactories.ICubeFactory;
@@ -24,7 +22,6 @@ import visuals.gameModes.FXAbstractGameController;
 import visuals.gameModes.FXIGameController;
 import visuals.imageServers.ImageCache;
 
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,25 +80,26 @@ public class FXHardController extends FXAbstractGameController implements Initia
     ImageView personalScoreHeader;
     @FXML
     ImageView worldScoreHeader;
-    @FXML
-    ProgressBar hard_progressbar;
-    @FXML
-    ToggleButton practice_button;
+    @FXML ImageView timeBar;
+    @FXML ImageView practiseButton;
+    @FXML Pane dynamicScorePane;
+    @FXML AnchorPane wallOfeetu;
+    @FXML ImageView practiseTree;
+    @FXML Pane practisePane;
 
     private List<Label> personalLabels;
     private List<Label> worldLabels;
 
     private ICubeFactory hardCubeFactory;
     private HardEffects hardEffects;
-    private ScoreController scoreController;
 
-    private boolean practice = false;
 
-    public void setController(ScoreController scoreController) {
-
-        this.scoreController = scoreController;
-    }
-
+    /**
+     * Initializes the controller with the specified URL and resource bundle.
+     *
+     * @param url the URL of the FXML file
+     * @param resourceBundle the resource bundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -111,7 +109,7 @@ public class FXHardController extends FXAbstractGameController implements Initia
         hardEffects.setImagesAndComponents(
                 hardBackground, scorePane, hardGrid,
                 hardGridImage, hardR, hardL,
-                hardneo, play, returngame);
+                hardneo, play, returngame, practiseButton,practiseTree);
         Platform.runLater(() -> hardEffects.entrance());
 
         initScoreHeaders(personalScoreHeader, worldScoreHeader);
@@ -120,9 +118,12 @@ public class FXHardController extends FXAbstractGameController implements Initia
         setPersonalScore(HARD, personalLabels);
         setWorldScore(HARD, worldLabels);
         Stream.concat(personalLabels.stream(), worldLabels.stream())
-                .forEach(label -> {
-                    label.setStyle("-fx-font: 14 \"Atari Classic\";");
-                });
+                .forEach(label -> label.setStyle("-fx-font: 14 \"Atari Classic\";"));
+
+        dynamicHeader.setFont(Font.font("Atari Classic", 26));
+        dynamicHeader.setText("SCORE");
+        dynamicScore.setFont(Font.font("Atari Classic", 26));
+        dynamicScore.setText("0000");
 
     }
 
@@ -134,6 +135,8 @@ public class FXHardController extends FXAbstractGameController implements Initia
     @Override
     public void setImages() {
 
+        dynamicScorePane.setVisible(false);
+        timerPane.setVisible(false);
         hardBackground.setImage(ImageCache.getInstance().getGameBackGroundCache().get(2));
         hardSpread.setImage(ImageCache.getInstance().getGameBackGroundCache().get(2));
         hardGridImage.setImage(ImageCache.getInstance().getGameBackGroundCache().get(11));
@@ -148,6 +151,8 @@ public class FXHardController extends FXAbstractGameController implements Initia
         play.setOpacity(0);
         returngame.setImage(ImageCache.getInstance().getGameBackGroundCache().get(15));
         returngame.setOpacity(0);
+        practiseButton.setOpacity(0);
+        practiseTree.setOpacity(0);
         hardGrid.setVgap(120);
         hardGrid.setHgap(58);
 
@@ -160,18 +165,25 @@ public class FXHardController extends FXAbstractGameController implements Initia
     @Override
     public void setStartGame() {
 
+        wallOfeetu.setMouseTransparent(false);
         if (cubeList != null) {
             cubeList.clear();
         }
+
+        dynamicScore.textProperty().unbind();
+        dynamicScore.setText("0000");
         cubeList = new ArrayList<>();
         hardGrid.getChildren().clear();
         hardCubeFactory = new HardCubeFactory(this);
         gameController.startGame(HARD);
-        hard_progressbar.setVisible(true);
+        if(practice) {
+            gameController.killTimer();
+        }
+        countDown(HARD);
     }
 
     @Override
-    public void setCubesToGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
+    public void setCubesToGame(ArrayList<MemoryObject> memoryObjects) {
 
         hardCubeFactory.createCubics(hardGrid, memoryObjects);
     }
@@ -181,15 +193,17 @@ public class FXHardController extends FXAbstractGameController implements Initia
 
         gameController.killTimer();
         clearGameOverMenu(sceneRoot, gameRoot);
+        Platform.runLater(() -> timeBar.setFitWidth(524));
         setStartGame();
-
     }
 
     @Override
     public void returnMenu() {
 
+        wallOfeetu.setMouseTransparent(false);
+        Platform.runLater(() -> dynamicScorePane.setVisible(false));
+        Platform.runLater(() -> timerPane.setVisible(false));
         hardEffects.wallsOff();
-        hard_progressbar.setVisible(false);
     }
 
     @Override
@@ -208,20 +222,13 @@ public class FXHardController extends FXAbstractGameController implements Initia
     }
 
     @Override
-    public void gameOver() {
+    public void gameOver(boolean victory) {
 
         if (!practice) {
             setPersonalScore(HARD, personalLabels);
             setWorldScore(HARD, worldLabels);
         }
-        /*
-        Platform.runLater(this::setPersonalScore);
-        Platform.runLater(this::setWorldScore);
-        System.out.println("game over");
-
-         */
-
-        gameOverMenu(gameRoot, sceneRoot);
+        gameOverMenu(gameRoot, sceneRoot, victory);
     }
 
     @Override
@@ -238,56 +245,63 @@ public class FXHardController extends FXAbstractGameController implements Initia
 
         if (practice) {
             super.glowHint(idToGlow);
-        } else {
-            System.out.println("Practise mode is disabled.");
         }
-
     }
 
     public void setPractice() {
+
         if (!practice) {
+            gameController.killTimer();
             practice = true;
-            System.out.println("Practice on!");
+            hideTimeBar();
+            hardEffects.practiseColorsOn();
         } else {
             practice = false;
-            System.out.println("Practice off!");
+            hardEffects.practiseColorsOff();
             newGame();
+            revealTimeBar();
         }
     }
 
-    private boolean quicktest = false;
+    private void hideTimeBar() {
+
+        FadeTransition ft = new FadeTransition(Duration.millis(1000), timerPane);
+        ft.setFromValue(1.0);
+        ft.setToValue(0.0);
+        ft.play();
+    }
+
+    private void revealTimeBar() {
+
+        FadeTransition ft = new FadeTransition(Duration.millis(1000), timerPane);
+        ft.setFromValue(0.0);
+        ft.setToValue(1.0);
+        ft.play();
+    }
+
     @Override
     public void getTime(int i) {
-        if (practice) {
-            super.getTime(i);
-            FadeTransition ft = new FadeTransition(Duration.millis(3000), hard_progressbar);
-            ft.setFromValue(1.0);
-            ft.setToValue(0.0);
-            ft.play();
-            gameController.killTimer();
-            quicktest = true;
-        } else {
 
-            if (quicktest) {
-                FadeTransition ft = new FadeTransition(Duration.millis(1), hard_progressbar);
-                ft.setToValue(1);
-                ft.play();
-                quicktest = false;
-            }
-
+        if(!practice) {
             super.getTime(i);
-            hard_progressbar.setProgress(i*0.01);
-            if (i == 0) {
-                gameOver();
-            }
+            Platform.runLater(() -> timeBar.setFitWidth(timeBar.getFitWidth() - 0.052));
         }
-
-
-
     }
 
     @Override
     public void sendIdToEngine(int id) {
         super.sendIdToEngine(id);
+    }
+
+    @Override
+    public void updateDynamicScore(int score) {
+
+        super.updateDynamicScore(score);
+    }
+
+    @Override
+    public void countDown(ModeType mode) {
+
+        super.countDown(mode);
     }
 }

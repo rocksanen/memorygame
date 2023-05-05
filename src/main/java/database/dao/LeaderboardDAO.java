@@ -27,15 +27,18 @@ public class LeaderboardDAO implements ILeaderboardDAO {
      */
     @Override
     public boolean saveScore(Leaderboard lb) {
+        if (SqlJpaConn.getInstance() == null) {
+            return false;
+        }
+
         EntityManager em = SqlJpaConn.getInstance();
-        System.out.println("saveScores " + lb);
         try {
             em.getTransaction().begin();
             em.persist(lb);
             em.getTransaction().commit();
             return true;
         } catch (Exception e) {
-            System.out.println("error saving a score to db.." + e);
+            e.printStackTrace();
             em.getTransaction().rollback();
             return false;
         }
@@ -51,7 +54,10 @@ public class LeaderboardDAO implements ILeaderboardDAO {
      */
     @Override
     public ArrayList<Leaderboard> getAccountScores(Long accountid) {
-        System.out.println("getAccountScores " + accountid);
+        if (SqlJpaConn.getInstance() == null) {
+            return null;
+        }
+
         EntityManager em = SqlJpaConn.getInstance();
         // why is accountid typed twice? ¯\_(ツ)_/¯
         Query query = em.createQuery("SELECT l FROM Leaderboard l WHERE l.accountid.accountid = :accountid ORDER BY points desc, time asc limit 100");
@@ -68,7 +74,10 @@ public class LeaderboardDAO implements ILeaderboardDAO {
      */
     @Override
     public ArrayList<Leaderboard> getAccountScoresByDifficulty(Long accountid, ModeType difficulty) {
-        System.out.println("getAccountScores " + accountid);
+        if (SqlJpaConn.getInstance() == null) {
+            return null;
+        }
+
         EntityManager em = SqlJpaConn.getInstance();
         // why is accountid typed twice? ¯\_(ツ)_/¯
         Query query = em.createQuery("SELECT l FROM Leaderboard l WHERE l.accountid.accountid = :accountid AND l.difficulty = :difficulty ORDER BY points desc, time asc limit 100");
@@ -84,7 +93,10 @@ public class LeaderboardDAO implements ILeaderboardDAO {
      */
     @Override
     public ArrayList<Leaderboard> readWorldScores(ModeType difficulty) {
-        System.out.println("readWorldScores");
+        if (SqlJpaConn.getInstance() == null) {
+            return null;
+        }
+
         EntityManager em = SqlJpaConn.getInstance();
         // why is accountid typed twice? ¯\_(ツ)_/¯
         Query query = em.createQuery("SELECT l FROM Leaderboard l WHERE l.difficulty = :difficulty ORDER BY points desc, time asc limit 100");
@@ -100,7 +112,10 @@ public class LeaderboardDAO implements ILeaderboardDAO {
      */
     @Override
     public boolean deleteScore(Long scoreid) {
-        System.out.println("deleteScore " + scoreid);
+        if (SqlJpaConn.getInstance() == null) {
+            return false;
+        }
+
         EntityManager em = SqlJpaConn.getInstance();
         em.getTransaction().begin();
         Leaderboard score = em.find(Leaderboard.class, scoreid);
@@ -117,11 +132,13 @@ public class LeaderboardDAO implements ILeaderboardDAO {
      * deletes all scores of select account
      *
      * @param accountid account id
-     * @return true if successful
      */
     @Override
-    public boolean deleteAllScores(Long accountid) {
-        System.out.println("deleteAllScores " + accountid);
+    public void deleteAllScores(Long accountid) {
+        if (SqlJpaConn.getInstance() == null) {
+            return;
+        }
+
         EntityManager em = SqlJpaConn.getInstance();
         try {
             em.getTransaction().begin();
@@ -129,10 +146,8 @@ public class LeaderboardDAO implements ILeaderboardDAO {
             query.setParameter("accountid", accountid);
             query.executeUpdate();
             em.getTransaction().commit();
-            return true;
         } catch (Exception e) {
-            System.out.println("error deleting all scores from db.." + e);
-            return false;
+            e.printStackTrace();
 
         }
     }

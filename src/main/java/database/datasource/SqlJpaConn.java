@@ -2,7 +2,6 @@ package database.datasource;
 
 import jakarta.persistence.*;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +26,11 @@ public class SqlJpaConn {
      */
     private static EntityManager em = null;
 
+    /**
+     * if sql connection fails, this is set to true and no more attempts are made.
+     */
+    public static boolean failedToConnect;
+
 
     /**
      * Singleton constructor, which creates the entitymanager if it doesn't exist
@@ -35,18 +39,27 @@ public class SqlJpaConn {
      * @return returns the EntityManager
      */
     public static EntityManager getInstance() {
-
-        if (em == null) {
-            if (emf == null) {
-                emf = Persistence.createEntityManagerFactory("DevPU", configOverider());
-            }
-            em = emf.createEntityManager();
+        if (failedToConnect) {
+            return null;
         }
-        return em;
+        try {
+            if (em == null) {
+                if (emf == null) {
+                    emf = Persistence.createEntityManagerFactory("DevPU", configOverider());
+                }
+                em = emf.createEntityManager();
+            }
+            return em;
+
+        } catch (Exception e) {
+            failedToConnect = true;
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private static Map<String, Object> configOverider() {
-        Map<String, Object> configOverrides = new HashMap<String, Object>();
+        Map<String, Object> configOverrides = new HashMap<>();
 
         configOverrides.put("jakarta.persistence.jdbc.url", System.getenv("MEMORYMAZE_DB_URL"));
         configOverrides.put("jakarta.persistence.jdbc.user", System.getenv("MEMORYMAZE_DB_USERNAME"));

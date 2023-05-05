@@ -1,8 +1,10 @@
 package controller;
 
 import model.*;
+import visuals.Navigaattori;
 import visuals.stats.IChartGUI;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,7 +16,6 @@ import static model.ModeType.*;
  * The type Chart controller.
  */
 public class ChartController implements IChartController{
-    private final IChartGUI chartUi;
     private IEngine engine;
 
     /**
@@ -23,7 +24,6 @@ public class ChartController implements IChartController{
      * @param chartUi the chart ui
      */
     public ChartController(IChartGUI chartUi) {
-        this.chartUi = chartUi;
     }
 
 
@@ -42,6 +42,12 @@ public class ChartController implements IChartController{
             try {
                 return f.parse(o1.split(" ")[1]).compareTo(f.parse(o2.split(" ")[1]));
             } catch (ParseException e) {
+
+                try {
+                    Navigaattori.getInstance().changeScene(MENU);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
                 throw new IllegalArgumentException(e);
             }
         });
@@ -57,8 +63,10 @@ public class ChartController implements IChartController{
 
 
         for(Score s : rawScores) {
-
-            scoreList.add(s.getPoints() + " " + s.getTimestamp());
+            if (s.getTimestamp() == null) {
+                continue;
+            }
+             scoreList.add(s.getPoints() + " " + s.getTimestamp().toString());
         }
 
         return dateSort(scoreList);
@@ -68,7 +76,6 @@ public class ChartController implements IChartController{
     @Override
     public ArrayList<String> getUserScores(ModeType difficulty) {
         if (!this.isLoggedIn()) {
-            System.out.println("not logged in!");
             return null;
         }
 
@@ -77,7 +84,9 @@ public class ChartController implements IChartController{
         ArrayList<String> scoreList = new ArrayList<>();
 
         for(Score s : rawScores) {
-
+            if (s.getTimestamp() == null) {
+                continue;
+            }
             scoreList.add(s.getPoints() + " " + s.getTimestamp());
         }
 
@@ -87,7 +96,6 @@ public class ChartController implements IChartController{
     @Override
     public ArrayList<Number> getUserTime(ModeType difficulty) {
         if (!this.isLoggedIn()) {
-            System.out.println("not logged in!");
             return null;
         }
         switch (difficulty) {
@@ -107,12 +115,6 @@ public class ChartController implements IChartController{
         return timeList;
     }
 
-
-
-//    @Override
-//    public ArrayList<Date> getUserTimestamp(ModeType difficulty) {
-//        return null;
-//    }
 
 
     @Override

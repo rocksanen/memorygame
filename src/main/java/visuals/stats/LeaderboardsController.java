@@ -2,10 +2,12 @@ package visuals.stats;
 
 import controller.ScoreController;
 import controller.UserController;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -13,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 import model.ModeType;
 import model.Score;
 import visuals.Navigaattori;
@@ -62,6 +65,7 @@ public class LeaderboardsController {
     public Pane chartPane;
     @FXML
     public ImageView rugsweeper;
+    @FXML AnchorPane leaderBlack;
 
     private ScoreController scoreController;
 
@@ -73,7 +77,9 @@ public class LeaderboardsController {
 
     ChartGUI chartGUI = new ChartGUI();
 
-    ResourceBundle r = ResourceBundle.getBundle("Bundle", JavaFXInternationalization.getLocale());
+    private Boolean isChartOnline = true;
+
+    final ResourceBundle r = ResourceBundle.getBundle("Bundle", JavaFXInternationalization.getLocale());
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -81,6 +87,8 @@ public class LeaderboardsController {
      */
     @FXML
     private void initialize() {
+
+        blackOff();
 
         Platform.runLater(() -> AudioMemory.getInstance().playSong(LEADERBOARD));
 
@@ -108,11 +116,27 @@ public class LeaderboardsController {
         updateTable(ModeType.EASY, false);
         updateLabelInfo();
         currentMode = ModeType.EASY;
-        chart(currentMode);
+        chart();
 
         // hides a block above the invisible scrollbar
         rugsweeper.setImage(new Image(Objects.requireNonNull(getClass().getClassLoader().getResource("images/trophy.png")).toExternalForm()));
+        blackOff();
     }
+
+
+
+    private void blackOff() {
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(1),
+                        new KeyValue(leaderBlack.opacityProperty(),1)),
+                new KeyFrame(Duration.seconds(2),
+                        new KeyValue(leaderBlack.opacityProperty(),0))
+        );
+
+        timeline.play();
+    }
+
 
 
     /**
@@ -135,12 +159,19 @@ public class LeaderboardsController {
     }
 
 
-    private void chart(ModeType difficulty) {
+    private void chart() {
 
-        chartGUI.init();
-        chartPane.getChildren().add(chartGUI.stackedAreaChart());
-        chartGUI.stackedAreaChart().setMaxWidth(550);
-        chartGUI.stackedAreaChart().setMaxHeight(430);
+        try {
+            chartGUI.init();
+            chartPane.getChildren().add(chartGUI.stackedAreaChart());
+            chartGUI.stackedAreaChart().setMaxWidth(550);
+            chartGUI.stackedAreaChart().setMaxHeight(430);
+
+        }catch (Exception e) {
+            chartPane.setOpacity(0);
+            e.printStackTrace();
+            isChartOnline = false;
+        }
     }
 
 
@@ -168,8 +199,6 @@ public class LeaderboardsController {
     private void initTable() {
 
 
-
-
         //TableColumn<Score, String> nameCol = new TableColumn<>("Username");
         TableColumn<Score, String> nameCol = new TableColumn<>(r.getString("leaderboardsUsername"));
         nameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
@@ -192,7 +221,7 @@ public class LeaderboardsController {
         //TableColumn<Score, Double> timeCol = new TableColumn<>("Time (s)");
         TableColumn<Score, Double> timeCol = new TableColumn<>(r.getString("leaderboardsTime"));
         timeCol.setCellValueFactory(new PropertyValueFactory<>("time"));
-        timeCol.setCellFactory(column -> new TableCell<Score, Double>() {
+        timeCol.setCellFactory(column -> new TableCell<>() {
             @Override
             protected void updateItem(Double item, boolean empty) {
                 super.updateItem(item, empty);
@@ -209,7 +238,7 @@ public class LeaderboardsController {
         gradeCol.setCellValueFactory(new PropertyValueFactory<>("grade"));
 
         // replace ⭐ characters with ⭐ images
-        gradeCol.setCellFactory(column -> new TableCell<Score, String>() {
+        gradeCol.setCellFactory(column -> new TableCell<>() {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
@@ -234,20 +263,18 @@ public class LeaderboardsController {
         //TableColumn<Score, Date> dateCol = new TableColumn<>("Date");
         TableColumn<Score, Date> dateCol = new TableColumn<>(r.getString("leaderboardsDate"));
         dateCol.setCellValueFactory(new PropertyValueFactory<>("timestamp"));
-        dateCol.setCellFactory(column -> {
-            return new TableCell<>() {
-                @Override
-                protected void updateItem(Date date, boolean empty) {
-                    super.updateItem(date, empty);
-                    if (empty || date == null) {
-                        setText(null);
-                    } else {
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-                        LocalDateTime ldt = date.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDateTime();
-                        setText(ldt.format(formatter));
-                    }
+        dateCol.setCellFactory(column -> new TableCell<>() {
+            @Override
+            protected void updateItem(Date date, boolean empty) {
+                super.updateItem(date, empty);
+                if (empty || date == null) {
+                    setText(null);
+                } else {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+                    LocalDateTime ldt = date.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDateTime();
+                    setText(ldt.format(formatter));
                 }
-            };
+            }
         });
         // add mouse click events to nodes. prints score object to console
         scoreTable.setRowFactory(tv -> {
@@ -255,7 +282,6 @@ public class LeaderboardsController {
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 1 && (!row.isEmpty())) {
                     Score rowData = row.getItem();
-                    System.out.println(rowData);
                 }
             });
             return row;
@@ -285,8 +311,11 @@ public class LeaderboardsController {
      * @param userOnly if true, only shows user scores, else shows all scores
      */
     private void updateTable(ModeType mode, boolean userOnly) {
+
         ArrayList<Score> scoreList;
+
         if (userOnly) {
+
             scoreList = scoreController.getUserScoresRaw(mode);
             if (scoreList == null || scoreList.isEmpty()) {
                 scoreController.fetchScores(mode);
@@ -305,41 +334,64 @@ public class LeaderboardsController {
         scoreTable.setItems(observableScoreList);
     }
 
-    /**
-     * sets the current mode to easy and updates the tableview
-     *
-     * @param event button click event
-     */
-    @FXML
-    public void setButtonEasy(ActionEvent event) {
-        currentMode = ModeType.EASY;
-        updateTable(ModeType.EASY, showUserOnly);
-        updateLabelInfo();
+    private void chartReCreation() {
 
-        if (!showUserOnly) {
-            chartGUI.updateWorldChartData(currentMode);
-        } else {
-            chartGUI.updateUserChartData(currentMode);
-        }
+
+        chartGUI = null;
+        chartGUI = new ChartGUI();
+        chartPane.getChildren().clear();
+        chartGUI.init();
+        chartPane.getChildren().add(chartGUI.stackedAreaChart());
+        chartGUI.stackedAreaChart().setMaxWidth(550);
+        chartGUI.stackedAreaChart().setMaxHeight(430);
 
 
     }
 
     /**
-     * sets the current mode to medium and updates the tableview
+     * sets the current mode to easy and updates the tableview
      *
-     * @param event button click event
      */
     @FXML
-    public void setButtonMedium(ActionEvent event) {
+    public void setButtonEasy() {
+
+
+        currentMode = ModeType.EASY;
+        updateTable(ModeType.EASY, showUserOnly);
+        updateLabelInfo();
+
+        if(isChartOnline) {
+
+            chartReCreation();
+            if (!showUserOnly) {
+                chartGUI.updateWorldChartData(currentMode);
+            } else {
+                chartGUI.updateUserChartData(currentMode);
+            }
+
+        }
+    }
+
+    /**
+     * sets the current mode to medium and updates the tableview
+     *
+     */
+    @FXML
+    public void setButtonMedium() {
+
+
         currentMode = ModeType.MEDIUM;
         updateTable(ModeType.MEDIUM, showUserOnly);
         updateLabelInfo();
 
-        if (!showUserOnly) {
-            chartGUI.updateWorldChartData(currentMode);
-        } else {
-            chartGUI.updateUserChartData(currentMode);
+        if(isChartOnline) {
+
+            chartReCreation();
+            if (!showUserOnly) {
+                chartGUI.updateWorldChartData(currentMode);
+            } else {
+                chartGUI.updateUserChartData(currentMode);
+            }
         }
     }
 
@@ -347,18 +399,22 @@ public class LeaderboardsController {
     /**
      * sets the current mode to hard and updates the tableview
      *
-     * @param event button click event
      */
     @FXML
-    public void setButtonHard(ActionEvent event) {
+    public void setButtonHard() {
+
         currentMode = ModeType.HARD;
         updateTable(ModeType.HARD, showUserOnly);
         updateLabelInfo();
 
-        if (!showUserOnly) {
-            chartGUI.updateWorldChartData(currentMode);
-        } else {
-            chartGUI.updateUserChartData(currentMode);
+        if(isChartOnline) {
+
+            chartReCreation();
+            if (!showUserOnly) {
+                chartGUI.updateWorldChartData(currentMode);
+            } else {
+                chartGUI.updateUserChartData(currentMode);
+            }
         }
     }
 
@@ -366,19 +422,25 @@ public class LeaderboardsController {
     /**
      * toggles between showing user scores and global scores
      *
-     * @param event button click event
      */
     @FXML
-    public void setButtonUserGlobal(ActionEvent event) {
+    public void setButtonUserGlobal() {
+
         showUserOnly = !showUserOnly;
         //buttonUserGlobal.setText(showUserOnly ? "Global Scores" : "Personal Scores");
         buttonUserGlobal.setText(showUserOnly ? r.getString("globalScores"): r.getString("personalScores"));
         updateTable(currentMode, showUserOnly);
         updateLabelInfo();
-        if (!showUserOnly) {
-            chartGUI.updateWorldChartData(currentMode);
-        } else {
-            chartGUI.updateUserChartData(currentMode);
+
+        if(isChartOnline) {
+
+            chartReCreation();
+            if (!showUserOnly) {
+                chartGUI.updateWorldChartData(currentMode);
+            } else {
+                chartGUI.updateUserChartData(currentMode);
+            }
+
         }
     }
 
@@ -386,16 +448,35 @@ public class LeaderboardsController {
     /**
      * returns to main menu
      *
-     * @param event button click event
      */
     @FXML
-    public void setButtonReturn(ActionEvent event) {
-        Platform.runLater(() -> AudioMemory.getInstance().stopSong(LEADERBOARD));
-        try {
-            Navigaattori.getInstance().changeScene(ModeType.MENU);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void setButtonReturn() {
+
+        buttonReturn.setMouseTransparent(true);
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(leaderBlack.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(1),
+                        new KeyValue(leaderBlack.opacityProperty(),1.5))
+        );
+
+        timeline.play();
+
+        timeline.setOnFinished(actionEvent -> {
+
+            Platform.runLater(() -> AudioMemory.getInstance().stopSong(LEADERBOARD));
+            try {
+                Navigaattori.getInstance().changeScene(ModeType.MENU);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });
+
+
+
+
     }
 
     /**
@@ -426,10 +507,9 @@ public class LeaderboardsController {
     /**
      * reloads scores from server
      *
-     * @param event button click event
      */
     @FXML
-    public void setButtonRefresh(ActionEvent event) {
+    public void setButtonRefresh() {
         buttonRefresh.setDisable(true);
         buttonRefresh.setText("Reloading...");
 
@@ -464,7 +544,7 @@ public class LeaderboardsController {
             }
         }
 
-        for (Label label : Arrays.asList(labelTitle)) {
+        for (Label label : Collections.singletonList(labelTitle)) {
             if (label != null) {
                 String key = label.getId();
                 String text = bundle.getString(key);

@@ -17,23 +17,32 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class EasyCubeFactory implements ICubeFactory {
-    private final FXEasyController gui;
+    private final FXEasyController easyController;
     private static ArrayList<Image> imageUrlList = new ArrayList<>();
     private final Image backImage;
     private final Image behindImage;
 
-    public EasyCubeFactory(FXIGameController gui){
+    public EasyCubeFactory(FXIGameController easyController){
 
-        this.gui = (FXEasyController) gui;
+        this.easyController = (FXEasyController) easyController;
         this.backImage = ImageCache.getInstance().getEasyComp().get(0);
         this.behindImage = ImageCache.getInstance().getEasyComp().get(1);
 
         if(imageUrlList.isEmpty()) {imageUrlList = ImageCache.getInstance().getEasyCache();}
         Collections.shuffle(imageUrlList);
-
     }
+
+    /**
+     * Creates the cubes for the easy game mode and adds them to the given grid pane.
+     * Adds event handlers for mouse enter and exit to scale the cubes on hover.
+     * Adds a fade-in animation for each cube.
+     *
+     * @param gridPane the grid pane to add the cubes to
+     * @param memoryObjects the list of memory objects to create cubes for
+     */
     @Override
     public void createCubics(GridPane gridPane, ArrayList<MemoryObject> memoryObjects){
+
 
         for(int i = 0; i < memoryObjects.size(); i++) {
             Group group = new Group();
@@ -46,13 +55,13 @@ public class EasyCubeFactory implements ICubeFactory {
                                 imageUrlList.get(imageIndex),
                                 backImage,
                                 behindImage,
-                                gui,i).getBox());
+                                easyController,i).getBox());
                 group.setCursor(Cursor.HAND);
 
                 group.setOnMouseEntered(mouseEvent -> {
 
-                    group.setScaleX(1.05);
-                    group.setScaleY(1.05);
+                    group.setScaleX(1.02);
+                    group.setScaleY(1.02);
                 });
 
                 group.setOnMouseExited(mouseEvent -> {

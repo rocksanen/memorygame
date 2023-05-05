@@ -4,7 +4,9 @@
 <?import javafx.geometry.Point3D?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.BoxBlur?>
 <?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.effect.SepiaTone?>
 <?import javafx.scene.image.Image?>
@@ -20,7 +22,7 @@
     <AnchorPane fx:id="gameRoot" prefHeight="750.0" prefWidth="1250.0">
 
         <children>
-            <ImageView id="background" fx:id="background" fitHeight="750.0" fitWidth="1257.5" layoutX="-4.0">
+            <ImageView id="background" fx:id="background" fitHeight="750.0" fitWidth="1257.5" layoutX="-4.0" mouseTransparent="true">
                 <image>
                     <Image url="@../pictures/images/easyGame/enviroment/background.png" />
                 </image>
@@ -63,7 +65,7 @@
                     </SepiaTone>
                 </effect>
             </ImageView>
-            <ImageView id="easyEnd" fx:id="easyEnd" fitHeight="75.0" fitWidth="123.0" layoutX="564.0" layoutY="337.0">
+            <ImageView id="easyEnd" fx:id="easyEnd" fitHeight="75.0" fitWidth="123.0" layoutX="564.0" layoutY="337.0" mouseTransparent="true">
                 <image>
                     <Image url="@../pictures/images/dance.gif" />
                 </image>
@@ -79,24 +81,18 @@
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 </rowConstraints>
             </GridPane>
-            <ImageView id="play" fx:id="play" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="290.0" onMouseClicked="#newGame">
+            <ImageView id="play" fx:id="play" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="290.0" onMouseClicked="#newGame" onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
                 <image>
                     <Image url="@../pictures/images/playretro.png" />
                 </image>
-                <effect>
-                    <SepiaTone level="0.61" />
-                </effect>
                 <cursor>
                     <Cursor fx:constant="HAND" />
                 </cursor>
             </ImageView>
-            <ImageView id="returngame" fx:id="returngame" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="385.0" onMouseClicked="#returnMenu">
+            <ImageView id="returngame" fx:id="returngame" fitHeight="75.0" fitWidth="102.0" layoutX="1031.0" layoutY="385.0" onMouseClicked="#returnMenu" onMouseEntered="#hoverOn" onMouseExited="#hoverOff">
                 <image>
                     <Image url="@../pictures/images/return.png" />
                 </image>
-                <effect>
-                    <SepiaTone level="0.61" />
-                </effect>
                 <cursor>
                     <Cursor fx:constant="HAND" />
                 </cursor>
@@ -109,7 +105,7 @@
                     <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                 </padding>
             </Label>
-            <Pane id="score" fx:id="scorePane" layoutX="73.0" layoutY="82.0" prefHeight="585.0" prefWidth="232.0" AnchorPane.leftAnchor="73.0">
+            <Pane id="score" fx:id="scorePane" layoutX="73.0" layoutY="82.0" mouseTransparent="true" prefHeight="585.0" prefWidth="232.0" AnchorPane.leftAnchor="73.0">
                 <children>
                     <Pane id="worldscores" layoutY="21.0" prefHeight="241.0" prefWidth="184.0" style="-fx-background-color: black;">
                         <children>
@@ -277,6 +273,54 @@
                     <Point3D y="1.0" />
                 </rotationAxis>
             </Pane>
+         <Pane id="dynamicScorePane" fx:id="dynamicScorePane" layoutX="954.0" layoutY="22.0" mouseTransparent="true" prefHeight="50.0" prefWidth="283.0">
+            <children>
+               <Pane layoutX="-15.0" layoutY="-4.0" mouseTransparent="true" opacity="0.9" prefHeight="54.0" prefWidth="283.0" style="-fx-background-color: black;">
+                  <effect>
+                     <GaussianBlur radius="54.16" />
+                  </effect>
+                  <cursor>
+                     <Cursor fx:constant="NONE" />
+                  </cursor>
+               </Pane>
+               <Label fx:id="dynamicHeader" layoutY="2.0" prefHeight="44.0" prefWidth="130.0" textFill="WHITE" />
+               <Label fx:id="dynamicScore" layoutX="144.0" layoutY="2.0" prefHeight="44.0" prefWidth="130.0" textFill="WHITE" />
+            </children>
+         </Pane>
+         <Pane id="numberPane" fx:id="numberPane" layoutX="556.0" layoutY="269.0" mouseTransparent="true" opacity="0.0" prefHeight="182.0" prefWidth="138.0" style="-fx-background-color: black;">
+            <effect>
+               <GaussianBlur radius="63.0">
+                  <input>
+                     <BoxBlur height="66.96" width="93.18" />
+                  </input>
+               </GaussianBlur>
+            </effect>
+         </Pane>
+         <AnchorPane id="wallOfeetu" fx:id="wallOfeetu" prefHeight="841.6" prefWidth="1425.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         <ImageView fx:id="three" fitHeight="439.0" fitWidth="367.0" layoutX="445.0" layoutY="145.0" mouseTransparent="true" opacity="0.0">
+            <image>
+               <Image url="@../pictures/images/three.png" />
+            </image>
+            <effect>
+               <ColorAdjust contrast="1.0" />
+            </effect>
+         </ImageView>
+         <ImageView fx:id="two" fitHeight="439.0" fitWidth="367.0" layoutX="445.0" layoutY="145.0" mouseTransparent="true" opacity="0.0">
+            <image>
+               <Image url="@../pictures/images/two.png" />
+            </image>
+            <effect>
+               <ColorAdjust contrast="1.0" />
+            </effect>
+         </ImageView>
+         <ImageView fx:id="one" fitHeight="439.0" fitWidth="367.0" layoutX="445.0" layoutY="145.0" mouseTransparent="true" opacity="0.0">
+            <image>
+               <Image url="@../pictures/images/one.png" />
+            </image>
+            <effect>
+               <ColorAdjust contrast="1.0" />
+            </effect>
+         </ImageView>
         </children>
     </AnchorPane>
 </AnchorPane>

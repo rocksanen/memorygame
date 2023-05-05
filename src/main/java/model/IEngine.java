@@ -24,11 +24,12 @@ public interface IEngine {
 
     void clearStorage();
     void endGame();
-    void setReturnStatus(boolean returnStatus);
-    int getActiveId();
-    long getTimerTime();
     void stopTimer();
     int getHint();
 
     ModeType getType();
+
+    void updateDynamicScore(int score);
+
+    void startTime();
 }

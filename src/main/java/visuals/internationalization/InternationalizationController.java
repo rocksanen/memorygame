@@ -1,17 +1,21 @@
 package visuals.internationalization;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.StrokeTransition;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import model.ModeType;
 import visuals.Navigaattori;
+import visuals.audio.AudioMemory;
 import visuals.effects.commonHovers.Hovers;
 import visuals.effects.menuEffects.IMenuLayoutEffects;
 import visuals.effects.menuEffects.MenuLayoutEffects;
@@ -53,6 +57,7 @@ public class InternationalizationController {
 
     @FXML
     private Rectangle glowingBorder;
+    @FXML AnchorPane infoBlack;
 
 
     private ResourceBundle bundle;
@@ -72,6 +77,7 @@ public class InternationalizationController {
 
         Locale.setDefault(new Locale("en")); // set default language
         changeLanguage(Locale.getDefault()); // load default language resources
+        Platform.runLater(() -> AudioMemory.getInstance().playSong(ModeType.INFO));
 
         stepImages = new ArrayList<>();
         stepImages.add(loadImage("pictures/images/step1.png"));
@@ -97,6 +103,20 @@ public class InternationalizationController {
             styleLabel(label);
         }
         welcomeText.setStyle("-fx-font: 24px; -fx-text-fill: white;");
+
+        blackOff();
+    }
+
+    private void blackOff() {
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(0),
+                        new KeyValue(infoBlack.opacityProperty(),1)),
+                new KeyFrame(Duration.seconds(0.5),
+                        new KeyValue(infoBlack.opacityProperty(),0))
+        );
+
+        timeline.play();
     }
 
 
@@ -139,27 +159,13 @@ public class InternationalizationController {
     private void updateInfo() {
         stepText.setText(bundle.getString("stepText"));
         switch (currentStep) {
-            case 0:
-                labelInfo.setText(bundle.getString("stepOne"));
-                break;
-            case 1:
-                labelInfo.setText(bundle.getString("stepTwo"));
-                break;
-            case 2:
-                labelInfo.setText(bundle.getString("stepThree"));
-                break;
-            case 3:
-                labelInfo.setText(bundle.getString("stepFour"));
-                break;
-            case 4:
-                labelInfo.setText(bundle.getString("stepFive"));
-                break;
-            case 5:
-                labelInfo.setText(bundle.getString("stepSix"));
-                break;
-            default:
-                labelInfo.setText("");
-                break;
+            case 0 -> labelInfo.setText(bundle.getString("stepOne"));
+            case 1 -> labelInfo.setText(bundle.getString("stepTwo"));
+            case 2 -> labelInfo.setText(bundle.getString("stepThree"));
+            case 3 -> labelInfo.setText(bundle.getString("stepFour"));
+            case 4 -> labelInfo.setText(bundle.getString("stepFive"));
+            case 5 -> labelInfo.setText(bundle.getString("stepSix"));
+            default -> labelInfo.setText("");
         }
 
         stepImage.setImage(stepImages.get(currentStep));
@@ -168,11 +174,29 @@ public class InternationalizationController {
 
     @FXML
     public void setButtonReturn(ActionEvent event) {
-        try {
-            Navigaattori.getInstance().changeScene(ModeType.MENU);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        buttonReturn.setMouseTransparent(true);
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(infoBlack.opacityProperty(),0)),
+                new KeyFrame(Duration.seconds(0.5),
+                        new KeyValue(infoBlack.opacityProperty(),1))
+        );
+
+        timeline.play();
+
+        timeline.setOnFinished(actionEvent -> {
+
+            Platform.runLater(() -> AudioMemory.getInstance().stopSong(ModeType.INFO));
+            try {
+                Navigaattori.getInstance().changeScene(ModeType.MENU);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });
+
     }
 
     private void changeLanguage(Locale locale) {

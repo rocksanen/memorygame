@@ -24,6 +24,7 @@ public class GameController implements IGameController {
 
     /**
      * Constructor for GameController
+     *
      * @param fxiGameController the GUI controller
      */
     public GameController(FXIGameController fxiGameController) {
@@ -32,6 +33,7 @@ public class GameController implements IGameController {
 
     /**
      * starts the game
+     *
      * @param type the difficulty of the game
      */
     @Override
@@ -42,6 +44,7 @@ public class GameController implements IGameController {
 
     /**
      * sends the id of the clicked cube to the engine
+     *
      * @param id the id of the clicked cube
      */
     @Override
@@ -68,22 +71,20 @@ public class GameController implements IGameController {
     public void setGame(ArrayList<MemoryObject> memoryObjects) {
 
         Platform.runLater(() -> {
-            try {
-                fxiGameController.setCubesToGame(memoryObjects);
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            }
+            fxiGameController.setCubesToGame(memoryObjects);
         });
     }
 
     /**
      * sends the game over signal to the GUI
+     *
+     * @param victory true if the player won, false if the player lost (timed out)
      */
     @Override
-    public void gameOver() {
+    public void gameOver(boolean victory) {
         Platform.runLater(() -> {
             try {
-                fxiGameController.gameOver();
+                fxiGameController.gameOver(victory);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -96,11 +97,18 @@ public class GameController implements IGameController {
     }
 
 
+    /**
+     * Gets the timer time to update it
+     * @param i - time
+     */
     @Override
     public void setTimer(int i) {
         fxiGameController.getTime(i);
     }
 
+    /**
+     * Visualizes the hint from engine
+     */
     @Override
     public void showHint() {
         fxiGameController.glowHint(engine.getHint());
@@ -119,6 +127,7 @@ public class GameController implements IGameController {
 
     /**
      * returns the difficulty of the game
+     *
      * @return the difficulty of the game
      */
     @Override
@@ -128,11 +137,24 @@ public class GameController implements IGameController {
 
     /**
      * returns the grade of the game
+     *
      * @return the grade of the game
      */
     @Override
     public String getGrade() {
         return Grader.scoreGrader(engine.getTotalScore(), engine.getType());
+    }
+
+    @Override
+    public void updateDynamicScore(int score) {
+
+        Platform.runLater(() -> fxiGameController.updateDynamicScore(score));
+    }
+
+    @Override
+    public void startTime() {
+
+        engine.startTime();
     }
 
 }

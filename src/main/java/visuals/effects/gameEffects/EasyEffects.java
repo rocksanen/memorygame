@@ -14,7 +14,6 @@ import visuals.gameModes.FXIGameController;
 public class EasyEffects extends AbstractGameEffects implements IGameEffects{
 
     private GridPane easyGridi;
-    private ImageView background;
     private ImageView easyTop;
     private ImageView easyL;
     private ImageView easyBot;
@@ -34,12 +33,11 @@ public class EasyEffects extends AbstractGameEffects implements IGameEffects{
     }
 
     public void setImagesAndComponents(
-            ImageView background, ImageView easyTop, ImageView easyBot,
+            ImageView easyTop, ImageView easyBot,
             ImageView easyL, ImageView easy3Dgrid, ImageView play,
             ImageView returngame, GridPane easyGridi, ImageView easyEnd,
             ImageView easyneo, Pane scorePane) {
 
-        this.background = background;
         this.easyTop = easyTop;
         this.easyBot = easyBot;
         this.easyL = easyL;

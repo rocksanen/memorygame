@@ -7,10 +7,11 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import model.ModeType;
-
-import java.io.File;
 import java.util.Objects;
 
+/**
+ *  AudioMemory is a singleton class that handles playing and loading audio files for the game
+ */
 public class AudioMemory {
 
     private static AudioMemory instance;
@@ -19,13 +20,20 @@ public class AudioMemory {
     private final MediaPlayer hardPlayer;
     private final MediaPlayer menuRetoSong;
     private final MediaPlayer leaderBoardPlayer;
+    private final MediaPlayer infoPlayer;
     private MediaPlayer currentSong;
 
-    public boolean isMuted = false;
+    /**
+     * boolean toggle for playing audio
+     */
+    public boolean isMuted;
 
     private ModeType currentMode;
 
 
+    /**
+     * private constructor, loads the audio files and sets them to loop
+     */
     private AudioMemory() {
 
         String easySong = "/audioFiles/easymusic.mp3";
@@ -38,6 +46,8 @@ public class AudioMemory {
         Media menuMedia = new Media(Objects.requireNonNull(getClass().getResource(menuRetro)).toString());
         String leaderBoardSong = "/audioFiles/leaderboardmusic.mp3";
         Media leaderBoardMedia = new Media(Objects.requireNonNull(getClass().getResource(leaderBoardSong)).toString());
+        String infoSong = "/audioFiles/infomusic.mp3";
+        Media infoMedia = new Media(Objects.requireNonNull(getClass().getResource(infoSong)).toString());
 
         easyPlayer = new MediaPlayer(easyMedia);
         easyPlayer.setCycleCount(10);
@@ -49,9 +59,15 @@ public class AudioMemory {
         menuRetoSong.setCycleCount(10);
         leaderBoardPlayer = new MediaPlayer(leaderBoardMedia);
         leaderBoardPlayer.setCycleCount(10);
+        infoPlayer = new MediaPlayer(infoMedia);
+        infoPlayer.setCycleCount(10);
         isMuted = false;
     }
 
+    /**
+     * returns the instance of the AudioMemory
+     * @return the instance of the AudioMemory
+     */
     public static AudioMemory getInstance() {
         if (instance == null) {
             instance = new AudioMemory();
@@ -60,6 +76,10 @@ public class AudioMemory {
     }
 
 
+    /**
+     * plays the song for given modetype
+     * @param type the modetype (such as easy, medium, leaderboards..)
+     */
     public void playSong(ModeType type) {
 
 
@@ -69,15 +89,19 @@ public class AudioMemory {
             case MEDIUM -> playTheSong(mediumPlayer);
             case HARD -> playTheSong(hardPlayer);
             case LEADERBOARD -> playTheSong(leaderBoardPlayer);
+            case INFO -> playTheSong(infoPlayer);
         }
 
     }
 
+    /**
+     * Stops playing the song for given modetype
+     * @param type the modetype (such as easy, medium, leaderboards..)
+     */
     public void stopSong(ModeType type) {
 
         if (type == null) {
-
-            System.out.println("ERROR: ModeType is null");
+            //ERROR: ModeType is null
             return;
         }
 
@@ -88,6 +112,7 @@ public class AudioMemory {
             case MEDIUM -> stopTheSong(mediumPlayer);
             case HARD -> stopTheSong(hardPlayer);
             case LEADERBOARD -> stopTheSong(leaderBoardPlayer);
+            case INFO -> stopTheSong(infoPlayer);
         }
 
         if (currentMode == type) {
@@ -95,19 +120,29 @@ public class AudioMemory {
         }
     }
 
-
+    /**
+     * Mutes audio
+     */
     public void toggleMute() {
 
         isMuted = !isMuted;
         currentSong.setVolume(isMuted ? 0 : 1);
     }
 
+    /**
+     * boolean check for if audio is muted
+     * @return true if audio is muted, false otherwise
+     */
 
     public boolean isMuted() {
         return isMuted;
     }
 
 
+    /**
+     * plays the song given as parameter
+     * @param mediaPlayer the song to be played
+     */
     private void playTheSong(MediaPlayer mediaPlayer) {
 
         currentSong = mediaPlayer;
@@ -128,7 +163,9 @@ public class AudioMemory {
         }
     }
 
-
+    /**
+     * plays the intro song, starts muted and fades in
+     */
     public void playTheIntro() {
 
         currentSong = menuRetoSong;
@@ -136,11 +173,15 @@ public class AudioMemory {
         currentSong.play();
 
         Timeline fadeIn = new Timeline(
-                new KeyFrame(Duration.seconds(5), new KeyValue(currentSong.volumeProperty(), 1))
+                new KeyFrame(Duration.seconds(3), new KeyValue(currentSong.volumeProperty(), 1))
         );
         fadeIn.play();
     }
 
+    /**
+     * stops the song given as parameter
+     * @param mediaPlayer the song to be stopped
+     */
     private void stopTheSong(MediaPlayer mediaPlayer) {
 
 

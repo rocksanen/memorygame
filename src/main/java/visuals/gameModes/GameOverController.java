@@ -5,15 +5,13 @@ import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
-import model.ModeType;
-import visuals.Navigaattori;
-import visuals.effects.gameEffects.EasyEffects;
 import visuals.internationalization.JavaFXInternationalization;
 
 import java.util.Arrays;
@@ -41,39 +39,86 @@ public class GameOverController {
     Label gameOver;
     @FXML
     VBox gameOverPane;
+    @FXML ImageView neonBorder;
+    @FXML ImageView newgameNeo;
+    @FXML ImageView returnNeo;
+
+    private Boolean victory;
 
 
     /**
      * initialize method serves as a constructor for the class
+     *
      * @param fxigameController FXIGameController this view's controller
-     * @param gameController IGameController the game controller
-     * @param gameRoot AnchorPane the root of the game. is blurred when this pane is shown
+     * @param gameController    IGameController the game controller
+     * @param gameRoot          AnchorPane the root of the game. is blurred when this pane is shown
      */
-    public void Initialize(FXIGameController fxigameController, IGameController gameController, AnchorPane gameRoot) {
+    public void Initialize(FXIGameController fxigameController, IGameController gameController, AnchorPane gameRoot, boolean victory) {
+
+        this.victory = victory;
+
+        if (!victory) {
+            gameOver.setText("%outOfTime");
+        }
 
         changeLanguage(JavaFXInternationalization.getLocale());
+        ResourceBundle r = ResourceBundle.getBundle("Bundle", JavaFXInternationalization.getLocale());
+        gameOver.setText(victory ? r.getString("victory") : r.getString("outOfTime"));
 
         this.fxigameController = fxigameController;
         this.gameRoot = gameRoot;
 
         gaussianBlur = new GaussianBlur();
         gaussianBlur.setRadius(10);
+
         gameRoot.setEffect(gaussianBlur);
 
         initStyles();
 
+        /*
         gameOverPane.setBackground(new Background(new BackgroundImage(new Image(Objects.requireNonNull(getClass().getClassLoader().
                 getResourceAsStream("images/gameover4.png"))), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+
+         */
 
         score.setText("Score: " + gameController.getCurrentScore());
 
         String stars = gameController.getGrade();
         animateStars(stars);
+        neonBorderHue();
+    }
+
+    private void neonBorderHue() {
+
+
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setHue(0);
+        colorAdjust.setSaturation(-0.2);
+        colorAdjust.setContrast(0.1);
+        neonBorder.setEffect(colorAdjust);
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(colorAdjust.hueProperty(),0)),
+                new KeyFrame(Duration.seconds(2),
+                        new KeyValue(colorAdjust.hueProperty(),-0.5)),
+                new KeyFrame(Duration.seconds(4),
+                        new KeyValue(colorAdjust.hueProperty(),0)),
+                new KeyFrame(Duration.seconds(6),
+                        new KeyValue(colorAdjust.hueProperty(),0.5))
+        );
+
+
+        timeline.setAutoReverse(true);
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+
     }
 
     /**
      * pretty complicated method that does a simple thing. based on the grade, makes 1 to 3 spinning stars pop up.
+     *
      * @param stars number of stars (grade)
      */
     private void animateStars(String stars) {
@@ -116,6 +161,8 @@ public class GameOverController {
     @FXML
     public void setButtonMenu() {
 
+
+        mainMenu.setMouseTransparent(true);
         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.3), gameOverRoot);
         fadeTransition.setFromValue(1);
         fadeTransition.setToValue(0);
@@ -124,11 +171,7 @@ public class GameOverController {
         gaussianBlur.setRadius(0);
         gameRoot.setEffect(gaussianBlur);
 
-        fadeTransition.setOnFinished(actionEvent -> {
-
-            fxigameController.returnMenu();
-
-        });
+        fadeTransition.setOnFinished(actionEvent -> fxigameController.returnMenu());
     }
 
     /**
@@ -136,6 +179,7 @@ public class GameOverController {
      */
     @FXML
     public void setButtonRestart() {
+        newGame.setMouseTransparent(true);
         fxigameController.newGame();
     }
 
@@ -143,7 +187,19 @@ public class GameOverController {
      * Initialize styles, first does the fonts, then calls styleButton for the buttons
      */
     private void initStyles() {
-        gameOver.setFont(Font.font("Atari Classic", 44));
+
+        if(!victory) {
+
+            gameOver.setFont(Font.font("Atari Classic", 30));
+            newgameNeo.setLayoutY(newgameNeo.getLayoutY() - 6.5);
+            returnNeo.setLayoutY(returnNeo.getLayoutY() - 6.5);
+
+
+        }else {
+
+            gameOver.setFont(Font.font("Atari Classic", 44));
+        }
+
         gameOver.setTextFill(javafx.scene.paint.Color.WHITE);
         score.setFont(Font.font("Atari Classic", 30));
         score.setTextFill(javafx.scene.paint.Color.WHITE);
@@ -154,6 +210,7 @@ public class GameOverController {
 
     /**
      * Style a button.
+     *
      * @param b Button to be styled
      */
     private void styleButton(Button b) {
@@ -168,6 +225,7 @@ public class GameOverController {
 
     /**
      * Change the language of the game. Based on language selected elsewhere
+     *
      * @param locale Locale to be changed to
      */
     public void changeLanguage(Locale locale) {

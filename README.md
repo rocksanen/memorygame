@@ -1,36 +1,35 @@
 # Memory Game
 
-![image](https://user-images.githubusercontent.com/99963437/223095654-01d4936d-4383-40e1-a820-9a414e12abe9.png)
+![image](https://user-images.githubusercontent.com/99963437/235620188-9a2f67ae-5807-4d31-85b8-53fd5eb198ce.png)
+
 
 ### Game where you flip cards to find pairs. Made with JavaFX.
 By Otto Oksanen, Eetu Soronen, Hasan Safdari & Samu Oksala
 ## Table of Contents
-* [Instructions](#instructions)
 * [Getting Started](#getting-started)
 * [About The Project](#about-the-project)
 * [Vision](#vision)
 * [Builds](#builds)
 * [Jenkins](#jenkins)
+* [GitHub Actions](#github-actions)
 
 
-## Instructions
-To get started, build the game in Intellij with Java version 17 or higher.
 
 ## Getting Started
-After building the game, you can select one of three difficulties and get started immediately. Database server not included in the repo.
-
-### FOR TEACHER ONLY
-Insert the META-INF folder that was included in the "Tehtävä: 08 - Sovelluksen dokumentaatio: README.md, käyttöohje" return box (Samu Oksala submission) inside the projects resources folder.
+Compiled Windows builds and Jars for other platforms are available in Releases section.  
+To build or run the game yourself, use Maven (preferably in IntelliJ).  
+Note that if you want to build the game yourself, this repo does not contain the database server credentials. They are provided elsewhere.  
 
 ## About The Project
-This project was made for ohjelmistotuotantoprojekti 1 course at Metropolia UAS.
+This project was made for Ohjelmistotuotantoprojekti 1 & 2 courses at Metropolia UAS.
 The project is a simple memory game designed for anyone who wants to improve their memory.
 
 ## Vision
 Our vision was to create a fun memory game that's easily accessible. The game was made to improve the players mental capabilities.
 
 ## Builds
-Jar builds are available in the releases section. Java 17 or higher is required to run the game.
+Windows builds and Jar files are available  in the releases section. To build the app yourself, first generate a JAR file with Maven, then run the "build.ps1" file to generate a .msi installer. MacOS and Linux have to run the JAR File (Java 17+ required).
+
 
 ## Jenkins
 To get tests running through Jenkins, first build and run the Docker image with the following command:
@@ -52,3 +51,7 @@ Note the surefire reports have no styling by default. This is due to Jenkins sec
 ```
 System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
 ```
+
+## Github Actions
+
+Runs every time a pull request is made. You can download the surefire reports from the Actions tab on GitHub. Runs the same unit tests as Jenkins.

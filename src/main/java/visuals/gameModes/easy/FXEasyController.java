@@ -1,16 +1,14 @@
 package visuals.gameModes.easy;
 
-import controller.ScoreController;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.effect.GaussianBlur;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import model.*;
 import visuals.cubeFactories.BoxMaker;
 import visuals.cubeFactories.EasyCubeFactory;
@@ -20,7 +18,6 @@ import visuals.gameModes.FXAbstractGameController;
 import visuals.gameModes.FXIGameController;
 import visuals.imageServers.ImageCache;
 
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +27,10 @@ import java.util.stream.Stream;
 import static model.ModeType.EASY;
 
 
+/**
+ * A controller class that manages the gameplay for the easy level in a memory match game.
+ * Extends {@link FXAbstractGameController} and implements {@link Initializable} and {@link FXIGameController}.
+ */
 public class FXEasyController extends FXAbstractGameController implements Initializable, FXIGameController {
 
     @FXML
@@ -74,13 +75,10 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     ImageView easyneo;
     @FXML
     ImageView easyEnd;
-
     @FXML
     AnchorPane sceneRoot;
-
     @FXML
     AnchorPane gameRoot;
-
     @FXML
     ImageView personalScoreHeader;
     @FXML
@@ -90,48 +88,43 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     private List<Label> worldLabels;
     private ICubeFactory easyCubeFactory;
     private EasyEffects easyEffects;
-    private ScoreController scoreController;
 
 
-    public void setController(ScoreController scoreController) {
-
-        this.scoreController = scoreController;
-    }
-
-
+    /**
+     * Initializes the controller with the specified URL and resource bundle.
+     *
+     * @param url the URL of the FXML file
+     * @param resourceBundle the resource bundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         setCamera();
         setImages();
         easyEffects = new EasyEffects(this);
-        easyEffects.setImagesAndComponents(background, easyTop, easyBot, easyL, easy3Dgrid, play, returngame, easyGridi, easyEnd, easyneo, scorePane);
+        easyEffects.setImagesAndComponents(easyTop, easyBot, easyL, easy3Dgrid, play, returngame, easyGridi, easyEnd, easyneo, scorePane);
         easyEffects.entrance();
-
-        easyEffects.setImagesAndComponents(
-                background, easyTop, easyBot, easyL, easy3Dgrid,
-                play, returngame, easyGridi, easyEnd, easyneo, scorePane);
-        Platform.runLater(() -> easyEffects.entrance());
-
+        
         initScoreHeaders(personalScoreHeader, worldScoreHeader);
         this.personalLabels = List.of(p1, p2, p3, p4, p5);
         this.worldLabels = List.of(w1, w2, w3, w4, w5);
+
         setPersonalScore(EASY, personalLabels);
         setWorldScore(EASY, worldLabels);
-        Stream.concat(personalLabels.stream(), worldLabels.stream())
-                .forEach(label -> {
-                    label.setStyle("-fx-font: 14 \"Atari Classic\";");
-                });
-    }
 
-    @Override
-    public void setCamera() {
-        super.setCamera();
+        Stream.concat(personalLabels.stream(), worldLabels.stream())
+                .forEach(label -> label.setStyle("-fx-font: 14 \"Atari Classic\";"));
+
+        dynamicHeader.setFont(Font.font("Atari Classic", 26));
+        dynamicHeader.setText("SCORE");
+        dynamicScore.setFont(Font.font("Atari Classic", 26));
+        dynamicScore.setText("0000");
     }
 
     @Override
     public void setImages() {
 
+        dynamicScorePane.setVisible(false);
         background.setImage(ImageCache.getInstance().getGameBackGroundCache().get(0));
         easyTop.setImage(ImageCache.getInstance().getGameBackGroundCache().get(7));
         easyTop.setOpacity(0);
@@ -153,18 +146,24 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     @Override
     public void setStartGame() {
 
+        wallOfeetu.setMouseTransparent(false);
+
         if (cubeList != null) {
             cubeList.clear();
         }
+
+        dynamicScore.textProperty().unbind();
+        dynamicScore.setText("0000");
         cubeList = new ArrayList<>();
         easyGridi.getChildren().clear();
         easyCubeFactory = new EasyCubeFactory(this);
         gameController.startGame(EASY);
+        countDown(EASY);
     }
 
     // From gamecontroller
     @Override
-    public void setCubesToGame(ArrayList<MemoryObject> memoryObjects) throws FileNotFoundException {
+    public void setCubesToGame(ArrayList<MemoryObject> memoryObjects) {
 
         easyCubeFactory.createCubics(easyGridi, memoryObjects);
     }
@@ -178,6 +177,8 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     @FXML
     public void returnMenu() {
 
+        wallOfeetu.setMouseTransparent(false);
+        Platform.runLater(() -> dynamicScorePane.setVisible(false));
         Platform.runLater(() -> easyEffects.wallsOff());
     }
 
@@ -197,11 +198,10 @@ public class FXEasyController extends FXAbstractGameController implements Initia
     }
 
     @Override
-    public void gameOver() {
+    public void gameOver(boolean victory) {
         setPersonalScore(EASY, personalLabels);
         setWorldScore(EASY, worldLabels);
-
-        gameOverMenu(gameRoot, sceneRoot);
+        gameOverMenu(gameRoot, sceneRoot, victory);
     }
 
     @Override
@@ -214,19 +214,21 @@ public class FXEasyController extends FXAbstractGameController implements Initia
         super.compareFoundMatch();
     }
 
-    /*
-    @Override
-    public void getTime(int i) {
-        super.getTime(i);
-        System.out.println(i);
-        Platform.runLater(()-> timer_easy.setText(Integer.toString(i)));
-        progressbar_easy.setProgress(i*0.01);
-
-    }
-     */
 
     @Override
     public void sendIdToEngine(int id) {
         super.sendIdToEngine(id);
+    }
+
+    @Override
+    public void updateDynamicScore(int score) {
+
+        super.updateDynamicScore(score);
+    }
+
+    @Override
+    public void countDown(ModeType mode) {
+
+        super.countDown(mode);
     }
 }

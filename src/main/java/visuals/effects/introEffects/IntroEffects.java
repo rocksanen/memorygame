@@ -3,14 +3,11 @@ package visuals.effects.introEffects;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Cursor;
 import javafx.scene.control.Label;
-import javafx.scene.effect.BoxBlur;
-import javafx.scene.effect.GaussianBlur;
-import javafx.scene.effect.Reflection;
-import javafx.scene.effect.SepiaTone;
+import javafx.scene.effect.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -22,9 +19,6 @@ import visuals.audio.AudioMemory;
 import java.io.IOException;
 
 public class IntroEffects{
-    private final double japanStart = 0.6; //0.26
-    private final double jungleStart = 0.29; // 0.2
-    private final double redtreeStart = 0.75; //0.35
 
     private Timeline introLine;
 
@@ -35,36 +29,18 @@ public class IntroEffects{
             ImageView kotoku, ImageView tigerden, ImageView treeoflife,
             ImageView pergament, AnchorPane startBlack,Pane gamePane, ImageView japan,
             ImageView jungle, ImageView redtree, ImageView miniEasy, ImageView miniMedium,
-            ImageView miniHard, Pane leaderpane, ImageView info) {
+            ImageView miniHard, Pane leaderpane, ImageView info, AnchorPane bottom, Pane audioPane) {
 
 
-        startBlack.setVisible(true);
-        logAndReg.setOpacity(0);
-        easyFrame.setOpacity(0);
-        mediumFrame.setOpacity(0);
-        hardFrame.setOpacity(0);
-        japan.setOpacity(0);
-        jungle.setOpacity(0);
-        redtree.setOpacity(0);
-        miniEasy.setOpacity(0);
-        miniMedium.setOpacity(0);
-        miniHard.setOpacity(0);
-        kotoku.setOpacity(0);
-        tigerden.setOpacity(0);
-        treeoflife.setOpacity(0);
-        leaderpane.setOpacity(0);
-        info.setOpacity(0);
-
-        SepiaTone sepiaTone = new SepiaTone();
+        final SepiaTone sepiaTone = new SepiaTone();
         sepiaTone.setLevel(1);
-        Platform.runLater(() -> pergament.setEffect(sepiaTone));
+        pergament.setEffect(sepiaTone);
 
-        SepiaTone sunTone = new SepiaTone();
+        final SepiaTone sunTone = new SepiaTone();
         sunTone.setLevel(0);
-        Platform.runLater(() -> sun.setEffect(sunTone));
+        sun.setEffect(sunTone);
 
-
-        BoxBlur fourblur = new BoxBlur();
+        final BoxBlur fourblur = new BoxBlur();
         fourblur.setIterations(1);
         fourblur.setHeight(0);
         fourblur.setWidth(0);
@@ -84,8 +60,17 @@ public class IntroEffects{
 
         EventHandler<ActionEvent> startAudio = arg0 -> AudioMemory.getInstance().playTheIntro();
 
+        //0.26
+        double japanStart = 0.6;
+        // 0.2
+        double jungleStart = 0.29;
+        //0.35
+        double redtreeStart = 0.75;
         introLine = new Timeline(
                 new KeyFrame(Duration.ZERO,startAudio),
+                new KeyFrame(Duration.seconds(3),
+                        new KeyValue(bottom.mouseTransparentProperty(),false),
+                        new KeyValue(bottom.cursorProperty(), Cursor.HAND)),
                 new KeyFrame(Duration.seconds(4),
                         new KeyValue(first.opacityProperty(), 0)),
                 new KeyFrame(Duration.seconds(6.3),
@@ -170,7 +155,7 @@ public class IntroEffects{
                 new KeyFrame(Duration.seconds(40.9),
                         new KeyValue(miniEasy.opacityProperty(),1),                 // Easy on!!!
                         new KeyValue(easyFrame.opacityProperty(),1),
-                        new KeyValue(japan.opacityProperty(),japanStart),
+                        new KeyValue(japan.opacityProperty(), japanStart),
                         new KeyValue(kotoku.opacityProperty(),1)),
                 new KeyFrame(Duration.seconds(40.9),
                         new KeyValue(miniMedium.opacityProperty(),0),               ////Medium start!!
@@ -180,7 +165,7 @@ public class IntroEffects{
                 new KeyFrame(Duration.seconds(41.1),
                         new KeyValue(miniMedium.opacityProperty(),1),
                         new KeyValue(mediumFrame.opacityProperty(),1),
-                        new KeyValue(jungle.opacityProperty(),jungleStart),
+                        new KeyValue(jungle.opacityProperty(), jungleStart),
                         new KeyValue(tigerden.opacityProperty(),1)),       //////Medium on  0.426
                 new KeyFrame(Duration.seconds(41.1),
                         new KeyValue(miniHard.opacityProperty(), 0),             ////Hard start!!!
@@ -196,18 +181,22 @@ public class IntroEffects{
                         new KeyValue(logAndReg.opacityProperty(), 0),
                         new KeyValue(sepiaTone.levelProperty(), 1),
                         new KeyValue(leaderpane.opacityProperty(),0),
-                        new KeyValue(info.opacityProperty(),0)),
+                        new KeyValue(info.opacityProperty(),0),
+                        new KeyValue(audioPane.opacityProperty(),0)),
                 new KeyFrame(Duration.seconds(41.4),
                         new KeyValue(logAndReg.opacityProperty(), 1),
                         new KeyValue(leaderpane.opacityProperty(),1),
                         new KeyValue(info.opacityProperty(),1),
-                        new KeyValue(sepiaTone.levelProperty(), 0))
+                        new KeyValue(audioPane.opacityProperty(),1),
+                        new KeyValue(sepiaTone.levelProperty(), 0)),
+                new KeyFrame(Duration.seconds(42))
         );
 
         introLine.play();
         introLine.setOnFinished(actionEvent -> {
 
             introLine.stop();
+            introLine = null;
 
             try {
                 Navigaattori.getInstance().changeScene(ModeType.MENU);
