@@ -55,3 +55,6 @@ System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
 ## Github Actions
 
 Runs every time a pull request is made. You can download the surefire reports from the Actions tab on GitHub. Runs the same unit tests as Jenkins.
+
+## Javadoc
+[Javadoc is available here](./docs/index.html).
