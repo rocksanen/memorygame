@@ -96,6 +96,12 @@ public class FXMediumController extends FXAbstractGameController implements Init
     private MediumEffects mediumEffects;
 
 
+    /**
+     * Initializes the controller with the specified URL and resource bundle.
+     *
+     * @param url the URL of the FXML file
+     * @param resourceBundle the resource bundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -129,6 +135,10 @@ public class FXMediumController extends FXAbstractGameController implements Init
         super.setCamera();
     }
 
+    /**
+
+     Sets the images for the game graphics.
+     */
     @Override
     public void setImages() {
 
@@ -153,7 +163,10 @@ public class FXMediumController extends FXAbstractGameController implements Init
         mediumGrid.setVgap(20);
     }
 
-    // To gamecontroller
+    /**
+
+     Sets up the game to start.
+     */
     @Override
     public void setStartGame() {
 
@@ -171,6 +184,11 @@ public class FXMediumController extends FXAbstractGameController implements Init
 
     }
 
+    /**
+
+     Sets the cubes to the game board.
+     @param memoryObjects The cubes to be added to the game board.
+     */
     @Override
     public void setCubesToGame(ArrayList<MemoryObject> memoryObjects) {
 
@@ -178,6 +196,10 @@ public class FXMediumController extends FXAbstractGameController implements Init
 
     }
 
+    /**
+
+     Starts a new game.
+     */
     @Override
     public void newGame() {
         gameController.killTimer();
@@ -186,6 +208,10 @@ public class FXMediumController extends FXAbstractGameController implements Init
         setStartGame();
     }
 
+    /**
+
+     Returns to the game menu.
+     */
     @FXML
     public void returnMenu() {
 
@@ -195,22 +221,41 @@ public class FXMediumController extends FXAbstractGameController implements Init
         Platform.runLater(() -> mediumEffects.wallsOff());
     }
 
+    /**
+
+     Adds a cube to the list of cubes.
+     @param cube The cube to be added to the list.
+     */
     @Override
     public void addToCubeList(BoxMaker cube) {
         super.addToCubeList(cube);
     }
 
+    /**
+
+     Clears the stored pairs of cubes.
+     @param storage The list of stored cube pairs to be cleared.
+     */
     @Override
     public void clearPair(ArrayList<Integer> storage) {
         super.clearPair(storage);
     }
 
+    /**
+
+     Clears the storage of cubes.
+     */
     @Override
     public void clearStorage() {
         super.clearStorage();
     }
 
 
+    /**
+
+     Shows the game over menu.
+     @param victory Whether or not the player won the game.
+     */
     @Override
     public void gameOver(boolean victory) {
 
@@ -220,16 +265,30 @@ public class FXMediumController extends FXAbstractGameController implements Init
         gameOverMenu(gameRoot, sceneRoot, victory);
     }
 
+    /**
+
+     Sets the active ID for the current game session.
+     @param activeID the ID of the active game session
+     */
     @Override
     public void setActiveID(int activeID) {
         super.setActiveID(activeID);
     }
 
+    /**
+
+     Compares the currently selected pairs of objects and updates the game state accordingly.
+     */
     @Override
     public void compareFoundMatch() {
         super.compareFoundMatch();
     }
 
+    /**
+
+     Overrides the parent method to update the time bar's width, but only if the game is not in practice mode.
+     @param i the current time in seconds
+     */
     @Override
     public void getTime(int i) {
 
@@ -237,17 +296,33 @@ public class FXMediumController extends FXAbstractGameController implements Init
         Platform.runLater(() -> timeBar.setFitWidth(timeBar.getFitWidth() - 0.058));
     }
 
+    /**
+
+     Sends the ID of the selected object to the game engine.
+     @param id the ID of the selected object
+     */
     @Override
     public void sendIdToEngine(int id) {
         super.sendIdToEngine(id);
     }
 
+
+    /**
+
+     Updates the dynamic score based on the current score value.
+     @param score the current score value
+     */
     @Override
     public void updateDynamicScore(int score) {
 
         super.updateDynamicScore(score);
     }
 
+    /**
+
+     Starts the countdown for the specified game mode.
+     @param mode the game mode for which to start the countdown
+     */
     @Override
     public void countDown(ModeType mode) {
 

@@ -1,5 +1,9 @@
+/**
+ * The InternationalizationController class controls the internationalization functionality of the application.
+ * It handles the switching of languages and the loading of the appropriate language resources.
+ * It also sets up the UI elements related to the internationalization feature.
+ */
 package visuals.internationalization;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.StrokeTransition;
@@ -30,48 +34,37 @@ import java.util.ResourceBundle;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.shape.Rectangle;
-
-
 public class InternationalizationController {
-
     @FXML
     public Button buttonReturn;
     @FXML
     public AnchorPane anchorLbs;
-
     @FXML
     public Button en;
     @FXML
     public Button fin;
-
     @FXML
     public Label titleInfo, welcomeText, labelInfo,stepText;
-
     @FXML
     private ImageView previousButton;
     @FXML
     private ImageView nextButton;
-
     @FXML
     private ImageView stepImage;
-
     @FXML
     private Rectangle glowingBorder;
     @FXML AnchorPane infoBlack;
 
-
     private ResourceBundle bundle;
-
     private final IMenuLayoutEffects menuLayoutEffects = new MenuLayoutEffects();
-
     private final Hovers hovers = new Hovers(menuLayoutEffects);
-
     private int currentStep = 0;
     private List<Image> stepImages;
 
 
-
-
+    /**
+     * Initializes the controller and sets up the UI elements.
+     */
     @FXML
     private void initialize(){
 
@@ -107,6 +100,9 @@ public class InternationalizationController {
         blackOff();
     }
 
+    /**
+     * Turns off the black screen.
+     */
     private void blackOff() {
 
         Timeline timeline = new Timeline(
@@ -119,8 +115,10 @@ public class InternationalizationController {
         timeline.play();
     }
 
-
-
+    /**
+     * Styles a label with a white font and font size of 18.
+     * @param l The label to style.
+     */
     private void styleLabel(Label l ){
         if(l != null){
             l.setFont(Font.font(18));
@@ -129,6 +127,9 @@ public class InternationalizationController {
         }
     }
 
+    /**
+     * Creates the effects and animations used in the UI.
+     */
     private void createEffectsAndAnimation() {
         // Create the Glow effect
         StrokeTransition strokeTransition = new StrokeTransition(Duration.seconds(2), glowingBorder, Color.WHITE, Color.CYAN);
@@ -136,6 +137,12 @@ public class InternationalizationController {
         strokeTransition.setCycleCount(StrokeTransition.INDEFINITE);
         strokeTransition.play();
     }
+
+    /**
+     * Loads an image from a file path.
+     * @param path The file path of the image.
+     * @return The loaded image.
+     */
 
     private Image loadImage(String path) {
         URL resource = getClass().getResource("/" + path);
@@ -146,7 +153,10 @@ public class InternationalizationController {
         return new Image(resource.toExternalForm());
     }
 
-
+    /**
+     * Styles a button with a dark purple background and white text.
+     * @param b The button to style.
+     */
     private void styleButton(Button b) {
         // get hex for dark purple and light purple and save them to variables
         String darkPurple = "#800080";
@@ -156,6 +166,10 @@ public class InternationalizationController {
         b.setOnMouseEntered(e -> b.setStyle("-fx-background-color: " + lightPurple + " ; -fx-text-fill: white;"));
         b.setOnMouseExited(e -> b.setStyle("-fx-background-color: " + darkPurple + "; -fx-text-fill: white;"));
     }
+
+    /**
+     * Updates the text and image of the UI elements related to the current step.
+     */
     private void updateInfo() {
         stepText.setText(bundle.getString("stepText"));
         switch (currentStep) {
@@ -172,6 +186,11 @@ public class InternationalizationController {
 
     }
 
+    /**
+     * Sets the buttonReturn to be unclickable and fades in a black screen with a song.
+     * After the song finishes, it changes the scene to the main menu.
+     * @param event The button press event.
+     */
     @FXML
     public void setButtonReturn(ActionEvent event) {
 
@@ -199,6 +218,10 @@ public class InternationalizationController {
 
     }
 
+    /**
+     Changes the language of the UI to the specified locale and updates the UI elements accordingly.
+     @param locale The locale to set the UI language to.
+     */
     private void changeLanguage(Locale locale) {
         ResourceBundle bundle = ResourceBundle.getBundle("Bundle", locale);
 
@@ -219,6 +242,9 @@ public class InternationalizationController {
         }
     }
 
+    /**
+     * Changes the language of the UI to English.
+     */
 
     @FXML
     public void setButtonEn() {
@@ -227,6 +253,9 @@ public class InternationalizationController {
         anchorLbs.requestLayout();
     }
 
+    /**
+     * Changes the language of the UI to Finnish.
+     */
 
     @FXML
     public void setButtonFin() {
@@ -235,6 +264,9 @@ public class InternationalizationController {
         anchorLbs.requestLayout();
     }
 
+    /**
+     * Changes the language of the UI to Swedish.
+     */
     @FXML
     public void setButtonSwe() {
         changeLanguage(new Locale("swe"));
@@ -242,6 +274,9 @@ public class InternationalizationController {
         anchorLbs.requestLayout();
     }
 
+    /**
+     * Changes the language of the UI to Latvian.
+     */
     @FXML
     public void setButtonLat() {
         changeLanguage(new Locale("lat"));
@@ -249,30 +284,45 @@ public class InternationalizationController {
         anchorLbs.requestLayout();
     }
 
+
+    /**
+     * Handles the mouse hover event on an UI element.
+     * @param event The mouse event.
+     */
     @FXML
     public void hoverOn(javafx.scene.input.MouseEvent event) {
 
         hovers.commonHoverOn(event);
     }
-
+    /**
+     * Handles the mouse hover off event on an UI element.
+     * @param event The mouse event.
+     */
     @FXML
     public void hoverOff(javafx.scene.input.MouseEvent event) {
 
         hovers.commonHoverOff(event);
     }
 
+    /**
+     * Updates the visibility of the previous and next buttons based on the current step.
+     */
     private void updateNavigationButtons() {
         previousButton.setVisible(currentStep > 0);
         nextButton.setVisible(currentStep < getTotalSteps() - 1);
     }
 
-
-
+    /**
+     * Gets the total number of steps in the UI.
+     * @return The total number of steps.
+     */
     private int getTotalSteps() {
         return 6;
     }
 
-
+    /**
+     * Handles the event of clicking the previous button.
+     */
     @FXML
     private void handlePreviousButton() {
 
@@ -281,10 +331,10 @@ public class InternationalizationController {
             updateInfo();
             updateNavigationButtons();
         }
-
-
     }
-
+    /**
+     * Handles the event of clicking the next button.
+     */
     @FXML
     private void handleNextButton() {
         if(currentStep < getTotalSteps() -1 ){
@@ -292,7 +342,5 @@ public class InternationalizationController {
             updateInfo();
             updateNavigationButtons();
         }
-
-
     }
 }

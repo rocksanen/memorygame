@@ -10,8 +10,21 @@ import org.jetbrains.annotations.NotNull;
 import visuals.Navigaattori;
 import visuals.audio.AudioMemory;
 
+/**
+
+ This class implements the IZoomOutEffects interface and provides functionality for zooming out the game camera.
+ */
 public class ZoomOutEffects implements IZoomOutEffects{
 
+    /**
+
+     Zooms out the game camera with the given parameters and stops the current playing song, plays the MENU song and calls the zoomOutCamera method.
+     @param zOffset the offset value for the camera's z axis translation
+     @param fovOffset the offset value for the camera's field of view
+     @param xOffset the offset value for the camera's x axis translation
+     @param yOffset the offset value for the camera's y axis translation
+     @param type the type of the game mode
+     */
     @Override
     public void gameZoomOut(double zOffset, double fovOffset, double xOffset, double yOffset, @NotNull ModeType type) {
 
@@ -24,6 +37,12 @@ public class ZoomOutEffects implements IZoomOutEffects{
         zoomOutCamera();
     }
 
+    /**
+
+     Creates a timeline for zooming out the game camera with a duration of 2.8 seconds and sets the initial and final key frames for camera translations and field of view.
+
+     Plays the timeline and stops it when finished.
+     */
     @Override
     public void zoomOutCamera() {
 

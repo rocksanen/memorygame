@@ -126,7 +126,7 @@ public class BoxMaker {
 
     /**
 
-     Creates the six faces of the box.
+     Creates the four faces of the box.
      */
     private void createFaces() {
 
@@ -164,6 +164,12 @@ public class BoxMaker {
     }
 
 
+    /**
+
+     The createGroup method creates a new Group object containing the four faces of a box.
+
+     It sets an event listener to the group, such that when the group is clicked, the rotateBox method is called.
+     */
     private void createGroup() {
 
         boxGroup = new Group();
@@ -171,25 +177,64 @@ public class BoxMaker {
         boxGroup.setOnMouseClicked(mouseEvent -> rotateBox());
 
     }
+
+    /**
+
+     The rotateBox method sends the ID of the box to the server and rotates the box upwards.
+
+     It does this by calling the sendId method to send the ID to the server and then calling the rotateUp method to rotate the box.
+     */
     private void rotateBox() {
 
         sendId();
         Platform.runLater(() -> rotateUp(boxGroup));
 
     }
+
+
+    /**
+
+     The sendId method sends the ID of the box to the game engine through the game controller.
+     */
     private void sendId() {
         gameController.sendIdToEngine(this.id);}
+
+    /**
+
+     The resetImage method rotates the box downwards.
+     This method is run on the JavaFX Application Thread.
+     */
     public void resetImage() {Platform.runLater(() -> rotateDown(boxGroup));}
+
+    /**
+
+     The getBox method returns the Group object that contains the four faces of the box.
+     @return The Group object that contains the four faces of the box.
+     */
     public Group getBox() {return boxGroup;}
 
 
 
+    /**
+
+     The rotateUp method rotates the given Group object upwards using a Timeline animation.
+     It binds the Group's rotateProperty and rotationAxisProperty to the rotateValueUp and rotationAxisUp properties, respectively.
+     It then plays the Timeline animation from the start.
+     @param group The Group object to rotate upwards.
+     */
     public void rotateUp(Group group) {
         group.rotateProperty().bind(rotateValueUp);
         group.rotationAxisProperty().bind(rotationAxisUp);
         timelineUp.playFromStart();
     }
 
+    /**
+
+     The rotateDown method rotates the given Group object downwards using a Timeline animation.
+     It binds the Group's rotateProperty and rotationAxisProperty to the rotateValueDown and rotationAxisDown properties, respectively.
+     It then plays the Timeline animation from the start.
+     @param group The Group object to rotate downwards.
+     */
     public void rotateDown(Group group) {
         group.rotateProperty().bind(rotateValueDown);
         group.rotationAxisProperty().bind(rotationAxisDown);

@@ -10,6 +10,12 @@ import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
 
+/**
+
+ The MenuLayoutEffects class implements the IMenuLayoutEffects interface and contains methods for
+
+ displaying animations and effects on the main menu layout of an application.
+ */
 public class MenuLayoutEffects implements IMenuLayoutEffects{
 
     private final Rotate rotateZ = new Rotate(0, Rotate.Z_AXIS);
@@ -20,6 +26,16 @@ public class MenuLayoutEffects implements IMenuLayoutEffects{
     private Timeline jungleLine;
     private Timeline infoLine;
 
+    /**
+
+     Displays an image view animation that shows information on the screen.
+
+     @param a the first image view to be displayed
+
+     @param b the second image view to be displayed
+
+     @param c the third image view to be displayed
+     */
     @Override
     public void displayInfoOn(ImageView a, ImageView b, ImageView c) {
 
@@ -40,6 +56,17 @@ public class MenuLayoutEffects implements IMenuLayoutEffects{
         timeline.setOnFinished(actionEvent -> timeline.stop());
     }
 
+
+    /**
+
+     Hides an image view animation that shows information on the screen.
+
+     @param a the first image view to be hidden
+
+     @param b the second image view to be hidden
+
+     @param c the third image view to be hidden
+     */
     @Override
     public void displayInfoOff(ImageView a, ImageView b, ImageView c) {
 
@@ -60,6 +87,12 @@ public class MenuLayoutEffects implements IMenuLayoutEffects{
         timeline.setOnFinished(actionEvent -> timeline.stop());
     }
 
+    /**
+
+     Moves an image view of dirt on the screen.
+
+     @param dirt the image view of dirt to be moved
+     */
     @Override
     public void moveDirt(ImageView dirt) {
 
@@ -75,6 +108,12 @@ public class MenuLayoutEffects implements IMenuLayoutEffects{
         dirtMover.play();
     }
 
+    /**
+
+     Moves an image view of jungle on the screen.
+
+     @param jungle the image view of jungle to be moved
+     */
     @Override
     public void moveJungle(ImageView jungle) {
 
@@ -91,6 +130,12 @@ public class MenuLayoutEffects implements IMenuLayoutEffects{
         jungleLine.play();
     }
 
+    /**
+
+     Rotates the specified red tree continuously using a timeline animation.
+
+     @param redtree the ImageView object representing the red tree
+     */
     @Override
     public void moveRedTree(ImageView redtree) {
 
@@ -108,6 +153,12 @@ public class MenuLayoutEffects implements IMenuLayoutEffects{
         redLine.play();
     }
 
+    /**
+
+     Adds a glow effect to the specified ImageView object using a timeline animation.
+
+     @param imageView the ImageView object to add the glow effect to
+     */
     @Override
     public void setGlow(@NotNull ImageView imageView) {
 
@@ -140,6 +191,10 @@ public class MenuLayoutEffects implements IMenuLayoutEffects{
         glowLine.play();
     }
 
+    /**
+
+     Stops all timeline animations used by this class.
+     */
     @Override
     public void stopTimelines() {
         glowLine.stop();
@@ -149,6 +204,12 @@ public class MenuLayoutEffects implements IMenuLayoutEffects{
         infoLine.stop();
     }
 
+    /**
+
+     Adds a blink effect to the specified Node object using a timeline animation.
+
+     @param source the Node object to add the blink effect to
+     */
     @Override
     public void infoBlink(Node source) {
 
@@ -179,6 +240,10 @@ public class MenuLayoutEffects implements IMenuLayoutEffects{
         infoLine.playFromStart();
     }
 
+    /**
+
+     Stops the blinking effect of the info line.
+     */
     @Override
     public void stopInfoBlink() {
         infoLine.stop();

@@ -12,7 +12,7 @@ import static model.CompareResultType.EQUAL;
 import static model.CompareResultType.NOTEQUAL;
 
 /**
- * The type Engine.
+ * The {@code Engine} class represents the game engine that manages the memory game logic.
  */
 public class Engine implements IEngine {
 
@@ -25,9 +25,6 @@ public class Engine implements IEngine {
     final ArrayList<Integer> correctIdsIds = new ArrayList<>();
     private final IGameController controller;
     private final ModeType type;
-
-    public void setReturnStatus(boolean returnStatus) {
-    }
 
     private final ArrayList<MemoryObject> comparingList = new ArrayList<>();
     private final ArrayList<Integer> rightPairList = new ArrayList<>();
@@ -43,7 +40,6 @@ public class Engine implements IEngine {
 
     private ArrayList<MemoryObject> memoryObjectsList;
 
-    // private int foundPairs = 0;
 
     private int hint;
     /**
@@ -71,11 +67,6 @@ public class Engine implements IEngine {
 
     private long lastCorrectGuess;
 
-
-    public long getTimerTime() {
-        return timerTime;
-    }
-
     final Timer t;
     final TimerTask task;
 
@@ -97,6 +88,10 @@ public class Engine implements IEngine {
         lastCorrectGuess = startTime;
     }
 
+    /**
+     * A method to set the memory objects in the engine for each game mode. Objects are set to a list, then shuffled and then a game is started
+     * A timer time is given for the medium and hard modes
+     */
     @Override
     public void setMemoryObjects() {
 
@@ -125,12 +120,19 @@ public class Engine implements IEngine {
         }
     }
 
+    /**
+     * Starts the timer
+     */
     @Override
     public void startTime() {
 
         runTimer();
     }
 
+    /**
+     * Adds memory objects to a list
+     * @param amount - The amount of memory objects to be added
+     */
     @Override
     public void addMemoryObjectsToList(Integer amount) {
 
@@ -143,6 +145,9 @@ public class Engine implements IEngine {
         }
     }
 
+    /**
+     * Shuffles the objects to randomize the game
+     */
     @Override
     public void suffleObjects() {
         Collections.shuffle(memoryObjectsList);
@@ -154,11 +159,10 @@ public class Engine implements IEngine {
 
     }
 
-    @Override
-    public void setChosenObjectReady(MemoryObject object) {
-        object.setActive();
-    }
-
+    /**
+     * A function to compare the objects once two different objects are selected
+     * @param i - the position of a memory object
+     */
     @Override
     public void addToComparing(int i) {
 
@@ -176,6 +180,9 @@ public class Engine implements IEngine {
 
     }
 
+    /**
+     * Method to end the game
+     */
     public void endGame() {
 
         controller.gameOver(true);
@@ -184,6 +191,9 @@ public class Engine implements IEngine {
         stopTimer();
     }
 
+    /**
+     * Method to stop the timer
+     */
     public void stopTimer() {
 
         if (t != null) {
@@ -191,6 +201,10 @@ public class Engine implements IEngine {
         }
     }
 
+    /**
+     * Method for the practice mode, to get a hint from the engine to the UI
+     * @return returns the correct position of the hint
+     */
     @Override
     public int getHint() {
         return hint;
@@ -214,8 +228,11 @@ public class Engine implements IEngine {
 
     }
 
+    /**
 
-    // was private void, changed
+     The updateScore method updates the total score of the player based on the result of the most recent guess.
+     @param type The CompareResultType enum value representing the result of the most recent guess.
+     */
     public void updateScore(CompareResultType type) {
         switch (type) {
             case EQUAL -> {
@@ -240,6 +257,9 @@ public class Engine implements IEngine {
     }
 
 
+    /**
+     * Clears the storage of memory objects
+     */
     @Override
     public void clearStorage() {
         storage.clear();
@@ -247,11 +267,12 @@ public class Engine implements IEngine {
 
     private int wrong_guesses = 0;
 
-
+    /**
+     * Compares the memory objects once they are selected and added to the list
+     * @param memoryList
+     */
     @Override
     public void clearPair(ArrayList<MemoryObject> memoryList) {
-
-
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO),
                 new KeyFrame(Duration.millis(750))
@@ -265,6 +286,11 @@ public class Engine implements IEngine {
         });
     }
 
+    /**
+     * Compares the memory objects once they are selected and added to the list
+     * Checks if the two different objects are a pair or no
+     * @param objectList
+     */
     @Override
     public void compareObjects(ArrayList<MemoryObject> objectList) {
 
@@ -305,22 +331,36 @@ public class Engine implements IEngine {
         }
     }
 
+    /**
+     * Method to schedule & start the timer
+     */
     public void runTimer() {
         t.schedule(task, 0, timerTime);
     }
 
-
+    /**
+     * Method to get the type of the game
+     * @return type
+     */
     @Override
     public ModeType getType() {
         return type;
     }
 
+    /**
+     * Method to update the dynamic score
+     * @param score
+     */
     @Override
     public void updateDynamicScore(int score) {
 
         controller.updateDynamicScore(score);
     }
 
+    /**
+     * Method to get the score
+     * @return
+     */
     public String toString() {
         return "Pelin tyyppi: " + this.type.toString() + ", Palikoiden määrä: " + memoryObjectsList.size();
     }

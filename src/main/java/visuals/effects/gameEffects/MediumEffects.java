@@ -10,6 +10,12 @@ import javafx.util.Duration;
 import model.ModeType;
 import visuals.gameModes.FXIGameController;
 
+/**
+
+ The MediumEffects class represents the visual effects for the medium mode of the game.
+
+ It extends the AbstractGameEffects class and implements the IGameEffects interface.
+ */
 public class MediumEffects extends AbstractGameEffects implements IGameEffects{
 
     private ImageView midgrid;
@@ -26,12 +32,43 @@ public class MediumEffects extends AbstractGameEffects implements IGameEffects{
 
     private final FXIGameController gameController;
 
+
+
+    /**
+
+     Constructor for the MediumEffects class.
+     @param gameController The game controller.
+     */
     public MediumEffects(FXIGameController gameController) {
 
         this.gameController = gameController;
 
     }
 
+    /**
+
+     Method to set the various images and components used in the game.
+
+     @param midgrid The medium grid image.
+
+     @param midTop The medium top wall image.
+
+     @param midL The medium left wall image.
+
+     @param midBot The medium bottom wall image.
+
+     @param midend The medium end wall image.
+
+     @param midneo The medium neon wall image.
+
+     @param play The play button image.
+
+     @param returngame The return to game button image.
+
+     @param mediumGrid The medium grid pane.
+
+     @param scorePane The score pane.
+     */
     public void setImagesAndComponents(
             ImageView midgrid, ImageView midTop,
             ImageView midL, ImageView midBot, ImageView midend, ImageView midneo,
@@ -49,6 +86,15 @@ public class MediumEffects extends AbstractGameEffects implements IGameEffects{
         this.scorePane = scorePane;
 
     }
+
+    /**
+
+     Method to perform the entrance animation for the medium mode.
+
+     Sets a timeline to animate the various images and components in sequence.
+
+     On finished, sets the game controller to start the game.
+     */
     @Override
     public void entrance() {
 
