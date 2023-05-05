@@ -233,7 +233,11 @@ public class Engine implements IEngine {
 
     }
 
+    /**
 
+     The updateScore method updates the total score of the player based on the result of the most recent guess.
+     @param type The CompareResultType enum value representing the result of the most recent guess.
+     */
     public void updateScore(CompareResultType type) {
         switch (type) {
             case EQUAL -> {
@@ -268,11 +272,12 @@ public class Engine implements IEngine {
 
     private int wrong_guesses = 0;
 
-
+    /**
+     * Compares the memory objects once they are selected and added to the list
+     * @param memoryList
+     */
     @Override
     public void clearPair(ArrayList<MemoryObject> memoryList) {
-
-
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO),
                 new KeyFrame(Duration.millis(750))
@@ -338,18 +343,29 @@ public class Engine implements IEngine {
         t.schedule(task, 0, timerTime);
     }
 
-
+    /**
+     * Method to get the type of the game
+     * @return type
+     */
     @Override
     public ModeType getType() {
         return type;
     }
 
+    /**
+     * Method to update the dynamic score
+     * @param score
+     */
     @Override
     public void updateDynamicScore(int score) {
 
         controller.updateDynamicScore(score);
     }
 
+    /**
+     * Method to get the score
+     * @return
+     */
     public String toString() {
         return "Pelin tyyppi: " + this.type.toString() + ", Palikoiden määrä: " + memoryObjectsList.size();
     }
