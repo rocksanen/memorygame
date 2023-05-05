@@ -11,6 +11,14 @@ import model.ModeType;
 import visuals.gameModes.FXIGameController;
 
 
+/**
+
+ The EasyEffects class extends AbstractGameEffects and implements IGameEffects.
+
+ This class manages the game effects for the Easy mode.
+
+ It contains the methods to set images and components, and to control the game entrance and walls off events.
+ */
 public class EasyEffects extends AbstractGameEffects implements IGameEffects{
 
     private GridPane easyGridi;
@@ -26,12 +34,31 @@ public class EasyEffects extends AbstractGameEffects implements IGameEffects{
 
     private final FXIGameController gameController;
 
+    /**
+
+     Constructs an instance of EasyEffects with the given FXIGameController object.
+     @param gameController an object of FXIGameController that controls the game flow
+     */
     public EasyEffects(FXIGameController gameController) {
 
         this.gameController = gameController;
 
     }
 
+    /**
+
+     Sets the images and components for the Easy mode.
+     @param easyTop an ImageView of the top wall
+     @param easyBot an ImageView of the bottom wall
+     @param easyL an ImageView of the left wall
+     @param easy3Dgrid an ImageView of the 3D grid
+     @param play an ImageView of the play button
+     @param returngame an ImageView of the return button
+     @param easyGridi a GridPane of the Easy mode
+     @param easyEnd an ImageView of the end message
+     @param easyneo an ImageView of the Neo logo
+     @param scorePane a Pane of the score panel
+     */
     public void setImagesAndComponents(
             ImageView easyTop, ImageView easyBot,
             ImageView easyL, ImageView easy3Dgrid, ImageView play,
@@ -50,6 +77,18 @@ public class EasyEffects extends AbstractGameEffects implements IGameEffects{
         this.scorePane = scorePane;
     }
 
+    /**
+
+     Controls the entrance of the Easy mode.
+     The method plays a timeline animation that sets the opacity of the Neo logo and the 3D grid to 0,
+     makes the top wall visible and sets its opacity to 0,
+     makes the left wall visible and sets its opacity to 0.55,
+     makes the bottom wall visible and sets its opacity to 0,
+     sets the opacity of the end message, play button and return button to 0,
+     sets the opacity of the Neo logo to 0.55,
+     sets the opacity of the 3D grid to 0.75,
+     and sets the visibility of the play button and the return button to true.
+     */
     @Override
     public void entrance() {
 

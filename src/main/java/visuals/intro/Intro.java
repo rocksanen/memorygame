@@ -13,6 +13,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+
+ The Intro class controls the behavior of the introduction screen of the game,
+ where various visual effects are applied to the screen to introduce the game to the user.
+ It implements the Initializable interface to initialize the JavaFX objects defined in the FXML file.
+ */
 public class Intro implements Initializable {
     @FXML Pane gameModePane;
     @FXML AnchorPane startBlack;
@@ -46,6 +52,13 @@ public class Intro implements Initializable {
     @FXML Pane audioPane;
     private IntroEffects introEffects = new IntroEffects();
 
+    /**
+     * Initializes the `Intro` controller after its root element has been completely processed.
+     * Sets the opacity of several UI elements to zero and starts the intro animation.
+     *
+     * @param url The location used to resolve relative paths.
+     * @param resourceBundle The resources used to localize the root object.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -76,6 +89,12 @@ public class Intro implements Initializable {
                 miniEasy,miniMedium,miniHard,leaderpane,info,bottom,audioPane);
     }
 
+    /**
+     * Exits the `Intro` screen and changes the scene to the menu screen.
+     * Stops the intro animation and sets the `introEffects` object to `null`.
+     *
+     * @throws RuntimeException if there is an error changing the scene to the menu screen.
+     */
     @FXML
     public void exitIntro() {
 

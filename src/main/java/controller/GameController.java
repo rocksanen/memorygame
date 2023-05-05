@@ -52,21 +52,39 @@ public class GameController implements IGameController {
         engine.addToComparing(id);
     }
 
+    /**
+
+     Clears the storage of the engine
+     */
     @Override
     public void clearStorage() {
         engine.clearStorage();
     }
 
+    /**
+
+     Stops the engine's timer
+     */
     @Override
     public void killTimer() {
         engine.stopTimer();
     }
 
+    /**
+
+     Clears a pair of MemoryObjects from the game
+     @param storage the storage containing the IDs of the cubes to clear
+     */
     @Override
     public void clearPair(ArrayList<Integer> storage) {
         Platform.runLater(() -> fxiGameController.clearPair(storage));
     }
 
+    /**
+
+     Sets the MemoryObjects to the game board
+     @param memoryObjects the list of MemoryObjects to set on the game board
+     */
     @Override
     public void setGame(ArrayList<MemoryObject> memoryObjects) {
 
@@ -91,6 +109,11 @@ public class GameController implements IGameController {
         });
     }
 
+    /**
+
+     Sets the specified ID as active in the game controller.
+     @param id the ID to set as active
+     */
     @Override
     public void getActive(int id) {
         fxiGameController.setActiveID(id);
@@ -115,11 +138,21 @@ public class GameController implements IGameController {
     }
 
 
+    /**
+
+     Sends a success message to the controller indicating that two matching memory objects were found.
+     Calls the controller's compareFoundMatch method.
+     */
     @Override
     public void sendComparingSuccess() {
         fxiGameController.compareFoundMatch();
     }
 
+    /**
+
+     Returns the current score obtained by the player.
+     @return the current score obtained by the player.
+     */
     @Override
     public int getCurrentScore() {
         return engine.getTotalScore();
@@ -145,12 +178,22 @@ public class GameController implements IGameController {
         return Grader.scoreGrader(engine.getTotalScore(), engine.getType());
     }
 
+    /**
+
+     Updates the dynamic score of the game.
+
+     @param score the new dynamic score to be displayed
+     */
     @Override
     public void updateDynamicScore(int score) {
 
         Platform.runLater(() -> fxiGameController.updateDynamicScore(score));
     }
 
+    /**
+
+     Starts the game timer.
+     */
     @Override
     public void startTime() {
 

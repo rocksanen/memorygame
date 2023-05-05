@@ -108,11 +108,22 @@ public abstract class FXAbstractGameController implements FXIGameController {
             fadeTransition.play();
         });
     }
+
+    /**
+
+     Clears the storage used by the game controller.
+     */
     @Override
     public void clearStorage() {
         gameController.clearStorage();
     }
 
+    /**
+
+     Sets the active ID for a BoxMaker object in the game, and adds it to the active list if less than two objects are currently active.
+
+     @param activeID the ID of the BoxMaker object to be made active.
+     */
     @Override
     public void setActiveID(int activeID) {
 
@@ -136,6 +147,11 @@ public abstract class FXAbstractGameController implements FXIGameController {
         }
     }
 
+    /**
+
+     Compares the currently active BoxMaker objects in the game for a match.
+
+     */
     @Override
     public void compareFoundMatch() {
 
@@ -157,15 +173,29 @@ public abstract class FXAbstractGameController implements FXIGameController {
 
     }
 
+    /**
+
+     Override method to get the current time.
+     @param i An integer representing the current time.
+     */
     @Override
     public void getTime(int i) {
     }
 
+    /**
+
+     Override method to send an ID to the game engine.
+     @param id An integer representing the ID to be sent to the game engine.
+     */
     @Override
     public void sendIdToEngine(int id) {
         gameController.sendIdToEngine(id);
     }
 
+    /**
+
+     Override method to set the camera's position and field of view.
+     */
     @Override
     public void setCamera() {
 
@@ -269,6 +299,11 @@ public abstract class FXAbstractGameController implements FXIGameController {
     }
 
 
+    /**
+
+     This method sets a Glow effect on a node when it is hovered over by the mouse
+     @param event the MouseEvent that triggered the method
+     */
     public void hoverOn(javafx.scene.input.MouseEvent event) {
 
         Glow glow = new Glow();
@@ -277,13 +312,22 @@ public abstract class FXAbstractGameController implements FXIGameController {
         source.setEffect(glow);
     }
 
+    /**
 
+     This method removes the Glow effect from a node when the mouse is no longer hovering over it
+     @param event the MouseEvent that triggered the method
+     */
     public void hoverOff(javafx.scene.input.MouseEvent event) {
 
         Node source = (Node) event.getSource();
         source.setEffect(null);
     }
 
+    /**
+
+     This method updates the dynamic score on the user interface with a smooth animation
+     @param score the score value to update the dynamic score to
+     */
     public void updateDynamicScore(int score) {
 
         IntegerProperty base = new SimpleIntegerProperty(Integer.parseInt(dynamicScore.getText()));
@@ -300,6 +344,11 @@ public abstract class FXAbstractGameController implements FXIGameController {
 
     }
 
+    /**
+
+     This method initiates a countdown animation with changing numbers and fades for the numbers and score
+     @param mode the mode of the game that is being played
+     */
     public void countDown(ModeType mode) {
 
 
