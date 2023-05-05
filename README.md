@@ -8,7 +8,6 @@
 ### Game where you flip cards to find pairs. Made with JavaFX.
 By Otto Oksanen, Eetu Soronen, Hasan Safdari & Samu Oksala
 ## Table of Contents
-* [Pages](#pages)
 * [Getting Started](#getting-started)
 * [About The Project](#about-the-project)
 * [Vision](#vision)
@@ -18,8 +17,8 @@ By Otto Oksanen, Eetu Soronen, Hasan Safdari & Samu Oksala
 * [Javadoc](#javadoc)
 
 
-## Pages
-[GitHub Pages for readme and javadoc are available here](https://rockanen.github.io/memorygame/).
+
+
 
 ## Getting Started
 Compiled Windows builds and Jars for other platforms are available in Releases section.  
@@ -60,7 +59,7 @@ System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
 
 ## Github Actions
 
-Runs every time a pull request is made. You can download the surefire reports from the Actions tab on GitHub. Runs the same unit tests as Jenkins.
+Runs every time a pull request is made. You can download the surefire reports from the Actions tab on GitHub. Runs the same unit tests as Jenkins
 
 ## Javadoc
-[Javadoc is available here](./docs/index.html).
+[Javadoc is available here](https://rocksanen.github.io/memorygame/docs/index.html).
