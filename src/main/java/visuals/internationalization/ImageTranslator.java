@@ -7,27 +7,36 @@ import java.util.Objects;
 
 
 /**
- The ImageTranslator class is responsible for translating images to the appropriate language based on the user's locale.
- It provides methods to change the images for various components such as menu login, in-game header, and game mode information.
+ The ImageTranslator class is used to translate images of menu items, headers and game mode info based on the locale.
  */
 public class ImageTranslator {
+
+    /**
+     The locale used to determine the language of the translation.
+     */
     private final Locale locale;
 
     /**
-     Constructor for ImageTranslator class.
-     Initializes the locale with the value from the JavaFXInternationalization class.
+     Constructs a new ImageTranslator object and initializes the locale.
      */
     public ImageTranslator() {
 
         locale = JavaFXInternationalization.getLocale();
     }
+
     /**
-     Changes the images for menu login components such as username, password, login button, register button, and logout button based on the user's locale.
-     @param userName The ImageView for username.
-     @param password The ImageView for password.
-     @param LoginButton The ImageView for login button.
-     @param RegisterButton The ImageView for register button.
-     @param logoutButton The ImageView for logout button.
+
+     Translates the menu items (username, password, login button, register button, and logout button) based on the current locale.
+
+     @param userName the ImageView for the username
+
+     @param password the ImageView for the password
+
+     @param LoginButton the ImageView for the login button
+
+     @param RegisterButton the ImageView for the register button
+
+     @param logoutButton the ImageView for the logout button
      */
     public void menuLoginTranslator(
             ImageView userName, ImageView password, ImageView LoginButton,
@@ -114,10 +123,10 @@ public class ImageTranslator {
         }
     }
 
-    /**
-     * Changes the images for in-game header components such as personal scores and world scores based on the user's locale.
-     * @param personalScoreHeader
-     * @param worldScoreHeader
+  /**
+     This method updates the images of the personal score and world score headers in the game based on the current locale.
+     @param personalScoreHeader The ImageView of the personal score header.
+     @param worldScoreHeader The ImageView of the world score header.
      */
     public void inGameTranslator(ImageView personalScoreHeader,ImageView worldScoreHeader) {
         // switch case based on the language of the locale
@@ -150,16 +159,19 @@ public class ImageTranslator {
 
     /**
 
-     Translates the game mode information to the corresponding language based on the locale set in the application.
-     @param easydes1 An ImageView object representing the image for the description of the easy mode level 1.
-     @param easydes2 An ImageView object representing the image for the description of the easy mode level 2.
-     @param easydes3 An ImageView object representing the image for the description of the easy mode level 3.
-     @param medes1 An ImageView object representing the image for the description of the medium mode level 1.
-     @param medes2 An ImageView object representing the image for the description of the medium mode level 2.
-     @param medes3 An ImageView object representing the image for the description of the medium mode level 3.
-     @param hardes1 An ImageView object representing the image for the description of the hard mode level 1.
-     @param hardes2 An ImageView object representing the image for the description of the hard mode level 2.
-     @param hardes3 An ImageView object representing the image for the description of the hard mode level 3.
+
+     Translates the game mode information images based on the current locale language.
+     @param easydes1 the ImageView object for the first image of easy game mode description.
+     @param easydes2 the ImageView object for the second image of easy game mode description.
+     @param easydes3 the ImageView object for the third image of easy game mode description.
+     @param medes1 the ImageView object for the first image of medium game mode description.
+     @param medes2 the ImageView object for the second image of medium game mode description.
+     @param medes3 the ImageView object for the third image of medium game mode description.
+     @param hardes1 the ImageView object for the first image of hard game mode description.
+     @param hardes2 the ImageView object for the second image of hard game mode description.
+     @param hardes3 the ImageView object for the third image of hard game mode description.
+     @throws NullPointerException if any of the ImageView objects are null or the resource file path is invalid.
+
      */
     public void gameModeInfoTranslator(
             ImageView easydes1,ImageView easydes2,ImageView easydes3,
