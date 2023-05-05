@@ -1,3 +1,5 @@
+[![Maven Test](https://github.com/rocksanen/memorygame/actions/workflows/maven.yml/badge.svg)](https://github.com/rocksanen/memorygame/actions/workflows/maven.yml)
+
 # Memory Game
 
 ![image](https://user-images.githubusercontent.com/99963437/235620188-9a2f67ae-5807-4d31-85b8-53fd5eb198ce.png)
@@ -12,6 +14,9 @@ By Otto Oksanen, Eetu Soronen, Hasan Safdari & Samu Oksala
 * [Builds](#builds)
 * [Jenkins](#jenkins)
 * [GitHub Actions](#github-actions)
+* [Javadoc](#javadoc)
+
+
 
 
 
@@ -54,4 +59,7 @@ System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
 
 ## Github Actions
 
-Runs every time a pull request is made. You can download the surefire reports from the Actions tab on GitHub. Runs the same unit tests as Jenkins.
+Runs every time a pull request is made. You can download the surefire reports from the Actions tab on GitHub. Runs the same unit tests as Jenkins
+
+## Javadoc
+[Javadoc is available here](https://rocksanen.github.io/memorygame/docs/index.html).
