@@ -62,4 +62,4 @@ System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
 Runs every time a pull request is made. You can download the surefire reports from the Actions tab on GitHub. Runs the same unit tests as Jenkins
 
 ## Javadoc
-[Javadoc is available here](https://rocksanen.github.io/memorygame/docs/index.html).
+[Javadoc is available here](https://soronen.github.io/memorygame/docs/index.html).
